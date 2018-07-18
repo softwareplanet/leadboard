@@ -1,0 +1,13 @@
+<html>
+<body>
+	<form action="/api2/lead" method="post">
+		<input type="hidden" name="_csrf" value="<%=csrfToken %>">
+		Stage: <input type="text" name="stage_id"><br>
+		User: <input type="text" name="user_id"><br>
+		Visibility, num: <input type="text" name="visibility"><br>
+		Name: <input type="text" name="name"><br>
+		Contact: <input type="text" name="contact_id"><br>
+		<input type="submit">
+	</form>
+</body>
+</html>
