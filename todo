@@ -1,5 +1,15 @@
-superagent - РЅСѓР¶РЅРѕ РїСЂРѕРїРёСЃС‹РІР°С‚СЊ РІСЃРµС… С…РµРґРµСЂС‹
-fetch   - РЅСѓР¶РЅРѕ РїСЂРѕРїРёСЃС‹РІР°С‚СЊ РІСЃРµС… С…РµРґРµСЂС‹
-axious  ++
-request
-isomorphic-fetch
+-- add domain_id to all entities
+-- generate domain_id for a new user
+-- add domain_id to jwt token
+
+reactjs-nodejs-rest-example-master.zip
+
+Mocha и Chai — отличная комбинация для тестирования основанного на промисах API.
+
+Jest https://jestjs.io/
+Sinon http://sinonjs.org/
+Supertest https://github.com/visionmedia/supertest
+Should https://www.npmjs.com/package/should
+Mocha https://mochajs.org/
+Assert https://www.npmjs.com/package/assert 
+Chai http://www.chaijs.com/
