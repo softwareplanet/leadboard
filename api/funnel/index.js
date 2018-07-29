@@ -16,7 +16,7 @@ router.get("/", require_auth, function(req, res) {
       res.status(200).json({ status: "success", data: funnels });
     })
     .catch(err => {
-      res.status(500).json({ status: "error", message: err });
+      res.status(400).json({ status: "error", message: err });
     });
 });
 
@@ -31,7 +31,7 @@ router.post("/", require_auth, function(req, res) {
       res.status(200).json({ status: "success", data: funnel });
     })
     .catch(err => {
-      res.status(500).json({ status: "error", message: err });
+      res.status(400).json({ status: "error", message: err });
     });
 });
 

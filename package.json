@@ -1,11 +1,14 @@
 {
   "name": "backend",
-  "main": "index.js",
+  "main": "server.js",
+  "license": "MIT",
   "scripts": {
     "test": "jest",
+    "client-install": "npm install --prefix client",
     "coverage": "npm test -- --coverage && opn coverage/lcov-report/index.html",
-    "start": "nodemon -i '*.test.js' .",
-    "prod": "cross-env NODE_ENV=production nodemon index"
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "jest": {
     "testEnvironment": "node",
@@ -34,6 +37,7 @@
   "devDependencies": {
     "babel-eslint": "^7.1.1",
     "babel-jest": "^18.0.0",
+    "concurrently": "^3.6.1",
     "jest-cli": "^18.1.0",
     "nodemon": "^1.11.0",
     "sinon": "^6.1.3",

@@ -33,7 +33,7 @@ describe('User registration', async () => {
       .post('/auth')
       .send({ first_name: 'John', last_name: 'Smith', email: 'johns@example.com', password: 'secret' })
 
-    expect(status).toBe(500)
+    expect(status).toBe(400)
     expect(body.status).toBe('error')
     expect(body.errors[0].message).toBe('Company name is required')
     expect(body.errors[0].field).toBe('company')
@@ -44,7 +44,7 @@ describe('User registration', async () => {
       .post('/auth')
       .send({ first_name: 'John', last_name: 'Smith', email: '', password: 'secret' })
 
-    expect(status).toBe(500)
+    expect(status).toBe(400)
     expect(body.status).toBe('error')
     expect(body.errors[0].field).toBe('email')
     expect(body.errors[0].message).toBe('E-Mail is required')
@@ -55,7 +55,7 @@ describe('User registration', async () => {
       .post('/auth')
       .send({ first_name: 'John', last_name: 'Smith', email: 'johnsmith@example.com', password: '' })
 
-    expect(status).toBe(500)
+    expect(status).toBe(400)
     expect(body.errors[0].field).toBe('password')
     expect(body.errors[0].message).toBe('Password is required')
   })

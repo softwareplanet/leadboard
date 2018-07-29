@@ -1,10 +1,12 @@
+Р’С‹РЅРµСЃС‚Рё РІ РЅР°СЃС‚СЂРѕР№РєРё РІСЃРµ РєРѕРЅСЃС‚Р°РЅС‚С‹
+
 -- add domain_id to all entities
 -- generate domain_id for a new user
 -- add domain_id to jwt token
 
 reactjs-nodejs-rest-example-master.zip
 
-Mocha и Chai — отличная комбинация для тестирования основанного на промисах API.
+Mocha Chai 
 
 Jest https://jestjs.io/
 Sinon http://sinonjs.org/

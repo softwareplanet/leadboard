@@ -1,17 +1,17 @@
-import http from 'http'
-var ip = '127.0.0.1'
-var port = 3001
+import http from "http";
+var ip = "127.0.0.1";
+var port = 5000;
 
-import express from './express'
-import api from './api'
+import express from "./express";
+import api from "./api";
 
-var app = express(api)
-const server = http.createServer(app)
+var app = express(api);
+const server = http.createServer(app);
 
 setImmediate(() => {
   server.listen(port, ip, () => {
-    console.log('Express server listening on http://%s:%d', ip, port)
-  })
-})
+    console.log("Express server listening on http://%s:%d", ip, port);
+  });
+});
 
-export default app
+export default app;
