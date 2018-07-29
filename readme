@@ -1,5 +1,0 @@
-npm i -g create-react-app //утилита создания шаблона react приложения
-npm i concurently //одновременный запуск клиента и сервера
-
-rfc - создать тупой компонент react
-rcc - smart компонент
