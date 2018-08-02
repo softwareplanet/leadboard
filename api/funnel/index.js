@@ -4,34 +4,41 @@ import mongoose from "mongoose";
 
 import { require_auth } from "../authorize";
 import Funnel from "../../models/funnel";
+const validateFunnelInput = require("../../validation/funnel");
 
 const router = new Router();
 
+// @route   GET api/funnel
+// @desc    Return all funnels by domain
+// @access  Private
 router.get("/", require_auth, function(req, res) {
-  Funnel.find()
-    .where("domain_id")
-    .equals(req.body.domain_id)
-    .exec()
+  Funnel.find({ domain: req.body.domain })
     .then(funnels => {
-      res.status(200).json({ status: "success", data: funnels });
+      res.json({ data: funnels });
     })
-    .catch(err => {
-      res.status(400).json({ status: "error", message: err });
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
     });
 });
 
+// @route   GET api/funnel
+// @desc    Create a new funnel
+// @access  Private
 router.post("/", require_auth, function(req, res) {
+  const { hasErrors, errors } = validateFunnelInput(req.body);
+  if (hasErrors) return res.status(400).json({ errors });
+
   const funnel = new Funnel({
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
-    domain_id: req.body.domain_id
+    domain: req.body.domain
   });
   Funnel.create(funnel)
     .then(funnel => {
-      res.status(200).json({ status: "success", data: funnel });
+      res.json({ data: { funnel: funnel._id } });
     })
-    .catch(err => {
-      res.status(400).json({ status: "error", message: err });
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
     });
 });
 

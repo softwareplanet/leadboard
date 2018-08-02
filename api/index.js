@@ -6,9 +6,9 @@ import funnel from "./funnel";
 import lead from "./lead";
 
 const router = new Router();
-router.use("/auth", auth);
-router.use("/stage", stage);
-router.use("/funnel", funnel);
-router.use("/lead", lead);
+router.use("/api", auth);
+router.use("/api/stage", stage);
+router.use("/api/funnel", funnel);
+router.use("/api/lead", lead);
 
 export default router;

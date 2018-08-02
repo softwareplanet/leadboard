@@ -1,84 +1,103 @@
-import request from 'supertest' 
+import request from "supertest";
 
-import express from '../../express'
-import routes from '..'
+import express from "../../express";
+import routes from "..";
 
-import User from '../../models/user'
-import Domain from '../../models/domain'
-import Funnel from '../../models/funnel'
+import { dropTables, createUserAndDomain } from "../../test/db-prepare";
 
-import { dropTables, createUserAndDomain } from '../../test/db-prepare'
+const app = () => express(routes);
 
-const app = () => express(routes)
+beforeEach(async done => {
+  await dropTables();
+  await createUserAndDomain(app);
+  done();
+});
 
-beforeEach(async (done) => {
-  await dropTables()
-  await createUserAndDomain(app)
-  done()
-})
-
-describe('User registration', async () => {
-  it ("should sign up user with correct fields", async () => {
+describe("User registration", async () => {
+  it("should sign up user with correct fields", async () => {
     const { status, body } = await request(app())
-      .post('/auth')
-      .send({ first_name: 'John', last_name: 'Smith', company: 'Acme Corp.', email: 'johns@example.com', password: 'secret' })
+      .post("/api/register")
+      .send({
+        firstname: "John",
+        lastname: "Smith",
+        company: "Acme Corp.",
+        email: "johns@example.com",
+        password: "secret"
+      });
 
-    expect(status).toBe(201)
-    expect(body.status).toBe('success')
-    expect(typeof body.data.domain).toBe('string')
-  })
+    expect(status).toBe(200);
+    expect(typeof body.data.user).toBe("string");
+  });
 
-  it ("should show error on empty company name", async () => {
+  it("should show error on empty company name", async () => {
     const { status, body } = await request(app())
-      .post('/auth')
-      .send({ first_name: 'John', last_name: 'Smith', email: 'johns@example.com', password: 'secret' })
+      .post("/api/register")
+      .send({ firstname: "John", lastname: "Smith", email: "johns@example.com", password: "secret" });
 
-    expect(status).toBe(400)
-    expect(body.status).toBe('error')
-    expect(body.errors[0].message).toBe('Company name is required')
-    expect(body.errors[0].field).toBe('company')
-  })
+    expect(status).toBe(400);
+    expect(body.errors.company).toBe("Company name must be between 2 and 50 characters");
+  });
 
-  it ("should show error on empty email", async () => {
+  it("should show error on empty email", async () => {
     const { status, body } = await request(app())
-      .post('/auth')
-      .send({ first_name: 'John', last_name: 'Smith', email: '', password: 'secret' })
+      .post("/api/register")
+      .send({ firstname: "John", lastname: "Smith", email: "", password: "secret" });
 
-    expect(status).toBe(400)
-    expect(body.status).toBe('error')
-    expect(body.errors[0].field).toBe('email')
-    expect(body.errors[0].message).toBe('E-Mail is required')
-  })
+    expect(status).toBe(400);
+    expect(body.errors.email).toBe("Email is invalid");
+  });
 
-  it ("should show error on empty password", async () => {
+  it("should show error on empty password", async () => {
     const { status, body } = await request(app())
-      .post('/auth')
-      .send({ first_name: 'John', last_name: 'Smith', email: 'johnsmith@example.com', password: '' })
+      .post("/api/register")
+      .send({ firstname: "John", lastname: "Smith", email: "johnsmith@example.com", password: "" });
 
-    expect(status).toBe(400)
-    expect(body.errors[0].field).toBe('password')
-    expect(body.errors[0].message).toBe('Password is required')
-  })
-})
+    expect(status).toBe(400);
+    expect(body.errors.password).toBe("Password must be at least 6 characters");
+  });
 
-describe('User login', async () => {
-  it ("should login user with correct credentials", async () => {
+  it("should show error on duplicate email", async () => {
     const { status, body } = await request(app())
-      .post('/auth/login')
-      .send({ email: 'johnsmith@example.com', password: 'secret' })
+      .post("/api/register")
+      .send({
+        firstname: "John",
+        lastname: "Smith",
+        company: "Acme Inc.",
+        email: "johnsmith@example.com",
+        password: "secret"
+      });
 
-    expect(status).toBe(200)
-    expect(body.status).toBe('success')
-    expect(typeof body.token).toBe('string')
-  })
+    expect(status).toBe(400);
+    expect(body.errors.email).toBe("User with this Email is already exists");
+  });
+});
 
-  it ("should return an error if wrong credentials", async () => {
+describe("User login", async () => {
+  it("should login user with correct credentials", async () => {
     const { status, body } = await request(app())
-      .post('/auth/login')
-      .send({ email: 'joh@example.com', password: 'secret' })
+      .post("/api/login")
+      .send({ email: "johnsmith@example.com", password: "secret" });
 
-    expect(status).toBe(401)
-    expect(body.status).toBe('error')
-    expect(body.message).toBe('Invalid credentials!')
-  })
-})
+    expect(status).toBe(200);
+    expect(typeof body.token).toBe("string");
+  });
+
+  it("should return an error if empty parameters", async () => {
+    const { status, body } = await request(app())
+      .post("/api/login")
+      .send({});
+
+    expect(status).toBe(400);
+    expect(body.errors.email).toBe("Email cannot be empty");
+    expect(body.errors.password).toBe("Password cannot be empty");
+  });
+
+  it("should return an error if wrong credentials", async () => {
+    const { status, body } = await request(app())
+      .post("/api/login")
+      .send({ email: "joh@example.com", password: "secret" });
+
+    expect(status).toBe(401);
+    expect(body.errors.message).toBe("Invalid credentials!");
+  });
+});

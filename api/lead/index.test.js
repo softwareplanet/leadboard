@@ -15,8 +15,8 @@ beforeEach(async done => {
   let funnel = await createFunnel(app, cred.token, cred.domain, "Funnel");
 
   stage = await createStage(app, cred.token, cred.domain, funnel.funnel, "Stage");
-  await createLead(app, cred.token, cred.domain, stage.stage, 2, "Lead A");
-  await createLead(app, cred.token, cred.domain, stage.stage, 1, "Lead B");
+  await createLead(app, cred.token, cred.domain, cred.user, stage.stage, "2", "Lead A");
+  await createLead(app, cred.token, cred.domain, cred.user, stage.stage, "1", "Lead B");
 
   done();
 });
@@ -24,32 +24,32 @@ beforeEach(async done => {
 describe("Lead", () => {
   it("should create a new lead", async () => {
     const { status, body } = await request(app())
-      .post("/lead")
+      .post("/api/lead")
       .send({
         token: cred.token,
-        owner_id: cred.user,
-        domain_id: cred.domain,
-        stage_id: stage.stage,
+        owner: cred.user,
+        domain: cred.domain,
+        stage: stage.stage,
         name: "My Lead",
-        order: 1
+        order: "1"
       });
 
     expect(status).toBe(200);
-    expect(body.status).toBe("success");
+    expect(typeof body.data.lead).toBe("string");
   });
 
   it("should return an ordered leads by stage", async () => {
     const { status, body } = await request(app())
-      .get("/lead")
+      .get("/api/lead")
       .send({
         token: cred.token,
-        domain_id: cred.domain,
-        stage_id: stage.stage
+        domain: cred.domain,
+        stage: stage.stage
       });
 
     expect(status).toBe(200);
-    expect(body.status).toBe("success");
-    expect(body.data.length).toBe(2);
+    expect(Object.keys(body.data).length).toBe(2);
     expect(body.data[0].name).toBe("Lead B");
+    expect(body.data[1].name).toBe("Lead A");
   });
 });

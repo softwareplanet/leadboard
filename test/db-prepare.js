@@ -4,7 +4,7 @@ import User from "../models/user";
 import Domain from "../models/domain";
 import Funnel from "../models/funnel";
 import Stage from "../models/stage";
-import Lead from "../models/stage";
+import Lead from "../models/lead";
 
 export async function dropTables() {
   await User.remove({});
@@ -14,48 +14,40 @@ export async function dropTables() {
   await Lead.remove({});
 }
 
-export async function createUserAndDomain(app, domain = "Acme Corp.", email = "johnsmith@example.com") {
-  let registration;
-  //do {
-  // register user
-  registration = await request(app())
-    .post("/auth")
+export async function createUserAndDomain(app, company = "Acme Corp.", email = "johnsmith@example.com") {
+  const registration = await request(app())
+    .post("/api/register")
     .send({
-      first_name: "John",
-      last_name: "Smith",
-      domain: domain,
+      firstname: "John",
+      lastname: "Smith",
+      company: company,
       email: email,
       password: "secret"
     })
-    .catch(err => {
-      throw new Error("Cannon register a user" + err);
+    .catch(error => {
+      throw "Cannon register a user" + error;
     });
-  //} while (registration.body.status === "error");
 
-  let user;
-  //do {
-  // login user
-  user = await request(app())
-    .post("/auth/login")
+  const user = await request(app())
+    .post("/api/login")
     .send({ email: email, password: "secret" })
-    .catch(err => {
-      throw new Error("Cannon login a user" + err);
+    .catch(error => {
+      throw "Cannon login a user" + error;
     });
-  //} while (user.body.status === "error");
 
   return {
     token: user.body.token,
-    user: user.body.data.user_id,
-    domain: user.body.data.domain_id
+    user: user.body.data.user,
+    domain: user.body.data.domain
   };
 }
 
-export async function createFunnel(app, token, domain_id, name = "Funnel") {
+export async function createFunnel(app, token, domain, name = "Funnel") {
   const { body } = await request(app())
-    .post("/funnel")
-    .send({ token, domain_id, name })
-    .catch(err => {
-      throw new Error("Cannon create a funnel");
+    .post("/api/funnel")
+    .send({ token, domain, name })
+    .catch(error => {
+      throw "Cannon create a funnel";
     });
 
   return {
@@ -63,25 +55,25 @@ export async function createFunnel(app, token, domain_id, name = "Funnel") {
   };
 }
 
-export async function createStage(app, token, domain, funnel, name = "Stage") {
+export async function createStage(app, token, domain, funnel, name = "Stage", order = "1") {
   const { body } = await request(app())
-    .post("/stage")
-    .send({ token, domain_id: domain, funnel_id: funnel, name, order: "1" })
-    .catch(err => {
-      throw new Error("Cannon create a stage");
+    .post("/api/stage")
+    .send({ token, domain: domain, funnel: funnel, name, order: order })
+    .catch(error => {
+      throw "Cannon create a stage";
     });
 
   return {
-    stage: body.data._id
+    stage: body.data.stage
   };
 }
 
-export async function createLead(app, token, domain, stage, order, name = "Lead") {
+export async function createLead(app, token, domain, user, stage, order, name = "Lead") {
   const { body } = await request(app())
-    .post("/lead")
-    .send({ token, domain_id: domain, stage_id: stage, order, name })
-    .catch(err => {
-      throw new Error("Cannon create a lead");
+    .post("/api/lead")
+    .send({ token, domain: domain, owner: user, stage: stage, order, name })
+    .catch(error => {
+      throw "Cannon create a lead";
     });
 
   return {

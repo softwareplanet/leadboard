@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "leadboard-server",
   "main": "server.js",
   "license": "MIT",
   "scripts": {
@@ -30,9 +30,11 @@
     "express-session": "^1.15.6",
     "http": "0.0.0",
     "jsonwebtoken": "^5.7.0",
+    "lodash.isempty": "^4.4.0",
     "mongoose": "^4.4.5",
     "mongoose-error-parser": "^1.0.0",
-    "morgan": "^1.7.0"
+    "morgan": "^1.7.0",
+    "validator": "^10.4.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
