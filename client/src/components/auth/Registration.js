@@ -1,13 +1,16 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import PropTypes from "prop-types";
+import { Link, withRouter } from "react-router-dom";
+import classname from "classnames";
+import { connect } from "react-redux";
+import { registerUser } from "../../actions/authActions";
 
 class Registration extends Component {
   constructor() {
     super();
     this.state = {
-      first_name: "",
-      last_name: "",
+      firstname: "",
+      lastname: "",
       company: "",
       email: "",
       password: "",
@@ -18,66 +21,85 @@ class Registration extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
+
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
   onSubmit(event) {
     event.preventDefault();
+
     const newUser = {
-      first_name: this.state.first_name,
-      last_name: this.state.last_name,
+      firstname: this.state.firstname,
+      lastname: this.state.lastname,
       company: this.state.company,
       email: this.state.email,
       password: this.state.password
     };
-    console.log(newUser);
 
-    axios
-      .post("/auth", newUser)
-      .then(result => console.log(result.data))
-      .catch(error => console.log(error.response.data));
+    this.props.registerUser(newUser, this.props.history);
   }
 
   render() {
+    const { errors } = this.state;
+
     return (
       <div id="login-container">
         <form onSubmit={this.onSubmit}>
           <div id="login-form">
             <div className="login-form__title">Registration</div>
-            <div className="login-form__field">
+            <div
+              className={classname("login-form__field", {
+                "login-form__field-red": errors.firstname
+              })}
+            >
               <input
-                id="first_name"
-                name="first_name"
+                id="firstname"
+                name="firstname"
                 value={this.state.first_name}
                 type="text"
                 onChange={this.onChange}
               />
-              <label htmlFor="first_name">First Name</label>
-              <div className="login-form__field-error">Please add a valid first name address</div>
+              <label htmlFor="firstname">First Name</label>
+              {errors.firstname && <div className="login-form__field-error">{errors.firstname}</div>}
             </div>
-            <div className="login-form__field">
-              <input
-                id="last_name"
-                name="last_name"
-                value={this.state.last_name}
-                type="text"
-                onChange={this.onChange}
-              />
-              <label htmlFor="last_name">Last Name</label>
-              <div className="login-form__field-error">Please add a valid last name address</div>
+            <div
+              className={classname("login-form__field", {
+                "login-form__field-red": errors.lastname
+              })}
+            >
+              <input id="lastname" name="lastname" value={this.state.last_name} type="text" onChange={this.onChange} />
+              <label htmlFor="lastname">Last Name</label>
+              {errors.lastname && <div className="login-form__field-error">{errors.lastname}</div>}
             </div>
-            <div className="login-form__field">
+            <div
+              className={classname("login-form__field", {
+                "login-form__field-red": errors.company
+              })}
+            >
               <input id="company" name="company" value={this.state.company} type="text" onChange={this.onChange} />
               <label htmlFor="company">Company Name</label>
-              <div className="login-form__field-error">Please add a valid company name</div>
+              {errors.company && <div className="login-form__field-error">{errors.company}</div>}
             </div>
-            <div className="login-form__field">
+            <div
+              className={classname("login-form__field", {
+                "login-form__field-red": errors.email
+              })}
+            >
               <input id="email" name="email" value={this.state.email} type="text" onChange={this.onChange} />
               <label htmlFor="email">Email</label>
-              <div className="login-form__field-error">Please add a valid email address</div>
+              {errors.email && <div className="login-form__field-error">{errors.email}</div>}
             </div>
-            <div className="login-form__field">
+            <div
+              className={classname("login-form__field", {
+                "login-form__field-red": errors.password
+              })}
+            >
               <input
                 id="password"
                 name="password"
@@ -86,7 +108,7 @@ class Registration extends Component {
                 onChange={this.onChange}
               />
               <label htmlFor="password">Password</label>
-              <div className="login-form__field-error">Please add a valid password</div>
+              {errors.password && <div className="login-form__field-error">{errors.password}</div>}
             </div>
             <div className="login-form__control">
               <button className="big-button" type="submit">
@@ -103,4 +125,18 @@ class Registration extends Component {
   }
 }
 
-export default Registration;
+registerUser.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.func.isRequired,
+  errors: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(
+  mapStateToProps,
+  { registerUser }
+)(withRouter(Registration));

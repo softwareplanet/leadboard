@@ -10,13 +10,13 @@ class Login extends Component {
 
           <div className="login-form__field">
             <input id="email" name="email" type="text" required />
-            <label for="email">Email</label>
+            <label htmlFor="email">Email</label>
             <div className="login-form__field-error">Please add a valid email address</div>
           </div>
 
           <div className="login-form__field">
             <input id="password" name="password" type="text" required />
-            <label for="password">Password</label>
+            <label htmlFor="password">Password</label>
             <div className="login-form__field-error">Please add a valid password</div>
           </div>
 
