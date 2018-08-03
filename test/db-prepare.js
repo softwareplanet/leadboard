@@ -51,7 +51,7 @@ export async function createFunnel(app, token, domain, name = "Funnel") {
     });
 
   return {
-    funnel: body.data._id
+    funnel: body.data.funnel
   };
 }
 

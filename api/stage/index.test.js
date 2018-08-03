@@ -34,12 +34,14 @@ describe("Stage", () => {
   });
 
   it("should return an ordered stages by funnel", async () => {
-    const { body } = await request(app())
+    const { status, body } = await request(app())
       .get("/api/stage")
-      .send({
-        token: cred.token,
+      .query({
         domain: cred.domain,
         funnel: funnel.funnel
+      })
+      .send({
+        token: cred.token
       });
 
     expect(status).toBe(200);

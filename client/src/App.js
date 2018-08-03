@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store.js";
 
-import Navbar from "./components/layouts/Navbar";
+import Home from "./components/layouts/Home";
 import Footer from "./components/layouts/Footer";
 import Login from "./components/auth/Login";
 import Registration from "./components/auth/Registration";
@@ -16,7 +16,7 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
-            <Route exact path="/home" component={Navbar} />
+            <Route exact path="/home" component={Home} />
             <Route exact path="/" component={Login} />
             <Route exact path="/register" component={Registration} />
             <Footer />

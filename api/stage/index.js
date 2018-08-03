@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 import { require_auth } from "../authorize";
 import Stage from "../../models/stage";
-const validateStageInput = require("../../validation/stage");
+const { validateStageInput, validateStageSearchInput } = require("../../validation/stage");
 
 const router = new Router();
 
@@ -11,7 +11,10 @@ const router = new Router();
 // @desc    Get ordered stages by domain and funnel IDs
 // @access  Private
 router.get("/", require_auth, function(req, res) {
-  Stage.find({ domain: req.body.domain, funnel: req.body.funnel })
+  const { hasErrors, errors } = validateStageSearchInput(req.query);
+  if (hasErrors) return res.status(400).json({ errors });
+
+  Stage.find({ domain: req.query.domain, funnel: req.query.funnel })
     .sort({ order: "asc" })
     .then(stages => {
       res.status(200).json({ data: stages });

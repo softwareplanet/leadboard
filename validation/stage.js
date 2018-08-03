@@ -1,7 +1,7 @@
 const Validator = require("validator");
 const isEmpty = require("lodash.isempty");
 
-module.exports = function validateStageInput(data) {
+export const validateStageInput = data => {
   let errors = {};
 
   if (isEmpty(data.domain)) errors.domain = "Domain ID cannot be empty";
@@ -19,6 +19,18 @@ module.exports = function validateStageInput(data) {
   }
 
   //TODO: Check if domain and funnel are valid IDs
+
+  return {
+    errors,
+    hasErrors: !isEmpty(errors)
+  };
+};
+
+export const validateStageSearchInput = data => {
+  let errors = {};
+
+  if (isEmpty(data.domain)) errors.domain = "Domain ID cannot be empty";
+  if (isEmpty(data.funnel)) errors.funnel = "Funnel ID cannot be empty";
 
   return {
     errors,
