@@ -41,10 +41,12 @@ describe("Lead", () => {
   it("should return an ordered leads by stage", async () => {
     const { status, body } = await request(app())
       .get("/api/lead")
-      .send({
-        token: cred.token,
+      .query({
         domain: cred.domain,
         stage: stage.stage
+      })
+      .send({
+        token: cred.token
       });
 
     expect(status).toBe(200);
