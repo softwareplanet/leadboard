@@ -13,7 +13,6 @@ module.exports = function validateFunnelInput(data) {
   }
 
   //TODO: Check if domain has a valid ID
-
   return {
     errors,
     hasErrors: !isEmpty(errors)

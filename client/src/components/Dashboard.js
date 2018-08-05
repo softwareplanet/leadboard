@@ -9,7 +9,7 @@ class Dashboard extends Component {
   constructor() {
     super();
 
-    this.state = {};
+    this.leadboardLoaded = false;
     this.getLeads = this.getLeads.bind(this);
   }
 
@@ -17,16 +17,27 @@ class Dashboard extends Component {
     if (nextProps.leads) {
       this.setState({ leads: nextProps.leads });
     }
+
+    if (nextProps.auth.domainid) {
+      // reload dashboard if page was reloaded
+      if (!this.leadboardLoaded) {
+        this.leadboardLoaded = true;
+        this.props.loadLeadboard(nextProps.auth.domainid);
+      }
+    }
   }
 
   componentDidMount() {
-    this.props.loadLeadboard(this.props.auth.domainid);
+    if (this.props.auth.domainid) {
+      this.leadboardLoaded = true;
+      this.props.loadLeadboard(this.props.auth.domainid);
+    }
   }
 
   getLeads(stage, this_ = this) {
     if (typeof this_.props.leads.leads["_" + stage] === "undefined") return <div />;
     const leads = this_.props.leads.leads["_" + stage].leads.map(lead => {
-      return <Lead lead={{ name: lead.name, company: "SPG" }} key={lead._id} />;
+      return <Lead key={lead._id} lead={{ name: lead.name, company: "SPG_" }} />;
     });
 
     return leads;
@@ -38,6 +49,7 @@ class Dashboard extends Component {
         <div className="dashboard__stage" key={stage._id}>
           <div className="dashboard__head">{stage.name}</div>
           {this.getLeads(stage._id, this)}
+          <div className="dashboard__stage__card-terminator" />
         </div>
       );
     }, this);

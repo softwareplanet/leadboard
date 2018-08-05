@@ -14,9 +14,9 @@ beforeEach(async done => {
   cred = await createUserAndDomain(app);
   let funnel = await createFunnel(app, cred.token, cred.domain, "Funnel");
 
-  stage = await createStage(app, cred.token, cred.domain, funnel.funnel, "Stage");
-  await createLead(app, cred.token, cred.domain, cred.user, stage.stage, "2", "Lead A");
-  await createLead(app, cred.token, cred.domain, cred.user, stage.stage, "1", "Lead B");
+  stage = await createStage(app, cred.token, funnel.funnel, "Stage");
+  await createLead(app, cred.token, cred.user, stage.stage, "2", "Lead A");
+  await createLead(app, cred.token, cred.user, stage.stage, "1", "Lead B");
 
   done();
 });
@@ -28,7 +28,6 @@ describe("Lead", () => {
       .send({
         token: cred.token,
         owner: cred.user,
-        domain: cred.domain,
         stage: stage.stage,
         name: "My Lead",
         order: "1"
@@ -42,7 +41,6 @@ describe("Lead", () => {
     const { status, body } = await request(app())
       .get("/api/lead")
       .query({
-        domain: cred.domain,
         stage: stage.stage
       })
       .send({

@@ -25,7 +25,7 @@ export const loginUser = (user, history) => dispatch => {
       setAuthToken(token);
       dispatch(setLoginData(result.data.data));
 
-      history.push("/home");
+      if (history) history.push("/home");
     })
     .catch(error => {
       console.log(JSON.stringify(error));
@@ -34,6 +34,19 @@ export const loginUser = (user, history) => dispatch => {
         payload: error.response.data.errors
       });
     });
+};
+
+export const loginUserById = id => dispatch => {
+  axios
+    .get("/api/user/" + id)
+    .then(result => {
+      const loginData = {
+        user: result.data.data.user._id,
+        domain: result.data.data.user.domain
+      };
+      dispatch(setLoginData(loginData));
+    })
+    .catch(error => console.log(error));
 };
 
 // Set logged in user and domain

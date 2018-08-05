@@ -1,11 +1,3 @@
-/*
-    owner: req.body.owner,
-    domain: req.body.domain,
-    stage: req.body.stage,
-    name: req.body.name,
-    order: req.body.order
-*/
-
 const Validator = require("validator");
 const isEmpty = require("lodash.isempty");
 
@@ -13,7 +5,6 @@ module.exports = function validateLeadInput(data) {
   let errors = {};
 
   if (isEmpty(data.owner)) errors.owner = "Owner ID cannot be empty";
-  if (isEmpty(data.domain)) errors.domain = "Domain ID cannot be empty";
   if (isEmpty(data.stage)) errors.stage = "Stage ID cannot be empty";
 
   data.order = !isEmpty(data.order) ? data.order : "";

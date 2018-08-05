@@ -40,7 +40,7 @@ router.post("/register", function(req, res) {
       return domain.save();
     })
     .then(domain => {
-      res.status(200).json({ data: { user: user._id } });
+      res.json({ data: { user: user._id } });
     })
     .catch(err => {
       let errors = {};
@@ -54,7 +54,7 @@ router.post("/register", function(req, res) {
     });
 });
 
-// @route   GET api/login
+// @route   POST api/login
 // @desc    User login
 // @access  Public
 router.post("/login", function(req, res) {
@@ -77,7 +77,7 @@ router.post("/login", function(req, res) {
         expiresIn: 60 * 60 * 24 * 10
       });
 
-      res.status(200).json({
+      res.json({
         token: token,
         data: { user: user_._id.toString(), domain: user_.domain.toString() }
       });

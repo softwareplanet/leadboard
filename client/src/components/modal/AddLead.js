@@ -1,6 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Modal from "react-modal";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { createLead } from "../../actions/leadActions";
 
 const customStyles = {
   content: {
@@ -20,16 +23,27 @@ class AddLead extends React.Component {
     super();
 
     this.state = {
+      name: "",
+      stage: "",
+      errors: {},
+
       modalIsOpen: false
     };
 
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   openModal() {
     this.setState({ modalIsOpen: true });
+
+    // set first stage as a default
+    const { stages } = this.props.leads;
+    if (Object.keys(stages).length > 0) this.setState({ stage: stages[0]._id });
   }
 
   afterOpenModal() {
@@ -41,7 +55,35 @@ class AddLead extends React.Component {
     this.setState({ modalIsOpen: false });
   }
 
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
+  onSubmit(event) {
+    event.preventDefault();
+
+    // no stage defined
+    if (this.state.stage == "") return;
+
+    const lead = {
+      name: this.state.name,
+      stage: this.state.stage,
+      owner: this.props.auth.userid,
+      order: "10"
+    };
+
+    this.props.createLead(lead).then(result => {
+      this.closeModal();
+    });
+  }
+
   render() {
+    const { stages } = this.props.leads;
+    const stageList = stages.map(stage => (
+      <option key={stage._id} value={stage._id}>
+        {stage.name}
+      </option>
+    ));
     return (
       <div>
         <div id="tool-panel">
@@ -57,15 +99,22 @@ class AddLead extends React.Component {
           style={customStyles}
           contentLabel="Example Modal"
         >
-          <h2 ref={subtitle => (this.subtitle = subtitle)}>Hello</h2>
-          <button onClick={this.closeModal}>close</button>
-          <div>I am a modal</div>
-          <form>
-            <input />
-            <button>tab navigation</button>
-            <button>stays</button>
-            <button>inside</button>
-            <button>the modal</button>
+          <h2 ref={subtitle => (this.subtitle = subtitle)}>
+            Hello<a href="#" onClick={this.closeModal}>
+              X
+            </a>
+          </h2>
+
+          <form onSubmit={this.onSubmit}>
+            <div>Title</div>
+            <input name="name" type="text" onChange={this.onChange} />
+            <div>Stage</div>
+            <select name="stage" onChange={this.onChange}>
+              {stageList}
+            </select>
+            <div>
+              <button>Add Lead</button>
+            </div>
           </form>
         </Modal>
       </div>
@@ -73,4 +122,21 @@ class AddLead extends React.Component {
   }
 }
 
-export default AddLead;
+/*
+loadLeadboard.propTypes = {
+  loadLeadboard: PropTypes.func.isRequired,
+  leads: PropTypes.func.isRequired,
+  errors: PropTypes.func.isRequired
+};
+*/
+
+const mapStateToProps = state => ({
+  leads: state.leads,
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(
+  mapStateToProps,
+  { createLead }
+)(AddLead);

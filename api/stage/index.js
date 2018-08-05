@@ -8,13 +8,13 @@ const { validateStageInput, validateStageSearchInput } = require("../../validati
 const router = new Router();
 
 // @route   GET api/stage
-// @desc    Get ordered stages by domain and funnel IDs
+// @desc    Get ordered stages by funnel IDs
 // @access  Private
 router.get("/", require_auth, function(req, res) {
   const { hasErrors, errors } = validateStageSearchInput(req.query);
   if (hasErrors) return res.status(400).json({ errors });
 
-  Stage.find({ domain: req.query.domain, funnel: req.query.funnel })
+  Stage.find({ funnel: req.query.funnel })
     .sort({ order: "asc" })
     .then(stages => {
       res.status(200).json({ data: stages });
@@ -33,7 +33,6 @@ router.post("/", require_auth, function(req, res) {
 
   const stage = new Stage({
     _id: new mongoose.Types.ObjectId(),
-    domain: req.body.domain,
     funnel: req.body.funnel,
     name: req.body.name,
     order: req.body.order

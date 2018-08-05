@@ -12,8 +12,9 @@ beforeEach(async done => {
   await dropTables();
   cred = await createUserAndDomain(app, "Company", "bob@acme.com");
   funnel = await createFunnel(app, cred.token, cred.domain, "Funnel");
-  await createStage(app, cred.token, cred.domain, funnel.funnel, "StageB", "2");
-  await createStage(app, cred.token, cred.domain, funnel.funnel, "StageA", "1");
+  await createStage(app, cred.token, funnel.funnel, "StageB", "2");
+  await createStage(app, cred.token, funnel.funnel, "StageA", "1");
+
   done();
 });
 
@@ -23,7 +24,6 @@ describe("Stage", () => {
       .post("/api/stage")
       .send({
         token: cred.token,
-        domain: cred.domain,
         funnel: funnel.funnel,
         name: "My Lead",
         order: "1"
@@ -37,7 +37,6 @@ describe("Stage", () => {
     const { status, body } = await request(app())
       .get("/api/stage")
       .query({
-        domain: cred.domain,
         funnel: funnel.funnel
       })
       .send({

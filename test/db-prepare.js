@@ -25,6 +25,7 @@ export async function createUserAndDomain(app, company = "Acme Corp.", email = "
       password: "secret"
     })
     .catch(error => {
+      console.log("Cannon register a user" + error);
       throw "Cannon register a user" + error;
     });
 
@@ -32,6 +33,7 @@ export async function createUserAndDomain(app, company = "Acme Corp.", email = "
     .post("/api/login")
     .send({ email: email, password: "secret" })
     .catch(error => {
+      console.log("Cannon login a user" + error);
       throw "Cannon login a user" + error;
     });
 
@@ -47,6 +49,7 @@ export async function createFunnel(app, token, domain, name = "Funnel") {
     .post("/api/funnel")
     .send({ token, domain, name })
     .catch(error => {
+      console.log("Cannon create a funnel" + error);
       throw "Cannon create a funnel";
     });
 
@@ -55,11 +58,12 @@ export async function createFunnel(app, token, domain, name = "Funnel") {
   };
 }
 
-export async function createStage(app, token, domain, funnel, name = "Stage", order = "1") {
+export async function createStage(app, token, funnel, name = "Stage", order = "1") {
   const { body } = await request(app())
     .post("/api/stage")
-    .send({ token, domain: domain, funnel: funnel, name, order: order })
+    .send({ token, funnel: funnel, name, order: order })
     .catch(error => {
+      console.log("Cannon create a stage" + error);
       throw "Cannon create a stage";
     });
 
@@ -68,11 +72,12 @@ export async function createStage(app, token, domain, funnel, name = "Stage", or
   };
 }
 
-export async function createLead(app, token, domain, user, stage, order, name = "Lead") {
+export async function createLead(app, token, user, stage, order, name = "Lead") {
   const { body } = await request(app())
     .post("/api/lead")
-    .send({ token, domain: domain, owner: user, stage: stage, order, name })
+    .send({ token, owner: user, stage: stage, order, name })
     .catch(error => {
+      console.log("Cannon create a lead" + error);
       throw "Cannon create a lead";
     });
 

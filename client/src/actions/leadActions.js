@@ -1,7 +1,7 @@
 import axios from "axios";
 import { LOAD_LEADBOARD, LOAD_STAGES, LOAD_LEADS, GET_ERRORS } from "./types";
 
-// Load leadboard
+// Load leadboard by Domain ID
 export const loadLeadboard = domain => dispatch => {
   axios
     .get("/api/funnel", {
@@ -16,7 +16,7 @@ export const loadLeadboard = domain => dispatch => {
       });
 
       if (typeof result.data.data[0]._id === "string") {
-        dispatch(loadStages(result.data.data[0]._id, domain));
+        dispatch(loadStages(result.data.data[0]._id));
       }
     })
     .catch(error => {
@@ -27,12 +27,12 @@ export const loadLeadboard = domain => dispatch => {
     });
 };
 
-export const loadStages = (funnel, domain) => dispatch => {
+// Load Stages by Funnel ID
+export const loadStages = funnel => dispatch => {
   axios
     .get("/api/stage", {
       params: {
-        funnel,
-        domain
+        funnel
       }
     })
     .then(result => {
@@ -41,11 +41,8 @@ export const loadStages = (funnel, domain) => dispatch => {
         payload: result.data.data
       });
 
-      // check it!
       for (let i = 0; i < Object.keys(result.data.data).length; i++) {
-        //if (typeof result.data.data[0]._id === "string") {
-        dispatch(loadLeads(domain, result.data.data[i]._id));
-        //}
+        dispatch(loadLeads(result.data.data[i]._id));
       }
     })
     .catch(error => {
@@ -56,11 +53,11 @@ export const loadStages = (funnel, domain) => dispatch => {
     });
 };
 
-export const loadLeads = (domain, stage) => dispatch => {
+// Load leads by Stage ID
+export const loadLeads = stage => dispatch => {
   axios
     .get("/api/lead", {
       params: {
-        domain,
         stage
       }
     })
@@ -70,6 +67,21 @@ export const loadLeads = (domain, stage) => dispatch => {
         stage: stage,
         payload: result.data.data
       });
+    })
+    .catch(error => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error.response.data.errors
+      });
+    });
+};
+
+// Create a new lead
+export const createLead = lead => (dispatch, getState) => {
+  return axios
+    .post("/api/lead", lead)
+    .then(response => {
+      dispatch(loadLeadboard(getState().auth.domainid));
     })
     .catch(error => {
       dispatch({
