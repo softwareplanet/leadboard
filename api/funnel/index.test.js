@@ -3,9 +3,6 @@ import request from "supertest";
 import express from "../../express";
 import routes from "..";
 
-import User from "../../models/user";
-import Domain from "../../models/domain";
-import Funnel from "../../models/funnel";
 import { dropTables, createUserAndDomain, createFunnel } from "../../test/db-prepare";
 
 const app = () => express(routes);

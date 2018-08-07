@@ -27,7 +27,6 @@ userSchema.pre("save", function(next) {
     .catch(err => next(err));
 });
 
-// promise: Check hash(password) == hashed_password
 userSchema.methods.passwordMatches = (candidatePassword, user) => {
   return bcrypt.compare(candidatePassword, user.password);
 };

@@ -11,7 +11,7 @@ const router = new Router();
 // @desc    Find sorted leads by domain and stage IDs
 // @access  Private
 router.get("/", require_auth, function(req, res) {
-  Lead.find({ /*domain: req.query.domain,*/ stage: req.query.stage })
+  Lead.find({ stage: req.query.stage })
     .sort({ order: "asc" })
     .then(leads => {
       res.json({ data: leads });
@@ -31,7 +31,6 @@ router.post("/", require_auth, function(req, res) {
   const lead = {
     _id: new mongoose.Types.ObjectId(),
     owner: req.body.owner,
-    //domain: req.body.domain,
     stage: req.body.stage,
     name: req.body.name,
     order: req.body.order

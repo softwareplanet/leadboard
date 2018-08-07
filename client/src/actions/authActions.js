@@ -36,6 +36,7 @@ export const loginUser = (user, history) => dispatch => {
     });
 };
 
+// Login user by ID
 export const loginUserById = id => dispatch => {
   axios
     .get("/api/user/" + id)

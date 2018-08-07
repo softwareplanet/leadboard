@@ -88,7 +88,7 @@ class AddLead extends React.Component {
       <div>
         <div id="tool-panel">
           <button type="button" className="btn btn-success tool-panel__button" onClick={this.openModal}>
-            Добавить лид
+            Add a lead
           </button>
         </div>
 
@@ -100,7 +100,7 @@ class AddLead extends React.Component {
           contentLabel="Example Modal"
         >
           <h2 ref={subtitle => (this.subtitle = subtitle)}>
-            Hello<a href="#" onClick={this.closeModal}>
+            Add a lead<a href="#" onClick={this.closeModal}>
               X
             </a>
           </h2>
@@ -122,7 +122,7 @@ class AddLead extends React.Component {
   }
 }
 
-/*
+/* 
 loadLeadboard.propTypes = {
   loadLeadboard: PropTypes.func.isRequired,
   leads: PropTypes.func.isRequired,
