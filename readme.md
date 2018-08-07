@@ -10,3 +10,5 @@ This project is in development and using integration with Redux DevTools ad-on t
 cd /leadboard
 npm i
 npm run dev
+
+http://localhost:3000
