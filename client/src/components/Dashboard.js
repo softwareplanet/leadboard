@@ -58,7 +58,7 @@ class Dashboard extends Component {
   }
 }
 
-loadLeadboard.propTypes = {
+Dashboard.propTypes = {
   loadLeadboard: PropTypes.func.isRequired,
   leads: PropTypes.func.isRequired,
   errors: PropTypes.func.isRequired
