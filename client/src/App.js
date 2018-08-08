@@ -13,6 +13,7 @@ import Login from "./components/auth/Login";
 import Registration from "./components/auth/Registration";
 
 import "./App.css";
+import EditLead from "./components/editLead/EditLead";
 
 // restore redux/storage on page reload
 if (localStorage.jwtToken) {
@@ -36,6 +37,7 @@ class App extends Component {
             <Route exact path="/home" component={Home} />
             <Route exact path="/" component={Login} />
             <Route exact path="/register" component={Registration} />
+            <Route exact path="/lead/:item" component={EditLead} />
             <Footer />
           </div>
         </Router>
