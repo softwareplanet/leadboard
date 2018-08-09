@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { createLead } from "../../actions/leadActions";
 import classNames from "classnames";
 import "./AddLead.css";
+import {isEmpty} from "lodash";
 
 const customStyles = {
   content: {
@@ -81,12 +82,12 @@ class AddLead extends React.Component {
     });
   }
 
-  validateDeal(deal) {
+  validateDeal(lead) {
     let errors = {};
-    if (deal.name === "") {
+    if (lead.name === "") {
       errors.name = "Name must not be empty";
     }
-    if (deal.organization === "" && deal.contact === "") {
+    if (lead.organization === "" && lead.contact === "") {
       errors.organization = "Organisation or contact must not be empty";
       errors.contact = "Contact or organisation must not be empty";
     }
@@ -101,7 +102,7 @@ class AddLead extends React.Component {
     });
 
     let errors = this.validateDeal(this.state);
-    if (errors) {
+    if (isEmpty(errors)) {
       const lead = {
         domain: this.props.auth.domainid,
         owner: this.props.auth.userid,
@@ -124,7 +125,7 @@ class AddLead extends React.Component {
       <div>
         <div id="tool-panel">
           <button type="button" className="btn btn-success tool-panel__button" onClick={this.openModal}>
-            Add a lead
+            Add lead
           </button>
         </div>
 
@@ -134,7 +135,7 @@ class AddLead extends React.Component {
           style={customStyles}
         >
           <div className="">
-            <header className="AppLead-form-header">Add deal
+            <header className="AppLead-form-header">Add lead
             </header>
             <button type="button"
                     onClick={this.closeModal}
@@ -181,7 +182,7 @@ class AddLead extends React.Component {
               </div>
 
               <label className="AppLead-input-label">
-                Deal title
+                Lead title
               </label>
               <div className={classNames("AppLead-input-container",
                 { "AppLead-input-invalid": validationIsShown && errors.name })}>
