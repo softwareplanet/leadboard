@@ -9,4 +9,18 @@ const organizationSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model("Organization", organizationSchema);
+
+
+organizationSchema.statics.findOneByIdOrCreate = (organizationData) => {
+  if(mongoose.Types.ObjectId.isValid(organizationData.organization)) {
+    return Organization.findById(organizationData.organization);
+  }
+   return Organization.create({
+       _id:new mongoose.Types.ObjectId(),
+       name:organizationData.organization,
+       domain: mongoose.Types.ObjectId(organizationData.domain)});
+};
+
+const Organization = mongoose.model("Organization", organizationSchema);
+
+module.exports = Organization;
