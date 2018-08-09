@@ -1,18 +1,24 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import Modal from "react-modal";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { createLead } from "../../actions/leadActions";
+import { createLead, loadLeadboard } from "../../actions/leadActions";
+import "./AddLead.css";
 
 const customStyles = {
   content: {
-    top: "50%",
+    top: "16%",
     left: "50%",
     right: "auto",
     bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)"
+    transform: "translate(-50%, -50%)",
+    margin: "0",
+    padding: "0",
+    width: "350px",
+    borderRadius: "0 0 2px 2px",
+    border: "1px solid #e5e5e5",
+    boxShadow: "0 10px 45px rgba(38,41,44,.88)",
+    boxSizing: "border-box"
   }
 };
 
@@ -36,6 +42,8 @@ class AddLead extends React.Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+
+    this.dealForm = React.createRef();
   }
 
   openModal() {
@@ -47,8 +55,7 @@ class AddLead extends React.Component {
   }
 
   afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    this.subtitle.style.color = "#f00";
+
   }
 
   closeModal() {
@@ -63,7 +70,7 @@ class AddLead extends React.Component {
     event.preventDefault();
 
     // no stage defined
-    if (this.state.stage == "") return;
+    if (this.state.stage === "") return;
 
     const lead = {
       name: this.state.name,
@@ -97,38 +104,76 @@ class AddLead extends React.Component {
           onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeModal}
           style={customStyles}
-          contentLabel="Example Modal"
         >
-          <h2 ref={subtitle => (this.subtitle = subtitle)}>
-            Add a lead<a href="#" onClick={this.closeModal}>
-              X
-            </a>
-          </h2>
+          <div className="">
+            <header className="AppLead-form-header">Add deal
+            </header>
+            <button type="button"
+                    onClick={this.closeModal}
+                    aria-label="Close"
+                    className="AppLead-modal-close"
+            >
+              <span aria-hidden="true"
+                    className="AppLead-modal-icon"
+              >&times;</span>
+            </button>
+          </div>
+          <div className="">
+            <form
+              className="AppLead-form"
+              onSubmit={this.onSubmit}
+              ref={this.dealForm}
+            >
+              <label className="AppLead-input-label">
+                Contact person name
+              </label>
+              <input
+                name="name"
+                type="text"
+                className="AppLead-form-input"
+                onChange={this.onChange}
+              />
+              <label className="AppLead-input-label">
+                Organization name
+              </label>
+              <input
+                name="name"
+                type="text"
+                className="AppLead-form-input"
+                onChange={this.onChange}
+              />
 
-          <form onSubmit={this.onSubmit}>
-            <div>Title</div>
-            <input name="name" type="text" onChange={this.onChange} />
-            <div>Stage</div>
-            <select name="stage" onChange={this.onChange}>
-              {stageList}
-            </select>
-            <div>
-              <button>Add Lead</button>
-            </div>
-          </form>
+              <label className="AppLead-input-label">
+                Deal title
+              </label>
+                <input
+                  name="name"
+                  type="text"
+                  className="AppLead-form-input"
+                  onChange={this.onChange}
+                />
+              <label className="AppLead-input-label">Pipeline Stage</label>
+            </form>
+          </div>
+          <div className="AppLead-form-footer">
+            <button type="button" className="btn btn-success AppLead-btn-save"
+                    onClick={() => this.dealForm.submit}
+            >
+              Save
+            </button>
+          </div>
         </Modal>
       </div>
     );
   }
 }
 
-/* 
-loadLeadboard.propTypes = {
+
+AddLead.propTypes = {
   loadLeadboard: PropTypes.func.isRequired,
-  leads: PropTypes.func.isRequired,
-  errors: PropTypes.func.isRequired
+  leads: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
 };
-*/
 
 const mapStateToProps = state => ({
   leads: state.leads,
@@ -138,5 +183,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { createLead }
+  { createLead, loadLeadboard }
 )(AddLead);
