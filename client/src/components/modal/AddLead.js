@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { createLead } from "../../actions/leadActions";
 import classNames from "classnames";
 import "./AddLead.css";
-import {isEmpty} from "lodash";
+import { isEmpty } from "lodash";
 
 const customStyles = {
   content: {
@@ -27,8 +27,8 @@ const customStyles = {
 Modal.setAppElement("#root");
 
 class AddLead extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       name: "",
@@ -50,13 +50,11 @@ class AddLead extends React.Component {
   }
 
   openModal() {
-    this.setState({
-      modalIsOpen: true
-    });
-
-    // set first stage as a default
     const { stages } = this.props.leads;
-    if (Object.keys(stages).length > 0) this.setState({ stage: stages[0]._id });
+    this.setState({
+      modalIsOpen: true,
+      stage: (Object.keys(stages).length > 0) ? stages[0]._id : ""
+    });
   }
 
   afterOpenModal() {
@@ -95,8 +93,6 @@ class AddLead extends React.Component {
   }
 
   onSubmit() {
-    // no stage defined
-    // if (this.state.stage === "") return;
     this.setState({
       validationIsShown: true
     });
@@ -120,17 +116,13 @@ class AddLead extends React.Component {
   }
 
   render() {
-    // const { stages } = this.props.leads;
-    // const stageList = stages.map(stage => (
-    //   <option key={stage._id} value={stage._id}>
-    //     {stage.name}
-    //   </option>
-    // ));
     const { errors, validationIsShown } = this.state;
     return (
       <div>
         <div id="tool-panel">
-          <button type="button" className="AppLead__btn AppLead__btn-green tool-panel__button" onClick={this.openModal}>
+          <button type="button" className="AppLead__btn AppLead__btn-green tool-panel__button"
+                  onClick={this.openModal}
+          >
             Add lead
           </button>
         </div>
@@ -200,9 +192,6 @@ class AddLead extends React.Component {
                 />
               </div>
               {/*<label className="AppLead__input_label">Pipeline Stage</label>*/}
-              {/*<select name="stage" onChange={this.onChange}>*/}
-                {/*{stageList}*/}
-              {/*</select>*/}
             </form>
           </div>
           <div className="AppLead__form_footer">
