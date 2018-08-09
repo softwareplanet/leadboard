@@ -3,7 +3,7 @@ import request from "supertest";
 import User from "../models/user";
 import Domain from "../models/domain";
 import Funnel from "../models/funnel";
-import Stage from "../models/Stage";
+import Stage from "../models/stage";
 import Lead from "../models/lead";
 
 export async function dropTables() {

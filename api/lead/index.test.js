@@ -1,5 +1,5 @@
 import request from "supertest";
-import Stage from "../../models/Stage";
+import Stage from "../../models/stage";
 
 import express from "../../express";
 import routes from "..";

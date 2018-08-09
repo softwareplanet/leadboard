@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LOAD_LEADBOARD, LOAD_STAGES, LOAD_LEADS, GET_ERRORS } from "./types";
+import { LOAD_LEADBOARD, LOAD_STAGES, LOAD_LEADS, LOAD_LEAD, GET_ERRORS } from "./types";
 
 // Load leadboard by Domain ID
 export const loadLeadboard = domain => dispatch => {
@@ -90,3 +90,20 @@ export const createLead = lead => (dispatch, getState) => {
       });
     });
 };
+
+export const loadLead = id => dispatch => {
+  axios
+      .get(`/api/lead/${id}`)
+      .then(res => {
+        dispatch({
+            type: LOAD_LEAD,
+            payload: res.data.lead
+        })
+            .catch(error => {
+              dispatch({
+                  type: GET_ERRORS,
+                  payload: error.response.data.errors
+              })
+            })
+      })
+}

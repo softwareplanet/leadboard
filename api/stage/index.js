@@ -2,7 +2,7 @@ import { Router } from "express";
 import mongoose from "mongoose";
 
 import { require_auth } from "../authorize";
-import Stage from "../../models/Stage";
+import Stage from "../../models/stage";
 const { validateStageInput, validateStageSearchInput } = require("../../validation/stage");
 
 const router = new Router();

@@ -1,4 +1,4 @@
-import { LOAD_LEADBOARD, LOAD_STAGES, LOAD_LEADS } from "../actions/types";
+import { LOAD_LEADBOARD, LOAD_STAGES, LOAD_LEADS, LOAD_LEAD } from "../actions/types";
 
 const initialState = {
   funnels: [],
@@ -25,6 +25,11 @@ export default function(state = initialState, action) {
         ...state,
         leads: leads
       };
+      case LOAD_LEAD:
+        return {
+            ...state,
+            lead: action.payload
+        };
     default:
       return state;
   }

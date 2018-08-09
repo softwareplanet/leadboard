@@ -11,7 +11,6 @@ const router = new Router();
 // @access  Private
 router.get("/:id", require_auth, function(req, res) {
   if (isEmpty(req.params.id)) return res.status(400).json({ errors: { id: "UserID is not defined" } });
-
   User.findById(req.params.id)
     .then(user => {
       res.json({ data: { user } });
