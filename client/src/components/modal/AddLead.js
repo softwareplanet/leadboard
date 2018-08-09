@@ -120,11 +120,17 @@ class AddLead extends React.Component {
   }
 
   render() {
+    // const { stages } = this.props.leads;
+    // const stageList = stages.map(stage => (
+    //   <option key={stage._id} value={stage._id}>
+    //     {stage.name}
+    //   </option>
+    // ));
     const { errors, validationIsShown } = this.state;
     return (
       <div>
         <div id="tool-panel">
-          <button type="button" className="btn btn-success tool-panel__button" onClick={this.openModal}>
+          <button type="button" className="AppLead__btn AppLead__btn-green tool-panel__button" onClick={this.openModal}>
             Add lead
           </button>
         </div>
@@ -135,69 +141,72 @@ class AddLead extends React.Component {
           style={customStyles}
         >
           <div className="">
-            <header className="AppLead-form-header">Add lead
+            <header className="AppLead__form_header">Add lead
             </header>
             <button type="button"
                     onClick={this.closeModal}
                     aria-label="Close"
-                    className="AppLead-modal-close"
+                    className="AppLead__modal_btn-close"
             >
               <span aria-hidden="true"
-                    className="close AppLead-modal-icon"
+                    className="close AppLead__icon-close"
               >&times;</span>
             </button>
           </div>
           <div className="">
             <form
               autoComplete="off"
-              className="AppLead-form"
+              className="AppLead__form"
             >
-              <label className="AppLead-input-label">
+              <label className="AppLead__input_label">
                 Contact person name
               </label>
-              <div className={classNames("AppLead-input-container",
-                { "AppLead-input-invalid": validationIsShown && errors.contact })}
+              <div className={classNames("AppLead__input_container",
+                { "AppLead__input_container-invalid": validationIsShown && errors.contact })}
               >
-                <i className="fas fa-user AppLead-input-icon"/>
+                <i className="fas fa-user AppLead__input_icon"/>
                 <input
                   name="contact"
                   type="text"
-                  className="AppLead-form-input"
+                  className="AppLead__form_input"
                   onChange={this.onChange}
                 />
               </div>
 
-              <label className="AppLead-input-label">
+              <label className="AppLead__input_label">
                 Organization name
               </label>
-              <div className={classNames("AppLead-input-container",
-                { "AppLead-input-invalid": validationIsShown && errors.organization })}>
-                <i className="fas fa-building AppLead-input-icon"/>
+              <div className={classNames("AppLead__input_container",
+                { "AppLead__input_container-invalid": validationIsShown && errors.organization })}>
+                <i className="fas fa-building AppLead__input_icon"/>
                 <input
                   name="organization"
                   type="text"
-                  className="AppLead-form-input"
+                  className="AppLead__form_input"
                   onChange={this.onChange}
                 />
               </div>
 
-              <label className="AppLead-input-label">
+              <label className="AppLead__input_label">
                 Lead title
               </label>
-              <div className={classNames("AppLead-input-container",
-                { "AppLead-input-invalid": validationIsShown && errors.name })}>
+              <div className={classNames("AppLead__input_container",
+                { "AppLead__input_container-invalid": validationIsShown && errors.name })}>
                 <input
                   name="name"
                   type="text"
-                  className="AppLead-form-input"
+                  className="AppLead__form_input"
                   onChange={this.onChange}
                 />
               </div>
-              <label className="AppLead-input-label">Pipeline Stage</label>
+              {/*<label className="AppLead__input_label">Pipeline Stage</label>*/}
+              {/*<select name="stage" onChange={this.onChange}>*/}
+                {/*{stageList}*/}
+              {/*</select>*/}
             </form>
           </div>
-          <div className="AppLead-form-footer">
-            <button type="button" className="btn btn-success AppLead-btn-save"
+          <div className="AppLead__form_footer">
+            <button type="button" className="AppLead__btn AppLead__btn-green AppLead__btn-save"
                     onClick={this.onSubmit}
             >
               Save
