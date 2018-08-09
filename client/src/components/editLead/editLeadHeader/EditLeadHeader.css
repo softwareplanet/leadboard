@@ -2,3 +2,7 @@
   height: 25vh;
   padding: 20px
 }
+
+.edit-lead-header-main {
+  display: flex
+}
