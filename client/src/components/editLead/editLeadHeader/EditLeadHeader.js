@@ -9,12 +9,15 @@ class EditLeadHeader extends Component {
   }
 
   render() {
+    let editLead = this.props.leads.editLead ? this.props.leads.editLead : null;
     return (
       <div className="edit-lead-header">
         <div className={"edit-lead-header-description"}> </div>
-        <h4>{this.props.leads.editLead ? this.props.leads.editLead.name : null}</h4>
-
-        <div className={"edit-lead-header-main"} />
+        <h4>{editLead ? editLead.name : null} lead</h4>
+        <div className={"edit-lead-header-main"}>
+          <h4>{editLead ? editLead.price : null} </h4>
+          <div>{editLead ? editLead.contact.name : null}</div>
+        </div>
       </div>
     );
   }

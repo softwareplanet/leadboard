@@ -49,6 +49,7 @@ router.post("/", require_auth, function(req, res) {
 // @access  Private
 router.get("/:id", require_auth, (req, res) => {
   Lead.findById(req.params.id)
+    .populate("contacts")
     .then(lead => {
       res.json({ lead });
     })
