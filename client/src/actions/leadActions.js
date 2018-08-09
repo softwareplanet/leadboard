@@ -91,7 +91,8 @@ export const createLead = lead => (dispatch, getState) => {
     });
 };
 
-export const loadLead = leadId => dispatch => {
+// Load lead by id
+export const loadLead = (leadId, funnelId) => dispatch => {
   axios
     .get(`/api/lead/${leadId}`)
     .then(res => {
@@ -99,6 +100,7 @@ export const loadLead = leadId => dispatch => {
         type: LOAD_LEAD,
         payload: res.data.lead
       });
+      dispatch(loadStages(funnelId));
     })
     .catch(error => {
       dispatch({
