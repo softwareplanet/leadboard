@@ -46,6 +46,7 @@ class Dashboard extends Component {
 
   createLeadCards = stage => {
     let leads;
+
     if (this.isStageIsUndefined(stage))
       return <div/>;
 
@@ -89,8 +90,7 @@ class Dashboard extends Component {
           {
             leads
           }
-          <div
-            className="dashboard__stage__card-terminator">{ noLeads ? this.createEmptyLeadCards(stage, index) : <div/> }</div>
+          <div className="dashboard__stage__card-terminator">{ noLeads ? this.createEmptyLeadCards(stage, index) : <div/> }</div>
         </div>
       );
     });
@@ -101,8 +101,8 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
   loadLeadboard: PropTypes.func.isRequired,
-  leads: PropTypes.func.isRequired,
-  errors: PropTypes.func.isRequired
+  leads: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
