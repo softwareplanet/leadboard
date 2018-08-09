@@ -100,3 +100,11 @@
     margin-left: 10px;
     align-self: center;
 }
+
+.AppLead-input-invalid{
+    border-color: #e84646;
+}
+
+.AppLead-form-input:focus {
+    outline: none;
+}

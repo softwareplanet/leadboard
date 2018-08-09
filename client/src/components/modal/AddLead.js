@@ -2,7 +2,8 @@ import React from "react";
 import Modal from "react-modal";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { createLead, loadLeadboard } from "../../actions/leadActions";
+import { createLead } from "../../actions/leadActions";
+import classNames from "classnames";
 import "./AddLead.css";
 
 const customStyles = {
@@ -35,6 +36,7 @@ class AddLead extends React.Component {
       organization: "",
       errors: {},
 
+      validationIsShown: false,
       modalIsOpen: false
     };
 
@@ -44,12 +46,12 @@ class AddLead extends React.Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-
-    this.dealForm = React.createRef();
   }
 
   openModal() {
-    this.setState({ modalIsOpen: true });
+    this.setState({
+      modalIsOpen: true
+    });
 
     // set first stage as a default
     const { stages } = this.props.leads;
@@ -57,42 +59,66 @@ class AddLead extends React.Component {
   }
 
   afterOpenModal() {
-
   }
 
   closeModal() {
-    this.setState({ modalIsOpen: false });
-  }
-
-  onChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
-  }
-
-  onSubmit(event) {
-    event.preventDefault();
-
-    // no stage defined
-    if (this.state.stage === "") return;
-
-    const lead = {
-      name: this.state.name,
-      stage: this.state.stage,
-      owner: this.props.auth.userid,
-      order: "10"
-    };
-
-    this.props.createLead(lead).then(result => {
-      this.closeModal();
+    this.setState({
+      modalIsOpen: false,
+      validationIsShown: false,
+      errors: {},
+      name: "",
+      contact: "",
+      organization: ""
     });
   }
 
+  onChange(event) {
+    let newState = { ...this.state };
+    newState[event.target.name] = event.target.value;
+    this.setState({
+      [event.target.name]: event.target.value,
+      errors: this.validateDeal(newState)
+    });
+  }
+
+  validateDeal(deal) {
+    let errors = {};
+    if (deal.name === "") {
+      errors.name = "Name must not be empty";
+    }
+    if (deal.organization === "" && deal.contact === "") {
+      errors.organization = "Organisation or contact must not be empty";
+      errors.contact = "Contact or organisation must not be empty";
+    }
+    return errors;
+  }
+
+  onSubmit() {
+    // no stage defined
+    // if (this.state.stage === "") return;
+
+    this.setState({
+      errors: this.validateDeal(this.state),
+      validationIsShown: true
+    });
+    if (this.state.errors === {}) {
+      const lead = {
+        domain: this.props.auth.domainid,
+        owner: this.props.auth.userid,
+        stage: this.state.stage,
+        name: this.state.name,
+        contact: this.state.contact,
+        organization: this.state.organization,
+        order: "10"
+      };
+
+      this.props.createLead(lead);
+      this.closeModal();
+    }
+  }
+
   render() {
-    const { stages } = this.props.leads;
-    const stageList = stages.map(stage => (
-      <option key={stage._id} value={stage._id}>
-        {stage.name}
-      </option>
-    ));
+    const { errors, validationIsShown } = this.state;
     return (
       <div>
         <div id="tool-panel">
@@ -104,7 +130,6 @@ class AddLead extends React.Component {
         <Modal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
           style={customStyles}
         >
           <div className="">
@@ -122,14 +147,15 @@ class AddLead extends React.Component {
           </div>
           <div className="">
             <form
+              autoComplete="off"
               className="AppLead-form"
-              onSubmit={this.onSubmit}
-              ref={this.dealForm}
             >
               <label className="AppLead-input-label">
                 Contact person name
               </label>
-              <div className="AppLead-input-container">
+              <div className={classNames("AppLead-input-container",
+                { "AppLead-input-invalid": validationIsShown && errors.contact })}
+              >
                 <i className="fas fa-user AppLead-input-icon"/>
                 <input
                   name="contact"
@@ -142,20 +168,22 @@ class AddLead extends React.Component {
               <label className="AppLead-input-label">
                 Organization name
               </label>
-              <div className="AppLead-input-container">
+              <div className={classNames("AppLead-input-container",
+                { "AppLead-input-invalid": validationIsShown && errors.organization })}>
                 <i className="fas fa-building AppLead-input-icon"/>
-              <input
-                name="organization"
-                type="text"
-                className="AppLead-form-input"
-                onChange={this.onChange}
-              />
+                <input
+                  name="organization"
+                  type="text"
+                  className="AppLead-form-input"
+                  onChange={this.onChange}
+                />
               </div>
 
               <label className="AppLead-input-label">
                 Deal title
               </label>
-              <div className="AppLead-input-container">
+              <div className={classNames("AppLead-input-container",
+                { "AppLead-input-invalid": validationIsShown && errors.name })}>
                 <input
                   name="name"
                   type="text"
@@ -168,7 +196,7 @@ class AddLead extends React.Component {
           </div>
           <div className="AppLead-form-footer">
             <button type="button" className="btn btn-success AppLead-btn-save"
-                    onClick={() => this.dealForm.submit}
+                    onClick={this.onSubmit}
             >
               Save
             </button>
@@ -179,9 +207,7 @@ class AddLead extends React.Component {
   }
 }
 
-
 AddLead.propTypes = {
-  loadLeadboard: PropTypes.func.isRequired,
   leads: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
@@ -194,5 +220,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { createLead, loadLeadboard }
+  { createLead }
 )(AddLead);
