@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LOAD_LEADBOARD, LOAD_STAGES, LOAD_LEADS, GET_ERRORS } from "./types";
+import { GET_ERRORS, LOAD_LEADBOARD, LOAD_LEADS, LOAD_STAGES } from "./types";
 
 // Load leadboard by Domain ID
 export const loadLeadboard = domain => dispatch => {
@@ -15,8 +15,10 @@ export const loadLeadboard = domain => dispatch => {
         payload: result.data.data
       });
 
-      if (typeof result.data.data[0]._id === "string") {
-        dispatch(loadStages(result.data.data[0]._id));
+      if (result.data.data.length > 0) {
+        if (typeof result.data.data[0]._id === "string") {
+          dispatch(loadStages(result.data.data[0]._id));
+        }
       }
     })
     .catch(error => {
