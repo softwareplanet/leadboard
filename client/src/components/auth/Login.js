@@ -18,7 +18,18 @@ class Login extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  componentDidMount() {
+    document.title = "Log In";
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push('/home');
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push('/home');
+    }
+
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
@@ -42,64 +53,50 @@ class Login extends Component {
 
     return (
       <div id="login-container">
-        <form onSubmit={this.onSubmit}>
+        <form  onSubmit={this.onSubmit}>
           <div id="login-form">
             <div className="login-form__title">Log in</div>
-            <form action="">
-
-              <div
-                className={classname("group", {
-                  "login-form__field-red": errors.email
-                })}
-              >
-                <input type="text" required/>
-                <span className="highlight"/>
-                <span className="bar"/>
-                <label>Email</label>
-                {errors.email && <div className="login-form__field-error">{errors.email}</div>}
-              </div>
-
-
-              <div className="group">
-                <input type="text" required/>
-                <span className="highlight"/>
-                <span className="bar"/>
-                <label>Password</label>
-              </div>
-            </form>
-
-            {/*<div*/}
-              {/*className={classname("login-form__field", {*/}
-                {/*"login-form__field-red": errors.email*/}
-              {/*})}*/}
-            {/*>*/}
-              {/*<input id="email" name="email" value={this.state.email} type="text" onChange={this.onChange} />*/}
-              {/*<label htmlFor="email">Email</label>*/}
-              {/*{errors.email && <div className="login-form__field-error">{errors.email}</div>}*/}
-            {/*</div>*/}
-
-            {/*<div*/}
-              {/*className={classname("login-form__field", {*/}
-                {/*"login-form__field-red": errors.password*/}
-              {/*})}*/}
-            {/*>*/}
-              {/*<input*/}
-                {/*id="password"*/}
-                {/*name="password"*/}
-                {/*value={this.state.password}*/}
-                {/*type="password"*/}
-                {/*onChange={this.onChange}*/}
-              {/*/>*/}
-              {/*<label htmlFor="password">Password</label>*/}
-              {/*{errors.password && <div className="login-form__field-error">{errors.password}</div>}*/}
-            {/*</div>*/}
-
+            <div
+              className={classname("group", {
+                "login-form__field-red": errors.email
+              })}
+            >
+              <input type="text"
+                     name="email"
+                     value={this.state.email}
+                     onChange={this.onChange}
+                     required
+              />
+              <span className="highlight"/>
+              <span className="bar"/>
+              <label>Email</label>
+              {errors.email && <div className="login-form__field-error">{errors.email}</div>}
+            </div>
+            <div
+              className={classname(" group login-form__field", {
+                "login-form__field-red": errors.password
+              })}
+            >
+              <input id="password"
+                     name="password"
+                     value={this.state.password}
+                     type="password"
+                     onChange={this.onChange}
+                     required
+              />
+              <span className="highlight"/>
+              <span className="bar"/>
+              <label>Password</label>
+              {errors.password && <div className="login-form__field-error">{errors.password}</div>}
+            </div>
             <div className="login-form__control">
               <button className="big-button" type="submit">
                 Log in
               </button>
               <div>
-                <Link to="/register">Don't have an account?</Link>
+                <Link to="/register">
+                  <p className="login-form__registerLink">Don't have an account?</p>
+                </Link>
               </div>
             </div>
           </div>

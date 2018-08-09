@@ -145,11 +145,11 @@ li {
 
 /* LOGIN FORM */
 
-#login-container {
-  display: flex;
-  justify-content: center;
-  padding-top: 100px;
-}
+/*#login-container {*/
+  /*display: flex;*/
+  /*justify-content: center;*/
+  /*padding-top: 100px;*/
+/*}*/
 
 /*#login-form {*/
   /*width: 650px;*/
@@ -207,9 +207,9 @@ li {
   /*padding-left: 30px;*/
 /*}*/
 
-.login-form__field-red input {
-  border-bottom: 1px solid red !important;
-}
+/*.login-form__field-red input {*/
+  /*border-bottom: 1px solid red !important;*/
+/*}*/
 
 .big-button {
   display: inline-block;

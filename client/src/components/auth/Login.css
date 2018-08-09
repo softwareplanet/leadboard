@@ -1,5 +1,11 @@
 * { box-sizing:border-box; }
 
+#login-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
+}
+
 #login-form {
     width: 650px;
     background-color: white;
@@ -13,13 +19,22 @@
     padding-bottom: 50px;
 }
 
+.login-form__field-error {
+color: #e84646;
+font-size: 12px;
+}
+
 .login-form__control {
     margin-top: 50px;
     margin-bottom: 20px;
     margin-left: 85px;
 }
 
-body 				 { background:url(https://scotch.io/wp-content/uploads/2014/07/61.jpg); }
+.login-form__registerLink {
+    width: 230px;
+    margin: auto;
+}
+
 .container 		{
     font-family:'Roboto';
     width:600px;
