@@ -96,12 +96,12 @@ class AddLead extends React.Component {
   onSubmit() {
     // no stage defined
     // if (this.state.stage === "") return;
-
     this.setState({
-      errors: this.validateDeal(this.state),
       validationIsShown: true
     });
-    if (this.state.errors === {}) {
+
+    let errors = this.validateDeal(this.state);
+    if (errors) {
       const lead = {
         domain: this.props.auth.domainid,
         owner: this.props.auth.userid,
@@ -111,9 +111,10 @@ class AddLead extends React.Component {
         organization: this.state.organization,
         order: "10"
       };
-
       this.props.createLead(lead);
       this.closeModal();
+    } else {
+      this.setState({ errors: errors });
     }
   }
 
