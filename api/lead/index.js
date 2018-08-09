@@ -13,15 +13,16 @@ const router = new Router();
 // @route   GET api/lead
 // @desc    Find sorted leads by domain and stage IDs
 // @access  Private
-router.get("/", require_auth, function(req, res) {
-  Lead.find({ stage: req.query.stage })
-    .sort({ order: "asc" })
-    .then(leads => {
-      res.json({ data: leads });
-    })
-    .catch(error => {
-      res.status(400).json({ errors: { message: error } });
-    });
+router.get("/", require_auth, function (req, res) {
+    Lead.find({stage: req.query.stage})
+        .populate("contact")
+        .sort({order: "asc"})
+        .then(leads => {
+            res.json({data: leads});
+        })
+        .catch(error => {
+            res.status(400).json({errors: {message: error}});
+        });
 });
 
 // @route   POST api/lead
@@ -31,11 +32,11 @@ router.post("/", require_auth, function(req, res) {
     const {hasErrors, errors} = validateLeadInput(req.body);
     if (hasErrors) return res.status(400).json({errors});
 
-    if(req.body.organization) {
+    if (req.body.organization) {
         Organization.findOneByIdOrCreate(req.body)
             .then(organization => {
-                let body = {...req.body, organization:organization._id};
-                createLead({...req, body:body},res);
+                let body = {...req.body, organization: organization._id};
+                createLead({...req, body: body}, res);
             })
     } else {
         createLead(req, res);
@@ -55,7 +56,6 @@ const createLead = (req, res) => {
             };
             Lead.create(lead)
                 .then(lead => {
-                    console.log(lead);
                     res.json({data: {lead: lead._id}});
                 })
                 .catch(error => {

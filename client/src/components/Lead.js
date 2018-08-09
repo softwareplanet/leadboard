@@ -10,12 +10,13 @@ const lead = (props) => {
     return (
         <div className='small-lead-container'>
             <div className='small-lead-info'>
-                <Link className='small-lead-info-link' to={`leads/${lead._id}`} dragable>
+                <Link className='small-lead-info-link' to={props.link} dragable>
                     <strong><img className='small-lead-avatar'
-                                 src={lead.owner? lead.owner.avatar : profile}/> {lead.name}</strong>
-                    <small>
-                        {lead.contact?lead.contact.name:''}
-                    </small>
+                                 src={lead.owner && lead.owner.avatar? lead.owner.avatar : profile}/> {lead.name}</strong>
+
+                        {lead.contact && lead.contact.name?
+                            <small>{lead.contact.name}</small>:
+                            <small style={{height:'20px'}}> </small>}
                 </Link>
             </div>
         </div>

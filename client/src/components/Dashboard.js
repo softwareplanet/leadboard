@@ -37,8 +37,9 @@ class Dashboard extends Component {
   getLeads(stage, this_ = this) {
     if (typeof this_.props.leads.leads["_" + stage] === "undefined") return <div />;
     const leads = this_.props.leads.leads["_" + stage].leads.map(lead => {
-      return <Lead key={lead._id} lead={{ name: lead.name,  company: "SPG_" }} />;
-    });
+        return <Lead key={lead._id} lead={lead}
+                     link={`/funnel/${this.props.leads.funnels && this.props.leads.funnels.length > 0 ?
+                         this.props.leads.funnels[0]._id: 0}/lead/${lead._id}`}/>;    });
 
     return leads;
   }
