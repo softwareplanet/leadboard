@@ -44,4 +44,17 @@ router.post("/", require_auth, function(req, res) {
     });
 });
 
+// @route   GET api/lead/:id
+// @desc    Load lead by id
+// @access  Private
+router.get("/:id", require_auth, (req, res) => {
+  Lead.findById(req.params.id)
+    .then(lead => {
+      res.json({ lead });
+    })
+    .catch(error => {
+      res.status(500).json({ errors: { message: error } });
+    });
+});
+
 export default router;

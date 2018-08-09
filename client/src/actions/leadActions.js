@@ -97,7 +97,7 @@ export const loadLead = leadId => dispatch => {
     .then(res => {
       dispatch({
         type: LOAD_LEAD,
-        payload: res.data
+        payload: res.data.lead
       });
     })
     .catch(error => {
