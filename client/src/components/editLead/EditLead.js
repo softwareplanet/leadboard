@@ -11,7 +11,7 @@ export default class EditLead extends Component {
       <div>
         <Navbar />
         <div className="edit-lead-container">
-          <EditLeadHeader />
+          <EditLeadHeader match={this.props.match} />
         </div>
         <div className="edit-lead-main-container">
           <EditLeadSidebar />
