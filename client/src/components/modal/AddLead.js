@@ -7,7 +7,7 @@ import "./AddLead.css";
 
 const customStyles = {
   content: {
-    top: "16%",
+    top: "20%",
     left: "50%",
     right: "auto",
     bottom: "auto",
@@ -31,6 +31,8 @@ class AddLead extends React.Component {
     this.state = {
       name: "",
       stage: "",
+      contact: "",
+      organization: "",
       errors: {},
 
       modalIsOpen: false
@@ -114,7 +116,7 @@ class AddLead extends React.Component {
                     className="AppLead-modal-close"
             >
               <span aria-hidden="true"
-                    className="AppLead-modal-icon"
+                    className="close AppLead-modal-icon"
               >&times;</span>
             </button>
           </div>
@@ -127,31 +129,40 @@ class AddLead extends React.Component {
               <label className="AppLead-input-label">
                 Contact person name
               </label>
-              <input
-                name="name"
-                type="text"
-                className="AppLead-form-input"
-                onChange={this.onChange}
-              />
+              <div className="AppLead-input-container">
+                <i className="fas fa-user AppLead-input-icon"/>
+                <input
+                  name="contact"
+                  type="text"
+                  className="AppLead-form-input"
+                  onChange={this.onChange}
+                />
+              </div>
+
               <label className="AppLead-input-label">
                 Organization name
               </label>
+              <div className="AppLead-input-container">
+                <i className="fas fa-building AppLead-input-icon"/>
               <input
-                name="name"
+                name="organization"
                 type="text"
                 className="AppLead-form-input"
                 onChange={this.onChange}
               />
+              </div>
 
               <label className="AppLead-input-label">
                 Deal title
               </label>
+              <div className="AppLead-input-container">
                 <input
                   name="name"
                   type="text"
                   className="AppLead-form-input"
                   onChange={this.onChange}
                 />
+              </div>
               <label className="AppLead-input-label">Pipeline Stage</label>
             </form>
           </div>
