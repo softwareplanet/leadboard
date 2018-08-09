@@ -109,6 +109,10 @@
     cursor: pointer;
 }
 
+.AppLead__btn:focus {
+    outline: none;
+}
+
 .AppLead__btn-green {
     color: white;
     background-color: #47bf53;

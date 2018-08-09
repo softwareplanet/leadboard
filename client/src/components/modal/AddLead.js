@@ -9,7 +9,7 @@ import {isEmpty} from "lodash";
 
 const customStyles = {
   content: {
-    top: "20%",
+    top: "16%",
     left: "50%",
     right: "auto",
     bottom: "auto",
