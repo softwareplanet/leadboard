@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import classname from "classnames";
+import './Login.css'
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
-
 class Login extends Component {
   constructor() {
     super();
@@ -30,12 +30,10 @@ class Login extends Component {
 
   onSubmit(event) {
     event.preventDefault();
-
     const login = {
       email: this.state.email,
       password: this.state.password
     };
-
     this.props.loginUser(login, this.props.history);
   }
 
@@ -47,36 +45,54 @@ class Login extends Component {
         <form onSubmit={this.onSubmit}>
           <div id="login-form">
             <div className="login-form__title">Log in</div>
-            {errors.message && (
-              <div className="login-form__field-error" style={{ fontSize: 18, paddingLeft: 30 }}>
-                {errors.message}
-              </div>
-            )}
-            <div
-              className={classname("login-form__field", {
-                "login-form__field-red": errors.email
-              })}
-            >
-              <input id="email" name="email" value={this.state.email} type="text" onChange={this.onChange} />
-              <label htmlFor="email">Email</label>
-              {errors.email && <div className="login-form__field-error">{errors.email}</div>}
-            </div>
+            <form action="">
 
-            <div
-              className={classname("login-form__field", {
-                "login-form__field-red": errors.password
-              })}
-            >
-              <input
-                id="password"
-                name="password"
-                value={this.state.password}
-                type="password"
-                onChange={this.onChange}
-              />
-              <label htmlFor="password">Password</label>
-              {errors.password && <div className="login-form__field-error">{errors.password}</div>}
-            </div>
+              <div
+                className={classname("group", {
+                  "login-form__field-red": errors.email
+                })}
+              >
+                <input type="text" required/>
+                <span className="highlight"/>
+                <span className="bar"/>
+                <label>Email</label>
+                {errors.email && <div className="login-form__field-error">{errors.email}</div>}
+              </div>
+
+
+              <div className="group">
+                <input type="text" required/>
+                <span className="highlight"/>
+                <span className="bar"/>
+                <label>Password</label>
+              </div>
+            </form>
+
+            {/*<div*/}
+              {/*className={classname("login-form__field", {*/}
+                {/*"login-form__field-red": errors.email*/}
+              {/*})}*/}
+            {/*>*/}
+              {/*<input id="email" name="email" value={this.state.email} type="text" onChange={this.onChange} />*/}
+              {/*<label htmlFor="email">Email</label>*/}
+              {/*{errors.email && <div className="login-form__field-error">{errors.email}</div>}*/}
+            {/*</div>*/}
+
+            {/*<div*/}
+              {/*className={classname("login-form__field", {*/}
+                {/*"login-form__field-red": errors.password*/}
+              {/*})}*/}
+            {/*>*/}
+              {/*<input*/}
+                {/*id="password"*/}
+                {/*name="password"*/}
+                {/*value={this.state.password}*/}
+                {/*type="password"*/}
+                {/*onChange={this.onChange}*/}
+              {/*/>*/}
+              {/*<label htmlFor="password">Password</label>*/}
+              {/*{errors.password && <div className="login-form__field-error">{errors.password}</div>}*/}
+            {/*</div>*/}
 
             <div className="login-form__control">
               <button className="big-button" type="submit">
@@ -95,8 +111,8 @@ class Login extends Component {
 
 loginUser.propTypes = {
   loginUser: PropTypes.func.isRequired,
-  auth: PropTypes.func.isRequired,
-  errors: PropTypes.func.isRequired
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({

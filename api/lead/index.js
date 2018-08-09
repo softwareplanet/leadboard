@@ -1,5 +1,6 @@
 import { Router } from "express";
 import mongoose from "mongoose";
+const passport = require('passport');
 
 import { require_auth } from "../authorize";
 const validateLeadInput = require("../../validation/lead");
@@ -10,7 +11,7 @@ const router = new Router();
 // @route   GET api/lead
 // @desc    Find sorted leads by domain and stage IDs
 // @access  Private
-router.get("/", require_auth, function(req, res) {
+router.get("/", passport.authenticate('jwt', { session: false }), function(req, res) {
   Lead.find({ stage: req.query.stage })
     .sort({ order: "asc" })
     .then(leads => {
@@ -24,7 +25,7 @@ router.get("/", require_auth, function(req, res) {
 // @route   POST api/lead
 // @desc    Create lead
 // @access  Private
-router.post("/", require_auth, function(req, res) {
+router.post("/", passport.authenticate('jwt', { session: false }), function(req, res) {
   const { hasErrors, errors } = validateLeadInput(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 

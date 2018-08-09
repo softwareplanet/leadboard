@@ -1,6 +1,7 @@
 import { Router } from "express";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
+const passport = require('passport');
 
 import { require_auth } from "../authorize";
 import Funnel from "../../models/funnel";
@@ -11,7 +12,7 @@ const router = new Router();
 // @route   GET api/funnel
 // @desc    Return all funnels by domain
 // @access  Private
-router.get("/", require_auth, function(req, res) {
+router.get("/", passport.authenticate('jwt', { session: false }),function(req, res) {
   const domain = req.query.domain || req.body.domain;
   if (!domain) {
     return res.status(400).json({ errors: { domain: "Domain cannot be empty" } });
@@ -29,7 +30,7 @@ router.get("/", require_auth, function(req, res) {
 // @route   GET api/funnel
 // @desc    Create a new funnel
 // @access  Private
-router.post("/", require_auth, function(req, res) {
+router.post("/", passport.authenticate('jwt', { session: false }), function(req, res) {
   const { hasErrors, errors } = validateFunnelInput(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 

@@ -1,4 +1,1 @@
-module.exports = {
-  mongoURI: "mongodb://user:pass@localhost:31725/leadboard",
-  hashPassword: "secret"
-};
+export const db = "mongodb://localhost/leadster";

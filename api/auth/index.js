@@ -1,14 +1,11 @@
 import { Router } from "express";
-import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
-
-import { require_auth, secret } from "../authorize";
+import { secret } from "../authorize";
+import User from"../../models/user";
+import Domain from "../../models/domain";
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
-
-import User from "../../models/user";
-import Domain from "../../models/domain";
-
+const jwt = require("jsonwebtoken");
 const router = new Router();
 
 // @route   GET api/register
@@ -48,7 +45,7 @@ router.post("/register", function(req, res) {
       if (typeof err.code !== "undefines" && err.code == 11000) {
         errors.email = "User with this Email is already exists";
       } else {
-        errors.message = "It was a problem to save this data to database";
+        errors.email = "It was a problem to save this data to database";
       }
       res.status(400).json({ errors: errors });
     });
@@ -62,29 +59,49 @@ router.post("/login", function(req, res) {
   if (hasErrors) return res.status(400).json({ errors });
 
   var user_ = null;
-
   User.findOne({ email: req.body.email })
     .then(user => {
-      if (!user) throw "Invalid credentials!";
+      if (!user) {
+        errors.email = "Incorrect login";
+        return res.status(404).json({ errors: errors });
+      }
+
       user_ = user;
       return user.passwordMatches(req.body.password, user);
     })
     .then(matches => {
-      if (!matches) throw "Invalid credentials!";
+      if (!matches) {
+        errors.password = "Password incorrect";
+        return res.status(404).json({ errors: errors });
+      }
+      const payload = { id: user_._id};
 
-      var token = jwt.sign({ id: user_._id.toString() }, secret, {
-        algorithm: "HS256",
-        expiresIn: 60 * 60 * 24 * 10
-      });
-
-      res.json({
-        token: token,
-        data: { user: user_._id.toString(), domain: user_.domain.toString() }
-      });
-    })
-    .catch(error => {
-      res.status(401).json({ errors: { message: error } });
+      jwt.sign(
+        payload,
+        secret,
+        { expiresIn: '240h' },
+        (err, token) => {
+          res.json({
+            success: true,
+            token: 'Bearer ' + token,
+            data: { userId: user_._id.toString(), domainId: user_.domain.toString() }
+          });
+        }
+      );
     });
 });
+
+
+// let token = jwt.sign({ id: user_._id.toString() }, secret, {
+//         algorithm: "HS256",
+//         expiresIn:'240h'
+//       });
+//
+//       res.json({
+//         token: token,
+//         data: { userId: user_._id.toString(), domainId: user_.domain.toString() }
+//       });
+//     })
+// });
 
 export default router;
