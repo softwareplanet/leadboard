@@ -8,7 +8,7 @@ import "./EditLead.css";
 export default class EditLead extends Component {
   render() {
     return (
-      <div>
+      <div className={"edit-lead"}>
         <Navbar />
         <div className="edit-lead-container">
           <EditLeadHeader match={this.props.match} />

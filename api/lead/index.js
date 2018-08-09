@@ -50,6 +50,7 @@ router.post("/", require_auth, function(req, res) {
 router.get("/:id", require_auth, (req, res) => {
   Lead.findById(req.params.id)
     .populate("contacts")
+    .populate("owner")
     .then(lead => {
       res.json({ lead });
     })

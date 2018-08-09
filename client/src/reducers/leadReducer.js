@@ -28,7 +28,7 @@ export default function(state = initialState, action) {
 
     case LOAD_LEAD:
       return {
-        ...state.leads,
+        ...state,
         editLead: action.payload
       };
     default:
