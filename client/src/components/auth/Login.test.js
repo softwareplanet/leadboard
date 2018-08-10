@@ -9,7 +9,7 @@ configure({adapter: new Adapter()});
 
 describe("Login",() =>{
 it('should render login form',()=>{
- let  container = shallow(<Login />
+ let  container = shallow(<Login />;
   expect(container.find('.test').text()).toEqual('asd');
 })
 });

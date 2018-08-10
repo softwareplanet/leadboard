@@ -50,7 +50,6 @@ class Login extends Component {
 
     return (
       <div id="Login__container">
-        <p className="test">asd</p>
         <form  onSubmit={this.onSubmit}>
           <div id="Login__form">
             <div className="Login__form-title">Log in</div>
