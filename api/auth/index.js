@@ -1,11 +1,13 @@
 import { Router } from "express";
 import mongoose from "mongoose";
+
 import { secret } from "../authorize";
 import User from"../../models/user";
 import Domain from "../../models/domain";
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 const jwt = require("jsonwebtoken");
+
 const router = new Router();
 
 // @route   GET api/register
@@ -15,7 +17,7 @@ router.post("/register", function(req, res) {
   const { hasErrors, errors } = validateRegisterInput(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 
-  var domainid = new mongoose.Types.ObjectId();
+  let domainId = new mongoose.Types.ObjectId();
 
   const user = new User({
     _id: new mongoose.Types.ObjectId(),
@@ -23,13 +25,26 @@ router.post("/register", function(req, res) {
     lastname: req.body.lastname,
     email: req.body.email,
     password: req.body.password,
-    domain: domainid
+    domain: domainId
   });
 
   const domain = new Domain({
-    _id: domainid,
+    _id: domainId,
     name: req.body.company
   });
+
+  let funnelId = new mongoose.Types.ObjectId();
+  const funnel = new Funnel({
+    _id: funnelId,
+    name: "Default Lead Funnel",
+    domain: domainId
+  });
+
+  let stages = [];
+  stages.push(createStage(funnelId, "Awareness", "1"));
+  stages.push(createStage(funnelId, "Interest", "2"));
+  stages.push(createStage(funnelId, "Decision", "3"));
+  stages.push(createStage(funnelId, "Action", "4"));
 
   user
     .save()
@@ -37,6 +52,12 @@ router.post("/register", function(req, res) {
       return domain.save();
     })
     .then(domain => {
+      return funnel.save();
+    })
+    .then(funnel => {
+      stages.forEach(stage => stage.save());
+    })
+    .then(() => {
       res.json({ data: { user: user._id } });
     })
     .catch(err => {
@@ -50,6 +71,16 @@ router.post("/register", function(req, res) {
       res.status(400).json({ errors: errors });
     });
 });
+
+function createStage(funnel, name, order) {
+  let stageId = new mongoose.Types.ObjectId();
+  return new Stage({
+    _id: stageId,
+    name: name,
+    funnel: funnel,
+    order: order
+  });
+}
 
 // @route   POST api/login
 // @desc    User login
@@ -90,18 +121,5 @@ router.post("/login", function(req, res) {
       );
     });
 });
-
-
-// let token = jwt.sign({ id: user_._id.toString() }, secret, {
-//         algorithm: "HS256",
-//         expiresIn:'240h'
-//       });
-//
-//       res.json({
-//         token: token,
-//         data: { userId: user_._id.toString(), domainId: user_.domain.toString() }
-//       });
-//     })
-// });
 
 export default router;
