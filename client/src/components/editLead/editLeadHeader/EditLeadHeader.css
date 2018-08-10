@@ -1,4 +1,4 @@
-.edit-lead-header {
+.EditLeadHeader {
   height: 25vh;
   margin-top: 20px;
   padding: 20px;
@@ -8,14 +8,21 @@
   background-color: #fff;
   margin-left: 8vw;
   margin-right: 8vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
-.edit-lead-header-owner {
+.EditLeadHeader__owner {
   margin-left: auto;
 }
 
-.edit-lead-header-description {
+.EditLeadHeader__description {
   display: flex;
+}
+
+.EditLeadHeader__main {
+
 }
 
 h4{

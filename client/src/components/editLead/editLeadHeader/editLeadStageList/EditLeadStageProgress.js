@@ -11,9 +11,11 @@ class EditLeadStageProgress extends Component {
 
 
     return (
-      <ul className={"EditLeadStageProgress__container"}>
-        {stages}
-      </ul>
+      <div>
+        <ul className={"EditLeadStageProgress__container"}>
+          {stages}
+        </ul>
+      </div>
     );
   }
 }
