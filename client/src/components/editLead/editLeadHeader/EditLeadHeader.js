@@ -15,11 +15,12 @@ class EditLeadHeader extends Component {
       <div className="EditLeadHeader">
         <div className={"EditLeadHeader__description"}>
           <h4>{editLead ? editLead.name : null} lead</h4>
-          <div>
-
-            <h4 className={"EditLeadHeader__-owner"}>
-              {editLead ? editLead.owner.firstname + " " + editLead.owner.lastname : null}
-            </h4>
+          <div className={"EditLeadHeader__owner"}>
+            <img src={'https://webapp.pipedriveassets.com/images/icons/profile_120x120.svg'} className={'EditLeadHeader__owner-picture rounded-circle'}/>
+            <div className={'EditLeadHeader__owner-body'}>
+              <span>{editLead ? editLead.owner.firstname + " " + editLead.owner.lastname : null}</span>
+              <small className={'text-muted'}>Owner</small>
+            </div>
           </div>
         </div>
         <div className={"EditLeadHeader__main"}>

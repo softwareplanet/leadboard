@@ -14,16 +14,30 @@
 }
 
 .EditLeadHeader__owner {
-  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.EditLeadHeader__owner-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
 }
 
 .EditLeadHeader__description {
   display: flex;
+  justify-content: space-between;
 }
 
 .EditLeadHeader__main {
 
 }
+.EditLeadHeader__owner-picture {
+  height: 32px;
+  width: 32px;
+}
+
 
 h4{
   font: 400 24px/32px "Open Sans";
