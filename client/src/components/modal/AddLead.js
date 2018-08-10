@@ -5,15 +5,17 @@ import { connect } from "react-redux";
 import { createLead } from "../../actions/leadActions";
 import classNames from "classnames";
 import "./AddLead.css";
-import { isEmpty } from "lodash";
+import { flow, isEmpty, trim } from "lodash/fp";
+
+const isBlank = flow(trim, isEmpty);
 
 const customStyles = {
   content: {
-    top: "16%",
+    top: 0,
     left: "50%",
     right: "auto",
     bottom: "auto",
-    transform: "translate(-50%, -50%)",
+    transform: "translate(-50%, 0)",
     margin: "0",
     padding: "0",
     width: "350px",
@@ -82,10 +84,10 @@ class AddLead extends React.Component {
 
   validateDeal(lead) {
     let errors = {};
-    if (lead.name === "") {
+    if (isBlank(lead.name)) {
       errors.name = "Name must not be empty";
     }
-    if (lead.organization === "" && lead.contact === "") {
+    if (isBlank(lead.organization) && isBlank(lead.contact)) {
       errors.organization = "Organisation or contact must not be empty";
       errors.contact = "Contact or organisation must not be empty";
     }
@@ -121,8 +123,7 @@ class AddLead extends React.Component {
       <div>
         <div id="tool-panel">
           <button type="button" className="AppLead__btn AppLead__btn--green tool-panel__button"
-                  onClick={this.openModal}
-          >
+                  onClick={this.openModal}>
             Add lead
           </button>
         </div>
@@ -130,74 +131,63 @@ class AddLead extends React.Component {
         <Modal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
-          style={customStyles}
-        >
-          <div className="">
-            <header className="AppLead__form-header">Add lead
-            </header>
-            <button type="button"
-                    onClick={this.closeModal}
-                    aria-label="Close"
-                    className="AppLead__modal-btn--close"
-            >
+          style={customStyles}>
+          <header className="AppLead__form-header">
+            Add lead
+          </header>
+          <button type="button"
+                  onClick={this.closeModal}
+                  aria-label="Close"
+                  className="AppLead__modal-btn--close">
               <span aria-hidden="true"
-                    className="close AppLead__icon--close"
-              >&times;</span>
-            </button>
-          </div>
-          <div className="">
-            <form
-              autoComplete="off"
-              className="AppLead__form"
-            >
-              <label className="AppLead__input-label">
-                Contact person name
-              </label>
-              <div className={classNames("AppLead__input-container",
-                { "AppLead__input-container--invalid": validationIsShown && errors.contact })}
-              >
-                <i className="fas fa-user AppLead__input-icon"/>
-                <input
-                  name="contact"
-                  type="text"
-                  className="AppLead__form-input"
-                  onChange={this.onChange}
-                />
-              </div>
+                    className="close AppLead__icon--close">
+                &times;
+              </span>
+          </button>
+          <form
+            autoComplete="off"
+            className="AppLead__form">
+            <label className="AppLead__input-label">
+              Contact person name
+            </label>
+            <div className={classNames("AppLead__input-container",
+              { "AppLead__input-container--invalid": validationIsShown && errors.contact })}>
+              <i className="fas fa-user AppLead__input-icon"/>
+              <input
+                name="contact"
+                type="text"
+                className="AppLead__form-input"
+                onChange={this.onChange}/>
+            </div>
 
-              <label className="AppLead__input-label">
-                Organization name
-              </label>
-              <div className={classNames("AppLead__input-container",
-                { "AppLead__input-container--invalid": validationIsShown && errors.organization })}>
-                <i className="fas fa-building AppLead__input-icon"/>
-                <input
-                  name="organization"
-                  type="text"
-                  className="AppLead__form-input"
-                  onChange={this.onChange}
-                />
-              </div>
+            <label className="AppLead__input-label">
+              Organization name
+            </label>
+            <div className={classNames("AppLead__input-container",
+              { "AppLead__input-container--invalid": validationIsShown && errors.organization })}>
+              <i className="fas fa-building AppLead__input-icon"/>
+              <input
+                name="organization"
+                type="text"
+                className="AppLead__form-input"
+                onChange={this.onChange}/>
+            </div>
 
-              <label className="AppLead__input-label">
-                Lead title
-              </label>
-              <div className={classNames("AppLead__input-container",
-                { "AppLead__input-container--invalid": validationIsShown && errors.name })}>
-                <input
-                  name="name"
-                  type="text"
-                  className="AppLead__form-input"
-                  onChange={this.onChange}
-                />
-              </div>
-              {/*<label className="AppLead__input_label">Pipeline Stage</label>*/}
-            </form>
-          </div>
+            <label className="AppLead__input-label">
+              Lead title
+            </label>
+            <div className={classNames("AppLead__input-container",
+              { "AppLead__input-container--invalid": validationIsShown && errors.name })}>
+              <input
+                name="name"
+                type="text"
+                className="AppLead__form-input"
+                onChange={this.onChange}/>
+            </div>
+          </form>
           <div className="AppLead__form-footer">
             <button type="button" className="AppLead__btn AppLead__btn--green AppLead__btn--save"
-                    onClick={this.onSubmit}
-            >
+                    onClick={this.onSubmit}>
               Save
             </button>
           </div>
