@@ -13,11 +13,11 @@
 .EditLeadStageProgress__container li {
   float: left;
   padding: 10px 30px 10px 40px;
-  background: #2cbf55;
+  background: #e5e5e5;
   color: #fff;
   position: relative;
-  border-top: 1px solid #2cbf55;
-  border-bottom: 1px solid #2cbf55;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
   margin: 0 1px auto auto;
   height: 20px;
 }
@@ -34,7 +34,7 @@
 }
 .EditLeadStageProgress__container li:after {
   content: '';
-  border-left: 10px solid #2cbf55;
+  border-left: 10px solid #e5e5e5;
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
   position: absolute;
@@ -44,9 +44,9 @@
 }
 
 .EditLeadStageProgress__container li.active {
-  background: #0ac500;
+  background: #2cbf55;
 }
 
 .EditLeadStageProgress__container li.active:after {
-  border-left-color: #fff;
+  border-left-color: #2cbf55;
 }
