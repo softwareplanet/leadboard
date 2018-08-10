@@ -1,149 +1,55 @@
-* { box-sizing:border-box; }
-
-#login-container {
-    display: flex;
-    justify-content: center;
-    padding-top: 100px;
-}
-
-#login-form {
-    width: 650px;
+#Login__form {
+    width: 100%;
     background-color: white;
-    padding: 80px 60px;
+    padding: 80px 0px;
 }
 
-.login-form__title {
+.Login__form-title {
     font-size: 42px;
     color: #26292C;
     text-align: center;
-    padding-bottom: 50px;
+    padding-bottom: 10px;
 }
 
-.login-form__field-error {
-color: #e84646;
-font-size: 12px;
+.Login__form-field {
+    color: #e84646;
+    font-size: 12px;
 }
 
-.login-form__control {
-    margin-top: 50px;
-    margin-bottom: 20px;
-    margin-left: 85px;
-}
-
-.login-form__registerLink {
-    width: 230px;
+.Login__form-button {
+    font-size: 22px;
+    background: #2cbf55;
     margin: auto;
 }
 
-.container 		{
-    font-family:'Roboto';
-    width:600px;
-    margin:30px auto 0;
-    display:block;
-    background:#FFF;
-    padding:10px 50px 50px;
-}
-h2 		 {
-    text-align:center;
-    margin-bottom:50px;
-}
-h2 small {
-    font-weight:normal;
-    color:#888;
-    display:block;
-}
-.footer 	{ text-align:center; }
-.footer a  { color:#53B2C8; }
-
-/* form starting stylings ------------------------------- */
-.group 			  {
-    position:relative;
-    margin-bottom:45px;
-}
-input 				{
-    font-size:20px;
-    padding:10px 10px 15px 5px;
-    display:block;
-    width:100%;
-    border:none;
-    border-bottom:1px solid #757575;
-}
-input:focus 		{ outline:none; }
-
-/* LABEL ======================================= */
-label 				 {
-    color:#999;
-    font-size:18px;
-    font-weight:normal;
-    position:absolute;
-    pointer-events:none;
-    left:5px;
-    top:10px;
-    transition:0.2s ease all;
-    -moz-transition:0.2s ease all;
-    -webkit-transition:0.2s ease all;
+.Login__form-control {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 20px;
 }
 
-/* active state */
-input:focus ~ label, input:valid ~ label 		{
-    top:-20px;
-    font-size:14px;
-    color:#999;
+.Login__form-registerLink {
+    margin-top:5px;
+    margin-bottom: -15px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
-/* BOTTOM BARS ================================= */
-.bar 	{ position:relative; display:block; width:100%; }
-.bar:before, .bar:after 	{
-    content:'';
-    height:2px;
-    width:0px;
-    bottom:1px;
-    position:absolute;
-    background:#5264AE;
-    transition:0.2s ease all;
-    -moz-transition:0.2s ease all;
-    -webkit-transition:0.2s ease all;
-}
-.bar:before {
-    left:50%;
-}
-.bar:after {
-    right:50%;
+#Login__container {
+    max-width: 550px;
+    justify-content: center;
+    font-family: "MuseoSans","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,"Helvetica Neue",Verdana,sans-serif;
+    position: relative;
+    margin: 30px auto 0;
+    display: block;
+    background: #FFF;
+    padding: 5% 10px;
 }
 
-/* active state */
-input:focus ~ .bar:before, input:focus ~ .bar:after {
-    width:50%;
-}
-
-/* HIGHLIGHTER ================================== */
-.highlight {
-    position:absolute;
-    height:30%;
-    width:100px;
-    top:25%;
-    left:0;
-    pointer-events:none;
-    opacity:0.5;
-}
-
-/* active state */
-input:focus ~ .highlight {
-    -webkit-animation:inputHighlighter 0.3s ease;
-    -moz-animation:inputHighlighter 0.3s ease;
-    animation:inputHighlighter 0.3s ease;
-}
-
-/* ANIMATIONS ================ */
-@-webkit-keyframes inputHighlighter {
-    from { background:#5264AE; }
-    to 	{ width:0; background:transparent; }
-}
-@-moz-keyframes inputHighlighter {
-    from { background:#5264AE; }
-    to 	{ width:0; background:transparent; }
-}
-@keyframes inputHighlighter {
-    from { background:#5264AE; }
-    to 	{ width:0; background:transparent; }
+.Login__form-field {
+    width: 100%;
+    font-size: 22px;
 }

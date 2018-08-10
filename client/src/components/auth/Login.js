@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
-import classname from "classnames";
-import './Login.css'
+// import './Login.css'
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
+import InputGroup from "../common/InputGroup/InputGroup";
 class Login extends Component {
   constructor() {
     super();
@@ -29,10 +29,7 @@ class Login extends Component {
     if (nextProps.auth.isAuthenticated) {
       this.props.history.push('/home');
     }
-
-    if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
-    }
   }
 
   onChange(event) {
@@ -52,50 +49,39 @@ class Login extends Component {
     const { errors } = this.state;
 
     return (
-      <div id="login-container">
+      <div id="Login__container">
+        <p className="test">asd</p>
         <form  onSubmit={this.onSubmit}>
-          <div id="login-form">
-            <div className="login-form__title">Log in</div>
-            <div
-              className={classname("group", {
-                "login-form__field-red": errors.email
-              })}
-            >
-              <input type="text"
-                     name="email"
-                     value={this.state.email}
-                     onChange={this.onChange}
-                     required
-              />
-              <span className="highlight"/>
-              <span className="bar"/>
-              <label>Email</label>
-              {errors.email && <div className="login-form__field-error">{errors.email}</div>}
-            </div>
-            <div
-              className={classname(" group login-form__field", {
-                "login-form__field-red": errors.password
-              })}
-            >
-              <input id="password"
-                     name="password"
-                     value={this.state.password}
-                     type="password"
-                     onChange={this.onChange}
-                     required
-              />
-              <span className="highlight"/>
-              <span className="bar"/>
-              <label>Password</label>
-              {errors.password && <div className="login-form__field-error">{errors.password}</div>}
-            </div>
-            <div className="login-form__control">
-              <button className="big-button" type="submit">
+          <div id="Login__form">
+            <div className="Login__form-title">Log in</div>
+            <InputGroup
+              className="Login__form-field"
+              id="with-placeholder"
+              name="email"
+              value={this.state.email}
+              onChange={this.onChange}
+              label="Email"
+              placeholder="Email"
+              error={errors.email}
+            />
+            <InputGroup
+              className="Login__form-field"
+              id="with-placeholder"
+              name="password"
+              value={this.state.password}
+              onChange={this.onChange}
+              label="Password"
+              placeholder="Password"
+              error={errors.password}
+              type={'password'}
+            />
+            <div className="Login__form-control">
+              <button className="Login__form-button big-button" type="submit">
                 Log in
               </button>
-              <div>
+              <div className="Login__form-registerLink">
                 <Link to="/register">
-                  <p className="login-form__registerLink">Don't have an account?</p>
+                  <p >Don't have an account?</p>
                 </Link>
               </div>
             </div>
