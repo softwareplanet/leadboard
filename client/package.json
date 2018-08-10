@@ -7,7 +7,9 @@
     "classnames": "^2.2.6",
     "jest": "^23.4.2",
     "jwt-decode": "^2.2.0",
+    "lodash": "^4.17.10",
     "lodash.isempty": "^4.4.0",
+    "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dnd": "^5.0.0",
     "react-dnd-html5-backend": "^5.0.1",
@@ -17,6 +19,7 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
     "redux": "^4.0.0",
+    "redux-devtools-extension": "^2.13.5",
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
@@ -26,5 +29,9 @@
     "test": "jest",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:5000"
+  "proxy": "http://localhost:5000",
+  "devDependencies": {
+    "enzyme": "^3.4.1",
+    "enzyme-adapter-react-16": "^1.2.0"
+  }
 }
