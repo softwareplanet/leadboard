@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { loadLeadboard } from "../actions/leadActions";
+import { loadLeadboard } from "../../actions/leadActions";
 import "./Dashboard.css";
 
-import Lead from "./Lead";
+import Lead from "../Lead";
 
 class Dashboard extends Component {
   constructor() {
@@ -51,14 +51,18 @@ class Dashboard extends Component {
       return <div/>;
 
     leads = this.props.leads.leads["_" + stage].leads.map(lead => {
-      return <Lead key={lead._id} lead={{ name: lead.name, company: "SPG_" }}/>;
+      return <Lead key={lead._id} lead={lead}
+                   link={`/funnel/${
+                     this.props.leads.funnels && this.props.leads.funnels.length > 0 ?
+                       this.props.leads.funnels[0]._id :
+                       0
+                   }/lead/${lead._id}`}/>;
     });
     return leads;
   };
 
   createEmptyLeadCards = (stage, index) => {
     let emptyLeads = [];
-
     for (let i = 0; i < this.props.leads.stages.length - index; i++) {
       emptyLeads.push(<div className="dashboard__stage__empty-card"/>);
     }
@@ -73,9 +77,10 @@ class Dashboard extends Component {
     const noLeads = this.isStagesEmpty();
     let stages = this.props.leads.stages.map((stage, index) => {
       let leads = this.createLeadCards(stage._id);
+
       return (
         <div className="dashboard__stage" key={stage._id}>
-          <div className={'dashboard__head' + (noLeads ? ' dashboard__head--no-leads' : '')}>
+          <div className={"dashboard__head" + (noLeads ? " dashboard__head--no-leads" : "")}>
             <div>
               <span className="stage__name">{stage.name}</span>
               {
@@ -90,7 +95,9 @@ class Dashboard extends Component {
           {
             leads
           }
-          <div className="dashboard__stage__card-terminator">{ noLeads ? this.createEmptyLeadCards(stage, index) : <div/> }</div>
+          <div className="dashboard__stage__card-terminator">
+            { noLeads ? this.createEmptyLeadCards(stage, index) : <div/> }
+          </div>
         </div>
       );
     });
