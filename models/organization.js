@@ -11,7 +11,7 @@ const organizationSchema = new mongoose.Schema({
 
 
 
-organizationSchema.statics.findOneByIdOrCreate = (organizationData) => {
+organizationSchema.statics.findOneOrCreate = (organizationData) => {
   if(mongoose.Types.ObjectId.isValid(organizationData.organization)) {
     return Organization.findById(organizationData.organization);
   }

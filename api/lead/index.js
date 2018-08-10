@@ -15,7 +15,7 @@ const router = new Router();
 // @access  Private
 router.get("/", require_auth, function (req, res) {
     Lead.find({stage: req.query.stage})
-        .populate("contact")
+        .populate({path:'contact', populate:{path:'organization'}})
         .sort({order: "asc"})
         .then(leads => {
             res.json({data: leads});
@@ -28,12 +28,12 @@ router.get("/", require_auth, function (req, res) {
 // @route   POST api/lead
 // @desc    Create lead
 // @access  Private
-router.post("/", require_auth, function(req, res) {
+router.post("/", function(req, res) {
     const {hasErrors, errors} = validateLeadInput(req.body);
     if (hasErrors) return res.status(400).json({errors});
 
     if (req.body.organization) {
-        Organization.findOneByIdOrCreate(req.body)
+        Organization.findOneOrCreate(req.body)
             .then(organization => {
                 let body = {...req.body, organization: organization._id};
                 createLead({...req, body: body}, res);
@@ -44,7 +44,7 @@ router.post("/", require_auth, function(req, res) {
 });
 
 const createLead = (req, res) => {
-    Contact.findOneByIdOrCreate(req.body)
+    Contact.findOneOrCreate(req.body)
         .then((contact) => {
             let lead = {
                 _id: new mongoose.Types.ObjectId(),

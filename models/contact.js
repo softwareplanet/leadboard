@@ -10,7 +10,7 @@ const contactSchema = new mongoose.Schema({
     timestamp: {type: Date, default: Date.now}
 });
 
-contactSchema.statics.findOneByIdOrCreate = (contactData) => {
+contactSchema.statics.findOneOrCreate = (contactData) => {
     if (mongoose.Types.ObjectId.isValid(contactData.contact)) {
         return Contact.findById(contactData.contact);
     }
