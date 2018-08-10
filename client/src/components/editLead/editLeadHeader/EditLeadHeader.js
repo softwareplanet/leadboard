@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { loadLead } from "../../../actions/leadActions";
 import "./EditLeadHeader.css";
 import EditLeadStageProgress from "./editLeadStageList/EditLeadStageProgress";
+import dropDownIcon from '../../../img/drop-down-arrow.svg'
 
 class EditLeadHeader extends Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class EditLeadHeader extends Component {
               <span>{editLead ? editLead.owner.firstname + " " + editLead.owner.lastname : null}</span>
               <small className={'text-muted'}>Owner</small>
             </div>
+            <img className={'EditLeadHeader__dropdown-icon'} src={dropDownIcon} />
           </div>
         </div>
         <div className={"EditLeadHeader__main"}>
