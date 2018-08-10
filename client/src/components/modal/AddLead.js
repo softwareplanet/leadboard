@@ -120,7 +120,7 @@ class AddLead extends React.Component {
     return (
       <div>
         <div id="tool-panel">
-          <button type="button" className="AppLead__btn AppLead__btn-green tool-panel__button"
+          <button type="button" className="AppLead__btn AppLead__btn--green tool-panel__button"
                   onClick={this.openModal}
           >
             Add lead
@@ -133,15 +133,15 @@ class AddLead extends React.Component {
           style={customStyles}
         >
           <div className="">
-            <header className="AppLead__form_header">Add lead
+            <header className="AppLead__form-header">Add lead
             </header>
             <button type="button"
                     onClick={this.closeModal}
                     aria-label="Close"
-                    className="AppLead__modal_btn-close"
+                    className="AppLead__modal-btn--close"
             >
               <span aria-hidden="true"
-                    className="close AppLead__icon-close"
+                    className="close AppLead__icon--close"
               >&times;</span>
             </button>
           </div>
@@ -150,52 +150,52 @@ class AddLead extends React.Component {
               autoComplete="off"
               className="AppLead__form"
             >
-              <label className="AppLead__input_label">
+              <label className="AppLead__input-label">
                 Contact person name
               </label>
-              <div className={classNames("AppLead__input_container",
-                { "AppLead__input_container-invalid": validationIsShown && errors.contact })}
+              <div className={classNames("AppLead__input-container",
+                { "AppLead__input-container--invalid": validationIsShown && errors.contact })}
               >
-                <i className="fas fa-user AppLead__input_icon"/>
+                <i className="fas fa-user AppLead__input-icon"/>
                 <input
                   name="contact"
                   type="text"
-                  className="AppLead__form_input"
+                  className="AppLead__form-input"
                   onChange={this.onChange}
                 />
               </div>
 
-              <label className="AppLead__input_label">
+              <label className="AppLead__input-label">
                 Organization name
               </label>
-              <div className={classNames("AppLead__input_container",
-                { "AppLead__input_container-invalid": validationIsShown && errors.organization })}>
-                <i className="fas fa-building AppLead__input_icon"/>
+              <div className={classNames("AppLead__input-container",
+                { "AppLead__input-container--invalid": validationIsShown && errors.organization })}>
+                <i className="fas fa-building AppLead__input-icon"/>
                 <input
                   name="organization"
                   type="text"
-                  className="AppLead__form_input"
+                  className="AppLead__form-input"
                   onChange={this.onChange}
                 />
               </div>
 
-              <label className="AppLead__input_label">
+              <label className="AppLead__input-label">
                 Lead title
               </label>
-              <div className={classNames("AppLead__input_container",
-                { "AppLead__input_container-invalid": validationIsShown && errors.name })}>
+              <div className={classNames("AppLead__input-container",
+                { "AppLead__input-container--invalid": validationIsShown && errors.name })}>
                 <input
                   name="name"
                   type="text"
-                  className="AppLead__form_input"
+                  className="AppLead__form-input"
                   onChange={this.onChange}
                 />
               </div>
               {/*<label className="AppLead__input_label">Pipeline Stage</label>*/}
             </form>
           </div>
-          <div className="AppLead__form_footer">
-            <button type="button" className="AppLead__btn AppLead__btn-green AppLead__btn-save"
+          <div className="AppLead__form-footer">
+            <button type="button" className="AppLead__btn AppLead__btn--green AppLead__btn--save"
                     onClick={this.onSubmit}
             >
               Save
