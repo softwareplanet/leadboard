@@ -5,13 +5,14 @@ import "./EditLeadStageProgress.css";
 
 class EditLeadStageProgress extends Component {
   render() {
-    let stages = this.props.leads.stages.map((stage, index) => {
-      return <EditLeadStage active={stage.order <= index} stages={this.props.leads.stages} {...stage} />;
+
+    let stages = this.props.leads.stages.map(stage => {
+      let active = stage.order <= this.props.leads.editLead.stage.order ;
+      return <EditLeadStage active={active} stages={this.props.leads.stages} {...stage} />;
     });
 
 
     return (
-
       <div>
         <ul className={"EditLeadStageProgress__container"}>
           {stages}

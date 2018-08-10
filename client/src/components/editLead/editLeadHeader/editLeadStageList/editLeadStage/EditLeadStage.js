@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./EditLeadStage.css";
+import classNames  from 'classnames'
 
 export default class EditLeadStage extends Component {
   constructor(props) {
@@ -10,15 +11,9 @@ export default class EditLeadStage extends Component {
     let width = {
       width : `${(100/this.props.stages.length)-1}%`
     };
-    let oneDay = 24*60*60*1000;
-    let stageDate = new Date(this.props.timestamp);
-    let now = new Date();
-
-    let diffDays = this.getDays(stageDate, now, oneDay);
 
     return (
-      <li className={!this.props.active ? 'active' : ''} data-toggle="tooltip" data-placement="bottom" title={this.props.name} style={width}>
-        {!this.props.active ? diffDays : ''}
+      <li className={this.props.active ? 'active' : ''} data-toggle="tooltip" data-placement="bottom" title={this.props.name} style={width}>
       </li>
     );
   }
