@@ -1,0 +1,53 @@
+
+.EditLeadStageProgress__container{
+  padding: 0;
+    list-style-type: none;
+    font-family: arial;
+    font-size: 12px;
+    clear: both;
+    line-height: 1em;
+    margin: 0 -1px;
+    text-align: center;
+}
+
+.EditLeadStageProgress__container li {
+  float: left;
+  padding: 10px 30px 10px 40px;
+  background: #2cbf55;
+  color: #fff;
+  position: relative;
+  border-top: 1px solid #2cbf55;
+  border-bottom: 1px solid #2cbf55;
+  width: 32%;
+  margin: 0 1px;
+  height: 20px;
+}
+
+.EditLeadStageProgress__container li:before {
+  content: '';
+  border-left: 10px solid #fff;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  
+}
+.EditLeadStageProgress__container li:after {
+  content: '';
+  border-left: 10px solid #2cbf55;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  z-index: 20;
+}
+
+.EditLeadStageProgress__container li.active {
+  background: #0ac500;
+}
+
+.EditLeadStageProgress__container li.active:after {
+  border-left-color: #0AC500;
+}
