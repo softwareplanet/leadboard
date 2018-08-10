@@ -1,40 +1,50 @@
 import React, { Component } from "react";
-import "./PersonEditCard.css";
+import "../EditCard.css";
 
 export default class PersonEditCard extends Component {
     render() {
         return (
-            <div className='person-card'>
-                <div className='card-title'>
-                    <span className="columnItem">Organization</span>
+            <div className='SideCard'>
+                <div className='SideCard__title'>
+                    <span className='SideCard__title-name'>
+                        Organization
+                    </span>
+                    <div className='SideCard__actions'>
+                    </div>
                 </div>
+                <div className='SideCard__fields'>
+                    <div className='SideCard__field'>
+                        <div className='SideCard__field-value'>
+                            <div className='SideCard__field-value-wrap'>
+                                <span className='SideCard__field-value-badge'>
 
-                <div className='fields-list'>
-                    <div className='visible'>
-                        <div className='item'>
-                            <div className='value-wrap'>
-                            <span className='bange'>
-
-                            </span>
-                                <h3 className='name-label'>
-                                    <a href='#'>
+                                </span>
+                                <h3>
+                                    <a className='SideCard__field-value-name'>
                                         Bob
                                     </a>
                                 </h3>
                             </div>
                         </div>
                     </div>
+                    <div className='SideCard__field'>
+                        <div className='SideCard__field-value--highlight'>
+                            <div className='SideCard__field-value'>
 
-                    <div className='visible'>
-                        <div className='item phone-field'>
-                            <div className='label-wrap'>
-                                <span className="label">Address</span>
-                            </div>
-                            <span className='add-value'>
-                                <a className='button-add-value'>
-                                    + Add value
-                                </a>
+
+
+                                <div className='SideCard__field-label-wrap'>
+                                    <div className='SideCard__field-label'>
+                                        Address
+                                    </div>
+
+                                </div>
+                                <span className='SideCard__field-value-add-value'>
+                                <div className='SideCard__field-value-add-button'>
+                                        + Add value
+                                </div>
                             </span>
+                            </div>
                         </div>
                     </div>
                 </div>

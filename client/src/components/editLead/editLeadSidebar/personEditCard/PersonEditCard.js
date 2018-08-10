@@ -44,7 +44,7 @@ import '../EditCard.css';
                                 </div>
 
                             </div>
-                            <span className='SideCard__field-value--add-value'>
+                            <span className='SideCard__field-value-add-value'>
                                 <div className='SideCard__field-value-add-button'>
                                         + Add value
                                 </div>
@@ -60,7 +60,7 @@ import '../EditCard.css';
                                         Email
                                     </div>
                                 </div>
-                                <span className='SideCard__field-value--add-value'>
+                                <span className='SideCard__field-value-add-value'>
                                     <div className='SideCard__field-value-add-button'>
                                             + Add value
                                     </div>
