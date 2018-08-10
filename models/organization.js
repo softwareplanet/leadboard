@@ -13,7 +13,17 @@ const organizationSchema = new mongoose.Schema({
 
 organizationSchema.statics.findOneOrCreate = (organizationData) => {
   if(mongoose.Types.ObjectId.isValid(organizationData.organization)) {
-    return Organization.findById(organizationData.organization);
+    return Organization.findById(organizationData.organization).then(organization => {
+        if(organization===null) {
+            return Organization.create({
+                _id:new mongoose.Types.ObjectId(),
+                name:organizationData.organization,
+                domain: mongoose.Types.ObjectId(organizationData.domain)});
+        } else {
+            return Promise.resolve(organization);
+        }
+
+    }).catch(error => Promise.reject(error));
   }
    return Organization.create({
        _id:new mongoose.Types.ObjectId(),

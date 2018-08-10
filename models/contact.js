@@ -11,20 +11,24 @@ const contactSchema = new mongoose.Schema({
 });
 
 contactSchema.statics.findOneOrCreate = (contactData) => {
-    if (mongoose.Types.ObjectId.isValid(contactData.contact)) {
-        return Contact.findById(contactData.contact);
-    }
-
     let organization = contactData.organization ? {organization: mongoose.Types.ObjectId(contactData.organization)} : {};
-    let contact = {
+    let contactName = contactData.contact ? {name:contactData.contact} : {};
+    let newContact = {
         _id: new mongoose.Types.ObjectId(),
-        name: contactData.contact,
+        ...contactName,
         domain: contactData.domain? mongoose.Types.ObjectId(contactData.domain):'',
         ...organization
     };
 
-    return Contact.create(contact);
+    if (contactData.contact && mongoose.Types.ObjectId.isValid(contactData.contact)) {
+        return Contact.findById(contactData.contact).then( contact => {
+            if(contact===null) {
+                return Contact.create(newContact)
+            }
+        })
+    }
 
+    return Contact.create(newContact);
 };
 
 const Contact = mongoose.model("Contact", contactSchema);

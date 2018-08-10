@@ -3,7 +3,9 @@ import mongoose from "mongoose";
 
 import {require_auth} from "../authorize";
 
-const validateLeadInput = require("../../validation/lead");
+import validateLeadInput from "../../validation/lead";
+import isEmpty from "lodash.isempty";
+
 import Lead from "../../models/lead";
 import Contact from '../../models/contact';
 import Organization from '../../models/organization';
@@ -28,7 +30,7 @@ router.get("/", require_auth, function (req, res) {
 // @route   POST api/lead
 // @desc    Create lead
 // @access  Private
-router.post("/", function(req, res) {
+router.post("/", require_auth, function(req, res) {
     const {hasErrors, errors} = validateLeadInput(req.body);
     if (hasErrors) return res.status(400).json({errors});
 
@@ -36,7 +38,9 @@ router.post("/", function(req, res) {
         Organization.findOneOrCreate(req.body)
             .then(organization => {
                 let body = {...req.body, organization: organization._id};
-                createLead({...req, body: body}, res);
+                if(isEmpty(body.contact))
+                    delete body['contact'];
+                createLead({body: body}, res);
             })
     } else {
         createLead(req, res);
