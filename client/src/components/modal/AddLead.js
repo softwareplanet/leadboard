@@ -6,6 +6,7 @@ import { createLead } from "../../actions/leadActions";
 import classNames from "classnames";
 import "./AddLead.css";
 import { isEmpty } from "lodash";
+import SelectStageOnCreation from "./select_stage/SelectStageOnCreation";
 
 const customStyles = {
   content: {
@@ -115,6 +116,10 @@ class AddLead extends React.Component {
     }
   }
 
+  selectStageHandler(stage){
+    this.setState({stage: stage._id})
+  }
+
   render() {
     const { errors, validationIsShown } = this.state;
     return (
@@ -191,6 +196,7 @@ class AddLead extends React.Component {
                   onChange={this.onChange}
                 />
               </div>
+              <SelectStageOnCreation stages={this.props.leads.stages} onStageChange={this.selectStageHandler} selectedStage={this.state.stage}/>
               {/*<label className="AppLead__input_label">Pipeline Stage</label>*/}
             </form>
           </div>

@@ -43,7 +43,6 @@ class SelectStageOnCreation extends Component {
           <input id={"stage-" + stage._id}
                  type="radio"
                  value={stage._id}
-                 // checked={this.props.selectedStage.name === stage.name}
                  defaultChecked={true}
                  onClick={(e) => {
                    this.activateStageStyle(e);
@@ -71,7 +70,6 @@ class SelectStageOnCreation extends Component {
       );
     }): <span>You have not add any stages</span>;
 
-    // console.log(this.props.leads.stages);
     return ( <div className="stages">
         <div className="field">
           <label  className="AppLead__input-label">
