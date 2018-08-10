@@ -44,6 +44,12 @@
   height: 10px;
 }
 
-h4{
+.EditLeadHeader__lead-name--hover:hover {
+  text-decoration: none;
+  cursor: pointer;
+  background-color: #fffcdc;
+}
+
+.EditLeadHeader__lead-name {
   font: 400 24px/32px "Open Sans";
 }

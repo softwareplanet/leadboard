@@ -15,7 +15,7 @@ class EditLeadHeader extends Component {
     return (
       <div className="EditLeadHeader">
         <div className={"EditLeadHeader__description"}>
-          <h4>{editLead ? editLead.name : null} lead</h4>
+          <h4 className={'EditLeadHeader__lead-name--hover EditLeadHeader__lead-name'}>{editLead ? editLead.name : null} lead</h4>
           <div className={"EditLeadHeader__owner"}>
             <img src={'https://webapp.pipedriveassets.com/images/icons/profile_120x120.svg'} className={'EditLeadHeader__owner-picture rounded-circle'}/>
             <div className={'EditLeadHeader__owner-body'}>
@@ -26,7 +26,6 @@ class EditLeadHeader extends Component {
           </div>
         </div>
         <div className={"EditLeadHeader__main"}>
-          <h4>{editLead ? editLead.price : null} </h4>
           <EditLeadStageProgress />
         </div>
       </div>
