@@ -5,7 +5,9 @@ import { connect } from "react-redux";
 import { createLead } from "../../actions/leadActions";
 import classNames from "classnames";
 import "./AddLead.css";
-import { isEmpty } from "lodash";
+import { isEmpty, flow, trim } from "lodash/fp";
+
+const isBlank = flow(trim, isEmpty);
 
 const customStyles = {
   content: {
@@ -82,10 +84,10 @@ class AddLead extends React.Component {
 
   validateDeal(lead) {
     let errors = {};
-    if (lead.name === "") {
+    if (isBlank(lead.name)) {
       errors.name = "Name must not be empty";
     }
-    if (lead.organization === "" && lead.contact === "") {
+    if (isBlank(lead.organization) && isBlank(lead.contact)) {
       errors.organization = "Organisation or contact must not be empty";
       errors.contact = "Contact or organisation must not be empty";
     }
