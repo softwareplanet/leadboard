@@ -18,18 +18,20 @@ export default function(state = initialState, action) {
         ...state,
         stages: action.payload
       };
-    case LOAD_LEADS:
+      case LOAD_LEAD:
+          let lead = Object.assign({}, action.payload);
+      return {
+          ...state,
+          leads: lead
+      };
+      case LOAD_LEADS:
       let leads = Object.assign({}, state.leads);
       leads["_" + action.stage] = { leads: action.payload };
       return {
         ...state,
         leads: leads
       };
-      case LOAD_LEAD:
-        return {
-            ...state,
-            lead: action.payload
-        };
+
     default:
       return state;
   }

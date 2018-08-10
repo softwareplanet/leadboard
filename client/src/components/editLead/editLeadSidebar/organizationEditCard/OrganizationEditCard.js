@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "../EditCard.css";
 
-export default class PersonEditCard extends Component {
+export default class OrganizationEditCard extends Component {
     render() {
         return (
             <div className='SideCard'>
@@ -21,7 +21,7 @@ export default class PersonEditCard extends Component {
                                 </span>
                                 <h3>
                                     <a className='SideCard__field-value-name'>
-                                        Bob
+                                        Apple
                                     </a>
                                 </h3>
                             </div>

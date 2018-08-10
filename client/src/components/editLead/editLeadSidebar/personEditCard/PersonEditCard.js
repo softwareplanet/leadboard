@@ -1,13 +1,39 @@
 import React, { Component } from "react";
-/*import "./PersonEditCard.css";*/
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import '../EditCard.css';
+import { loadLead } from '../../../../actions/leadActions'
 
  class PersonEditCard extends Component {
-     constructor(props){
-         super(props);
+
+     constructor(){
+         super();
+         this.state = {
+             leadId: '',
+             leads: {}
+         }
+     }
+
+     componentWillReciveProps(nextProps){
+        if(nextProps){
+            this.setState({
+                leadId: nextProps,
+                leads: {}
+            })
+        }
+     }
+
+     componentDidMount(){
+         let id = '5b6d7b35401106620b1a1a6d';
+         this.props.loadLead(id);
      }
 
     render() {
+
+         const { leads } = this.props.leads;
+         if(!Object.values(leads).length) {
+             return <div />;
+         }
         return (
             <div className='SideCard'>
                 <div className='SideCard__title'>
@@ -26,7 +52,7 @@ import '../EditCard.css';
                                 </span>
                                 <h3>
                                     <a className='SideCard__field-value-name'>
-                                        Bob
+                                        {leads.contact.name}
                                     </a>
                                 </h3>
                             </div>
@@ -34,22 +60,18 @@ import '../EditCard.css';
                     </div>
                     <div className='SideCard__field'>
                         <div className='SideCard__field-value--highlight'>
-                        <div className='SideCard__field-value'>
-
-
-
-                            <div className='SideCard__field-label-wrap'>
-                                <div className='SideCard__field-label'>
-                                        Phone
+                            <div className='SideCard__field-value'>
+                                <div className='SideCard__field-label-wrap'>
+                                    <div className='SideCard__field-label'>
+                                            Phone
+                                    </div>
                                 </div>
-
+                                <span className='SideCard__field-value-add-value'>
+                                    <div className='SideCard__field-value-add-button'>
+                                            + Add value
+                                    </div>
+                                </span>
                             </div>
-                            <span className='SideCard__field-value-add-value'>
-                                <div className='SideCard__field-value-add-button'>
-                                        + Add value
-                                </div>
-                            </span>
-                        </div>
                         </div>
                     </div>
                     <div className='SideCard__field'>
@@ -70,58 +92,17 @@ import '../EditCard.css';
                     </div>
                 </div>
             </div>
-            /*
-            <div className='person-card'>
-                <div className='card-title'>
-                    <span className="columnItem">Person</span>
-                    <div className='column-actions'></div>
-                </div>
-
-                <div className='fields-list'>
-                    <div className='visible'>
-                        <div className='item'>
-                        <div className='value-wrap'>
-                            <span className='bange'>
-
-                            </span>
-                            <h3 className='name-label'>
-                                <a href='#'>
-                                    Bob
-                                </a>
-                            </h3>
-                        </div>
-                        </div>
-                    </div>
-
-                    <div className='visible'>
-                        <div className='item phone-field'>
-                            <div className='label-wrap'>
-                                <span className="label">Phone</span>
-                            </div>
-                            <span className='add-value'>
-                                <a className='button-add-value'>
-                                    + Add value
-                                </a>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div className='visible'>
-                        <div className='item email-field'>
-                            <div className='label-wrap'>
-                                <span className="label">Email</span>
-                            </div>
-                            <span className='add-value'>
-                                    <a className='button-add-value'>
-                                        + Add value
-                                    </a>
-                                </span>
-                        </div>
-                    </div>
-                </div>
-            </div>*/
         )
     }
 }
 
-export default PersonEditCard;
+PersonEditCard.propTypes = {
+    loadLead: PropTypes.func.isRequired,
+    leads: PropTypes.object.isRequired
+};
+
+const mapStateToProps = (state) => ({
+    leads: state.leads
+});
+
+export default connect(mapStateToProps, { loadLead })(PersonEditCard);

@@ -7,7 +7,7 @@ const leadSchema = new mongoose.Schema({
   visibility: Number,
   name: String,
   order: { type: Number, index: { unique: false } },
-  contact: { type: mongoose.Schema.Types.ObjectId },
+  contact: { type: mongoose.Schema.Types.ObjectId , ref: 'Contact' },
   custom: [{ name: "string", value: "string" }],
   timestamp: { type: Date, default: Date.now }
 });

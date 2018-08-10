@@ -2,8 +2,11 @@ import { Router } from "express";
 import mongoose from "mongoose";
 
 import { require_auth } from "../authorize";
+
 const validateLeadInput = require("../../validation/lead");
 import Lead from "../../models/lead";
+import contact from '../../models/contact';
+import organization from '../../models/organization';
 
 const router = new Router();
 
@@ -12,6 +15,7 @@ const router = new Router();
 // @access  Private
 router.get("/", require_auth, function(req, res) {
   Lead.find({ stage: req.query.stage })
+      .populate({path:'contact', populate:{path:'organization'}})
     .sort({ order: "asc" })
     .then(leads => {
       res.json({ data: leads });
@@ -24,11 +28,11 @@ router.get("/", require_auth, function(req, res) {
 // @route   POST api/lead
 // @desc    Create lead
 // @access  Private
-router.post("/", require_auth, function(req, res) {
+router.post("/", function(req, res) {
   const { hasErrors, errors } = validateLeadInput(req.body);
   if (hasErrors) return res.status(400).json({ errors });
-
-  const lead = {
+  createLead(req, res);
+  /*const lead = {
     _id: new mongoose.Types.ObjectId(),
     owner: req.body.owner,
     stage: req.body.stage,
@@ -41,12 +45,37 @@ router.post("/", require_auth, function(req, res) {
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });
-    });
+    });*/
 });
 
-router.get('/:id', require_auth, function (req, res) {
+const createLead = (req, res) => {
+    contact.findOneOrCreate(req.body)
+        .then((contact) => {
+            let lead = {
+                _id: new mongoose.Types.ObjectId(),
+                owner: req.body.owner,
+                stage: req.body.stage,
+                name: req.body.name,
+                order: req.body.order,
+                contact: contact._id
+            };
+            Lead.create(lead)
+                .then(lead => {
+                    res.json({data: {lead: lead._id}});
+                })
+                .catch(error => {
+                    res.status(400).json({errors: {message: error}});
+                });
+        })
+        .catch(error => res.status(400).json({errors: {message: error}}))
+};
+
+router.get('/:id', function (req, res) {
   Lead.findById(req.params.id)
-      .then(lead => res.json(lead))
+      .populate('contact')
+      .then(lead => {
+        console.log(lead);
+        res.json(lead)} )
       .catch(error => {
         res.status(500).json({errors: {message: error}})
       });
