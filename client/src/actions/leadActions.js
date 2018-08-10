@@ -14,9 +14,10 @@ export const loadLeadboard = domain => dispatch => {
         type: LOAD_LEADBOARD,
         payload: result.data.data
       });
-
-      if (typeof result.data.data[0]._id === "string") {
-        dispatch(loadStages(result.data.data[0]._id));
+      if (result.data.data.length > 0) {
+        if (typeof result.data.data[0]._id === "string") {
+          dispatch(loadStages(result.data.data[0]._id));
+        }
       }
     })
     .catch(error => {

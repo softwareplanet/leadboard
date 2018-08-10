@@ -1,0 +1,75 @@
+.AppLead__stages{
+    position: relative;
+}
+
+.AppLead__stages-input{
+    padding-bottom: 0;
+}
+
+
+.AppLead__stages .active ~ label{
+    background: #e5e5e5;
+}
+.AppLead_active ~ label::before {
+    background: #e5e5e5;
+}
+
+.AppLead__stage-option-wrapper  label.active {
+    background: #2cbf55;
+}
+
+.AppLead__stages_options {
+    display: table;
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 4px;
+    border-radius: 4px;
+    table-layout: fixed;
+}
+
+.AppLead__radio input{
+    cursor: pointer;
+    width: auto;
+    position: absolute;
+    opacity: 0;
+}
+
+
+.AppLead__stage-option-wrapper label {
+    height: 28px;
+    width: 33px;
+    cursor: pointer;
+    display: table-cell;
+    text-align: center;
+    padding: 0;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    background: #2cbf55;
+    position: relative;
+}
+
+.AppLead__stage-option-wrapper  label::before {
+    width: 20px;
+    height: 24px;
+    position: absolute;
+    right: -11px;
+    top: 2px;
+    border-top: 3px solid #fff;
+    border-right: 3px solid #fff;
+    transform: scaleX(0.3) rotate(45deg);
+    content: " ";
+    background: #2cbf55;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.active ~ label:hover {
+    background: #e5e5e5;
+}
+.active ~ label {
+    background: #e5e5e5;
+}
+.active ~ label::before {
+    background: #e5e5e5;
+}
