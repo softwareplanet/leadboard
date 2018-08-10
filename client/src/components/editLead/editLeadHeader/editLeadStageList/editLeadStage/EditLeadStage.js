@@ -7,9 +7,13 @@ export default class EditLeadStage extends Component {
   }
 
   render() {
+    let width = {
+      width : `${(100/this.props.stages.length)-1}%`
+    };
+
     return (
-      <li>
-        {this.props.stage}
+      <li style={width}>
+        {this.props.name ? this.props.name : null}
       </li>
     );
   }

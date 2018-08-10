@@ -6,7 +6,7 @@ import "./EditLeadStageProgress.css";
 class EditLeadStageProgress extends Component {
   render() {
     let stages = this.props.leads.stages.map(stage => {
-      return <EditLeadStage {...stage} />;
+      return <EditLeadStage stages={this.props.leads.stages} {...stage} />;
     });
 
 

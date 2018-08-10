@@ -3,9 +3,9 @@
   padding: 0;
     list-style-type: none;
     font-family: arial;
-    font-size: 12px;
+    font-size: 13px;
     clear: both;
-    line-height: 1em;
+    line-height: 0px;
     margin: 0 -1px;
     text-align: center;
 }
@@ -18,8 +18,7 @@
   position: relative;
   border-top: 1px solid #2cbf55;
   border-bottom: 1px solid #2cbf55;
-  width: 32%;
-  margin: 0 1px;
+  margin: 0 1px auto auto;
   height: 20px;
 }
 
@@ -49,5 +48,5 @@
 }
 
 .EditLeadStageProgress__container li.active:after {
-  border-left-color: #0AC500;
+  border-left-color: #fff;
 }
