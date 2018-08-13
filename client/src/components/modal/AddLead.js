@@ -26,8 +26,6 @@ const customStyles = {
   }
 };
 
-Modal.setAppElement("body");
-
 class AddLead extends React.Component {
   constructor(props) {
     super(props);
