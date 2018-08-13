@@ -2,11 +2,11 @@ import { Router } from "express";
 import mongoose from "mongoose";
 
 import { secret } from "../authorize";
-import User from"../../models/user";
+import User from "../../models/user";
 import Domain from "../../models/domain";
-const validateRegisterInput = require("../../validation/register");
-const validateLoginInput = require("../../validation/login");
-const jwt = require("jsonwebtoken");
+import validateRegisterInput from "../../validation/register";
+import validateLoginInput from"../../validation/login";
+import jwt from "jsonwebtoken";
 
 const router = new Router();
 

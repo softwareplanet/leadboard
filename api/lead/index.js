@@ -2,7 +2,7 @@ import { Router } from "express";
 import mongoose from "mongoose";
 import { require_auth } from "../authorize";
 import Lead from "../../models/lead";
-const validateLeadInput = require("../../validation/lead");
+import validateLeadInput from "../../validation/lead";
 const router = new Router();
 
 // @route   GET api/lead

@@ -75,7 +75,7 @@ class Login extends Component {
               type={'password'}
             />
             <div className="Login__form-control">
-              <button className="Login__form-button big-button" type="submit">
+              <button className="Login__form-button btn " type="submit">
                 Log in
               </button>
               <div className="Login__form-registerLink">

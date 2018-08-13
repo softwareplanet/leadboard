@@ -53,3 +53,17 @@
     width: 100%;
     font-size: 22px;
 }
+
+.Login__form-button {
+    min-width: 340px;
+    min-height: 50px;
+    max-width: 100%;
+    font-family: MuseoSans,sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: white;
+    background: #2cbf55;
+    border: 0;
+    border-radius: 0 0;
+
+}

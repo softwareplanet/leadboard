@@ -8,9 +8,11 @@ import lead from "./lead";
 const router = new Router();
 
 router.use("/api", auth);
-router.use("/api/user",passport.authenticate('jwt', { session: false }),user);
-router.use("/api/stage",passport.authenticate('jwt', { session: false }), stage);
-router.use("/api/funnel",passport.authenticate('jwt', { session: false }), funnel);
-router.use("/api/lead",passport.authenticate('jwt', { session: false }), lead);
+
+let authenticate = passport.authenticate('jwt', { session: false });
+router.use("/api/user", authenticate, user);
+router.use("/api/stage", authenticate, stage);
+router.use("/api/funnel", authenticate, funnel);
+router.use("/api/lead", authenticate, lead);
 
 export default router;

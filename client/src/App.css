@@ -10,7 +10,7 @@ ul {
   list-style: none;
 }
 header {
-  background-color: #404346;  
+  background-color: #404346;
 }
 .main-menu {
   display: flex;
@@ -100,7 +100,7 @@ li {
 .dashboard__stage {
   width: 300px;
   display:flex;
-  flex-direction: column;  
+  flex-direction: column;
 }
 
 .dashboard__stage__card {
@@ -141,75 +141,6 @@ li {
   /*background-color: #fff0ff;*/
   border-right: 1px solid #e5e5e5;
 }
-
-
-/* LOGIN FORM */
-
-/*#login-container {*/
-  /*display: flex;*/
-  /*justify-content: center;*/
-  /*padding-top: 100px;*/
-/*}*/
-
-/*#login-form {*/
-  /*width: 650px;*/
-  /*background-color: white;*/
-  /*padding: 80px 60px;*/
-/*}*/
-
-/*.login-form__title {*/
-  /*font-size: 32px;*/
-  /*color: #26292C;*/
-  /*text-align: center;*/
-  /*padding-bottom: 25px;*/
-/*}*/
-
-
-/*#login-form label {*/
-  /*position: absolute;*/
-  /*top: -10px;*/
-  /*bottom: 0;*/
-  /*left: 30px;*/
-  /*width: 100%;*/
-  /*transition: 0.2s;*/
-  /*color: #aeb5b7;*/
-  /*font-size: 22px;*/
-/*}*/
-
-/*.login-form__field {*/
-  /*margin-top: 35px;*/
-/*}*/
-
-/*.login-form__field-error {*/
-  /*color: #e84646;*/
-  /*font-size: 12px;*/
-/*}*/
-
-/*.login-form__control {*/
-  /*margin-top: 50px;*/
-  /*margin-bottom: 20px;*/
-  /*margin-left: 85px;*/
-/*}*/
-
-/*.login-form__field input:focus+label {*/
-  /*top: 100%;*/
-  /*margin-top: -26px;*/
-  /*font-size: 2em;*/
-/*}*/
-
-/*.login-form__field input {*/
-  /*border: 0;*/
-  /*border-bottom: 1px solid #26292c;*/
-  /*outline-style: none;*/
-  /*width: 520px;*/
-  /*font-size: 22px;*/
-  /*padding-bottom: 5px;*/
-  /*padding-left: 30px;*/
-/*}*/
-
-/*.login-form__field-red input {*/
-  /*border-bottom: 1px solid red !important;*/
-/*}*/
 
 .big-button {
   display: inline-block;

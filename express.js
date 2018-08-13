@@ -3,11 +3,11 @@ import cors from 'cors'
 import compression from 'compression'
 import morgan from 'morgan'
 import bodyParser from 'body-parser'
-import mongoose from './mongoose'
-const passport = require ("passport");
+import passport from "passport"
+import { connectToMongoose } from './mongoose'
 export default (routes) => {
   const app = express();
-
+  connectToMongoose();
   app.use(passport.initialize());
   require('./api/passport')(passport);
 
