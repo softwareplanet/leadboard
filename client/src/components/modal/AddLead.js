@@ -59,9 +59,6 @@ class AddLead extends React.Component {
     });
   }
 
-  afterOpenModal() {
-  }
-
   closeModal() {
     this.setState({
       modalIsOpen: false,
