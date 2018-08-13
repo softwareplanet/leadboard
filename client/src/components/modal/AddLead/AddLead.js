@@ -2,9 +2,9 @@ import React from "react";
 import Modal from "react-modal";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { createLead } from "../../actions/leadActions";
+import { createLead } from "../../../actions/leadActions";
 import classNames from "classnames";
-import "./AddLead.css";
+import styles from "./AddLead.css";
 import { flow, isEmpty, trim } from "lodash/fp";
 
 const isBlank = flow(trim, isEmpty);
@@ -121,8 +121,8 @@ class AddLead extends React.Component {
     const { errors, validationIsShown } = this.state;
     return (
       <div>
-        <div id="tool-panel">
-          <button type="button" className="AppLead__btn AppLead__btn--green tool-panel__button"
+        <div className={styles.toolPanel}>
+          <button type="button" className={styles.button}
                   onClick={this.openModal}>
             Add lead
           </button>

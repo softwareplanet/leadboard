@@ -1,0 +1,40 @@
+.toolPanel {
+    padding: 0;
+    margin: 0;
+    height: 54px;
+}
+
+.btn {
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    color: black;
+    border: none;
+    border-radius: 3px;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+.btn:focus {
+    outline: none;
+}
+
+.green {
+    color: white;
+    background-color: #47bf53;
+}
+
+.green:hover {
+    background: #4ec970;
+}
+
+.button {
+     margin-left: 10px;
+     margin-top: 10px;
+     font-size: 14px;
+     composes: btn;
+     composes: green;
+ }
