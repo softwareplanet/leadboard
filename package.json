@@ -12,7 +12,11 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "setupTestFrameworkScriptFile": "./test/setup.js"
+    "setupTestFrameworkScriptFile": "./test/setup.js",
+    "testPathIgnorePatterns": [
+      "/client/",
+      "/node_modules/"
+    ]
   },
   "dependencies": {
     "babel-core": "^6.21.0",
