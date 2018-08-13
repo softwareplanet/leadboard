@@ -44,7 +44,6 @@ class AddLead extends React.Component {
     };
 
     this.openModal = this.openModal.bind(this);
-    this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
 
     this.onChange = this.onChange.bind(this);
@@ -127,7 +126,6 @@ class AddLead extends React.Component {
 
         <Modal
           isOpen={this.state.modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
           style={customStyles}>
           <header className="AppLead__form-header">
             Add lead
