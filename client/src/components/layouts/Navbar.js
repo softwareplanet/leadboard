@@ -1,24 +1,25 @@
 import React, { Component } from "react";
+import styles from  './Navbar.css';
 
 class Navbar extends Component {
   render() {
     return (
       <header>
-        <ul className="main-menu" role="navigation">
-          <li className="logo">Leadboard</li>
+        <ul className={styles.menu} role="navigation">
+          <li className={styles.logo}>Leadboard</li>
           <li>
             <form>
-              <input className="main-menu__search" placeholder="Search" />
+              <input className={styles.search} placeholder="Search" />
             </form>
           </li>
-          <li className="main-menu__item main-menu__item-active">
+          <li className={styles.item}>
             <div>
-              <span className="fa fa-check-circle main-menu__icon" />Сделки
+              <span className={styles.icon + ' fa fa-check-circle'} />Сделки
             </div>
           </li>
-          <li className="main-menu__item">
+          <li className={styles.item}>
             <div>
-              <span className="fa fa-address-card main-menu__icon" />Контакты
+              <span className={styles.icon + ' fa fa-address-card'} />Контакты
             </div>
           </li>
         </ul>
