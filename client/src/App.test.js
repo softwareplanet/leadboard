@@ -1,9 +1,10 @@
-import 'jsdom-global/register';
+import "jsdom-global/register";
 import React from "react";
 import App from "./App";
-import { mount, shallow } from "enzyme";
+import { render } from "enzyme";
+import { expect } from "chai";
 
 it("renders without crashing", () => {
-  let app = shallow(<App/>);
-  let mountedApp = mount(<App/>);
+  let mountedApp = render(<App/>);
+  expect(mountedApp).to.have.length(1);
 });
