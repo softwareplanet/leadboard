@@ -55,7 +55,8 @@
 }
 
 .Login__form-button {
-    min-width: 340px;
+    min-width: 300px;
+    width: 70%;
     min-height: 50px;
     max-width: 100%;
     font-family: MuseoSans,sans-serif;
@@ -65,5 +66,4 @@
     background: #2cbf55;
     border: 0;
     border-radius: 0 0;
-
 }
