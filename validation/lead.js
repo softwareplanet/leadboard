@@ -7,11 +7,17 @@ module.exports = function validateLeadInput(data) {
   if (isEmpty(data.owner)) errors.owner = "Owner ID cannot be empty";
   if (isEmpty(data.stage)) errors.stage = "Stage ID cannot be empty";
 
-  data.order = !isEmpty(data.order) ? data.order : "";
-  data.name = !isEmpty(data.name) ? data.name : "";
-
-  if (!Validator.isNumeric(data.order)) {
+  console.log(typeof  data.order);
+  if (typeof data.order !== "number") {
     errors.order = "Order must be a number";
+  }
+
+  if (isEmpty("" + data.order)) {
+    errors.order = "Order cannot be empty";
+  }
+
+  if (isEmpty(data.name)) {
+    errors.order = "Order cannot be empty";
   }
 
   if (!Validator.isLength(data.name, { max: 30 })) {

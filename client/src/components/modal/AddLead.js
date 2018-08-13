@@ -104,13 +104,17 @@ class AddLead extends React.Component {
         name: this.state.name,
         contact: this.state.contact,
         organization: this.state.organization,
-        order: "10"
+        order: this.getNextLeadNumber(this.state.stage)
       };
       this.props.createLead(lead);
       this.closeModal();
     } else {
       this.setState({ errors: errors });
     }
+  }
+
+  getNextLeadNumber(stage) {
+    return this.props.leads.leads[`_${stage}`].leads.length + 1;
   }
 
   render() {
