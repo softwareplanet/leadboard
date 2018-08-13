@@ -32,6 +32,6 @@ describe("Funnel", function() {
       .send({ token: cred.token, domain: cred.domain });
 
     expect(status).toBe(200);
-    expect(Object.keys(body.data).length).toBe(1);
+    expect(Object.keys(body.data).length).toBe(2);
   });
 });
