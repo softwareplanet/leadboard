@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { loadLeadboard } from "../../actions/leadActions";
 import styles from './Dashboard.css';
 
-import Lead from "../Lead";
+import Lead from "../Lead/Lead";
 
 class Dashboard extends Component {
   constructor() {
