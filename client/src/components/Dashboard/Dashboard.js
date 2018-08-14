@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loadLeadboard } from "../../actions/leadActions";
-import "./Dashboard.css";
+import styles from "./Dashboard.css";
 
-import Lead from "../Lead";
+import Lead from "../Lead/Lead";
 
 export class Dashboard extends Component {
   constructor() {
@@ -56,7 +56,7 @@ export class Dashboard extends Component {
                      this.props.leads.funnels && this.props.leads.funnels.length > 0 ?
                        this.props.leads.funnels[0]._id :
                        0
-                   }/lead/${lead._id}`}/>;
+                     }/lead/${lead._id}`}/>;
     });
     return leads;
   };
@@ -64,7 +64,7 @@ export class Dashboard extends Component {
   createEmptyLeadCards = (index) => {
     let emptyLeads = [];
     for (let i = 0; i < this.props.leads.stages.length - index; i++) {
-      emptyLeads.push(<div key={i} className="dashboard__stage__empty-card"/>);
+      emptyLeads.push(<div key={i} className={styles.stagePlaceholder}/>);
     }
     return emptyLeads;
   };
@@ -79,15 +79,15 @@ export class Dashboard extends Component {
       let leads = this.createLeadCards(stage._id);
 
       return (
-        <div className="dashboard__stage" key={stage._id}>
-          <div className={"dashboard__head" + (noLeads ? " dashboard__head--no-leads" : "")}>
-            <div>
-              <span className="stage__name">{stage.name}</span>
+        <div className={styles.stage} key={stage._id}>
+          <div className={noLeads ? styles.emptyStageHead :  styles.notEmptyStageHead}>
+            <div className={styles.stageContainer}>
+              <span>{stage.name}</span>
               {
-                leads.length === 0 || !Array.isArray(leads) ? <span className="stage__value"/> : (
-                  <span className="stage__value">
-                  <small>{leads.length} {leads.length === 1 ? "lead" : "leads"}</small>
-                </span>
+                leads.length === 0 || !Array.isArray(leads) ? <span className={styles.stageValue}/> : (
+                  <span className={styles.stageValue}>
+                    <small className={styles.stageValueSmall}>{leads.length} {leads.length === 1 ? "lead" : "leads"}</small>
+                  </span>
                 )
               }
             </div>
@@ -95,14 +95,14 @@ export class Dashboard extends Component {
           {
             leads
           }
-          <div className="dashboard__stage__card-terminator">
-            { noLeads ? this.createEmptyLeadCards(index) : <div/> }
+          <div className={styles.cardTerminator}>
+            {noLeads ? this.createEmptyLeadCards(index) : <div/>}
           </div>
         </div>
       );
     });
 
-    return <div className="dashboard">{stages}</div>;
+    return <div className={styles.dashboard}>{stages}</div>;
   }
 }
 

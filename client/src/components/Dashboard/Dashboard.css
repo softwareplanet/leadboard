@@ -4,9 +4,8 @@
     /*background-color: red;*/
     border-top: 1px #b9babb solid;
 }
-.dashboard__head {
+.head {
     display: flex;
-    height: 60px;
     flex-direction: column;
     justify-content: center;
 
@@ -19,30 +18,36 @@
     padding: 12px 0 0 15px;
 }
 
-.dashboard__head--no-leads {
+.emptyStageHead {
+    composes:head;
     height: 45px;
 }
 
-.dashboard__head div:first-child {
+.notEmptyStageHead {
+    composes:head;
+    height: 60px;
+}
+
+.stageContainer {
     display: flex;
     flex-direction: column;
 }
-.dashboard__stage .stage__value small {
+.stageValueSmall {
     font: 100 12px/16px "Open Sans", sans-serif;
 }
 
-.dashboard__stage .stage__value {
+.stageValue {
     color: #747678;
     padding-bottom: 15px;
 }
 
-.dashboard__stage {
+.stage {
     width: 100%;
     display:flex;
     flex-direction: column;
 }
 
-.dashboard__stage__empty-card {
+.stagePlaceholder {
     width: 96%;
     height: 45px;
     position: relative;
@@ -59,7 +64,7 @@
     transition: opacity 0.5s ease-in-out 0.2s;
 }
 
-.dashboard__stage__card-terminator {
+.cardTerminator {
     flex: 1;
     /*background-color: #fff0ff;*/
     border-right: 1px solid #e5e5e5;
