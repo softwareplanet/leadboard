@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../EditCard.css";
+import "../EditCard/EditCard.css";
 
 export default class OrganizationEditCard extends Component {
     render() {

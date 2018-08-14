@@ -1,4 +1,4 @@
-.SideCard{
+.container{
     display: block;
     width: 100%;
     margin-bottom:8px;
@@ -7,7 +7,7 @@
     box-sizing: border-box;
 }
 
-.SideCard__title{
+.title{
     padding: 16px 0;
     border-bottom: 1px solid #e5e5e5;
     margin: 0 16px;
@@ -15,7 +15,7 @@
     justify-content: space-between;
 }
 
-.SideCard__title-name{
+.titleName{
     display: inline-block;
     font-size: 12px;
     margin-top: 2px;
@@ -29,17 +29,8 @@
 
 }
 
-.SideCard__field-value{
-    padding: 8px;
-    margin-top: 4px;
-    display: flex;
-}
 
-.SideCard__field-value-wrap{
-    width: 100%;
-    align-items: center;
-    display: flex;
-}
+
 
 .SideCard__field-value-badge{
     display: inline-block;

@@ -1,48 +1,54 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import '../EditCard/EditCard.css';
+import styles from './EditCard.css';
 import { loadLead } from '../../../../actions/leadActions'
+import CardField from './CardField';
 
- class PersonEditCard extends Component {
+class EditCard extends Component {
 
-     constructor(){
-         super();
-         this.state = {
-             leadId: '',
-             leads: {}
-         }
-     }
+    constructor(){
+        super();
+        this.state = {
+            leadId: '',
+            leads: {}
+        }
+    }
 
-     componentWillReciveProps(nextProps){
+    componentWillReciveProps(nextProps){
         if(nextProps){
             this.setState({
                 leadId: nextProps,
                 leads: {}
             })
         }
-     }
+    }
 
-     componentDidMount(){
-         let id = '5b6d7b35401106620b1a1a6d';
-         this.props.loadLead(id);
-     }
+    componentDidMount(){
+        let id = '5b6d7b35401106620b1a1a6d';
+        this.props.loadLead(id);
+    }
 
     render() {
-         const { leads } = this.props.leads;
-         if(!Object.values(leads).length) {
-             return <div />;
-         }
+        const { leads } = this.props.leads;
+        if(!Object.values(leads).length) {
+            return <div />;
+        }
+        const fields = leads.contact.custom.map((field) =>
+            <CardField fieldValue={Object.values(field)} fieldName={Object.keys(field)}/>);
         return (
-            <div className='SideCard'>
-                <div className='SideCard__title'>
-                    <span className='SideCard__title-name'>
+            <div className={styles.container}>
+                <div className={styles.title}>
+                    <span className={styles.titleName}>
                         Person
                     </span>
                     <div className='SideCard__actions'>
                     </div>
                 </div>
-                <div className='SideCard__fields'>
+                <div className={styles.fields}>
+                    {fields}
+                </div>
+                {/*<div className='SideCard__fields'>
                     <div className='SideCard__field'>
                         <div className='SideCard__field-value'>
                             <div className='SideCard__field-value-wrap'>
@@ -62,7 +68,7 @@ import { loadLead } from '../../../../actions/leadActions'
                             <div className='SideCard__field-value'>
                                 <div className='SideCard__field-label-wrap'>
                                     <div className='SideCard__field-label'>
-                                            Phone
+                                        Phone
                                     </div>
                                 </div>
                                 <span className='SideCard__field-value-add-value'>
@@ -89,13 +95,13 @@ import { loadLead } from '../../../../actions/leadActions'
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>*/}
             </div>
         )
     }
 }
 
-PersonEditCard.propTypes = {
+EditCard.propTypes = {
     loadLead: PropTypes.func.isRequired,
     leads: PropTypes.object.isRequired
 };
@@ -104,4 +110,4 @@ const mapStateToProps = (state) => ({
     leads: state.leads
 });
 
-export default connect(mapStateToProps, { loadLead })(PersonEditCard);
+export default connect(mapStateToProps, { loadLead })(EditCard);

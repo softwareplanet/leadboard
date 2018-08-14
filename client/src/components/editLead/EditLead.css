@@ -1,8 +1,8 @@
-.edit-lead-container {
+.container {
   display: flex;
 }
 
-.edit-lead-main-container {
+.mainContainer {
   display: flex;
 }
 
