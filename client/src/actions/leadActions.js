@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LOAD_LEADBOARD, LOAD_STAGES, LOAD_LEADS, GET_ERRORS, LOAD_LEAD } from "./types";
+import { LOAD_LEADBOARD, LOAD_STAGES, LOAD_LEADS, GET_ERRORS, LOAD_LEAD, UPDATE_LEAD } from "./types";
 
 // Load leadboard by Domain ID
 export const loadLeadboard = domain => dispatch => {
@@ -102,6 +102,25 @@ export const loadLead = (leadId, funnelId) => dispatch => {
         payload: res.data.lead
       });
       dispatch(loadStages(funnelId));
+    })
+    .catch(error => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error.response.data.errors
+      });
+    });
+};
+
+// Update lead by id
+export const updateLead = (lead, funnelId) => dispatch => {
+  axios
+    .patch(`/api/lead/${lead._id}`, lead)
+    .then(res => {
+      dispatch({
+        type: UPDATE_LEAD,
+        payload: res.data.lead
+      });
+      dispatch(loadLead(lead._id, funnelId));
     })
     .catch(error => {
       dispatch({

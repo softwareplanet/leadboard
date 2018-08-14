@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./EditLeadStage.css";
-import classNames  from 'classnames'
 
 export default class EditLeadStage extends Component {
   constructor(props) {
