@@ -51,12 +51,28 @@ router.get("/:id", require_auth, (req, res) => {
   Lead.findById(req.params.id)
     .populate("contacts")
     .populate("owner")
-    .populate('stage')
+    .populate("stage")
     .then(lead => {
       res.json({ lead });
     })
     .catch(error => {
       res.status(500).json({ errors: { message: error } });
+    });
+});
+
+// @route   PATCH api/lead/:id
+// @desc    update lead by id
+// @access  Private
+router.patch("/:id", require_auth, (req, res) => {
+  Lead.findByIdAndUpdate(req.body._id, req.body, { new: true })
+    .populate("contacts")
+    .populate("owner")
+    .populate("stage")
+    .then(lead => {
+      res.json({ lead });
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
     });
 });
 
