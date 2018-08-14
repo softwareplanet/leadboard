@@ -46,10 +46,25 @@ describe("Lead", () => {
       .send({
         token: cred.token
       });
-
     expect(status).toBe(200);
     expect(Object.keys(body.data).length).toBe(2);
     expect(body.data[0].name).toBe("Lead B");
     expect(body.data[1].name).toBe("Lead A");
+  });
+
+  it("should update lead", async () => {
+    console.log();
+    const { status, body } = await request(app())
+      .patch(`/api/lead/${body}`) //TODO add normal id
+      .send({
+        token: cred.token,
+        owner: cred.user,
+        stage: stage.stage,
+        name: "My updated Lead",
+        order: "1"
+      });
+
+    expect(status).toBe(200);
+    expect(body.data.name).toBe("My updated Lead");
   });
 });
