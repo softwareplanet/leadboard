@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import styles from './Navbar.css';
 import {logoutUser} from "../../../actions/authActions";
 import { connect } from "react-redux";
+import PropTypes from 'prop-types'
+
 
 
 
@@ -41,4 +43,8 @@ class Navbar extends Component {
   }
 }
 
+Navbar.propTypes = {
+  logoutUser:PropTypes.func.isRequired
+};
+export {Navbar};
 export default connect(null, {logoutUser})(Navbar);
