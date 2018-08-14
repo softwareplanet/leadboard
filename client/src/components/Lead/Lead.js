@@ -1,18 +1,19 @@
 import React from 'react'
-import './Lead.css'
 import {Link} from 'react-router-dom'
-import profile from '../img/profile.svg'
+import profile from '../../img/profile.svg'
 import PropTypes from 'prop-types'
+import styles from './Lead.css';
+
 
 
 const lead = (props) => {
     let lead = props.lead;
 
     return (
-        <div className='Lead__container'>
-            <div className='Lead__info'>
-                <Link className='Lead__link-info' to={props.link}>
-                    <strong><img className='Lead__avatar'
+        <div className={styles.container}>
+            <div className={styles.info}>
+                <Link className={styles.linkInfo} to={props.link}>
+                    <strong><img className={styles.avatar}
                                  src={lead.owner && lead.owner.avatar ? lead.owner.avatar : profile}/>
                         {lead.name}
                     </strong>
