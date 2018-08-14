@@ -25,7 +25,7 @@ export default class EditLeadStage extends Component {
 
     return (
       <li
-        onClick={() => this.onStageClick()}
+        onClick={() => (this.props.status !== "Lost" ? this.onStageClick() : null)}
         className={classNames(
           styles.li,
           { [styles.active]: this.props.active },
