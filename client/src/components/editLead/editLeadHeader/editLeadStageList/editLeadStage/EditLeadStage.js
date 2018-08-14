@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./EditLeadStage.css";
+import classNames from "classnames";
 
 export default class EditLeadStage extends Component {
   constructor(props) {
@@ -25,7 +26,7 @@ export default class EditLeadStage extends Component {
     return (
       <li
         onClick={() => this.onStageClick()}
-        className={this.props.active ? "active" : ""}
+        className={classNames({ active: this.props.active }, { won: this.props.status === "Won" })}
         data-toggle="tooltip"
         data-placement="bottom"
         title={this.props.name}
