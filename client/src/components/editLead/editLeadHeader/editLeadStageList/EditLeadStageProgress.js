@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import EditLeadStage from "./editLeadStage/EditLeadStage";
 import { updateLead } from "../../../../actions/leadActions";
-import "./EditLeadStageProgress.css";
+import styles from "./EditLeadStageProgress.css";
 
 class EditLeadStageProgress extends Component {
   constructor(props) {
@@ -33,7 +33,7 @@ class EditLeadStageProgress extends Component {
 
     return (
       <div>
-        <ul className={"EditLeadStageProgress__container"}>{stages}</ul>
+        <ul className={styles.container}>{stages}</ul>
       </div>
     );
   }

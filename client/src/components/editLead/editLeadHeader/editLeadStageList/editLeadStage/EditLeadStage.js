@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./EditLeadStage.css";
+import styles from "./EditLeadStage.css";
 import classNames from "classnames";
 
 export default class EditLeadStage extends Component {
@@ -26,7 +26,11 @@ export default class EditLeadStage extends Component {
     return (
       <li
         onClick={() => this.onStageClick()}
-        className={classNames({ active: this.props.active }, { lost: this.props.status === "Lost" })}
+        className={classNames(
+          styles.li,
+          { [styles.active]: this.props.active },
+          { [styles.lost]: this.props.status === "Lost" }
+        )}
         data-toggle="tooltip"
         data-placement="bottom"
         title={this.props.name}

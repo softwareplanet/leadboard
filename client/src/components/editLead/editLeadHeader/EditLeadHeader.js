@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { loadLead } from "../../../actions/leadActions";
-import "./EditLeadHeader.css";
+import styles from "./EditLeadHeader.css";
 import EditLeadStageProgress from "./editLeadStageList/EditLeadStageProgress";
 import dropDownIcon from "../../../img/drop-down-arrow.svg";
 import EditLeadPopover from "./editLeadPopover/EditLeadPopover";
 import { setEditFunnel } from "../../../actions/leadActions";
 import { OverlayTrigger } from "react-bootstrap";
+import classNames from "classnames";
 
 class EditLeadHeader extends Component {
   constructor(props) {
@@ -16,8 +17,8 @@ class EditLeadHeader extends Component {
   render() {
     let editLead = this.props.leads.editLead ? this.props.leads.editLead : null;
     return (
-      <div className="EditLeadHeader">
-        <div className={"EditLeadHeader__description"}>
+      <div className={styles.header}>
+        <div className={styles.description}>
           <div className={"position-relative"}>
             <OverlayTrigger
               trigger="click"
@@ -26,24 +27,22 @@ class EditLeadHeader extends Component {
               container={this}
               overlay={<EditLeadPopover data={editLead ? editLead.name : ""} onSave={this.onLeadNameSave} />}
             >
-              <h4 className={"EditLeadHeader__lead-name--hover EditLeadHeader__lead-name"}>
-                {editLead ? editLead.name : null} lead
-              </h4>
+              <h4 className={styles.leadName}>{editLead ? editLead.name : null} lead</h4>
             </OverlayTrigger>
           </div>
-          <div className={"EditLeadHeader__owner"}>
+          <div className={styles.owner}>
             <img
               src={"https://webapp.pipedriveassets.com/images/icons/profile_120x120.svg"}
-              className={"EditLeadHeader__owner-picture rounded-circle"}
+              className={classNames(styles.ownerPicture, "rounded-circle")}
             />
-            <div className={"EditLeadHeader__owner-body"}>
+            <div className={styles.ownerBody}>
               <span>{editLead ? editLead.owner.firstname + " " + editLead.owner.lastname : null}</span>
               <small className={"text-muted"}>Owner</small>
             </div>
-            <img className={"EditLeadHeader__dropdown-icon"} src={dropDownIcon} />
+            <img className={styles.dropdownIcon} src={dropDownIcon} />
           </div>
         </div>
-        <div className={"EditLeadHeader__main"}>
+        <div>
           <EditLeadStageProgress />
         </div>
       </div>

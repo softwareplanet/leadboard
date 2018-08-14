@@ -1,4 +1,4 @@
-.EditLeadHeader {
+.header {
   height: 25vh;
   margin-top: 20px;
   padding: 20px;
@@ -13,43 +13,40 @@
   justify-content: space-around;
 }
 
-.EditLeadHeader__owner {
+.owner {
   display: flex;
   align-items: center;
 }
 
-.EditLeadHeader__owner-body {
+.ownerBody {
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 0;
 }
 
-.EditLeadHeader__description {
+.description {
   display: flex;
   justify-content: space-between;
 }
 
-.EditLeadHeader__main {
-
-}
-.EditLeadHeader__owner-picture {
+.ownerPicture {
   height: 32px;
   width: 32px;
 }
 
-.EditLeadHeader__dropdown-icon {
+.dropdownIcon {
   margin-left: 10px;
   width: 10px;
   height: 10px;
 }
 
-.EditLeadHeader__lead-name--hover:hover {
+.leadName:hover {
   text-decoration: none;
   cursor: pointer;
   background-color: #fffcdc;
 }
 
-.EditLeadHeader__lead-name {
+.leadName {
   font: 400 24px/32px "Open Sans";
 }
