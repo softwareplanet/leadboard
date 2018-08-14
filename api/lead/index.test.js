@@ -9,6 +9,7 @@ const app = () => express(routes);
 
 let cred;
 let stage;
+let data;
 beforeEach(async done => {
   await dropTables();
   cred = await createUserAndDomain(app);
@@ -16,7 +17,7 @@ beforeEach(async done => {
 
   stage = await createStage(app, cred.token, funnel.funnel, "Stage");
   await createLead(app, cred.token, cred.user, stage.stage, "2", "Lead A");
-  await createLead(app, cred.token, cred.user, stage.stage, "1", "Lead B");
+  data = await createLead(app, cred.token, cred.user, stage.stage, "1", "Lead B");
 
   done();
 });
@@ -53,9 +54,8 @@ describe("Lead", () => {
   });
 
   it("should update lead", async () => {
-    console.log();
     const { status, body } = await request(app())
-      .patch(`/api/lead/${body}`) //TODO add normal id
+      .patch(`/api/lead/${data.lead}`) //TODO add normal id
       .send({
         token: cred.token,
         owner: cred.user,
@@ -65,6 +65,7 @@ describe("Lead", () => {
       });
 
     expect(status).toBe(200);
-    expect(body.data.name).toBe("My updated Lead");
+    console.log(body);
+    expect(body.lead.name).toBe("My updated Lead");
   });
 });

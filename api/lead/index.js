@@ -37,7 +37,8 @@ router.post("/", require_auth, function(req, res) {
   };
   Lead.create(lead)
     .then(lead => {
-      res.json({ data: { lead: lead._id } });
+      console.log(lead.id);
+      res.json({ data: { lead: lead.id } });
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });
