@@ -37,6 +37,8 @@ const mapStateToProps = state => ({
   leads: state.leads
 });
 
+export { EditLeadStageProgress };
+
 export default connect(
   mapStateToProps,
   { updateLead }

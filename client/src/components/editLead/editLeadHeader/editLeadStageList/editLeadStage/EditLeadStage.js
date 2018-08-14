@@ -13,6 +13,7 @@ export default class EditLeadStage extends Component {
     stage.name = this.props.name;
     stage.order = this.props.order;
     stage.timestamp = this.props.timestamp;
+    stage.__v = this.props.__v;
     this.props.onStageClick(stage);
   }
 
