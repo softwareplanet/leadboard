@@ -130,61 +130,61 @@ class AddLead extends React.Component {
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
           style={customStyles}>
-          <header className="AppLead__form-header">
+          <header className={styles.formHeader}>
             Add lead
           </header>
           <button type="button"
                   onClick={this.closeModal}
                   aria-label="Close"
-                  className="AppLead__modal-btn--close">
+                  className={styles.closeBtn}>
               <span aria-hidden="true"
-                    className="close AppLead__icon--close">
+                    className={classNames('close', styles.closeIcon)}>
                 &times;
               </span>
           </button>
           <form
             autoComplete="off"
-            className="AppLead__form">
-            <label className="AppLead__input-label">
+            className={styles.form}>
+            <label className={styles.inputLabel}>
               Contact person name
             </label>
-            <div className={classNames("AppLead__input-container",
-              { "AppLead__input-container--invalid": validationIsShown && errors.contact })}>
-              <i className="fas fa-user AppLead__input-icon"/>
+            <div className={classNames(styles.inputContainer,
+              { [styles.invalid]: validationIsShown && errors.contact })}>
+              <i className={classNames('fas fa-user', styles.inputIcon)}/>
               <input
                 name="contact"
                 type="text"
-                className="AppLead__form-input"
+                className={styles.formInput}
                 onChange={this.onChange}/>
             </div>
 
-            <label className="AppLead__input-label">
+            <label className={styles.inputLabel}>
               Organization name
             </label>
-            <div className={classNames("AppLead__input-container",
-              { "AppLead__input-container--invalid": validationIsShown && errors.organization })}>
-              <i className="fas fa-building AppLead__input-icon"/>
+            <div className={classNames(styles.inputContainer,
+              { [styles.invalid]: validationIsShown && errors.organization })}>
+              <i className={classNames('fas fa-building', styles.inputIcon)}/>
               <input
                 name="organization"
                 type="text"
-                className="AppLead__form-input"
+                className={styles.formInput}
                 onChange={this.onChange}/>
             </div>
 
-            <label className="AppLead__input-label">
+            <label className={styles.inputLabel}>
               Lead title
             </label>
-            <div className={classNames("AppLead__input-container",
-              { "AppLead__input-container--invalid": validationIsShown && errors.name })}>
+            <div className={classNames(styles.inputContainer,
+              { [styles.invalid]: validationIsShown && errors.name })}>
               <input
                 name="name"
                 type="text"
-                className="AppLead__form-input"
+                className={styles.formInput}
                 onChange={this.onChange}/>
             </div>
           </form>
-          <div className="AppLead__form-footer">
-            <button type="button" className="AppLead__btn AppLead__btn--green AppLead__btn--save"
+          <div className={styles.formFooter}>
+            <button type="button" className={classNames(styles.btn, styles.green, styles.saveBtn)}
                     onClick={this.onSubmit}>
               Save
             </button>
