@@ -6,18 +6,34 @@ export default class EditLeadStage extends Component {
     super(props);
   }
 
+  onStageClick() {
+    let stage = {};
+    stage._id = this.props._id;
+    stage.funnel = this.props.funnel;
+    stage.name = this.props.name;
+    stage.order = this.props.order;
+    stage.timestamp = this.props.timestamp;
+    this.props.onStageClick(stage);
+  }
+
   render() {
     let width = {
-      width : `${(100/this.props.stages.length)-1}%`
+      width: `${100 / this.props.stages.length - 1}%`
     };
 
     return (
-      <li className={this.props.active ? 'active' : ''} data-toggle="tooltip" data-placement="bottom" title={this.props.name} style={width}>
-      </li>
+      <li
+        onClick={() => this.onStageClick()}
+        className={this.props.active ? "active" : ""}
+        data-toggle="tooltip"
+        data-placement="bottom"
+        title={this.props.name}
+        style={width}
+      />
     );
   }
 
-  getDays(fistDate, secondDate, oneDay){
-    return Math.round(Math.abs((secondDate.getTime() - fistDate.getTime())/(oneDay)));
+  getDays(fistDate, secondDate, oneDay) {
+    return Math.round(Math.abs((secondDate.getTime() - fistDate.getTime()) / oneDay));
   }
 }
