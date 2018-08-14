@@ -51,10 +51,10 @@
   border-left-color: #2cbf55;
 }
 
-.EditLeadStageProgress__container li.active.won {
+.EditLeadStageProgress__container li.active.lost {
   background: #e84546;
 }
 
-.EditLeadStageProgress__container li.active.won:after {
+.EditLeadStageProgress__container li.active.lost:after {
   border-left-color: #e84546;
 }

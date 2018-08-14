@@ -1,7 +1,7 @@
 import "jsdom-global/register";
 import React from "react";
 import { EditLeadStageProgress } from "./EditLeadStageProgress";
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 import EditLeadStage from "./editLeadStage/EditLeadStage";
 import store from "../../../../store";
 import { expect } from "chai";
@@ -39,7 +39,8 @@ const editLead = {
   order: 1,
   timestamp: "2018-08-09T08:50:45.397Z",
   custom: [],
-  __v: 0
+  __v: 0,
+  status: "Lost"
 };
 
 const leads = {
@@ -56,6 +57,14 @@ describe("<EditLeadStageProgress />", () => {
   it("should render 1 active stage from 2 stages", () => {
     let wrapper = shallow(<EditLeadStageProgress leads={leads} />);
     let activeStage = wrapper.findWhere(EditLeadStage => EditLeadStage.props().active);
+    expect(activeStage).to.have.length(1);
+  });
+
+  it("should receive correct lead status", () => {
+    let wrapper = shallow(<EditLeadStageProgress leads={leads} />);
+    let activeStage = wrapper.findWhere(
+      EditLeadStage => EditLeadStage.props().status === "Lost" && EditLeadStage.props().active
+    );
     expect(activeStage).to.have.length(1);
   });
 });
