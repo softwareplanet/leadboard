@@ -1,25 +1,6 @@
 import axios from "axios";
 import { LOAD_LEADBOARD, LOAD_STAGES, LOAD_LEADS, LOAD_LEAD, GET_ERRORS } from "./types";
 
-
-export const loadLead = (id) => dispatch => {
-    axios
-        .get(`/api/lead/${id}`)
-        .then(res => {
-            console.log(res.data);
-            dispatch({
-                type: LOAD_LEAD,
-                payload: res.data
-            })
-        })
-        .catch(error => {
-            dispatch({
-                type: GET_ERRORS,
-                payload: error.response.data
-            })
-        })
-};
-
 // Load leadboard by Domain ID
 export const loadLeadboard = domain => dispatch => {
   axios
@@ -33,12 +14,11 @@ export const loadLeadboard = domain => dispatch => {
         type: LOAD_LEADBOARD,
         payload: result.data.data
       });
-        if(result.data.data.length > 0){
-            if (typeof result.data.data[0]._id === "string") {
-                dispatch(loadStages(result.data.data[0]._id));
-            }
+      if (result.data.data.length > 0) {
+        if (typeof result.data.data[0]._id === "string") {
+          dispatch(loadStages(result.data.data[0]._id));
         }
-
+      }
     })
     .catch(error => {
       dispatch({
@@ -112,3 +92,20 @@ export const createLead = lead => (dispatch, getState) => {
     });
 };
 
+    export const loadLead = (id) => dispatch => {
+        axios
+            .get(`/api/lead/${id}`)
+            .then(res => {
+                console.log(res.data);
+                dispatch({
+                    type: LOAD_LEAD,
+                    payload: res.data
+                })
+            })
+            .catch(error => {
+                dispatch({
+                    type: GET_ERRORS,
+                    payload: error.response.data
+                })
+            })
+    };

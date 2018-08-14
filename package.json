@@ -3,7 +3,7 @@
   "main": "server.js",
   "license": "MIT",
   "scripts": {
-    "test": "jest",
+    "test": "jest --runInBand",
     "client-install": "npm install --prefix client",
     "coverage": "npm test -- --coverage && opn coverage/lcov-report/index.html",
     "server": "nodemon server.js",
@@ -12,7 +12,11 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "setupTestFrameworkScriptFile": "./test/setup.js"
+    "setupTestFrameworkScriptFile": "./test/setup.js",
+    "testPathIgnorePatterns": [
+      "/client/",
+      "/node_modules/"
+    ]
   },
   "dependencies": {
     "babel-core": "^6.21.0",

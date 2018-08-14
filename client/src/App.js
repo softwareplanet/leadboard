@@ -8,7 +8,7 @@ import setAuthToken from "./utils/setAuthToken.js";
 import { loginUserById } from "./actions/authActions";
 
 import Home from "./components/layouts/Home";
-import Footer from "./components/layouts/Footer";
+import Footer from "./components/layouts/Footer/Footer";
 import Login from "./components/auth/Login";
 import Registration from "./components/auth/Registration";
 
