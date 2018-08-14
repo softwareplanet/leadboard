@@ -6,7 +6,7 @@ import "./Dashboard.css";
 
 import Lead from "../Lead";
 
-class Dashboard extends Component {
+export class Dashboard extends Component {
   constructor() {
     super();
 
@@ -61,10 +61,10 @@ class Dashboard extends Component {
     return leads;
   };
 
-  createEmptyLeadCards = (stage, index) => {
+  createEmptyLeadCards = (index) => {
     let emptyLeads = [];
     for (let i = 0; i < this.props.leads.stages.length - index; i++) {
-      emptyLeads.push(<div className="dashboard__stage__empty-card"/>);
+      emptyLeads.push(<div key={i} className="dashboard__stage__empty-card"/>);
     }
     return emptyLeads;
   };
@@ -96,7 +96,7 @@ class Dashboard extends Component {
             leads
           }
           <div className="dashboard__stage__card-terminator">
-            { noLeads ? this.createEmptyLeadCards(stage, index) : <div/> }
+            { noLeads ? this.createEmptyLeadCards(index) : <div/> }
           </div>
         </div>
       );

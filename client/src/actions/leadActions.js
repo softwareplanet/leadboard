@@ -10,19 +10,13 @@ export const loadLeadboard = domain => dispatch => {
       }
     })
     .then(result => {
-      dispatch({
-        type: LOAD_LEADBOARD,
-        payload: result.data.data
-      });
+      dispatch(loadLeadboardAction(result.data.data));
       if (typeof result.data.data[0]._id === "string") {
         dispatch(loadStages(result.data.data[0]._id));
       }
     })
     .catch(error => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: error.response.data.errors
-      });
+      dispatch(getErrorsAction(error.response.data.errors));
     });
 };
 
@@ -35,20 +29,14 @@ export const loadStages = funnel => dispatch => {
       }
     })
     .then(result => {
-      dispatch({
-        type: LOAD_STAGES,
-        payload: result.data.data
-      });
+      dispatch(loadStagesAction(result.data.data));
 
       for (let i = 0; i < Object.keys(result.data.data).length; i++) {
         dispatch(loadLeads(result.data.data[i]._id));
       }
     })
     .catch(error => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: error.response.data.errors
-      });
+      dispatch(getErrorsAction(error.response.data.errors));
     });
 };
 
@@ -61,17 +49,10 @@ export const loadLeads = stage => dispatch => {
       }
     })
     .then(result => {
-      dispatch({
-        type: LOAD_LEADS,
-        stage: stage,
-        payload: result.data.data
-      });
+      dispatch(loadLeadsAction(stage, result.data.data));
     })
     .catch(error => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: error.response.data.errors
-      });
+      dispatch(getErrorsAction(error.response.data.errors));
     });
 };
 
@@ -83,9 +64,35 @@ export const createLead = lead => (dispatch, getState) => {
       dispatch(loadLeadboard(getState().auth.domainid));
     })
     .catch(error => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: error.response.data.errors
-      });
+      dispatch(getErrorsAction(error.response.data.errors));
     });
 };
+
+export function loadLeadboardAction(data) {
+  return {
+    type: LOAD_LEADBOARD,
+    payload: data
+  };
+}
+
+export function getErrorsAction(errors) {
+  return {
+    type: GET_ERRORS,
+    payload: errors
+  };
+}
+
+export function loadStagesAction(data) {
+  return {
+    type: LOAD_STAGES,
+    payload: data
+  };
+}
+
+export function loadLeadsAction(stage, data) {
+  return {
+    type: LOAD_LEADS,
+    stage: stage,
+    payload: data
+  };
+}
