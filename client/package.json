@@ -61,20 +61,26 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test2": "node scripts/test.js --env=jsdom",
+    "test2": "node scripts/testRun.js --env=jsdom",
     "test": "jest"
   },
   "proxy": "http://localhost:5000",
   "devDependencies": {
+    "chai": "^4.1.2",
     "enzyme": "^3.4.1",
-    "enzyme-adapter-react-16": "^1.2.0"
+    "enzyme-adapter-react-16": "^1.2.0",
+    "jest-localstorage-mock": "^2.2.0",
+    "jsdom": "11.12.0",
+    "jsdom-global": "3.0.2"
   },
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,mjs}"
     ],
     "setupFiles": [
-      "<rootDir>/config/polyfills.js"
+      "<rootDir>/config/polyfills.js",
+      "jest-localstorage-mock",
+      "<rootDir>/config/enzyme.config.js"
     ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
