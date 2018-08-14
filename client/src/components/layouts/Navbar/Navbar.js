@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import styles from './Navbar.css';
 import {logoutUser} from "../../../actions/authActions";
-import { withRouter } from 'react-router-dom'
+import { connect } from "react-redux";
+
 
 
 
 class Navbar extends Component {
-  logoutHandler = () => {
-    logoutUser(this.props.history);
-  };
+  logoutHandler = () => this.props.logoutUser();
+
 
   render() {
     return (
@@ -41,4 +41,4 @@ class Navbar extends Component {
   }
 }
 
-export default withRouter(Navbar);
+export default connect(null, {logoutUser})(Navbar);

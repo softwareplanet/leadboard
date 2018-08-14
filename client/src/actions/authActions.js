@@ -58,10 +58,13 @@ export const setLoginData = data => {
   };
 };
 
-export const logoutUser = (history) => {
-    history.push('/');
-    localStorage.removeItem('jwtToken');
-    return {
+export const logoutUser = () => dispatch => {
+    localStorage.removeItem("jwtToken");
+
+    setAuthToken({});
+    dispatch ({
         type: LOGOUT_USER,
-    };
+    });
+
+    window.location.href = "/"
 };

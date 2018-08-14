@@ -105,7 +105,8 @@ router.post("/login", function(req, res) {
 
       var token = jwt.sign({ id: user_._id.toString() }, secret, {
         algorithm: "HS256",
-        expiresIn: 60 * 60 * 24 * 10
+        // expiresIn: 60 * 60 * 24 * 10
+        expiresIn: 10
       });
 
       res.json({

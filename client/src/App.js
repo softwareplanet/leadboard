@@ -5,7 +5,7 @@ import jwt_decode from "jwt-decode";
 
 import store from "./store.js";
 import setAuthToken from "./utils/setAuthToken.js";
-import { loginUserById } from "./actions/authActions";
+import {loginUserById, logoutUser} from "./actions/authActions";
 
 import Home from "./components/layouts/Home";
 import Footer from "./components/layouts/Footer/Footer";
@@ -16,14 +16,14 @@ import "./App.css";
 
 // restore redux/storage on page reload
 if (localStorage.jwtToken) {
-  setAuthToken(localStorage.jwtToken);
   const decoded = jwt_decode(localStorage.jwtToken);
-  store.dispatch(loginUserById(decoded.id));
-
   const currentTime = Date.now() / 1000;
-  if (decoded.exp < currentTime) {
-    //TODO: store.dispatch(logoutUser);
-    window.location.href = "/login";
+  if (decoded.exp <= currentTime) {
+    console.log('in time');
+    store.dispatch(logoutUser());
+  } else {
+      setAuthToken(localStorage.jwtToken);
+      store.dispatch(loginUserById(decoded.id))
   }
 }
 

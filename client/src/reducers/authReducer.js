@@ -16,8 +16,10 @@ export default function(state = initialState, action) {
             userid: action.payload.user,
             domainid: action.payload.domain
         };
-    case LOGOUT_USER:
-        return {};
+      case LOGOUT_USER:
+        return {
+            ...initialState,
+        };
     default:
       return state;
   }
