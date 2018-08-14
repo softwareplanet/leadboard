@@ -12,23 +12,27 @@ const organizationSchema = new mongoose.Schema({
 
 
 organizationSchema.statics.findOneOrCreate = (organizationData) => {
+  let organization = {
+      _id:new mongoose.Types.ObjectId(),
+      domain: mongoose.Types.ObjectId(organizationData.domain),
+      name:organizationData.organization,
+};
+
   if(mongoose.Types.ObjectId.isValid(organizationData.organization)) {
     return Organization.findById(organizationData.organization).then(organization => {
         if(organization===null) {
             return Organization.create({
-                _id:new mongoose.Types.ObjectId(),
+                ...organization,
                 name:organizationData.organization,
-                domain: mongoose.Types.ObjectId(organizationData.domain)});
+
+            });
         } else {
             return Promise.resolve(organization);
         }
 
     }).catch(error => Promise.reject(error));
   }
-   return Organization.create({
-       _id:new mongoose.Types.ObjectId(),
-       name:organizationData.organization,
-       domain: mongoose.Types.ObjectId(organizationData.domain)});
+   return Organization.create(organization);
 };
 
 const Organization = mongoose.model("Organization", organizationSchema);

@@ -9,9 +9,6 @@ module.exports = function validateLeadInput(data) {
   if(!data.contact && !data.organization) errors.contact = "Specify contact or organization";
   if(isEmpty(data.contact) && isEmpty(data.organization)) errors.contact = "Specify contact or organization";
 
-  console.log(`Organization ${data.organization}`);
-  console.log(`Contact ${data.contact}`);
-
   data.order = !isEmpty(data.order) ? data.order : "";
   data.name = !isEmpty(data.name) ? data.name : "";
 

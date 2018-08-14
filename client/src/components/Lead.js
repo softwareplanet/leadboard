@@ -29,6 +29,6 @@ const lead = (props) => {
 
 lead.propTypes = {
     link: PropTypes.string.isRequired,
-    lead: PropTypes.func.isRequired
+    lead: PropTypes.object.isRequired
 };
 export default lead
