@@ -1,5 +1,5 @@
 import isEmpty from "lodash.isempty";
-import { SET_LOGIN_DATA } from "../actions/types";
+import { SET_LOGIN_DATA, LOGOUT_USER } from "../actions/types";
 
 const initialState = {
   isAuthenticated: false,
@@ -10,12 +10,14 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case SET_LOGIN_DATA:
-      return {
-        ...state,
-        isAuthenticated: !isEmpty(action.payload),
-        userid: action.payload.user,
-        domainid: action.payload.domain
-      };
+        return {
+            ...state,
+            isAuthenticated: !isEmpty(action.payload),
+            userid: action.payload.user,
+            domainid: action.payload.domain
+        };
+    case LOGOUT_USER:
+        return {};
     default:
       return state;
   }

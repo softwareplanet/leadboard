@@ -51,6 +51,11 @@ ul {
     color: white;
 }
 
+.rightItem {
+    composes:item;
+    margin-left: auto;
+}
+
 .active {
     composes: item;
     background-color: black;
