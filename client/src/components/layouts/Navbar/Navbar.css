@@ -1,0 +1,63 @@
+header {
+    background-color: #404346;
+}
+
+li {
+    padding: 0 5px;
+    cursor: pointer;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    font-size: 25px;
+    color: white;
+    padding: 0 20px 0 10px;
+}
+
+.search {
+    height: 32px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    border: medium none;
+    padding: 8px 4px 8px 32px;
+    margin-right: 20px;
+    background-color: #747678;
+    color: white;
+}
+
+.item div {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.item {
+    padding: 13px;
+    color: #b9babb;
+}
+
+.item:hover {
+    background-color: black;
+    color: white;
+}
+
+.active {
+    composes: item;
+    background-color: black;
+    color: white;
+}
+
+.icon {
+    font-size: 1.5em;
+    padding-right: 10px;
+}
