@@ -46,20 +46,6 @@ class EditCard extends Component {
                     </div>
                 </div>
                 <div className={styles.fields}>
-                    <div className='SideCard__field'>
-                        <div className='SideCard__field-value'>
-                            <div className='SideCard__field-value-wrap'>
-                                <span className='SideCard__field-value-badge'>
-
-                                </span>
-                                <h3>
-                                    <a className='SideCard__field-value-name'>
-                                        {leads.contact.name}
-                                    </a>
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
                     {fields}
                 </div>
                 {/*<div className='SideCard__fields'>
