@@ -1,5 +1,9 @@
-const Validator = require("validator");
-const isEmpty = require("lodash.isempty");
+import Validator from "validator";
+import isEmpty from "lodash.isempty";
+
+function isNumber(data){
+  return typeof data === "number" || Validator.isNumeric(data)
+}
 
 module.exports = function validateLeadInput(data) {
   let errors = {};
@@ -7,7 +11,7 @@ module.exports = function validateLeadInput(data) {
   if (isEmpty(data.owner)) errors.owner = "Owner ID cannot be empty";
   if (isEmpty(data.stage)) errors.stage = "Stage ID cannot be empty";
 
-  if (typeof data.order !== "number") {
+  if (!isNumber(data.order)) {
     errors.order = "Order must be a number";
   }
 
