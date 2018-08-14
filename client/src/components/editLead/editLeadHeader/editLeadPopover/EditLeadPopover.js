@@ -8,16 +8,16 @@ class EditLeadPopover extends Component {
 
   render() {
     return (
-      <div>
         <Popover
-        placement={'bottom'}
-        title={this.props.title}
+          id="popover-trigger-click-root-close"
+          placement={'bottom'}
+          title={this.props.title}
+          container={this}
         >
           <input defaultValue={this.props.data}/>
           <button className={'btn'}>Cancel</button>
           <button onChange={() => this.props.onSave()} className={'btm btn-success'}>Save</button>
         </Popover>
-      </div>
     );
   }
 

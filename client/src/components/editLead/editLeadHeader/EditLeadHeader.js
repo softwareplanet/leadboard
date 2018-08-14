@@ -4,6 +4,8 @@ import { loadLead } from "../../../actions/leadActions";
 import "./EditLeadHeader.css";
 import EditLeadStageProgress from "./editLeadStageList/EditLeadStageProgress";
 import dropDownIcon from '../../../img/drop-down-arrow.svg'
+import EditLeadPopover from './editLeadPopover/EditLeadPopover'
+import { OverlayTrigger } from "react-bootstrap";
 
 class EditLeadHeader extends Component {
   constructor(props) {
@@ -15,9 +17,29 @@ class EditLeadHeader extends Component {
     return (
       <div className="EditLeadHeader">
         <div className={"EditLeadHeader__description"}>
-          <h4 className={'EditLeadHeader__lead-name--hover EditLeadHeader__lead-name'}>{editLead ? editLead.name : null} lead</h4>
+          <div className={'position-relative'}>
+          <OverlayTrigger
+            trigger="click"
+            rootClose
+            placement="bottom"
+            container={this}
+            overlay={
+              <EditLeadPopover
+                data={editLead ? editLead.name : ''}
+                onSave={this.onLeadNameSave}
+              />
+            }>
+            <h4
+              className={'EditLeadHeader__lead-name--hover EditLeadHeader__lead-name'}>
+              {editLead ? editLead.name : null} lead
+            </h4>
+          </OverlayTrigger>
+          </div>
           <div className={"EditLeadHeader__owner"}>
-            <img src={'https://webapp.pipedriveassets.com/images/icons/profile_120x120.svg'} className={'EditLeadHeader__owner-picture rounded-circle'}/>
+            <img
+              src={'https://webapp.pipedriveassets.com/images/icons/profile_120x120.svg'}
+              className={'EditLeadHeader__owner-picture rounded-circle'}
+            />
             <div className={'EditLeadHeader__owner-body'}>
               <span>{editLead ? editLead.owner.firstname + " " + editLead.owner.lastname : null}</span>
               <small className={'text-muted'}>Owner</small>
@@ -36,6 +58,10 @@ class EditLeadHeader extends Component {
     let leadId = this.props.match.params.leadId;
     let funnelId = this.props.match.params.funnelId;
     this.props.loadLead(leadId, funnelId);
+  }
+
+  onLeadNameSave() {
+
   }
 }
 
