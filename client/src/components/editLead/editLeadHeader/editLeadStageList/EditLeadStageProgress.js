@@ -5,6 +5,11 @@ import { updateLead } from "../../../../actions/leadActions";
 import "./EditLeadStageProgress.css";
 
 class EditLeadStageProgress extends Component {
+  onStageClick(stage) {
+    let lead = this.props.leads.editLead;
+    let funnelId = this.props.match.params.funnelId;
+  }
+
   render() {
     let stages = this.props.leads.stages.map(stage => {
       let active = stage.order <= this.props.leads.editLead.stage.order;

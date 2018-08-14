@@ -1,5 +1,13 @@
 import axios from "axios";
-import { LOAD_LEADBOARD, LOAD_STAGES, LOAD_LEADS, GET_ERRORS, LOAD_LEAD, UPDATE_LEAD } from "./types";
+import {
+  LOAD_LEADBOARD,
+  LOAD_STAGES,
+  LOAD_LEADS,
+  GET_ERRORS,
+  LOAD_LEAD,
+  UPDATE_LEAD,
+  SET_EDIT_FUNNEL_ID
+} from "./types";
 
 // Load leadboard by Domain ID
 export const loadLeadboard = domain => dispatch => {
@@ -128,4 +136,12 @@ export const updateLead = (lead, funnelId) => dispatch => {
         payload: error.response.data.errors
       });
     });
+};
+
+// Set edit page funnel
+export const setEditFunnel = funnelId => {
+  return {
+    type: SET_EDIT_FUNNEL_ID,
+    payload: funnelId
+  };
 };

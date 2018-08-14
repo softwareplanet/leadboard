@@ -1,4 +1,4 @@
-import { LOAD_LEADBOARD, LOAD_STAGES, LOAD_LEADS, LOAD_LEAD, UPDATE_LEAD } from "../actions/types";
+import { LOAD_LEADBOARD, LOAD_STAGES, LOAD_LEADS, LOAD_LEAD, UPDATE_LEAD, SET_EDIT_FUNNEL_ID } from "../actions/types";
 
 const initialState = {
   funnels: [],
@@ -35,6 +35,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         editLead: action.payload
+      };
+    case SET_EDIT_FUNNEL_ID:
+      return {
+        ...state,
+        editFunnelId: action.payload
       };
     default:
       return state;
