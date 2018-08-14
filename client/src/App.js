@@ -13,7 +13,7 @@ import Login from "./components/auth/Login";
 import Registration from "./components/auth/Registration";
 
 import "./App.css";
-import EditLead from "./components/editLead/EditLead";
+import EditLead from "./components/EditLead/EditLead";
 
 // restore redux/storage on page reload
 if (localStorage.jwtToken) {

@@ -2,7 +2,7 @@ import "jsdom-global/register";
 import React from "react";
 import { EditLeadStageProgress } from "./EditLeadStageProgress";
 import { shallow, mount } from "enzyme";
-import EditLeadStage from "./editLeadStage/EditLeadStage";
+import EditLeadStage from "./EditLeadStage/EditLeadStage";
 import store from "../../../../store";
 import { expect } from "chai";
 const stages = [

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import EditLeadStage from "./editLeadStage/EditLeadStage";
+import EditLeadStage from "./EditLeadStage/EditLeadStage";
 import { updateLead } from "../../../../actions/leadActions";
 import styles from "./EditLeadStageProgress.css";
 

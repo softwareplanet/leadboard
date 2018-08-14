@@ -2,16 +2,25 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { loadLead } from "../../../actions/leadActions";
 import styles from "./EditLeadHeader.css";
-import EditLeadStageProgress from "./editLeadStageList/EditLeadStageProgress";
+import EditLeadStageProgress from "./EditLeadStageList/EditLeadStageProgress";
 import dropDownIcon from "../../../img/drop-down-arrow.svg";
-import EditLeadPopover from "./editLeadPopover/EditLeadPopover";
+import EditLeadPopover from "./EditLeadPopover/EditLeadPopover";
 import { setEditFunnel } from "../../../actions/leadActions";
-import { OverlayTrigger } from "react-bootstrap";
 import classNames from "classnames";
 
 class EditLeadHeader extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      popoverOpen: false
+    };
+    this.toggle = this.toggle.bind(this);
+  }
+
+  toggle() {
+    this.setState({
+      popoverOpen: !this.state.popoverOpen
+    });
   }
 
   render() {
@@ -19,17 +28,16 @@ class EditLeadHeader extends Component {
     return (
       <div className={styles.header}>
         <div className={styles.description}>
-          <div className={"position-relative"}>
-            <OverlayTrigger
-              trigger="click"
-              rootClose
-              placement="bottom"
-              container={this}
-              overlay={<EditLeadPopover data={editLead ? editLead.name : ""} onSave={this.onLeadNameSave} />}
-            >
-              <h4 className={styles.leadName}>{editLead ? editLead.name : null} lead</h4>
-            </OverlayTrigger>
-          </div>
+          <h4 onClick={this.toggle} className={styles.leadName} id="edit-lead-header-name">
+            {editLead ? editLead.name : null} lead
+          </h4>
+          <EditLeadPopover
+            onSave={this.onLeadNameSave}
+            data={this.props.leads.editLead ? this.props.leads.editLead.name : null}
+            isOpen={this.state.popoverOpen}
+            target="edit-lead-header-name"
+            toggle={this.toggle}
+          />
           <div className={styles.owner}>
             <img
               src={"https://webapp.pipedriveassets.com/images/icons/profile_120x120.svg"}
