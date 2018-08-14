@@ -1,0 +1,27 @@
+.dashboard {
+    display: flex;
+    height: 800px;
+    border-top: 1px #b9babb solid;
+}
+
+.stage {
+    width: 300px;
+    display:flex;
+    flex-direction: column;
+}
+
+.head {
+    height: 50px;
+    border-right: 1px #b9babb solid;
+    border-bottom: 1px #b9babb solid;
+    background-color: #f7f7f7;
+    background: url(../../img/stage-arrow.png) no-repeat 100% 0,linear-gradient(#fff, #f7f7f7);
+    background-size: 20px 100%, 100% 100%;
+    font-size: 16px;
+    padding: 15px 0 0 15px;
+}
+
+.cardTerminator {
+    flex: 1;
+    border-right: 1px solid #e5e5e5;
+}

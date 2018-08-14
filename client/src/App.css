@@ -12,227 +12,103 @@ ul {
 header {
   background-color: #404346;  
 }
-.main-menu {
-  display: flex;
-  align-items: center;
-  /*height: 48px;*/
-}
-.main-menu__item {
-  padding: 13px;
-  color: #b9babb;
-}
-.main-menu__item:hover {
-  background-color: black;
-  color: white;
-}
 
-.main-menu__item div {
-  display: flex;
-  align-items: center;
-  flex-wrap: nowrap;
-}
-.logo {
-	font-size: 25px;
-  color: white;
-  padding: 0 20px 0 10px;
-}
 li {
 	padding: 0 5px;
 	cursor: pointer;
 }
-.main-menu__icon {
-  /*color: #fff;*/
-  font-size: 1.5em;
-  padding-right: 10px;
-}
-
-.main-menu__item-active {
-  background-color: black;
-  color: white;
-}
-
-.main-menu__search {
-    height: 32px;
-
-    border-radius: 4px;
-    box-sizing: border-box;
-    border: medium none;
-    padding: 8px 4px 8px 32px;
-    margin-right: 20px;
-
-    background-color: #747678;
-    color: white;
-}
-
-#tool-panel {
-  padding: 0;
-  margin: 0;
-  height: 54px;
-  /*background-color: gray;*/
-}
-
-
-.tool-panel__button {
-  margin-left: 10px;
-  margin-top: 10px;
-  font-size: 14px;
-}
-
-.dashboard {
-  display: flex;
-  height: 800px; /* use javascript to set height */
-  /*background-color: red;*/
-  border-top: 1px #b9babb solid;
-}
-.dashboard__head {
-  height: 50px;
-  border-right: 1px #b9babb solid;
-  border-bottom: 1px #b9babb solid;
-  background-color: #f7f7f7;
-  background: url(./img/stage-arrow.png) no-repeat 100% 0,linear-gradient(#fff, #f7f7f7);
-  background-size: 20px 100%, 100% 100%;
-
-  font-size: 16px;
-
-  padding: 15px 0 0 15px;
-}
-
-.dashboard__stage {
-  width: 300px;
-  display:flex;
-  flex-direction: column;  
-}
-
-.dashboard__stage__card {
-  /*height: 100px;*/
-  background-color: white;
-  border-right: 1px solid #e5e5e5;
-  border-bottom: 1px solid #e5e5e5;
-  padding: 10px 15px;
-  cursor: pointer;
-}
-
-.dashboard__stage__card-red {
-  background-color: #e84646;
-  border-bottom: 1px solid white;
-  color: white;
-}
-
-.dashboard__stage__card__head {
-  font-size: 14px;
-  color: #26292c;
-}
-
-.dashboard__stage__card__head:hover {
-  color: blue;
-}
-
-.dashboard__stage__card__subhead {
-  font-size: 12px;
-  color: #747678;
-}
-
-.dashboard__stage__card__subhead:hover {
-  color: blue;
-}
-
-.dashboard__stage__card-terminator {
-  flex: 1;
-  /*background-color: #fff0ff;*/
-  border-right: 1px solid #e5e5e5;
-}
-
 
 /* LOGIN FORM */
 
-#login-container {
-  display: flex;
-  justify-content: center;
-  padding-top: 100px;
+:global(#login-container) {
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
 }
 
-#login-form {
-  width: 650px;
-  background-color: white;
-  padding: 80px 60px;
+:global(#login-form) {
+    width: 650px;
+    background-color: white;
+    padding: 80px 60px;
 }
 
-.login-form__title {
-  font-size: 32px;
-  color: #26292C;
-  text-align: center;
-  padding-bottom: 25px;
+:global(.login-form__title) {
+    font-size: 32px;
+    color: #26292C;
+    text-align: center;
+    padding-bottom: 25px;
 }
 
-#login-form>.login-form__field {
-  position: relative;
+:global(#login-form) > :global(.login-form__field) {
+    position: relative;
 }
 
-#login-form>.login-form__field>label {
-  position: absolute;
+:global(#login-form) > :global(.login-form__field) > :global(label) {
+    position: absolute;
 }
 
-#login-form label {
-  position: absolute;
-  top: -10px;
-  bottom: 0;
-  left: 30px;
-  width: 100%;
-  transition: 0.2s;
-  color: #aeb5b7;
-  font-size: 22px;
+:global(#login-form) label {
+    position: absolute;
+    top: -10px;
+    bottom: 0;
+    left: 30px;
+    width: 100%;
+    transition: 0.2s;
+    color: #aeb5b7;
+    font-size: 22px;
 }
 
-.login-form__field {
-  margin-top: 35px;
+:global(.login-form__field) {
+    margin-top: 35px;
 }
 
-.login-form__field-error {
-  color: #e84646;
-  font-size: 12px;
+:global(.login-form__field-error) {
+    color: #e84646;
+    font-size: 12px;
 }
 
-.login-form__control {
-  margin-top: 50px;
-  margin-bottom: 20px;
-  margin-left: 85px;
+:global(.login-form__control) {
+    margin-top: 50px;
+    margin-bottom: 20px;
+    margin-left: 85px;
 }
 
-.login-form__field input:focus+label {
-  top: 100%;
-  margin-top: -26px;
-  font-size: 2em;
+:global(.login-form__field input:focus + label) {
+    top: 100%;
+    margin-top: -26px;
+    font-size: 2em;
 }
 
-.login-form__field input {
-  border: 0;
-  border-bottom: 1px solid #26292c;
-  outline-style: none;
-  width: 520px;
-  font-size: 22px;
-  padding-bottom: 5px;
-  padding-left: 30px;
+:global(.login-form__field input) {
+    border: 0;
+    border-bottom: 1px solid #26292c;
+    outline-style: none;
+    width: 520px;
+    font-size: 22px;
+    padding-bottom: 5px;
+    padding-left: 30px;
 }
 
-.login-form__field-red input {
-  border-bottom: 1px solid red !important;
+:global(.login-form__field-red input) {
+    border-bottom: 1px solid red !important;
 }
 
-.big-button {
-  display: inline-block;
-  cursor: pointer;
-  background-color: #2cbf55;
-  border: 0;
-  min-width: 365px;
-  font-size: 25px;
-  padding: 9px 24px;
-  color: white;
-  height: 60px;
+:global(.big-button) {
+    display: inline-block;
+    cursor: pointer;
+    background-color: #2cbf55;
+    border: 0;
+    min-width: 365px;
+    font-size: 25px;
+    padding: 9px 24px;
+    color: white;
+    height: 60px;
 }
 
-.big-button:hover {
-  background-color: #56c96e;
+:global(.big-button:hover) {
+    background-color: #56c96e;
 }
+
 
 /* FOOTER */
 .footer {
