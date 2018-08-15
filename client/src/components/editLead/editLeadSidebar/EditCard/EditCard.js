@@ -45,57 +45,9 @@ class EditCard extends Component {
                     </span>
                 </div>
                 <div className={styles.fields}>
-                    <MainField/>
+                    <MainField contact={leads.contact}/>
                     {fields}
                 </div>
-                {/*<div className='SideCard__fields'>
-                    <div className='SideCard__field'>
-                        <div className='SideCard__field-value'>
-                            <div className='SideCard__field-value-wrap'>
-                                <span className='SideCard__field-value-badge'>
-
-                                </span>
-                                <h3>
-                                    <a className='SideCard__field-value-name'>
-                                        {leads.contact.name}
-                                    </a>
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='SideCard__field'>
-                        <div className='SideCard__field-value--highlight'>
-                            <div className='SideCard__field-value'>
-                                <div className='SideCard__field-label-wrap'>
-                                    <div className='SideCard__field-label'>
-                                        Phone
-                                    </div>
-                                </div>
-                                <span className='SideCard__field-value-add-value'>
-                                    <div className='SideCard__field-value-add-button'>
-                                            + Add value
-                                    </div>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='SideCard__field'>
-                        <div className='SideCard__field-value--highlight'>
-                            <div className='SideCard__field-value'>
-                                <div className='SideCard__field-label-wrap'>
-                                    <div className='SideCard__field-label'>
-                                        Email
-                                    </div>
-                                </div>
-                                <span className='SideCard__field-value-add-value'>
-                                    <div className='SideCard__field-value-add-button'>
-                                            + Add value
-                                    </div>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>*/}
             </div>
         )
     }
