@@ -6,7 +6,6 @@ import AddLead from "./AddLead";
 import store from "../../../store";
 import Modal from "react-modal";
 import styles from "./AddLead.css";
-import sinon from "sinon";
 
 Modal.setAppElement("body");
 
