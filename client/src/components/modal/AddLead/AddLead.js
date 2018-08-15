@@ -6,8 +6,12 @@ import { createLead } from "../../../actions/leadActions";
 import classNames from "classnames";
 import styles from "./AddLead.css";
 import { flow, isEmpty, trim } from "lodash/fp";
+import SelectStageOnCreation from "./select_stage/SelectStageOnCreation";
 
-const isBlank = flow(trim, isEmpty);
+const isBlank = flow(
+  trim,
+  isEmpty
+);
 
 const customStyles = {
   content: {
@@ -44,7 +48,9 @@ class AddLead extends React.Component {
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.closeModalOnESC = this.closeModalOnESC.bind(this);
 
+    this.selectStageHandler = this.selectStageHandler.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -53,12 +59,11 @@ class AddLead extends React.Component {
     const { stages } = this.props.leads;
     this.setState({
       modalIsOpen: true,
-      stage: (Object.keys(stages).length > 0) ? stages[0]._id : ""
+      stage: Object.keys(stages).length > 0 ? stages[0]._id : ""
     });
   }
 
-  afterOpenModal() {
-  }
+  afterOpenModal() {}
 
   closeModal() {
     this.setState({
@@ -115,13 +120,23 @@ class AddLead extends React.Component {
     }
   }
 
+  selectStageHandler(stage) {
+    this.setState({ stage: stage });
+  }
+
+  closeModalOnESC(event) {
+    if (event.keyCode === 27) {
+      this.closeModal();
+    }
+  }
+
   render() {
+    console.log(this.props.leads);
     const { errors, validationIsShown } = this.state;
     return (
       <div>
         <div className={styles.toolPanel}>
-          <button type="button" className={styles.button}
-                  onClick={this.openModal}>
+          <button type="button" className={styles.button} onClick={this.openModal}>
             Add lead
           </button>
         </div>
@@ -129,63 +144,50 @@ class AddLead extends React.Component {
         <Modal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
-          style={customStyles}>
-          <header className={styles.formHeader}>
-            Add lead
-          </header>
-          <button type="button"
-                  onClick={this.closeModal}
-                  aria-label="Close"
-                  className={styles.closeBtn}>
-              <span aria-hidden="true"
-                    className={classNames('close', styles.closeIcon)}>
-                &times;
-              </span>
+          onRequestClose={e => this.closeModalOnESC(e)}
+          style={customStyles}
+        >
+          <header className={styles.formHeader}>Add lead</header>
+          <button type="button" onClick={this.closeModal} aria-label="Close" className={styles.closeBtn}>
+            <span aria-hidden="true" className={classNames("close", styles.closeIcon)}>
+              &times;
+            </span>
           </button>
-          <form
-            autoComplete="off"
-            className={styles.form}>
-            <label className={styles.inputLabel}>
-              Contact person name
-            </label>
-            <div className={classNames(styles.inputContainer,
-              { [styles.invalid]: validationIsShown && errors.contact })}>
-              <i className={classNames('fas fa-user', styles.inputIcon)}/>
-              <input
-                name="contact"
-                type="text"
-                className={styles.formInput}
-                onChange={this.onChange}/>
+          <form autoComplete="off" className={styles.form}>
+            <label className={styles.inputLabel}>Contact person name</label>
+            <div
+              className={classNames(styles.inputContainer, { [styles.invalid]: validationIsShown && errors.contact })}
+            >
+              <i className={classNames("fas fa-user", styles.inputIcon)} />
+              <input name="contact" type="text" className={styles.formInput} onChange={this.onChange} />
             </div>
 
-            <label className={styles.inputLabel}>
-              Organization name
-            </label>
-            <div className={classNames(styles.inputContainer,
-              { [styles.invalid]: validationIsShown && errors.organization })}>
-              <i className={classNames('fas fa-building', styles.inputIcon)}/>
-              <input
-                name="organization"
-                type="text"
-                className={styles.formInput}
-                onChange={this.onChange}/>
+            <label className={styles.inputLabel}>Organization name</label>
+            <div
+              className={classNames(styles.inputContainer, {
+                [styles.invalid]: validationIsShown && errors.organization
+              })}
+            >
+              <i className={classNames("fas fa-building", styles.inputIcon)} />
+              <input name="organization" type="text" className={styles.formInput} onChange={this.onChange} />
             </div>
 
-            <label className={styles.inputLabel}>
-              Lead title
-            </label>
-            <div className={classNames(styles.inputContainer,
-              { [styles.invalid]: validationIsShown && errors.name })}>
-              <input
-                name="name"
-                type="text"
-                className={styles.formInput}
-                onChange={this.onChange}/>
+            <label className={styles.inputLabel}>Lead title</label>
+            <div className={classNames(styles.inputContainer, { [styles.invalid]: validationIsShown && errors.name })}>
+              <input name="name" type="text" className={styles.formInput} onChange={this.onChange} />
             </div>
+            <SelectStageOnCreation
+              stages={this.props.leads.stages}
+              onStageChange={this.selectStageHandler}
+              selectedStage={this.state.stage}
+            />
           </form>
           <div className={styles.formFooter}>
-            <button type="button" className={classNames(styles.btn, styles.green, styles.saveBtn)}
-                    onClick={this.onSubmit}>
+            <button
+              type="button"
+              className={classNames(styles.btn, styles.green, styles.saveBtn)}
+              onClick={this.onSubmit}
+            >
               Save
             </button>
           </div>
