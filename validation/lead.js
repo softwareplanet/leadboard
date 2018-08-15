@@ -10,8 +10,16 @@ module.exports = function validateLeadInput(data) {
 
   if (!isNumber(data.order)) errors.order = "Order must be a number";
 
-  if (!Validator.isLength(data.name, { max: 30 })) {
-    errors.name = "Lead name cannot be more 30 characters";
+  if (isEmpty("" + data.order)) {
+    errors.order = "Order cannot be empty";
+  }
+
+  if (isEmpty(data.name)) {
+    errors.name = "Name cannot be empty";
+  } else {
+    if (!Validator.isLength(data.name, { max: 30 })) {
+      errors.name = "Lead name cannot be more 30 characters";
+    }
   }
 
   if (isEmpty("" + data.order)) errors.order = "Order cannot be empty";

@@ -2,9 +2,9 @@ import React from "react";
 import Modal from "react-modal";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { createLead } from "../../actions/leadActions";
+import { createLead } from "../../../actions/leadActions";
 import classNames from "classnames";
-import "./AddLead.css";
+import styles from "./AddLead.css";
 import { flow, isEmpty, trim } from "lodash/fp";
 
 const isBlank = flow(trim, isEmpty);
@@ -42,7 +42,6 @@ class AddLead extends React.Component {
     };
 
     this.openModal = this.openModal.bind(this);
-    this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
 
     this.onChange = this.onChange.bind(this);
@@ -55,9 +54,6 @@ class AddLead extends React.Component {
       modalIsOpen: true,
       stage: (Object.keys(stages).length > 0) ? stages[0]._id : ""
     });
-  }
-
-  afterOpenModal() {
   }
 
   closeModal() {
@@ -76,11 +72,11 @@ class AddLead extends React.Component {
     newState[event.target.name] = event.target.value;
     this.setState({
       [event.target.name]: event.target.value,
-      errors: this.validateDeal(newState)
+      errors: this.validateLead(newState)
     });
   }
 
-  validateDeal(lead) {
+  validateLead(lead) {
     let errors = {};
     if (isBlank(lead.name)) {
       errors.name = "Name must not be empty";
@@ -97,7 +93,7 @@ class AddLead extends React.Component {
       validationIsShown: true
     });
 
-    let errors = this.validateDeal(this.state);
+    let errors = this.validateLead(this.state);
     if (isEmpty(errors)) {
       const lead = {
         domain: this.props.auth.domainid,
@@ -106,7 +102,7 @@ class AddLead extends React.Component {
         name: this.state.name,
         contact: this.state.contact,
         organization: this.state.organization,
-        order: "10"
+        order: this.getNextLeadNumber(this.state.stage)
       };
       this.props.createLead(lead);
       this.closeModal();
@@ -115,12 +111,16 @@ class AddLead extends React.Component {
     }
   }
 
+  getNextLeadNumber(stage) {
+    return this.props.leads.leads[`_${stage}`].leads.length + 1;
+  }
+
   render() {
     const { errors, validationIsShown } = this.state;
     return (
       <div>
-        <div id="tool-panel">
-          <button type="button" className="AppLead__btn AppLead__btn--green tool-panel__button"
+        <div className={styles.toolPanel}>
+          <button type="button" className={styles.button}
                   onClick={this.openModal}>
             Add lead
           </button>
@@ -128,63 +128,65 @@ class AddLead extends React.Component {
 
         <Modal
           isOpen={this.state.modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
           style={customStyles}>
-          <header className="AppLead__form-header">
+          <header className={styles.formHeader}>
             Add lead
           </header>
           <button type="button"
                   onClick={this.closeModal}
                   aria-label="Close"
-                  className="AppLead__modal-btn--close">
+                  className={styles.closeBtn}>
               <span aria-hidden="true"
-                    className="close AppLead__icon--close">
+                    className={classNames("close", styles.closeIcon)}>
                 &times;
               </span>
           </button>
           <form
             autoComplete="off"
-            className="AppLead__form">
-            <label className="AppLead__input-label">
+            className={styles.form}>
+            <label className={styles.inputLabel}>
               Contact person name
             </label>
-            <div className={classNames("AppLead__input-container",
-              { "AppLead__input-container--invalid": validationIsShown && errors.contact })}>
-              <i className="fas fa-user AppLead__input-icon"/>
+            <div className={validationIsShown && errors.contact
+              ? styles.invalidContainer
+              : styles.inputContainer}>
+              <i className={classNames("fas fa-user", styles.inputIcon)}/>
               <input
                 name="contact"
                 type="text"
-                className="AppLead__form-input"
+                className={styles.formInput}
                 onChange={this.onChange}/>
             </div>
 
-            <label className="AppLead__input-label">
+            <label className={styles.inputLabel}>
               Organization name
             </label>
-            <div className={classNames("AppLead__input-container",
-              { "AppLead__input-container--invalid": validationIsShown && errors.organization })}>
-              <i className="fas fa-building AppLead__input-icon"/>
+            <div className={validationIsShown && errors.organization
+              ? styles.invalidContainer
+              : styles.inputContainer}>
+              <i className={classNames("fas fa-building", styles.inputIcon)}/>
               <input
                 name="organization"
                 type="text"
-                className="AppLead__form-input"
+                className={styles.formInput}
                 onChange={this.onChange}/>
             </div>
 
-            <label className="AppLead__input-label">
+            <label className={styles.inputLabel}>
               Lead title
             </label>
-            <div className={classNames("AppLead__input-container",
-              { "AppLead__input-container--invalid": validationIsShown && errors.name })}>
+            <div className={validationIsShown && errors.name
+              ? styles.invalidContainer
+              : styles.inputContainer}>
               <input
                 name="name"
                 type="text"
-                className="AppLead__form-input"
+                className={styles.formInput}
                 onChange={this.onChange}/>
             </div>
           </form>
-          <div className="AppLead__form-footer">
-            <button type="button" className="AppLead__btn AppLead__btn--green AppLead__btn--save"
+          <div className={styles.formFooter}>
+            <button type="button" className={styles.saveBtn}
                     onClick={this.onSubmit}>
               Save
             </button>

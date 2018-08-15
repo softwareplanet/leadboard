@@ -9,7 +9,7 @@ import { loginUserById } from "./actions/authActions";
 
 import PrivateRoute from "./components/common/PrivateRoute"
 import Home from "./components/layouts/Home";
-import Footer from "./components/layouts/Footer";
+import Footer from "./components/layouts/Footer/Footer";
 import Login from "./components/auth/Login";
 import Registration from "./components/auth/Registration";
 

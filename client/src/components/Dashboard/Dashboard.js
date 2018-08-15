@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { loadLeadboard } from "../actions/leadActions";
+import { loadLeadboard } from "../../actions/leadActions";
+import styles from './Dashboard.css';
 
-import Lead from "./Lead";
+import Lead from "../Lead/Lead";
 
 class Dashboard extends Component {
   constructor() {
@@ -46,15 +47,15 @@ class Dashboard extends Component {
   render() {
     var stages = this.props.leads.stages.map(function(stage) {
       return (
-        <div className="dashboard__stage" key={stage._id}>
-          <div className="dashboard__head">{stage.name}</div>
+        <div className={styles.stage} key={stage._id}>
+          <div className={styles.head}>{stage.name}</div>
           {this.getLeads(stage._id, this)}
-          <div className="dashboard__stage__card-terminator" />
+          <div className={styles.cardTerminator} />
         </div>
       );
     }, this);
 
-    return <div className="dashboard">{stages}</div>;
+    return <div className={styles.dashboard}>{stages}</div>;
   }
 }
 
