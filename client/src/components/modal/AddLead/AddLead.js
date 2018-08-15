@@ -47,7 +47,6 @@ class AddLead extends React.Component {
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-    this.closeModalOnESC = this.closeModalOnESC.bind(this);
 
     this.selectStageHandler = this.selectStageHandler.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -125,7 +124,6 @@ class AddLead extends React.Component {
   }
 
   render() {
-    console.log(this.props.leads);
     const { errors, validationIsShown } = this.state;
     return (
       <div>
@@ -135,63 +133,29 @@ class AddLead extends React.Component {
           </button>
         </div>
 
-        <Modal
-          isOpen={this.state.modalIsOpen}
-          style={customStyles}>
-          <header className={styles.formHeader}>
-            Add lead
-          </header>
-          <button type="button"
-                  onClick={this.closeModal}
-                  aria-label="Close"
-                  className={styles.closeBtn}>
-              <span aria-hidden="true"
-                    className={classNames("close", styles.closeIcon)}>
-                &times;
-              </span>
+        <Modal isOpen={this.state.modalIsOpen} style={customStyles}>
+          <header className={styles.formHeader}>Add lead</header>
+          <button type="button" onClick={this.closeModal} aria-label="Close" className={styles.closeBtn}>
+            <span aria-hidden="true" className={classNames("close", styles.closeIcon)}>
+              &times;
+            </span>
           </button>
-          <form
-            autoComplete="off"
-            className={styles.form}>
-            <label className={styles.inputLabel}>
-              Contact person name
-            </label>
-            <div className={validationIsShown && errors.contact
-              ? styles.invalidContainer
-              : styles.inputContainer}>
-              <i className={classNames("fas fa-user", styles.inputIcon)}/>
-              <input
-                name="contact"
-                type="text"
-                className={styles.formInput}
-                onChange={this.onChange}/>
+          <form autoComplete="off" className={styles.form}>
+            <label className={styles.inputLabel}>Contact person name</label>
+            <div className={validationIsShown && errors.contact ? styles.invalidContainer : styles.inputContainer}>
+              <i className={classNames("fas fa-user", styles.inputIcon)} />
+              <input name="contact" type="text" className={styles.formInput} onChange={this.onChange} />
             </div>
 
-            <label className={styles.inputLabel}>
-              Organization name
-            </label>
-            <div className={validationIsShown && errors.organization
-              ? styles.invalidContainer
-              : styles.inputContainer}>
-              <i className={classNames("fas fa-building", styles.inputIcon)}/>
-              <input
-                name="organization"
-                type="text"
-                className={styles.formInput}
-                onChange={this.onChange}/>
+            <label className={styles.inputLabel}>Organization name</label>
+            <div className={validationIsShown && errors.organization ? styles.invalidContainer : styles.inputContainer}>
+              <i className={classNames("fas fa-building", styles.inputIcon)} />
+              <input name="organization" type="text" className={styles.formInput} onChange={this.onChange} />
             </div>
 
-            <label className={styles.inputLabel}>
-              Lead title
-            </label>
-            <div className={validationIsShown && errors.name
-              ? styles.invalidContainer
-              : styles.inputContainer}>
-              <input
-                name="name"
-                type="text"
-                className={styles.formInput}
-                onChange={this.onChange}/>
+            <label className={styles.inputLabel}>Lead title</label>
+            <div className={validationIsShown && errors.name ? styles.invalidContainer : styles.inputContainer}>
+              <input name="name" type="text" className={styles.formInput} onChange={this.onChange} />
             </div>
             <SelectStageOnCreation
               stages={this.props.leads.stages}
@@ -200,8 +164,7 @@ class AddLead extends React.Component {
             />
           </form>
           <div className={styles.formFooter}>
-            <button type="button" className={styles.saveBtn}
-                    onClick={this.onSubmit}>
+            <button type="button" className={styles.saveBtn} onClick={this.onSubmit}>
               Save
             </button>
           </div>

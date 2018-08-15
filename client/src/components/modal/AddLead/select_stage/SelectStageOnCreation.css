@@ -1,24 +1,25 @@
-.AppLead__stages{
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+.stages{
     position: relative;
 }
 
-.AppLead__stages-input{
+.stagesInput{
     padding-bottom: 0;
 }
 
 
-.AppLead__stages .active ~ label{
+.stages .active ~ label{
     background: #e5e5e5;
 }
-.AppLead_active ~ label::before {
+.active ~ label::before {
     background: #e5e5e5;
 }
 
-.AppLead__stage-option-wrapper  label.active {
+.stageOptionWrapper  label.active {
     background: #2cbf55;
 }
 
-.AppLead__stages_options {
+.stagesOptions {
     display: table;
     width: 100%;
     overflow: hidden;
@@ -27,7 +28,7 @@
     table-layout: fixed;
 }
 
-.AppLead__radio input{
+.radio input{
     cursor: pointer;
     width: auto;
     position: absolute;
@@ -35,7 +36,7 @@
 }
 
 
-.AppLead__stage-option-wrapper label {
+.stageOptionWrapper label {
     height: 28px;
     width: 33px;
     cursor: pointer;
@@ -49,7 +50,7 @@
     position: relative;
 }
 
-.AppLead__stage-option-wrapper  label::before {
+.stageOptionWrapper  label::before {
     width: 20px;
     height: 24px;
     position: absolute;
@@ -72,4 +73,25 @@
 }
 .active ~ label::before {
     background: #e5e5e5;
+}
+
+/* Tooltip */
+.keepTooltip {
+    z-index: 8000;
+    
+    font-size: 100% !important;
+    margin-top: 5px !important;
+    padding: 4px 8px;
+    pointer-events: auto !important;
+    font: 400 12px/16px Open Sans,sans-serif;
+    color: #fff;
+    background-color: #26292c;
+    border-radius: 2px;
+    border: 0 solid #26292c;
+    vertical-align: baseline;
+    box-shadow: 0 2px 8px 0 rgba(38,41,44,.12);
+}
+.keepTooltip:hover {
+    visibility: visible !important;
+    opacity: 1 !important;
 }
