@@ -5,35 +5,67 @@ import * as types from "../../actions/types";
 import reducer from "../../reducers/leadReducer";
 
 import { shallow } from "enzyme";
-import jest from "jest-mock";
 
 import { Provider } from "react-redux";
 import ConnectedDashboard from "./Dashboard";
 import { Dashboard } from "./Dashboard";
 import { loadLeadboard } from "../../actions/leadActions";
+import Lead from "../Lead/Lead";
+import styles from "./Dashboard.css";
 
 let store;
 const mockStore = configureStore();
 
 describe("DASHBOARD component", () => {
-  let spy;
   const auth = {
     isAuthenticated: true,
     userid: "5b6ab060f60c0524980fa23c",
     domainid: "5b6ab060f60c0524980fa23b"
   };
-  const leads = {
-    funnels: [ { _id: "5b6b0fbe91e0774579ed6700", name: "renkonazbkafunnel", domain: "5b6ab060f60c0524980fa23b" } ],
-    stages: [ { _id: "5b6b123391e0774579ed6701", funnel: "5b6b0fbe91e0774579ed6700", name: "Lead In", order: 1 } ],
-    leads: { _5b6b123391e0774579ed6701: { leads: [ ] } }
+  let leads = {
+    funnels: [{ _id: "5b6b0fbe91e0774579ed6700", name: "renkonazbkafunnel", domain: "5b6ab060f60c0524980fa23b" }],
+    stages: [
+      { _id: "5b6b123391e0774579ed6701", funnel: "5b6b0fbe91e0774579ed6700", name: "Lead In", order: 1 },
+      { _id: "5b6b123391e0774579ed6702", funnel: "5b6b0fbe91e0774579ed6700", name: "Lead In", order: 1 },
+      { _id: "5b6b123391e0774579ed6703", funnel: "5b6b0fbe91e0774579ed6700", name: "Lead In", order: 1 },
+      { _id: "5b6b123391e0774579ed6704", funnel: "5b6b0fbe91e0774579ed6700", name: "Lead In", order: 1 }
+    ],
+    leads: {
+      _5b6b123391e0774579ed6701: {
+        leads: [
+          { _id: "3456465474h5j", name: "Lead" },
+          { _id: "3456465474h5", name: "Lead2" },
+          { _id: "3456465474j", name: "Lead3" }
+        ]
+      }
+    }
   };
-  const errors = {};
 
-  it("+++ check if user don't have leads component should render a funnel by invocation createEmptyLeadCards method", () => {
-    const wrapper = shallow(<Dashboard loadLeadboard={loadLeadboard(auth.domainid)} auth={auth} leads={leads} errors={errors}/>);
-    spy = jest.spyOn(wrapper.instance(), "createEmptyLeadCards");
-    wrapper.instance().forceUpdate();
-    expect(spy).toHaveBeenCalledTimes(1);
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallow(<Dashboard loadLeadboard={loadLeadboard(auth.domainid)} auth={auth} leads={leads} />);
+  });
+
+  it("check if user have at least one lead in stage, it should be rendered small tag with count of leads in stage", () => {
+    expect(wrapper.find("small").length).toEqual(1);
+  });
+
+  it("check if user have at least one lead in stage, in small tag count of leads is equal count of leads in props ", () => {
+    const expectedCountOfLeads = leads.leads._5b6b123391e0774579ed6701.leads.length.toString();
+    expect(wrapper.find("small").text()[0]).toEqual(expectedCountOfLeads);
+  });
+
+  it("check if user have leads int stages it should been rendered Lead components", () => {
+    const expectedCountOfLeads = leads.leads._5b6b123391e0774579ed6701.leads.length;
+    expect(wrapper.find(Lead).length).toEqual(expectedCountOfLeads);
+  });
+
+  it("check if user don't have lead component it should been rendered a funnel by invocation createEmptyLeadCards method", () => {
+    leads = { ...leads, leads: { _5b6b123391e0774579ed6701: { leads: [] } } };
+    wrapper = shallow(<Dashboard loadLeadboard={loadLeadboard(auth.domainid)} auth={auth} leads={leads} />);
+    const stages = leads.stages.length;
+    const expectedCountOfPlaceholders = ((stages + 1) / 2) * stages;
+    expect(wrapper.find(`.${styles.stagePlaceholder}`).length).toEqual(expectedCountOfPlaceholders);
   });
 });
 
@@ -44,7 +76,7 @@ describe("Actions", () => {
     store = mockStore(initialState);
   });
 
-  it("+++ check leadboards actions on dispatching", () => {
+  it("check leadboards actions on dispatching", () => {
     let actions;
     const domainId = "5b6ab060f60c0524980fa23b";
     const funnelId = "5b6b0fbe91e0774579ed6700";
@@ -73,13 +105,13 @@ describe("Connected DASHBOARD (SMART component)", () => {
     container = shallow(<Provider store={store}><ConnectedDashboard/></Provider>);
   });
 
-  it("+++ render the connected(SMART) component", () => {
+  it("render the connected(SMART) component", () => {
     expect(container.find(ConnectedDashboard).length).toEqual(1);
   });
 });
 
 describe("LEADBOARD REDUCERS", () => {
-  it("+++ should handle LOAD_LEADS action", () => {
+  it("should handle LOAD_LEADS action", () => {
     expect(
       reducer({}, {
         type: types.LOAD_LEADS,
@@ -107,7 +139,7 @@ describe("LEADBOARD REDUCERS", () => {
     });
   });
 
-  it("+++ should handle LOAD_STAGES action", () => {
+  it("should handle LOAD_STAGES action", () => {
     expect(
       reducer({}, {
         type: types.LOAD_STAGES,
@@ -126,7 +158,7 @@ describe("LEADBOARD REDUCERS", () => {
     });
   });
 
-  it("+++ should handle LOAD_LEADBOARD action", () => {
+  it("should handle LOAD_LEADBOARD action", () => {
     expect(
       reducer({}, {
         type: types.LOAD_LEADBOARD,
@@ -151,7 +183,7 @@ describe("LEADBOARD REDUCERS", () => {
     });
   });
 
-  it("+++ should return initial state", () => {
+  it("should return initial state", () => {
     expect(reducer(undefined, {})).toEqual({
       funnels: [],
       stages: [],

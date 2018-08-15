@@ -1,7 +1,6 @@
 .dashboard {
     display: flex;
-    height: 800px; /* use javascript to set height */
-    /*background-color: red;*/
+    height: 800px;
     border-top: 1px #b9babb solid;
 }
 .head {
@@ -19,12 +18,12 @@
 }
 
 .emptyStageHead {
-    composes:head;
+    composes: head;
     height: 45px;
 }
 
 .notEmptyStageHead {
-    composes:head;
+    composes: head;
     height: 60px;
 }
 
@@ -43,7 +42,7 @@
 
 .stage {
     width: 100%;
-    display:flex;
+    display: flex;
     flex-direction: column;
 }
 
@@ -66,6 +65,5 @@
 
 .cardTerminator {
     flex: 1;
-    /*background-color: #fff0ff;*/
     border-right: 1px solid #e5e5e5;
 }

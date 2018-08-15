@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loadLeadboard } from "../../actions/leadActions";
 import styles from "./Dashboard.css";
+import all from "lodash/fp/all";
 
 import Lead from "../Lead/Lead";
 
 export class Dashboard extends Component {
   constructor() {
     super();
-
     this.leadboardLoaded = false;
   }
 
@@ -35,13 +35,8 @@ export class Dashboard extends Component {
   }
 
   isStagesEmpty = () => {
-    let isEmpty = true;
-    let stagesArray = Object.values(this.props.leads.leads);
-    stagesArray.forEach(stage => {
-      if (stage.leads.length !== 0)
-        isEmpty = false;
-    });
-    return isEmpty;
+    let stages = Object.values(this.props.leads.leads);
+    return all(s => s.leads.length === 0, stages);
   };
 
   createLeadCards = stage => {
@@ -51,17 +46,17 @@ export class Dashboard extends Component {
       return <div/>;
 
     leads = this.props.leads.leads["_" + stage].leads.map(lead => {
-      return <Lead key={lead._id} lead={lead}
-                   link={`/funnel/${
-                     this.props.leads.funnels && this.props.leads.funnels.length > 0 ?
-                       this.props.leads.funnels[0]._id :
-                       0
-                     }/lead/${lead._id}`}/>;
+      return <Lead key={lead._id} lead={lead} link={this.leadPath(lead)} />;
     });
     return leads;
   };
 
-  createEmptyLeadCards = (index) => {
+  leadPath = lead => {
+    const funnelId = this.props.leads.funnels[0]._id;
+    return `/funnel/${funnelId}/lead/${lead._id}`;
+  };
+
+  createEmptyLeadCards = index => {
     let emptyLeads = [];
     for (let i = 0; i < this.props.leads.stages.length - index; i++) {
       emptyLeads.push(<div key={i} className={styles.stagePlaceholder}/>);
@@ -69,7 +64,7 @@ export class Dashboard extends Component {
     return emptyLeads;
   };
 
-  isStageIsUndefined = (stage) => {
+  isStageIsUndefined = stage => {
     return typeof this.props.leads.leads["_" + stage] === "undefined";
   };
 
@@ -83,39 +78,34 @@ export class Dashboard extends Component {
           <div className={noLeads ? styles.emptyStageHead :  styles.notEmptyStageHead}>
             <div className={styles.stageContainer}>
               <span>{stage.name}</span>
-              {
-                leads.length === 0 || !Array.isArray(leads) ? <span className={styles.stageValue}/> : (
-                  <span className={styles.stageValue}>
-                    <small className={styles.stageValueSmall}>{leads.length} {leads.length === 1 ? "lead" : "leads"}</small>
-                  </span>
-                )
-              }
+                <span className={styles.stageValue}>
+                  { Array.isArray(leads) && leads.length > 0 ? (
+                      <small
+                        className={styles.stageValueSmall}>{leads.length} {leads.length === 1 ? "lead" : "leads"}</small>
+                    ) : null }
+                </span>
             </div>
           </div>
-          {
-            leads
-          }
+          { leads }
           <div className={styles.cardTerminator}>
-            {noLeads ? this.createEmptyLeadCards(index) : <div/>}
+            { noLeads ? this.createEmptyLeadCards(index) : null }
           </div>
         </div>
       );
     });
 
-    return <div className={styles.dashboard}>{stages}</div>;
+    return <div className={styles.dashboard}>{ stages }</div>;
   }
 }
 
 Dashboard.propTypes = {
   loadLeadboard: PropTypes.func.isRequired,
-  leads: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  leads: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   leads: state.leads,
-  auth: state.auth,
-  errors: state.errors
+  auth: state.auth
 });
 
 export default connect(
