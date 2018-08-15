@@ -5,6 +5,8 @@ import styles from "./EditLeadPopover.css";
 class EditLeadPopover extends Component {
   constructor(props) {
     super(props);
+    this.state = {};
+    this.onChange = this.onChange.bind(this);
   }
 
   render() {
@@ -19,14 +21,16 @@ class EditLeadPopover extends Component {
         <PopoverHeader>{this.props.title}</PopoverHeader>
         <PopoverBody className={styles.container}>
           <div className={styles.inputContainer}>
-            <input className={styles.input} defaultValue={this.props.data} />
+            <input onChange={this.onChange} className={styles.input} defaultValue={this.props.data} />
           </div>
           <div className={styles.buttonsContainer}>
             <div className={styles.buttons}>
-              <button onChange={() => this.props.onSave()} className={styles.buttonSave}>
+              <button onClick={() => this.props.onSave(this.state.name)} className={styles.buttonSave}>
                 Save
               </button>
-              <button className={styles.button}>Cancel</button>
+              <button onClick={this.props.onCancel} className={styles.button}>
+                Cancel
+              </button>
             </div>
           </div>
         </PopoverBody>
@@ -34,7 +38,18 @@ class EditLeadPopover extends Component {
     );
   }
 
-  componentDidMount() {}
+  onChange(e) {
+    this.setState({
+      ...this.state,
+      name: e.target.value
+    });
+  }
+
+  componentDidMount() {
+    this.setState({
+      name: this.props.data
+    });
+  }
 }
 
 export default EditLeadPopover;

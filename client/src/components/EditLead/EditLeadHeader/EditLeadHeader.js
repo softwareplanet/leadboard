@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { loadLead } from "../../../actions/leadActions";
+import { loadLead, setEditFunnel, updateLead } from "../../../actions/leadActions";
 import styles from "./EditLeadHeader.css";
 import EditLeadStageProgress from "./EditLeadStageList/EditLeadStageProgress";
 import dropDownIcon from "../../../img/drop-down-arrow.svg";
 import EditLeadPopover from "./EditLeadPopover/EditLeadPopover";
-import { setEditFunnel } from "../../../actions/leadActions";
 import classNames from "classnames";
 
 class EditLeadHeader extends Component {
@@ -15,6 +14,8 @@ class EditLeadHeader extends Component {
       popoverOpen: false
     };
     this.toggle = this.toggle.bind(this);
+    this.onLeadNameSave = this.onLeadNameSave.bind(this);
+    this.onPopoverCancel = this.onPopoverCancel.bind(this);
   }
 
   toggle() {
@@ -33,6 +34,7 @@ class EditLeadHeader extends Component {
           </h4>
           <EditLeadPopover
             onSave={this.onLeadNameSave}
+            onCancel={this.onPopoverCancel}
             data={this.props.leads.editLead ? this.props.leads.editLead.name : null}
             isOpen={this.state.popoverOpen}
             target="edit-lead-header-name"
@@ -51,6 +53,7 @@ class EditLeadHeader extends Component {
             <img className={styles.dropdownIcon} src={dropDownIcon} />
           </div>
         </div>
+        <div>Organization, Contact</div>
         <div>
           <EditLeadStageProgress />
         </div>
@@ -65,7 +68,17 @@ class EditLeadHeader extends Component {
     this.props.setEditFunnel(funnelId);
   }
 
-  onLeadNameSave() {}
+  onLeadNameSave(name) {
+    let funnel = this.props.leads.editFunnelId;
+    let lead = this.props.leads.editLead;
+    lead.name = name;
+    this.props.updateLead(lead, funnel);
+    this.toggle();
+  }
+
+  onPopoverCancel() {
+    this.toggle();
+  }
 }
 
 const mapStateToProps = state => ({
@@ -76,5 +89,5 @@ export { EditLeadHeader };
 
 export default connect(
   mapStateToProps,
-  { loadLead, setEditFunnel }
+  { loadLead, setEditFunnel, updateLead }
 )(EditLeadHeader);
