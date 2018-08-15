@@ -12,7 +12,8 @@ const leadSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
   status: {
     type: String,
-    enum: ["Won", "Lost", "InProgress"]
+    enum: ["Won", "Lost", "InProgress"],
+    default: "InProgress"
   }
 });
 
