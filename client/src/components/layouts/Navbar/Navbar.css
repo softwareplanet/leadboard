@@ -25,7 +25,14 @@ ul {
     padding: 0 20px 0 10px;
 }
 
+.logoSmall {
+    composes:logo;
+    display:none
+}
+
 .search {
+    max-width: 233px;
+    width: 100%;
     height: 32px;
     border-radius: 4px;
     box-sizing: border-box;
@@ -68,7 +75,7 @@ ul {
     padding: 4px;
 }
 
-.rightItem:hover {
+.rightItem div:hover{
     color: #b9babb;
     cursor: default;
 }
@@ -129,5 +136,31 @@ ul {
 
 .userInfo span {
     font-size: 12px;
+}
+
+@media only screen and (max-width: 590px) {
+    .userInfo span,small {
+        display: none;
+    }
+
+    .userImg {
+        padding: 0;
+    }
+
+    .userIcon {
+        padding: 0;
+    }
+
+    .userInfo {
+        padding: 0;
+    }
+
+    .logo {
+        display: none;
+    }
+
+    .logoSmall {
+        display: flex;
+    }
 }
 

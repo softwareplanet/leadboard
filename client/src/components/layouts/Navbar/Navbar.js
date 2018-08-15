@@ -21,32 +21,33 @@ class Navbar extends Component {
       <header>
         <ul className={styles.menu} role="navigation">
           <li className={styles.logo}>Leadboard</li>
+          <li className={styles.logoSmall}><h1>L</h1></li>
           <li>
             <form>
-              <input className={styles.search} placeholder="Search" />
+              <input className={styles.search} placeholder="Search"/>
             </form>
           </li>
-          <li className={this.props.location.pathname === leadsRoute?styles.active:styles.itemWithLink}>
-           <Link
-               className={this.props.location.pathname === leadsRoute?styles.currentLink:styles.link}
-               to={leadsRoute}>
-             <div>
-               <span className={styles.icon + ' fa fa-check-circle'} />Deals
-             </div>
-           </Link>
+          <li className={this.props.location.pathname === leadsRoute ? styles.active : styles.itemWithLink}>
+            <Link
+              className={this.props.location.pathname === leadsRoute ? styles.currentLink : styles.link}
+              to={leadsRoute}>
+              <div>
+                <span className={styles.icon + ' fa fa-check-circle'}/>Deals
+              </div>
+            </Link>
           </li>
           <li className={styles.rightItem}>
-              <div>
-                  {this.renderUserAvatar()}
-                  <div className={styles.userInfo}>
-                      <span>Name</span>
-                      <small>Domain</small>
-                  </div>
+            <div>
+              {this.renderUserAvatar()}
+              <div className={styles.userInfo}>
+                <span>Name</span>
+                <small>Domain</small>
               </div>
+            </div>
           </li>
           <li onClick={() => this.props.logoutUser(this.props.history)} className={styles.item}>
             <div>
-                Logout
+              Logout
             </div>
           </li>
         </ul>
