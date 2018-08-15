@@ -137,7 +137,7 @@ class AddLead extends React.Component {
                   aria-label="Close"
                   className={styles.closeBtn}>
               <span aria-hidden="true"
-                    className={classNames('close', styles.closeIcon)}>
+                    className={classNames("close", styles.closeIcon)}>
                 &times;
               </span>
           </button>
@@ -147,9 +147,10 @@ class AddLead extends React.Component {
             <label className={styles.inputLabel}>
               Contact person name
             </label>
-            <div className={classNames(styles.inputContainer,
-              { [styles.invalid]: validationIsShown && errors.contact })}>
-              <i className={classNames('fas fa-user', styles.inputIcon)}/>
+            <div className={validationIsShown && errors.contact
+              ? styles.invalidContainer
+              : styles.inputContainer}>
+              <i className={classNames("fas fa-user", styles.inputIcon)}/>
               <input
                 name="contact"
                 type="text"
@@ -160,9 +161,10 @@ class AddLead extends React.Component {
             <label className={styles.inputLabel}>
               Organization name
             </label>
-            <div className={classNames(styles.inputContainer,
-              { [styles.invalid]: validationIsShown && errors.organization })}>
-              <i className={classNames('fas fa-building', styles.inputIcon)}/>
+            <div className={validationIsShown && errors.organization
+              ? styles.invalidContainer
+              : styles.inputContainer}>
+              <i className={classNames("fas fa-building", styles.inputIcon)}/>
               <input
                 name="organization"
                 type="text"
@@ -173,8 +175,9 @@ class AddLead extends React.Component {
             <label className={styles.inputLabel}>
               Lead title
             </label>
-            <div className={classNames(styles.inputContainer,
-              { [styles.invalid]: validationIsShown && errors.name })}>
+            <div className={validationIsShown && errors.name
+              ? styles.invalidContainer
+              : styles.inputContainer}>
               <input
                 name="name"
                 type="text"
@@ -183,7 +186,7 @@ class AddLead extends React.Component {
             </div>
           </form>
           <div className={styles.formFooter}>
-            <button type="button" className={classNames(styles.btn, styles.green, styles.saveBtn)}
+            <button type="button" className={styles.saveBtn}
                     onClick={this.onSubmit}>
               Save
             </button>
