@@ -72,11 +72,11 @@ class AddLead extends React.Component {
     newState[event.target.name] = event.target.value;
     this.setState({
       [event.target.name]: event.target.value,
-      errors: this.validateDeal(newState)
+      errors: this.validateLead(newState)
     });
   }
 
-  validateDeal(lead) {
+  validateLead(lead) {
     let errors = {};
     if (isBlank(lead.name)) {
       errors.name = "Name must not be empty";
@@ -93,7 +93,7 @@ class AddLead extends React.Component {
       validationIsShown: true
     });
 
-    let errors = this.validateDeal(this.state);
+    let errors = this.validateLead(this.state);
     if (isEmpty(errors)) {
       const lead = {
         domain: this.props.auth.domainid,
