@@ -32,8 +32,4 @@ export default class EditLeadStage extends Component {
       />
     );
   }
-
-  getDays(fistDate, secondDate, oneDay) {
-    return Math.round(Math.abs((secondDate.getTime() - fistDate.getTime()) / oneDay));
-  }
 }
