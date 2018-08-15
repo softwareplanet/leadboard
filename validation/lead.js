@@ -1,8 +1,8 @@
 import Validator from "validator";
 import isEmpty from "lodash.isempty";
 
-function isNumber(data){
-  return typeof data === "number" || Validator.isNumeric(data)
+function isNumber(data) {
+  return typeof data === "number" || Validator.isNumeric(data);
 }
 
 module.exports = function validateLeadInput(data) {
@@ -20,11 +20,11 @@ module.exports = function validateLeadInput(data) {
   }
 
   if (isEmpty(data.name)) {
-    errors.order = "Order cannot be empty";
-  }
-
-  if (!Validator.isLength(data.name, { max: 30 })) {
-    errors.name = "Lead name cannot be more 30 characters";
+    errors.name = "Name cannot be empty";
+  } else {
+    if (!Validator.isLength(data.name, { max: 30 })) {
+      errors.name = "Lead name cannot be more 30 characters";
+    }
   }
 
   //TODO: Check if owner, domain and stage are valid IDs
