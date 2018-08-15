@@ -19,11 +19,11 @@ if (localStorage.jwtToken) {
   const decoded = jwt_decode(localStorage.jwtToken);
   const currentTime = Date.now() / 1000;
   if (decoded.exp <= currentTime) {
-    console.log('in time');
     store.dispatch(logoutUser());
+    window.location.href= "/";
   } else {
       setAuthToken(localStorage.jwtToken);
-      store.dispatch(loginUserById(decoded.id))
+      store.dispatch(loginUserById(decoded.id));
   }
 }
 

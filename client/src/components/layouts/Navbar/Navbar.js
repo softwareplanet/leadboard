@@ -1,16 +1,20 @@
 import React, { Component } from "react";
+import { withRouter, Link } from 'react-router-dom';
 import styles from './Navbar.css';
 import {logoutUser} from "../../../actions/authActions";
 import { connect } from "react-redux";
-import PropTypes from 'prop-types'
-
+import PropTypes from 'prop-types';
+// import profile from '../../../img/'
 
 
 
 
 class Navbar extends Component {
-  logoutHandler = () => this.props.logoutUser();
-
+  renderUserAvatar = () => {
+      return this.props.user?
+          <img className={styles.userImg} src={this.props.user.avatar}/>:
+          <span className={styles.userIcon + ' fa  fa-user-circle'}/>
+  };
 
   render() {
     return (
@@ -22,21 +26,29 @@ class Navbar extends Component {
               <input className={styles.search} placeholder="Search" />
             </form>
           </li>
-          <li className={styles.item}>
+          <li className={this.props.location.pathname === leadsRoute?styles.active:styles.itemWithLink}>
+           <Link
+               className={this.props.location.pathname === leadsRoute?styles.currentLink:styles.link}
+               to={leadsRoute}>
+             <div>
+               <span className={styles.icon + ' fa fa-check-circle'} />Deals
+             </div>
+           </Link>
+          </li>
+          <li className={styles.rightItem}>
+              <div>
+                  {this.renderUserAvatar()}
+                  <div className={styles.userInfo}>
+                      <span>Name</span>
+                      <small>Domain</small>
+                  </div>
+              </div>
+          </li>
+          <li onClick={() => this.props.logoutUser(this.props.history)} className={styles.item}>
             <div>
-              <span className={styles.icon + ' fa fa-check-circle'} />Deals
+                Logout
             </div>
           </li>
-          <li className={styles.item}>
-            <div>
-              <span className={styles.icon + ' fa fa-address-card'} />Contacts
-            </div>
-          </li>
-            <li onClick={this.logoutHandler} className={styles.rightItem}>
-                <div>
-                    <span className={styles.icon + ' fa  fa-user-circle'} />Logout
-                </div>
-            </li>
         </ul>
       </header>
     );
@@ -44,7 +56,9 @@ class Navbar extends Component {
 }
 
 Navbar.propTypes = {
-  logoutUser:PropTypes.func.isRequired
+    logoutUser:PropTypes.func.isRequired
 };
+
+const leadsRoute = "/home";
 export {Navbar};
-export default connect(null, {logoutUser})(Navbar);
+export default connect(null, {logoutUser})(withRouter(Navbar));

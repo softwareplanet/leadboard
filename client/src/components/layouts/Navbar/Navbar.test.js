@@ -12,7 +12,7 @@ describe('<Navbar /> :', () => {
     it('should call method logoutUser user when Logout clicked', () => {
         logoutUser = jest.fn();
         wrapper = shallow(<Navbar logoutUser={logoutUser} />);
-
+        console.log(wrapper.html());
         wrapper.find('li')
             .filterWhere(li => {
                 return li.find('div')

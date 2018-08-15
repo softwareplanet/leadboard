@@ -11,6 +11,7 @@ ul {
     padding: 0;
     margin: 0;
     list-style: none;
+
 }
 
 .menu {
@@ -35,30 +36,46 @@ ul {
     color: white;
 }
 
-.item div {
-    display: flex;
-    align-items: center;
-    flex-wrap: nowrap;
-}
-
 .item {
     padding: 13px;
     color: #b9babb;
 }
 
 .item:hover {
-    background-color: black;
-    color: white;
+    cursor: default;
 }
+
+
+.item div {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.item div:hover {
+    color: white;
+    cursor: pointer;
+}
+
+.itemWithLink {
+    padding: 13px;
+}
+
 
 .rightItem {
     composes:item;
     margin-left: auto;
+    padding: 4px;
+}
+
+.rightItem:hover {
+    color: #b9babb;
+    cursor: default;
 }
 
 .active {
     composes: item;
-    background-color: black;
+    background-color: #26292c;
     color: white;
 }
 
@@ -66,3 +83,51 @@ ul {
     font-size: 1.5em;
     padding-right: 10px;
 }
+
+.userIcon {
+    font-size: 32px;
+    padding-right: 10px;
+}
+
+.userImg {
+    border-radius: 50%;
+    width: 31px;
+    height: 31px;
+    margin-right: 10px;
+}
+
+.link {
+    composes: item;
+    padding: 0;
+}
+
+.currentLink {
+    composes:link;
+    color: white;
+}
+
+.link div {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.link:hover {
+    text-decoration: none;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 10px;
+}
+
+.userInfo small {
+    font-size: 10px;
+}
+
+.userInfo span {
+    font-size: 12px;
+}
+
