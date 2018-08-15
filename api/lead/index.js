@@ -1,7 +1,7 @@
 import { Router } from "express";
 import mongoose from "mongoose";
 
-import {require_auth} from "../authorize";
+import { require_auth } from "../authorize";
 
 import validateLeadInput from "../../validation/lead";
 import isEmpty from "lodash.isempty";
@@ -20,10 +20,10 @@ router.get("/", require_auth, function (req, res) {
     .populate({path: "contact", populate: {path: "organization"}})
     .sort({order: "asc"})
     .then(leads => {
-      res.json({data: leads});
+      res.json({ data: leads });
     })
     .catch(error => {
-      res.status(400).json({errors: {message: error}});
+      res.status(400).json({ errors: { message: error } });
     });
 });
 
@@ -37,10 +37,10 @@ router.post("/", require_auth, function (req, res) {
   if (req.body.organization) {
     Organization.findOneOrCreate(req.body)
       .then(organization => {
-        let body = {...req.body, organization: organization._id};
+        let body = { ...req.body, organization: organization._id };
         if (isEmpty(body.contact))
           delete body['contact'];
-        createLead({body: body}, res);
+        createLead({ body: body }, res);
       })
   } else {
     createLead(req, res);
@@ -60,13 +60,13 @@ const createLead = (req, res) => {
       };
       Lead.create(lead)
         .then(lead => {
-          res.json({data: {lead: lead._id}});
+          res.json({ data: { lead: lead._id } });
         })
         .catch(error => {
-          res.status(400).json({errors: {message: error}});
+          res.status(400).json({ errors: { message: error } });
         });
     })
-    .catch(error => res.status(400).json({errors: {message: error}}))
+    .catch(error => res.status(400).json({ errors: { message: error } }))
 };
 
 export default router;

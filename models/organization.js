@@ -4,9 +4,9 @@ import mongoose from "mongoose";
 const organizationSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
   name: String,
-  domain: {type: mongoose.Schema.Types.ObjectId, required: true},
-  custom: [{name: "string", value: "string"}],
-  timestamp: {type: Date, default: Date.now}
+  domain: { type: mongoose.Schema.Types.ObjectId, required: true },
+  custom: [{ name: "string", value: "string" }],
+  timestamp: { type: Date, default: Date.now }
 });
 
 

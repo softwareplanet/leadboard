@@ -76,7 +76,7 @@ describe("User login", async () => {
   it("should login user with correct credentials", async () => {
     const { status, body } = await request(app())
       .post("/api/login")
-      .send({email: "johnsmith@example.com", password: "secret"});
+      .send({ email: "johnsmith@example.com", password: "secret" });
 
     expect(status).toBe(200);
     expect(typeof body.token).toBe("string");
