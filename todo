@@ -14,3 +14,5 @@ TODO:
 -- исправть jest тесты, не завершаются event listeners после прохождения тестов
 -- вынести группы полей в компонентах Authorization, Login в отдельные компоненты
 -- переименовать стили для компонентов Authorization, Login (login-form)
+-- привести экшены loadLeads редьюсера к единому стилю (всё в payload или всё полями в action)
+-- скомбинировать loadLeads редьюсер из редьюсеров для веток leads, stages and funnel
