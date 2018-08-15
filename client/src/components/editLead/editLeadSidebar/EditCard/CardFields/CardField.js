@@ -12,11 +12,6 @@ class CardField extends Component {
                                 {this.props.fieldName}
                             </div>
                         </div>
-                            <span className='SideCard__field-value-add-value'>
-                                <div className='SideCard__field-value-add-button'>
-                                    + Add value
-                                </div>
-                            </span>
                     </div>
                 </div>
             </div>
