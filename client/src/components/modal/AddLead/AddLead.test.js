@@ -31,6 +31,7 @@ describe("<AddLead />", () => {
     openModalBtn.simulate("click", {});
 
     const invalidContainerClass = styles.invalidContainer;
+    expect(mountedAddLead.find(`.${invalidContainerClass}`).length).to.equal(0);
 
     let saveLeadBtn = mountedAddLead.find(`.${styles.saveBtn}`);
     saveLeadBtn.simulate("click", {});
