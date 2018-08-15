@@ -34,6 +34,8 @@
   margin-right: 7px;
   height: 32px;
   width: 32px;
+  box-shadow: inset 0 0 0 1px rgba(38,41,44,0.16);
+  border: 2px solid #cccfd2;
 }
 
 .dropdownIcon {
