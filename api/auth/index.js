@@ -5,8 +5,10 @@ import { secret } from "../authorize";
 import User from "../../models/user";
 import Domain from "../../models/domain";
 import validateRegisterInput from "../../validation/register";
-import validateLoginInput from"../../validation/login";
+import validateLoginInput from "../../validation/login";
 import jwt from "jsonwebtoken";
+import Funnel from "../../models/funnel";
+import Stage from "../../models/stage";
 
 const router = new Router();
 
@@ -58,7 +60,7 @@ router.post("/register", function(req, res) {
       stages.forEach(stage => stage.save());
     })
     .then(() => {
-      res.json({ data: { user: user._id } });
+      res.json({ user: user._id });
     })
     .catch(err => {
       let errors = {};
@@ -87,38 +89,38 @@ function createStage(funnel, name, order) {
 // @access  Public
 router.post("/login", function(req, res) {
   const { hasErrors, errors } = validateLoginInput(req.body);
-  if (hasErrors) return res.status(400).json({ errors });
-
-  var user_ = null;
+  if (hasErrors) {
+    return res.status(400).json({ errors: errors });
+  }
+  let user_ = null;
   User.findOne({ email: req.body.email })
     .then(user => {
       if (!user) {
         errors.email = "Incorrect login";
         return res.status(404).json({ errors: errors });
+      } else {
+        user_ = user;
+        user.passwordMatches(req.body.password, user).then(matches => {
+          if (matches) {
+            const payload = { id: user_._id, firstname: user_.firstname, lastname: user_.lastname, email: user_.email };
+            jwt.sign(
+              payload,
+              secret,
+              { expiresIn: "240h" },
+              (err, token) => {
+                res.json({
+                  success: true,
+                  token: "Bearer " + token,
+                  userId: user_._id.toString(),
+                  domainId: user_.domain.toString()
+                });
+              });
+          } else {
+            errors.password = "Incorrect password";
+            return res.status(404).json({ errors: errors });
+          }
+        });
       }
-
-      user_ = user;
-      return user.passwordMatches(req.body.password, user);
-    })
-    .then(matches => {
-      if (!matches) {
-        errors.password = "Password incorrect";
-        return res.status(404).json({ errors: errors });
-      }
-      const payload = { id: user_._id};
-
-      jwt.sign(
-        payload,
-        secret,
-        { expiresIn: '240h' },
-        (err, token) => {
-          res.json({
-            success: true,
-            token: 'Bearer ' + token,
-            data: { userId: user_._id.toString(), domainId: user_.domain.toString() }
-          });
-        }
-      );
     });
 });
 

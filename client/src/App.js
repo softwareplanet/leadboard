@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, } from "react-router-dom";
 import { Provider } from "react-redux";
 import jwt_decode from "jwt-decode";
 
@@ -14,7 +14,7 @@ import Login from "./components/auth/Login";
 import Registration from "./components/auth/Registration";
 
 import "./App.css";
-import Switch from "react-router-dom/es/Switch";
+import {Switch }from "react-router-dom";
 
 // restore redux/storage on page reload
 if (localStorage.jwtToken) {

@@ -1,5 +1,5 @@
 import { Router } from "express";
-const isEmpty = require("lodash.isempty");
+import isEmpty from "lodash.isempty";
 import User from "../../models/user";
 
 const router = new Router();
@@ -11,7 +11,7 @@ router.get("/:id",  function(req, res) {
   User.findById(req.params.id)
     .then(user => {
       user.password = undefined;
-      res.json({ data: { user }});
+      res.json(user);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: JSON.stringify(error) } });

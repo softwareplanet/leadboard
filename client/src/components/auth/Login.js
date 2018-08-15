@@ -55,7 +55,6 @@ class Login extends Component {
             <div className="Login__form-title">Log in</div>
             <InputGroup
               className="Login__form-field"
-              id="with-placeholder"
               name="email"
               value={this.state.email}
               onChange={this.onChange}
@@ -65,7 +64,6 @@ class Login extends Component {
             />
             <InputGroup
               className="Login__form-field"
-              id="with-placeholder"
               name="password"
               value={this.state.password}
               onChange={this.onChange}
