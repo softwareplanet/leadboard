@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Popover, PopoverBody, PopoverHeader } from "reactstrap";
+import { Popover, Card, CardHeader, CardBody, CardFooter } from "reactstrap";
 import styles from "./EditLeadPopover.css";
 
 class EditLeadPopover extends Component {
@@ -13,27 +13,27 @@ class EditLeadPopover extends Component {
     return (
       <Popover
         className={styles.popover}
-        placement="bottom"
+        placement="bottom-start"
         target={this.props.target}
         isOpen={this.props.isOpen}
         toggle={this.props.toggle}
       >
-        <PopoverHeader>{this.props.title}</PopoverHeader>
-        <PopoverBody className={styles.container}>
-          <div className={styles.inputContainer}>
-            <input onChange={this.onChange} className={styles.input} defaultValue={this.props.data} />
-          </div>
-          <div className={styles.buttonsContainer}>
-            <div className={styles.buttons}>
-              <button onClick={() => this.props.onSave(this.state.name)} className={styles.buttonSave}>
-                Save
-              </button>
-              <button onClick={this.props.onCancel} className={styles.button}>
-                Cancel
-              </button>
+        <Card>
+          <div className={styles.header}>{this.props.title}</div>
+          <CardBody className={styles.container}>
+            <div className={styles.inputContainer}>
+              <input onChange={this.onChange} className={styles.input} defaultValue={this.props.data} />
             </div>
-          </div>
-        </PopoverBody>
+          </CardBody>
+          <CardFooter className={styles.buttons}>
+            <button onClick={() => this.props.onSave(this.state.name)} className={styles.buttonSave}>
+              Save
+            </button>
+            <button onClick={this.props.onCancel} className={styles.button}>
+              Cancel
+            </button>
+          </CardFooter>
+        </Card>
       </Popover>
     );
   }

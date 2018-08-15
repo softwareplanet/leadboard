@@ -8,16 +8,16 @@ import { dropTables, createUserAndDomain, createFunnel, createStage, createLead 
 const app = () => express(routes);
 
 let cred;
-let stage;
-let data;
+let stageData;
+let leadData;
 beforeEach(async done => {
   await dropTables();
   cred = await createUserAndDomain(app);
   let funnel = await createFunnel(app, cred.token, cred.domain, "Funnel");
 
-  stage = await createStage(app, cred.token, funnel.funnel, "Stage");
-  await createLead(app, cred.token, cred.user, stage.stage, "2", "Lead A");
-  data = await createLead(app, cred.token, cred.user, stage.stage, "1", "Lead B");
+  stageData = await createStage(app, cred.token, funnel.funnel, "Stage");
+  await createLead(app, cred.token, cred.user, stageData.stage, "2", "Lead A");
+  leadData = await createLead(app, cred.token, cred.user, stageData.stage, "1", "Lead B");
 
   done();
 });
@@ -29,7 +29,7 @@ describe("Lead", () => {
       .send({
         token: cred.token,
         owner: cred.user,
-        stage: stage.stage,
+        stage: stageData.stage,
         name: "My Lead",
         order: "1"
       });
@@ -42,7 +42,7 @@ describe("Lead", () => {
     const { status, body } = await request(app())
       .get("/api/lead")
       .query({
-        stage: stage.stage
+        stage: stageData.stage
       })
       .send({
         token: cred.token
@@ -55,17 +55,17 @@ describe("Lead", () => {
 
   it("should update lead", async () => {
     const { status, body } = await request(app())
-      .patch(`/api/lead/${data.lead}`) //TODO add normal id
+      .patch(`/api/lead/${leadData.lead}`)
       .send({
         token: cred.token,
         owner: cred.user,
-        stage: stage.stage,
-        name: "My updated Lead",
+        stage: stageData.stage,
+        name: "Updated Lead",
         order: "1"
       });
 
     expect(status).toBe(200);
     console.log(body);
-    expect(body.lead.name).toBe("My updated Lead");
+    expect(body.lead.name).toBe("Updated Lead");
   });
 });

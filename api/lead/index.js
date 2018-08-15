@@ -62,7 +62,7 @@ router.get("/:id", require_auth, (req, res) => {
 });
 
 // @route   PATCH api/lead/:id
-// @desc    update lead by id
+// @desc    Update lead by id
 // @access  Private
 router.patch("/:id", require_auth, (req, res) => {
   Lead.findByIdAndUpdate(req.params.id, req.body, { new: true })
