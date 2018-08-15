@@ -26,7 +26,7 @@ class EditLeadStageProgress extends Component {
           active={active}
           status={this.props.leads.editLead.status}
           stages={this.props.leads.stages}
-          {...stage}
+          stage={stage}
         />
       );
     });

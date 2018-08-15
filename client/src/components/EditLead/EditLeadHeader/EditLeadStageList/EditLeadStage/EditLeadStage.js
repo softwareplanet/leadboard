@@ -8,13 +8,7 @@ export default class EditLeadStage extends Component {
   }
 
   onStageClick() {
-    let stage = {};
-    stage._id = this.props._id;
-    stage.funnel = this.props.funnel;
-    stage.name = this.props.name;
-    stage.order = this.props.order;
-    stage.timestamp = this.props.timestamp;
-    stage.__v = this.props.__v;
+    let stage = this.props.stage;
     this.props.onStageClick(stage);
   }
 
@@ -33,7 +27,7 @@ export default class EditLeadStage extends Component {
         )}
         data-toggle="tooltip"
         data-placement="bottom"
-        title={this.props.name}
+        title={this.props.stage.name}
         style={width}
       />
     );

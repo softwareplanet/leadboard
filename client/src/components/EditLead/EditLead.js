@@ -8,7 +8,7 @@ import styles from "./EditLead.css";
 export default class EditLead extends Component {
   render() {
     return (
-      <div className={"edit-lead"}>
+      <div>
         <Navbar />
         <div className={styles.container}>
           <EditLeadHeader match={this.props.match} />

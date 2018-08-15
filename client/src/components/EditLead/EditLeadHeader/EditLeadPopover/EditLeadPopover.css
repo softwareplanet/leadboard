@@ -2,7 +2,7 @@
   composes: popover-inner from global; 
   display: flex;
   flex-direction: column;
-  width: 35vw;
+  width: 30vw;
 }
 
 .inputContainer{

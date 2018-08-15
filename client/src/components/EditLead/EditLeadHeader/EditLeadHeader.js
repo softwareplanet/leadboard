@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { loadLead, setEditFunnel, updateLead } from "../../../actions/leadActions";
 import styles from "./EditLeadHeader.css";
 import EditLeadStageProgress from "./EditLeadStageList/EditLeadStageProgress";
-import dropDownIcon from "../../../img/drop-down-arrow.svg";
 import EditLeadPopover from "./EditLeadPopover/EditLeadPopover";
 import classNames from "classnames";
 
@@ -50,10 +49,8 @@ class EditLeadHeader extends Component {
               <span>{editLead ? editLead.owner.firstname + " " + editLead.owner.lastname : null}</span>
               <small className={"text-muted"}>Owner</small>
             </div>
-            <img className={styles.dropdownIcon} src={dropDownIcon} />
           </div>
         </div>
-        <div>Organization, Contact</div>
         <div>
           <EditLeadStageProgress />
         </div>

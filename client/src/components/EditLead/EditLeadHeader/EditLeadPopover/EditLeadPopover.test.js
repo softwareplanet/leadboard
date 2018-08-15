@@ -1,6 +1,6 @@
 import "jsdom-global/register";
 import React from "react";
-import { shallow, mount } from "enzyme";
+import { shallow } from "enzyme";
 import { expect } from "chai";
 import EditLeadPopover from "./EditLeadPopover";
 

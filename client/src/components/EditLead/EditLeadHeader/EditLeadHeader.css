@@ -1,5 +1,5 @@
 .header {
-  height: 25vh;
+  height: 20vh;
   margin-top: 20px;
   padding: 20px;
   width: 100%;
@@ -31,6 +31,7 @@
 }
 
 .ownerPicture {
+  margin-right: 7px;
   height: 32px;
   width: 32px;
 }
