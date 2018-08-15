@@ -6,23 +6,6 @@ const initialState = {
   leads: {}
 };
 
-// const replaceReducer = (type, initialState) => (state = initialState, action) => {
-//   switch (action.type) {
-//     case type:
-//       return action.payload;
-//     default:
-//       return state;
-//   }
-// };
-//
-// const reducer = (type, initialState) =>
-//
-// export default combineReducers({
-//   funnels: replaceReducer(LOAD_LEADBOARD, []),
-//   stages: replaceReducer(LOAD_STAGES, []),
-//   leads:
-// });
-
 export default function(state = initialState, action) {
   switch (action.type) {
     case LOAD_LEADBOARD:
