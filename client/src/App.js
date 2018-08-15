@@ -5,6 +5,7 @@ import jwt_decode from "jwt-decode";
 
 import store from "./store.js";
 import setAuthToken from "./utils/setAuthToken.js";
+import setAuthInterceptor from "./utils/setAuthInterceptor.js"
 import {loginUserById, logoutUser} from "./actions/authActions";
 
 import Home from "./components/layouts/Home";
@@ -14,6 +15,7 @@ import Registration from "./components/auth/Registration";
 
 import "./App.css";
 
+setAuthInterceptor();
 // restore redux/storage on page reload
 if (localStorage.jwtToken) {
   const decoded = jwt_decode(localStorage.jwtToken);

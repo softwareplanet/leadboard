@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 class Navbar extends Component {
   renderUserAvatar = () => {
       return this.props.user?
-          <img className={styles.userImg} src={this.props.user.avatar}/>:
+          <img className={styles.userImg} src={this.props.user.avatar} alt="user"/>:
           <span className={styles.userIcon + ' fa  fa-user-circle'}/>
   };
 
@@ -20,8 +20,10 @@ class Navbar extends Component {
     return (
       <header>
         <ul className={styles.menu} role="navigation">
-          <li className={styles.logo}>Leadboard</li>
-          <li className={styles.logoSmall}><h1>L</h1></li>
+          <Link to={leadsRoute}>
+            <li className={styles.logo}>Leadboard</li>
+            <li className={styles.logoSmall}><h1>L</h1></li>
+          </Link>
           <li>
             <form>
               <input className={styles.search} placeholder="Search"/>
