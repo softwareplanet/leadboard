@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styles from './EditCard.css';
 import { loadLead } from '../../../../actions/leadActions'
-import CardField from './CardField';
+import CardField from './CardFields/CardField';
+import MainField from "./CardFields/MainField";
 
 class EditCard extends Component {
 
@@ -35,17 +36,16 @@ class EditCard extends Component {
             return <div />;
         }
         const fields = leads.contact.custom.map((field) =>
-            <CardField fieldValue={Object.values(field)} fieldName={Object.keys(field)}/>);
+            <CardField fieldValues={Object.values(field)} fieldName={Object.keys(field)}/>);
         return (
             <div className={styles.container}>
                 <div className={styles.title}>
                     <span className={styles.titleName}>
                         Person
                     </span>
-                    <div className='SideCard__actions'>
-                    </div>
                 </div>
                 <div className={styles.fields}>
+                    <MainField/>
                     {fields}
                 </div>
                 {/*<div className='SideCard__fields'>
