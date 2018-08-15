@@ -3,7 +3,7 @@ import Stage from "../../models/stage";
 
 import express from "../../express";
 import routes from "..";
-import {dropTables, createUserAndDomain, createFunnel, createStage, createLead} from "../../test/db-prepare";
+import { dropTables, createUserAndDomain, createFunnel, createStage, createLead } from "../../test/db-prepare";
 
 const app = () => express(routes);
 
@@ -23,7 +23,7 @@ beforeEach(async done => {
 
 describe("Lead", () => {
   it("should create a new lead", async () => {
-    const {status, body} = await request(app())
+    const { status, body } = await request(app())
       .post("/api/lead")
       .send({
         token: cred.token,
@@ -39,7 +39,7 @@ describe("Lead", () => {
   });
 
   it("should return an ordered leads by stage", async () => {
-    const {status, body} = await request(app())
+    const { status, body } = await request(app())
       .get("/api/lead")
       .query({
         stage: stage.stage
