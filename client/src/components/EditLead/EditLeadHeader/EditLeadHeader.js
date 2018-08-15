@@ -37,6 +37,7 @@ class EditLeadHeader extends Component {
             isOpen={this.state.popoverOpen}
             target="edit-lead-header-name"
             toggle={this.toggle}
+            title={`Edit lead's name`}
           />
           <div className={styles.owner}>
             <img

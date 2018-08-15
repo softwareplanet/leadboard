@@ -1,0 +1,53 @@
+.container {
+  composes: popover-inner from global; 
+  display: flex;
+  flex-direction: column;
+  width: 35vw;
+}
+
+.inputContainer{
+  width: 100%
+}
+
+.buttonsContainer{
+  width: 100%;
+}
+
+
+
+.input{
+  border: 1px solid #cbcccd;
+  padding: 0px 8px;
+  font-size: 14px;
+  line-height: 28px; 
+  color: #26292c;
+  margin: 0;
+  width: 100%;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 3px
+}
+
+.popover {
+  max-width: 100%;
+}
+
+.button{
+  composes: btn from global;
+  margin: 5px 5px 0 0;
+  padding: 5px;
+  background-color: white;
+  border: 1px solid #cbcccd;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.buttonSave {
+  composes: btn btn-success from global;
+  margin: 5px 5px 0 0;
+  padding: 5px;
+}
