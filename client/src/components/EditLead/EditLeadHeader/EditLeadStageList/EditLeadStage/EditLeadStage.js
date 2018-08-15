@@ -21,9 +21,9 @@ export default class EditLeadStage extends Component {
       <li
         onClick={() => (this.props.status !== "Lost" ? this.onStageClick() : null)}
         className={classNames(
-          styles.li,
           { [styles.active]: this.props.active },
-          { [styles.lost]: this.props.status === "Lost" }
+          { [styles.lost]: this.props.status === "Lost" },
+          `${this.props.isFirst ? styles.liFirst : styles.li}`
         )}
         data-toggle="tooltip"
         data-placement="bottom"

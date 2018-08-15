@@ -47,7 +47,7 @@ class EditLeadHeader extends Component {
             />
             <div className={styles.ownerBody}>
               <span>{editLead ? editLead.owner.firstname + " " + editLead.owner.lastname : null}</span>
-              <small className={"text-muted"}>Owner</small>
+              <small className={styles.ownerRole}>Owner</small>
             </div>
           </div>
         </div>

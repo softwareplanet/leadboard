@@ -18,8 +18,9 @@ class EditLeadStageProgress extends Component {
   }
 
   render() {
-    let stages = this.props.leads.stages.map(stage => {
+    let stages = this.props.leads.stages.map((stage, index) => {
       let active = stage.order <= this.props.leads.editLead.stage.order;
+      let isFirst = index === 0;
       return (
         <EditLeadStage
           onStageClick={this.onStageClick}
@@ -27,6 +28,7 @@ class EditLeadStageProgress extends Component {
           status={this.props.leads.editLead.status}
           stages={this.props.leads.stages}
           stage={stage}
+          isFirst={isFirst}
         />
       );
     });

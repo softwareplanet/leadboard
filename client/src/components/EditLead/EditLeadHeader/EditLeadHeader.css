@@ -42,6 +42,13 @@
   height: 10px;
 }
 
+.ownerRole {
+  font: 12px/16px "Open Sans",sans-serif;
+
+  color: #b9babb;
+  margin-left: auto;
+}
+
 .leadName:hover {
   text-decoration: none;
   cursor: pointer;
