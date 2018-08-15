@@ -85,3 +85,17 @@ export async function createLead(app, token, user, stage, order, name = "Lead") 
     lead: body.data._id
   };
 }
+
+export async function createOrganization(app, token, domain, name = "Organization") {
+  const { body } = await request(app())
+    .post("/api/organization")
+    .send({ token, name, domain })
+    .catch(error => {
+      console.log("Cannon create a organization" + error);
+      throw "Cannon create a organization";
+    });
+
+  return {
+    funnel: body.organizationId
+  };
+}
