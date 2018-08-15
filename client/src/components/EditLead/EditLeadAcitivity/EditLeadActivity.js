@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import "./EditLeadActivity.css";
+import styles from "./EditLeadActivity.css";
 
 export default class EditLeadActivity extends Component {
   render() {
-    return <div className="edit-lead-activity" />;
+    return <div className={styles.activity} />;
   }
 }
