@@ -69,7 +69,7 @@ class Login extends Component {
     const { errors } = this.state;
 
     return (
-      <div className={styles.container}>
+      <div id="login" className={styles.container}>
         <form  onSubmit={this.onSubmit}>
           <div className={styles.form}>
             <div className={styles.formTitle}>Log in</div>

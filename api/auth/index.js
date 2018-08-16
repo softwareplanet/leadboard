@@ -102,7 +102,7 @@ router.post("/login", function(req, res) {
         user_ = user;
         user.passwordMatches(req.body.password, user).then(matches => {
           if (matches) {
-            const payload = { id: user_._id, firstname: user_.firstname, lastname: user_.lastname, email: user_.email };
+            const payload = { id: user_._id };
             jwt.sign(
               payload,
               secret,
