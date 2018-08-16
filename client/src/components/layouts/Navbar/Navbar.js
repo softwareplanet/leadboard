@@ -13,11 +13,7 @@ const leadsRoute = "/home";
 class Navbar extends Component {
   renderUserAvatar = () => {
       return this.props.user?
-<<<<<<< HEAD
-          <img className={styles.userImg} alt="user" src={this.props.user.avatar}/>:
-=======
           <img className={styles.userImg} src={this.props.user.avatar} alt="user"/>:
->>>>>>> 7451fb6d5a0976dc1b73f87429d96854b21983b6
           <span className={styles.userIcon + ' fa  fa-user-circle'}/>
   };
 
@@ -25,20 +21,9 @@ class Navbar extends Component {
     return (
       <header>
         <ul className={styles.menu} role="navigation">
-<<<<<<< HEAD
           <li className={styles.logo}>Leadboard</li>
           <li className={styles.logoSmall}><h1>L</h1></li>
-=======
-          <Link to={leadsRoute}>
-            <li className={styles.logo}>Leadboard</li>
-            <li className={styles.logoSmall}><h1>L</h1></li>
-          </Link>
-          <li>
-            <form>
-              <input className={styles.search} placeholder="Search"/>
-            </form>
-          </li>
->>>>>>> 7451fb6d5a0976dc1b73f87429d96854b21983b6
+
           <li className={this.props.location.pathname === leadsRoute ? styles.active : styles.itemWithLink}>
             <Link
               className={this.props.location.pathname === leadsRoute ? styles.currentLink : styles.link}
