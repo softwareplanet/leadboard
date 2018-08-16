@@ -67,8 +67,9 @@ const createLead = (req, res) => {
         });
     })
     .catch(error => {
-      console.log(error);
-      res.status(400).json({ errors: { message: error } })})
+      res.status(400).json({ errors: { message: error }
+      });
+    })
 };
 
 export default router;
