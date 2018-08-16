@@ -33,7 +33,6 @@ describe("Lead", () => {
         order: 1,
         contact: "New Person"
       });
-    console.log(body);
     expect(status).toBe(200);
     expect(typeof body.data.lead).toBe("string");
   });

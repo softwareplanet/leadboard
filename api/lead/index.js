@@ -16,9 +16,9 @@ const router = new Router();
 // @desc    Find sorted leads by domain and stage IDs
 // @access  Private
 router.get("/", require_auth, function (req, res) {
-  Lead.find({stage: req.query.stage})
-    .populate({path: "contact", populate: {path: "organization"}})
-    .sort({order: "asc"})
+  Lead.find({ stage: req.query.stage })
+    .populate({ path: "contact", populate: { path: "organization" } })
+    .sort({ order: "asc" })
     .then(leads => {
       res.json({ data: leads });
     })

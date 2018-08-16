@@ -31,7 +31,7 @@ describe('<Lead /> :', () => {
         expect(wrapper.find('img').map((node) => node.prop('src')).some(prop => prop === profile)).toBeTruthy();
     });
 
-    it('should render empty span if organization or contact is absent', () => {
+    it('should render empty span if organization and contact are absent', () => {
         let contactEmptyLead = {...lead};
         delete contactEmptyLead.contact;
         wrapper = shallow(<Lead link={link} lead={contactEmptyLead}/>);
