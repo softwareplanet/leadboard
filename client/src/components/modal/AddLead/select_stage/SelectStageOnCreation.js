@@ -16,12 +16,12 @@ class SelectStageOnCreation extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.domainid && nextProps.stages) {
+    if (nextProps.stages) {
       this.setState({ stagesLoaded: true, firstStage: nextProps.stages[0] });
     }
   }
   componentDidMount() {
-    if (this.props.auth.domainid && this.props.stages) {
+    if (this.props.stages) {
       this.props.onStageChange(this.props.stages[0]._id);
     }
   }
@@ -100,14 +100,7 @@ class SelectStageOnCreation extends Component {
 }
 
 SelectStageOnCreation.propTypes = {
-  auth: PropTypes.object.isRequired,
   stages: PropTypes.array.isRequired
 };
-const mapStateToProps = state => ({
-  auth: state.auth
-});
 
-export default connect(
-  mapStateToProps,
-  null
-)(SelectStageOnCreation);
+export default SelectStageOnCreation;
