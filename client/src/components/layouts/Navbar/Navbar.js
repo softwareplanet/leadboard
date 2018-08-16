@@ -4,7 +4,8 @@ import styles from './Navbar.css';
 import {logoutUser} from "../../../actions/authActions";
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-// import profile from '../../../img/'
+
+const leadsRoute = "/home";
 
 
 
@@ -12,7 +13,7 @@ import PropTypes from 'prop-types';
 class Navbar extends Component {
   renderUserAvatar = () => {
       return this.props.user?
-          <img className={styles.userImg} src={this.props.user.avatar}/>:
+          <img className={styles.userImg} alt="user" src={this.props.user.avatar}/>:
           <span className={styles.userIcon + ' fa  fa-user-circle'}/>
   };
 
@@ -22,11 +23,6 @@ class Navbar extends Component {
         <ul className={styles.menu} role="navigation">
           <li className={styles.logo}>Leadboard</li>
           <li className={styles.logoSmall}><h1>L</h1></li>
-          <li>
-            <form>
-              <input className={styles.search} placeholder="Search"/>
-            </form>
-          </li>
           <li className={this.props.location.pathname === leadsRoute ? styles.active : styles.itemWithLink}>
             <Link
               className={this.props.location.pathname === leadsRoute ? styles.currentLink : styles.link}
@@ -57,13 +53,14 @@ class Navbar extends Component {
 }
 
 Navbar.propTypes = {
-    logoutUser:PropTypes.func.isRequired
+    logoutUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   auth:state.auth
 });
 
-const leadsRoute = "/home";
-export {Navbar};
+export { Navbar };
 export default connect(mapStateToProps, {logoutUser})(withRouter(Navbar));

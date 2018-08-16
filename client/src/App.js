@@ -34,6 +34,7 @@ class App extends Component {
         <Router>
           <div className="App">
             <Route exact path="/home" component={Home} />
+            <Route exact path="/test" component={Home} />
             <Route exact path="/" component={Login} />
             <Route exact path="/register" component={Registration} />
             <Footer />
