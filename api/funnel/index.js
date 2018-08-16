@@ -26,7 +26,7 @@ router.get("/", require_auth, function(req, res) {
     });
 });
 
-// @route   GET api/funnel
+// @route   POST api/funnel
 // @desc    Create a new funnel
 // @access  Private
 router.post("/", require_auth, function(req, res) {
