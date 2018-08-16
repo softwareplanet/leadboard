@@ -109,7 +109,7 @@ export const updateLead = (lead, funnelId) => dispatch => {
     .catch(error => {
       dispatch({
         type: GET_ERRORS,
-        payload: error.response.data.errors
+        payload: error
       });
     });
 };

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { loadLead, setEditFunnel, updateLead } from "../../../actions/leadActions";
+import { loadLead, setEditPageFunnel, updateLead } from "../../../actions/leadActions";
 import styles from "./EditLeadHeader.css";
 import EditLeadStageProgress from "./EditLeadStageList/EditLeadStageProgress";
 import EditLeadPopover from "./EditLeadPopover/EditLeadPopover";
@@ -62,7 +62,7 @@ class EditLeadHeader extends Component {
     let leadId = this.props.match.params.leadId;
     let funnelId = this.props.match.params.funnelId;
     this.props.loadLead(leadId, funnelId);
-    this.props.setEditFunnel(funnelId);
+    this.props.setEditPageFunnel(funnelId);
   }
 
   onLeadNameSave(name) {
@@ -86,5 +86,5 @@ export { EditLeadHeader };
 
 export default connect(
   mapStateToProps,
-  { loadLead, setEditFunnel, updateLead }
+  { loadLead, setEditPageFunnel, updateLead }
 )(EditLeadHeader);

@@ -65,7 +65,6 @@ describe("Lead", () => {
       });
 
     expect(status).toBe(200);
-    console.log(body);
     expect(body.lead.name).toBe("Updated Lead");
   });
 });
