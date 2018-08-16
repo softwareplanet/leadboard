@@ -15,7 +15,7 @@ describe("<Login/>", () => {
     loginPage = mount(
       <Provider store={store}>
         <MemoryRouter>
-          <Login />
+          <Login/>
         </MemoryRouter>
       </Provider>
     );

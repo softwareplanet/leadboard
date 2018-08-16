@@ -2,6 +2,7 @@ import React from "react";
 import classnames from "classnames";
 import PropTypes from "prop-types";
 import InputField from "@material-ui/core/TextField";
+
 const InputGroup = ({
                       name,
                       id,

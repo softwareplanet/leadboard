@@ -15,7 +15,8 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      errors: {}
+      errors: {},
+      showErrors: false
     };
 
     this.onChange = this.onChange.bind(this);
@@ -25,19 +26,19 @@ class Login extends Component {
   componentDidMount() {
     document.title = "Log In";
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push('/home');
+      this.props.history.push("/home");
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-      this.props.history.push('/home');
+      this.props.history.push("/home");
     }
-      this.setState({ errors: nextProps.errors });
+    this.setState({ errors: nextProps.errors });
   }
 
   onChange(event) {
-    let newState = { ...this.state};
+    let newState = { ...this.state };
     newState[event.target.name] = event.target.value;
     this.setState({
       [event.target.name]: event.target.value,
@@ -57,6 +58,7 @@ class Login extends Component {
   }
 
   onSubmit(event) {
+    this.setState({ showErrors: true });
     event.preventDefault();
     const login = {
       email: this.state.email,
@@ -70,7 +72,7 @@ class Login extends Component {
 
     return (
       <div id="login" className={styles.container}>
-        <form  onSubmit={this.onSubmit}>
+        <form onSubmit={this.onSubmit}>
           <div className={styles.form}>
             <div className={styles.formTitle}>Log in</div>
             <InputGroup
@@ -79,7 +81,7 @@ class Login extends Component {
               onChange={this.onChange}
               label="Email"
               placeholder="Email"
-              error={errors.email}
+              error={this.state.showErrors ? errors.email : ""}
             />
             <InputGroup
               name="password"
@@ -87,8 +89,8 @@ class Login extends Component {
               onChange={this.onChange}
               label="Password"
               placeholder="Password"
-              error={errors.password}
-              type={'password'}
+              error={this.state.showErrors ? errors.password : ""}
+              type={"password"}
             />
             <div className={styles.formControl}>
               <button className={`btn ${styles.formButton}`} type="submit">
@@ -96,7 +98,7 @@ class Login extends Component {
               </button>
               <div className={styles.registerLink}>
                 <Link to="/register">
-                  <p >Don't have an account?</p>
+                  <p>Don't have an account?</p>
                 </Link>
               </div>
             </div>
