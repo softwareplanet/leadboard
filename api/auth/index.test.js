@@ -3,13 +3,14 @@ import request from "supertest";
 import express from "../../express";
 import routes from "..";
 
-import { dropTables, createUserAndDomain } from "../../test/db-prepare";
+import { createUserAndDomain, dropTables } from "../../test/db-prepare";
 
 const app = () => express(routes);
 
+let cred;
 beforeEach(async done => {
   await dropTables();
-  await createUserAndDomain(app);
+  cred = await createUserAndDomain(app);
   done();
 });
 
@@ -69,6 +70,27 @@ describe("User registration", async () => {
 
     expect(status).toBe(400);
     expect(body.errors.email).toBe("User with this Email is already exists");
+  });
+
+  it("should create default funnel and stages", async () => {
+    const funnelRequest = await request(app())
+      .get("/api/funnel")
+      .send({ token: cred.token, domain: cred.domain });
+
+    expect(funnelRequest.status).toBe(200);
+    expect(Object.keys(funnelRequest.body.data).length).toBe(1);
+
+    const stagesRequest = await request(app())
+      .get("/api/stage")
+      .query({
+        funnel: funnelRequest.body.data[0]._id
+      })
+      .send({
+        token: cred.token
+      });
+
+    expect(stagesRequest.status).toBe(200);
+    expect(Object.keys(stagesRequest.body.data).length).toBe(4);
   });
 });
 

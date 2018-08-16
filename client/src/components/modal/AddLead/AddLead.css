@@ -88,7 +88,8 @@
     align-self: center;
 }
 
-.invalid {
+.invalidContainer {
+    composes: inputContainer;
     border-color: #e84646;
 }
 
@@ -124,6 +125,8 @@
 }
 
 .saveBtn {
+    composes: btn;
+    composes: green;
     padding: 2px 1rem 2px;
 }
 
