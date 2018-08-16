@@ -82,6 +82,6 @@ export async function createLead(app, token, user, stage, domain, order, name = 
     });
 
   return {
-    lead: body.data._id
+    lead: body.data.lead
   };
 }

@@ -7,9 +7,14 @@ const leadSchema = new mongoose.Schema({
   visibility: Number,
   name: String,
   order: { type: Number, index: { unique: false } },
-  contact: { type: mongoose.Schema.Types.ObjectId , ref: "Contact"},
+  contact: { type: mongoose.Schema.Types.ObjectId, ref: "Contact" },
   custom: [{ name: "string", value: "string" }],
-  timestamp: { type: Date, default: Date.now }
+  timestamp: { type: Date, default: Date.now },
+  status: {
+    type: String,
+    enum: ["Won", "Lost", "InProgress"],
+    default: "InProgress"
+  }
 });
 
 module.exports = mongoose.model("Lead", leadSchema);
