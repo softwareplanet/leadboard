@@ -43,5 +43,5 @@ describe('<Navbar /> :', () => {
 
     expect(wrapper.filter(`.${styles.active}`)).toBeTruthy();
   });
-  
+
 });
