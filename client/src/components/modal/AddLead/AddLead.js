@@ -6,6 +6,7 @@ import { createLead } from "../../../actions/leadActions";
 import classNames from "classnames";
 import styles from "./AddLead.css";
 import { flow, isEmpty, trim } from "lodash/fp";
+import Autocomplete from "../Autocomplete/Autocomplete";
 
 const isBlank = flow(trim, isEmpty);
 
@@ -36,6 +37,8 @@ class AddLead extends React.Component {
       contact: "",
       organization: "",
       errors: {},
+      openDropdown: false,
+      showBadge: false,
 
       validationIsShown: false,
       modalIsOpen: false
@@ -44,7 +47,6 @@ class AddLead extends React.Component {
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
 
-    this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
@@ -63,18 +65,42 @@ class AddLead extends React.Component {
       errors: {},
       name: "",
       contact: "",
-      organization: ""
+      organization: "",
+      openDropdown: false,
+      showBadge: false
     });
   }
 
-  onChange(event) {
+  onChange = (event) => {
     let newState = { ...this.state };
     newState[event.target.name] = event.target.value;
     this.setState({
       [event.target.name]: event.target.value,
       errors: this.validateLead(newState)
     });
-  }
+  };
+
+  onAutocompleteChange = (event) => {
+    this.setState({
+      organization: event.target.value,
+      openDropdown: true
+    })
+  };
+
+  onAutocompleteSelect = (value) => {
+    this.setState({
+      organization: value,
+      openDropdown: false,
+      showBadge: false
+    })
+  };
+
+  onAutocompleteBlur = () => {
+    this.setState({
+      openDropdown: false,
+      showBadge: true
+    })
+  };
 
   validateLead(lead) {
     let errors = {};
@@ -164,12 +190,15 @@ class AddLead extends React.Component {
             <div className={validationIsShown && errors.organization
               ? styles.invalidContainer
               : styles.inputContainer}>
-              <i className={classNames("fas fa-building", styles.inputIcon)}/>
-              <input
-                name="organization"
-                type="text"
-                className={styles.formInput}
-                onChange={this.onChange}/>
+              <i className={classNames("fas fa-building", styles.inputIcon)} />
+              <Autocomplete
+                onChange={this.onAutocompleteChange}
+                onSelect={this.onAutocompleteSelect}
+                onBlur={this.onAutocompleteBlur}
+                value={this.state.organization}
+                open={this.state.openDropdown}
+              />
+              { this.state.showBadge ? <span className={styles.newBadge}>NEW</span> : null }
             </div>
 
             <label className={styles.inputLabel}>
