@@ -1,20 +1,16 @@
 import "jsdom-global/register";
 import React from "react";
-import { mount, shallow } from "enzyme";
+import { mount } from "enzyme";
 
 import SelectStageOnCreation from "./SelectStageOnCreation";
 import styles from "./SelectStageOnCreation.css";
-import { wrap } from "module";
-import classNames from "classnames";
 
 describe("<SelectStageOnCreation />", () => {
   let wrapper;
   const onStageChange = jest.fn();
-  let activateStageStyle;
   const stages = [{ _id: 1, name: "interest" }, { _id: 2, name: "promoting" }, { _id: 3, name: "action" }];
   beforeEach(() => {
     wrapper = mount(<SelectStageOnCreation stages={stages} onStageChange={onStageChange} />);
-    activateStageStyle = wrapper.instance().activateStageStyle;
   });
 
   it("renders without crashing", () => {
