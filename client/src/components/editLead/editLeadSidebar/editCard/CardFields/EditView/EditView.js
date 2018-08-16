@@ -1,14 +1,55 @@
 import React, { Component } from "react";
 import styles from "./EditView.css";
 import EditFieldGroup from "./EditFieldGroup/EditFieldGroup";
+import { isEmpty } from "lodash/fp";
 
 class EditView extends Component {
 
+  state = {
+    custom: []
+  };
+
+  onChangeEditField(name, value) {
+    if (name === "Name") {
+      this.setState({ name: value });
+    } else {
+      let updatedCustom = [...this.state.custom];
+      updatedCustom.find(custom => custom.name === name).value = value;
+      this.setState({ custom: updatedCustom });
+    }
+  }
+
+  onSaveAllClicked() {
+    let updatedObject = { ...this.state };
+    this.props.onChange(updatedObject);
+  }
+
+  componentWillMount() {
+    this.setState({ ...this.props.toUpdate });
+  }
+
+  getEditableFields() {
+    let fields = [];
+    fields.push({
+      name: "Name",
+      value: this.props.toUpdate.name
+    });
+    this.props.toUpdate.custom.forEach(customField => {
+      fields.push({
+        name: customField.name,
+        value: customField.value
+      });
+    });
+    return fields;
+  }
+
   render() {
-    const fields = this.props.fields.map(field => {
+    const fields = this.getEditableFields().map(field => {
       return <EditFieldGroup
+        key={field.name}
         name={field.name}
         value={field.value}
+        onChange={this.onChangeEditField.bind(this)}
       />;
     });
 
@@ -18,8 +59,13 @@ class EditView extends Component {
           {fields}
         </div>
         <div className={styles.actions}>
-          <button className={styles.button}>Cancel</button>
-          <button className={styles.saveBtn}>Save all</button>
+          <button className={styles.button}>
+            Cancel
+          </button>
+          <button className={styles.saveBtn}
+                  onClick={this.onSaveAllClicked.bind(this)}>
+            Save all
+          </button>
         </div>
       </div>
     );

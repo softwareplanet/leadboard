@@ -19,7 +19,7 @@ class EditFieldGroup extends Component {
                  name={this.props.name}
                  className={styles.input}
                  defaultValue={this.props.value}
-                 onChange={(e) => this.onInputChange.bind(this, e)}/>
+                 onChange={(e) => this.onInputChange(e)}/>
         </div>
       </div>
     );
