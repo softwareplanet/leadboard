@@ -24,7 +24,7 @@ export const loadLeadboard = domain => dispatch => {
     .catch(error => {
       dispatch({
         type: GET_ERRORS,
-        payload: error.errors
+        payload: error.response.data.errors
       });
     });
 };

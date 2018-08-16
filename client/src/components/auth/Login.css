@@ -20,7 +20,7 @@
 }
 
 .registerLink {
-    margin-top:5px;
+    margin-top: 5px;
     margin-bottom: -15px;
     width: 100%;
     display: flex;
@@ -30,7 +30,7 @@
 .container {
     max-width: 550px;
     justify-content: center;
-    font-family: "MuseoSans","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,"Helvetica Neue",Verdana,sans-serif;
+    font-family: "MuseoSans", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, "Helvetica Neue", Verdana, sans-serif;
     position: relative;
     margin: 30px auto 0;
     display: block;
@@ -44,7 +44,7 @@
     width: 70%;
     min-height: 50px;
     max-width: 100%;
-    font-family: MuseoSans,sans-serif;
+    font-family: MuseoSans, sans-serif;
     font-weight: 700;
     font-size: 22px;
     color: white;
