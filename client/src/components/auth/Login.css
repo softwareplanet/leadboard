@@ -1,28 +1,17 @@
-#Login__form {
+.form {
     width: 100%;
     background-color: white;
     padding: 80px 0px;
 }
 
-.Login__form-title {
+.formTitle {
     font-size: 42px;
     color: #26292C;
     text-align: center;
     padding-bottom: 10px;
 }
 
-.Login__form-field {
-    color: #e84646;
-    font-size: 12px;
-}
-
-.Login__form-button {
-    font-size: 22px;
-    background: #2cbf55;
-    margin: auto;
-}
-
-.Login__form-control {
+.formControl {
     flex-direction: column;
     display: flex;
     justify-content: center;
@@ -30,7 +19,7 @@
     margin-bottom: 20px;
 }
 
-.Login__form-registerLink {
+.registerLink {
     margin-top:5px;
     margin-bottom: -15px;
     width: 100%;
@@ -38,7 +27,7 @@
     justify-content: center;
 }
 
-#Login__container {
+.container {
     max-width: 550px;
     justify-content: center;
     font-family: "MuseoSans","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,"Helvetica Neue",Verdana,sans-serif;
@@ -49,12 +38,8 @@
     padding: 5% 10px;
 }
 
-.Login__form-field {
-    width: 100%;
-    font-size: 22px;
-}
-
-.Login__form-button {
+.formButton {
+    margin: auto;
     min-width: 300px;
     width: 70%;
     min-height: 50px;

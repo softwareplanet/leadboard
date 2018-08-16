@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
-import './Login.css'
+import styles from "./Login.css";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
 import InputGroup from "../common/InputGroup/InputGroup";
+import { flow, isEmpty, trim } from "lodash/fp";
+
+const isBlank = flow(trim, isEmpty);
+
 class Login extends Component {
   constructor() {
     super();
@@ -33,7 +37,23 @@ class Login extends Component {
   }
 
   onChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
+    let newState = { ...this.state};
+    newState[event.target.name] = event.target.value;
+    this.setState({
+      [event.target.name]: event.target.value,
+      errors: this.validate(newState)
+    });
+  }
+
+  validate(login) {
+    let errors = {};
+    if (isBlank(login.email)) {
+      errors.email = "Email cannot be empty";
+    }
+    if (isBlank(login.password)) {
+      errors.password = "Password cannot be empty";
+    }
+    return errors;
   }
 
   onSubmit(event) {
@@ -49,12 +69,11 @@ class Login extends Component {
     const { errors } = this.state;
 
     return (
-      <div id="Login__container">
+      <div className={styles.container}>
         <form  onSubmit={this.onSubmit}>
-          <div id="Login__form">
-            <div className="Login__form-title">Log in</div>
+          <div className={styles.form}>
+            <div className={styles.formTitle}>Log in</div>
             <InputGroup
-              className="Login__form-field"
               name="email"
               value={this.state.email}
               onChange={this.onChange}
@@ -63,7 +82,6 @@ class Login extends Component {
               error={errors.email}
             />
             <InputGroup
-              className="Login__form-field"
               name="password"
               value={this.state.password}
               onChange={this.onChange}
@@ -72,11 +90,11 @@ class Login extends Component {
               error={errors.password}
               type={'password'}
             />
-            <div className="Login__form-control">
-              <button className="Login__form-button btn " type="submit">
+            <div className={styles.formControl}>
+              <button className={`btn ${styles.formButton}`} type="submit">
                 Log in
               </button>
-              <div className="Login__form-registerLink">
+              <div className={styles.registerLink}>
                 <Link to="/register">
                   <p >Don't have an account?</p>
                 </Link>
