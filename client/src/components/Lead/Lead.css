@@ -1,5 +1,6 @@
 .container {
     display: flex;
+    background-color: #ffffff;
     align-items: center;
     justify-content: space-between;
     padding: 8px 12px;
@@ -43,3 +44,4 @@
     padding-bottom: 4px;
     margin-right: 8px;
 }
+/*#ffffff*/
