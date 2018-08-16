@@ -1,4 +1,3 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans);
 .stages{
     position: relative;
 }
@@ -78,9 +77,7 @@
 /* Tooltip */
 .keepTooltip {
     z-index: 8000;
-    
-    font-size: 100% !important;
-    margin-top: 5px !important;
+    margin-top: 3px !important;
     padding: 4px 8px;
     pointer-events: auto !important;
     font: 400 12px/16px Open Sans,sans-serif;
@@ -90,6 +87,13 @@
     border: 0 solid #26292c;
     vertical-align: baseline;
     box-shadow: 0 2px 8px 0 rgba(38,41,44,.12);
+}
+.keepTooltip:after{
+    border-width: 0 4px 4px !important;
+    top: -4px !important;
+    border-left: 5px solid transparent !important;
+    border-right: 5px solid transparent !important;
+    margin-left: -4px !important;
 }
 .keepTooltip:hover {
     visibility: visible !important;

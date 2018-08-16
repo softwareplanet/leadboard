@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import styles from "./SelectStageOnCreation.css";
+import addModalStyles from "../AddLead.css";
 import ReactTooltip from "react-tooltip";
 import classNames from "classnames";
 
@@ -82,7 +82,7 @@ class SelectStageOnCreation extends Component {
     return (
       <div className={styles.stages}>
         <div>
-          <label>Lead stage</label>
+          <label className={addModalStyles.inputLabel}>Lead stage</label>
           <span className={classNames(styles.stageOptionWrapper, styles.stagesInput)}>
             <span className={styles.stagesOptions}>{stagesDisplay}</span>
             <ReactTooltip
