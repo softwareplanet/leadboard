@@ -2,29 +2,28 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { loadLead, setEditPageFunnel, updateLead } from "../../../actions/leadActions";
 import styles from "./EditLeadHeader.css";
-import EditLeadStageProgress from "./EditLeadStageList/EditLeadStageProgress";
+import EditLeadStageProgress from "./EditLeadStageProgress/EditLeadStageProgress";
 import EditLeadPopover from "./EditLeadPopover/EditLeadPopover";
-import classNames from "classnames";
+import ownerIcon from "../../../assets/user-icon.svg";
 
 class EditLeadHeader extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      popoverOpen: false
-    };
-    this.toggle = this.toggle.bind(this);
-    this.onLeadNameSave = this.onLeadNameSave.bind(this);
-    this.onPopoverCancel = this.onPopoverCancel.bind(this);
+  state = {
+    popoverOpen: false
+  };
+
+  componentDidMount() {
+    let leadId = this.props.match.params.leadId;
+    this.props.loadLead(leadId);
   }
 
-  toggle() {
-    this.setState({
-      popoverOpen: !this.state.popoverOpen
+  toggle = () => {
+    this.setState(prevState => {
+      return { popoverOpen: !prevState.popoverOpen };
     });
-  }
+  };
 
   render() {
-    let editLead = this.props.leads.editLead ? this.props.leads.editLead : null;
+    let editLead = this.props.editLead ? this.props.editLead : null;
     return (
       <div className={styles.header}>
         <div className={styles.description}>
@@ -34,17 +33,14 @@ class EditLeadHeader extends Component {
           <EditLeadPopover
             onSave={this.onLeadNameSave}
             onCancel={this.onPopoverCancel}
-            data={this.props.leads.editLead ? this.props.leads.editLead.name : null}
+            value={editLead ? editLead.name : null}
             isOpen={this.state.popoverOpen}
             target="edit-lead-header-name"
             toggle={this.toggle}
-            title={`Rename this lead:`}
+            title="Rename this lead:"
           />
           <div className={styles.owner}>
-            <img
-              src={"https://webapp.pipedriveassets.com/images/icons/profile_120x120.svg"}
-              className={classNames(styles.ownerPicture, "rounded-circle")}
-            />
+            <img src={ownerIcon} className={styles.ownerPicture} />
             <div className={styles.ownerBody}>
               <span>{editLead ? editLead.owner.firstname + " " + editLead.owner.lastname : null}</span>
               <small className={styles.ownerRole}>Owner</small>
@@ -58,33 +54,25 @@ class EditLeadHeader extends Component {
     );
   }
 
-  componentDidMount() {
-    let leadId = this.props.match.params.leadId;
-    let funnelId = this.props.match.params.funnelId;
-    this.props.loadLead(leadId, funnelId);
-    this.props.setEditPageFunnel(funnelId);
-  }
-
-  onLeadNameSave(name) {
-    let funnel = this.props.leads.editFunnelId;
-    let lead = this.props.leads.editLead;
+  onLeadNameSave = name => {
+    let lead = this.props.editLead;
     lead.name = name;
-    this.props.updateLead(lead, funnel);
+    this.props.updateLead(lead);
     this.toggle();
-  }
+  };
 
-  onPopoverCancel() {
+  onPopoverCancel = () => {
     this.toggle();
-  }
+  };
 }
 
 const mapStateToProps = state => ({
-  leads: state.leads
+  editLead: state.leads.editLead
 });
 
 export { EditLeadHeader };
 
 export default connect(
   mapStateToProps,
-  { loadLead, setEditPageFunnel, updateLead }
+  { loadLead, updateLead }
 )(EditLeadHeader);

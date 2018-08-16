@@ -64,7 +64,7 @@ router.get("/:id", require_auth, (req, res) => {
 // @desc    Update lead by id
 // @access  Private
 router.patch("/:id", require_auth, (req, res) => {
-  Lead.findOneAndUpdate(req.params.id, {$set : req.body}, { new: true })
+  Lead.findOneAndUpdate(req.params.id, { $set: req.body }, { new: true })
     .populate("contacts")
     .populate("owner")
     .populate("stage")

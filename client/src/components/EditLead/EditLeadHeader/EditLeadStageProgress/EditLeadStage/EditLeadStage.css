@@ -1,4 +1,4 @@
-.li {
+.stage {
   float: left;
   padding: 10px 30px 10px 40px;
   background: #e5e5e5;
@@ -8,6 +8,10 @@
   border-bottom: 1px solid #e5e5e5;
   margin: 0 1px auto auto;
   height: 20px;
+}
+
+.li {
+  composes: stage;
 }
 
 .li:before {
@@ -21,15 +25,7 @@
 }
 
 .liFirst{
-  float: left;
-  padding: 10px 30px 10px 40px;
-  background: #e5e5e5;
-  color: #fff;
-  position: relative;
-  border-top: 1px solid #e5e5e5;
-  border-bottom: 1px solid #e5e5e5;
-  margin: 0 1px auto auto;
-  height: 20px;
+  composes: stage;
 }
 .liFirst:after {
   content: '';

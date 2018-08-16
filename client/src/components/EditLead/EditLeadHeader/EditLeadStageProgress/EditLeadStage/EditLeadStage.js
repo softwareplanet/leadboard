@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styles from "./EditLeadStage.css";
 import classNames from "classnames";
+import { LOST } from "../../../../../constants";
 
 export default class EditLeadStage extends Component {
   constructor(props) {
@@ -19,10 +20,10 @@ export default class EditLeadStage extends Component {
 
     return (
       <li
-        onClick={() => (this.props.status !== "Lost" ? this.onStageClick() : null)}
+        onClick={() => (this.props.status !== LOST ? this.onStageClick() : null)}
         className={classNames(
           { [styles.active]: this.props.active },
-          { [styles.lost]: this.props.status === "Lost" },
+          { [styles.lost]: this.props.status === LOST },
           `${this.props.isFirst ? styles.liFirst : styles.li}`
         )}
         data-toggle="tooltip"

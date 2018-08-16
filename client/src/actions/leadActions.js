@@ -77,15 +77,17 @@ export const createLead = lead => (dispatch, getState) => {
 };
 
 // Load lead by id
-export const loadLead = (leadId, funnelId) => dispatch => {
+export const loadLead = leadId => dispatch => {
   axios
     .get(`/api/lead/${leadId}`)
     .then(res => {
+      let lead = res.data.lead;
       dispatch({
         type: LOAD_LEAD,
-        payload: res.data.lead
+        payload: lead
       });
-      dispatch(loadStages(funnelId));
+
+      dispatch(loadStages(lead.stage.funnel));
     })
     .catch(error => {
       dispatch({
@@ -96,7 +98,7 @@ export const loadLead = (leadId, funnelId) => dispatch => {
 };
 
 // Update lead by id
-export const updateLead = (lead, funnelId) => dispatch => {
+export const updateLead = lead => dispatch => {
   axios
     .patch(`/api/lead/${lead._id}`, lead)
     .then(res => {
@@ -104,7 +106,6 @@ export const updateLead = (lead, funnelId) => dispatch => {
         type: UPDATE_LEAD,
         payload: res.data.lead
       });
-      dispatch(loadLead(lead._id, funnelId));
     })
     .catch(error => {
       dispatch({

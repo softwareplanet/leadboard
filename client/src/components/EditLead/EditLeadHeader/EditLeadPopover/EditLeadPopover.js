@@ -6,7 +6,6 @@ class EditLeadPopover extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.onChange = this.onChange.bind(this);
   }
 
   render() {
@@ -22,7 +21,7 @@ class EditLeadPopover extends Component {
           <div className={styles.header}>{this.props.title}</div>
           <CardBody className={styles.container}>
             <div className={styles.inputContainer}>
-              <input onChange={this.onChange} className={styles.input} defaultValue={this.props.data} />
+              <input onChange={this.onChange} className={styles.input} defaultValue={this.props.value} />
             </div>
           </CardBody>
           <CardFooter className={styles.buttons}>
@@ -38,16 +37,16 @@ class EditLeadPopover extends Component {
     );
   }
 
-  onChange(e) {
+  onChange = e => {
     this.setState({
       ...this.state,
       name: e.target.value
     });
-  }
+  };
 
   componentDidMount() {
     this.setState({
-      name: this.props.data
+      name: this.props.value
     });
   }
 }

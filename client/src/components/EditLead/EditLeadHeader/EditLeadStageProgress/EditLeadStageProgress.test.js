@@ -4,6 +4,7 @@ import { EditLeadStageProgress } from "./EditLeadStageProgress";
 import { shallow } from "enzyme";
 import EditLeadStage from "./EditLeadStage/EditLeadStage";
 import { expect } from "chai";
+import { LOST } from "../../../../constants";
 const stages = [
   {
     funnel: "5b6bff8b902bb52dbf8c6aeb",
@@ -39,30 +40,25 @@ const editLead = {
   timestamp: "2018-08-09T08:50:45.397Z",
   custom: [],
   __v: 0,
-  status: "Lost"
-};
-
-const leads = {
-  stages: stages,
-  editLead: editLead
+  status: LOST
 };
 
 describe("<EditLeadStageProgress />", () => {
   it("should render 2 stages", () => {
-    let wrapper = shallow(<EditLeadStageProgress leads={leads} />);
+    let wrapper = shallow(<EditLeadStageProgress editLead={editLead} stages={stages} />);
     expect(wrapper.find(EditLeadStage)).to.have.length(2);
   });
 
   it("should render 1 active stage from 2 stages", () => {
-    let wrapper = shallow(<EditLeadStageProgress leads={leads} />);
+    let wrapper = shallow(<EditLeadStageProgress editLead={editLead} stages={stages} />);
     let activeStage = wrapper.findWhere(EditLeadStage => EditLeadStage.props().active);
     expect(activeStage).to.have.length(1);
   });
 
   it("should receive correct lead status", () => {
-    let wrapper = shallow(<EditLeadStageProgress leads={leads} />);
+    let wrapper = shallow(<EditLeadStageProgress editLead={editLead} stages={stages} />);
     let activeStage = wrapper.findWhere(
-      EditLeadStage => EditLeadStage.props().status === "Lost" && EditLeadStage.props().active
+      EditLeadStage => EditLeadStage.props().status === LOST && EditLeadStage.props().active
     );
     expect(activeStage).to.have.length(1);
   });

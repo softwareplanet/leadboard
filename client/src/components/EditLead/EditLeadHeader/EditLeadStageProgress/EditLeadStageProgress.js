@@ -5,28 +5,23 @@ import { updateLead } from "../../../../actions/leadActions";
 import styles from "./EditLeadStageProgress.css";
 
 class EditLeadStageProgress extends Component {
-  constructor(props) {
-    super(props);
-    this.onStageClick = this.onStageClick.bind(this);
-  }
-
-  onStageClick(stage) {
-    let lead = this.props.leads.editLead;
-    let funnelId = this.props.leads.editFunnelId;
+  onStageClick = stage => {
+    let lead = this.props.editLead;
     lead.stage = lead ? stage : null;
-    this.props.updateLead(lead, funnelId);
-  }
+    this.props.updateLead(lead);
+  };
 
   render() {
-    let stages = this.props.leads.stages.map((stage, index) => {
-      let active = stage.order <= this.props.leads.editLead.stage.order;
+    let stages = this.props.stages.map((stage, index) => {
+      let active = stage.order <= this.props.editLead.stage.order;
       let isFirst = index === 0;
       return (
         <EditLeadStage
+          key={stage._id}
           onStageClick={this.onStageClick}
           active={active}
-          status={this.props.leads.editLead.status}
-          stages={this.props.leads.stages}
+          status={this.props.editLead.status}
+          stages={this.props.stages}
           stage={stage}
           isFirst={isFirst}
         />
@@ -42,7 +37,8 @@ class EditLeadStageProgress extends Component {
 }
 
 const mapStateToProps = state => ({
-  leads: state.leads
+  stages: state.leads.stages,
+  editLead: state.leads.editLead
 });
 
 export { EditLeadStageProgress };
