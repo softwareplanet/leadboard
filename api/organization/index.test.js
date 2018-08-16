@@ -3,7 +3,7 @@ import request from "supertest";
 import express from "../../express";
 import routes from "..";
 
-import { dropTables, createUserAndDomain, createOrganization } from "../../test/db-prepare";
+import { createOrganization, createUserAndDomain, dropTables } from "../../test/db-prepare";
 
 const app = () => express(routes);
 
@@ -21,7 +21,7 @@ describe("Organization", function() {
       .send({ token: cred.token, domain: cred.domain, name: "EpicSoftware" });
 
     expect(status).toBe(200);
-    expect(typeof body.organizationId).toBe("string");
+    expect(typeof body).toBe("string");
   });
 
   it("should retrieve all domain organizations", async () => {
@@ -35,5 +35,17 @@ describe("Organization", function() {
 
     expect(status).toBe(200);
     expect(Object.keys(body).length).toBe(3);
+  });
+
+  it("should update properly", async () => {
+    const newOrg = await createOrganization(app, cred.token, cred.domain, "Company 1");
+
+    const newCompanyName = "InterLink";
+    const { status, body } = await request(app())
+      .patch(`/api/organization/${newOrg}`)
+      .send({ token: cred.token, name: newCompanyName });
+
+    expect(status).toBe(200);
+    expect((body).name).toBe(newCompanyName);
   });
 });

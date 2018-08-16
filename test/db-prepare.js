@@ -94,8 +94,5 @@ export async function createOrganization(app, token, domain, name = "Organizatio
       console.log("Cannon create a organization" + error);
       throw "Cannon create a organization";
     });
-
-  return {
-    funnel: body.organizationId
-  };
+  return body;
 }
