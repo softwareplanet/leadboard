@@ -40,8 +40,8 @@ class Navbar extends Component {
             <div>
               {this.renderUserAvatar()}
               <div className={styles.userInfo}>
-                <span>Name</span>
-                <small>Domain</small>
+                <span>{this.props.auth.userName}</span>
+                <small>{this.props.auth.domainName}</small>
               </div>
             </div>
           </li>
@@ -60,6 +60,10 @@ Navbar.propTypes = {
     logoutUser:PropTypes.func.isRequired
 };
 
+const mapStateToProps = state => ({
+  auth:state.auth
+});
+
 const leadsRoute = "/home";
 export {Navbar};
-export default connect(null, {logoutUser})(withRouter(Navbar));
+export default connect(mapStateToProps, {logoutUser})(withRouter(Navbar));

@@ -14,7 +14,9 @@ export default function(state = initialState, action) {
             ...state,
             isAuthenticated: !isEmpty(action.payload),
             userid: action.payload.user,
-            domainid: action.payload.domain
+            userName: action.payload.userName,
+            domainid: action.payload.domain,
+            domainName: action.payload.domainName
         };
       case LOGOUT_USER:
         return {

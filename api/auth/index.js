@@ -95,6 +95,7 @@ router.post("/login", function(req, res) {
   var user_ = null;
 
   User.findOne({ email: req.body.email })
+    .populate({ path: "domain"})
     .then(user => {
       if (!user) throw "Invalid credentials!";
       user_ = user;
@@ -110,7 +111,11 @@ router.post("/login", function(req, res) {
 
       res.json({
         token: token,
-        data: { user: user_._id.toString(), domain: user_.domain.toString() }
+        data: { user: user_._id.toString(),
+          domain: user_.domain._id.toString(),
+          domainName: user_.domain.name.toString(),
+          userName: `${user_.firstname.toString()} ${user_.lastname.toString()}`
+        }
       });
     })
     .catch(error => {

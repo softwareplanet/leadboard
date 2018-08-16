@@ -43,7 +43,9 @@ export const loginUserById = id => dispatch => {
     .then(result => {
       const loginData = {
         user: result.data.data.user._id,
-        domain: result.data.data.user.domain
+        userName: `${result.data.data.user.firstname} ${result.data.data.user.lastname}`,
+        domain: result.data.data.user.domain._id,
+        domainName: result.data.data.user.domain.name
       };
       dispatch(setLoginData(loginData));
     })
