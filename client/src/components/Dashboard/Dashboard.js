@@ -2,16 +2,15 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loadLeadboard } from "../../actions/leadActions";
-import styles from './Dashboard.css';
+import styles from "./Dashboard.css";
+import all from "lodash/fp/all";
 
 import Lead from "../Lead/Lead";
 
-class Dashboard extends Component {
+export class Dashboard extends Component {
   constructor() {
     super();
-
     this.leadboardLoaded = false;
-    this.getLeads = this.getLeads.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -35,40 +34,78 @@ class Dashboard extends Component {
     }
   }
 
-  getLeads(stage, this_ = this) {
-    if (typeof this_.props.leads.leads["_" + stage] === "undefined") return <div />;
-    const leads = this_.props.leads.leads["_" + stage].leads.map(lead => {
-      return <Lead key={lead._id} lead={{ name: lead.name, company: "SPG_" }} />;
-    });
+  isStagesEmpty = () => {
+    let stages = Object.values(this.props.leads.leads);
+    return all(s => s.leads.length === 0, stages);
+  };
 
+  createLeadCards = stage => {
+    let leads;
+
+    if (this.isStageIsUndefined(stage))
+      return <div/>;
+
+    leads = this.props.leads.leads["_" + stage].leads.map(lead => {
+      return <Lead key={lead._id} lead={lead} link={this.leadPath(lead)} />;
+    });
     return leads;
-  }
+  };
+
+  leadPath = lead => {
+    const funnelId = this.props.leads.funnels[0]._id;
+    return `/funnel/${funnelId}/lead/${lead._id}`;
+  };
+
+  createEmptyLeadCards = index => {
+    let emptyLeads = [];
+    for (let i = 0; i < this.props.leads.stages.length - index; i++) {
+      emptyLeads.push(<div key={i} className={styles.stagePlaceholder}/>);
+    }
+    return emptyLeads;
+  };
+
+  isStageIsUndefined = stage => {
+    return typeof this.props.leads.leads["_" + stage] === "undefined";
+  };
 
   render() {
-    var stages = this.props.leads.stages.map(function(stage) {
+    const noLeads = this.isStagesEmpty();
+    let stages = this.props.leads.stages.map((stage, index) => {
+      let leads = this.createLeadCards(stage._id);
+
       return (
         <div className={styles.stage} key={stage._id}>
-          <div className={styles.head}>{stage.name}</div>
-          {this.getLeads(stage._id, this)}
-          <div className={styles.cardTerminator} />
+          <div className={noLeads ? styles.emptyStageHead :  styles.notEmptyStageHead}>
+            <div className={styles.stageContainer}>
+              <span>{stage.name}</span>
+                <span className={styles.stageValue}>
+                  { Array.isArray(leads) && leads.length > 0 ? (
+                      <small
+                        className={styles.stageValueSmall}>{leads.length} {leads.length === 1 ? "lead" : "leads"}</small>
+                    ) : null }
+                </span>
+            </div>
+          </div>
+          { leads }
+          <div className={styles.cardTerminator}>
+            { noLeads ? this.createEmptyLeadCards(index) : null }
+          </div>
         </div>
       );
-    }, this);
+    });
 
-    return <div className={styles.dashboard}>{stages}</div>;
+    return <div className={styles.dashboard}>{ stages }</div>;
   }
 }
 
-loadLeadboard.propTypes = {
+Dashboard.propTypes = {
   loadLeadboard: PropTypes.func.isRequired,
-  leads: PropTypes.func.isRequired,
-  errors: PropTypes.func.isRequired
+  leads: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   leads: state.leads,
-  auth: state.auth,
-  errors: state.errors
+  auth: state.auth
 });
 
 export default connect(

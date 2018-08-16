@@ -15,8 +15,8 @@ beforeEach(async done => {
   let funnel = await createFunnel(app, cred.token, cred.domain, "Funnel");
 
   stage = await createStage(app, cred.token, funnel.funnel, "Stage");
-  await createLead(app, cred.token, cred.user, stage.stage, "2", "Lead A");
-  await createLead(app, cred.token, cred.user, stage.stage, "1", "Lead B");
+  await createLead(app, cred.token, cred.user, stage.stage, 2, "Lead A");
+  await createLead(app, cred.token, cred.user, stage.stage, 1, "Lead B");
 
   done();
 });
@@ -30,7 +30,7 @@ describe("Lead", () => {
         owner: cred.user,
         stage: stage.stage,
         name: "My Lead",
-        order: "1"
+        order: 1
       });
 
     expect(status).toBe(200);
