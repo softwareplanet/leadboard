@@ -8,7 +8,7 @@ export const require_auth = (req, res, next) => {
   if (token) {
     jwt.verify(token, secret, function(err, decoded) {
       if (err) {
-        return res.status(400).json({ status: "error", message: "Failed to authenticate token." });
+        return res.status(401).json({ status: "error", message: "Failed to authenticate token." });
       } else {
         req.decoded = decoded;
         next();

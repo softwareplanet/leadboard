@@ -16,6 +16,7 @@ ul {
 
 .menu {
     display: flex;
+    width: 100%;
     align-items: center;
 }
 
@@ -25,13 +26,35 @@ ul {
     padding: 0 20px 0 10px;
 }
 
+.logo li,a:hover {
+    text-decoration: none;
+}
+
 .logoSmall {
     composes:logo;
     display:none
 }
 
+<<<<<<< HEAD
 .logoSmall h1 {
     margin: 0;
+=======
+.logoSmall h1{
+    margin: 0;
+}
+
+.search {
+    max-width: 233px;
+    width: 100%;
+    height: 32px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    border: medium none;
+    padding: 8px 4px 8px 32px;
+    margin-right: 20px;
+    background-color: #747678;
+    color: white;
+>>>>>>> 7451fb6d5a0976dc1b73f87429d96854b21983b6
 }
 
 .item {
