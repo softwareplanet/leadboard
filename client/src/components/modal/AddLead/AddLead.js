@@ -119,8 +119,8 @@ class AddLead extends React.Component {
   getNextLeadNumber(stage) {
     return this.props.leads.leads[`_${stage}`].leads.length + 1;
   }
-  selectStageHandler(stage) {
-    this.setState({ stage: stage });
+  selectStageHandler(stageid) {
+    this.setState({ stage: stageid });
   }
 
   render() {

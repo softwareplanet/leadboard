@@ -88,7 +88,7 @@ class SelectStageOnCreation extends Component {
             <ReactTooltip
               className={styles.keepTooltip}
               delayShow={150}
-              delayHide={150}
+              delayHide={200}
               place={"bottom"}
               effect="solid"
             />
