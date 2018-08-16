@@ -4,6 +4,7 @@ import EditCard from "./EditCard/EditCard";
 import PropTypes from "prop-types";
 import {loadLead} from "../../../actions/leadActions";
 import {connect} from "react-redux";
+import _ from "lodash";
 
 class EditLeadSidebar extends Component {
     constructor(){
@@ -14,7 +15,7 @@ class EditLeadSidebar extends Component {
         }
     }
 
-    componentWillReciveProps(nextProps){
+    componentWillReciveProps(nextProps) {
         if(nextProps){
             this.setState({
                 leadId: nextProps,
@@ -23,9 +24,8 @@ class EditLeadSidebar extends Component {
         }
     }
 
-    componentDidMount(){
-        let id = '5b6d7b35401106620b1a1a6d';
-        this.props.loadLead(id);
+    componentDidMount() {
+        this.props.loadLead('5b7524f139fb331e42dd3ca6');
     }
 
   render() {
@@ -34,8 +34,7 @@ class EditLeadSidebar extends Component {
           return <div />;
       }
     return <div className={styles.sidebar}>
-        <EditCard value={leads.contact.organization}/>
-        <EditCard value={leads.contact}/>
+        {Cards(EditCard)(leads.contact)}
     </div>;
   }
 }
@@ -48,5 +47,24 @@ EditLeadSidebar.propTypes = {
 const mapStateToProps = (state) => ({
     leads: state.leads
 });
+
+const Cards = (Component) => (props) => {
+    if('organization' in props && _.isEmpty(props.name)) {
+        return <div>
+            <Component value={props.organization} title={'Organization'}/>
+        </div>
+    }
+    else if('organization' in props) {
+        return <div>
+            <Component value={props.organization} title={'Organization'}/>
+            <Component value={props} title={'Person'}/>
+        </div>
+    }
+    else {
+        return <div>
+            <Component value={props} title={'Person'}/>
+        </div>
+    }
+};
 
 export default connect(mapStateToProps, { loadLead })(EditLeadSidebar);

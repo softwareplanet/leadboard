@@ -101,7 +101,6 @@ export const loadLead = (id) => dispatch => {
     axios
         .get(`/api/lead/${id}`)
         .then(res => {
-            console.log(res.data);
             dispatch({
                 type: LOAD_LEAD,
                 payload: res.data
