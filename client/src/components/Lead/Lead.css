@@ -1,7 +1,3 @@
-.lead-column-container {
-    width: 319px;
-}
-
 .container {
     display: flex;
     align-items: center;
@@ -16,7 +12,7 @@
     flex:3;
 }
 .linkInfo {
-    font: 100 14px/20px "Open Sans",sans-serif;
+    font: 14px/18px "Open Sans",sans-serif;
     color: black;
     display: flex;
     overflow: hidden;
@@ -33,6 +29,7 @@
     text-decoration: none;
 }
 .linkInfo small {
+    font-size: 85%;
     color: #747678;
 }
 

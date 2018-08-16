@@ -1,8 +1,8 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import profile from '../../img/profile.svg'
-import PropTypes from 'prop-types'
-import styles from './Lead.css';
+import React from "react"
+import { Link } from "react-router-dom"
+import profile from "../../img/profile.svg"
+import PropTypes from "prop-types"
+import styles from "./Lead.css";
 
 
 const lead = (props) => {
@@ -19,7 +19,7 @@ const lead = (props) => {
 
           {lead.contact ?
             <small>{lead.contact.name ? lead.contact.name : lead.contact.organization.name}</small> :
-            <small style={{height: '20px'}}> </small>}
+            <small style={{height: "20px"}}> </small>}
         </Link>
       </div>
     </div>
