@@ -24,6 +24,17 @@ describe("Organization", function() {
     expect(typeof body).toBe("string");
   });
 
+  it("should get organization by id", async () => {
+    const organization = await createOrganization(app, cred.token, cred.domain, "Company 1");
+
+    const { status, body } = await request(app())
+      .get(`/api/organization/${organization}`)
+      .send({ token: cred.token});
+
+    expect(status).toBe(200);
+    expect(typeof body).toBe("object");
+  });
+
   it("should retrieve all domain organizations", async () => {
     await createOrganization(app, cred.token, cred.domain, "Company 1");
     await createOrganization(app, cred.token, cred.domain, "Company 2");

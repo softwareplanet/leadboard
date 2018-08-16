@@ -7,6 +7,19 @@ import { validateOrganizationInput, validateOrganizationUpdate } from "../../val
 const router = new Router;
 
 // @route   GET api/organization
+// @desc    Get organization by id
+// @access  Private
+router.get("/:id", require_auth, function(req, res) {
+  Organisation.findById(req.params.id)
+    .then(organizations => {
+      res.status(200).json(organizations);
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
+});
+
+// @route   GET api/organization
 // @desc    Get all organizations domain id and part of name
 // @access  Private
 router.get("/domain/:domain", require_auth, function(req, res) {
