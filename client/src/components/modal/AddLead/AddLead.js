@@ -157,11 +157,7 @@ class AddLead extends React.Component {
             <div className={validationIsShown && errors.name ? styles.invalidContainer : styles.inputContainer}>
               <input name="name" type="text" className={styles.formInput} onChange={this.onChange} />
             </div>
-            <SelectStageOnCreation
-              stages={this.props.leads.stages}
-              onStageChange={this.selectStageHandler}
-              selectedStage={this.state.stage}
-            />
+            <SelectStageOnCreation stages={this.props.leads.stages} onStageChange={this.selectStageHandler} />
           </form>
           <div className={styles.formFooter}>
             <button type="button" className={styles.saveBtn} onClick={this.onSubmit}>
@@ -184,7 +180,7 @@ const mapStateToProps = state => ({
   auth: state.auth,
   errors: state.errors
 });
-
+export { AddLead };
 export default connect(
   mapStateToProps,
   { createLead }
