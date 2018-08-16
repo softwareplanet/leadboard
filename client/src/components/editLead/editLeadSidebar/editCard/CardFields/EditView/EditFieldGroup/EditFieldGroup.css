@@ -39,3 +39,8 @@
     color: #26292c;
     width: 100%;
 }
+
+.input:focus {
+    border: 1px solid #317ae2;
+    outline-width: 0;
+}
