@@ -1,6 +1,6 @@
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
-import { GET_ERRORS, SET_LOGIN_DATA, LOGOUT_USER} from "./types";
+import { GET_ERRORS, SET_LOGIN_DATA, LOGOUT_USER } from "./types";
 
 // Register user
 export const registerUser = (user, history) => dispatch => {

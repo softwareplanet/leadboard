@@ -8,13 +8,11 @@ import PropTypes from "prop-types";
 const leadsRoute = "/home";
 
 
-
-
 class Navbar extends Component {
   renderUserAvatar = () => {
-      return this.props.user?
-          <img className={styles.userImg} src={this.props.user.avatar} alt="user"/>:
-          <span className={styles.userIcon + " fa  fa-user-circle"}/>
+    return this.props.user ?
+      <img className={styles.userImg} src={this.props.user.avatar} alt="user"/> :
+      <span className={styles.userIcon + " fa  fa-user-circle"}/>
   };
 
   render() {
