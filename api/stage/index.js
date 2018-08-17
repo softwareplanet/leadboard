@@ -1,6 +1,5 @@
 import { Router } from "express";
 import mongoose from "mongoose";
-import { require_auth } from "../authorize";
 import Stage from "../../models/stage";
 import { validateStageInput, validateStageSearchInput } from "../../validation/stage";
 const router = new Router();
@@ -8,7 +7,7 @@ const router = new Router();
 // @route   GET api/stage
 // @desc    Get ordered stages by funnel IDs
 // @access  Private
-router.get("/",  function(req, res) {
+router.get("/", function(req, res) {
   const { hasErrors, errors } = validateStageSearchInput(req.query);
   if (hasErrors) return res.status(400).json({ errors });
 
@@ -25,7 +24,7 @@ router.get("/",  function(req, res) {
 // @route   POST api/stage
 // @desc    Create stage
 // @access  Private
-router.post("/",  function(req, res) {
+router.post("/", function(req, res) {
   const { hasErrors, errors } = validateStageInput(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 

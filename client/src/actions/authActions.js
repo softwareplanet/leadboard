@@ -42,8 +42,8 @@ export const loginUserById = id => dispatch => {
     .get("/api/user/" + id)
     .then(result => {
       const loginData = {
-        user: result.data._id,
-        domain: result.data.domain
+        userId: result.data._id,
+        domainId: result.data.domain
       };
       dispatch(setLoginData(loginData));
     })

@@ -14,8 +14,7 @@ const styles = ({
     width: "98%"
   },
   cssLabel: {
-    marginLeft: "20px",
-    fontSize: "22px",
+    fontSize: "20px",
     color: "#A9A9A9",
     "&$cssFocused": {
       marginLeft: "0px",
@@ -42,8 +41,7 @@ const InputGroup = (props) => {
           FormLabelClasses={{
             root: props.classes.cssLabel,
             focused: props.classes.cssFocused
-          }}
-        >
+          }}>
           {props.label}
         </InputLabel>
         <Input
@@ -51,11 +49,9 @@ const InputGroup = (props) => {
           type={props.type}
           name={props.name}
           value={props.value}
-          onChange={props.onChange}
-        />
+          onChange={props.onChange}/>
         <FormHelperText
-          classes={{ root: props.classes.formHelper }}
-        >
+          classes={{ root: props.classes.formHelper }}>
           {props.error ? props.error : ""}
         </FormHelperText>
       </FormControl>

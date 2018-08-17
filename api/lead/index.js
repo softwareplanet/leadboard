@@ -1,6 +1,5 @@
 import { Router } from "express";
 import mongoose from "mongoose";
-import { require_auth } from "../authorize";
 import validateLeadInput from "../../validation/lead";
 import isEmpty from "lodash.isempty";
 
@@ -14,7 +13,7 @@ const router = new Router();
 // @desc    Find sorted leads by domain and stage IDs
 // @access  Private
 
-router.get("/",  function(req, res) {
+router.get("/", function(req, res) {
   Lead.find({ stage: req.query.stage })
     .populate({ path: "contact", populate: { path: "organization" } })
     .sort({ order: "asc" })
@@ -74,7 +73,7 @@ const createLead = (req, res) => {
 // @route   GET api/lead/:id
 // @desc    Load lead by id
 // @access  Private
-router.get("/:id", require_auth, (req, res) => {
+router.get("/:id", (req, res) => {
   Lead.findById(req.params.id)
     .populate("contacts")
     .populate("owner")
@@ -90,7 +89,7 @@ router.get("/:id", require_auth, (req, res) => {
 // @route   PATCH api/lead/:id
 // @desc    Update lead by id
 // @access  Private
-router.patch("/:id", require_auth, (req, res) => {
+router.patch("/:id", (req, res) => {
   Lead.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
     .populate("contacts")
     .populate("owner")
