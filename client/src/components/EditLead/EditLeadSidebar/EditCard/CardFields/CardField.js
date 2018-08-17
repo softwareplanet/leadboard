@@ -6,7 +6,7 @@ class CardField extends Component {
         return (
             <div className={styles.fieldValue}>
                 <div className={styles.fieldValueWrapper}>
-                    <div className={styles.fieldLabel}>
+                    <div id="fieldLabel" className={styles.fieldLabel}>
                         {this.props.fieldName}
                         </div>
                 </div>

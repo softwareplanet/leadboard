@@ -9,9 +9,9 @@ class EditCard extends Component {
 
     render() {
         let icon;
-        if(this.props.title === 'Person'){
+        if(this.props.title === "Person") {
             icon = personIcon;
-        } else if(this.props.title === 'Organization'){
+        } else if(this.props.title === "Organization") {
             icon = organizationIcon;
         }
         let fields = this.props.value.custom.map((field) =>
