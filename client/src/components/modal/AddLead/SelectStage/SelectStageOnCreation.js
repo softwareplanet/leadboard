@@ -37,7 +37,7 @@ class SelectStageOnCreation extends Component {
   };
 
   render() {
-    let stagesDisplay = {};
+    let stagesDisplay;
     if (this.props.stages) {
       stagesDisplay = this.props.stages.map((stage, index) => {
         return (

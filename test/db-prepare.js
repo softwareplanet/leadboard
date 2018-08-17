@@ -72,10 +72,10 @@ export async function createStage(app, token, funnel, name = "Stage", order = "1
   };
 }
 
-export async function createLead(app, token, user, stage, order, name = "Lead", status = "InProgress") {
+export async function createLead(app, token, user, stage, domain, order, name = "Lead") {
   const { body } = await request(app())
     .post("/api/lead")
-    .send({ token, owner: user, stage: stage, order, name, status })
+    .send({ token, owner: user, stage: stage, order, name, domain, contact:"Test contact"})
     .catch(error => {
       console.log("Cannon create a lead" + error);
       throw "Cannon create a lead";
