@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const MONGODB_URL = 'mongodb://localhost/leadster' + (process.env.NODE_ENV === 'test'? '-test': '');
 console.log('Using: ' + MONGODB_URL);
