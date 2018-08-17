@@ -6,7 +6,7 @@ import jwt_decode from "jwt-decode";
 import store from "./store.js";
 import setAuthToken from "./utils/setAuthToken.js";
 import setAuthInterceptor from "./utils/setAuthInterceptor.js"
-import {loginUserById, logoutUser} from "./actions/authActions";
+import { loginUserById, logoutUser } from "./actions/authActions";
 
 import Home from "./components/layouts/Home";
 import Footer from "./components/layouts/Footer/Footer";
@@ -21,6 +21,7 @@ setAuthInterceptor();
 if (localStorage.jwtToken) {
   const decoded = jwt_decode(localStorage.jwtToken);
   const currentTime = Date.now() / 1000;
+
   if (decoded.exp <= currentTime) {
     store.dispatch(logoutUser());
     window.location.href= "/";
