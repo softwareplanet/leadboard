@@ -60,7 +60,7 @@ export const setLoginData = data => {
   };
 };
 
-export const logoutUser = (history = null) => dispatch => {
+export const logoutUser = history => dispatch => {
     localStorage.removeItem("jwtToken");
 
     setAuthToken({});
@@ -68,7 +68,5 @@ export const logoutUser = (history = null) => dispatch => {
         type: LOGOUT_USER,
     });
 
-    if(history != null) {
-        history.push("/")
-    }
+    if (history) history.push("/");
 };
