@@ -30,7 +30,7 @@ class Login extends Component {
     }
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     document.title = "Leadbord";
   }
 
