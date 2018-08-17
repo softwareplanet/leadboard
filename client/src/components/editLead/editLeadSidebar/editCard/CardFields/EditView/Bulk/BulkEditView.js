@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styles from "./BulkEditView.css";
+import commonStyles from "../EditViewCommon.css";
 import EditFieldGroup from "../EditFieldGroup/EditFieldGroup";
 import { isEmpty } from "lodash/fp";
 
@@ -59,7 +60,7 @@ class BulkEditView extends Component {
           {fields}
         </div>
         <div className={styles.actions}>
-          <button className={styles.button}>
+          <button className={commonStyles.button}>
             Cancel
           </button>
           <button className={styles.saveBtn}

@@ -1,10 +1,6 @@
 .wrapper {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    position: relative;
+    composes: wrapper from "../EditViewCommon.css";
     padding: 8px 16px;
-    align-items: center;
 }
 
 .labelWrapper {

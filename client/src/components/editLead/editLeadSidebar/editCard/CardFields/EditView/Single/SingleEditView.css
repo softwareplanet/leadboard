@@ -1,0 +1,22 @@
+.editView {
+    background-color: #f7f7f7;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+    margin: -1px 0;
+    z-index: 1;
+}
+
+.cancelButton {
+    composes: smallButton from "../EditViewCommon.css";
+}
+
+.saveButton {
+    composes: smallButton from "../EditViewCommon.css";
+    composes: buttonGreen from "../EditViewCommon.css";
+    margin-left: 4px;
+}
+
+.actions {
+    composes: actions from "../EditViewCommon.css";
+    padding: 0 16px 7px ;
+}
