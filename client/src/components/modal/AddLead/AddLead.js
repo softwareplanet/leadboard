@@ -196,12 +196,6 @@ class AddLead extends React.Component {
               <input name="contact" type="text" className={styles.formInput} onChange={this.onChange}/>
             </div>
 
-            <
-            <
-            <
-            <
-            <
-            << HEAD
             <label className={styles.inputLabel}>
               Organization name
             </label>
@@ -219,12 +213,6 @@ class AddLead extends React.Component {
               />
               {this.state.showBadge ? <span className={styles.newBadge}>NEW</span> : null}
             </div>
-            <label className={styles.inputLabel}>Organization name</label>
-            <div className={validationIsShown && errors.organization ? styles.invalidContainer : styles.inputContainer}>
-              <i className={classNames("fas fa-building", styles.inputIcon)}/>
-              <input name="organization" type="text" className={styles.formInput} onChange={this.onChange}/>
-            </div>
-
             <label className={styles.inputLabel}>Lead title</label>
             <div className={validationIsShown && errors.name ? styles.invalidContainer : styles.inputContainer}>
               <input name="name" type="text" className={styles.formInput} onChange={this.onChange}/>
