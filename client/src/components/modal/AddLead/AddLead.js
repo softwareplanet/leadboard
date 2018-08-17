@@ -2,6 +2,7 @@ import React from "react";
 import Modal from "react-modal";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { loadOrganizations } from "../../../actions/organizationActions";
 import { createLead } from "../../../actions/leadActions";
 import classNames from "classnames";
 import styles from "./AddLead.css";
@@ -35,10 +36,11 @@ class AddLead extends React.Component {
       name: "",
       stage: "",
       contact: "",
-      organization: "",
+      organization: { id: 0, name: ""},
       errors: {},
       openDropdown: false,
       showBadge: false,
+      organizations: [],
 
       validationIsShown: false,
       modalIsOpen: false
@@ -46,12 +48,20 @@ class AddLead extends React.Component {
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.leads) {
+      this.setState({
+        organizations: nextProps.organizations
+      });
+    }
   }
 
   openModal() {
     const { stages } = this.props.leads;
+    this.props.loadOrganizations(this.props.auth.domainid);
     this.setState({
       modalIsOpen: true,
       stage: (Object.keys(stages).length > 0) ? stages[0]._id : ""
@@ -65,7 +75,7 @@ class AddLead extends React.Component {
       errors: {},
       name: "",
       contact: "",
-      organization: "",
+      organization: { id: 0, name: ""},
       openDropdown: false,
       showBadge: false
     });
@@ -82,14 +92,19 @@ class AddLead extends React.Component {
 
   onAutocompleteChange = (event) => {
     this.setState({
-      organization: event.target.value,
+      organization: {
+        name: event.target.value
+      },
       openDropdown: true
     })
   };
 
-  onAutocompleteSelect = (value) => {
+  onAutocompleteSelect = (value, id) => {
     this.setState({
-      organization: value,
+      organization: {
+        id,
+        name: value
+      },
       openDropdown: false,
       showBadge: false
     })
@@ -98,7 +113,7 @@ class AddLead extends React.Component {
   onAutocompleteBlur = () => {
     this.setState({
       openDropdown: false,
-      showBadge: this.state.organization.length > 1
+      showBadge: this.state.organization.name.length > 1
     })
   };
 
@@ -127,7 +142,7 @@ class AddLead extends React.Component {
         stage: this.state.stage,
         name: this.state.name,
         contact: this.state.contact,
-        organization: this.state.organization,
+        organization: this.state.organization.id ? this.state.organization.id : this.state.organization.name,
         order: this.getNextLeadNumber(this.state.stage)
       };
       this.props.createLead(lead);
@@ -192,11 +207,11 @@ class AddLead extends React.Component {
               : styles.inputContainer}>
               <i className={classNames("fas fa-building", styles.inputIcon)} />
               <Autocomplete
-                items={[]}
+                items={this.state.organizations}
                 onChange={this.onAutocompleteChange}
                 onSelect={this.onAutocompleteSelect}
                 onBlur={this.onAutocompleteBlur}
-                value={this.state.organization}
+                value={this.state.organization.name}
                 open={this.state.openDropdown}
               />
               { this.state.showBadge ? <span className={styles.newBadge}>NEW</span> : null }
@@ -229,16 +244,20 @@ class AddLead extends React.Component {
 
 AddLead.propTypes = {
   leads: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+  organizations: PropTypes.array.isRequired,
+
 };
 
 const mapStateToProps = state => ({
   leads: state.leads,
+  organizations: state.organizations,
   auth: state.auth,
   errors: state.errors
 });
 
 export default connect(
   mapStateToProps,
-  { createLead }
+  { loadOrganizations, createLead }
 )(AddLead);
