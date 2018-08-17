@@ -98,7 +98,7 @@ class AddLead extends React.Component {
   onAutocompleteBlur = () => {
     this.setState({
       openDropdown: false,
-      showBadge: true
+      showBadge: this.state.organization.length > 1
     })
   };
 
@@ -192,6 +192,7 @@ class AddLead extends React.Component {
               : styles.inputContainer}>
               <i className={classNames("fas fa-building", styles.inputIcon)} />
               <Autocomplete
+                items={[]}
                 onChange={this.onAutocompleteChange}
                 onSelect={this.onAutocompleteSelect}
                 onBlur={this.onAutocompleteBlur}
