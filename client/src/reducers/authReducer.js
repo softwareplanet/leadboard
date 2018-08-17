@@ -13,8 +13,8 @@ export default function(state = initialState, action) {
       return {
         ...state,
         isAuthenticated: !isEmpty(action.payload),
-        userid: action.payload.user,
-        domainid: action.payload.domain
+        userid: action.payload.userId,
+        domainid: action.payload.domainId
       };
     default:
       return state;
