@@ -1,0 +1,81 @@
+.fonts {
+    font-family: "MuseoSans",
+    "Lucida Grande",
+    "Lucida Sans Unicode",
+    "Lucida Sans",
+    Geneva,
+    "Helvetica Neue",
+    Verdana, sans-serif;
+}
+
+.form {
+    width: 100%;
+    background-color: white;
+    padding: 80px 0px;
+}
+
+.formTitle {
+    composes: fonts;
+    font-size: 42px;
+    color: #26292C;
+    font-weight: 500;
+    text-align: center;
+    padding-bottom: 10%;
+}
+
+.formControl {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.registerLink {
+    margin-top: 5px;
+    margin-bottom: -15px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    composes: fonts;
+    max-width: 550px;
+    justify-content: center;
+    position: relative;
+    margin: 30px auto 0;
+    display: block;
+    background: #FFF;
+    padding: 5% 10px;
+}
+
+.btn {
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    color: black;
+    border: none;
+    border-radius: 3px;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+.formButton {
+    composes: fonts;
+    composes: btn;
+    margin: auto;
+    min-width: 300px;
+    width: 70%;
+    min-height: 60px;
+    max-width: 100%;
+    font-weight: 700;
+    font-size: 24px;
+    color: white;
+    background: #2cbf55;
+    border: 0;
+    border-radius: 0 0;
+}

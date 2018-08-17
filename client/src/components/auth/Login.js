@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
-import classname from "classnames";
+import styles from "./Login.css";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
+import InputGroup from "../common/InputGroup/InputGroup";
+import { flow, isEmpty, trim } from "lodash/fp";
+
+const isBlank = flow(trim, isEmpty);
 
 class Login extends Component {
   constructor() {
@@ -11,31 +15,59 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      errors: {}
+      errors: {},
+      showErrors: false
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
+  componentDidMount() {
+    document.title = "Log In";
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/home");
     }
   }
 
+  componentWillUnmount() {
+    document.title = "Leadbord";
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push("/home");
+    }
+    this.setState({ errors: nextProps.errors });
+  }
+
   onChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
+    let newState = { ...this.state };
+    newState[event.target.name] = event.target.value;
+    this.setState({
+      [event.target.name]: event.target.value,
+      errors: this.validate(newState)
+    });
+  }
+
+  validate(login) {
+    let errors = {};
+    if (isBlank(login.email)) {
+      errors.email = "Email cannot be empty";
+    }
+    if (isBlank(login.password)) {
+      errors.password = "Password cannot be empty";
+    }
+    return errors;
   }
 
   onSubmit(event) {
+    this.setState({ showErrors: true });
     event.preventDefault();
-
     const login = {
       email: this.state.email,
       password: this.state.password
     };
-
     this.props.loginUser(login, this.props.history);
   }
 
@@ -43,47 +75,33 @@ class Login extends Component {
     const { errors } = this.state;
 
     return (
-      <div id="login-container">
+      <div id="login" className={styles.container}>
         <form onSubmit={this.onSubmit}>
-          <div id="login-form">
-            <div className="login-form__title">Log in</div>
-            {errors.message && (
-              <div className="login-form__field-error" style={{ fontSize: 18, paddingLeft: 30 }}>
-                {errors.message}
-              </div>
-            )}
-            <div
-              className={classname("login-form__field", {
-                "login-form__field-red": errors.email
-              })}
-            >
-              <input id="email" name="email" value={this.state.email} type="text" onChange={this.onChange} />
-              <label htmlFor="email">Email</label>
-              {errors.email && <div className="login-form__field-error">{errors.email}</div>}
-            </div>
-
-            <div
-              className={classname("login-form__field", {
-                "login-form__field-red": errors.password
-              })}
-            >
-              <input
-                id="password"
-                name="password"
-                value={this.state.password}
-                type="password"
-                onChange={this.onChange}
-              />
-              <label htmlFor="password">Password</label>
-              {errors.password && <div className="login-form__field-error">{errors.password}</div>}
-            </div>
-
-            <div className="login-form__control">
-              <button className="big-button" type="submit">
+          <div className={styles.form}>
+            <div className={styles.formTitle}>Log in</div>
+            <InputGroup
+              name="email"
+              value={this.state.email}
+              onChange={this.onChange}
+              label="Email"
+              error={this.state.showErrors ? errors.email : ""}
+            />
+            <InputGroup
+              name="password"
+              value={this.state.password}
+              onChange={this.onChange}
+              label="Password"
+              error={this.state.showErrors ? errors.password : ""}
+              type={"password"}
+            />
+            <div className={styles.formControl}>
+              <button className={styles.formButton} type="submit">
                 Log in
               </button>
-              <div>
-                <Link to="/register">Don't have an account?</Link>
+              <div className={styles.registerLink}>
+                <Link to="/register">
+                  <p>Don't have an account?</p>
+                </Link>
               </div>
             </div>
           </div>
@@ -95,8 +113,8 @@ class Login extends Component {
 
 loginUser.propTypes = {
   loginUser: PropTypes.func.isRequired,
-  auth: PropTypes.func.isRequired,
-  errors: PropTypes.func.isRequired
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
