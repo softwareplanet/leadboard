@@ -52,7 +52,6 @@ export class Dashboard extends Component {
   };
 
   leadPath = lead => {
-    const funnelId = this.props.leads.funnels[0]._id;
     return `/lead/${lead._id}`;
   };
 
