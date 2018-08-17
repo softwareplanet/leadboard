@@ -15,6 +15,7 @@ import Registration from "./components/auth/Registration";
 
 import "./App.css";
 import { Switch } from "react-router-dom";
+import EditLead from "./components/EditLead/EditLead";
 
 // restore redux/storage on page reload
 if (localStorage.jwtToken) {
@@ -40,6 +41,13 @@ class App extends Component {
                 exact
                 path="/home"
                 component={Home}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/lead/:leadId"
+                component={EditLead}
               />
             </Switch>
             <Route exact path="/" component={Login}/>

@@ -1,5 +1,13 @@
 import axios from "axios";
-import { LOAD_LEADBOARD, LOAD_STAGES, LOAD_LEADS, GET_ERRORS } from "./types";
+import {
+  LOAD_LEADBOARD,
+  LOAD_STAGES,
+  LOAD_LEADS,
+  GET_ERRORS,
+  LOAD_LEAD,
+  UPDATE_LEAD,
+  SET_EDIT_FUNNEL_ID
+} from "./types";
 
 // Load leadboard by Domain ID
 export const loadLeadboard = domain => dispatch => {
@@ -10,21 +18,13 @@ export const loadLeadboard = domain => dispatch => {
       }
     })
     .then(result => {
-      dispatch({
-        type: LOAD_LEADBOARD,
-        payload: result.data.data
-      });
-      if (result.data.data.length > 0) {
-        if (typeof result.data.data[0]._id === "string") {
-          dispatch(loadStages(result.data.data[0]._id));
-        }
+      dispatch(loadLeadboardAction(result.data.data));
+      if (typeof result.data.data[0]._id === "string") {
+        dispatch(loadStages(result.data.data[0]._id));
       }
     })
     .catch(error => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: error.response.data.errors
-      });
+      dispatch(getErrorsAction(error.response.data.errors));
     });
 };
 
@@ -37,20 +37,14 @@ export const loadStages = funnel => dispatch => {
       }
     })
     .then(result => {
-      dispatch({
-        type: LOAD_STAGES,
-        payload: result.data.data
-      });
+      dispatch(loadStagesAction(result.data.data));
 
       for (let i = 0; i < Object.keys(result.data.data).length; i++) {
         dispatch(loadLeads(result.data.data[i]._id));
       }
     })
     .catch(error => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: error.response.data.errors
-      });
+      dispatch(getErrorsAction(error.response.data.errors));
     });
 };
 
@@ -63,17 +57,10 @@ export const loadLeads = stage => dispatch => {
       }
     })
     .then(result => {
-      dispatch({
-        type: LOAD_LEADS,
-        stage: stage,
-        payload: result.data.data
-      });
+      dispatch(loadLeadsAction(stage, result.data.data));
     })
     .catch(error => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: error.response.data.errors
-      });
+      dispatch(getErrorsAction(error.response.data.errors));
     });
 };
 
@@ -85,9 +72,82 @@ export const createLead = lead => (dispatch, getState) => {
       dispatch(loadLeadboard(getState().auth.domainid));
     })
     .catch(error => {
+      dispatch(getErrorsAction(error.response.data.errors));
+    });
+};
+
+// Load lead by id
+export const loadLead = leadId => dispatch => {
+  axios
+    .get(`/api/lead/${leadId}`)
+    .then(res => {
+      let lead = res.data.lead;
+      dispatch({
+        type: LOAD_LEAD,
+        payload: lead
+      });
+
+      dispatch(loadStages(lead.stage.funnel));
+    })
+    .catch(error => {
       dispatch({
         type: GET_ERRORS,
         payload: error.response.data.errors
       });
     });
 };
+
+// Update lead by id
+export const updateLead = lead => dispatch => {
+  axios
+    .patch(`/api/lead/${lead._id}`, lead)
+    .then(res => {
+      dispatch({
+        type: UPDATE_LEAD,
+        payload: res.data.lead
+      });
+    })
+    .catch(error => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error
+      });
+    });
+};
+
+// Set edit page funnel
+export const setEditPageFunnel = funnelId => {
+  return {
+    type: SET_EDIT_FUNNEL_ID,
+    payload: funnelId
+  };
+};
+
+export function loadLeadboardAction(data) {
+  return {
+    type: LOAD_LEADBOARD,
+    payload: data
+  };
+}
+
+export function getErrorsAction(errors) {
+  return {
+    type: GET_ERRORS,
+    payload: errors
+  };
+}
+
+export function loadStagesAction(data) {
+  return {
+    type: LOAD_STAGES,
+    payload: data
+  };
+}
+
+export function loadLeadsAction(stage, data) {
+  return {
+    type: LOAD_LEADS,
+    stage: stage,
+    payload: data
+  };
+}
