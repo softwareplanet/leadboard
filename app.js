@@ -8,9 +8,14 @@ const server = http.createServer(app);
 const port = normalizePort(process.env.PORT || "5000");
 
 setImmediate(() => {
-  server.listen(port, () => {
-    console.log("Express server listening on port %s", port);
-  });
+  if (port) {
+    server.listen(port, () => {
+      console.log("Express server listening on port %s", port);
+    });
+  } else {
+    console.error("Port from environment is not valid");
+    process.exit(1);
+  }
 });
 
 function normalizePort(val) {

@@ -11,12 +11,16 @@ export default routes => {
 
   app.use(cors());
   app.use(compression());
-  app.use(morgan("dev"));
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
   app.use(routes);
 
-  if (process.env.ENV === "PROD") app.use(express.static(path.join(__dirname, "/client/build")));
+  if (process.env.ENV === "PROD") {
+    app.use(express.static(path.join(__dirname, "/client/build")));
+    app.use(morgan("common"));
+  } else {
+    app.use(morgan("dev"));
+  }
 
   return app;
 };

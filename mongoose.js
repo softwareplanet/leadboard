@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 
-var MONGODB_URL = process.env.DB_URL
-  ? process.env.DB_URL
+var MONGODB_URL = process.env.MONGODB_URL
+  ? process.env.MONGODB_URL
   : "mongodb://localhost/leadster" + (process.env.NODE_ENV === "test" ? "-test" : "");
 console.log("Using: " + MONGODB_URL);
 
