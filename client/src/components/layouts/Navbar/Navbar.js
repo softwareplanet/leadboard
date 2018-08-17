@@ -21,8 +21,9 @@ class Navbar extends Component {
     return (
       <header>
         <ul className={styles.menu} role="navigation">
-          <li className={styles.logo}>Leadboard</li>
-          <li className={styles.logoSmall}><h1>L</h1></li>
+
+          <li className={styles.logo}><Link to={leadsRoute}>Leadboard</Link></li>
+          <li className={styles.logoSmall}><Link to={leadsRoute}><h1>L</h1></Link></li>
 
           <li className={this.props.location.pathname === leadsRoute ? styles.active : styles.itemWithLink}>
             <Link
