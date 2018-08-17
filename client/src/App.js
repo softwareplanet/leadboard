@@ -14,6 +14,7 @@ import Login from "./components/auth/Login";
 import Registration from "./components/auth/Registration";
 
 import "./App.css";
+import EditLead from "./components/EditLead/EditLead";
 
 setAuthInterceptor();
 // restore redux/storage on page reload
@@ -39,6 +40,7 @@ class App extends Component {
             <Route exact path="/test" component={Home} />
             <Route exact path="/" component={Login} />
             <Route exact path="/register" component={Registration} />
+            <Route exact path="/lead/:leadId" component={EditLead} />
             <Footer />
           </div>
         </Router>
