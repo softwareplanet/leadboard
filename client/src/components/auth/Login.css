@@ -7,6 +7,8 @@
 .formTitle {
     font-size: 42px;
     color: #26292C;
+    font-family: "MuseoSans","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,"Helvetica Neue",Verdana,sans-serif;
+    font-weight: 500;
     text-align: center;
     padding-bottom: 10px;
 }
@@ -38,7 +40,22 @@
     padding: 5% 10px;
 }
 
+.btn {
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    color: black;
+    border: none;
+    border-radius: 3px;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    cursor: pointer;
+}
+
 .formButton {
+    composes: btn;
     margin: auto;
     min-width: 300px;
     width: 70%;

@@ -93,7 +93,7 @@ class Login extends Component {
               type={"password"}
             />
             <div className={styles.formControl}>
-              <button className={`btn ${styles.formButton}`} type="submit">
+              <button className={styles.formButton} type="submit">
                 Log in
               </button>
               <div className={styles.registerLink}>
