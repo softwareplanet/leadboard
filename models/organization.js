@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 // Organization
 const organizationSchema = new mongoose.Schema({
@@ -9,4 +9,31 @@ const organizationSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model("Organization", organizationSchema);
+
+organizationSchema.statics.findOneOrCreate = (organizationData) => {
+  let organization = {
+    _id: new mongoose.Types.ObjectId(),
+    domain: mongoose.Types.ObjectId(organizationData.domain),
+    name: organizationData.organization,
+  };
+
+  if (mongoose.Types.ObjectId.isValid(organizationData.organization)) {
+    return Organization.findById(organizationData.organization).then(organization => {
+      if (organization === null) {
+        return Organization.create({
+          ...organization,
+          name: organizationData.organization,
+
+        });
+      } else {
+        return Promise.resolve(organization);
+      }
+
+    }).catch(error => Promise.reject(error));
+  }
+  return Organization.create(organization);
+};
+
+const Organization = mongoose.model("Organization", organizationSchema);
+
+module.exports = Organization;

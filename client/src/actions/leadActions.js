@@ -1,5 +1,13 @@
 import axios from "axios";
-import { LOAD_LEADBOARD, LOAD_STAGES, LOAD_LEADS, GET_ERRORS } from "./types";
+import {
+  LOAD_LEADBOARD,
+  LOAD_STAGES,
+  LOAD_LEADS,
+  GET_ERRORS,
+  LOAD_LEAD,
+  UPDATE_LEAD,
+  SET_EDIT_FUNNEL_ID
+} from "./types";
 
 // Load leadboard by Domain ID
 export const loadLeadboard = domain => dispatch => {
@@ -66,6 +74,53 @@ export const createLead = lead => (dispatch, getState) => {
     .catch(error => {
       dispatch(getErrorsAction(error.response.data.errors));
     });
+};
+
+// Load lead by id
+export const loadLead = leadId => dispatch => {
+  axios
+    .get(`/api/lead/${leadId}`)
+    .then(res => {
+      let lead = res.data.lead;
+      dispatch({
+        type: LOAD_LEAD,
+        payload: lead
+      });
+
+      dispatch(loadStages(lead.stage.funnel));
+    })
+    .catch(error => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error.response.data.errors
+      });
+    });
+};
+
+// Update lead by id
+export const updateLead = lead => dispatch => {
+  axios
+    .patch(`/api/lead/${lead._id}`, lead)
+    .then(res => {
+      dispatch({
+        type: UPDATE_LEAD,
+        payload: res.data.lead
+      });
+    })
+    .catch(error => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error
+      });
+    });
+};
+
+// Set edit page funnel
+export const setEditPageFunnel = funnelId => {
+  return {
+    type: SET_EDIT_FUNNEL_ID,
+    payload: funnelId
+  };
 };
 
 export function loadLeadboardAction(data) {
