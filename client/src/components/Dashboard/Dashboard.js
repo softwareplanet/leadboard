@@ -34,7 +34,6 @@ export class Dashboard extends Component {
     }
   }
 
-
   isStagesEmpty = () => {
     let stages = Object.values(this.props.leads.leads);
     return all(s => s.leads.length === 0, stages);

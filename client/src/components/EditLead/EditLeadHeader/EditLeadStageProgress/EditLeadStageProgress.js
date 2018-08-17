@@ -17,7 +17,6 @@ class EditLeadStageProgress extends Component {
       }
   }
 
-
     render() {
     if(!this.props.editLead) {
       this.componentWillMount();

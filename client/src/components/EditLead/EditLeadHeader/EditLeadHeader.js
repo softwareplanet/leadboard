@@ -11,7 +11,6 @@ class EditLeadHeader extends Component {
     popoverOpen: false
   };
 
-
   componentDidMount() {
     let leadId = this.props.match.params.leadId;
     this.props.loadLead(leadId);
