@@ -25,23 +25,8 @@ describe('<Navbar /> :', () => {
   it('should call method logoutUser user when Logout clicked', () => {
     logoutUser = jest.fn();
     wrapper = shallow(<Navbar location={location} auth={auth} logoutUser={logoutUser}/>);
-    wrapper.find('li')
-      .filterWhere(li => {
-        return li.find('div')
-          .filterWhere(div =>
-            div.prop('children').indexOf('Logout') !== -1).exists();
-      })
-      .forEach(li => {
-        li.simulate('click')
-      });
+    wrapper.find('#logout').simulate('click');
     expect(logoutUser).toHaveBeenCalledTimes(1);
-  });
-
-  it('should change background color if it on same path as linked to', () => {
-    wrapper = shallow(<Navbar location={location} auth={auth} logoutUser={logoutUser}/>);
-    console.log(wrapper.filter(`.${styles.active}`).exist());
-
-    expect(wrapper.filter(`.${styles.active}`)).toBeTruthy();
   });
 
 });

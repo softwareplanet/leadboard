@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter, Link, NavLink } from 'react-router-dom';
 import styles from './Navbar.css';
 import {logoutUser} from "../../../actions/authActions";
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
+import classNames from "classnames";
 
 const leadsRoute = "/home";
 
@@ -26,13 +27,14 @@ class Navbar extends Component {
           <li className={styles.logoSmall}><Link to={leadsRoute}><h1>L</h1></Link></li>
 
           <li className={this.props.location.pathname === leadsRoute ? styles.active : styles.itemWithLink}>
-            <Link
-              className={this.props.location.pathname === leadsRoute ? styles.currentLink : styles.link}
+            <NavLink
+              className={styles.link}
+              activeClassName={styles.currentLink}
               to={leadsRoute}>
               <div>
                 <span className={styles.icon + ' fa fa-check-circle'}/>Deals
               </div>
-            </Link>
+            </NavLink>
           </li>
           <li className={styles.rightItem}>
             <div>
@@ -43,7 +45,7 @@ class Navbar extends Component {
               </div>
             </div>
           </li>
-          <li onClick={() => this.props.logoutUser(this.props.history)} className={styles.item}>
+          <li id="logout" onClick={() => this.props.logoutUser(this.props.history)} className={styles.item}>
             <div>
               Logout
             </div>
