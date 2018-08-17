@@ -30,6 +30,10 @@ class Login extends Component {
     }
   }
 
+  componentWillUnmount(){
+    document.title = "Leadbord";
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
       this.props.history.push("/home");
