@@ -76,7 +76,7 @@
 
 /* Tooltip */
 .keepTooltip {
-    /* composes: __react_component_tooltip from global; */
+    composes: __react_component_tooltip from global;
     margin-top: 3px !important;
     z-index: 8000;
     
