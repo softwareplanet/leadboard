@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import styles from "./EditFieldGroup.css";
+import PropTypes from "prop-types";
 
 class EditFieldGroup extends Component {
-
 
   onInputChange(e){
     this.props.onChange(e.target.name, e.target.value);
@@ -26,5 +26,11 @@ class EditFieldGroup extends Component {
   }
 
 }
+
+EditFieldGroup.propTypes = {
+  name: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func
+};
 
 export default EditFieldGroup;
