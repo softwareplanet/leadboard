@@ -3,7 +3,7 @@ import { configure, shallow, mount } from "enzyme"
 import Adapter from "enzyme-adapter-react-16"
 import { Navbar } from  "./Navbar"
 
-configure({adapter: new Adapter});
+configure({ adapter: new Adapter });
 
 describe("<Navbar /> :", () => {
   let wrapper;
