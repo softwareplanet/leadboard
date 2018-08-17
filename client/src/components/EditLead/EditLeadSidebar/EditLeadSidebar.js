@@ -7,25 +7,9 @@ import { connect } from "react-redux";
 import _ from "lodash";
 
 class EditLeadSidebar extends Component {
-  constructor() {
-    super();
-    this.state = {
-      leadId: "",
-      leads: {}
-    };
-  }
-
-  componentWillReciveProps(nextProps) {
-    if (nextProps) {
-      this.setState({
-        leadId: nextProps,
-        leads: {}
-      });
-    }
-  }
-
   render() {
-    return this.props.editLead ? <div className={styles.sidebar}>{Cards(EditCard)(this.props.editLead.contact)}</div> : <div />;
+    return this.props.editLead ? <div className={styles.sidebar}>{Cards(EditCard)(this.props.editLead.contact)}</div> :
+        <div />;
   }
 }
 
