@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import styles from "./EditView.css";
-import EditFieldGroup from "./EditFieldGroup/EditFieldGroup";
+import styles from "./BulkEditView.css";
+import EditFieldGroup from "../EditFieldGroup/EditFieldGroup";
 import { isEmpty } from "lodash/fp";
 
-class EditView extends Component {
+class BulkEditView extends Component {
 
   state = {
     custom: []
@@ -73,4 +73,4 @@ class EditView extends Component {
 
 }
 
-export default EditView;
+export default BulkEditView;
