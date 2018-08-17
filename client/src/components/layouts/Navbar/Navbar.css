@@ -90,11 +90,19 @@ ul {
 }
 
 .icon {
+    composes: fa from global;
     font-size: 1.5em;
     padding-right: 10px;
 }
 
+.dealsIcon {
+    composes: icon;
+    composes: fa-check-circle from global;
+}
+
 .userIcon {
+    composes: fa from global;
+    composes: fa-user-circle from global;
     font-size: 32px;
     padding-right: 10px;
 }

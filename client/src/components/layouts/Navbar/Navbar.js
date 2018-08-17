@@ -12,7 +12,7 @@ class Navbar extends Component {
   renderUserAvatar = () => {
     return this.props.user ?
       <img className={styles.userImg} src={this.props.user.avatar} alt="user"/> :
-      <span className={styles.userIcon + " fa  fa-user-circle"}/>
+      <span className={styles.userIcon}/>
   };
 
   render() {
@@ -29,7 +29,7 @@ class Navbar extends Component {
               activeClassName={styles.currentLink}
               to={leadsRoute}>
               <div>
-                <span className={styles.icon + " fa fa-check-circle"}/>Deals
+                <span className={styles.dealsIcon}/>Deals
               </div>
             </NavLink>
           </li>
