@@ -92,17 +92,15 @@ router.post("/login", function(req, res) {
   if (hasErrors) {
     return res.status(400).json({ errors: errors });
   }
-  let user_ = null;
   User.findOne({ email: req.body.email })
     .then(user => {
       if (!user) {
         errors.email = "Incorrect login";
         return res.status(404).json({ errors: errors });
       } else {
-        user_ = user;
         user.passwordMatches(req.body.password, user).then(matches => {
           if (matches) {
-            const payload = { id: user_._id };
+            const payload = { id: user._id };
             jwt.sign(
               payload,
               secret,
@@ -111,8 +109,8 @@ router.post("/login", function(req, res) {
                 res.json({
                   success: true,
                   token: "Bearer " + token,
-                  userId: user_._id.toString(),
-                  domainId: user_.domain.toString()
+                  userId: user._id.toString(),
+                  domainId: user.domain.toString()
                 });
               });
           } else {
