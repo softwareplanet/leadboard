@@ -10,6 +10,8 @@ module.exports = function validateLeadInput(data) {
 
   if (isEmpty(data.owner)) errors.owner = "Owner ID cannot be empty";
   if (isEmpty(data.stage)) errors.stage = "Stage ID cannot be empty";
+  if(!data.contact && !data.organization) errors.contact = "Specify contact or organization";
+  if(isEmpty(data.contact) && isEmpty(data.organization)) errors.contact = "Specify contact or organization";
 
   if (!isNumber(data.order)) {
     errors.order = "Order must be a number";
