@@ -32,7 +32,7 @@ describe("<SelectStageOnCreation />", () => {
     ).toEqual(true);
   });
 
-  it("checks if function that select the stage was triggered on stage click", () => {
+  it("checks if function that selects the stage was triggered on stage click", () => {
     wrapper
       .find("[type='radio']")
       .at(2)
@@ -40,7 +40,7 @@ describe("<SelectStageOnCreation />", () => {
     expect(onStageChange).toHaveBeenCalled();
   });
 
-  it("checks if function that add active class to stage works", () => {
+  it("checks if function that adds active class to stage works", () => {
     const stageClass = styles.radio;
     wrapper
       .find("[type='radio']")
