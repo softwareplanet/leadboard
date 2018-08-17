@@ -18,31 +18,30 @@ class EditLeadStageProgress extends Component {
   }
 
     render() {
-    if(!this.props.editLead) {
-      this.componentWillMount();
-      return('')
-    }
-    let stages = this.props.stages.map((stage, index) => {
-      let active = stage.order <= this.props.editLead.stage.order;
-      let isFirst = index === 0;
-      return (
-        <EditLeadStage
-          key={stage._id}
-          onStageClick={this.onStageClick}
-          active={active}
-          status={this.props.editLead.status}
-          stages={this.props.stages}
-          stage={stage}
-          isFirst={isFirst}
-        />
-      );
-    });
+    if(this.props.editLead) {
+      let stages = this.props.stages.map((stage, index) => {
+        let active = stage.order <= this.props.editLead.stage.order;
+        let isFirst = index === 0;
+        return (
+          <EditLeadStage
+            key={stage._id}
+            onStageClick={this.onStageClick}
+            active={active}
+            status={this.props.editLead.status}
+            stages={this.props.stages}
+            stage={stage}
+            isFirst={isFirst}
+          />
+        );
+      });
 
-    return (
-      <div>
-        <ul className={styles.container}>{stages}</ul>
-      </div>
-    );
+      return (
+        <div>
+          <ul className={styles.container}>{stages}</ul>
+        </div>
+      );
+    } else
+      return <div />
   }
 }
 

@@ -28,7 +28,7 @@ class EditLeadHeader extends Component {
       <div className={styles.header}>
         <div className={styles.description}>
           <h4 onClick={this.toggle} className={styles.leadName} id="edit-lead-header-name">
-            {editLead ? editLead.name : null} lead
+            {editLead ? editLead.name : null}
           </h4>
           <EditLeadPopover
             onSave={this.onLeadNameSave}
