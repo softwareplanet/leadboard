@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withRouter, Link, NavLink } from "react-router-dom";
 import styles from "./Navbar.css";
-import {logoutUser} from "../../../actions/authActions";
+import { logoutUser } from "../../../actions/authActions";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 

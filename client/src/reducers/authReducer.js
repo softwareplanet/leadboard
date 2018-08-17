@@ -4,7 +4,9 @@ import { SET_LOGIN_DATA, LOGOUT_USER } from "../actions/types";
 const initialState = {
   isAuthenticated: false,
   userid: "",
-  domainid: ""
+  domainid: "",
+  userName: "",
+  domainName: ""
 };
 
 export default function (state = initialState, action) {
