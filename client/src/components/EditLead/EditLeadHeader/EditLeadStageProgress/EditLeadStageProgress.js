@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import EditLeadStage from "./EditLeadStage/EditLeadStage";
-import { updateLead } from "../../../../actions/leadActions";
+import { updateLead, loadLead } from "../../../../actions/leadActions";
 import styles from "./EditLeadStageProgress.css";
 
 class EditLeadStageProgress extends Component {
@@ -11,8 +11,14 @@ class EditLeadStageProgress extends Component {
     this.props.updateLead(lead);
   };
 
+  componentWillMount() {
+    if (!this.props.editLead) {
+      this.props.loadLead(this.props.id)
+    }
+  }
+
   render() {
-    if (this.props.editLead){
+    if (this.props.editLead) {
       let stages = this.props.stages.map((stage, index) => {
         let active = stage.order <= this.props.editLead.stage.order;
         let isFirst = index === 0;
@@ -34,8 +40,7 @@ class EditLeadStageProgress extends Component {
           <ul className={styles.container}>{stages}</ul>
         </div>
       );
-    }
-    else
+    } else
       return <div />
   }
 }
@@ -49,5 +54,5 @@ export { EditLeadStageProgress };
 
 export default connect(
   mapStateToProps,
-  { updateLead }
+  { updateLead, loadLead }
 )(EditLeadStageProgress);

@@ -1,25 +1,46 @@
-.card {
-    background-color: white;
-    border-right: 1px solid #e5e5e5;
-    border-bottom: 1px solid #e5e5e5;
-    padding: 10px 15px;
-    cursor: pointer;
+.container {
+    display: flex;
+    background-color: #ffffff;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    border: 1px solid #e5e5e5;
+    border-left:none;
+    border-top:none
 }
 
-.head {
-    font-size: 14px;
-    color: #26292c;
+.info {
+    flex:3;
+}
+.linkInfo {
+    font: 14px/18px "Open Sans",sans-serif;
+    color: black;
+    display: flex;
+    overflow: hidden;
+    text-wrap: none;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 0;
 }
 
-.head:hover {
-    color: blue;
+.linkInfo:hover {
+    color: black;
+    text-decoration: none;
 }
-
-.subhead {
-    font-size: 12px;
+.linkInfo small {
+    font-size: 85%;
     color: #747678;
 }
 
-.subhead:hover {
-    color: blue;
+.linkInfo small:hover {
+    color: #404346;
+}
+
+.avatar {
+    border-radius: 50%;
+    width: 16px;
+    padding-bottom: 4px;
+    margin-right: 8px;
 }

@@ -1,19 +1,34 @@
-import React, { Component } from "react";
-import styles from './Lead.css';
+import React from "react"
+import { Link, withRouter } from "react-router-dom"
+import profile from "../../img/profile.svg"
+import PropTypes from "prop-types"
+import styles from "./Lead.css";
 
-class Lead extends Component {
-  constructor(props) {
-    super(props);
-  }
 
-  render() {
-    return (
-      <div className={styles.card}>
-        <div className={styles.head}>{this.props.lead.name}</div>
-        <div className={styles.subhead}>{this.props.lead.company}</div>
+const lead = (props) => {
+  let lead = props.lead;
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.info}>
+        <Link className={styles.linkInfo} to={props.link}>
+          <strong><img className={styles.avatar}
+                       src={lead.owner && lead.owner.avatar ? lead.owner.avatar : profile}/>
+            {lead.name}
+          </strong>
+
+          {lead.contact ?
+            <small>{lead.contact.name ? lead.contact.name : lead.contact.organization.name}</small> :
+            <small style={{height: "20px"}}> </small>}
+        </Link>
       </div>
-    );
-  }
-}
+    </div>
+  )
+};
 
-export default Lead;
+
+lead.propTypes = {
+    link: PropTypes.string.isRequired,
+    lead: PropTypes.object.isRequired
+};
+export default lead
