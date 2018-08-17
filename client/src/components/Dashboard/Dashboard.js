@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loadLeadboard } from "../../actions/leadActions";
-import styles from './Dashboard.css';
+import styles from "./Dashboard.css";
 
 import Lead from "../Lead/Lead";
 
@@ -40,10 +40,13 @@ class Dashboard extends Component {
     const leads = this_.props.leads.leads["_" + stage].leads.map(lead => {
       return <Lead key={lead._id} lead={{ name: lead.name, company: "SPG_" }} />;
     });
-
     return leads;
   }
 
+  leadPath = lead => {
+    const funnelId = this.props.leads.funnels[0]._id;
+    return `/lead/${lead._id}`;
+  };
   render() {
     var stages = this.props.leads.stages.map(function(stage) {
       return (
