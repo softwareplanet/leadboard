@@ -6,7 +6,7 @@ import { createLead } from "../../../actions/leadActions";
 import classNames from "classnames";
 import styles from "./AddLead.css";
 import { flow, isEmpty, trim } from "lodash/fp";
-import SelectStageOnCreation from "./select_stage/SelectStageOnCreation";
+import SelectStageOnCreation from "./SelectStage/SelectStageOnCreation";
 
 const isBlank = flow(
   trim,

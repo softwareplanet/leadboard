@@ -22,7 +22,7 @@ describe("<SelectStageOnCreation />", () => {
     expect(wrapper.find(`.${stageClass}`).length).toEqual(wrapper.props().stages.length);
   });
 
-  it("first stages active by default", () => {
+  it("selects first stages active by default", () => {
     const stageClass = styles.radio;
     expect(
       wrapper
@@ -32,7 +32,7 @@ describe("<SelectStageOnCreation />", () => {
     ).toEqual(true);
   });
 
-  it("click on stage trigger function that select the stage", () => {
+  it("checks if function that select the stage was triggered on stage click", () => {
     wrapper
       .find("[type='radio']")
       .at(2)
@@ -40,7 +40,7 @@ describe("<SelectStageOnCreation />", () => {
     expect(onStageChange).toHaveBeenCalled();
   });
 
-  it("click on stage trigger function that add active class to stage", () => {
+  it("checks if function that add active class to stage works", () => {
     const stageClass = styles.radio;
     wrapper
       .find("[type='radio']")

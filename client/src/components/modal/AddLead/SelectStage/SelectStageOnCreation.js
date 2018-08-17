@@ -3,14 +3,15 @@ import PropTypes from "prop-types";
 import styles from "./SelectStageOnCreation.css";
 import addModalStyles from "../AddLead.css";
 import ReactTooltip from "react-tooltip";
-import classNames from "classnames";
+import classNames from "classnames/bind";
+
+let cx = classNames.bind(styles);
 
 class SelectStageOnCreation extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      stagesLoaded: false,
       firstStage: {}
     };
   }
@@ -36,32 +37,11 @@ class SelectStageOnCreation extends Component {
   };
 
   render() {
-    const stagesDisplay = this.props.stages ? (
-      this.props.stages.map((stage, index) => {
-        if (index === 0) {
-          return (
-            <label
-              key={stage._id}
-              className={classNames(styles.radio, styles.active)}
-              data-tip={stage.name}
-              htmlFor={"stage-" + stage._id}
-            >
-              <input
-                id={"stage-" + stage._id}
-                type="radio"
-                value={stage._id}
-                defaultChecked={true}
-                onClick={e => {
-                  this.activateStageStyle(e);
-                  this.props.onStageChange(stage._id);
-                }}
-              />
-            </label>
-          );
-        }
-
+    let stagesDisplay = {};
+    if (this.props.stages) {
+      stagesDisplay = this.props.stages.map((stage, index) => {
         return (
-          <label key={stage._id} className={styles.radio} data-tip={stage.name} htmlFor={"stage-" + stage._id}>
+          <label key={stage._id} className={cx({ radio: true, active: index === 0 })} data-tip={stage.name}>
             <input
               id={"stage-" + stage._id}
               type="radio"
@@ -74,10 +54,8 @@ class SelectStageOnCreation extends Component {
             />
           </label>
         );
-      })
-    ) : (
-      <span>You have not add any stages</span>
-    );
+      });
+    } else stagesDisplay = null;
 
     return (
       <div className={styles.stages}>
