@@ -8,7 +8,9 @@
     "coverage": "npm test -- --coverage && opn coverage/lcov-report/index.html",
     "server": "nodemon $NODE_DEBUG_OPTION server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "jest": {
     "testEnvironment": "node",
