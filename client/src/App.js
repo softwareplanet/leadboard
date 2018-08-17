@@ -7,14 +7,14 @@ import store from "./store.js";
 import setAuthToken from "./utils/setAuthToken.js";
 import { loginUserById } from "./actions/authActions";
 
-import PrivateRoute from "./components/common/PrivateRoute"
+import PrivateRoute from "./components/common/PrivateRoute";
 import Home from "./components/layouts/Home";
 import Footer from "./components/layouts/Footer/Footer";
 import Login from "./components/auth/Login";
 import Registration from "./components/auth/Registration";
 
 import "./App.css";
-import {Switch }from "react-router-dom";
+import { Switch } from "react-router-dom";
 
 // restore redux/storage on page reload
 if (localStorage.jwtToken) {
@@ -42,9 +42,9 @@ class App extends Component {
                 component={Home}
               />
             </Switch>
-              <Route exact path="/" component={Login} />
-            <Route exact path="/register" component={Registration} />
-            <Footer />
+            <Route exact path="/" component={Login}/>
+            <Route exact path="/register" component={Registration}/>
+            <Footer/>
           </div>
         </Router>
       </Provider>
