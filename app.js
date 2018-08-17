@@ -1,11 +1,11 @@
 import http from "http";
-var ip = "127.0.0.1";
-var port = 5000;
+const ip = "127.0.0.1";
+const port = 5000;
 
 import express from "./express";
 import api from "./api";
 
-var app = express(api);
+const app = express(api);
 const server = http.createServer(app);
 
 setImmediate(() => {
