@@ -9,7 +9,7 @@ export const validateStageInput = data => {
 
   if (!isNumber(data.order)) errors.order = "Order must be a number";
 
-  if (isEmpty("" + data.order)) errors.order = "Order cannot be empty";
+  if (isEmpty(data.order)) errors.order = "Order cannot be empty";
 
   if (!Validator.isLength(data.name, { max: 30 })) {
     errors.name = "Stage name cannot be more 30 characters";

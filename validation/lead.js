@@ -10,9 +10,7 @@ module.exports = function validateLeadInput(data) {
 
   if (!isNumber(data.order)) errors.order = "Order must be a number";
 
-  if (isEmpty("" + data.order)) {
-    errors.order = "Order cannot be empty";
-  }
+  if (isEmpty("" + data.order)) errors.order = "Order cannot be empty";
 
   if (isEmpty(data.name)) {
     errors.name = "Name cannot be empty";
