@@ -40,6 +40,7 @@ class AddLead extends React.Component {
       errors: {},
       openDropdown: false,
       showBadge: false,
+      afterSelectShowBadge: true,
       organizations: [],
 
       validationIsShown: false,
@@ -77,6 +78,7 @@ class AddLead extends React.Component {
       contact: "",
       organization: { id: 0, name: ""},
       openDropdown: false,
+      afterSelectShowBadge: true,
       showBadge: false
     });
   }
@@ -95,7 +97,8 @@ class AddLead extends React.Component {
       organization: {
         name: event.target.value
       },
-      openDropdown: true
+      openDropdown: true,
+      afterSelectShowBadge: true
     })
   };
 
@@ -106,15 +109,16 @@ class AddLead extends React.Component {
         name: value
       },
       openDropdown: false,
-      showBadge: false
+      showBadge: false,
+      afterSelectShowBadge: false
     })
   };
 
   onAutocompleteBlur = () => {
     this.setState({
       openDropdown: false,
-      showBadge: this.state.organization.name.length > 1
-    })
+      showBadge: this.state.organization.name.length > 1 && this.state.afterSelectShowBadge
+  })
   };
 
   validateLead(lead) {
