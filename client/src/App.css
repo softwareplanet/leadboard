@@ -19,7 +19,6 @@ li {
 }
 
 /* LOGIN FORM */
-
 :global(#login-container) {
     display: flex;
     justify-content: center;
@@ -108,7 +107,6 @@ li {
 :global(.big-button:hover) {
     background-color: #56c96e;
 }
-
 
 /* FOOTER */
 .footer {
