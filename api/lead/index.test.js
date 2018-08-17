@@ -34,7 +34,7 @@ describe("Lead", () => {
         name: "My Lead",
         order: 1,
         contact: "New Person",
-        organization:""
+        organization: ""
       });
     expect(status).toBe(200);
     expect(typeof body.data.lead).toBe("string");

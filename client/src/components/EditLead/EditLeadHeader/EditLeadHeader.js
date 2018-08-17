@@ -48,7 +48,7 @@ class EditLeadHeader extends Component {
           </div>
         </div>
         <div>
-          <EditLeadStageProgress id={this.props.match.params.leadId}/>
+          <EditLeadStageProgress id={ this.props.match.params.leadId }/>
         </div>
       </div>
     );

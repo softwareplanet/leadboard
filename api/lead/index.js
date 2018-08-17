@@ -65,10 +65,6 @@ const createLead = (req, res) => {
         .catch(error => {
           res.status(400).json({ errors: { message: error } });
         });
-
-
-
-
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error }
@@ -88,7 +84,7 @@ router.get("/:id", require_auth, (req, res) => {
       res.json({ lead });
     })
     .catch(error => {
-      res.status(500).json({ errors: { message: error } });
+      res.status(500).json({errors: {message: error}})
     });
 });
 
@@ -96,17 +92,16 @@ router.get("/:id", require_auth, (req, res) => {
 // @desc    Update lead by id
 // @access  Private
 router.patch("/:id", require_auth, (req, res) => {
-  Lead.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
+  Lead.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
     .populate("contacts")
     .populate("owner")
     .populate("stage")
     .then(lead => {
-      res.json({ lead });
-})
-.catch(error => {
-  res.status(400).json({ errors: { message: error }
-  });
-})
+      res.json({lead});
+    })
+    .catch(error => {
+      res.status(400).json({errors: {message: error}})
+    })
 });
 
 export default router;

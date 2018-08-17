@@ -12,13 +12,13 @@ class EditLeadStageProgress extends Component {
   };
 
   componentWillMount() {
-      if(!this.props.editLead) {
-        this.props.loadLead(this.props.id)
-      }
+    if (!this.props.editLead) {
+      this.props.loadLead(this.props.id)
+    }
   }
 
-    render() {
-    if(this.props.editLead) {
+  render() {
+    if (this.props.editLead) {
       let stages = this.props.stages.map((stage, index) => {
         let active = stage.order <= this.props.editLead.stage.order;
         let isFirst = index === 0;
