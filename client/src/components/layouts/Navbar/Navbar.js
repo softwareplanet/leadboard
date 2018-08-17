@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import { withRouter, Link, NavLink } from 'react-router-dom';
-import styles from './Navbar.css';
+import { withRouter, Link, NavLink } from "react-router-dom";
+import styles from "./Navbar.css";
 import {logoutUser} from "../../../actions/authActions";
 import { connect } from "react-redux";
-import PropTypes from 'prop-types';
-import classNames from "classnames";
+import PropTypes from "prop-types";
 
 const leadsRoute = "/home";
 
@@ -15,7 +14,7 @@ class Navbar extends Component {
   renderUserAvatar = () => {
       return this.props.user?
           <img className={styles.userImg} src={this.props.user.avatar} alt="user"/>:
-          <span className={styles.userIcon + ' fa  fa-user-circle'}/>
+          <span className={styles.userIcon + " fa  fa-user-circle"}/>
   };
 
   render() {
@@ -32,7 +31,7 @@ class Navbar extends Component {
               activeClassName={styles.currentLink}
               to={leadsRoute}>
               <div>
-                <span className={styles.icon + ' fa fa-check-circle'}/>Deals
+                <span className={styles.icon + " fa fa-check-circle"}/>Deals
               </div>
             </NavLink>
           </li>
