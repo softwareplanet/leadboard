@@ -1,9 +1,6 @@
 import Validator from "validator";
 import isEmpty from "lodash.isempty";
-
-function isNumber(data) {
-  return typeof data === "number" || Validator.isNumeric(data);
-}
+import { isNumber } from "./validationUtils";
 
 module.exports = function validateLeadInput(data) {
   let errors = {};
@@ -13,13 +10,9 @@ module.exports = function validateLeadInput(data) {
   if(!data.contact && !data.organization) errors.contact = "Specify contact or organization";
   if(isEmpty(data.contact) && isEmpty(data.organization)) errors.contact = "Specify contact or organization";
 
-  if (!isNumber(data.order)) {
-    errors.order = "Order must be a number";
-  }
+  if (!isNumber(data.order)) errors.order = "Order must be a number";
 
-  if (isEmpty("" + data.order)) {
-    errors.order = "Order cannot be empty";
-  }
+  if (isEmpty("" + data.order)) errors.order = "Order cannot be empty";
 
   if (isEmpty(data.name)) {
     errors.name = "Name cannot be empty";
@@ -29,7 +22,10 @@ module.exports = function validateLeadInput(data) {
     }
   }
 
-  //TODO: Check if owner, domain and stage are valid IDs
+  if (isEmpty("" + data.order)) errors.order = "Order cannot be empty";
+
+  if (isEmpty("" + data.name)) errors.name = "Name cannot be empty";
+
   return {
     errors,
     hasErrors: !isEmpty(errors)

@@ -23,8 +23,8 @@ export const loginUser = (user, history) => dispatch => {
       const { token } = result.data;
       localStorage.setItem("jwtToken", token);
       setAuthToken(token);
-      dispatch(setLoginData(result.data.data));
-
+      console.log(result.data)
+      dispatch(setLoginData(result.data));
       if (history) history.push("/home");
     })
     .catch(error => {
@@ -42,10 +42,11 @@ export const loginUserById = id => dispatch => {
     .get("/api/user/" + id)
     .then(result => {
       const loginData = {
-        user: result.data.data.user._id,
-        userName: `${result.data.data.user.firstname} ${result.data.data.user.lastname}`,
-        domain: result.data.data.user.domain._id,
-        domainName: result.data.data.user.domain.name
+
+        userId: result.data._id,
+        userName: `${result.data.firstname} ${result.data.lastname}`,
+        domainId: result.data.domain._id,
+        domainName: result.data.domain.name
       };
       dispatch(setLoginData(loginData));
     })

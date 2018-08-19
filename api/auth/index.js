@@ -1,15 +1,14 @@
 import { Router } from "express";
-import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 
 import { secret } from "../authorize";
 import User from "../../models/user";
 import Domain from "../../models/domain";
+import validateRegisterInput from "../../validation/register";
+import validateLoginInput from "../../validation/login";
+import jwt from "jsonwebtoken";
 import Funnel from "../../models/funnel";
 import Stage from "../../models/stage";
-
-const validateRegisterInput = require("../../validation/register");
-const validateLoginInput = require("../../validation/login");
 
 const router = new Router();
 
@@ -61,7 +60,7 @@ router.post("/register", function(req, res) {
       stages.forEach(stage => stage.save());
     })
     .then(() => {
-      res.json({ data: { user: user._id } });
+      res.json({ user: user._id });
     })
     .catch(err => {
       let errors = {};
@@ -69,7 +68,7 @@ router.post("/register", function(req, res) {
       if (typeof err.code !== "undefines" && err.code == 11000) {
         errors.email = "User with this Email is already exists";
       } else {
-        errors.message = "It was a problem to save this data to database";
+        errors.email = "It was a problem to save this data to database";
       }
       res.status(400).json({ errors: errors });
     });
@@ -90,37 +89,39 @@ function createStage(funnel, name, order) {
 // @access  Public
 router.post("/login", function(req, res) {
   const { hasErrors, errors } = validateLoginInput(req.body);
-  if (hasErrors) return res.status(400).json({ errors });
-
-  var user_ = null;
-
+  if (hasErrors) {
+    return res.status(400).json({ errors: errors });
+  }
   User.findOne({ email: req.body.email })
     .populate({ path: "domain" })
     .then(user => {
-      if (!user) throw "Invalid credentials!";
-      user_ = user;
-      return user.passwordMatches(req.body.password, user);
-    })
-    .then(matches => {
-      if (!matches) throw "Invalid credentials!";
-
-      var token = jwt.sign({ id: user_._id.toString() }, secret, {
-        algorithm: "HS256",
-        expiresIn: 60 * 60 * 24 * 10
-      });
-
-      res.json({
-        token: token,
-        data: {
-          user: user_._id.toString(),
-          domain: user_.domain._id.toString(),
-          domainName: user_.domain.name.toString(),
-          userName: `${user_.firstname.toString()} ${user_.lastname.toString()}`
-        }
-      });
-    })
-    .catch(error => {
-      res.status(401).json({ errors: { message: error } });
+      if (!user) {
+        errors.email = "Incorrect login";
+        return res.status(404).json({ errors: errors });
+      } else {
+        user.passwordMatches(req.body.password, user).then(matches => {
+          if (matches) {
+            const payload = { id: user._id };
+            jwt.sign(
+              payload,
+              secret,
+              { expiresIn: "240h" },
+              (err, token) => {
+                res.json({
+                  success: true,
+                  token: "Bearer " + token,
+                  userId: user._id.toString(),
+                  domainId: user.domain._id.toString(),
+                  domainName: user.domain.name.toString(),
+                  userName: `${user.firstname.toString()} ${user.lastname.toString()}`
+                });
+              });
+          } else {
+            errors.password = "Incorrect password";
+            return res.status(404).json({ errors: errors });
+          }
+        });
+      }
     });
 });
 
