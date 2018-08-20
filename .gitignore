@@ -1,4 +1,4 @@
 /node_modules
 /client/node_modules
 /.idea/workspace.xml
-/.vscode
+/.vscode/launch.json
