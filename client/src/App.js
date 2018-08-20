@@ -5,17 +5,17 @@ import jwt_decode from "jwt-decode";
 
 import store from "./store.js";
 import setAuthToken from "./utils/setAuthToken.js";
-import { loginUserById } from "./actions/authActions";
+import { loginUserById } from "./modules/auth/authActions";
 
-import PrivateRoute from "./components/common/PrivateRoute";
-import Home from "./components/layouts/Home";
-import Footer from "./components/layouts/Footer/Footer";
-import Login from "./components/auth/Login";
-import Registration from "./components/auth/Registration";
+import PrivateRoute from "./modules/common/PrivateRoute";
+import Home from "./modules/layouts/Home";
+import Footer from "./modules/layouts/Footer/Footer";
+import Login from "./modules/auth/Login/Login";
+import Registration from "./modules/auth/Registration/Registration";
 
 import "./App.css";
 import { Switch } from "react-router-dom";
-import EditLead from "./components/EditLead/EditLead";
+import EditLead from "./modules/lead/EditLead/EditLead";
 
 // restore redux/storage on page reload
 if (localStorage.jwtToken) {
