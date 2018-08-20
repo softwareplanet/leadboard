@@ -60,7 +60,8 @@ class BulkEditView extends Component {
           {fields}
         </div>
         <div className={styles.actions}>
-          <button className={commonStyles.button}>
+          <button className={commonStyles.button}
+          onClick={() => {this.props.onCancel()}}>
             Cancel
           </button>
           <button className={styles.saveBtn}
