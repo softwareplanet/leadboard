@@ -1,4 +1,4 @@
 /node_modules
 /client/node_modules
-/.idea
-package-lock.json
+/.idea/workspace.xml
+/.vscode

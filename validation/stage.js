@@ -1,23 +1,22 @@
-const Validator = require("validator");
-const isEmpty = require("lodash.isempty");
+import Validator from "validator";
+import isEmpty from "lodash.isempty";
+import { isNumber } from "./validationUtils";
 
 export const validateStageInput = data => {
   let errors = {};
 
   if (isEmpty(data.funnel)) errors.funnel = "Funnel ID cannot be empty";
 
-  data.order = !isEmpty(data.order) ? data.order : "";
-  data.name = !isEmpty(data.name) ? data.name : "";
+  if (!isNumber(data.order)) errors.order = "Order must be a number";
 
-  if (!Validator.isNumeric(data.order)) {
-    errors.order = "Order must be a number";
-  }
+  if (isEmpty(data.order)) errors.order = "Order cannot be empty";
 
   if (!Validator.isLength(data.name, { max: 30 })) {
     errors.name = "Stage name cannot be more 30 characters";
   }
 
-  //TODO: Check if domain and funnel are valid IDs
+  if (isEmpty("" + data.name)) errors.name = "Name cannot be empty";
+
   return {
     errors,
     hasErrors: !isEmpty(errors)
@@ -26,8 +25,6 @@ export const validateStageInput = data => {
 
 export const validateStageSearchInput = data => {
   let errors = {};
-
-  if (isEmpty(data.funnel)) errors.funnel = "Funnel ID cannot be empty";
 
   return {
     errors,

@@ -8,7 +8,9 @@
     "coverage": "npm test -- --coverage && opn coverage/lcov-report/index.html",
     "server": "nodemon $NODE_DEBUG_OPTION server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "jest": {
     "testEnvironment": "node",
@@ -33,18 +35,24 @@
     "express": "^4.13.4",
     "express-session": "^1.15.6",
     "http": "0.0.0",
-    "jsonwebtoken": "^5.7.0",
+    "jsonwebtoken": "^8.2.0",
     "lodash.isempty": "^4.4.0",
+    "material": "^0.3.0",
+    "mdbootstrap": "^4.5.8",
+    "mdbreact": "^4.6.1",
     "mongoose": "^4.4.5",
     "mongoose-error-parser": "^1.0.0",
     "morgan": "^1.7.0",
-    "validator": "^10.4.0"
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "prop-types": "^15.6.2",
+    "validator": "^10.5.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
-    "babel-jest": "^18.0.0",
+    "babel-jest": "18.0.0",
     "concurrently": "^3.6.1",
-    "jest-cli": "^18.1.0",
+    "jest-cli": "18.1.0",
     "nodemon": "^1.11.0",
     "redux-mock-store": "^1.5.3",
     "sinon": "^6.1.3",
