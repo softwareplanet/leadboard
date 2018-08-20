@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styles from "./EditLeadSidebar.css";
 import EditCard from "./EditCard/EditCard";
 import PropTypes from "prop-types";
-import { loadLead } from "../../../actions/leadActions";
+import { loadLead } from "../../leadActions";
 import { connect } from "react-redux";
 import _ from "lodash";
 

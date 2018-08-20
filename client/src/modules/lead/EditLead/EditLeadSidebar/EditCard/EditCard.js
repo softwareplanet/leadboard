@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import styles from './EditCard.css';
 import CardField from './CardFields/CardField';
 import MainField from "./CardFields/MainField";
-import personIcon from "../../../../img/personIcon.svg";
-import organizationIcon from "../../../../img/organizationIcon.svg";
+import personIcon from "../../../../../img/personIcon.svg";
+import organizationIcon from "../../../../../img/organizationIcon.svg";
 
 class EditCard extends Component {
 
