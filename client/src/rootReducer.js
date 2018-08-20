@@ -2,7 +2,6 @@ import { combineReducers } from "redux";
 import authReducer from "./modules/auth/authReducer";
 import leadReducer from "./modules/lead/leadReducer";
 import { GET_ERRORS } from "./actionTypes";
-import organizationReducer from "./modules/lead/organizationReducer";
 
 const initialState = {};
 
@@ -19,5 +18,4 @@ export default combineReducers({
   auth: authReducer,
   leads: leadReducer,
   errors: errorReducer,
-  organizations: organizationReducer
 });

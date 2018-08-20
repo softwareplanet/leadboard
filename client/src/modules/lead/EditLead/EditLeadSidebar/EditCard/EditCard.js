@@ -5,9 +5,8 @@ import MainField from "./CardFields/MainField";
 import personIcon from "../../../../../img/personIcon.svg";
 import organizationIcon from "../../../../../img/organizationIcon.svg";
 import editIcon from "../../../../../assets/edit-icon.svg";
-import connect from "react-redux/es/connect/connect";
-import { updateOrganization } from "../../../organizationActions";
 import BulkEditView from "./CardFields/EditView/Bulk/BulkEditView";
+import axios from "axios";
 
 class EditCard extends Component {
 
@@ -21,6 +20,19 @@ class EditCard extends Component {
 
   closeEditMode = () => {
     this.setState({ isInEditMode: false });
+  };
+
+  updateOrganization = (organization) => {
+    const organizationId = organization._id;
+    delete organization._id;
+    axios
+      .patch(`/api/organization/${organizationId}`, organization)
+      .then(result => {
+        this.closeEditMode();
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   render() {
@@ -50,18 +62,13 @@ class EditCard extends Component {
         }
         {
           this.state.isInEditMode &&
-          <BulkEditView toUpdate={this.props.value} onCancel={this.closeEditMode}/>
+          <BulkEditView toUpdate={this.props.value}
+                        onCancel={this.closeEditMode}
+                        onChange={(organization) => this.updateOrganization(organization)}/>
         }
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  editLead: state.leads.editLead,
-});
-
-export default connect(
-  mapStateToProps,
-  { updateOrganization },
-)(EditCard);
+export default EditCard;
