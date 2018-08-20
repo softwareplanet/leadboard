@@ -6,17 +6,17 @@ import jwt_decode from "jwt-decode";
 import store from "./store.js";
 import setAuthToken from "./utils/setAuthToken.js";
 import setAuthInterceptor from "./utils/setAuthInterceptor.js"
-import { loginUserById, logoutUser } from "./actions/authActions";
+import { loginUserById, logoutUser } from "./modules/auth/authActions";
 
-import PrivateRoute from "./components/common/PrivateRoute";
-import Home from "./components/layouts/Home";
-import Footer from "./components/layouts/Footer/Footer";
-import Login from "./components/auth/Login";
-import Registration from "./components/auth/Registration";
+import PrivateRoute from "./modules/common/PrivateRoute";
+import Home from "./modules/layouts/Home";
+import Footer from "./modules/layouts/Footer/Footer";
+import Login from "./modules/auth/Login/Login";
+import Registration from "./modules/auth/Registration/Registration";
 
 import "./App.css";
 import { Switch } from "react-router-dom";
-import EditLead from "./components/EditLead/EditLead";
+import EditLead from "./modules/lead/EditLead/EditLead";
 
 setAuthInterceptor();
 // restore redux/storage on page reload
@@ -26,10 +26,10 @@ if (localStorage.jwtToken) {
 
   if (decoded.exp <= currentTime) {
     store.dispatch(logoutUser());
-    window.location.href= "/";
+    window.location.href = "/";
   } else {
-      setAuthToken(localStorage.jwtToken);
-      store.dispatch(loginUserById(decoded.id));
+    setAuthToken(localStorage.jwtToken);
+    store.dispatch(loginUserById(decoded.id));
   }
 }
 
@@ -53,9 +53,9 @@ class App extends Component {
                 component={EditLead}
               />
             </Switch>
-            <Route exact path="/" component={Login}/>
-            <Route exact path="/register" component={Registration}/>
-            <Footer/>
+            <Route exact path="/" component={Login} />
+            <Route exact path="/register" component={Registration} />
+            <Footer />
           </div>
         </Router>
       </Provider>
