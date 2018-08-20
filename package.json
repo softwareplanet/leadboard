@@ -54,6 +54,7 @@
     "concurrently": "^3.6.1",
     "eslint": "^5.4.0",
     "eslint-config-airbnb": "^17.1.0",
+    "eslint-loader": "^2.1.0",
     "eslint-plugin-import": "^2.14.0",
     "jest-cli": "18.1.0",
     "nodemon": "^1.11.0",
