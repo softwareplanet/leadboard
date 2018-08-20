@@ -1,0 +1,9 @@
+{
+  "rules": {
+    "quotes": [
+      "warn",
+      "double"
+    ],
+    "no-console": 0
+  }
+}
