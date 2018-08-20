@@ -8,7 +8,7 @@ import classNames from "classnames";
 import styles from "./AddLead.css";
 import { flow, isEmpty, trim } from "lodash/fp";
 
-import Autocomplete from "../Autocomplete/Autocomplete";
+import OrganizationAutocomplete from "../Autocomplete/OrganizationAutocomplete";
 import SelectStageOnCreation from "./SelectStage/SelectStageOnCreation";
 
 const isBlank = flow(
@@ -203,7 +203,7 @@ class AddLead extends React.Component {
               ? styles.invalidContainer
               : styles.inputContainer}>
               <i className={classNames("fas fa-building", styles.inputIcon)}/>
-              <Autocomplete
+              <OrganizationAutocomplete
                 items={this.state.organizations}
                 onChange={this.onAutocompleteChange}
                 onSelect={this.onAutocompleteSelect}
