@@ -1,6 +1,6 @@
 import "jsdom-global/register";
 import React from "react";
-import styles from "EditFieldGroup.css";
+import styles from "./EditFieldGroup.css";
 import EditFieldGroup from "./EditFieldGroup";
 import { mount } from "enzyme";
 import { expect } from "chai";

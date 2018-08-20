@@ -1,4 +1,4 @@
-import { LOAD_ORGANIZATION, UPDATE_ORGANIZATION } from "../actions/types";
+import { LOAD_ORGANIZATION, UPDATE_ORGANIZATION } from "./types";
 
 const initialState = {
   current: {}
