@@ -47,7 +47,6 @@ class AddLead extends React.Component {
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-    this.closeModalOnESC = this.closeModalOnESC.bind(this);
 
     this.selectStageHandler = this.selectStageHandler.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -71,11 +70,6 @@ class AddLead extends React.Component {
       contact: "",
       organization: ""
     });
-  }
-  closeModalOnESC(event) {
-    if (event.keyCode === 27) {
-      this.closeModal();
-    }
   }
 
   onChange(event) {
@@ -139,7 +133,7 @@ class AddLead extends React.Component {
           </button>
         </div>
 
-        <Modal isOpen={this.state.modalIsOpen} onRequestClose={e => this.closeModalOnESC(e)} style={customStyles}>
+        <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} shouldCloseOnOverlayClick={false} style={customStyles}>
           <header className={styles.formHeader}>Add lead</header>
           <button type="button" onClick={this.closeModal} aria-label="Close" className={styles.closeBtn}>
             <span aria-hidden="true" className={classNames("close", styles.closeIcon)}>
