@@ -1,7 +1,7 @@
 import React from "react";
 import configureStore from "redux-mock-store";
 import { loadLeadboardAction, loadStagesAction, loadLeadsAction } from "../leadActions";
-import * as types from "../../auth/types";
+import * as types from "../../lead/types";
 import reducer from "../leadReducer";
 
 import { shallow } from "enzyme";
@@ -102,7 +102,7 @@ describe("Connected DASHBOARD (SMART component)", () => {
 
   beforeEach(() => {
     store = mockStore(initState);
-    container = shallow(<Provider store={store}><ConnectedDashboard/></Provider>);
+    container = shallow(<Provider store={store}><ConnectedDashboard /></Provider>);
   });
 
   it("render the connected(SMART) component", () => {
