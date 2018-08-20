@@ -8,6 +8,12 @@ class EditLeadPopover extends Component {
     this.state = {};
   }
 
+  componentWillReceiveProps = (nextProps) => {
+    this.setState({
+      name: nextProps.value
+    })
+  }
+
   render() {
     return (
       <Popover
@@ -43,12 +49,6 @@ class EditLeadPopover extends Component {
       name: e.target.value
     });
   };
-
-  componentDidMount() {
-    this.setState({
-      name: this.props.value
-    });
-  }
 }
 
 export default EditLeadPopover;
