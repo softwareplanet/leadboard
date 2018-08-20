@@ -10,8 +10,8 @@ import { loginUserById } from "./modules/auth/authActions";
 import PrivateRoute from "./modules/common/PrivateRoute";
 import Home from "./modules/layouts/Home";
 import Footer from "./modules/layouts/Footer/Footer";
-import Login from "./modules/auth/components/Login/Login";
-import Registration from "./modules/auth/components/Registration/Registration";
+import Login from "./modules/auth/Login/Login";
+import Registration from "./modules/auth/Registration/Registration";
 
 import "./App.css";
 import { Switch } from "react-router-dom";

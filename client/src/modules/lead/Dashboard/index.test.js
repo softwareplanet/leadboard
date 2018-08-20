@@ -10,7 +10,7 @@ import { Provider } from "react-redux";
 import ConnectedDashboard from "./Dashboard";
 import { Dashboard } from "./Dashboard";
 import { loadLeadboard } from "../leadActions";
-import Lead from "./components/Lead/Lead";
+import Lead from "./Lead/Lead";
 import styles from "./Dashboard.css";
 
 let store;

@@ -1,12 +1,12 @@
 import "jsdom-global/register";
 import React from "react";
 import Login from "./Login";
-import store from "../../../../store";
+import store from "../../../store";
 import { expect } from "chai";
 import styles from "./Login.css";
 import { mount } from "enzyme";
 import { MemoryRouter } from "react-router";
-import InputGroup from "../../../common/InputGroup/InputGroup";
+import InputGroup from "../../common/InputGroup/InputGroup";
 import { Provider } from "react-redux";
 
 describe("<Login/>", () => {

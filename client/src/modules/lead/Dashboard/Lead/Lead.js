@@ -1,6 +1,6 @@
 import React from "react"
 import { Link, withRouter } from "react-router-dom"
-import profile from "../../../../../img/profile.svg"
+import profile from "../../../../img/profile.svg"
 import PropTypes from "prop-types"
 import styles from "./Lead.css";
 

@@ -3,8 +3,8 @@ import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import styles from "./Login.css";
 import { connect } from "react-redux";
-import { loginUser } from "../../authActions";
-import InputGroup from "../../../common/InputGroup/InputGroup";
+import { loginUser } from "../authActions";
+import InputGroup from "../../common/InputGroup/InputGroup";
 import { flow, isEmpty, trim } from "lodash/fp";
 
 const isBlank = flow(trim, isEmpty);

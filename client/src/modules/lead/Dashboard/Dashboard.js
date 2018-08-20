@@ -5,7 +5,7 @@ import { loadLeadboard } from "../leadActions";
 import styles from "./Dashboard.css";
 import all from "lodash/fp/all";
 
-import Lead from "./components/Lead/Lead";
+import Lead from "./Lead/Lead";
 
 export class Dashboard extends Component {
   constructor() {
