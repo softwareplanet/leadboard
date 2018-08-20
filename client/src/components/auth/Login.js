@@ -25,9 +25,6 @@ class Login extends Component {
 
   componentDidMount() {
     document.title = "Log In";
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/home");
-    }
   }
 
   componentWillUnmount() {
@@ -35,9 +32,6 @@ class Login extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/home");
-    }
     this.setState({ errors: nextProps.errors });
   }
 

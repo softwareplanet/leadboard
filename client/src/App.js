@@ -5,7 +5,7 @@ import jwt_decode from "jwt-decode";
 
 import store from "./store.js";
 import setAuthToken from "./utils/setAuthToken.js";
-import { loginUserById } from "./actions/authActions";
+import { loginUserById, setLoginData } from "./actions/authActions";
 
 import PrivateRoute from "./components/common/PrivateRoute";
 import Home from "./components/layouts/Home";
@@ -21,6 +21,7 @@ import EditLead from "./components/EditLead/EditLead";
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
   const decoded = jwt_decode(localStorage.jwtToken);
+  store.dispatch(setLoginData(decoded));
   store.dispatch(loginUserById(decoded.id));
 
   const currentTime = Date.now() / 1000;
@@ -50,8 +51,8 @@ class App extends Component {
                 component={EditLead}
               />
             </Switch>
-            <Route exact path="/" component={Login}/>
-            <Route exact path="/register" component={Registration}/>
+            <Route exact path="/" component={store.getState().auth.isAuthenticated ? Home: Login}/>
+            <Route exact path="/register" component={store.getState().auth.isAuthenticated ? Home: Registration}/>
             <Footer/>
           </div>
         </Router>
