@@ -2,13 +2,13 @@ import React from "react";
 import Modal from "react-modal";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { loadOrganizations } from "./Autocomplete/organizationActions";
+import { loadOrganizations } from "./autocomplete/organization/organizationActions";
 import { createLead } from "../leadActions";
 import classNames from "classnames";
 import styles from "./AddLead.css";
 import { flow, isEmpty, trim } from "lodash/fp";
 
-import OrganizationAutocomplete from "./Autocomplete/OrganizationAutocomplete";
+import OrganizationAutocomplete from "./autocomplete/organization/OrganizationAutocomplete";
 import SelectStageOnCreation from "./SelectStage/SelectStageOnCreation";
 
 const isBlank = flow(

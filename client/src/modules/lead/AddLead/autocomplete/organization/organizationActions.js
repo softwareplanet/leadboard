@@ -1,6 +1,6 @@
 import axios from "axios";
 import { LOAD_ORGANIZATIONS } from "./types";
-import { GET_ERRORS } from "../../../../actionTypes";
+import { GET_ERRORS } from "../../../../../actionTypes";
 
 export const loadOrganizations = domain => dispatch => {
   axios.get("/api/organization", {

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactAutocomplete from "react-autocomplete";
-import "./styles/Autocomplete.css";
-import styles from "./styles/autocomplete-styles";
+import "../styles/Autocomplete.css";
+import styles from "../styles/autocomplete-styles";
 
 class OrganizationAutocomplete extends React.Component {
   render() {
