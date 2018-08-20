@@ -1,24 +1,24 @@
-.AppLead__stages{
+.stages{
     position: relative;
 }
 
-.AppLead__stages-input{
+.stagesInput{
     padding-bottom: 0;
 }
 
 
-.AppLead__stages .active ~ label{
+.stages .active ~ label{
     background: #e5e5e5;
 }
-.AppLead_active ~ label::before {
+.active ~ label::before {
     background: #e5e5e5;
 }
 
-.AppLead__stage-option-wrapper  label.active {
+.stageOptionWrapper  label.active {
     background: #2cbf55;
 }
 
-.AppLead__stages_options {
+.stagesOptions {
     display: table;
     width: 100%;
     overflow: hidden;
@@ -27,7 +27,7 @@
     table-layout: fixed;
 }
 
-.AppLead__radio input{
+.radio input{
     cursor: pointer;
     width: auto;
     position: absolute;
@@ -35,7 +35,7 @@
 }
 
 
-.AppLead__stage-option-wrapper label {
+.stageOptionWrapper label {
     height: 28px;
     width: 33px;
     cursor: pointer;
@@ -49,7 +49,7 @@
     position: relative;
 }
 
-.AppLead__stage-option-wrapper  label::before {
+.stageOptionWrapper  label::before {
     width: 20px;
     height: 24px;
     position: absolute;
@@ -72,4 +72,33 @@
 }
 .active ~ label::before {
     background: #e5e5e5;
+}
+
+/* Tooltip */
+.keepTooltip {
+    composes: __react_component_tooltip from global;
+    margin-top: 3px !important;
+    z-index: 8000;
+    
+    padding: 4px 8px;
+    pointer-events: auto;
+    font: 400 12px/16px Open Sans,sans-serif;
+    color: #fff;
+    background-color: #26292c;
+    border-radius: 2px;
+    border: 0 solid #26292c;
+    vertical-align: baseline;
+    box-shadow: 0 2px 8px 0 rgba(38,41,44,.12);
+}
+.keepTooltip::after{
+    /* composes:  from global; */
+    border-width: 0 4px 4px ;
+    top: -4px !important;
+    border-left: 5px solid transparent !important;
+    border-right: 5px solid transparent !important;
+    margin-left: -4px !important;
+}
+.keepTooltip:hover {
+    visibility: visible;
+    opacity: 1;
 }

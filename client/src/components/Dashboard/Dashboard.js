@@ -42,8 +42,7 @@ export class Dashboard extends Component {
   createLeadCards = stage => {
     let leads;
 
-    if (this.isStageIsUndefined(stage))
-      return <div/>;
+    if (this.isStageIsUndefined(stage)) return <div />;
 
     leads = this.props.leads.leads["_" + stage].leads.map(lead => {
       return <Lead key={lead._id} lead={lead} link={this.leadPath(lead)} />;
@@ -52,14 +51,13 @@ export class Dashboard extends Component {
   };
 
   leadPath = lead => {
-    const funnelId = this.props.leads.funnels[0]._id;
     return `/lead/${lead._id}`;
   };
 
   createEmptyLeadCards = index => {
     let emptyLeads = [];
     for (let i = 0; i < this.props.leads.stages.length - index; i++) {
-      emptyLeads.push(<div key={i} className={styles.stagePlaceholder}/>);
+      emptyLeads.push(<div key={i} className={styles.stagePlaceholder} />);
     }
     return emptyLeads;
   };
@@ -75,26 +73,25 @@ export class Dashboard extends Component {
 
       return (
         <div className={styles.stage} key={stage._id}>
-          <div className={noLeads ? styles.emptyStageHead :  styles.notEmptyStageHead}>
+          <div className={noLeads ? styles.emptyStageHead : styles.notEmptyStageHead}>
             <div className={styles.stageContainer}>
               <span>{stage.name}</span>
-                <span className={styles.stageValue}>
-                  { Array.isArray(leads) && leads.length > 0 ? (
-                      <small
-                        className={styles.stageValueSmall}>{leads.length} {leads.length === 1 ? "lead" : "leads"}</small>
-                    ) : null }
-                </span>
+              <span className={styles.stageValue}>
+                {Array.isArray(leads) && leads.length > 0 ? (
+                  <small className={styles.stageValueSmall}>
+                    {leads.length} {leads.length === 1 ? "lead" : "leads"}
+                  </small>
+                ) : null}
+              </span>
             </div>
           </div>
-          { leads }
-          <div className={styles.cardTerminator}>
-            { noLeads ? this.createEmptyLeadCards(index) : null }
-          </div>
+          {leads}
+          <div className={styles.cardTerminator}>{noLeads ? this.createEmptyLeadCards(index) : null}</div>
         </div>
       );
     });
 
-    return <div className={styles.dashboard}>{ stages }</div>;
+    return <div className={styles.dashboard}>{stages}</div>;
   }
 }
 

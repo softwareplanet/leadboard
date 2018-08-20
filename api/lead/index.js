@@ -14,7 +14,6 @@ const router = new Router();
 // @route   GET api/lead
 // @desc    Find sorted leads by domain and stage IDs
 // @access  Private
-
 router.get("/", function(req, res) {
   Lead.find({ stage: req.query.stage })
     .populate({ path: "contact", populate: { path: "organization" } })
@@ -35,13 +34,11 @@ router.post("/", function (req, res) {
   if (hasErrors) return res.status(400).json({errors});
 
   if (req.body.organization) {
-    Organization.findOneOrCreate(req.body)
-      .then(organization => {
-        let body = { ...req.body, organization: organization._id };
-        if (isEmpty(body.contact))
-          delete body['contact'];
-        createLead({ body: body }, res);
-      })
+    Organization.findOneOrCreate(req.body).then(organization => {
+      let body = { ...req.body, organization: organization._id };
+      if (isEmpty(body.contact)) delete body["contact"];
+      createLead({ body: body }, res);
+    });
   } else {
     createLead(req, res);
   }
@@ -49,7 +46,7 @@ router.post("/", function (req, res) {
 
 const createLead = (req, res) => {
   Contact.findOneOrCreate(req.body)
-    .then((contact) => {
+    .then(contact => {
       let lead = {
         _id: new mongoose.Types.ObjectId(),
         owner: req.body.owner,
@@ -67,9 +64,10 @@ const createLead = (req, res) => {
         });
     })
     .catch(error => {
-      res.status(400).json({ errors: { message: error }
+      res.status(400).json({
+        errors: { message: error }
       });
-    })
+    });
 };
 
 
@@ -85,7 +83,7 @@ router.get("/:id", (req, res) => {
       res.json({ lead });
     })
     .catch(error => {
-      res.status(500).json({errors: {message: error}})
+      res.status(500).json({ errors: { message: error } });
     });
 });
 
@@ -98,10 +96,10 @@ router.patch("/:id", (req, res) => {
     .populate("owner")
     .populate("stage")
     .then(lead => {
-      res.json({lead});
+      res.json({ lead });
     })
     .catch(error => {
-      res.status(400).json({errors: {message: error}})
-    })
+      res.status(400).json({ errors: { message: error } });
+    });
 });
 export default router;

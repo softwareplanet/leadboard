@@ -6,8 +6,12 @@ import { createLead } from "../../../actions/leadActions";
 import classNames from "classnames";
 import styles from "./AddLead.css";
 import { flow, isEmpty, trim } from "lodash/fp";
+import SelectStageOnCreation from "./SelectStage/SelectStageOnCreation";
 
-const isBlank = flow(trim, isEmpty);
+const isBlank = flow(
+  trim,
+  isEmpty
+);
 
 const customStyles = {
   content: {
@@ -44,6 +48,7 @@ class AddLead extends React.Component {
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
 
+    this.selectStageHandler = this.selectStageHandler.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -52,7 +57,7 @@ class AddLead extends React.Component {
     const { stages } = this.props.leads;
     this.setState({
       modalIsOpen: true,
-      stage: (Object.keys(stages).length > 0) ? stages[0]._id : ""
+      stage: Object.keys(stages).length > 0 ? stages[0]._id : ""
     });
   }
 
@@ -114,80 +119,48 @@ class AddLead extends React.Component {
   getNextLeadNumber(stage) {
     return this.props.leads.leads[`_${stage}`].leads.length + 1;
   }
+  selectStageHandler(stageid) {
+    this.setState({ stage: stageid });
+  }
 
   render() {
     const { errors, validationIsShown } = this.state;
     return (
       <div>
         <div className={styles.toolPanel}>
-          <button type="button" className={styles.button}
-                  onClick={this.openModal}>
+          <button type="button" className={styles.button} onClick={this.openModal}>
             Add lead
           </button>
         </div>
 
-        <Modal
-          isOpen={this.state.modalIsOpen}
-          style={customStyles}>
-          <header className={styles.formHeader}>
-            Add lead
-          </header>
-          <button type="button"
-                  onClick={this.closeModal}
-                  aria-label="Close"
-                  className={styles.closeBtn}>
-              <span aria-hidden="true"
-                    className={classNames("close", styles.closeIcon)}>
-                &times;
-              </span>
+        <Modal isOpen={this.state.modalIsOpen} style={customStyles}>
+          <header className={styles.formHeader}>Add lead</header>
+          <button type="button" onClick={this.closeModal} aria-label="Close" className={styles.closeBtn}>
+            <span aria-hidden="true" className={classNames("close", styles.closeIcon)}>
+              &times;
+            </span>
           </button>
-          <form
-            autoComplete="off"
-            className={styles.form}>
-            <label className={styles.inputLabel}>
-              Contact person name
-            </label>
-            <div className={validationIsShown && errors.contact
-              ? styles.invalidContainer
-              : styles.inputContainer}>
-              <i className={classNames("fas fa-user", styles.inputIcon)}/>
-              <input
-                name="contact"
-                type="text"
-                className={styles.formInput}
-                onChange={this.onChange}/>
+          <form autoComplete="off" className={styles.form}>
+            <label className={styles.inputLabel}>Contact person name</label>
+            <div className={validationIsShown && errors.contact ? styles.invalidContainer : styles.inputContainer}>
+              <i className={classNames("fas fa-user", styles.inputIcon)} />
+              <input name="contact" type="text" className={styles.formInput} onChange={this.onChange} />
             </div>
 
-            <label className={styles.inputLabel}>
-              Organization name
-            </label>
-            <div className={validationIsShown && errors.organization
-              ? styles.invalidContainer
-              : styles.inputContainer}>
-              <i className={classNames("fas fa-building", styles.inputIcon)}/>
-              <input
-                name="organization"
-                type="text"
-                className={styles.formInput}
-                onChange={this.onChange}/>
+            <label className={styles.inputLabel}>Organization name</label>
+            <div className={validationIsShown && errors.organization ? styles.invalidContainer : styles.inputContainer}>
+              <i className={classNames("fas fa-building", styles.inputIcon)} />
+              <input name="organization" type="text" className={styles.formInput} onChange={this.onChange} />
             </div>
 
-            <label className={styles.inputLabel}>
-              Lead title
-            </label>
-            <div className={validationIsShown && errors.name
-              ? styles.invalidContainer
-              : styles.inputContainer}>
-              <input
-                name="name"
-                type="text"
-                className={styles.formInput}
-                onChange={this.onChange}/>
+            <label className={styles.inputLabel}>Lead title</label>
+            <div className={validationIsShown && errors.name ? styles.invalidContainer : styles.inputContainer}>
+              <input name="name" type="text" className={styles.formInput} onChange={this.onChange} />
             </div>
+            <SelectStageOnCreation stages={this.props.leads.stages} onStageChange={this.selectStageHandler} />
           </form>
           <div className={styles.formFooter}>
-            <button type="button" className={styles.saveBtn}
-                    onClick={this.onSubmit}>
+            <button type="button" className={styles.saveBtn} onClick={this.onSubmit}>
               Save
             </button>
           </div>
@@ -207,7 +180,7 @@ const mapStateToProps = state => ({
   auth: state.auth,
   errors: state.errors
 });
-
+export { AddLead };
 export default connect(
   mapStateToProps,
   { createLead }
