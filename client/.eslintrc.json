@@ -1,13 +1,22 @@
 {
-  "extends": "airbnb",
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true,
+            "modules": true,
+            "experimentalObjectRestSpread": true
+        }
+    },
   "rules": {
     "quotes": [
-        "error",
+        "warn",
         "double"
     ],
     "no-console": 0,
     "jsx-quotes": [
-        "error",
+        "warn",
         "prefer-double"
     ],
     "react/prefer-stateless-function": "off",
