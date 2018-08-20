@@ -36,23 +36,22 @@ export async function createUserAndDomain(app, company = "Acme Corp.", email = "
       console.log("Cannon login a user" + error);
       throw "Cannon login a user" + error;
     });
-
   return {
     token: user.body.token,
-    user: user.body.data.user,
-    domain: user.body.data.domain
+    user: user.body.userId,
+    domain: user.body.domainId
   };
 }
 
 export async function createFunnel(app, token, domain, name = "Funnel") {
   const { body } = await request(app())
     .post("/api/funnel")
+    .set({ Authorization: token })
     .send({ token, domain, name })
     .catch(error => {
       console.log("Cannon create a funnel" + error);
       throw "Cannon create a funnel";
     });
-
   return {
     funnel: body.data.funnel
   };
@@ -61,13 +60,13 @@ export async function createFunnel(app, token, domain, name = "Funnel") {
 export async function createStage(app, token, funnel, name = "Stage", order = "1") {
   const { body } = await request(app())
     .post("/api/stage")
+    .set({ Authorization: token })
     .send({ token, funnel: funnel, name, order: order })
     .catch(error => {
       console.log("Cannon create a stage" + error);
       throw "Cannon create a stage";
     });
-
-  return {
+    return {
     stage: body.data.stage
   };
 }
@@ -75,6 +74,7 @@ export async function createStage(app, token, funnel, name = "Stage", order = "1
 export async function createLead(app, token, user, stage, domain, order, name = "Lead") {
   const { body } = await request(app())
     .post("/api/lead")
+    .set({ Authorization: token })
     .send({ token, owner: user, stage: stage, order, name, domain, contact:"Test contact"})
     .catch(error => {
       console.log("Cannon create a lead" + error);

@@ -18,17 +18,23 @@ beforeEach(async done => {
 
 describe("Funnel", function() {
   it("should create a new funnel", async () => {
-    const { status, body } = await request(app())
+    if(!cred) {
+      cred = await createUserAndDomain(app);
+    }
+    const { status, body} = await request(app())
       .post("/api/funnel")
+      .set({ Authorization: cred.token })
       .send({ token: cred.token, domain: cred.domain, name: "Sales Funnel" });
 
     expect(status).toBe(200);
     expect(typeof body.data.funnel).toBe("string");
   });
 
+
   it("should retrieve all domain' funnels", async () => {
     const { status, body } = await request(app())
       .get("/api/funnel")
+      .set({ Authorization: cred.token })
       .send({ token: cred.token, domain: cred.domain });
 
     expect(status).toBe(200);

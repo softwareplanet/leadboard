@@ -20,8 +20,16 @@ beforeEach(async done => {
 
 describe("Stage", () => {
   it("should create a new stage", async () => {
+    if(!cred) {
+      cred = await createUserAndDomain(app, "Company", "bob@acme.com");
+    }
+
+    if(!funnel) {
+      funnel = await createFunnel(app, cred.token, cred.domain, "Funnel");
+    }
     const { status, body } = await request(app())
       .post("/api/stage")
+      .set({ Authorization: cred.token })
       .send({
         token: cred.token,
         funnel: funnel.funnel,
@@ -36,6 +44,7 @@ describe("Stage", () => {
   it("should return an ordered stages by funnel", async () => {
     const { status, body } = await request(app())
       .get("/api/stage")
+      .set({ Authorization: cred.token })
       .query({
         funnel: funnel.funnel
       })

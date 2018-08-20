@@ -27,7 +27,7 @@ describe("User registration", async () => {
       });
 
     expect(status).toBe(200);
-    expect(typeof body.data.user).toBe("string");
+    expect(typeof body.user).toBe("string");
   });
 
   it("should show error on empty company name", async () => {
@@ -74,7 +74,8 @@ describe("User registration", async () => {
 
   it("should create default funnel and stages", async () => {
     const funnelRequest = await request(app())
-      .get("/api/funnel")
+      .post("/api/funnel")
+      .set({ Authorization: cred.token })
       .send({ token: cred.token, domain: cred.domain });
 
     expect(funnelRequest.status).toBe(200);
@@ -83,8 +84,9 @@ describe("User registration", async () => {
     const stagesRequest = await request(app())
       .get("/api/stage")
       .query({
-        funnel: funnelRequest.body.data[0]._id
+        funnel: funnelRequest.body.data.funnel
       })
+      .set({ Authorization: cred.token })
       .send({
         token: cred.token
       });
@@ -119,7 +121,7 @@ describe("User login", async () => {
       .post("/api/login")
       .send({ email: "joh@example.com", password: "secret" });
 
-    expect(status).toBe(401);
-    expect(body.errors.message).toBe("Invalid credentials!");
+    expect(status).toBe(404);
+    expect(body.errors.massage).toBe("Invalid credentials!");
   });
 });

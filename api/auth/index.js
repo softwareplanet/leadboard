@@ -96,7 +96,7 @@ router.post("/login", function(req, res) {
     .populate({ path: "domain" })
     .then(user => {
       if (!user) {
-        errors.email = "Incorrect login";
+        errors.massage = "Invalid credentials!";
         return res.status(404).json({ errors: errors });
       } else {
         user.passwordMatches(req.body.password, user).then(matches => {
@@ -117,7 +117,7 @@ router.post("/login", function(req, res) {
                 });
               });
           } else {
-            errors.password = "Incorrect password";
+            errors.massage = "Invalid credentials!";
             return res.status(404).json({ errors: errors });
           }
         });

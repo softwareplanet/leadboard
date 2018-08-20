@@ -24,8 +24,18 @@ beforeEach(async done => {
 
 describe("Lead", () => {
   it("should create a new lead", async () => {
+    if(!cred) {
+      cred = await createUserAndDomain(app);
+    }
+
+    if(!stageData) {
+      let funnel = await createFunnel(app, cred.token, cred.domain, "Funnel");
+      stageData = await createStage(app, cred.token, funnel.funnel, "Stage");
+    }
+
     const { status, body } = await request(app())
       .post("/api/lead")
+      .set({ Authorization: cred.token })
       .send({
         token: cred.token,
         owner: cred.user,
@@ -43,6 +53,7 @@ describe("Lead", () => {
   it("should return an ordered leads by stage", async () => {
     const { status, body } = await request(app())
       .get("/api/lead")
+      .set({ Authorization: cred.token })
       .query({
         stage: stageData.stage
       })
@@ -58,6 +69,7 @@ describe("Lead", () => {
   it("should update lead", async () => {
     const { status, body } = await request(app())
       .patch(`/api/lead/${leadData.lead}`)
+      .set({ Authorization: cred.token })
       .send({
         token: cred.token,
         owner: cred.user,
