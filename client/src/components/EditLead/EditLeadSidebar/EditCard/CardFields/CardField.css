@@ -53,6 +53,9 @@ h3 {
     width: 100%;
     align-items: center;
 }
+.mainFieldValueWrapper:hover{
+    text-decoration: underline;
+}
 
 .icon {
     margin: 8px;
