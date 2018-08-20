@@ -1,16 +1,19 @@
 {
-    "extends": "airbnb",
-    "rules": {
-        "quotes": [
-            "error",
-            "double"
-        ],
-        "no-console": 0,
-        "jsx-quotes": [
-            "error",
-            "prefer-double"
-        ],
-        "react/prefer-stateless-function": "off",
-        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
-    }
+  "extends": "airbnb",
+  "rules": {
+    "quotes": [
+        "error",
+        "double"
+    ],
+    "no-console": 0,
+    "jsx-quotes": [
+        "error",
+        "prefer-double"
+    ],
+    "react/prefer-stateless-function": "off",
+    "react/jsx-filename-extension": [ 1, {
+         "extensions": [".js", ".jsx"] 
+        }
+    ]
+  }
 }

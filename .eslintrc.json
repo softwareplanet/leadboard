@@ -1,10 +1,10 @@
 {
-    "extends": "airbnb",
-    "rules": {
-        "quotes": [
-            "error",
-            "double"
-        ],
-        "no-console": 0
-    }
+  "extends": "airbnb",
+  "rules": {
+    "quotes": [
+      "error",
+      "double"
+    ],
+    "no-console": 0
+  }
 }
