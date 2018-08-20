@@ -28,7 +28,7 @@ class Login extends Component {
   }
 
   componentWillUnmount() {
-    document.title = "Leadbord";
+    document.title = "Leadboard";
   }
 
   componentWillReceiveProps(nextProps) {
