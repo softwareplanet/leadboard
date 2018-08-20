@@ -1,0 +1,69 @@
+.dashboard {
+    display: flex;
+    height: 800px;
+    border-top: 1px #b9babb solid;
+}
+.head {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    border-right: 1px #b9babb solid;
+    border-bottom: 1px #b9babb solid;
+    background: url(../../../img/stage-arrow.png) no-repeat 100% 0, linear-gradient(#fff, #f7f7f7) #f7f7f7;
+    background-size: 20px 100%, 100% 100%;
+    font-size: 16px;
+
+    padding: 12px 0 0 15px;
+}
+
+.emptyStageHead {
+    composes: head;
+    height: 45px;
+}
+
+.notEmptyStageHead {
+    composes: head;
+    height: 60px;
+}
+
+.stageContainer {
+    display: flex;
+    flex-direction: column;
+}
+.stageValueSmall {
+    font: 100 12px/16px "Open Sans", sans-serif;
+}
+
+.stageValue {
+    color: #747678;
+    padding-bottom: 15px;
+}
+
+.stage {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.stagePlaceholder {
+    width: 96%;
+    height: 45px;
+    position: relative;
+
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
+
+    border: 2px dotted #b9babb;
+    border-radius: 6px;
+    box-sizing: border-box;
+
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out 0.2s;
+}
+
+.cardTerminator {
+    flex: 1;
+    border-right: 1px solid #e5e5e5;
+}
