@@ -58,6 +58,10 @@
     font: 600 14px/20px Open Sans, sans-serif;
 }
 
+.closeBtn:focus {
+    outline: none;
+}
+
 .closeIcon {
     height: 16px;
     width: 16px;
