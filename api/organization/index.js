@@ -12,7 +12,7 @@ router.get("/", function(req, res) {
     return res.status(400).json({ errors: { domain: "Domain cannot be empty" } });
   }
 
-  Organization.find({ domain: domain })
+  Organization.find({ domain: domain }, '_id name')
     .then(organizations => {
       res.json({ data: organizations });
     })
