@@ -33,5 +33,4 @@ contactSchema.statics.findOneOrCreate = (contactData) => {
 
 const Contact = mongoose.model("Contact", contactSchema);
 
-
 module.exports = Contact;

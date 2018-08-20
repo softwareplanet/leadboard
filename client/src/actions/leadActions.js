@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import {
   LOAD_LEADBOARD,
   LOAD_STAGES,

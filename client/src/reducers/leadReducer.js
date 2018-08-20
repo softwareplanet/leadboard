@@ -1,3 +1,4 @@
+
 import { LOAD_LEADBOARD, LOAD_STAGES, LOAD_LEADS, LOAD_LEAD, UPDATE_LEAD, SET_EDIT_FUNNEL_ID } from "../actions/types";
 
 const initialState = {
@@ -18,14 +19,13 @@ export default function(state = initialState, action) {
         ...state,
         stages: action.payload
       };
-    case LOAD_LEADS:
+      case LOAD_LEADS:
       let leads = Object.assign({}, state.leads);
       leads["_" + action.stage] = { leads: action.payload };
       return {
         ...state,
         leads: leads
       };
-
     case LOAD_LEAD:
       return {
         ...state,

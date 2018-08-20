@@ -1,11 +1,13 @@
 import { Router } from "express";
 import mongoose from "mongoose";
+
 import validateLeadInput from "../../validation/lead";
 import isEmpty from "lodash.isempty";
 
 import Lead from "../../models/lead";
 import Contact from "../../models/contact";
 import Organization from "../../models/organization";
+
 
 const router = new Router();
 
@@ -68,12 +70,13 @@ const createLead = (req, res) => {
     });
 };
 
+
 // @route   GET api/lead/:id
 // @desc    Load lead by id
 // @access  Private
 router.get("/:id", (req, res) => {
   Lead.findById(req.params.id)
-    .populate("contacts")
+    .populate({ path: "contact", populate: { path: "organization" } })
     .populate("owner")
     .populate("stage")
     .then(lead => {
@@ -89,7 +92,7 @@ router.get("/:id", (req, res) => {
 // @access  Private
 router.patch("/:id", (req, res) => {
   Lead.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
-    .populate("contacts")
+    .populate({ path: "contact", populate: { path: "organization" } })
     .populate("owner")
     .populate("stage")
     .then(lead => {
@@ -99,5 +102,4 @@ router.patch("/:id", (req, res) => {
       res.status(400).json({ errors: { message: error } });
     });
 });
-
 export default router;

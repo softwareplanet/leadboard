@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+}
+
+.mainContainer {
+  display: flex;
+}
+
+body{
+  background-color: #f7f7f7;
+}
