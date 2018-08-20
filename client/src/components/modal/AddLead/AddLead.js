@@ -6,6 +6,7 @@ import { createLead } from "../../../actions/leadActions";
 import classNames from "classnames";
 import styles from "./AddLead.css";
 import { flow, isEmpty, trim } from "lodash/fp";
+import SelectStageOnCreation from "./SelectStage/SelectStageOnCreation";
 
 const isBlank = flow(
   trim,
@@ -48,6 +49,7 @@ class AddLead extends React.Component {
     this.closeModal = this.closeModal.bind(this);
     this.closeModalOnESC = this.closeModalOnESC.bind(this);
 
+    this.selectStageHandler = this.selectStageHandler.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -123,6 +125,9 @@ class AddLead extends React.Component {
   getNextLeadNumber(stage) {
     return this.props.leads.leads[`_${stage}`].leads.length + 1;
   }
+  selectStageHandler(stageid) {
+    this.setState({ stage: stageid });
+  }
 
   render() {
     const { errors, validationIsShown } = this.state;
@@ -158,6 +163,7 @@ class AddLead extends React.Component {
             <div className={validationIsShown && errors.name ? styles.invalidContainer : styles.inputContainer}>
               <input name="name" type="text" className={styles.formInput} onChange={this.onChange} />
             </div>
+            <SelectStageOnCreation stages={this.props.leads.stages} onStageChange={this.selectStageHandler} />
           </form>
           <div className={styles.formFooter}>
             <button type="button" className={styles.saveBtn} onClick={this.onSubmit}>
@@ -180,7 +186,7 @@ const mapStateToProps = state => ({
   auth: state.auth,
   errors: state.errors
 });
-
+export { AddLead };
 export default connect(
   mapStateToProps,
   { createLead }
