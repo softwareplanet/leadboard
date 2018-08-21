@@ -41,11 +41,10 @@ describe("<MainField/>", () => {
     wrapper = shallow(<MainField value={contact.organization} updateOrganization={spy}/>);
     const buttonRename = wrapper.find(".buttonRename");
     buttonRename.simulate("click");
-
+    expect(wrapper.state().isInEditMode).to.equal(true);
 
     const nameEditView = wrapper.find("SingleEditView");
-    nameEditView.simulate("change");
-    expect(spy.calledOnce).to.equal(true);
+    nameEditView.simulate("change", "Name", "Microsoft");
     expect(wrapper.state().isInEditMode).to.equal(false);
   });
 

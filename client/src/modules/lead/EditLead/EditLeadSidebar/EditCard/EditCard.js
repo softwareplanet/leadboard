@@ -6,7 +6,7 @@ import personIcon from "../../../../../img/personIcon.svg";
 import organizationIcon from "../../../../../img/organizationIcon.svg";
 import editIcon from "../../../../../assets/edit-icon.svg";
 import BulkEditView from "./CardFields/EditView/Bulk/BulkEditView";
-import connect from "react-redux/es/connect/connect";
+import { connect } from "react-redux";
 import { updateOrganization } from "../../../leadActions";
 
 class EditCard extends Component {
@@ -38,7 +38,7 @@ class EditCard extends Component {
       icon = organizationIcon;
     }
     let fields = this.props.value.custom.map((field) =>
-      <CardField key={field._id} fieldValues={Object.values(field)} fieldName={Object.keys(field)}/>);
+      <CardField key={field.name} fieldValues={Object.values(field)} fieldName={Object.keys(field)}/>);
     return (
       <div className={styles.container}>
         <div className={styles.title}>
