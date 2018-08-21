@@ -116,7 +116,7 @@ describe("User login", async () => {
   it("should return an error if wrong email", async () => {
     const { status, body } = await request(app())
       .post("/api/login")
-      .send({ email: "johasassa1@example.com", password: "secret" });
+      .send({ email: "joh@example.com", password: "secret" });
 
     expect(status).toBe(404);
     expect(body.errors.email).toBe("Incorrect login");
