@@ -16,7 +16,17 @@
 }
 
 .headerItem {
-  flex-grow: 1;
+  font: 14px/20px "Open Sans",sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px
+}
+
+.headerItemIcon {
+  height: 16px;
+  width: 16px;
+  margin-right: 5px
 }
 
 .content {
