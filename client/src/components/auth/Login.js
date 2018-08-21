@@ -70,7 +70,7 @@ class Login extends Component {
 
     return (
       <div id="login" className={styles.container}>
-        <form onSubmit={this.onSubmit}>
+        <form className="loginForm" onSubmit={this.onSubmit}>
           <div className={styles.form}>
             <div className={styles.formTitle}>Log in</div>
             <InputGroup
