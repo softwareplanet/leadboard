@@ -64,10 +64,10 @@ class EditCard extends Component {
       </div>
     );
   }
+
 }
 
-const mapStateToProps = state => ({
-});
+const mapStateToProps = state => ({});
 
 export { EditCard };
 

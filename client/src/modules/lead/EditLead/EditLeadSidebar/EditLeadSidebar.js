@@ -38,14 +38,15 @@ const Cards = Component => props => {
 
 EditLeadSidebar.propTypes = {
   loadLead: PropTypes.func.isRequired,
-  editLead: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  editLead: state.leads.editLead
+  editLead: state.leads.editLead,
 });
+
+export { EditLeadSidebar };
 
 export default connect(
   mapStateToProps,
-  { loadLead }
+  { loadLead },
 )(EditLeadSidebar);

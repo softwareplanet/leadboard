@@ -63,3 +63,14 @@ h3 {
     height: 24px;
     user-select: none;
 }
+
+.buttonRename {
+    composes: buttonSmall from "./EditView/EditViewCommon.css";
+    display: none;
+    margin-left: auto;
+    margin-right: 8px;
+}
+
+.fieldValue:hover .buttonRename {
+    display: block;
+}
