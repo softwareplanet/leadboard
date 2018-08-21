@@ -23,7 +23,6 @@ class SelectStageOnCreation extends Component {
   }
   componentDidMount() {
     if (this.props.stages) {
-      console.log(JSON.stringify(this.props.stages[0]));
       this.props.onStageChange(this.props.stages[0]._id);
     }
   }
