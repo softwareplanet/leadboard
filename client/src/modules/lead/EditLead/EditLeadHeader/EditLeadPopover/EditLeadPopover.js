@@ -4,10 +4,7 @@ import styles from "./EditLeadPopover.css";
 import isBlank from "../../../../../utils/isBlank"
 
 class EditLeadPopover extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+  state = {};
 
   componentWillReceiveProps = (nextProps) => {
     this.setState({
