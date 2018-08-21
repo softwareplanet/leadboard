@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Popover, Card, CardBody, CardFooter } from "reactstrap";
 import styles from "./EditLeadPopover.css";
-import { flow, isEmpty, trim } from "lodash/fp";
+import isBlank from "../../../../../utils/isBlank"
 
 class EditLeadPopover extends Component {
   constructor(props) {
@@ -16,9 +16,7 @@ class EditLeadPopover extends Component {
   componentWillReceiveProps = (nextProps) => {
     this.setState({
       value: nextProps.value,
-      errors:{
-        value: ""
-      }
+      error: ""
     })
   }
 
@@ -36,13 +34,13 @@ class EditLeadPopover extends Component {
           <CardBody className={styles.container}>
             <div className={styles.inputContainer}>
               <input 
-              onChange={this.onChange} 
-              className={this.isBlank(this.state.errors.value) ? styles.input : styles.invalidInput} 
-              defaultValue={this.props.value} />
+                onChange={this.onChange} 
+                className={isBlank(this.state.error) ? styles.input : styles.invalidInput} 
+                defaultValue={this.props.value} />
             </div>
           </CardBody>
           <CardFooter className={styles.buttons}>
-            <button onClick={() => this.onSave()} className={styles.buttonSave}>
+            <button onClick={this.onSave} className={styles.buttonSave}>
               Save
             </button>
             <button onClick={this.props.onCancel} className={styles.button}>
@@ -54,20 +52,15 @@ class EditLeadPopover extends Component {
     );
   }
 
-  isBlank = flow(
-    trim,
-    isEmpty
-  );
-
   onSave = () => {
-    let { errors } = this.state;
-    if (this.isBlank(this.state.value)){
-      errors.value = "Value must be not empty"
-      this.setState(errors)
+    let error = {}
+    if (isBlank(this.state.value)){
+      error = "Value must be not empty"
+      this.setState({ error })
     }
     else {
-      errors.value = ""
-      this.setState(errors)
+      error = ""
+      this.setState({ error })
       this.props.onSave(this.state.value)
     }
   }
