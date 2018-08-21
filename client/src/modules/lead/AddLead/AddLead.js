@@ -8,9 +8,12 @@ import styles from "./AddLead.css";
 import { flow, isEmpty, trim } from "lodash/fp";
 import SelectStageOnCreation from "./SelectStage/SelectStageOnCreation";
 
+import ContactAutocomplete from "./ContactAutocomplete/ContactAutocomplete";
+import { loadContacts } from "./ContactAutocomplete/contactActions";
+
 const isBlank = flow(
   trim,
-  isEmpty
+  isEmpty,
 );
 
 const customStyles = {
@@ -26,8 +29,8 @@ const customStyles = {
     borderRadius: "0 0 2px 2px",
     border: "1px solid #e5e5e5",
     boxShadow: "0 10px 45px rgba(38,41,44,.88)",
-    boxSizing: "border-box"
-  }
+    boxSizing: "border-box",
+  },
 };
 
 class AddLead extends React.Component {
@@ -37,12 +40,13 @@ class AddLead extends React.Component {
     this.state = {
       name: "",
       stage: "",
-      contact: "",
-      organization: "",
+      contact: { id: null, name: "" },
+      organization: {id: null, name: ""},
       errors: {},
-
+      contacts: [],
+      openContactDropdown: false,
       validationIsShown: false,
-      modalIsOpen: false
+      modalIsOpen: false,
     };
 
     this.openModal = this.openModal.bind(this);
@@ -53,11 +57,20 @@ class AddLead extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.leads) {
+      this.setState({
+        contacts: nextProps.contacts,
+      });
+    }
+  }
+
   openModal() {
     const { stages } = this.props.leads;
+    this.props.loadContacts(this.props.auth.domainid);
     this.setState({
       modalIsOpen: true,
-      stage: Object.keys(stages).length > 0 ? stages[0]._id : ""
+      stage: Object.keys(stages).length > 0 ? stages[0]._id : "",
     });
   }
 
@@ -67,8 +80,9 @@ class AddLead extends React.Component {
       validationIsShown: false,
       errors: {},
       name: "",
-      contact: "",
-      organization: ""
+      contact: { id: null, name: "" },
+      organization: {id: null, name: ""},
+      showContactBadge: false,
     });
   }
 
@@ -77,7 +91,7 @@ class AddLead extends React.Component {
     newState[event.target.name] = event.target.value;
     this.setState({
       [event.target.name]: event.target.value,
-      errors: this.validateLead(newState)
+      errors: this.validateLead(newState),
     });
   }
 
@@ -95,7 +109,7 @@ class AddLead extends React.Component {
 
   onSubmit() {
     this.setState({
-      validationIsShown: true
+      validationIsShown: true,
     });
 
     let errors = this.validateLead(this.state);
@@ -105,9 +119,9 @@ class AddLead extends React.Component {
         owner: this.props.auth.userid,
         stage: this.state.stage,
         name: this.state.name,
-        contact: this.state.contact,
-        organization: this.state.organization,
-        order: this.getNextLeadNumber(this.state.stage)
+        contact: this.state.contact.id ? this.state.contact.id : this.state.contact.name,
+        organization: this.state.organization.id ? this.state.organization.id : this.state.organization.name,
+        order: this.getNextLeadNumber(this.state.stage),
       };
       this.props.createLead(lead);
       this.closeModal();
@@ -119,9 +133,44 @@ class AddLead extends React.Component {
   getNextLeadNumber(stage) {
     return this.props.leads.leads[`_${stage}`].leads.length + 1;
   }
+
   selectStageHandler(stageid) {
     this.setState({ stage: stageid });
   }
+
+  onContactChange = (event) => {
+    this.setState({
+      contact: {
+        name: event.target.value,
+      },
+      openContactDropdown: true,
+      afterSelectShowBadge: true,
+    });
+  };
+
+  onContactSelect = (value, id, organization) => {
+    this.setState({
+      contact: {
+        id,
+        name: value,
+      },
+      organization: {
+        id: organization !== undefined ? organization._id : null,
+        name: organization !== undefined ? organization.name : "",
+      },
+      name: organization !== undefined ? organization.name + " deal" : "",
+      openContactDropdown: false,
+      showContactBadge: false,
+      afterSelectShowBadge: false,
+    });
+  };
+
+  onContactBlur = () => {
+    this.setState({
+      openContactDropdown: false,
+      showContactBadge: this.state.contact.name.length > 1 && this.state.afterSelectShowBadge,
+    });
+  };
 
   render() {
     const { errors, validationIsShown } = this.state;
@@ -133,7 +182,8 @@ class AddLead extends React.Component {
           </button>
         </div>
 
-        <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} shouldCloseOnOverlayClick={false} style={customStyles}>
+        <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} shouldCloseOnOverlayClick={false}
+               style={customStyles}>
           <header className={styles.formHeader}>Add lead</header>
           <button type="button" onClick={this.closeModal} aria-label="Close" className={styles.closeBtn}>
             <span aria-hidden="true" className={classNames("close", styles.closeIcon)}>
@@ -143,21 +193,41 @@ class AddLead extends React.Component {
           <form autoComplete="off" className={styles.form}>
             <label className={styles.inputLabel}>Contact person name</label>
             <div className={validationIsShown && errors.contact ? styles.invalidContainer : styles.inputContainer}>
-              <i className={classNames("fas fa-user", styles.inputIcon)} />
-              <input name="contact" type="text" className={styles.formInput} onChange={this.onChange} />
+              <i className={classNames("fas fa-user", styles.inputIcon)}/>
+              <ContactAutocomplete
+                items={this.state.contacts}
+                onChange={this.onContactChange}
+                onSelect={this.onContactSelect}
+                onBlur={this.onContactBlur}
+                value={this.state.contact.name}
+                open={this.state.openContactDropdown}
+              />
+              {this.state.showContactBadge ? <span className={styles.newBadge}>NEW</span> : null}
             </div>
 
             <label className={styles.inputLabel}>Organization name</label>
             <div className={validationIsShown && errors.organization ? styles.invalidContainer : styles.inputContainer}>
-              <i className={classNames("fas fa-building", styles.inputIcon)} />
-              <input name="organization" type="text" className={styles.formInput} onChange={this.onChange} />
+              <i className={classNames("fas fa-building", styles.inputIcon)}/>
+              <input
+                name="organization"
+                type="text"
+                className={styles.formInput}
+                onChange={this.onChange}
+                value={this.state.organization.name}
+              />
             </div>
 
             <label className={styles.inputLabel}>Lead title</label>
             <div className={validationIsShown && errors.name ? styles.invalidContainer : styles.inputContainer}>
-              <input name="name" type="text" className={styles.formInput} onChange={this.onChange} />
+              <input
+                name="name"
+                type="text"
+                className={styles.formInput}
+                onChange={this.onChange}
+                value={this.state.name}
+              />
             </div>
-            <SelectStageOnCreation stages={this.props.leads.stages} onStageChange={this.selectStageHandler} />
+            <SelectStageOnCreation stages={this.props.leads.stages} onStageChange={this.selectStageHandler}/>
           </form>
           <div className={styles.formFooter}>
             <button type="button" className={styles.saveBtn} onClick={this.onSubmit}>
@@ -172,16 +242,19 @@ class AddLead extends React.Component {
 
 AddLead.propTypes = {
   leads: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+  contacts: PropTypes.array.isRequired
 };
 
 const mapStateToProps = state => ({
   leads: state.leads,
+  contacts: state.contacts,
   auth: state.auth,
-  errors: state.errors
+  errors: state.errors,
 });
 export { AddLead };
 export default connect(
   mapStateToProps,
-  { createLead }
+  { createLead, loadContacts },
 )(AddLead);

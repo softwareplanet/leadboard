@@ -10,7 +10,7 @@ router.get("/", function(req, res) {
   }
 
   Contact.find({ domain: domain, name: {$exists: true} }, "name")
-    .populate("organization")
+    .populate("organization", "_id name")
     .then(contacts => {
       res.json({ data: contacts })
     })
