@@ -14,8 +14,9 @@ class EditCard extends Component {
     } else if (this.props.title === "Organization") {
       icon = organizationIcon;
     }
+
     let fields = this.props.value.custom.map((field, index) =>
-      <CardField key={index} fieldValues={Object.values(field)} fieldName={Object.keys(field)} />);
+      <CardField key={index} customFieldValue={Object.values(field)[1]} customFieldName={Object.values(field)[0]} />);
     return (
       <div className={styles.container}>
         <div className={styles.title}>
