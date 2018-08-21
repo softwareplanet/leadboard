@@ -51,7 +51,7 @@ class EditCard extends Component {
         </div>
         {!this.state.isInEditMode &&
         <div className={styles.fields}>
-          <MainField value={this.props.value} icon={icon}/>
+          <MainField title={this.props.title} value={this.props.value} icon={icon}/>
           {fields}
         </div>
         }

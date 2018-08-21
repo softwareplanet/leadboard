@@ -21,9 +21,11 @@ class MainField extends Component {
   };
 
   handleFieldUpdate = (name, value) => {
-    let updatedOrganization = {...this.props.value};
-    updatedOrganization.name = value;
-    this.props.updateOrganization(updatedOrganization);
+    if (this.props.title === "Organization") {
+      let updatedOrganization = {...this.props.value};
+      updatedOrganization.name = value;
+      this.props.updateOrganization(updatedOrganization);
+    }
     this.closeEditMode();
   };
 
@@ -64,6 +66,7 @@ class MainField extends Component {
 MainField.propTypes = {
   fieldName: PropTypes.string,
   fieldValue: PropTypes.string,
+  title: PropTypes.string
 };
 
 const mapStateToProps = state => ({});
