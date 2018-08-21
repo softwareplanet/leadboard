@@ -13,11 +13,11 @@ class OrganizationAutocomplete extends React.Component {
         getItemValue={item => item.name}
         renderMenu={(items) =>
           items.length !== 0 ? (
-            <div style={styles.menu} children={items.splice(0, 4)} />
+            <div style={styles.organization.menu} children={items.splice(0, 4)} />
           ) : (
-              <div style={styles.menu}>
+              <div style={styles.organization.menu}>
               {
-                <div style={styles.emptyMenuItem}>
+                <div style={styles.organization.emptyMenuItem}>
                   { `"${this.props.value}" will be added as a new organization` }
                 </div>
               }
@@ -28,7 +28,7 @@ class OrganizationAutocomplete extends React.Component {
           <div
             key={item._id}
             style={{
-              ...styles.menuItem,
+              ...styles.organization.menuItem,
               backgroundColor: highlighted ? "#317ae2" : "transparent",
               color: highlighted ? "#fff" : "#317ae2"
             }}
@@ -36,7 +36,7 @@ class OrganizationAutocomplete extends React.Component {
             {item.name}
           </div>
         }
-        inputProps={{onBlur: this.props.onBlur}}
+        inputProps={{onBlur: this.props.onBlur, onFocus: this.props.onFocus}}
         value={this.props.value}
         onChange={e => this.props.onChange(e)}
         onSelect={(value, item) => this.props.onSelect(value, item._id)}

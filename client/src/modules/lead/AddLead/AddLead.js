@@ -122,7 +122,8 @@ class AddLead extends React.Component {
     });
   };
 
-  onAutocompleteBlur = () => {
+  onAutocompleteBlur = (event) => {
+    event.target.parentNode.parentNode.setAttribute("style", "border: 1px solid #cbcccd");
     this.setState({
       openDropdown: false,
       showBadge: this.state.organization.name.length > 1 && this.state.afterSelectShowBadge
@@ -172,6 +173,18 @@ class AddLead extends React.Component {
     this.setState({ stage: stageid });
   }
 
+  onAutocompleteFocus = (event) => {
+    event.target.parentNode.parentNode.setAttribute("style", "border: 1px solid #317ae2");
+  };
+
+  onFocus = (event) => {
+    event.target.parentNode.setAttribute("style", "border: 1px solid #317ae2");
+  };
+
+  onBlur = (event) => {
+    event.target.parentNode.setAttribute("style", "border: 1px solid #cbcccd");
+  };
+
   render() {
     const { errors, validationIsShown } = this.state;
     return (
@@ -204,6 +217,7 @@ class AddLead extends React.Component {
               : styles.inputContainer}>
               <i className={classNames("fas fa-building", styles.inputIcon)}/>
               <OrganizationAutocomplete
+                onFocus={this.onAutocompleteFocus}
                 items={this.state.organizations}
                 onChange={this.onAutocompleteChange}
                 onSelect={this.onAutocompleteSelect}
@@ -215,7 +229,14 @@ class AddLead extends React.Component {
             </div>
             <label className={styles.inputLabel}>Lead title</label>
             <div className={validationIsShown && errors.name ? styles.invalidContainer : styles.inputContainer}>
-              <input name="name" type="text" className={styles.formInput} onChange={this.onChange}/>
+              <input
+                name="name"
+                type="text"
+                className={styles.formInput}
+                onChange={this.onChange}
+                onFocus={this.onFocus}
+                onBlur={this.onBlur}
+              />
             </div>
             <SelectStageOnCreation stages={this.props.leads.stages} onStageChange={this.selectStageHandler}/>
           </form>
