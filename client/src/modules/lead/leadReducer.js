@@ -35,11 +35,6 @@ export default function(state = initialState, action) {
         ...state,
         editLead: action.payload
       };
-    case SET_EDIT_FUNNEL_ID:
-      return {
-        ...state,
-        editFunnelId: action.payload
-      };
     default:
       return state;
   }

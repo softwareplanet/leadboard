@@ -1,7 +1,7 @@
 import { Router } from "express";
 import mongoose from "mongoose";
 import Funnel from "../../models/funnel";
-const validateFunnelInput = require("../../validation/funnel");
+import validateFunnelInput from "../../validation/funnel";
 
 const router = new Router();
 
@@ -16,7 +16,7 @@ router.get("/", function(req, res) {
 
   Funnel.find({ domain: domain })
     .then(funnels => {
-      res.json({ data: funnels });
+      res.status(200).json(funnels);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });
@@ -37,7 +37,7 @@ router.post("/", function(req, res) {
   });
   Funnel.create(funnel)
     .then(funnel => {
-      res.json({ data: { funnel: funnel._id } });
+      res.json(funnel._id);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });

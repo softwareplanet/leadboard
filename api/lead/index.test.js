@@ -8,17 +8,15 @@ import { dropTables, createUserAndDomain, createFunnel, createStage, createLead 
 const app = () => express(routes);
 
 let cred;
-let stageData;
-let leadData;
+let leadId;
+let stageId;
 beforeEach(async done => {
   await dropTables();
   cred = await createUserAndDomain(app);
-  let funnel = await createFunnel(app, cred.token, cred.domain, "Funnel");
-
-  stageData = await createStage(app, cred.token, funnel.funnel, "Stage");
-  leadData = await createLead(app, cred.token, cred.user, stageData.stage,cred.domain, 2, "Lead A");
-  await createLead(app, cred.token, cred.user, stageData.stage, cred.domain, 1, "Lead B");
-
+  let funnelId = await createFunnel(app, cred.token, cred.domainId, "Funnel");
+  stageId = await createStage(app, cred.token, funnelId, "Stage", 2, cred.userId);
+  leadId = await createLead(app, cred.token, cred.userId, stageId, cred.domainId, 2, "Lead A");
+  await createLead(app, cred.token, cred.userId, stageId, cred.domainId, 1, "Lead B");
   done();
 });
 
@@ -26,47 +24,45 @@ describe("Lead", () => {
   it("should create a new lead", async () => {
     const { status, body } = await request(app())
       .post("/api/lead")
+      .set("Authorization", cred.token)
       .send({
-        token: cred.token,
-        owner: cred.user,
-        domain: cred.domain,
-        stage: stageData.stage,
+        owner: cred.userId,
+        domain: cred.domainId,
+        stage: stageId,
         name: "My Lead",
         order: 1,
         contact: "New Person",
         organization: ""
       });
     expect(status).toBe(200);
-    expect(typeof body.data.lead).toBe("string");
+    expect(typeof body).toBe("string");
   });
 
   it("should return an ordered leads by stage", async () => {
     const { status, body } = await request(app())
       .get("/api/lead")
+      .set("Authorization", cred.token)
       .query({
-        stage: stageData.stage
-      })
-      .send({
-        token: cred.token
+        stage: stageId
       });
     expect(status).toBe(200);
-    expect(Object.keys(body.data).length).toBe(2);
-    expect(body.data[0].name).toBe("Lead B");
-    expect(body.data[1].name).toBe("Lead A");
+    expect(Object.keys(body).length).toBe(2);
+    expect(body[0].name).toBe("Lead B");
+    expect(body[1].name).toBe("Lead A");
   });
 
   it("should update lead", async () => {
     const { status, body } = await request(app())
-      .patch(`/api/lead/${leadData.lead}`)
+      .patch(`/api/lead/${leadId}`)
+      .set("Authorization", cred.token)
       .send({
-        token: cred.token,
-        owner: cred.user,
-        stage: stageData.stage,
+        owner: cred.userId,
+        stage: stageId,
         name: "Updated Lead",
         order: "1"
       });
 
     expect(status).toBe(200);
-    expect(body.lead.name).toBe("Updated Lead");
+    expect(body.name).toBe("Updated Lead");
   });
 });
