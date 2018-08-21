@@ -6,7 +6,7 @@ const initialState = {
   leads: {}
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
     case LOAD_LEADBOARD:
       return {
@@ -18,7 +18,7 @@ export default function(state = initialState, action) {
         ...state,
         stages: action.payload
       };
-      case LOAD_LEADS:
+    case LOAD_LEADS:
       let leads = Object.assign({}, state.leads);
       leads["_" + action.stage] = { leads: action.payload };
       return {
