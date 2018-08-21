@@ -7,7 +7,6 @@ import PropTypes from "prop-types";
 
 const leadsRoute = "/home";
 
-
 class Navbar extends Component {
   renderUserAvatar = () => {
     return this.props.user ?

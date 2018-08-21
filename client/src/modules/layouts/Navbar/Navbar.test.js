@@ -27,5 +27,4 @@ describe("<Navbar /> :", () => {
     wrapper.find("#logout").simulate("click");
     expect(logoutUser).toHaveBeenCalledTimes(1);
   });
-
 });
