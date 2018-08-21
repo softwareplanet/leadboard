@@ -6,8 +6,7 @@ import jwt_decode from "jwt-decode";
 import store from "./store.js";
 import setAuthToken from "./utils/setAuthToken.js";
 import setAuthInterceptor from "./utils/setAuthInterceptor.js"
-import { loginUserById, logoutUser } from "./modules/auth/authActions";
-
+import { loginUserById, logoutUser,setLoginData } from "./modules/auth/authActions";
 import PrivateRoute from "./modules/common/PrivateRoute";
 import Home from "./modules/layouts/Home";
 import Footer from "./modules/layouts/Footer/Footer";
@@ -28,6 +27,7 @@ if (localStorage.jwtToken) {
     store.dispatch(logoutUser());
     window.location.href = "/";
   } else {
+    store.dispatch(setLoginData(decoded));
     setAuthToken(localStorage.jwtToken);
     store.dispatch(loginUserById(decoded.id));
   }
@@ -53,9 +53,9 @@ class App extends Component {
                 component={EditLead}
               />
             </Switch>
-            <Route exact path="/" component={Login} />
-            <Route exact path="/register" component={Registration} />
-            <Footer />
+            <Route exact path="/" component={store.getState().auth.isAuthenticated ? Home: Login}/>
+            <Route exact path="/register" component={store.getState().auth.isAuthenticated ? Home: Registration}/>
+            <Footer/>
           </div>
         </Router>
       </Provider>

@@ -3,15 +3,16 @@ import React from "react";
 import Login from "./Login";
 import store from "../../../store";
 import { expect } from "chai";
-import styles from "./Login.css";
-import { mount } from "enzyme";
+import { createMount } from '@material-ui/core/test-utils'
 import { MemoryRouter } from "react-router";
 import InputGroup from "../../common/InputGroup/InputGroup";
 import { Provider } from "react-redux";
 
 describe("<Login/>", () => {
   let loginPage;
+  let mount;
   beforeEach(() => {
+    mount = createMount();
     loginPage = mount(
       <Provider store={store}>
         <MemoryRouter>
@@ -19,10 +20,6 @@ describe("<Login/>", () => {
         </MemoryRouter>
       </Provider>
     );
-  });
-
-  it("mounted without crashing", () => {
-    expect(loginPage).to.have.length(1);
   });
 
   it("mount two input fields", () => {

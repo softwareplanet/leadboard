@@ -5,13 +5,9 @@ import { connect } from "react-redux";
 import { createLead } from "../leadActions";
 import classNames from "classnames";
 import styles from "./AddLead.css";
-import { flow, isEmpty, trim } from "lodash/fp";
+import { isEmpty } from "lodash/fp";
+import isBlank from "../../../utils/isBlank";
 import SelectStageOnCreation from "./SelectStage/SelectStageOnCreation";
-
-const isBlank = flow(
-  trim,
-  isEmpty
-);
 
 const customStyles = {
   content: {

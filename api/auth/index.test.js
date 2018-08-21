@@ -74,25 +74,22 @@ describe("User registration", async () => {
 
   it("should create default funnel and stages", async () => {
     const funnelRequest = await request(app())
-      .post("/api/funnel")
-      .set({ Authorization: cred.token })
-      .send({ token: cred.token, domain: cred.domain });
+      .get("/api/funnel")
+      .set("Authorization", cred.token)
+      .send({ domain: cred.domainId });
 
     expect(funnelRequest.status).toBe(200);
-    expect(Object.keys(funnelRequest.body.data).length).toBe(1);
+    expect(Object.keys(funnelRequest.body).length).toBe(1);
 
     const stagesRequest = await request(app())
       .get("/api/stage")
+      .set("Authorization", cred.token)
       .query({
-        funnel: funnelRequest.body.data.funnel
-      })
-      .set({ Authorization: cred.token })
-      .send({
-        token: cred.token
+        funnel: funnelRequest.body[0]._id
       });
 
     expect(stagesRequest.status).toBe(200);
-    expect(Object.keys(stagesRequest.body.data).length).toBe(4);
+    expect(Object.keys(stagesRequest.body).length).toBe(4);
   });
 });
 
@@ -109,19 +106,29 @@ describe("User login", async () => {
   it("should return an error if empty parameters", async () => {
     const { status, body } = await request(app())
       .post("/api/login")
-      .send({});
+      .send({ email: "", password: "" });
 
     expect(status).toBe(400);
     expect(body.errors.email).toBe("Email cannot be empty");
     expect(body.errors.password).toBe("Password cannot be empty");
   });
 
-  it("should return an error if wrong credentials", async () => {
+  it("should return an error if wrong email", async () => {
     const { status, body } = await request(app())
       .post("/api/login")
-      .send({ email: "joh@example.com", password: "secret" });
+      .send({ email: "johasassa1@example.com", password: "secret" });
 
     expect(status).toBe(404);
-    expect(body.errors.massage).toBe("Invalid credentials!");
+    expect(body.errors.email).toBe("Incorrect login");
   });
+
+  it("should return an error if wrong password", async () => {
+    const { status, body } = await request(app())
+      .post("/api/login")
+      .send({ email: "johnsmith@example.com", password: "Notsecret" });
+
+    expect(status).toBe(404);
+    expect(body.errors.password).toBe("Incorrect password");
+  });
+
 });
