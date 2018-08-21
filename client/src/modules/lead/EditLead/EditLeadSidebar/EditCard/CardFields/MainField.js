@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import styles from "./CardField.css";
 import { connect } from "react-redux";

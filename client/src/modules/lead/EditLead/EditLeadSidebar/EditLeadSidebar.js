@@ -9,7 +9,7 @@ import _ from "lodash";
 class EditLeadSidebar extends Component {
   render() {
     return this.props.editLead ? <div className={styles.sidebar}>{Cards(EditCard)(this.props.editLead.contact)}</div> :
-        <div />;
+      <div />;
   }
 }
 

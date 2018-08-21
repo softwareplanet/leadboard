@@ -31,6 +31,18 @@ contactSchema.statics.findOneOrCreate = (contactData) => {
   return Contact.create(newContact);
 };
 
+//custom fields
+const DEFAULT_CUSTOM_FIELDS = [{ name: "Phone", value: "" }, { name: "Email", value: "" }];
+
+contactSchema.pre("save", function (next) {
+  if (this.isNew) {
+    if (this.custom.length === 0) {
+      this.custom = DEFAULT_CUSTOM_FIELDS;
+    }
+  }
+  next();
+});
+
 const Contact = mongoose.model("Contact", contactSchema);
 
 module.exports = Contact;
