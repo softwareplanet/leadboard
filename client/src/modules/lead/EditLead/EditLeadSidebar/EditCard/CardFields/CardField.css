@@ -26,11 +26,10 @@
 
 .addValue {
   color: #317ae2;
-  font: 400 14px/20px "Open Sans", sans-serif;
+  font: 400 14px/16px "Open Sans", sans-serif;
   visibility: hidden;
   width: calc(100% - 120px);
   float: right;
-  font: 400 14px/20px Open Sans, sans-serif;
   font-weight: 600;
 }
 
@@ -40,6 +39,7 @@
 
 .addValue a {
   right: auto;
+  padding: 8px;
   height: 100%;
 }
 

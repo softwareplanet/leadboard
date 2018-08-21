@@ -14,7 +14,6 @@ class EditCard extends Component {
     } else if (this.props.title === "Organization") {
       icon = organizationIcon;
     }
-
     let fields = this.props.value.custom.map((field, index) =>
       <CardField key={index} customFieldValue={Object.values(field)[1]} customFieldName={Object.values(field)[0]} />);
     return (
