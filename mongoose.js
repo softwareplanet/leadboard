@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import  mongoose from "mongoose";
 
 const MONGODB_URL = process.env.MONGODB_URL
   ? process.env.MONGODB_URL
@@ -12,7 +12,7 @@ export const connectToMongoose = () => {
   );
 
   promise
-    .then(function (db) {
+    .then(function(db) {
       db.on("error", console.error.bind(console, "MongoDB connection error:"));
     })
     .catch(err => {

@@ -5,7 +5,6 @@ const initialState = {
   stages: [],
   leads: {}
 };
-
 export default function (state = initialState, action) {
   switch (action.type) {
     case LOAD_LEADBOARD:
@@ -25,6 +24,7 @@ export default function (state = initialState, action) {
         ...state,
         leads: leads
       };
+
     case LOAD_LEAD:
       return {
         ...state,
