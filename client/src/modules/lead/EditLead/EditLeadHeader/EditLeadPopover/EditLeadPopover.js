@@ -12,7 +12,7 @@ class EditLeadPopover extends Component {
   componentWillReceiveProps = (nextProps) => {
     this.setState({
       value: nextProps.value,
-      error: ""
+      error: null
     })
   }
 
