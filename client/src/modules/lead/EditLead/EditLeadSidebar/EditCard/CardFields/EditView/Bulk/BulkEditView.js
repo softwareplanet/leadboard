@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import styles from "./BulkEditView.css";
 import commonStyles from "../EditViewCommon.css";
 import EditFieldGroup from "../EditFieldGroup/EditFieldGroup";
-import { isEmpty } from "lodash/fp";
+import PropTypes from "prop-types";
 
 class BulkEditView extends Component {
 
   state = {
-    custom: []
+    ...this.props.toUpdate,
   };
 
   onChangeEditField(name, value) {
@@ -18,27 +18,23 @@ class BulkEditView extends Component {
       updatedCustom.find(custom => custom.name === name).value = value;
       this.setState({ custom: updatedCustom });
     }
-  }
+  };
 
   onSaveAllClicked() {
     let updatedObject = { ...this.state };
     this.props.onChange(updatedObject);
   }
 
-  componentWillMount() {
-    this.setState({ ...this.props.toUpdate });
-  }
-
   getEditableFields() {
     let fields = [];
     fields.push({
       name: "Name",
-      value: this.props.toUpdate.name
+      value: this.props.toUpdate.name,
     });
     this.props.toUpdate.custom.forEach(customField => {
       fields.push({
         name: customField.name,
-        value: customField.value
+        value: customField.value,
       });
     });
     return fields;
@@ -61,7 +57,9 @@ class BulkEditView extends Component {
         </div>
         <div className={styles.actions}>
           <button className={commonStyles.button}
-          onClick={() => {this.props.onCancel()}}>
+                  onClick={() => {
+                    this.props.onCancel();
+                  }}>
             Cancel
           </button>
           <button className={styles.saveBtn}
@@ -74,5 +72,10 @@ class BulkEditView extends Component {
   }
 
 }
+
+BulkEditView.propTypes = {
+  toUpdate: PropTypes.object.isRequired,
+  onChange: PropTypes.func,
+};
 
 export default BulkEditView;

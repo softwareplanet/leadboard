@@ -34,25 +34,18 @@ describe("<SingleEditView/>", () => {
     expect(spy.calledOnce).to.equal(true);
   });
 
-  it("handles input change properly", () => {
-    wrapper = shallow(<SingleEditView
-      fieldName={"Name"}
-      fieldValue={contact.organization.name}
-      onCancel={() => {
-      }}/>,
-    );
-    const buttonSave = wrapper.find("EditFieldGroup");
-    buttonSave.simulate("change", {});
-  });
-
-  it("handles save properly", () => {
+  it("handles input change and save properly", () => {
     const spy = sinon.spy();
     wrapper = shallow(<SingleEditView
       fieldName={"Name"}
       fieldValue={contact.organization.name}
+      onChange={spy}
       onCancel={() => {
-      }}
-      onChange={spy}/>);
+      }}/>,
+    );
+    const inputGroup = wrapper.find("EditFieldGroup");
+    inputGroup.simulate("change");
+
     const buttonSave = wrapper.find(".saveButton");
     buttonSave.simulate("click");
     expect(spy.calledOnce).to.equal(true);
