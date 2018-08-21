@@ -19,7 +19,7 @@ router.get("/", function(req, res) {
     .populate({ path: "contact", populate: { path: "organization" } })
     .sort({ order: "asc" })
     .then(leads => {
-      res.json({ data: leads });
+      res.json(leads);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });
@@ -29,9 +29,9 @@ router.get("/", function(req, res) {
 // @route   POST api/lead
 // @desc    Create lead
 // @access  Private
-router.post("/", function (req, res) {
-  const {hasErrors, errors} = validateLeadInput(req.body);
-  if (hasErrors) return res.status(400).json({errors});
+router.post("/", function(req, res) {
+  const { hasErrors, errors } = validateLeadInput(req.body);
+  if (hasErrors) return res.status(400).json({ errors });
 
   if (req.body.organization) {
     Organization.findOneOrCreate(req.body).then(organization => {
@@ -57,7 +57,7 @@ const createLead = (req, res) => {
       };
       Lead.create(lead)
         .then(lead => {
-          res.json({ data: { lead: lead._id } });
+          res.json(lead._id);
         })
         .catch(error => {
           res.status(400).json({ errors: { message: error } });
@@ -80,7 +80,7 @@ router.get("/:id", (req, res) => {
     .populate("owner")
     .populate("stage")
     .then(lead => {
-      res.json({ lead });
+      res.json(lead);
     })
     .catch(error => {
       res.status(500).json({ errors: { message: error } });
@@ -96,7 +96,7 @@ router.patch("/:id", (req, res) => {
     .populate("owner")
     .populate("stage")
     .then(lead => {
-      res.json({ lead });
+      res.json(lead);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });

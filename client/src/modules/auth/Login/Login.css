@@ -46,7 +46,6 @@
     position: relative;
     margin: 30px auto 0;
     display: block;
-    background: #FFF;
     padding: 5% 10px;
 }
 
@@ -55,7 +54,6 @@
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
-    color: black;
     border: none;
     border-radius: 3px;
     padding: .375rem .75rem;

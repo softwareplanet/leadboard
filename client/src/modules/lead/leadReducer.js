@@ -4,7 +4,6 @@ import {
   LOAD_LEADS,
   LOAD_LEAD,
   UPDATE_LEAD,
-  SET_EDIT_FUNNEL_ID,
   UPDATE_ORGANIZATION,
 } from "./types";
 
@@ -42,11 +41,6 @@ export default function(state = initialState, action) {
       return {
         ...state,
         editLead: action.payload
-      };
-    case SET_EDIT_FUNNEL_ID:
-      return {
-        ...state,
-        editFunnelId: action.payload
       };
     case UPDATE_ORGANIZATION:
       let updatedLead = {...state.editLead};

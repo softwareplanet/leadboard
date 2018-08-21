@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import EditLeadStage from "./EditLeadStage/EditLeadStage";
 import { updateLead, loadLead } from "../../../leadActions";
 import styles from "./EditLeadStageProgress.css";
+import ReactTooltip from "react-tooltip";
 
 class EditLeadStageProgress extends Component {
   onStageClick = stage => {
@@ -38,6 +39,13 @@ class EditLeadStageProgress extends Component {
       return (
         <div>
           <ul className={styles.container}>{stages}</ul>
+          <ReactTooltip
+              className={styles.keepTooltip}
+              delayShow={150}
+              delayHide={200}
+              place={"bottom"}
+              effect="solid"
+            />
         </div>
       );
     } else
