@@ -114,14 +114,6 @@ export const updateLead = lead => dispatch => {
     });
 };
 
-// Set edit page funnel
-export const setEditPageFunnel = funnelId => {
-  return {
-    type: SET_EDIT_FUNNEL_ID,
-    payload: funnelId
-  };
-};
-
 export function loadLeadboardAction(data) {
   return {
     type: LOAD_LEADBOARD,

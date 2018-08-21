@@ -28,6 +28,15 @@
   border-radius: 3px
 }
 
+.input:focus{
+  outline: 0;
+}
+
+.invalidInput {
+  composes: input;
+  border-color: #e84646;
+}
+
 .popover {
   max-width: 100%;
   box-shadow: 0 2px 8px 0 rgba(38,41,44,.12);
