@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Navbar from "../../layouts/Navbar/Navbar";
 import EditLeadHeader from "./EditLeadHeader/EditLeadHeader";
 import EditLeadSidebar from "./EditLeadSidebar/EditLeadSidebar";
-import EditLeadActivity from "./EditLeadAcitivity/EditLeadActivity";
+import EditLeadTabs from "./EditLeadTabs/EditLeadTabs";
 
 const displayFlex = {
   display: "flex"
@@ -18,7 +18,7 @@ export default class EditLead extends Component {
         </div>
         <div style={displayFlex}>
           <EditLeadSidebar />
-          <EditLeadActivity />
+          <EditLeadTabs />
         </div>
       </div>
     );

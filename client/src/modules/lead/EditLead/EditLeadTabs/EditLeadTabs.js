@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import styles from "./EditLeadActivity.css";
+import styles from "./EditLeadTabs.css";
 
-export default class EditLeadActivity extends Component {
+export default class EditLeadTabs extends Component {
   render() {
     return <div className={styles.activity} />;
   }
