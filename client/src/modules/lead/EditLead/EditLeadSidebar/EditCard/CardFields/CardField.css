@@ -1,17 +1,81 @@
-.fieldValue {
+.customFieldValue {
     padding: 8px;
-    margin-top: 4px;
-    display: flex;
 }
 
-.fieldValueWrapper {
-    font: 400 12px/16px "Open Sans",sans-serif;
+.customValue {
+    padding: 10px 8px;
+}
+
+.customValue:hover {
+    background-color: #f7f7f7;
+}
+
+.customFieldLabel {
+    padding: 8px;
+    margin-top: 8px;
+}
+
+.customFieldValueWrap {
+    display: inline-block;
+    align-items: center;
+    position: relative;
+    width: calc(100% - 120px);
+    line-height: 1.3;
+    word-wrap: break-word;
+}
+
+.addValue {
+    color: #317ae2;
+    font: 400 14px/16px "Open Sans", sans-serif;
+    visibility: hidden;
+    width: calc(100% - 120px);
+    float: right;
     font-weight: 600;
-    color: rgba(38,41,44,0.64);
+}
+
+.addValue:hover {
+    visibility: visible
+}
+
+.addValue a {
+    right: auto;
+    padding: 8px;
+    height: 100%;
+}
+
+.addValue a:hover {
+    color: #007bff;
+}
+
+.customFieldLabelWrap {
+    font: 400 12px/16px "Open Sans", sans-serif;
+    font-weight: 600;
+    color: rgba(38, 41, 44, 0.64);
     text-align: right;
     word-wrap: break-word;
-    margin: 2px 0;
-    width: 104px;
+}
+
+.allCustomFieldsWrapper {
+    width: 100%;
+}
+
+.customFieldsWrapper {
+    font: 400 12px/16px "Open Sans", sans-serif;
+    font-weight: 600;
+    color: rgba(38, 41, 44, 0.64);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.customFieldsWrapper:hover .addValue {
+    visibility: visible;
+}
+
+.fieldValue {
+    padding: 8px;
+    margin-top: 8px;
 }
 
 .fieldsWrapper {
@@ -41,7 +105,7 @@ h3 {
 
 .mainValue {
     display: block;
-    font: 400 16px/24px "Open Sans",sans-serif;
+    font: 400 16px/24px "Open Sans", sans-serif;
     color: #26292c;
     font-weight: 600;
     text-decoration: none;
@@ -52,6 +116,10 @@ h3 {
     display: flex;
     width: 100%;
     align-items: center;
+}
+
+.mainFieldValueWrapper:hover {
+    text-decoration: underline;
 }
 
 .icon {
