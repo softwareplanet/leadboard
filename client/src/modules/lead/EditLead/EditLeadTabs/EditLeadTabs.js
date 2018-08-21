@@ -4,6 +4,7 @@ import addActivityIcon from "../../../../assets/add-activity.svg";
 import takeNotesIcon from "../../../../assets/take-notes.svg";
 import sendEmailIcon from "../../../../assets/send-email.svg";
 import uploadFilesIcon from "../../../../assets/upload-files.svg";
+import { Editor } from 'react-draft-wysiwyg';
 
 export default class EditLeadTabs extends Component {
   render() {
@@ -23,7 +24,7 @@ export default class EditLeadTabs extends Component {
           <li className={styles.headerItem}></li>{/* Close button */}
         </ul>
         <div className={styles.content}>
-          Content
+          <Editor />
         </div>
       </div>
     );
