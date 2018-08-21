@@ -5,9 +5,24 @@ import takeNotesIcon from "../../../../assets/take-notes.svg";
 import sendEmailIcon from "../../../../assets/send-email.svg";
 import uploadFilesIcon from "../../../../assets/upload-files.svg";
 import { Editor } from 'react-draft-wysiwyg';
+import { EditorState } from 'draft-js';
 
 export default class EditLeadTabs extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      editorState: EditorState.createEmpty(),
+    };
+  }
+
+  onEditorStateChange = (editorState) => {
+    this.setState({
+      editorState,
+    });
+  };
+
   render() {
+    const { editorState } = this.state;
     return (
       <div className={styles.tabs}>
         <ul className={styles.header}>
@@ -24,7 +39,11 @@ export default class EditLeadTabs extends Component {
           <li className={styles.headerItem}></li>{/* Close button */}
         </ul>
         <div className={styles.content}>
-          <Editor />
+          <Editor 
+            editorState={editorState}
+
+            onEditorStateChange={this.onEditorStateChange}
+          />
         </div>
       </div>
     );
