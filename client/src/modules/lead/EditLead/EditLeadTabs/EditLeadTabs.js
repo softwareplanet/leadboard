@@ -2,17 +2,8 @@ import React, { Component } from "react";
 import styles from "./EditLeadTabs.css";
 import addActivityIcon from "../../../../assets/add-activity.svg";
 import takeNotesIcon from "../../../../assets/take-notes.svg";
-import sendEmailIcon from "../../../../assets/send-email.svg";
-import uploadFilesIcon from "../../../../assets/upload-files.svg";
-import { Editor, EditorState } from 'draft-js';
 
 export default class EditLeadTabs extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      editorState: EditorState.createEmpty(),
-    };
-  }
 
   onChange = (editorState) => {
     this.setState({
@@ -21,7 +12,6 @@ export default class EditLeadTabs extends Component {
   };
 
   render() {
-    const { editorState } = this.state;
     return (
       <div className={styles.tabs}>
         <ul className={styles.header}>
@@ -37,13 +27,7 @@ export default class EditLeadTabs extends Component {
           <li className={styles.headerItem}></li>{/* Upload files */}
           <li className={styles.headerItem}></li>{/* Close button */}
         </ul>
-        <div>
-          <Editor 
-            editorState={editorState}
-            onChange={this.onChange}
-          />
-          
-        </div>
+        <textarea className={styles.textArea}/>
       </div>
     );
   }
