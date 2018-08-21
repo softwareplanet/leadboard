@@ -48,8 +48,7 @@ class EditLeadPopover extends Component {
   onSave = () => {
     if (isBlank(this.state.value)){
       this.setState({ error: "Value must be not empty" })
-    }
-    else {
+    } else {
       this.setState({ error: null })
       this.props.onSave(this.state.value)
     }
