@@ -6,9 +6,9 @@ class MainField extends Component {
     return (
       <div className={styles.fieldValue}>
         <div className={styles.mainFieldValueWrapper}>
-                    <span className={styles.badge}>
-                        <img className={styles.icon} src={this.props.icon}/>
-                    </span>
+          <span className={styles.badge}>
+            <img className={styles.icon} src={this.props.icon}/>
+          </span>
           <h3>
             <a className={styles.mainValue}>
               {this.props.value.name}

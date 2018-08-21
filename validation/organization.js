@@ -36,7 +36,7 @@ export function validateOrganizationUpdate(data) {
       }
     }
     if (errors.custom.length === 0) {
-      errors.remove("custom");
+      delete errors.custom;
     }
   }
 

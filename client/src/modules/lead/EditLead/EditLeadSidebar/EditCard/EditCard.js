@@ -6,7 +6,8 @@ import personIcon from "../../../../../img/personIcon.svg";
 import organizationIcon from "../../../../../img/organizationIcon.svg";
 import editIcon from "../../../../../assets/edit-icon.svg";
 import BulkEditView from "./CardFields/EditView/Bulk/BulkEditView";
-import axios from "axios";
+import connect from "react-redux/es/connect/connect";
+import { updateOrganization } from "../../../leadActions";
 
 class EditCard extends Component {
 
@@ -22,17 +23,11 @@ class EditCard extends Component {
     this.setState({ isInEditMode: false });
   };
 
-  updateOrganization = (organization) => {
-    const organizationId = organization._id;
-    delete organization._id;
-    axios
-      .patch(`/api/organization/${organizationId}`, organization)
-      .then(result => {
-        this.closeEditMode();
-      })
-      .catch(error => {
-        console.log(error);
-      });
+  updateEntity = entity => {
+    if (this.props.title === "Organization") {
+      this.props.updateOrganization(entity);
+    }
+    this.closeEditMode();
   };
 
   render() {
@@ -43,13 +38,13 @@ class EditCard extends Component {
       icon = organizationIcon;
     }
     let fields = this.props.value.custom.map((field) =>
-      <CardField fieldValues={Object.values(field)} fieldName={Object.keys(field)}/>);
+      <CardField key={field._id} fieldValues={Object.values(field)} fieldName={Object.keys(field)}/>);
     return (
       <div className={styles.container}>
         <div className={styles.title}>
-                    <span className={styles.titleName}>
-                        {this.props.title}
-                    </span>
+          <span className={styles.titleName}>
+            {this.props.title}
+            </span>
           <button className={styles.editButton} onClick={this.openEditMode}>
             <img className={styles.editIcon} src={editIcon}/>
           </button>
@@ -64,11 +59,16 @@ class EditCard extends Component {
           this.state.isInEditMode &&
           <BulkEditView toUpdate={this.props.value}
                         onCancel={this.closeEditMode}
-                        onChange={(organization) => this.updateOrganization(organization)}/>
+                        onChange={(entity) => this.updateEntity(entity)}/>
         }
       </div>
     );
   }
 }
 
-export default EditCard;
+const mapStateToProps = state => ({
+});
+
+export { EditCard };
+
+export default connect(mapStateToProps, { updateOrganization })(EditCard);

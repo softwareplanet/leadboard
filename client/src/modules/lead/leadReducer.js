@@ -1,4 +1,12 @@
-import { LOAD_LEADBOARD, LOAD_STAGES, LOAD_LEADS, LOAD_LEAD, UPDATE_LEAD, SET_EDIT_FUNNEL_ID } from "./types";
+import {
+  LOAD_LEADBOARD,
+  LOAD_STAGES,
+  LOAD_LEADS,
+  LOAD_LEAD,
+  UPDATE_LEAD,
+  SET_EDIT_FUNNEL_ID,
+  UPDATE_ORGANIZATION,
+} from "./types";
 
 const initialState = {
   funnels: [],
@@ -39,6 +47,13 @@ export default function(state = initialState, action) {
       return {
         ...state,
         editFunnelId: action.payload
+      };
+    case UPDATE_ORGANIZATION:
+      let updatedLead = {...state.editLead};
+      updatedLead.contact.organization = action.payload;
+      return {
+        ...state,
+        editLead: updatedLead
       };
     default:
       return state;

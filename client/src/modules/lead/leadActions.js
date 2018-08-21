@@ -6,7 +6,7 @@ import {
   LOAD_LEADS,
   LOAD_LEAD,
   UPDATE_LEAD,
-  SET_EDIT_FUNNEL_ID
+  SET_EDIT_FUNNEL_ID, UPDATE_ORGANIZATION,
 } from "./types";
 import { GET_ERRORS } from "../../actionTypes";
 
@@ -109,6 +109,26 @@ export const updateLead = lead => dispatch => {
       });
     })
     .catch(error => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error
+      });
+    });
+};
+
+export const updateOrganization = organization => dispatch => {
+  const organizationId = organization._id;
+  delete organization._id;
+  axios
+    .patch(`/api/organization/${organizationId}`, organization)
+    .then(res => {
+      dispatch({
+        type: UPDATE_ORGANIZATION,
+        payload: res.data
+      });
+    })
+    .catch(error => {
+      console.log(error);
       dispatch({
         type: GET_ERRORS,
         payload: error
