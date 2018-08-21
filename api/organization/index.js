@@ -14,7 +14,7 @@ router.get("/", function(req, res) {
 
   Organization.find({ domain: domain }, '_id name')
     .then(organizations => {
-      res.json({ data: organizations });
+      res.json(organizations);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });

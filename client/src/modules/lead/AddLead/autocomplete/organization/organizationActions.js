@@ -10,10 +10,10 @@ export const loadOrganizations = domain => dispatch => {
     })
     .then(result => dispatch({
       type: LOAD_ORGANIZATIONS,
-      payload: result.data.data
+      payload: result.data
     }))
     .catch(error => dispatch({
         type: GET_ERRORS,
         payload: error
-    }));
+    }))
 };

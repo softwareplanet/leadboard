@@ -44,6 +44,7 @@ class AddLead extends React.Component {
       afterSelectShowBadge: true,
       organizations: [],
 
+      titleChanged: false,
       validationIsShown: false,
       modalIsOpen: false
     };
@@ -83,7 +84,8 @@ class AddLead extends React.Component {
       organization: { id: 0, name: "" },
       openDropdown: false,
       afterSelectShowBadge: true,
-      showBadge: false
+      showBadge: false,
+      titleChanged: false,
     });
   }
 
@@ -94,6 +96,13 @@ class AddLead extends React.Component {
       [event.target.name]: event.target.value,
       errors: this.validateLead(newState)
     });
+  };
+
+  onTitleChange = (event) => {
+    this.setState({
+      titleChanged: this.state.name !== event.target.value,
+      name: event.target.value
+    })
   };
 
   onAutocompleteChange = (event) => {
@@ -112,18 +121,36 @@ class AddLead extends React.Component {
         id,
         name: value
       },
+      name: this.state.name.length > 0 && this.state.titleChanged ?
+        this.state.name : value.length > 0
+          ? `${value} deal` : "",
       openDropdown: false,
       showBadge: false,
       afterSelectShowBadge: false
-    });
+    })
   };
 
   onAutocompleteBlur = (event) => {
     event.target.parentNode.parentNode.setAttribute("style", "border: 1px solid #cbcccd");
     this.setState({
+      name: this.state.name.length > 0 && this.state.titleChanged ?
+        this.state.name : this.state.organization.name.length > 0
+          ? `${this.state.organization.name} deal` : "",
       openDropdown: false,
       showBadge: this.state.organization.name.length > 1 && this.state.afterSelectShowBadge
     });
+  };
+
+  onAutocompleteFocus = (event) => {
+    event.target.parentNode.parentNode.setAttribute("style", "border: 1px solid #317ae2");
+  };
+
+  onFocus = (event) => {
+    event.target.parentNode.setAttribute("style", "border: 1px solid #317ae2");
+  };
+
+  onBlur = (event) => {
+    event.target.parentNode.setAttribute("style", "border: 1px solid #cbcccd");
   };
 
   validateLead(lead) {
@@ -168,18 +195,6 @@ class AddLead extends React.Component {
   selectStageHandler(stageid) {
     this.setState({ stage: stageid });
   }
-
-  onAutocompleteFocus = (event) => {
-    event.target.parentNode.parentNode.setAttribute("style", "border: 1px solid #317ae2");
-  };
-
-  onFocus = (event) => {
-    event.target.parentNode.setAttribute("style", "border: 1px solid #317ae2");
-  };
-
-  onBlur = (event) => {
-    event.target.parentNode.setAttribute("style", "border: 1px solid #cbcccd");
-  };
 
   render() {
     const { errors, validationIsShown } = this.state;
@@ -229,7 +244,8 @@ class AddLead extends React.Component {
                 name="name"
                 type="text"
                 className={styles.formInput}
-                onChange={this.onChange}
+                value={this.state.name}
+                onChange={this.onTitleChange}
                 onFocus={this.onFocus}
                 onBlur={this.onBlur}
               />
