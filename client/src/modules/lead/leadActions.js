@@ -18,9 +18,9 @@ export const loadLeadboard = domain => dispatch => {
       }
     })
     .then(result => {
-      dispatch(loadLeadboardAction(result.data.data));
-      if (typeof result.data.data[0]._id === "string") {
-        dispatch(loadStages(result.data.data[0]._id));
+      dispatch(loadLeadboardAction(result.data));
+      if (typeof result.data[0]._id === "string") {
+        dispatch(loadStages(result.data[0]._id));
       }
     })
     .catch(error => {
@@ -37,10 +37,9 @@ export const loadStages = funnel => dispatch => {
       }
     })
     .then(result => {
-      dispatch(loadStagesAction(result.data.data));
-
-      for (let i = 0; i < Object.keys(result.data.data).length; i++) {
-        dispatch(loadLeads(result.data.data[i]._id));
+      dispatch(loadStagesAction(result.data));
+      for (let i = 0; i < Object.keys(result.data).length; i++) {
+        dispatch(loadLeads(result.data[i]._id));
       }
     })
     .catch(error => {
@@ -57,7 +56,7 @@ export const loadLeads = stage => dispatch => {
       }
     })
     .then(result => {
-      dispatch(loadLeadsAction(stage, result.data.data));
+      dispatch(loadLeadsAction(stage, result.data));
     })
     .catch(error => {
       dispatch(getErrorsAction(error.response.data.errors));
@@ -81,7 +80,7 @@ export const loadLead = leadId => dispatch => {
   axios
     .get(`/api/lead/${leadId}`)
     .then(res => {
-      let lead = res.data.lead;
+      let lead = res.data;
       dispatch({
         type: LOAD_LEAD,
         payload: lead
@@ -104,7 +103,7 @@ export const updateLead = lead => dispatch => {
     .then(res => {
       dispatch({
         type: UPDATE_LEAD,
-        payload: res.data.lead
+        payload: res.data
       });
     })
     .catch(error => {
@@ -113,14 +112,6 @@ export const updateLead = lead => dispatch => {
         payload: error
       });
     });
-};
-
-// Set edit page funnel
-export const setEditPageFunnel = funnelId => {
-  return {
-    type: SET_EDIT_FUNNEL_ID,
-    payload: funnelId
-  };
 };
 
 export function loadLeadboardAction(data) {

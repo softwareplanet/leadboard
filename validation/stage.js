@@ -6,11 +6,7 @@ export const validateStageInput = data => {
   let errors = {};
 
   if (isEmpty(data.funnel)) errors.funnel = "Funnel ID cannot be empty";
-
   if (!isNumber(data.order)) errors.order = "Order must be a number";
-
-  if (isEmpty(data.order)) errors.order = "Order cannot be empty";
-
   if (!Validator.isLength(data.name, { max: 30 })) {
     errors.name = "Stage name cannot be more 30 characters";
   }

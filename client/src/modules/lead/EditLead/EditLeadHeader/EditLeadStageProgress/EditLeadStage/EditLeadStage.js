@@ -26,9 +26,7 @@ export default class EditLeadStage extends Component {
           { [styles.lost]: this.props.status === LOST },
           `${this.props.isFirst ? styles.liFirst : styles.li}`
         )}
-        data-toggle="tooltip"
-        data-placement="bottom"
-        title={this.props.stage.name}
+        data-tip={this.props.stage.name}
         style={width}
       />
     );
