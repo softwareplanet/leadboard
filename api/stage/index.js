@@ -1,8 +1,6 @@
 import { Router } from "express";
 import mongoose from "mongoose";
 import Stage from "../../models/stage";
-
-
 import { validateStageInput, validateStageSearchInput } from "../../validation/stage";
 
 const router = new Router();

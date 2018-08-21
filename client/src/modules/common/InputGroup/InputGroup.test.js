@@ -10,11 +10,7 @@ chai.use(spies);
 const expect = chai.expect;
 describe("<InputGroup/>", () => {
 
-  function onChange() {
-
-  }
-
-  const spy = chai.spy(onChange());
+  const spy = chai.spy(()=>{});
   let inputGroup;
   let mount;
   beforeEach(() => {

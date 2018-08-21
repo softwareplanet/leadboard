@@ -180,7 +180,7 @@ describe("LEADBOARD REDUCERS", () => {
           timestamp: "2018-08-08T15:43:58.469Z"
         }
       ]
-    })    ;
+    });
   });
 
   it("should return initial state", () => {
