@@ -6,11 +6,7 @@ import isBlank from "../../../../../utils/isBlank"
 class EditLeadPopover extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      errors: {
-        value: ""
-      }
-    };
+    this.state = {};
   }
 
   componentWillReceiveProps = (nextProps) => {
@@ -53,14 +49,11 @@ class EditLeadPopover extends Component {
   }
 
   onSave = () => {
-    let error = {}
     if (isBlank(this.state.value)){
-      error = "Value must be not empty"
-      this.setState({ error })
+      this.setState({ error: "Value must be not empty" })
     }
     else {
-      error = ""
-      this.setState({ error })
+      this.setState({ error: null })
       this.props.onSave(this.state.value)
     }
   }
