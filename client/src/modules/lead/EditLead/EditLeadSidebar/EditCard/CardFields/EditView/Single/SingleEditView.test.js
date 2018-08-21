@@ -1,0 +1,60 @@
+import "jsdom-global/register";
+import React from "react";
+import SingleEditView from "./SingleEditView";
+import { expect } from "chai";
+import { shallow } from "enzyme";
+import sinon from "sinon";
+
+describe("<SingleEditView/>", () => {
+  const contact = {
+    name: "Bob",
+    organization: {
+      name: "Apple",
+    },
+  };
+  let wrapper;
+
+  it("renders without crashing", () => {
+    wrapper = shallow(<SingleEditView
+      fieldName={"Name"}
+      fieldValue={contact.organization.name}
+      onCancel={() => {
+      }}/>);
+    expect(wrapper.length).to.equal(1);
+  });
+
+  it("reacts on cancel properly", () => {
+    const spy = sinon.spy();
+    wrapper = shallow(<SingleEditView
+      fieldName={"Name"}
+      fieldValue={contact.organization.name}
+      onCancel={spy}/>);
+    const buttonCancel = wrapper.find(".cancelButton");
+    buttonCancel.simulate("click");
+    expect(spy.calledOnce).to.equal(true);
+  });
+
+  it("handles input change properly", () => {
+    wrapper = shallow(<SingleEditView
+      fieldName={"Name"}
+      fieldValue={contact.organization.name}
+      onCancel={() => {
+      }}/>,
+    );
+    const buttonSave = wrapper.find("EditFieldGroup");
+    buttonSave.simulate("change", {});
+  });
+
+  it("handles save properly", () => {
+    const spy = sinon.spy();
+    wrapper = shallow(<SingleEditView
+      fieldName={"Name"}
+      fieldValue={contact.organization.name}
+      onCancel={() => {
+      }}
+      onChange={spy}/>);
+    const buttonSave = wrapper.find(".saveButton");
+    buttonSave.simulate("click");
+    expect(spy.calledOnce).to.equal(true);
+  });
+});
