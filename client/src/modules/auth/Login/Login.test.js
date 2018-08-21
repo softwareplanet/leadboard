@@ -14,7 +14,7 @@ describe("<Login/>", () => {
   beforeEach(() => {
     mount = createMount();
     loginPage = mount(
-      <Provider store={store}  >
+      <Provider store={store}>
         <MemoryRouter>
           <Login/>
         </MemoryRouter>

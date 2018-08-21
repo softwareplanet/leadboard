@@ -5,7 +5,7 @@ import jwt_decode from "jwt-decode";
 
 import store from "./store.js";
 import setAuthToken from "./utils/setAuthToken.js";
-import { loginUserById, setLoginData } from "./actions/authActions";
+import { loginUserById, setLoginData } from "./modules/auth/authActions";
 import PrivateRoute from "./modules/common/PrivateRoute";
 import Home from "./modules/layouts/Home";
 import Footer from "./modules/layouts/Footer/Footer";

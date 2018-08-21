@@ -1,7 +1,6 @@
 import { Router } from "express";
 import mongoose from "mongoose";
 import Funnel from "../../models/funnel";
-
 import validateFunnelInput from "../../validation/funnel";
 
 const router = new Router();
