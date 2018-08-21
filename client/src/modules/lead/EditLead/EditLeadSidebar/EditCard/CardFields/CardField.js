@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 class CardField extends Component {
   render() {
-    console.log(this.props.customFieldValue)
     let addValue = (
       <span className={styles.addValue}>
         <Link to=' '>+ Add value</Link>
