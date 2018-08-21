@@ -86,7 +86,8 @@ export async function createLead(app, token, user, stage, domain, order, name = 
 export async function createOrganization(app, token, domain, name = "Organization") {
   const { body } = await request(app())
     .post("/api/organization")
-    .send({ token, name, domain })
+    .set("Authorization", token)
+    .send({ name, domain })
     .catch(error => {
       console.log("Cannon create a organization" + error);
       throw "Cannon create a organization";
