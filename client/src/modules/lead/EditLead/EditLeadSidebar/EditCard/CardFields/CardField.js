@@ -19,12 +19,14 @@ class CardField extends Component {
       </div>
     );
     return (
-      <div className={styles.fieldValue}>
-        <div className={styles.customFieldsWrapper}>
-          <div id="fieldLabel" className={styles.customFieldLabelWrap}>
-            <span className={styles.customFieldLabel}>{this.props.customFieldName}</span>
+      <div className={styles.customValue}>
+        <div className={styles.allCustomFieldsWrapper}>
+          <div className={styles.customFieldsWrapper}>
+            <div id="fieldLabel" className={styles.customFieldLabelWrap}>
+              <span className={styles.customFieldLabel}>{this.props.customFieldName}</span>
+            </div>
+            {this.props.customFieldValue.length === 0 ? addValue : value}
           </div>
-          {this.props.customFieldValue.length === 0 ? addValue : value}
         </div>
       </div>
     )
