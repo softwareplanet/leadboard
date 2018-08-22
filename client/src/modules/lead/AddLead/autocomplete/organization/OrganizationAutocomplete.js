@@ -13,9 +13,9 @@ class OrganizationAutocomplete extends React.Component {
         getItemValue={item => item.name}
         renderMenu={(items) =>
           items.length !== 0 ? (
-            <div style={styles.organization.menu} children={items.splice(0, 4)} />
+            <div className="renderMenu" style={styles.organization.menu} children={items.splice(0, 4)} />
           ) : (
-              <div style={styles.organization.menu}>
+              <div className="renderMenu" style={styles.organization.menu}>
               {
                 <div style={styles.organization.emptyMenuItem}>
                   { `"${this.props.value}" will be added as a new organization` }

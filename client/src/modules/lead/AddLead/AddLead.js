@@ -108,6 +108,7 @@ class AddLead extends React.Component {
   onAutocompleteChange = (event) => {
     this.setState({
       organization: {
+        id: null,
         name: event.target.value
       },
       openDropdown: true,
@@ -123,7 +124,7 @@ class AddLead extends React.Component {
       },
       name: this.state.name.length > 0 && this.state.titleChanged ?
         this.state.name : value.length > 0
-          ? `${value} deal` : "",
+          ? `${value} lead` : "",
       openDropdown: false,
       showBadge: false,
       afterSelectShowBadge: false
@@ -135,9 +136,9 @@ class AddLead extends React.Component {
     this.setState({
       name: this.state.name.length > 0 && this.state.titleChanged ?
         this.state.name : this.state.organization.name.length > 0
-          ? `${this.state.organization.name} deal` : "",
+          ? `${this.state.organization.name} lead` : "",
       openDropdown: false,
-      showBadge: this.state.organization.name.length > 1 && this.state.afterSelectShowBadge
+      showBadge: this.state.organization.name.length > 0 && this.state.afterSelectShowBadge
     });
   };
 
