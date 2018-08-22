@@ -27,7 +27,10 @@ export default class EditLeadTabs extends Component {
           <li className={styles.headerItem}></li>{/* Upload files */}
           <li className={styles.headerItem}></li>{/* Close button */}
         </ul>
-        <textarea className={styles.textArea}/>
+        <div>
+          <textarea className={styles.textArea}/>
+          <div className={styles.footer}></div>
+        </div>
       </div>
     );
   }
