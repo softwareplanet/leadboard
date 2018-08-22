@@ -95,23 +95,26 @@ class AddLead extends React.Component {
     let newState = { ...this.state };
     newState[event.target.name] = event.target.value;
     this.setState({
-      [event.target.name]: event.target.value,
-      errors: this.validateLead(newState)
+      ...newState,
+      errors: {
+        ...this.state.errors,
+        contact: undefined,
+        organization:undefined,
+        name: undefined
+      }
     });
   };
 
   onTitleChange = (event) => {
-    let newState = {
+    this.setState({
       ...this.state,
       titleChanged: this.state.name.length,
       name: event.target.value,
-      showPlaceholder: false
-    };
-    this.setState({
-      titleChanged: this.state.name.length,
-      name: event.target.value,
       showPlaceholder: false,
-      errors: this.validateLead(newState)
+      errors: {
+        ...this.state.errors,
+        name: undefined
+      }
     })
   };
 
@@ -126,14 +129,14 @@ class AddLead extends React.Component {
       afterSelectShowBadge: true
     };
     this.setState({
-      organization: {
-        id: null,
-        name: event.target.value
-      },
-      openDropdown: true,
-      afterSelectShowBadge: true,
-      error: this.validateLead(newState)
-    });
+      ...newState,
+      errors: {
+        ...this.state.errors,
+        contact: undefined,
+        organization:undefined,
+        name: undefined
+      }
+    })
   };
 
   onAutocompleteSelect = (value, id) => {
@@ -151,13 +154,14 @@ class AddLead extends React.Component {
   };
 
   onAutocompleteBlur = (event) => {
-    event.target.parentNode.parentNode.setAttribute("style", "border: 1px solid #cbcccd");
+    event.target.parentNode.parentNode.removeAttribute("style");
     this.setState({
+      ...this.state,
       name: !this.state.titleChanged && this.state.organization.name.length > 0 ?
-         `${this.state.organization.name} lead` : `${this.state.name}`,
+        `${this.state.organization.name} lead` : `${this.state.name}`,
       openDropdown: false,
       showBadge: this.state.organization.name.length > 0 && this.state.afterSelectShowBadge,
-      titlePlaceholder: this.state.organization.name.length ? `${this.state.organization.name} lead` : ""
+      titlePlaceholder: this.state.organization.name.length ? `${this.state.organization.name} lead` : "",
     });
   };
 
@@ -170,7 +174,7 @@ class AddLead extends React.Component {
   };
 
   onBlur = (event) => {
-    event.target.parentNode.setAttribute("style", "border: 1px solid #cbcccd");
+    event.target.parentNode.removeAttribute("style");
   };
 
   validateLead(lead) {
@@ -237,7 +241,14 @@ class AddLead extends React.Component {
             <label className={styles.inputLabel}>Contact person name</label>
             <div className={validationIsShown && errors.contact ? styles.invalidContainer : styles.inputContainer}>
               <i className={classNames("fas fa-user", styles.inputIcon)}/>
-              <input name="contact" type="text" className={styles.formInput} onChange={this.onChange}/>
+              <input
+                name="contact"
+                type="text"
+                className={styles.formInput}
+                onChange={this.onChange}
+                onBlur={this.onBlur}
+                onFocus={this.onFocus}
+              />
             </div>
 
             <label className={styles.inputLabel}>
