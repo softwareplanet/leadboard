@@ -1,20 +1,19 @@
 .editView {
-    padding-top: 8px;
-    background: #f7f7f7;
-    border-top: 1px solid #e5e5e5;
-    margin-top: -1px;
+  padding-top: 8px;
+  background: #f7f7f7;
+  border-top: 1px solid #e5e5e5;
+  margin-top: -1px;
 }
 
 .fields {
-
 }
 
 .actions {
-    composes: actions from "../EditViewCommon.css";
-    padding: 8px 16px 16px;
+  composes: actions from "../EditViewCommon.css";
+  padding: 8px 16px 16px;
 }
 
 .saveBtn {
-    composes: button from "../EditViewCommon.css";
-    composes: buttonGreen from "../EditViewCommon.css";
+  composes: button from "../EditViewCommon.css";
+  composes: buttonGreen from "../EditViewCommon.css";
 }
