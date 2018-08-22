@@ -44,8 +44,12 @@ ul {
     margin: 0;
 }
 
+.itemWithLink {
+    padding: 12px 13px;
+}
+
 .item {
-    padding: 13px;
+    composes: itemWithLink;
     color: #b9babb;
 }
 
@@ -64,9 +68,6 @@ ul {
     cursor: pointer;
 }
 
-.itemWithLink {
-    padding: 13px;
-}
 
 .rightItem {
     composes:item;
@@ -86,21 +87,9 @@ ul {
 }
 
 .icon {
-    composes: fa from global;
-    font-size: 1.5em;
-    padding-right: 10px;
-}
-
-.dealsIcon {
-    composes: icon;
-    composes: fa-check-circle from global;
-}
-
-.userIcon {
-    composes: fa from global;
-    composes: fa-user-circle from global;
-    font-size: 32px;
-    padding-right: 10px;
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
 }
 
 .userImg {
@@ -108,6 +97,18 @@ ul {
     width: 31px;
     height: 31px;
     margin-right: 10px;
+}
+
+.defaultImgContainer {
+    overflow: hidden;
+    border-radius: 50%;
+    background-color: #686a6c;
+    margin-right: 10px;
+}
+
+.defaultImgContainer img {
+    width: 31px;
+    height: 31px;
 }
 
 .link {
@@ -134,16 +135,18 @@ ul {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-right: 10px;
 }
 
 .userInfo small {
+    align-self: flex-start;
     font-size: 10px;
     height: 16px;
 }
 
 .userInfo span {
-    font-size: 12px;
+    color: #fff;
+    align-self: flex-start;
+    font-size: 14px;
     height: 16px;
 }
 
@@ -162,6 +165,10 @@ ul {
 
     .userInfo {
         padding: 0;
+    }
+
+    .defaultImgContainer {
+        margin-right: 0;
     }
 
     .logo {

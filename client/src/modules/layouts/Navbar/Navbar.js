@@ -4,14 +4,16 @@ import styles from "./Navbar.css";
 import { logoutUser } from "../../auth/authActions";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import dealsIcon from "../../../assets/deals-icon.svg"
+import profileIcon from "../../../assets/header-profile.svg"
 
 const leadsRoute = "/home";
 
 class Navbar extends Component {
   renderUserAvatar = () => {
-    return this.props.user ?
+    return this.props.user && this.props.user.avatar ?
       <img className={styles.userImg} src={this.props.user.avatar} alt="user" /> :
-      <span className={styles.userIcon} />
+      <div className={styles.defaultImgContainer}><img src={profileIcon} alt="user" /></div>
   };
 
   render() {
@@ -28,7 +30,7 @@ class Navbar extends Component {
               activeClassName={styles.currentLink}
               to={leadsRoute}>
               <div>
-                <span className={styles.dealsIcon} />Deals
+                <img className={styles.icon} src={dealsIcon} alt="deals"/>Deals
               </div>
             </NavLink>
           </li>

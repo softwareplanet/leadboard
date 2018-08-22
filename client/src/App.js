@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { Provider } from "react-redux";
 import jwt_decode from "jwt-decode";
 
@@ -34,6 +34,10 @@ if (localStorage.jwtToken) {
 }
 
 class App extends Component {
+  isUserAuthenticated = () => {
+    return store.getState().auth.isAuthenticated;
+  };
+
   render() {
     return (
       <Provider store={store}>
@@ -53,8 +57,8 @@ class App extends Component {
                 component={EditLead}
               />
             </Switch>
-            <Route exact path="/" component={store.getState().auth.isAuthenticated ? Home: Login}/>
-            <Route exact path="/register" component={store.getState().auth.isAuthenticated ? Home: Registration}/>
+            <Route exact path="/" render={() => this.isUserAuthenticated() ? <Redirect to="/home"/>: <Login/>}/>
+            <Route exact path="/register" render={() => this.isUserAuthenticated() ? <Redirect to="/home"/>: <Registration/>}/>
             <Footer/>
           </div>
         </Router>
