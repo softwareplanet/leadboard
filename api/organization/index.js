@@ -8,7 +8,7 @@ const router = new Router;
 // @route   GET api/organization
 // @desc    Get organization by id
 // @access  Private
-router.get("/:id", function(req, res) {
+router.get("/:id", (req, res) => {
   Organisation.findById(req.params.id)
     .then(organizations => {
       res.status(200).json(organizations);
@@ -21,7 +21,7 @@ router.get("/:id", function(req, res) {
 // @route   GET api/organization
 // @desc    Get all organizations domain id and part of name
 // @access  Private
-router.get("/domain/:domain", function(req, res) {
+router.get("/domain/:domain", (req, res) => {
   Organisation.find({
     name: new RegExp(req.query.name, "i"),
     domain: req.params.domain,
@@ -37,7 +37,7 @@ router.get("/domain/:domain", function(req, res) {
 // @route   POST api/organization
 // @desc    Create organization
 // @access  Private
-router.post("/", function(req, res) {
+router.post("/", (req, res) => {
   const { hasErrors, errors } = validateOrganizationInput(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 
@@ -59,7 +59,7 @@ router.post("/", function(req, res) {
 // @route   PATCH api/organization
 // @desc    Update organization
 // @access  Private
-router.patch("/:id", function(req, res) {
+router.patch("/:id", (req, res) => {
   const { hasErrors, errors } = validateOrganizationUpdate(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 
