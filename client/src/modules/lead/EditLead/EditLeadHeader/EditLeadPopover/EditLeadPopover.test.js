@@ -9,6 +9,6 @@ describe("<EditLeadPopup />", () => {
     let wrapper = shallow(<EditLeadPopover />);
     let input = wrapper.find("input");
     input.simulate("change", { target: { value: "Google" } });
-    expect(wrapper.state().name).to.be.equal("Google");
+    expect(wrapper.state().value).to.be.equal("Google");
   });
 });

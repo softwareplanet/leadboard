@@ -5,7 +5,6 @@ const initialState = {
   stages: [],
   leads: {}
 };
-
 export default function(state = initialState, action) {
   switch (action.type) {
     case LOAD_LEADBOARD:
@@ -35,11 +34,6 @@ export default function(state = initialState, action) {
       return {
         ...state,
         editLead: action.payload
-      };
-    case SET_EDIT_FUNNEL_ID:
-      return {
-        ...state,
-        editFunnelId: action.payload
       };
     default:
       return state;

@@ -1,24 +1,37 @@
 import "jsdom-global/register";
 import React from "react";
-import { expect } from "chai";
-import { shallow } from "enzyme";
+import chai from "chai";
+import spies from "chai-spies";
 import InputGroup from "./InputGroup";
-import InputField from "@material-ui/core/TextField";
+import { createMount } from "@material-ui/core/test-utils";
+import FormHelperText from "@material-ui/core/FormHelperText/FormHelperText";
 
+chai.use(spies);
+const expect = chai.expect;
 describe("<InputGroup/>", () => {
-  function onChange() {
-  }
 
+  const spy = chai.spy(()=>{});
   let inputGroup;
+  let mount;
   beforeEach(() => {
-    inputGroup = shallow(<InputGroup name="email" onChange={onChange} value={""} error={"error"}/>);
+    mount = createMount();
+    inputGroup = mount(
+      <InputGroup name="email" onChange={spy} value={""} error={"error"}/>
+    );
   });
 
   it("render without crashing", () => {
-    expect(inputGroup.find(InputField)).to.have.length(1);
+    expect(inputGroup.html()).to.exist;
+  });
+
+  it("should call method onChange on input some data in field", () => {
+    let input = inputGroup.find(".MuiInput-input-30");
+    input.simulate("change", { target: { value: "test" } });
+    expect(spy).to.have.been.called.once;
   });
 
   it("show error message if contains error in props", () => {
-    expect(inputGroup.find(".invalid-feedback")).to.have.length(1);
+    let message = inputGroup.find(FormHelperText);
+    expect(message.text()).to.equal("error")
   });
 });

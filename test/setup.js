@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events'
 
 EventEmitter.defaultMaxListeners = Infinity
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 3000
 
 global.Array = Array
 global.Date = Date
