@@ -139,11 +139,6 @@ h3 {
   display: block;
 }
 
-.editIcon {
-  height: 16px;
-  width: 16px;
-}
-
 .editButton {
   composes: buttonSmall from "./EditView/EditViewCommon.css";
   display: none;

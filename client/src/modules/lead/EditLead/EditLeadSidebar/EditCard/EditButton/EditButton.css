@@ -1,0 +1,9 @@
+.editIcon {
+  height: 16px;
+  width: 16px;
+}
+
+.editButton {
+  composes: buttonSmall from "../CardFields/EditView/EditViewCommon.css";
+  padding: 0 4px;
+}

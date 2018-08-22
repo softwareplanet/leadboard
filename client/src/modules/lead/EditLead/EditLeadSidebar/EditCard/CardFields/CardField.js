@@ -7,6 +7,7 @@ import SingleEditView from "./EditView/SingleEditView/SingleEditView";
 import editIcon from "../../../../../../assets/edit-icon.svg";
 import PropTypes from "prop-types";
 import isBlank from "../../../../../../utils/isBlank";
+import EditButton from "../EditButton/EditButton";
 
 class CardField extends Component {
 
@@ -62,10 +63,7 @@ class CardField extends Component {
             </div>
             {isBlank(value) ? valueAdd : valueShow}
             {
-              !isBlank(value) &&
-              <button className={styles.editButton} onClick={this.openEditMode}>
-                <img className={styles.editIcon} src={editIcon} alt="Edit icon"/>
-              </button>
+              !isBlank(value) && <EditButton onClick={this.openEditMode} style={styles.editButton} />
             }
           </div>
         }

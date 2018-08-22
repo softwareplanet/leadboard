@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import styles from "./EditCard.css";
 import CardField from "./CardFields/CardField";
 import MainField from "./CardFields/MainField";
-import editIcon from "../../../../../assets/edit-icon.svg";
 import BulkEditView from "./CardFields/EditView/BulkEditView/BulkEditView";
 import { connect } from "react-redux";
 import { updateOrganization } from "../../../leadActions";
+import EditButton from "./EditButton/EditButton";
 
 class EditCard extends Component {
 
@@ -40,9 +40,7 @@ class EditCard extends Component {
           <span className={styles.titleName}>
             {this.props.title}
             </span>
-          <button className={styles.editButton} onClick={this.openEditMode}>
-            <img className={styles.editIcon} src={editIcon} alt="Edit icon" />
-          </button>
+          <EditButton onClick={this.openEditMode} />
         </div>
         {!this.state.isInEditMode &&
         <div>
