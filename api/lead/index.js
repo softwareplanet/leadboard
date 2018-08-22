@@ -108,7 +108,7 @@ router.patch("/:id", (req, res) => {
 // @access  Private
 router.post("/:id/notes", (req, res) => {
   Lead.findByIdAndUpdate(req.params.id, { $push:{ notes: req.body } }, { new: true })
-    .populate("contacts")
+    .populate({ path: "contact", populate: { path: "organization" } })
     .populate("owner")
     .populate("stage")
     .then(lead => {

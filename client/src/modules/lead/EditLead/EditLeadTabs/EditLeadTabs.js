@@ -3,7 +3,7 @@ import styles from "./EditLeadTabs.css";
 import addActivityIcon from "../../../../assets/add-activity.svg";
 import takeNotesIcon from "../../../../assets/take-notes.svg";
 import { connect } from "react-redux";
-import { updateLead } from "../../leadActions";
+import { createNote } from "../../leadActions";
 import EditLeadEditor from "./EditLeadEditor/EditLeadEditor";
 
 class EditLeadTabs extends Component {
@@ -19,9 +19,7 @@ class EditLeadTabs extends Component {
       text: noteText,
       user: this.props.userId,
     }
-    let lead = {...this.props.editLead}
-    lead.notes.push(note);
-    this.props.updateLead(lead)
+    this.props.createNote(this.props.editLead._id, note)
   }
 
   render() {
@@ -48,4 +46,4 @@ const mapStateToProps = state => ({
   userId: state.auth.userid
 })
 
-export default connect(mapStateToProps, { updateLead })(EditLeadTabs)
+export default connect(mapStateToProps, { createNote })(EditLeadTabs)

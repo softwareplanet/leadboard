@@ -5,7 +5,6 @@ import {
   LOAD_LEADS,
   LOAD_LEAD,
   UPDATE_LEAD,
-  CREATE_NOTE
 } from "./types";
 import { GET_ERRORS } from "../../actionTypes";
 
@@ -115,12 +114,12 @@ export const updateLead = lead => dispatch => {
 };
 
 // Create note for lead
-export const createNote = (lead, note) => dispatch => {
+export const createNote = (leadId, note) => dispatch => {
   axios
-    .post(`/api/lead/${lead._id}/notes`, note)
+    .post(`/api/lead/${leadId}/notes`, note)
     .then(res => {
       dispatch({
-        type: CREATE_NOTE,
+        type: UPDATE_LEAD,
         payload: res.data
       });
     })
