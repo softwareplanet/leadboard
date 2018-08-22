@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import styles from "./EditLeadSidebar.css";
 import EditCard from "./EditCard/EditCard";
+import personIcon from "../../../../img/personIcon.svg";
+import organizationIcon from "../../../../img/organizationIcon.svg";
 import PropTypes from "prop-types";
 import { loadLead } from "../../leadActions";
 import { connect } from "react-redux";
@@ -17,20 +19,20 @@ const Cards = Component => props => {
   if ("organization" in props && _.isEmpty(props.name)) {
     return (
       <div>
-        <Component value={props.organization} title={"Organization"} />
+        <Component value={props.organization} title={"Organization"} icon={organizationIcon} />
       </div>
     );
   } else if ("organization" in props) {
     return (
       <div>
-        <Component value={props.organization} title={"Organization"} />
-        <Component value={props} title={"Person"} />
+        <Component value={props.organization} title={"Organization"} icon={organizationIcon} />
+        <Component value={props} title={"Person"} icon={personIcon} />
       </div>
     );
   } else {
     return (
       <div>
-        <Component value={props} title={"Person"} />
+        <Component value={props} title={"Person"} icon={personIcon} />
       </div>
     );
   }

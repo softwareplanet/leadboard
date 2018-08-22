@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import styles from "./EditCard.css";
 import CardField from "./CardFields/CardField";
 import MainField from "./CardFields/MainField";
-import personIcon from "../../../../../img/personIcon.svg";
-import organizationIcon from "../../../../../img/organizationIcon.svg";
 import editIcon from "../../../../../assets/edit-icon.svg";
 import BulkEditView from "./CardFields/EditView/Bulk/BulkEditView";
 import { connect } from "react-redux";
@@ -31,12 +29,6 @@ class EditCard extends Component {
   };
 
   render() {
-    let icon;
-    if (this.props.title === "Person") {
-      icon = personIcon;
-    } else if (this.props.title === "Organization") {
-      icon = organizationIcon;
-    }
     let fields = this.props.value.custom.map((field, index) =>
       <CardField key={index}
                  customFieldValue={field.value}
@@ -55,7 +47,7 @@ class EditCard extends Component {
         </div>
         {!this.state.isInEditMode &&
         <div className={styles.fields}>
-          <MainField title={this.props.title} value={this.props.value} icon={icon}/>
+          <MainField title={this.props.title} value={this.props.value} icon={this.props.icon}/>
           {fields}
         </div>
         }
