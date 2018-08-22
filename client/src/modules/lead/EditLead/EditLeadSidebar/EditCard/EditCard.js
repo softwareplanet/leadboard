@@ -33,7 +33,7 @@ class EditCard extends Component {
       <CardField key={index}
                  field={field}
                  value={this.props.model}
-                 title={this.props.title}/>);
+                 title={this.props.title} />);
     return (
       <div className={styles.container}>
         <div className={styles.title}>
@@ -52,9 +52,9 @@ class EditCard extends Component {
         }
         {
           this.state.isInEditMode &&
-          <BulkEditView toUpdate={this.props.model}
+          <BulkEditView model={this.props.model}
                         onCancel={this.closeEditMode}
-                        onChange={(entity) => this.updateEntity(entity)}/>
+                        onChange={(entity) => this.updateEntity(entity)} />
         }
       </div>
     );

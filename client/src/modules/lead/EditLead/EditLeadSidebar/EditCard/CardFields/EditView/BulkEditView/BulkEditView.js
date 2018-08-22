@@ -6,49 +6,49 @@ import PropTypes from "prop-types";
 
 class BulkEditView extends Component {
 
-  state = {
-    ...this.props.toUpdate,
-  };
+  componentDidMount() {
+    this.setState({
+      ...this.props.model,
+    });
+  }
 
-  onChangeEditField(name, value) {
+  onChangeEditField = (name, value) => {
     if (name === "Name") {
       this.setState({ name: value });
     } else {
       let updatedCustom = [...this.state.custom];
-      updatedCustom.find(custom => custom.name === name).value = value;
+      const customField = updatedCustom.find(custom => custom.name === name);
+      const customFieldIndex = updatedCustom.indexOf(customField);
+      let updatedCustomField = { ...customField };
+      updatedCustomField.value = value;
+      updatedCustom.splice(customFieldIndex, 1, updatedCustomField);
       this.setState({ custom: updatedCustom });
     }
   };
 
-  onSaveAllClicked() {
-    let updatedObject = { ...this.state };
-    this.props.onChange(updatedObject);
-  }
+  onSaveAllClicked = () => {
+    this.props.onChange(this.state);
+  };
 
   getEditableFields() {
-    let fields = [];
-    fields.push({
-      name: "Name",
-      value: this.props.toUpdate.name,
-    });
-    this.props.toUpdate.custom.forEach(customField => {
-      fields.push({
-        name: customField.name,
-        value: customField.value,
-      });
-    });
-    return fields;
+    return [
+      {
+        name: "Name",
+        value: this.props.model.name,
+      },
+      ...this.props.model.custom,
+    ];
   }
 
   render() {
-    const fields = this.getEditableFields().map(field => {
-      return <EditFieldGroup
+    const fields = this.getEditableFields().map(field => (
+      <EditFieldGroup
         key={field.name}
         name={field.name}
         value={field.value}
-        onChange={this.onChangeEditField.bind(this)}
-      />;
-    });
+        onChange={this.onChangeEditField}
+      />
+    ));
 
     return (
       <div className={styles.editView}>
@@ -57,13 +57,11 @@ class BulkEditView extends Component {
         </div>
         <div className={styles.actions}>
           <button className={commonStyles.button}
-                  onClick={() => {
-                    this.props.onCancel();
-                  }}>
+                  onClick={this.props.onCancel}>
             Cancel
           </button>
           <button className={styles.saveBtn}
-                  onClick={this.onSaveAllClicked.bind(this)}>
+                  onClick={this.onSaveAllClicked}>
             Save all
           </button>
         </div>
@@ -74,7 +72,7 @@ class BulkEditView extends Component {
 }
 
 BulkEditView.propTypes = {
-  toUpdate: PropTypes.object.isRequired,
+  model: PropTypes.object.isRequired,
   onChange: PropTypes.func,
 };
 
