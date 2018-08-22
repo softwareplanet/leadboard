@@ -14,7 +14,12 @@ const leadSchema = new mongoose.Schema({
     type: String,
     enum: ["Won", "Lost", "InProgress"],
     default: "InProgress"
-  }
+  },
+  notes: [{
+    text: String,
+    date: { type: Date, default: Date.now },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  }]
 });
 
 module.exports = mongoose.model("Lead", leadSchema);
