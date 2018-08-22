@@ -1,5 +1,6 @@
 import { Router } from "express";
 import mongoose from "mongoose";
+
 import validateLeadInput from "../../validation/lead";
 import isEmpty from "lodash.isempty";
 
@@ -7,12 +8,13 @@ import Lead from "../../models/lead";
 import Contact from "../../models/contact";
 import Organization from "../../models/organization";
 
+
 const router = new Router();
 
 // @route   GET api/lead
 // @desc    Find sorted leads by domain and stage IDs
 // @access  Private
-router.get("/", function(req, res) {
+router.get("/", function (req, res) {
   Lead.find({ stage: req.query.stage })
     .populate({ path: "contact", populate: { path: "organization" } })
     .sort({ order: "asc" })
@@ -27,7 +29,7 @@ router.get("/", function(req, res) {
 // @route   POST api/lead
 // @desc    Create lead
 // @access  Private
-router.post("/", function(req, res) {
+router.post("/", function (req, res) {
   const { hasErrors, errors } = validateLeadInput(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 
@@ -68,12 +70,13 @@ const createLead = (req, res) => {
     });
 };
 
+
 // @route   GET api/lead/:id
 // @desc    Load lead by id
 // @access  Private
 router.get("/:id", (req, res) => {
   Lead.findById(req.params.id)
-    .populate("contacts")
+    .populate({ path: "contact", populate: { path: "organization" } })
     .populate("owner")
     .populate("stage")
     .then(lead => {
@@ -89,7 +92,7 @@ router.get("/:id", (req, res) => {
 // @access  Private
 router.patch("/:id", (req, res) => {
   Lead.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
-    .populate("contacts")
+    .populate({ path: "contact", populate: { path: "organization" } })
     .populate("owner")
     .populate("stage")
     .then(lead => {
@@ -99,5 +102,4 @@ router.patch("/:id", (req, res) => {
       res.status(400).json({ errors: { message: error } });
     });
 });
-
 export default router;
