@@ -47,6 +47,7 @@ class AddLead extends React.Component {
       titleChanged: false,
       showPlaceholder: false,
       titlePlaceholder: "",
+      organizationAfterSelect: { id: 0, name: "" },
       validationIsShown: false,
       modalIsOpen: false
     };
@@ -85,6 +86,7 @@ class AddLead extends React.Component {
       openDropdown: false,
       afterSelectShowBadge: true,
       showBadge: false,
+      organizationAfterSelect: { id: 0, name: "" },
       titleChanged: false,
       titlePlaceholder: "",
       showPlaceholder: false
@@ -122,7 +124,7 @@ class AddLead extends React.Component {
     let newState = {
       ...this.state,
       organization: {
-        id: null,
+        id: this.state.organizationAfterSelect.name === event.target.value ? this.state.organizationAfterSelect.id : null,
         name: event.target.value
       },
       openDropdown: true,
@@ -141,6 +143,10 @@ class AddLead extends React.Component {
 
   onAutocompleteSelect = (value, id) => {
     this.setState({
+      organizationAfterSelect: {
+        id,
+        name: value
+      },
       organization: {
         id,
         name: value
@@ -160,7 +166,7 @@ class AddLead extends React.Component {
       name: !this.state.titleChanged && this.state.organization.name.length > 0 ?
         `${this.state.organization.name} lead` : `${this.state.name}`,
       openDropdown: false,
-      showBadge: this.state.organization.name.length > 0 && this.state.afterSelectShowBadge,
+      showBadge: this.state.organization.name.length > 0 && this.state.afterSelectShowBadge && !this.state.organization.id,
       titlePlaceholder: this.state.organization.name.length ? `${this.state.organization.name} lead` : "",
     });
   };
@@ -221,6 +227,7 @@ class AddLead extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     const { errors, validationIsShown } = this.state;
     return (
       <div>
