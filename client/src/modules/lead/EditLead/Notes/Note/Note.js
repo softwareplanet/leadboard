@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import styles from "./Note.css";
-import noteIcon from "../../../../../assets/note-icon.svg"
-const space = '&nbsp;';
+import noteIcon from "../../../../../assets/note-icon.svg";
+import { formatDate } from "../../../../../utils/formatDate"
+const space = "&nbsp;";
+
 class Note extends Component {
   render() {
     return (
@@ -20,8 +22,9 @@ class Note extends Component {
             {/*<span>{this.props.user}</span>*/}
             {/*</div>*/}
             <div className={styles.dateWrapper}>
-              <span>{this.props.date}</span>
-              <span name="separator" >&nbsp; &#183; &nbsp;</span>{this.props.user}
+              <span>{formatDate(this.props.date)}</span>
+              {/*<span>{new Date(this.props.date).toDateString()}</span>*/}
+              <span name="separator">&nbsp; &#183; &nbsp;</span>{this.props.user}
             </div>
             <div className={styles.textWrapper}>
               <span>{this.props.text}</span>

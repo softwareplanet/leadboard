@@ -1,14 +1,16 @@
-.container{
+.container {
+    margin:auto;
+    width: 800px;
     padding: 0;
     border: 0;
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
-    font: 400 14px/20px "Open Sans",sans-serif;
+    font: 400 14px/20px "Open Sans", sans-serif;
     position: relative;
 }
 
-.timeLineBar{
+.timeLineBar {
     position: absolute;
     left: 18px;
     top: 23px;

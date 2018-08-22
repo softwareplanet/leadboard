@@ -73,7 +73,7 @@ const createLead = (req, res) => {
 // @access  Private
 router.get("/:id", (req, res) => {
   Lead.findById(req.params.id)
-    .populate("notes.user", { 'password': 0 } )
+    .populate("notes.user", { 'password': 0 })
     .populate("contacts")
     .populate("owner")
     .populate("stage")
@@ -101,4 +101,19 @@ router.patch("/:id", (req, res) => {
     });
 });
 
+// @route   POST api/lead/:id/notes
+// @desc    Create note for lead
+// @access  Private
+router.post("/:id/notes", (req, res) => {
+  Lead.findByIdAndUpdate(req.params.id, { $push:{ notes: req.body } }, { new: true })
+    .populate("contacts")
+    .populate("owner")
+    .populate("stage")
+    .then(lead => {
+      res.json(lead);
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
+});
 export default router;
