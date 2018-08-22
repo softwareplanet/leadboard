@@ -73,6 +73,7 @@ const createLead = (req, res) => {
 // @access  Private
 router.get("/:id", (req, res) => {
   Lead.findById(req.params.id)
+    .populate("notes.user", { 'password': 0 } )
     .populate("contacts")
     .populate("owner")
     .populate("stage")
