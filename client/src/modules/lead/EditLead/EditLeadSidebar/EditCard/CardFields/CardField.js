@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import styles from "./CardField.css";
 import { Link } from "react-router-dom";
-import connect from "react-redux/es/connect/connect";
+import { connect } from "react-redux";
 import { updateOrganization } from "../../../../leadActions";
 import SingleEditView from "./EditView/Single/SingleEditView";
 import editIcon from "../../../../../../assets/edit-icon.svg";
+import PropTypes from "prop-types";
 
 
 class CardField extends Component {
@@ -78,6 +79,13 @@ class CardField extends Component {
     );
   }
 }
+
+CardField.propTypes = {
+  customFieldName: PropTypes.string,
+  customFieldValue: PropTypes.string,
+  title: PropTypes.string,
+  value: PropTypes.object
+};
 
 const mapStateToProps = state => ({});
 

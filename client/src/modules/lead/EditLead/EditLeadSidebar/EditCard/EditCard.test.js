@@ -27,7 +27,7 @@ describe("<EditCard/>", () => {
   let wrapper;
 
   it("render EditCard component", () => {
-    wrapper = shallow(<EditCard value={contact}/>);
+    wrapper = shallow(<EditCard model={contact}/>);
     expect(wrapper.length).to.equal(1);
   });
 });
