@@ -9,7 +9,7 @@ describe("<EditCard/>", () => {
   let contact = {
     name: "Bob",
     organization: {
-      name: "red dog inc",
+      name: "RedDog inc",
       custom: [
         {
           name: "Address", value: "Saint street"
@@ -21,7 +21,7 @@ describe("<EditCard/>", () => {
         name: "Phone", value: "+380974040018"
       },
       {
-        name: "Email", value: "Bobdoe@gmail.com"
+        name: "Email", value: "yarik335@gmail.com"
       }
     ]
   };

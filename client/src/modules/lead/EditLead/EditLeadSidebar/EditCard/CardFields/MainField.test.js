@@ -7,23 +7,23 @@ describe("<MainField/>", () => {
   const contact = {
     name: "Bob",
     organization: {
-      name: "red cat inc"
+      name: "RedDog Inc"
     }
   };
   let wrapper;
 
   it("render MainField component", () => {
-    wrapper = shallow(<MainField name={contact.name} />);
+    wrapper = shallow(<MainField value={contact} />);
     expect(wrapper.exists()).to.equal(true);
   });
 
   it("should render correct contact name with props", () => {
-    wrapper = shallow(<MainField name={contact.name} />);
-    expect(wrapper.find("a.mainValue").text()).to.equal(contact.name);
+    wrapper = shallow(<MainField value={contact} />);
+    expect(wrapper.find("a.mainValue").children().text()).to.equal(contact.name);
   });
 
   it("should render correct organization name with props", () => {
-    wrapper = shallow(<MainField name={contact.organization.name} />);
+    wrapper = shallow(<MainField value={contact.organization} />);
     expect(wrapper.find("a.mainValue").children().text()).to.equal(contact.organization.name);
   });
 

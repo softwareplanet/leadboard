@@ -1,15 +1,17 @@
 import React from "react";
 import CardField from "./CardField";
 import { expect } from "chai";
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
+import { Link } from "react-router-dom";
 
 
 describe("<CardField/>", () => {
   let field = { name: "Phone", value: "+380930527927" };
+  // customFieldValue={Object.values(field)[1]} customFieldName={Object.values(field)[0]}
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<CardField field={field} />);
+    wrapper = shallow(<CardField customFieldValue={field.value} customFieldName={field.name} />);
   });
 
   it("render CardField component", () => {
@@ -17,14 +19,13 @@ describe("<CardField/>", () => {
   });
 
   it("render correct props", () => {
-    expect(wrapper.find("span.fieldLabel").text()).to.equal(field.name);
-    expect(wrapper.find("span.fieldValue").find("a").text()).to.equal(field.value);
+    expect(wrapper.find("span.customFieldLabel").text()).to.equal(field.name);
+    expect(wrapper.find("span.customFieldValue").find("Link").children().text()).to.equal(field.value);
   })
 
   it("render add value link if value is empty", () => {
     field = { name: "Phone", value: "" };
-    wrapper = shallow(<CardField field={field} />);
-      expect(wrapper.find("span.addValue").exists()).to.equal(true);
+    wrapper = shallow(<CardField customFieldValue={field.value} customFieldName={field.name} />);
+      expect(wrapper.find("span.addValue").length).to.equal(1);
   })
-
 });
