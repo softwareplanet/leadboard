@@ -1,7 +1,8 @@
-import React from "react"
-import { configure, shallow, mount } from "enzyme"
-import Adapter from "enzyme-adapter-react-16"
-import { Navbar } from  "./Navbar"
+import React from "react";
+import styles from "./Navbar.css";
+import { configure, shallow, mount } from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
+import { Navbar } from  "./Navbar";
 
 configure({ adapter: new Adapter });
 
@@ -27,4 +28,9 @@ describe("<Navbar /> :", () => {
     wrapper.find("#logout").simulate("click");
     expect(logoutUser).toHaveBeenCalledTimes(1);
   });
+
+  it("should change class to active if current pass equal to elements path value ", () => {
+    wrapper = shallow(<Navbar auth={auth} location={location} logoutUser={logoutUser}/>);
+    expect(wrapper.find("#deals").first().hasClass(styles.active)).toBeTruthy();
+  })
 });

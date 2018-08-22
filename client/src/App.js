@@ -38,6 +38,10 @@ class App extends Component {
     return store.getState().auth.isAuthenticated;
   };
 
+  redirectHome = () => {
+    return <Redirect to="/home"/>;
+  };
+
   render() {
     return (
       <Provider store={store}>
@@ -57,8 +61,8 @@ class App extends Component {
                 component={EditLead}
               />
             </Switch>
-            <Route exact path="/" render={() => this.isUserAuthenticated() ? <Redirect to="/home"/>: <Login/>}/>
-            <Route exact path="/register" render={() => this.isUserAuthenticated() ? <Redirect to="/home"/>: <Registration/>}/>
+            <Route exact path="/" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Login/>}/>
+            <Route exact path="/register" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Registration/>}/>
             <Footer/>
           </div>
         </Router>

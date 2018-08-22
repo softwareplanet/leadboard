@@ -24,7 +24,7 @@ class Navbar extends Component {
           <li className={styles.logo}><Link to={leadsRoute}>Leadboard</Link></li>
           <li className={styles.logoSmall}><Link to={leadsRoute}><h1>L</h1></Link></li>
 
-          <li className={this.props.location.pathname === leadsRoute ? styles.active : styles.itemWithLink}>
+          <li id="deals" className={this.props.location.pathname === leadsRoute ? styles.active : styles.itemWithLink}>
             <NavLink
               className={styles.link}
               activeClassName={styles.currentLink}
