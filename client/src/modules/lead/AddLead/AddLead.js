@@ -227,7 +227,6 @@ class AddLead extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     const { errors, validationIsShown } = this.state;
     return (
       <div>

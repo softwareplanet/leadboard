@@ -8,6 +8,7 @@ import configureStore from "redux-mock-store";
 
 import styles from "./AddLead.css";
 import { loadOrganizations } from "./autocomplete/organization/organizationActions";
+import { createLead } from "../leadActions";
 
 let store;
 const mockStore = configureStore();
@@ -83,6 +84,7 @@ describe("<AddLead />", () => {
   it("shows validation when necessary", () => {
     let mountedAddLead = mount(
       <AddLead
+        createLead={createLead({})}
         loadOrganizations={loadOrganizations(auth.domainid)}
         organizations={organizations}
         auth={auth}
@@ -103,11 +105,15 @@ describe("<AddLead />", () => {
 
     let contactInput = mountedAddLead.find("[name='contact']");
     contactInput.simulate("change", { target: { name: "contact", value: "Bob" } });
+    saveLeadBtn.simulate("click", {});
     expect(mountedAddLead.find(`.${invalidContainerClass}`).length).to.equal(1);
+    expect(Object.keys(mountedAddLead.state().errors).length).to.equal(1);
 
     let nameInput = mountedAddLead.find("[name='name']");
     nameInput.simulate("change", { target: { name: "name", value: "Deal with Bob" } });
+    saveLeadBtn.simulate("click", {});
     expect(mountedAddLead.find(`.${invalidContainerClass}`).length).to.equal(0);
+    expect(Object.keys(mountedAddLead.state().errors).length).to.equal(0);
   });
 
   it("on organization input blur, lead title will change", () => {
