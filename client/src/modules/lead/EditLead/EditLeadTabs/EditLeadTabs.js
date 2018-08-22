@@ -4,10 +4,9 @@ import addActivityIcon from "../../../../assets/add-activity.svg";
 import takeNotesIcon from "../../../../assets/take-notes.svg";
 
 export default class EditLeadTabs extends Component {
-
-  onChange = (editorState) => {
+  onChange = (e) => {
     this.setState({
-      editorState,
+      note: e.target.value,
     });
   };
 
@@ -27,9 +26,12 @@ export default class EditLeadTabs extends Component {
           <li className={styles.headerItem}></li>{/* Upload files */}
           <li className={styles.headerItem}></li>{/* Close button */}
         </ul>
-        <div>
+        <div className={styles.editor}>
           <textarea className={styles.textArea}/>
-          <div className={styles.footer}></div>
+          <div className={styles.footer}>
+            <button className={styles.button}><span>Cancel</span></button>
+            <button className={styles.buttonSave}><span>Save</span></button>
+          </div>
         </div>
       </div>
     );
