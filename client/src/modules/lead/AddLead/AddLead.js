@@ -44,9 +44,9 @@ class AddLead extends React.Component {
       afterSelectShowBadge: true,
       organizations: [],
 
-      titleChanged: false,
+      nameChanged: false,
       showPlaceholder: false,
-      titlePlaceholder: "",
+      namePlaceholder: "",
       organizationAfterSelect: { id: 0, name: "" },
       validationIsShown: false,
       modalIsOpen: false
@@ -87,8 +87,8 @@ class AddLead extends React.Component {
       afterSelectShowBadge: true,
       showBadge: false,
       organizationAfterSelect: { id: 0, name: "" },
-      titleChanged: false,
-      titlePlaceholder: "",
+      nameChanged: false,
+      namePlaceholder: "",
       showPlaceholder: false
     });
   }
@@ -107,10 +107,10 @@ class AddLead extends React.Component {
     });
   };
 
-  onTitleChange = (event) => {
+  onNameChange = (event) => {
     this.setState({
       ...this.state,
-      titleChanged: this.state.name.length,
+      nameChanged: this.state.name.length,
       name: event.target.value,
       showPlaceholder: false,
       errors: {
@@ -151,7 +151,7 @@ class AddLead extends React.Component {
         id,
         name: value
       },
-      name: !this.state.titleChanged ?
+      name: !this.state.nameChanged ?
         `${value} lead` : `${this.state.name}`,
       openDropdown: false,
       showBadge: false,
@@ -163,11 +163,11 @@ class AddLead extends React.Component {
     event.target.parentNode.parentNode.removeAttribute("style");
     this.setState({
       ...this.state,
-      name: !this.state.titleChanged && this.state.organization.name.length > 0 ?
+      name: !this.state.nameChanged && this.state.organization.name.length > 0 ?
         `${this.state.organization.name} lead` : `${this.state.name}`,
       openDropdown: false,
       showBadge: this.state.organization.name.length > 0 && this.state.afterSelectShowBadge && !this.state.organization.id,
-      titlePlaceholder: this.state.organization.name.length ? `${this.state.organization.name} lead` : "",
+      namePlaceholder: this.state.organization.name.length ? `${this.state.organization.name} lead` : "",
     });
   };
 
@@ -185,7 +185,7 @@ class AddLead extends React.Component {
 
   validateLead(lead) {
     let errors = {};
-    if (isBlank(lead.name)) {
+    if (isBlank(lead.name.length ? lead.name : lead.namePlaceholder)) {
       errors.name = "Name must not be empty";
     }
     if (isBlank(lead.organization.name) && isBlank(lead.contact)) {
@@ -206,7 +206,7 @@ class AddLead extends React.Component {
         domain: this.props.auth.domainid,
         owner: this.props.auth.userid,
         stage: this.state.stage,
-        name: this.state.name,
+        name: this.state.name.length ? this.state.name : this.state.namePlaceholder,
         contact: this.state.contact,
         organization: this.state.organization.id ? this.state.organization.id : this.state.organization.name,
         order: this.getNextLeadNumber(this.state.stage)
@@ -275,15 +275,15 @@ class AddLead extends React.Component {
               />
               {this.state.showBadge ? <span className={styles.newBadge}>NEW</span> : null}
             </div>
-            <label className={styles.inputLabel}>Lead title</label>
+            <label className={styles.inputLabel}>Lead name</label>
             <div className={validationIsShown && errors.name ? styles.invalidContainer : styles.inputContainer}>
               <input
-                placeholder={this.state.titlePlaceholder}
+                placeholder={this.state.namePlaceholder}
                 name="name"
                 type="text"
                 className={styles.formInput}
                 value={this.state.showPlaceholder ? "" : this.state.name}
-                onChange={this.onTitleChange}
+                onChange={this.onNameChange}
                 onFocus={this.onFocus}
                 onBlur={this.onBlur}
               />
