@@ -19,20 +19,20 @@ const Cards = Component => props => {
   if ("organization" in props && _.isEmpty(props.name)) {
     return (
       <div>
-        <Component value={props.organization} title={"Organization"} icon={organizationIcon} />
+        <Component model={props.organization} title={"Organization"} icon={organizationIcon} />
       </div>
     );
   } else if ("organization" in props) {
     return (
       <div>
-        <Component value={props.organization} title={"Organization"} icon={organizationIcon} />
-        <Component value={props} title={"Person"} icon={personIcon} />
+        <Component model={props.organization} title={"Organization"} icon={organizationIcon} />
+        <Component model={props} title={"Person"} icon={personIcon} />
       </div>
     );
   } else {
     return (
       <div>
-        <Component value={props} title={"Person"} icon={personIcon} />
+        <Component model={props} title={"Person"} icon={personIcon} />
       </div>
     );
   }

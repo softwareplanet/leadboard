@@ -29,11 +29,11 @@ class EditCard extends Component {
   };
 
   render() {
-    let fields = this.props.value.custom.map((field, index) =>
+    let fields = this.props.model.custom.map((field, index) =>
       <CardField key={index}
                  customFieldValue={field.value}
                  customFieldName={field.name}
-                 value={this.props.value}
+                 value={this.props.model}
                  title={this.props.title} />);
     return (
       <div className={styles.container}>
@@ -47,13 +47,13 @@ class EditCard extends Component {
         </div>
         {!this.state.isInEditMode &&
         <div className={styles.fields}>
-          <MainField title={this.props.title} value={this.props.value} icon={this.props.icon}/>
+          <MainField title={this.props.title} value={this.props.model} icon={this.props.icon}/>
           {fields}
         </div>
         }
         {
           this.state.isInEditMode &&
-          <BulkEditView toUpdate={this.props.value}
+          <BulkEditView toUpdate={this.props.model}
                         onCancel={this.closeEditMode}
                         onChange={(entity) => this.updateEntity(entity)}/>
         }
