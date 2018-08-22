@@ -24,13 +24,13 @@ describe("<Navbar /> :", () => {
 
   it("should call method logoutUser user when Logout clicked", () => {
     logoutUser = jest.fn();
-    wrapper = shallow(<Navbar location={location} auth={auth} logoutUser={logoutUser}/>);
+    wrapper = shallow(<Navbar location={location} auth={auth} logoutUser={logoutUser} />);
     wrapper.find("#logout").simulate("click");
     expect(logoutUser).toHaveBeenCalledTimes(1);
   });
 
   it("should change class to active if current pass equal to elements path value ", () => {
-    wrapper = shallow(<Navbar auth={auth} location={location} logoutUser={logoutUser}/>);
+    wrapper = shallow(<Navbar auth={auth} location={location} logoutUser={logoutUser} />);
     expect(wrapper.find("#deals").first().hasClass(styles.active)).toBeTruthy();
   })
 });

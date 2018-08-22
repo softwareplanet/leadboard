@@ -30,7 +30,7 @@ class Navbar extends Component {
               activeClassName={styles.currentLink}
               to={leadsRoute}>
               <div>
-                <img className={styles.icon} src={dealsIcon} alt="deals"/>Deals
+                <img className={styles.icon} src={dealsIcon} alt="deals" />Deals
               </div>
             </NavLink>
           </li>
