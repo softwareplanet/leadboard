@@ -91,22 +91,48 @@ class AddLead extends React.Component {
     });
   }
 
-  onTitleChange = (event) => {
+  onChange = (event) => {
+    let newState = { ...this.state };
+    newState[event.target.name] = event.target.value;
     this.setState({
+      [event.target.name]: event.target.value,
+      errors: this.validateLead(newState)
+    });
+  };
+
+  onTitleChange = (event) => {
+    let newState = {
+      ...this.state,
       titleChanged: this.state.name.length,
       name: event.target.value,
       showPlaceholder: false
+    };
+    this.setState({
+      titleChanged: this.state.name.length,
+      name: event.target.value,
+      showPlaceholder: false,
+      errors: this.validateLead(newState)
     })
   };
 
   onAutocompleteChange = (event) => {
-    this.setState({
+    let newState = {
+      ...this.state,
       organization: {
         id: null,
         name: event.target.value
       },
       openDropdown: true,
       afterSelectShowBadge: true
+    };
+    this.setState({
+      organization: {
+        id: null,
+        name: event.target.value
+      },
+      openDropdown: true,
+      afterSelectShowBadge: true,
+      error: this.validateLead(newState)
     });
   };
 
@@ -152,7 +178,7 @@ class AddLead extends React.Component {
     if (isBlank(lead.name)) {
       errors.name = "Name must not be empty";
     }
-    if (isBlank(lead.organization) && isBlank(lead.contact)) {
+    if (isBlank(lead.organization.name) && isBlank(lead.contact)) {
       errors.organization = "Organisation or contact must not be empty";
       errors.contact = "Contact or organisation must not be empty";
     }
