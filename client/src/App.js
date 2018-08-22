@@ -15,6 +15,8 @@ import Registration from "./modules/auth/Registration/Registration";
 import "./App.css";
 import { Switch } from "react-router-dom";
 import EditLead from "./modules/lead/EditLead/EditLead";
+import Navbar from "./modules/layouts/Navbar/Navbar";
+
 
 // restore redux/storage on page reload
 if (localStorage.jwtToken) {
@@ -36,6 +38,7 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
+          <Navbar />
             <Switch>
               <PrivateRoute
                 exact
