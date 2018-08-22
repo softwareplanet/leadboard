@@ -2,8 +2,8 @@ import isEmpty from "lodash.isempty";
 import Validator from "validator";
 module.exports = function validateLoginInput(data) {
   let errors = {};
-  data.email = data.email? data.email: '';
-  data.password = data.password? data.password: '';
+  data.email = data.email ? data.email: '';
+  data.password = data.password ? data.password: '';
 
   if (!Validator.isEmail(data.email)) errors.email = 'Email is invalid';
 

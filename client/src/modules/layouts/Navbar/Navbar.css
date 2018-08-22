@@ -1,182 +1,178 @@
 header {
-    background-color: #404346;
+  background-color: #404346;
 }
 
 li {
-    padding: 0 5px;
-    cursor: pointer;
+  padding: 0 5px;
+  cursor: pointer;
 }
 
 ul {
-    padding: 0;
-    margin: 0;
-    list-style: none;
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
 .menu {
-    display: flex;
-    width: 100%;
-    align-items: center;
+  display: flex;
+  width: 100%;
+  align-items: center;
 }
 
 .logo {
-    font-size: 25px;
-    color: white;
-    padding: 0 20px 0 10px;
+  font-size: 25px;
+  color: white;
+  padding: 0 20px 0 10px;
 }
 
 .logo a {
-    color: white;
+  color: white;
 }
 
 .logo a:hover {
-    font-size: 25px;
-    color: white;
-    text-decoration: none;
+  font-size: 25px;
+  color: white;
+  text-decoration: none;
 }
 
 .logoSmall {
-    composes:logo;
-    display:none
+  composes: logo;
+  display: none
 }
 
 .logoSmall h1 {
-    margin: 0;
+  margin: 0;
 }
 
 .itemWithLink {
-    padding: 12px 13px;
+  padding: 12px 13px;
 }
 
 .item {
-    composes: itemWithLink;
-    color: #b9babb;
+  composes: itemWithLink;
+  color: #b9babb;
 }
 
 .item:hover {
-    cursor: default;
+  cursor: default;
 }
 
 .item div {
-    display: flex;
-    align-items: center;
-    flex-wrap: nowrap;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
 }
 
 .item div:hover {
-    color: white;
-    cursor: pointer;
+  color: white;
+  cursor: pointer;
 }
-
 
 .rightItem {
-    composes:item;
-    margin-left: auto;
-    padding: 4px;
+  composes: item;
+  margin-left: auto;
+  padding: 4px;
 }
 
-.rightItem div:hover{
-    color: #b9babb;
-    cursor: default;
+.rightItem div:hover {
+  color: #b9babb;
+  cursor: default;
 }
 
 .active {
-    composes: item;
-    background-color: #26292c;
-    color: white;
+  composes: item;
+  background-color: #26292c;
+  color: white;
 }
 
 .icon {
-    width: 24px;
-    height: 24px;
-    margin-right: 8px;
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.icon image {
+  width: 24px;
+  height: 24px;
 }
 
 .userImg {
-    border-radius: 50%;
-    width: 32px;
-    height: 32px;
-    margin-right: 10px;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
 }
-
-.defaultImgContainer {
-    overflow: hidden;
-    border-radius: 50%;
-    background-color: #686a6c;
-    margin-right: 10px;
-}
-
-.defaultImgContainer img {
-    width: 32px;
-    height: 32px;
+.defaultImg {
+  composes: userImg;
+  background-color: #686a6c;
 }
 
 .link {
-    composes: item;
-    padding: 0;
+  composes: item;
+  padding: 0;
 }
 
 .currentLink {
-    composes:link;
-    color: white;
+  composes: link;
+  color: white;
 }
 
 .link div {
-    display: flex;
-    align-items: center;
-    flex-wrap: nowrap;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
 }
 
 .link:hover {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .userInfo {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .userInfo small {
-    align-self: flex-start;
-    font-size: 10px;
-    height: 16px;
+  align-self: flex-start;
+  font-size: 10px;
+  height: 16px;
 }
 
 .userInfo span {
-    color: #fff;
-    align-self: flex-start;
-    font-size: 14px;
-    height: 16px;
+  color: #fff;
+  align-self: flex-start;
+  font-size: 14px;
+  height: 16px;
 }
 
 @media only screen and (max-width: 590px) {
-    .userInfo span,small {
-        display: none;
-    }
+  .userInfo span, small {
+    display: none;
+  }
 
-    .userImg {
-        padding: 0;
-    }
+  .userImg {
+    padding: 0;
+    margin-right: 0;
+  }
 
-    .userIcon {
-        padding: 0;
-    }
+  .userIcon {
+    padding: 0;
+  }
 
-    .userInfo {
-        padding: 0;
-    }
+  .userInfo {
+    padding: 0;
+  }
 
-    .defaultImgContainer {
-        margin-right: 0;
-    }
+  .defaultImgContainer {
+    margin-right: 0;
+  }
 
-    .logo {
-        display: none;
-    }
+  .logo {
+    display: none;
+  }
 
-    .logoSmall {
-        display: flex;
-    }
+  .logoSmall {
+    display: flex;
+  }
 }
-
