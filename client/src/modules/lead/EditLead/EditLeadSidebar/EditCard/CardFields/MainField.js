@@ -41,7 +41,6 @@ class MainField extends Component {
               <a className={styles.mainValue}>
                 {this.props.value.name}
               </a>
-
             </h3>
             <button className={styles.buttonRename}
             onClick={this.openEditMode}>
