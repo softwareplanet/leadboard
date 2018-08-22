@@ -5,7 +5,7 @@ import {
   LOAD_LEADS,
   LOAD_LEAD,
   UPDATE_LEAD,
-  SET_EDIT_FUNNEL_ID, UPDATE_ORGANIZATION,
+  UPDATE_ORGANIZATION,
 } from "./types";
 import { GET_ERRORS } from "../../actionTypes";
 
@@ -67,7 +67,7 @@ export const loadLeads = stage => dispatch => {
 export const createLead = lead => (dispatch, getState) => {
   return axios
     .post("/api/lead", lead)
-    .then(response => {
+    .then(() => {
       dispatch(loadLeadboard(getState().auth.domainid));
     })
     .catch(error => {
