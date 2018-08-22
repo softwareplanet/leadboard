@@ -6,8 +6,7 @@ import { updateOrganization } from "../../../../leadActions";
 import SingleEditView from "./EditView/SingleEditView/SingleEditView";
 import editIcon from "../../../../../../assets/edit-icon.svg";
 import PropTypes from "prop-types";
-import isBlank from '../../../../../../utils/isBlank';
-
+import isBlank from "../../../../../../utils/isBlank";
 
 class CardField extends Component {
 
@@ -33,8 +32,9 @@ class CardField extends Component {
   };
 
   render() {
-   const { name, value } = this.props.field;
-    
+    const { name, value } = this.props.field;
+    const { isInEditMode } = this.state;
+
     let valueAdd = (
       <span className={styles.addValue}>
         <Link to=' ' onClick={(e) => {
@@ -55,19 +55,19 @@ class CardField extends Component {
     return (
       <div className={styles.customValue}>
         {
-          !this.state.isInEditMode &&
-            <div className={styles.customFieldsWrapper}>
-              <div id="fieldLabel" className={styles.customFieldLabelWrap}>
-                <span className={styles.customFieldLabel}>{name}</span>
-              </div>
-              {isBlank(value) ? valueAdd : valueShow}
-              {
-                !isBlank(value) &&
-                <button className={styles.editButton} onClick={this.openEditMode}>
-                <img className={styles.editIcon} src={editIcon} alt="Edit icon"/>
-                </button>
-              }
+          !isInEditMode &&
+          <div className={styles.customFieldsWrapper}>
+            <div id="fieldLabel" className={styles.customFieldLabelWrap}>
+              <span className={styles.customFieldLabel}>{name}</span>
             </div>
+            {isBlank(value) ? valueAdd : valueShow}
+            {
+              !isBlank(value) &&
+              <button className={styles.editButton} onClick={this.openEditMode}>
+                <img className={styles.editIcon} src={editIcon} alt="Edit icon"/>
+              </button>
+            }
+          </div>
         }
         {
           this.state.isInEditMode &&
@@ -86,7 +86,7 @@ CardField.propTypes = {
   fieldName: PropTypes.string,
   fieldValue: PropTypes.string,
   title: PropTypes.string,
-  field: PropTypes.object
+  field: PropTypes.object,
 };
 
 const mapStateToProps = () => ({});
