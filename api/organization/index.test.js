@@ -1,13 +1,11 @@
 import request from "supertest";
-
 import express from "../../express";
 import routes from "..";
-
 import { createOrganization, createUserAndDomain, dropTables } from "../../test/db-prepare";
 
 const app = () => express(routes);
 
-var cred;
+let cred;
 beforeEach(async done => {
   await dropTables();
   cred = await createUserAndDomain(app);
