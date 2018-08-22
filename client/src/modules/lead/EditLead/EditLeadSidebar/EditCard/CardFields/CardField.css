@@ -24,6 +24,7 @@ span {
 }
 
 .addValue {
+  composes: link from "../../../../../../styles/common.css";
   color: #317ae2;
   font: 600 14px/16px "Open Sans", sans-serif;
   visibility: hidden;
@@ -92,6 +93,7 @@ h3 {
 }
 
 .mainValue {
+  composes: link from "../../../../../../styles/common.css";
   display: block;
   font: 400 16px/24px "Open Sans", sans-serif;
   color: #26292c;

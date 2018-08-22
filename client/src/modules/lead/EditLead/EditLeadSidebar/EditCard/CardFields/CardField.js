@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import styles from "./CardField.css";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { updateOrganization } from "../../../../leadActions";
 import SingleEditView from "./EditView/SingleEditView/SingleEditView";
-import editIcon from "../../../../../../assets/edit-icon.svg";
 import PropTypes from "prop-types";
 import isBlank from "../../../../../../utils/isBlank";
 import EditButton from "../EditButton/EditButton";
@@ -37,19 +35,14 @@ class CardField extends Component {
     const { isInEditMode } = this.state;
 
     let valueAdd = (
-      <span className={styles.addValue}>
-        <Link to=' ' onClick={(e) => {
-          e.preventDefault();
-          this.openEditMode();
-        }}>
+      <span className={styles.addValue} onClick={this.openEditMode}>
           + Add value
-        </Link>
       </span>
     );
     let valueShow = (
       <div id="fieldValue" className={styles.customFieldValueWrap}>
         <span className={styles.customFieldValue}>
-          <span>{value}</span>
+          {value}
         </span>
       </div>
     );
@@ -73,7 +66,7 @@ class CardField extends Component {
             fieldName={name}
             fieldValue={value}
             onChange={this.handleFieldUpdate}
-            onCancel={this.closeEditMode}/>
+            onCancel={this.closeEditMode} />
         }
       </div>
     );

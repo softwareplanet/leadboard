@@ -40,9 +40,9 @@ class MainField extends Component {
             <img className={styles.icon} src={this.props.icon} alt="Icon"/>
           </span>
             <h3>
-              <a className={styles.mainValue}>
+              <span className={styles.mainValue}>
                 {name}
-              </a>
+              </span>
             </h3>
             <button className={styles.buttonRename}
             onClick={this.openEditMode}>
