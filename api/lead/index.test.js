@@ -3,13 +3,14 @@ import Stage from "../../models/stage";
 
 import express from "../../express";
 import routes from "..";
-import { dropTables, createUserAndDomain, createFunnel, createStage, createLead } from "../../test/db-prepare";
+import { dropTables, createUserAndDomain, createFunnel, createStage, createLead, createNote } from "../../test/db-prepare";
 
 const app = () => express(routes);
 
 let cred;
 let leadId;
 let stageId;
+let lead;
 beforeEach(async done => {
   await dropTables();
   cred = await createUserAndDomain(app);
@@ -61,8 +62,24 @@ describe("Lead", () => {
         name: "Updated Lead",
         order: "1"
       });
-
     expect(status).toBe(200);
     expect(body.name).toBe("Updated Lead");
+  });
+
+  it("should create note for lead", async () => {
+    const { status, body } = await request(app())
+      .post(`/api/lead/${leadId}/notes`)
+      .set("Authorization", cred.token)
+      .send({
+        user: cred.userId,
+        text: "First note"
+      });
+    expect(status).toBe(200);
+    // expect(body.notes[0].length).toBe(1);
+    // expect(body.notes[0].text).toBe("First note");
+    expect(body.notes[0]).toBeDefined();
+    expect(body.notes[0]).toMatchObject({
+      text: "First note"
+    });
   });
 });

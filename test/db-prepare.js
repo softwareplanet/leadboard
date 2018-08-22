@@ -72,7 +72,7 @@ export async function createStage(app, token, funnelId, name = "Stage",order = 1
 }
 
 export async function createLead(app, token, user, stage, domain, order, name = "Lead") {
-  return  await request(app())
+  return await request(app())
     .post("/api/lead")
     .set("Authorization", token)
     .send({ owner: user, stage: stage, order, domain, name, contact:"Test contact" })
@@ -80,5 +80,17 @@ export async function createLead(app, token, user, stage, domain, order, name = 
     .catch(error => {
       console.log("Cannon create a lead" + error);
       throw "Cannon create a lead";
+    });
+}
+
+export async function createNote(app, token, leadId, noteText, userId) {
+  return await request(app())
+    .post(`/api/lead/${leadId}/notes`)
+    .set("Authorization", token)
+    .send({noteText: noteText, user: userId})
+    .then(res => res.body)
+    .catch(error => {
+      console.log("Cannon create a note" + error);
+      throw "Cannon create a note";
     });
 }
