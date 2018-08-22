@@ -25,8 +25,8 @@ class CardField extends Component {
 
   handleFieldUpdate = (name, value) => {
     if (this.props.title === "Organization") {
-      let updatedOrganization = { ...this.props.field };
-      updatedOrganization.custom.find(customField => customField.name === name).field = value;
+      let updatedOrganization = { ...this.props.value };
+      updatedOrganization.custom.find(customField => customField.name === name).value = value;
       this.props.updateOrganization(updatedOrganization);
     }
     this.closeEditMode();
