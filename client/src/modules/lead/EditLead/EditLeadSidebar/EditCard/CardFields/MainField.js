@@ -21,7 +21,7 @@ class MainField extends Component {
 
   handleFieldUpdate = (name, value) => {
     if (this.props.title === "Organization") {
-      let updatedOrganization = {...this.props.value};
+      let updatedOrganization = {...this.props.field};
       updatedOrganization.name = value;
       this.props.updateOrganization(updatedOrganization);
     }
@@ -29,17 +29,19 @@ class MainField extends Component {
   };
 
   render() {
+    const { name } = this.props.field;
+    const { isInEditMode } = this.state;
     return (
       <div className={styles.fieldValue}>
         {
-          !this.state.isInEditMode &&
+          !isInEditMode &&
           <div className={styles.mainFieldValueWrapper}>
           <span className={styles.badge}>
-            <img className={styles.icon} src={this.props.icon}/>
+            <img className={styles.icon} src={this.props.icon} alt="Icon"/>
           </span>
             <h3>
               <a className={styles.mainValue}>
-                {this.props.value.name}
+                {name}
               </a>
             </h3>
             <button className={styles.buttonRename}
@@ -49,10 +51,10 @@ class MainField extends Component {
           </div>
         }
         {
-          this.state.isInEditMode &&
+          isInEditMode &&
           <SingleEditView
             fieldName={"Name"}
-            fieldValue={this.props.value.name}
+            fieldValue={name}
             onChange={this.handleFieldUpdate}
             onCancel={this.closeEditMode}/>
         }
@@ -64,10 +66,11 @@ class MainField extends Component {
 MainField.propTypes = {
   fieldName: PropTypes.string,
   fieldValue: PropTypes.string,
-  title: PropTypes.string
+  field: PropTypes.object,
+  title: PropTypes.string,
 };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = () => ({});
 
 export { MainField };
 

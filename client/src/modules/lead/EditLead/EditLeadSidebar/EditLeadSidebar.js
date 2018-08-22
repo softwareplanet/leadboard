@@ -40,7 +40,7 @@ const Cards = Component => props => {
 
 EditLeadSidebar.propTypes = {
   loadLead: PropTypes.func.isRequired,
-  editLead: PropTypes.object.isRequired,
+  editLead: PropTypes.object,
 };
 
 const mapStateToProps = state => ({

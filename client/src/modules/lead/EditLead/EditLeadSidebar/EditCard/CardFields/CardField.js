@@ -25,15 +25,17 @@ class CardField extends Component {
 
   handleFieldUpdate = (name, value) => {
     if (this.props.title === "Organization") {
-      let updatedOrganization = { ...this.props.value };
-      updatedOrganization.custom.find(customField => customField.name === name).value = value;
+      let updatedOrganization = { ...this.props.field };
+      updatedOrganization.custom.find(customField => customField.name === name).field = value;
       this.props.updateOrganization(updatedOrganization);
     }
     this.closeEditMode();
   };
 
   render() {
-    let addValue = (
+   const { name, value } = this.props.field;
+    
+    let valueAdd = (
       <span className={styles.addValue}>
         <Link to=' ' onClick={(e) => {
           e.preventDefault();
@@ -43,10 +45,10 @@ class CardField extends Component {
         </Link>
       </span>
     );
-    let value = (
+    let valueShow = (
       <div id="fieldValue" className={styles.customFieldValueWrap}>
         <span className={styles.customFieldValue}>
-          <span>{this.props.customFieldValue}</span>
+          <span>{value}</span>
         </span>
       </div>
     );
@@ -57,11 +59,11 @@ class CardField extends Component {
 
             <div className={styles.customFieldsWrapper}>
               <div id="fieldLabel" className={styles.customFieldLabelWrap}>
-                <span className={styles.customFieldLabel}>{this.props.customFieldName}</span>
+                <span className={styles.customFieldLabel}>{name}</span>
               </div>
-              {isBlank(this.props.customFieldValue) ? addValue : value}
+              {isBlank(value) ? valueAdd : valueShow}
               {
-                !isBlank(this.props.customFieldValue) &&
+                !isBlank(value) &&
                 <button className={styles.editButton} onClick={this.openEditMode}>
                 <img className={styles.editIcon} src={editIcon} alt="Edit icon"/>
                 </button>
@@ -71,8 +73,8 @@ class CardField extends Component {
         {
           this.state.isInEditMode &&
           <SingleEditView
-            fieldName={this.props.customFieldName}
-            fieldValue={this.props.customFieldValue}
+            fieldName={name}
+            fieldValue={value}
             onChange={this.handleFieldUpdate}
             onCancel={this.closeEditMode}/>
         }
@@ -82,13 +84,13 @@ class CardField extends Component {
 }
 
 CardField.propTypes = {
-  customFieldName: PropTypes.string,
-  customFieldValue: PropTypes.string,
+  fieldName: PropTypes.string,
+  fieldValue: PropTypes.string,
   title: PropTypes.string,
-  value: PropTypes.object
+  field: PropTypes.object
 };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = () => ({});
 
 export { CardField };
 

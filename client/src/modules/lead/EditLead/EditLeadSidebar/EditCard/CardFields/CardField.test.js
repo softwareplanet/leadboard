@@ -8,7 +8,7 @@ describe("<CardField/>", () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<CardField customFieldValue={field.value} customFieldName={field.name} />);
+    wrapper = shallow(<CardField field={field} />);
   });
 
   it("render CardField component", () => {
@@ -22,7 +22,7 @@ describe("<CardField/>", () => {
 
   it("render add value link if value is empty", () => {
     field = { name: "Phone", value: "" };
-    wrapper = shallow(<CardField customFieldValue={field.value} customFieldName={field.name} />);
+    wrapper = shallow(<CardField field={field} />);
       expect(wrapper.find("span.addValue").length).to.equal(1);
   })
 });

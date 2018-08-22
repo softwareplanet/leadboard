@@ -1,11 +1,9 @@
-
-.border{
-    border: 1px solid #e5e5e5;
+.border {
+  border: 1px solid #e5e5e5;
 }
 
 .container {
-  composes:border;
-
+  composes: border;
   display: block;
   width: 100%;
   margin-bottom: 8px;
@@ -15,8 +13,8 @@
 
 .title {
   padding: 16px 0;
-  composes:border;
-  border-width: 0px;
+  composes: border;
+  border-width: 0;
   border-bottom-width: 1px;
   margin: 0 16px;
   display: flex;
@@ -33,12 +31,12 @@
   user-select: none;
 }
 
-.editIcon{
-    height: 16px;
-    width: 16px;
+.editIcon {
+  height: 16px;
+  width: 16px;
 }
 
-.editButton{
-    composes: buttonSmall from "./CardFields/EditView/EditViewCommon.css";
-    padding: 0 4px;
+.editButton {
+  composes: buttonSmall from "./CardFields/EditView/EditViewCommon.css";
+  padding: 0 4px;
 }

@@ -31,10 +31,9 @@ class EditCard extends Component {
   render() {
     let fields = this.props.model.custom.map((field, index) =>
       <CardField key={index}
-                 customFieldValue={field.value}
-                 customFieldName={field.name}
+                 field={field}
                  value={this.props.model}
-                 title={this.props.title} />);
+                 title={this.props.title}/>);
     return (
       <div className={styles.container}>
         <div className={styles.title}>
@@ -42,12 +41,12 @@ class EditCard extends Component {
             {this.props.title}
             </span>
           <button className={styles.editButton} onClick={this.openEditMode}>
-            <img className={styles.editIcon} src={editIcon}/>
+            <img className={styles.editIcon} src={editIcon} alt="Edit icon" />
           </button>
         </div>
         {!this.state.isInEditMode &&
-        <div className={styles.fields}>
-          <MainField title={this.props.title} value={this.props.model} icon={this.props.icon}/>
+        <div>
+          <MainField title={this.props.title} field={this.props.model} icon={this.props.icon} />
           {fields}
         </div>
         }
@@ -62,7 +61,7 @@ class EditCard extends Component {
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = () => ({});
 
 export { EditCard };
 
