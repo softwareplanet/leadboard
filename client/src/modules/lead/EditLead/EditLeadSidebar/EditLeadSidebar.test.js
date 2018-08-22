@@ -37,12 +37,12 @@ describe("<EditLeadSidebar/>", () => {
     order: 5,
     contact: {
       _id: '5b7be33d41e06c0b72930acd',
-      name: 'Hu',
+      name: 'John',
       domain: '5b7a69c07e53b4214177526e',
       organization: {
         _id: '5b7be33d41e06c0b72930acb',
         domain: '5b7a69c07e53b4214177526e',
-        name: 'Apple',
+        name: 'RedDog Inc',
         __v: 0,
         timestamp: '2018-08-21T10:02:37.973Z',
         custom: [
@@ -81,7 +81,7 @@ describe("<EditLeadSidebar/>", () => {
 
   it("render EditLeadSidebar component", () => {
     wrapper = shallow(<EditLeadSidebar store={store} editLead={editLead} />);
-    expect(wrapper.length).to.equal(1);
+    expect(wrapper.exists()).to.equal(true);
   });
 
   it("render correct EditCard quantity", () => {

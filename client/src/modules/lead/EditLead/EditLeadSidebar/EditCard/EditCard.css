@@ -1,15 +1,25 @@
-.container {
+
+.border{
+  border-style: solid;
+  border-color: #e5e5e5;
+  border-width: 1px;  
+}
+
+.container { 
+  composes:border;
+  
   display: block;
   width: 100%;
   margin-bottom: 8px;
   background-color: #fff;
-  border: 1px solid #e5e5e5;
   box-sizing: border-box;
 }
 
 .title {
   padding: 16px 0;
-  border-bottom: 1px solid #e5e5e5;
+  composes:border;
+  border-width: 0px;
+  border-bottom-width: 1px;
   margin: 0 16px;
   display: flex;
   justify-content: space-between;

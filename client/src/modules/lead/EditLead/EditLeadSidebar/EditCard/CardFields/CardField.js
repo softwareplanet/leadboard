@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styles from "./CardField.css";
 import { Link } from "react-router-dom";
+import isBlank from '../../../../../../utils/isBlank';
 
 
 class CardField extends Component {
@@ -24,7 +25,7 @@ class CardField extends Component {
             <div id="fieldLabel" className={styles.customFieldLabelWrap}>
               <span className={styles.customFieldLabel}>{this.props.customFieldName}</span>
             </div>
-            {this.props.customFieldValue.length === 0 ? addValue : value}
+            {isBlank(this.props.customFieldValue) ? addValue : value}
           </div>
         </div>
       </div>

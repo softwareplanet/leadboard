@@ -9,7 +9,7 @@ describe("<EditCard/>", () => {
   let contact = {
     name: "Bob",
     organization: {
-      name: "Apple",
+      name: "red dog inc",
       custom: [
         {
           name: "Address", value: "Saint street"
@@ -21,7 +21,7 @@ describe("<EditCard/>", () => {
         name: "Phone", value: "+380974040018"
       },
       {
-        name: "Email", value: "yarik335@gmail.com"
+        name: "Email", value: "Bobdoe@gmail.com"
       }
     ]
   };
@@ -30,12 +30,12 @@ describe("<EditCard/>", () => {
 
   it("render EditCard component", () => {
     wrapper = shallow(<EditCard value={contact} />);
-    expect(wrapper.length).to.equal(1);
+    expect(wrapper.exists()).to.equal(true);
   });
 
   it("render MainField component", () => {
     wrapper = shallow(<EditCard value={contact} />);
-    expect(wrapper.find(MainField).length).to.equal(1);
+    expect(wrapper.find(MainField).exists()).to.equal(true);
   });
 
   it("render correct quantity for CardFields component for Contact", () => {
