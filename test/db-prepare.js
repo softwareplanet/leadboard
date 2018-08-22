@@ -82,15 +82,3 @@ export async function createLead(app, token, user, stage, domain, order, name = 
       throw "Cannon create a lead";
     });
 }
-
-export async function createNote(app, token, leadId, noteText, userId) {
-  return await request(app())
-    .post(`/api/lead/${leadId}/notes`)
-    .set("Authorization", token)
-    .send({noteText: noteText, user: userId})
-    .then(res => res.body)
-    .catch(error => {
-      console.log("Cannon create a note" + error);
-      throw "Cannon create a note";
-    });
-}

@@ -10,7 +10,6 @@ const app = () => express(routes);
 let cred;
 let leadId;
 let stageId;
-let lead;
 beforeEach(async done => {
   await dropTables();
   cred = await createUserAndDomain(app);
