@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styles from "./CardField.css";
 import { connect } from "react-redux";
 import { updateOrganization } from "../../../../leadActions";
-import SingleEditView from "./EditView/Single/SingleEditView";
+import SingleEditView from "./EditView/SingleEditView/SingleEditView";
 import PropTypes from "prop-types";
 
 class MainField extends Component {

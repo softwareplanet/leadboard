@@ -3,7 +3,7 @@ import styles from "./CardField.css";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { updateOrganization } from "../../../../leadActions";
-import SingleEditView from "./EditView/Single/SingleEditView";
+import SingleEditView from "./EditView/SingleEditView/SingleEditView";
 import editIcon from "../../../../../../assets/edit-icon.svg";
 import PropTypes from "prop-types";
 import isBlank from '../../../../../../utils/isBlank';

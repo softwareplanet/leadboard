@@ -3,7 +3,7 @@ import styles from "./EditCard.css";
 import CardField from "./CardFields/CardField";
 import MainField from "./CardFields/MainField";
 import editIcon from "../../../../../assets/edit-icon.svg";
-import BulkEditView from "./CardFields/EditView/Bulk/BulkEditView";
+import BulkEditView from "./CardFields/EditView/BulkEditView/BulkEditView";
 import { connect } from "react-redux";
 import { updateOrganization } from "../../../leadActions";
 
