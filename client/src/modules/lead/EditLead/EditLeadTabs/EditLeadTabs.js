@@ -32,10 +32,7 @@ class EditLeadTabs extends Component {
             <img src={takeNotesIcon} className={styles.headerItemIcon} alt="Take note icon"/>
             Take notes
           </li>
-          <li className={styles.headerItem}>
-            <img src={addActivityIcon} className={styles.headerItemIcon} alt="Add activity icon"/>
-            Add activity
-          </li>
+          <li className={styles.headerItem}></li>{/* Add activity */}
           <li className={styles.headerItem}></li>{/* Send email */}
           <li className={styles.headerItem}></li>{/* Upload files */}
           <li className={styles.headerItem}></li>{/* Close button */}
