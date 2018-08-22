@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 class EditFieldGroup extends Component {
 
-  onInputChange(e){
+  onInputChange(e) {
     this.props.onChange(e.target.name, e.target.value);
   }
 
@@ -19,7 +19,7 @@ class EditFieldGroup extends Component {
                  name={this.props.name}
                  className={styles.input}
                  defaultValue={this.props.value}
-                 onChange={(e) => this.onInputChange(e)}/>
+                 onChange={(e) => this.onInputChange(e)} />
         </div>
       </div>
     );
@@ -30,7 +30,7 @@ class EditFieldGroup extends Component {
 EditFieldGroup.propTypes = {
   name: PropTypes.string,
   value: PropTypes.string,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
 };
 
 export default EditFieldGroup;
