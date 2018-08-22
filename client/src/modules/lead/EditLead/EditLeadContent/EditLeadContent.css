@@ -1,7 +1,5 @@
 .content {
   background-color: #F7F7F7;
-  margin-top: 24px;
-  margin-bottom: 24px;
-  margin-left: 24px;
-  flex-grow: 1
+  margin:24px;
+  flex-grow: 1;
 }

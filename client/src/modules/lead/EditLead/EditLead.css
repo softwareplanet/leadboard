@@ -5,3 +5,6 @@
 .mainContainer {
   display: flex;
 }
+.scroll {
+  overflow: auto;
+}
