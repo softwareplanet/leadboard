@@ -56,7 +56,6 @@ class CardField extends Component {
       <div className={styles.customValue}>
         {
           !this.state.isInEditMode &&
-
             <div className={styles.customFieldsWrapper}>
               <div id="fieldLabel" className={styles.customFieldLabelWrap}>
                 <span className={styles.customFieldLabel}>{name}</span>
