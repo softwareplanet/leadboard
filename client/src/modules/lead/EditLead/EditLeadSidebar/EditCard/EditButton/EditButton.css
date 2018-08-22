@@ -4,6 +4,6 @@
 }
 
 .editButton {
-  composes: buttonSmall from "../CardFields/EditView/EditViewCommon.css";
+  composes: buttonSmall from "../../../../../../styles/common.css";
   padding: 0 4px;
 }

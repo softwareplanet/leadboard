@@ -7,12 +7,12 @@
 }
 
 .cancelButton {
-  composes: buttonSmall from "../EditViewCommon.css";
+  composes: buttonSmall from "../../../../../../../../styles/common.css";
 }
 
 .saveButton {
-  composes: buttonSmall from "../EditViewCommon.css";
-  composes: buttonGreen from "../EditViewCommon.css";
+  composes: buttonSmall from "../../../../../../../../styles/common.css";
+  composes: buttonGreen from "../../../../../../../../styles/common.css";
   margin-left: 4px;
 }
 

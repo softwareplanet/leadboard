@@ -5,15 +5,12 @@
   margin-top: -1px;
 }
 
-.fields {
-}
-
 .actions {
   composes: actions from "../EditViewCommon.css";
   padding: 8px 16px 16px;
 }
 
 .saveBtn {
-  composes: button from "../EditViewCommon.css";
-  composes: buttonGreen from "../EditViewCommon.css";
+  composes: button from "../../../../../../../../styles/common.css";
+  composes: buttonGreen from "../../../../../../../../styles/common.css";
 }

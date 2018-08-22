@@ -129,7 +129,7 @@ h3 {
 }
 
 .buttonRename {
-  composes: buttonSmall from "./EditView/EditViewCommon.css";
+  composes: buttonSmall from "../../../../../../styles/common.css";
   display: none;
   margin-left: auto;
   margin-right: 8px;
@@ -140,7 +140,7 @@ h3 {
 }
 
 .editButton {
-  composes: buttonSmall from "./EditView/EditViewCommon.css";
+  composes: buttonSmall from "../../../../../../styles/common.css";
   display: none;
   padding: 0 4px;
   margin-right: 8px;

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styles from "./BulkEditView.css";
-import commonStyles from "../EditViewCommon.css";
+import commonStyles from "../../../../../../../../styles/common.css";
 import EditFieldGroup from "../EditFieldGroup/EditFieldGroup";
 import PropTypes from "prop-types";
 
@@ -52,7 +52,7 @@ class BulkEditView extends Component {
 
     return (
       <div className={styles.editView}>
-        <div className={styles.fields}>
+        <div>
           {fields}
         </div>
         <div className={styles.actions}>
