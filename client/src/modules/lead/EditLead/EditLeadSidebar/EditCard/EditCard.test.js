@@ -7,7 +7,7 @@ describe("<EditCard/>", () => {
   const contact = {
     name: "Bob",
     organization: {
-      name: "Apple",
+      name: "Testing Inc",
       custom: [
         {
           name: "Address",
@@ -19,11 +19,10 @@ describe("<EditCard/>", () => {
     custom: [
       {
         name: "Phone",
-        value: "+380974040018",
+        value: "+3801234567",
       },
     ],
   };
-  const title = "Person";
   let wrapper;
 
   it("render EditCard component", () => {

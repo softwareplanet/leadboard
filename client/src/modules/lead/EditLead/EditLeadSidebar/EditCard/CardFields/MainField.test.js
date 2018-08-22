@@ -9,7 +9,7 @@ describe("<MainField/>", () => {
   const contact = {
     name: "Bob",
     organization: {
-      name: "Apple",
+      name: "Testing Inc",
     },
   };
   let wrapper;

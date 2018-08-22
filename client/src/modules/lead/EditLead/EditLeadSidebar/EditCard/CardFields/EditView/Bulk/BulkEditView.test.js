@@ -9,7 +9,7 @@ describe("<BulkEditView/>", () => {
   const contact = {
     name: "Bob",
     organization: {
-      name: "Apple",
+      name: "Testing Inc",
       custom: [
         {name: "Address", value: "25th av. 1"}
       ],
