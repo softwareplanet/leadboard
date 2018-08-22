@@ -6,6 +6,7 @@ import { updateOrganization } from "../../../../leadActions";
 import SingleEditView from "./EditView/Single/SingleEditView";
 import editIcon from "../../../../../../assets/edit-icon.svg";
 import PropTypes from "prop-types";
+import isBlank from '../../../../../../utils/isBlank';
 
 
 class CardField extends Component {
@@ -58,9 +59,9 @@ class CardField extends Component {
               <div id="fieldLabel" className={styles.customFieldLabelWrap}>
                 <span className={styles.customFieldLabel}>{this.props.customFieldName}</span>
               </div>
-              {this.props.customFieldValue.length === 0 ? addValue : value}
+              {isBlank(this.props.customFieldValue) ? addValue : value}
               {
-                this.props.customFieldValue.length !== 0 &&
+                !isBlank(this.props.customFieldValue) &&
                 <button className={styles.editButton} onClick={this.openEditMode}>
                 <img className={styles.editIcon} src={editIcon} alt="Edit icon"/>
                 </button>

@@ -15,17 +15,17 @@ describe("<MainField/>", () => {
   let wrapper;
 
   it("render MainField component", () => {
-    wrapper = shallow(<MainField value={contact}/>);
-    expect(wrapper.length).to.equal(1);
+    wrapper = shallow(<MainField value={contact} />);
+    expect(wrapper.exists()).to.equal(true);
   });
 
   it("should render correct contact name with props", () => {
-    wrapper = shallow(<MainField value={contact}/>);
+    wrapper = shallow(<MainField value={contact} />);
     expect(wrapper.find("a.mainValue").children().text()).to.equal(contact.name);
   });
 
   it("should render correct organization name with props", () => {
-    wrapper = shallow(<MainField value={contact.organization}/>);
+    wrapper = shallow(<MainField value={contact.organization} />);
     expect(wrapper.find("a.mainValue").children().text()).to.equal(contact.organization.name);
   });
 

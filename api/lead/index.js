@@ -91,7 +91,7 @@ router.get("/:id", (req, res) => {
 // @desc    Update lead by id
 // @access  Private
 router.patch("/:id", (req, res) => {
-  Lead.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
+  Lead.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
     .populate({ path: "contact", populate: { path: "organization" } })
     .populate("owner")
     .populate("stage")
