@@ -18,22 +18,6 @@ router.get("/:id", (req, res) => {
     });
 });
 
-// @route   GET api/organization
-// @desc    Get all organizations domain id and part of name
-// @access  Private
-router.get("/domain/:domain", (req, res) => {
-  Organisation.find({
-    name: new RegExp(req.query.name, "i"),
-    domain: req.params.domain,
-  })
-    .then(organizations => {
-      res.status(200).json(organizations);
-    })
-    .catch(error => {
-      res.status(400).json({ errors: { message: error } });
-    });
-});
-
 // @route   POST api/organization
 // @desc    Create organization
 // @access  Private
@@ -49,14 +33,14 @@ router.post("/", (req, res) => {
 
   Organisation.create(organization)
     .then(org => {
-      res.status(200).json(org._id);
+      res.status(200).json(org);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });
     });
 });
 
-// @route   PATCH api/organization
+// @route   PATCH api/organization/:id
 // @desc    Update organization
 // @access  Private
 router.patch("/:id", (req, res) => {
@@ -71,8 +55,6 @@ router.patch("/:id", (req, res) => {
       res.status(200).json(org);
     })
     .catch(error => {
-      console.log(error);
-
       res.status(400).json({ errors: { message: error } });
     });
 });
