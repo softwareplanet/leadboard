@@ -45,15 +45,15 @@ class AddLead extends React.Component {
       organizations: [],
 
       titleChanged: false,
+      showPlaceholder: false,
+      titlePlaceholder: "",
       validationIsShown: false,
       modalIsOpen: false
     };
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-
     this.selectStageHandler = this.selectStageHandler.bind(this);
-    this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
@@ -86,22 +86,16 @@ class AddLead extends React.Component {
       afterSelectShowBadge: true,
       showBadge: false,
       titleChanged: false,
+      titlePlaceholder: "",
+      showPlaceholder: false
     });
   }
 
-  onChange = (event) => {
-    let newState = { ...this.state };
-    newState[event.target.name] = event.target.value;
-    this.setState({
-      [event.target.name]: event.target.value,
-      errors: this.validateLead(newState)
-    });
-  };
-
   onTitleChange = (event) => {
     this.setState({
-      titleChanged: this.state.name !== event.target.value,
-      name: event.target.value
+      titleChanged: this.state.name.length,
+      name: event.target.value,
+      showPlaceholder: false
     })
   };
 
@@ -122,9 +116,8 @@ class AddLead extends React.Component {
         id,
         name: value
       },
-      name: this.state.name.length > 0 && this.state.titleChanged ?
-        this.state.name : value.length > 0
-          ? `${value} lead` : "",
+      name: !this.state.titleChanged ?
+        `${value} lead` : `${this.state.name}`,
       openDropdown: false,
       showBadge: false,
       afterSelectShowBadge: false
@@ -134,11 +127,11 @@ class AddLead extends React.Component {
   onAutocompleteBlur = (event) => {
     event.target.parentNode.parentNode.setAttribute("style", "border: 1px solid #cbcccd");
     this.setState({
-      name: this.state.name.length > 0 && this.state.titleChanged ?
-        this.state.name : this.state.organization.name.length > 0
-          ? `${this.state.organization.name} lead` : "",
+      name: !this.state.titleChanged && this.state.organization.name.length > 0 ?
+         `${this.state.organization.name} lead` : `${this.state.name}`,
       openDropdown: false,
-      showBadge: this.state.organization.name.length > 0 && this.state.afterSelectShowBadge
+      showBadge: this.state.organization.name.length > 0 && this.state.afterSelectShowBadge,
+      titlePlaceholder: this.state.organization.name.length ? `${this.state.organization.name} lead` : ""
     });
   };
 
@@ -242,10 +235,11 @@ class AddLead extends React.Component {
             <label className={styles.inputLabel}>Lead title</label>
             <div className={validationIsShown && errors.name ? styles.invalidContainer : styles.inputContainer}>
               <input
+                placeholder={this.state.titlePlaceholder}
                 name="name"
                 type="text"
                 className={styles.formInput}
-                value={this.state.name}
+                value={this.state.showPlaceholder ? "" : this.state.name}
                 onChange={this.onTitleChange}
                 onFocus={this.onFocus}
                 onBlur={this.onBlur}
