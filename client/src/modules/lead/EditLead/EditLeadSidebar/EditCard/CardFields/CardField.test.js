@@ -2,8 +2,6 @@ import React from "react";
 import { CardField } from "./CardField";
 import { expect } from "chai";
 import { shallow } from "enzyme";
-import { Link } from "react-router-dom";
-
 
 describe("<CardField/>", () => {
   let field = { name: "Phone", value: "+380930527927" };
@@ -19,7 +17,7 @@ describe("<CardField/>", () => {
 
   it("render correct props", () => {
     expect(wrapper.find("span.customFieldLabel").text()).to.equal(field.name);
-    expect(wrapper.find("span.customFieldValue").find("Link").children().text()).to.equal(field.value);
+    expect(wrapper.find("span.customFieldValue").text()).to.equal(field.value);
   });
 
   it("render add value link if value is empty", () => {

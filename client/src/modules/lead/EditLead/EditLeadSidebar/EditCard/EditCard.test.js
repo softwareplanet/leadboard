@@ -1,5 +1,5 @@
 import React from "react";
-import EditCard from "./EditCard";
+import { EditCard } from "./EditCard";
 import { expect } from "chai";
 import { shallow } from "enzyme";
 import CardField from "./CardFields/CardField";
@@ -29,23 +29,23 @@ describe("<EditCard/>", () => {
   let wrapper;
 
   it("render EditCard component", () => {
-    wrapper = shallow(<EditCard value={contact} />);
+    wrapper = shallow(<EditCard model={contact} />);
     expect(wrapper.exists()).to.equal(true);
   });
 
   it("render MainField component", () => {
-    wrapper = shallow(<EditCard value={contact} />);
+    wrapper = shallow(<EditCard model={contact} />);
     expect(wrapper.find(MainField).exists()).to.equal(true);
   });
 
   it("render correct quantity for CardFields component for Contact", () => {
-    wrapper = shallow(<EditCard value={contact} />);
+    wrapper = shallow(<EditCard model={contact} />);
     wrapper.update();
     expect(wrapper.find(CardField).length).to.equal(2);
   });
 
   it("render correct quantity for CardFields component for Organization", () => {
-    wrapper = shallow(<EditCard value={contact.organization} />);
+    wrapper = shallow(<EditCard model={contact.organization} />);
     wrapper.update();
     expect(wrapper.find(CardField).length).to.equal(1);
   });
