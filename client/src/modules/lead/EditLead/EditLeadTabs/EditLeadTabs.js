@@ -3,6 +3,7 @@ import styles from "./EditLeadTabs.css";
 import addActivityIcon from "../../../../assets/add-activity.svg";
 import takeNotesIcon from "../../../../assets/take-notes.svg";
 import { connect } from "react-redux";
+import { updateLead } from "../../leadActions";
 import EditLeadEditor from "./EditLeadEditor/EditLeadEditor";
 
 class EditLeadTabs extends Component {
@@ -12,6 +13,16 @@ class EditLeadTabs extends Component {
       note: e.target.value,
     });
   };
+
+  onNoteSave = noteText => {
+    let note = {
+      text: noteText,
+      user: this.props.userId,
+    }
+    let lead = {...this.props.editLead}
+    lead.notes.push(note);
+    this.props.updateLead(lead)
+  }
 
   render() {
     return (
@@ -29,14 +40,15 @@ class EditLeadTabs extends Component {
           <li className={styles.headerItem}></li>{/* Upload files */}
           <li className={styles.headerItem}></li>{/* Close button */}
         </ul>
-        <EditLeadEditor />
+        <EditLeadEditor onSave={this.onNoteSave}/>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  editLead: state.leads.editLead
+  editLead: state.leads.editLead,
+  userId: state.auth.userid
 })
 
-export default connect(mapStateToProps)(EditLeadTabs)
+export default connect(mapStateToProps, { updateLead })(EditLeadTabs)
