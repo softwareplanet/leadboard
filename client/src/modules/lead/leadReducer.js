@@ -1,53 +1,47 @@
-import {
-  LOAD_LEADBOARD,
-  LOAD_STAGES,
-  LOAD_LEADS,
-  LOAD_LEAD,
-  UPDATE_LEAD,
-  UPDATE_ORGANIZATION,
-} from "./types";
+import { LOAD_LEAD, LOAD_LEADBOARD, LOAD_LEADS, LOAD_STAGES, UPDATE_LEAD, UPDATE_ORGANIZATION } from "./types";
 
 const initialState = {
   funnels: [],
   stages: [],
-  leads: {}
+  leads: {},
 };
 export default function(state = initialState, action) {
   switch (action.type) {
     case LOAD_LEADBOARD:
       return {
         ...state,
-        funnels: action.payload
+        funnels: action.payload,
       };
     case LOAD_STAGES:
       return {
         ...state,
-        stages: action.payload
+        stages: action.payload,
       };
     case LOAD_LEADS:
       let leads = Object.assign({}, state.leads);
       leads["_" + action.stage] = { leads: action.payload };
       return {
         ...state,
-        leads: leads
+        leads: leads,
       };
 
     case LOAD_LEAD:
       return {
         ...state,
-        editLead: action.payload
+        editLead: action.payload,
       };
     case UPDATE_LEAD:
       return {
         ...state,
-        editLead: action.payload
+        editLead: action.payload,
       };
     case UPDATE_ORGANIZATION:
-      let updatedLead = {...state.editLead};
+      let updatedLead = { ...state.editLead };
+      updatedLead.contact = { ...state.editLead.contact };
       updatedLead.contact.organization = action.payload;
       return {
         ...state,
-        editLead: updatedLead
+        editLead: updatedLead,
       };
     default:
       return state;
