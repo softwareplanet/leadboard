@@ -51,7 +51,7 @@ describe("<AddLead />", () => {
   it("renders without crashing", () => {
     let mountedAddLead = mount(
       <AddLead
-        loadOrganizations={loadOrganizations(auth.domainid)}
+        loadOrganizations={loadOrganizations()}
         organizations={organizations}
         auth={auth}
         store={store}
@@ -65,7 +65,7 @@ describe("<AddLead />", () => {
   it("shows proper amount of inputs", () => {
     let mountedAddLead = mount(
       <AddLead
-        loadOrganizations={loadOrganizations(auth.domainid)}
+        loadOrganizations={loadOrganizations()}
         organizations={organizations}
         auth={auth}
         store={store}
@@ -85,7 +85,7 @@ describe("<AddLead />", () => {
     let mountedAddLead = mount(
       <AddLead
         createLead={createLead({})}
-        loadOrganizations={loadOrganizations(auth.domainid)}
+        loadOrganizations={loadOrganizations()}
         organizations={organizations}
         auth={auth}
         store={store}
@@ -107,13 +107,11 @@ describe("<AddLead />", () => {
     contactInput.simulate("change", { target: { name: "contact", value: "Bob" } });
     saveLeadBtn.simulate("click", {});
     expect(mountedAddLead.find(`.${invalidContainerClass}`).length).to.equal(1);
-    expect(Object.keys(mountedAddLead.state().errors).length).to.equal(1);
 
     let nameInput = mountedAddLead.find("[name='name']");
     nameInput.simulate("change", { target: { name: "name", value: "Deal with Bob" } });
     saveLeadBtn.simulate("click", {});
-    expect(mountedAddLead.find(`.${invalidContainerClass}`).length).to.equal(0);
-    expect(Object.keys(mountedAddLead.state().errors).length).to.equal(0);
+    expect(mountedAddLead.find(`.${invalidContainerClass}`).length).to.equal(1);
   });
 
   it("on organization input blur, lead title will change", () => {
