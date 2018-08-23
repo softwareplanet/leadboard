@@ -28,13 +28,13 @@ class EditLeadTabs extends Component {
     this.setState({ activeTab: null })
   }
 
-  getCondition = (component) => {
+  isActive = (component) => {
     return (this.state.activeTab ? this.state.activeTab.type : null) === component 
       || this.state.activeTab === null;
   }
 
   render() {
-    let takeNotesCondition = this.getCondition(EditLeadEditor);
+    let takeNotesCondition = this.isActive(EditLeadEditor);
     return (
       <div className={styles.tabs}>
         <ul className={styles.header}>
