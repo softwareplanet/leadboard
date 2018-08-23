@@ -1,5 +1,5 @@
 import React from "react";
-import { CardField } from "./CardField";
+import CardField from "./CardField";
 import { expect } from "chai";
 import { shallow } from "enzyme";
 

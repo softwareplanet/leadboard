@@ -1,7 +1,7 @@
 import "jsdom-global/register";
 import React from "react";
 import { expect } from "chai";
-import { shallow } from "enzyme";
+import { mount, shallow } from "enzyme";
 import EditLeadSidebar from "./EditLeadSidebar";
 import configureStore from "redux-mock-store";
 
@@ -60,8 +60,8 @@ describe("<EditLeadSidebar/>", () => {
   });
 
   it("render correct EditCard quantity", () => {
-    wrapper = shallow(<EditLeadSidebar store={store} editLead={editLead} />);
+    wrapper = mount(<EditLeadSidebar store={store} editLead={editLead} />);
     wrapper.update();
-    expect(wrapper.find("EditLead").length).to.equal(2);
+    expect(wrapper.find("EditCard").length).to.equal(2);
   });
 });

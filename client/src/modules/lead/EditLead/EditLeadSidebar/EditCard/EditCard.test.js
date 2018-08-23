@@ -1,5 +1,5 @@
 import React from "react";
-import { EditCard } from "./EditCard";
+import EditCard from "./EditCard";
 import { expect } from "chai";
 import { shallow } from "enzyme";
 import CardField from "./CardFields/CardField";

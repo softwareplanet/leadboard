@@ -1,8 +1,8 @@
 import "jsdom-global/register";
 import React from "react";
-import { MainField } from "./MainField";
+import MainField from "./MainField";
 import { expect } from "chai";
-import { mount, shallow } from "enzyme";
+import { shallow } from "enzyme";
 import sinon from "sinon";
 
 describe("<MainField/>", () => {
@@ -15,22 +15,22 @@ describe("<MainField/>", () => {
   let wrapper;
 
   it("render MainField component", () => {
-    wrapper = shallow(<MainField value={contact} />);
+    wrapper = shallow(<MainField value={contact.name} />);
     expect(wrapper.exists()).to.equal(true);
   });
 
   it("should render correct contact name with props", () => {
-    wrapper = shallow(<MainField value={contact} />);
+    wrapper = shallow(<MainField value={contact.name} />);
     expect(wrapper.find("span.mainValue").children().text()).to.equal(contact.name);
   });
 
   it("should render correct organization name with props", () => {
-    wrapper = shallow(<MainField value={contact.organization} />);
+    wrapper = shallow(<MainField value={contact.organization.name} />);
     expect(wrapper.find("span.mainValue").children().text()).to.equal(contact.organization.name);
   });
 
   it("should switch to edit view on click Rename", () => {
-    wrapper = mount(<MainField value={contact.organization} />);
+    wrapper = shallow(<MainField value={contact.organization.name} />);
     const buttonRename = wrapper.find(".buttonRename");
     buttonRename.simulate("click");
     expect(wrapper.state().isInEditMode).to.equal(true);
@@ -38,8 +38,8 @@ describe("<MainField/>", () => {
 
   it("should handle name change properly", () => {
     const spy = sinon.spy();
-    wrapper = shallow(<MainField value={contact.organization} updateOrganization={spy} />);
-    const buttonRename = wrapper.find(".buttonRename");
+    wrapper = shallow(<MainField value={contact.organization.name} onUpdate={spy} />);
+    const buttonRename = wrapper.find("button.buttonRename");
     buttonRename.simulate("click");
     expect(wrapper.state().isInEditMode).to.equal(true);
 
@@ -49,3 +49,4 @@ describe("<MainField/>", () => {
   });
 
 });
+
