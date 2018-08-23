@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import styles from "./CardField.css";
-import { connect } from "react-redux";
-import { updateOrganization } from "../../../../leadActions";
 import SingleEditView from "./EditView/SingleEditView/SingleEditView";
 import PropTypes from "prop-types";
 import isBlank from "../../../../../../utils/isBlank";
@@ -19,15 +17,6 @@ class CardField extends Component {
 
   closeEditMode = () => {
     this.setState({ isInEditMode: false });
-  };
-
-  handleFieldUpdate = (name, value) => {
-    if (this.props.title === "Organization") {
-      let updatedOrganization = { ...this.props.value };
-      updatedOrganization.custom.find(customField => customField.name === name).value = value;
-      this.props.updateOrganization(updatedOrganization);
-    }
-    this.closeEditMode();
   };
 
   render() {
@@ -65,7 +54,7 @@ class CardField extends Component {
           <SingleEditView
             fieldName={name}
             fieldValue={value}
-            onChange={this.handleFieldUpdate}
+            onChange={this.props.onUpdate}
             onCancel={this.closeEditMode} />
         }
       </div>
@@ -74,14 +63,8 @@ class CardField extends Component {
 }
 
 CardField.propTypes = {
-  fieldName: PropTypes.string,
-  fieldValue: PropTypes.string,
-  title: PropTypes.string,
   field: PropTypes.object,
+  onUpdate: PropTypes.func,
 };
 
-const mapStateToProps = () => ({});
-
-export { CardField };
-
-export default connect(mapStateToProps, { updateOrganization })(CardField);
+export default CardField;

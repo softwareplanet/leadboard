@@ -3,8 +3,6 @@ import styles from "./EditCard.css";
 import CardField from "./CardFields/CardField";
 import MainField from "./CardFields/MainField";
 import BulkEditView from "./CardFields/EditView/BulkEditView/BulkEditView";
-import { connect } from "react-redux";
-import { updateOrganization } from "../../../leadActions";
 import EditButton from "./EditButton/EditButton";
 
 class EditCard extends Component {
@@ -21,19 +19,29 @@ class EditCard extends Component {
     this.setState({ isInEditMode: false });
   };
 
-  updateEntity = entity => {
-    if (this.props.title === "Organization") {
-      this.props.updateOrganization(entity);
-    }
+  updateModel = model => {
+    this.props.onUpdate(model);
     this.closeEditMode();
+  };
+
+  handleMainFieldUpdate = (newValue) => {
+    let updatedModel = { ...this.props.model };
+    updatedModel.name = newValue;
+    this.updateModel(updatedModel);
+  };
+
+  handleCustomFieldUpdate = (name, value) => {
+    let updatedModel = { ...this.props.model };
+    updatedModel.custom = [...this.props.model.custom];
+    updatedModel.custom.find(customField => customField.name === name).value = value;
+    this.updateModel(updatedModel);
   };
 
   render() {
     let fields = this.props.model.custom.map((field, index) =>
       <CardField key={index}
                  field={field}
-                 value={this.props.model}
-                 title={this.props.title} />);
+                 onUpdate={this.handleCustomFieldUpdate} />);
     return (
       <div className={styles.container}>
         <div className={styles.title}>
@@ -44,7 +52,10 @@ class EditCard extends Component {
         </div>
         {!this.state.isInEditMode &&
         <div>
-          <MainField title={this.props.title} field={this.props.model} icon={this.props.icon} />
+          <MainField title={this.props.title}
+                     value={this.props.model.name}
+                     icon={this.props.icon}
+                     onUpdate={this.handleMainFieldUpdate} />
           {fields}
         </div>
         }
@@ -52,16 +63,13 @@ class EditCard extends Component {
           this.state.isInEditMode &&
           <BulkEditView model={this.props.model}
                         onCancel={this.closeEditMode}
-                        onChange={(entity) => this.updateEntity(entity)} />
+                        onChange={this.updateModel} />
         }
       </div>
     );
   }
 }
 
-const mapStateToProps = () => ({});
+export default EditCard;
 
-export { EditCard };
-
-export default connect(mapStateToProps, { updateOrganization })(EditCard);
 

@@ -15,6 +15,8 @@ class SingleEditView extends Component {
 
   onSaveClicked() {
     this.props.onChange(this.props.fieldName, this.state.updatedValue);
+    //Calling cancel to close edit mode on parent
+    this.props.onCancel();
   };
 
   render() {

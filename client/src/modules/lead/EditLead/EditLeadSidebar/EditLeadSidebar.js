@@ -24,7 +24,8 @@ class EditLeadSidebar extends Component {
           <EditCard
             model={organization}
             title={"Organization"}
-            icon={organizationIcon} />;
+            icon={organizationIcon}
+            onUpdate={this.props.updateOrganization} />;
         cards = <div>{organizationCard}{contactCard}</div>;
         if (_.isEmpty(contact.name)) {
           cards = <div>{organizationCard}</div>;

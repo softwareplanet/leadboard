@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import styles from "./CardField.css";
-import { connect } from "react-redux";
-import { updateOrganization } from "../../../../leadActions";
 import SingleEditView from "./EditView/SingleEditView/SingleEditView";
 import PropTypes from "prop-types";
 
@@ -19,17 +17,13 @@ class MainField extends Component {
     this.setState({ isInEditMode: false });
   };
 
-  handleFieldUpdate = (name, value) => {
-    if (this.props.title === "Organization") {
-      let updatedOrganization = {...this.props.field};
-      updatedOrganization.name = value;
-      this.props.updateOrganization(updatedOrganization);
-    }
+  handleNameUpdate = (name, value) => {
+    this.props.onUpdate(value);
     this.closeEditMode();
   };
 
   render() {
-    const { name } = this.props.field;
+    const name = this.props.value;
     const { isInEditMode } = this.state;
     return (
       <div className={styles.fieldValue}>
@@ -37,7 +31,7 @@ class MainField extends Component {
           !isInEditMode &&
           <div className={styles.mainFieldValueWrapper}>
           <span className={styles.badge}>
-            <img className={styles.icon} src={this.props.icon} alt="Icon"/>
+            <img className={styles.icon} src={this.props.icon} alt="Icon" />
           </span>
             <h3>
               <span className={styles.mainValue}>
@@ -45,7 +39,7 @@ class MainField extends Component {
               </span>
             </h3>
             <button className={styles.buttonRename}
-            onClick={this.openEditMode}>
+                    onClick={this.openEditMode}>
               Rename
             </button>
           </div>
@@ -55,8 +49,8 @@ class MainField extends Component {
           <SingleEditView
             fieldName={"Name"}
             fieldValue={name}
-            onChange={this.handleFieldUpdate}
-            onCancel={this.closeEditMode}/>
+            onChange={this.handleNameUpdate}
+            onCancel={this.closeEditMode} />
         }
       </div>
     );
@@ -64,14 +58,11 @@ class MainField extends Component {
 }
 
 MainField.propTypes = {
-  fieldName: PropTypes.string,
-  fieldValue: PropTypes.string,
-  field: PropTypes.object,
   title: PropTypes.string,
+  value: PropTypes.string,
+  icon: PropTypes.string,
+  onUpdate: PropTypes.func,
 };
 
-const mapStateToProps = () => ({});
+export default MainField;
 
-export { MainField };
-
-export default connect(mapStateToProps, { updateOrganization })(MainField);
