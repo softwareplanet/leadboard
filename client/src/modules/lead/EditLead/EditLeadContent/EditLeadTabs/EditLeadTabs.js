@@ -4,7 +4,7 @@ import styles from "./EditLeadTabs.css";
 import takeNotesIcon from "../../../../../assets/take-notes/take-notes.svg"
 import takeNotesIconActive from "../../../../../assets/take-notes/take-notes-active.svg"
 import addActivitiIcon from "../../../../../assets/add-activity/add-activity.svg"
-import addActivitiIconActive from "../../../../../assets/add-activity/add-activity.svg"
+import addActivitiIconActive from "../../../../../assets/add-activity/add-activity-active.svg"
 
 export default class EditLeadTabs extends Component {
   state = {
