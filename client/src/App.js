@@ -15,6 +15,7 @@ import Registration from "./modules/auth/Registration/Registration";
 import "./App.css";
 import { Switch } from "react-router-dom";
 import EditLead from "./modules/lead/EditLead/EditLead";
+import AddActivity from "./modules/lead/EditLead/AddActivity/AddActivity";
 
 // restore redux/storage on page reload
 if (localStorage.jwtToken) {
@@ -52,6 +53,7 @@ class App extends Component {
             </Switch>
             <Route exact path="/" component={store.getState().auth.isAuthenticated ? Home: Login}/>
             <Route exact path="/register" component={store.getState().auth.isAuthenticated ? Home: Registration}/>
+            <Route exact path="/test" component={AddActivity}/>
             <Footer/>
           </div>
         </Router>

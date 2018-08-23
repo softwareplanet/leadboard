@@ -1,34 +1,38 @@
 import React, { Component } from "react";
 import { Button, ButtonGroup } from 'reactstrap';
 import style from "./AddActivity.css";
+import phoneIcon from "../../../../assets/add-activity/phone.svg"
 
 
 export default class AddActivity extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      activeTab: "call"
+    }
+  }
 
   render() {
-    return (
+        return (
       <form className={style.activityForm}>
-        <div className={style.typeButtons}>
-          <ButtonGroup>
-            <Button className={style.typeButton}>Call</Button>
-            <Button className={style.typeButton}>Meeting</Button>
-            <Button className={style.typeButton}>Task</Button>
-            <Button className={style.typeButton}>Deadline</Button>
-            <Button className={style.typeButton}>Email</Button>
-            <Button className={style.typeButton}>Lunch</Button>
+        <div className={style.typeButtonsContainer}>
+          <ButtonGroup className={style.typeButtons}>
+            <button className={style.typeButtonActive}>
+              <img className={style.iconImg} src={phoneIcon} alt="phone" />
+              Call</button>
+            <button className={style.typeButton}>Meeting</button>
+            <button className={style.typeButton}>Task</button>
+            <button className={style.typeButton}>Deadline</button>
+            <button className={style.typeButton}>Email</button>
+            <button className={style.typeButton}>Lunch</button>
           </ButtonGroup>
         </div>
-        <input className={style.input} type="text"/>
-        <div className="dateInputs">
-
-        </div>
-        <label>ASSIGNED TO</label>
-        <input type="text"/>
-        <div>
-          <label>LINKED TO</label>
-          <input className={style.input} type="text" placeholder="Deal"/>
-          <input className={style.input} type="text" placeholder="People"/>
-          <input className={style.input} type="text" placeholder="Organization"/>
+        <input className={style.typeInput} type="text"/>
+        <div className={style.dateInputs}>
+          <input className={style.dateInput} type="date"/>
+          <input className={style.dateInput} type="text"/>
+          <input className={style.dateInput} type="text"/>
         </div>
       </form>
     );
