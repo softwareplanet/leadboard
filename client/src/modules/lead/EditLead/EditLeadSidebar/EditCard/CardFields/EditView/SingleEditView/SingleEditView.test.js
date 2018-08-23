@@ -4,6 +4,7 @@ import SingleEditView from "./SingleEditView";
 import { expect } from "chai";
 import { shallow } from "enzyme";
 import sinon from "sinon";
+import { noop } from "lodash";
 
 describe("<SingleEditView/>", () => {
   const contact = {
@@ -18,8 +19,7 @@ describe("<SingleEditView/>", () => {
     wrapper = shallow(<SingleEditView
       fieldName={"Name"}
       fieldValue={contact.organization.name}
-      onCancel={() => {
-      }}/>);
+      onCancel={noop} />);
     expect(wrapper.length).to.equal(1);
   });
 
@@ -40,8 +40,7 @@ describe("<SingleEditView/>", () => {
       fieldName={"Name"}
       fieldValue={contact.organization.name}
       onChange={spy}
-      onCancel={() => {
-      }}/>,
+      onCancel={noop} />,
     );
     const inputGroup = wrapper.find("EditFieldGroup");
     inputGroup.simulate("change");
