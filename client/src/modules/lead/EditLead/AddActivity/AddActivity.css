@@ -1,0 +1,39 @@
+.activityForm {
+  padding: 16px;
+  max-width: 537px;
+  background-color: #ffffff;
+}
+
+.typeButtons {
+  width: 100%;
+  border-color: ;
+  padding-bottom: 15px;
+}
+
+.typeButton {
+  background-color: #ffffff;
+  color: #26292c;
+}
+
+.input {
+  border: 1px solid #cbcccd;
+  padding: 0 8px;
+  font-size: 14px;
+  line-height: 28px;
+  color: #26292c;
+  margin: 0;
+  width: 100%;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 3px
+}
+
+.input:focus {
+  outline: 0;
+}
+
+.invalidInput {
+  composes: input;
+  border-color: #e84646;
+}
