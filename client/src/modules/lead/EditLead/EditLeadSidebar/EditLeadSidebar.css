@@ -2,4 +2,12 @@
   flex-grow: 1;
   min-width: 380px;
   max-width: 380px;
+  margin: 24px 0px 24px 24px;
+}
+
+@media (max-width: 1440px){
+  .sidebar {
+    margin-left: 0px;
+    width: 380px;
+  }
 }
