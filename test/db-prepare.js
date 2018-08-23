@@ -18,7 +18,7 @@ export async function dropTables() {
 }
 
 export async function createUserAndDomain(app, company = "Acme Corp.", email = "johnsmith@example.com") {
-  const registration = await request(app())
+  await request(app())
     .post("/api/register")
     .send({
       firstname: "John",
@@ -87,7 +87,7 @@ export async function createOrganization(app, token, domain, name = "Organizatio
   const { body } = await request(app())
     .post("/api/organization")
     .set("Authorization", token)
-    .send({ name, domain })
+    .send({ name, domain, custom: [] })
     .catch(error => {
       console.log("Cannon create a organization" + error);
       throw "Cannon create a organization";

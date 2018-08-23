@@ -1,7 +1,7 @@
 import { Router } from "express";
 import mongoose from "mongoose";
 import Organisation from "../../models/organization";
-import { validateOrganizationInput, validateOrganizationUpdate } from "../../validation/organization";
+import { validateOrganizationCreation, validateOrganizationUpdate } from "../../validation/organization";
 
 const router = new Router;
 
@@ -22,7 +22,7 @@ router.get("/:id", (req, res) => {
 // @desc    Create organization
 // @access  Private
 router.post("/", (req, res) => {
-  const { hasErrors, errors } = validateOrganizationInput(req.body);
+  const { hasErrors, errors } = validateOrganizationCreation(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 
   const organization = new Organisation({

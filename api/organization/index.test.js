@@ -17,7 +17,7 @@ describe("Organization", function() {
     const { status, body } = await request(app())
       .post("/api/organization")
       .set("Authorization", cred.token)
-      .send({ domain: cred.domainId, name: "EpicSoftware" });
+      .send({ domain: cred.domainId, name: "EpicSoftware", custom: [] });
 
     expect(status).toBe(200);
     expect(typeof body._id).toBe("string");

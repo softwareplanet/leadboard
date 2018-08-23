@@ -1,47 +1,35 @@
 import isEmpty from "lodash.isempty";
 
-export function validateOrganizationInput(data) {
+export function validateOrganizationCreation(data) {
   let errors = {};
 
   if (isEmpty(data.name)) errors.name = "Name cannot be empty";
   if (isEmpty(data.domain)) errors.domain = "Domain cannot be empty";
-  if (data.custom && data.custom.length > 0) {
-    errors.custom = [];
-    for (let customField of data.custom) {
-      if (isEmpty(customField.value)) {
-        errors.custom[customField.name] = `${customField.name} cannot be empty`;
-      }
-    }
-    if (errors.custom.length === 0) {
-      errors.remove("custom");
+  if (!("custom" in data)) {
+    errors.custom = "Custom must be present";
+  } else {
+    if (typeof data.custom !== "object") {
+      errors.custom = "Custom must be an array";
     }
   }
 
   return {
     errors,
-    hasErrors: !isEmpty(errors)
+    hasErrors: !isEmpty(errors),
   };
 }
 
 export function validateOrganizationUpdate(data) {
   let errors = {};
 
-  if (data.name && isEmpty(data.name)) errors.name = "Name cannot be empty";
-  if (data.domain && isEmpty(data.domain)) errors.domain = "Domain cannot be empty";
-  if (data.custom && data.custom.length > 0) {
-    errors.custom = [];
-    for (let customField of data.custom) {
-      if (isEmpty(customField.value)) {
-        errors.custom[customField.name] = `${customField.name} cannot be empty`;
-      }
-    }
-    if (errors.custom.length === 0) {
-      delete errors.custom;
-    }
+  if ("name" in data && isEmpty(data.name)) errors.name = "Name cannot be empty";
+  if ("domain" in data && isEmpty(data.domain)) errors.domain = "Domain cannot be empty";
+  if ("custom" in data && typeof data.custom !== "object") {
+    errors.custom = "Custom must be an array";
   }
 
   return {
     errors,
-    hasErrors: !isEmpty(errors)
+    hasErrors: !isEmpty(errors),
   };
 }
