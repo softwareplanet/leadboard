@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Navbar from "../../layouts/Navbar/Navbar";
 import EditLeadHeader from "./EditLeadHeader/EditLeadHeader";
 import EditLeadSidebar from "./EditLeadSidebar/EditLeadSidebar";
+
 import EditLeadContent from "./EditLeadContent/EditLeadContent";
 
 export default class EditLead extends Component {
