@@ -29,14 +29,6 @@ export default class EditLeadTabs extends Component {
             />
             Take notes
           </li>
-          <li className={styles.headerItem} onClick={() => this.tabHandler("<AddActivity />")}>
-            <img
-              src={addActivityCondition ? addActivitiIconActive : addActivitiIcon}
-              className={styles.headerItemIcon}
-              alt="add activity icon"
-            />
-            Add activity
-          </li>
         </ul>
         {this.state.activeTab ? (
           <div className={styles.content}>{this.state.activeTab}</div>
