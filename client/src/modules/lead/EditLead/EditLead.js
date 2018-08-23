@@ -2,23 +2,25 @@ import React, { Component } from "react";
 import Navbar from "../../layouts/Navbar/Navbar";
 import EditLeadHeader from "./EditLeadHeader/EditLeadHeader";
 import EditLeadSidebar from "./EditLeadSidebar/EditLeadSidebar";
-import EditLeadActivity from "./EditLeadAcitivity/EditLeadActivity";
-
-const displayFlex = {
-  display: "flex"
-};
+import EditLeadContent from "./EditLeadContent/EditLeadContent";
+import styles from "./EditLead.css";
 
 export default class EditLead extends Component {
   render() {
+
+    const displayFlex = {
+      display: "flex"
+    };
+
     return (
       <div>
-        <Navbar />
-        <div style={displayFlex}>
+       <Navbar />
+        <div className={styles.headerContainer}>
           <EditLeadHeader match={this.props.match} />
         </div>
         <div style={displayFlex}>
           <EditLeadSidebar />
-          <EditLeadActivity />
+          <EditLeadContent />
         </div>
       </div>
     );
