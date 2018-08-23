@@ -23,10 +23,6 @@
   margin: 0;
 }
 
-.textArea:focus{
-  outline: none;
-}
-
 .button {
   background: #fff;
   border: 0;

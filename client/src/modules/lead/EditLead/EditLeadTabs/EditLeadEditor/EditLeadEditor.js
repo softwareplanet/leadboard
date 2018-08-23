@@ -19,10 +19,17 @@ export default class EditLeadEditor extends Component {
   }
 
   onSave = () => {
-    if (!isBlank(this.state.noteText)){
+    if (!isBlank(this.state.noteText)) {
       this.props.onSave(this.state.noteText);
       this.clearEditor();
     }
+  }
+
+  clearEditor = () => {
+    this.setState({
+      ...this.state,
+      noteText: ""
+    })
   }
 
   render() {
@@ -37,12 +44,5 @@ export default class EditLeadEditor extends Component {
         </div>
       </div>
     )
-  }
-
-  clearEditor = () => {
-    this.setState({
-      ...this.state,
-      noteText: ""
-    })
   }
 }

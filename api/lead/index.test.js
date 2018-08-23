@@ -74,8 +74,6 @@ describe("Lead", () => {
         text: "First note"
       });
     expect(status).toBe(200);
-    // expect(body.notes[0].length).toBe(1);
-    // expect(body.notes[0].text).toBe("First note");
     expect(body.notes[0]).toBeDefined();
     expect(body.notes[0]).toMatchObject({
       text: "First note"
