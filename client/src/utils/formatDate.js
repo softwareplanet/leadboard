@@ -8,24 +8,43 @@ export const formatDate = (date) => {
 
   let hours = unformatedTimestamp.getHours();
   let minutes = unformatedTimestamp.getMinutes();
-
   if (currentDate.getTime() === unformatedDate.getTime()) {
-    return todayFormat(hours,minutes);
+    return todayFormat(hours, minutes);
   }
 
+  let yesterday = getYesterday();
+  if (yesterday.getTime() === unformatedDate.getTime()) {
+    return yesterdayFormat(hours, minutes);
+  }
+
+  let month = monthNames[unformatedTimestamp.getMonth() - 1];
+  let day = unformatedTimestamp.getDate();
   if (currentDate.getFullYear() === unformatedDate.getFullYear()) {
-    let month = monthNames[unformatedTimestamp.getMonth() - 1];
-    let day = unformatedDate.getDate();
-    return thisYearFormat(month,day,hours,minutes)
+    return thisYearFormat(month, day, hours, minutes);
   }
 
-  return unformatedTimestamp.toDateString();
+  let year = unformatedTimestamp.getFullYear();
+  return notThisYearFormat(month, day, hours, minutes, year);
 };
 
-const thisYearFormat = (month,day,hours,minutes) =>{
+const notThisYearFormat = (month, day, hours, minutes, year) => {
+  return `${day} ${month} ${year} ${hours}:${minutes} PM`;
+};
+
+const yesterdayFormat = (hours, minutes) => {
+  return `Yesterday at ${hours}:${minutes} PM`;
+};
+
+const thisYearFormat = (month, day, hours, minutes) => {
   return `${month} ${day} ${hours}:${minutes} PM`;
 };
 
-const todayFormat = (hours,minutes) => {
-   return `Today at  ${hours}:${minutes} PM`;
+const todayFormat = (hours, minutes) => {
+  return `Today at  ${hours}:${minutes} PM`;
+};
+
+const getYesterday = () =>{
+  let yesterday =  new Date(new Date().toLocaleDateString());
+  yesterday.setDate(yesterday.getDate() - 1);
+  return yesterday;
 };
