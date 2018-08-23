@@ -27,10 +27,7 @@ export default class EditLeadEditor extends Component {
   }
 
   clearEditor = () => {
-    this.setState({
-      ...this.state,
-      noteText: ""
-    })
+    this.setState({ noteText: "" })
   }
 
   render() {
