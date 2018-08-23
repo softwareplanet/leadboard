@@ -16,7 +16,6 @@ export const formatDate = (date) => {
   if (currentDate.getFullYear() === unformatedDate.getFullYear()) {
     let month = monthNames[unformatedTimestamp.getMonth() - 1];
     let day = unformatedDate.getDate();
-    console.log(day);
     return thisYearFormat(month,day,hours,minutes)
   }
 
