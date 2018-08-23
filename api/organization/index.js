@@ -6,13 +6,8 @@ const router = new Router();
 // @route   GET api/organization
 // @desc    Return all organizations by domain
 // @access  Private
-router.get("/", function(req, res) {
-  const domain = req.query.domain || req.body.domain;
-  if (!domain) {
-    return res.status(400).json({ errors: { domain: "Domain cannot be empty" } });
-  }
-
-  Organization.find({ domain: domain }, '_id name')
+router.get("/", (req, res) => {
+  Organization.find({domain: req.user.domain}, "_id name")
     .then(organizations => {
       res.json(organizations);
     })

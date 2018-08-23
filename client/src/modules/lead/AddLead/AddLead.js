@@ -68,7 +68,7 @@ class AddLead extends React.Component {
 
   openModal() {
     const { stages } = this.props.leads;
-    this.props.loadOrganizations(this.props.auth.domainid);
+    this.props.loadOrganizations();
     this.setState({
       modalIsOpen: true,
       stage: Object.keys(stages).length > 0 ? stages[0]._id : ""
@@ -101,7 +101,7 @@ class AddLead extends React.Component {
       errors: {
         ...this.state.errors,
         contact: undefined,
-        organization:undefined,
+        organization: undefined,
         name: undefined
       }
     });
@@ -141,14 +141,14 @@ class AddLead extends React.Component {
     })
   };
 
-  onAutocompleteSelect = (value, id) => {
+  onAutocompleteSelect = (value, item) => {
     this.setState({
       organizationAfterSelect: {
-        id,
+        id: item._id,
         name: value
       },
       organization: {
-        id,
+        id: item._id,
         name: value
       },
       name: !this.state.nameChanged ?
@@ -163,7 +163,7 @@ class AddLead extends React.Component {
     let name = "";
     if(this.state.organization.name.length > 0){
       if(this.state.nameChanged) {
-        name= this.state.name;
+        name = this.state.name;
       } else {
         name = this.state.organization.name + " lead";
       }
@@ -212,7 +212,9 @@ class AddLead extends React.Component {
 
   validateLead(lead) {
     let errors = {};
-    if (isBlank(lead.name.length ? lead.name : lead.namePlaceholder)) {
+    let name = lead.name;
+
+    if (isBlank(isBlank(name) ? name : lead.namePlaceholder)) {
       errors.name = "Name must not be empty";
     }
     if (isBlank(lead.organization.name) && isBlank(lead.contact)) {
@@ -315,7 +317,7 @@ class AddLead extends React.Component {
                 onBlur={this.onBlur}
               />
             </div>
-            <SelectStageOnCreation stages={this.props.leads.stages} onStageChange={this.selectStageHandler}/>
+            <SelectStageOnCreation stages={this.props.leads.stages} onStageChange={this.selectStageHandler} />
           </form>
           <div className={styles.formFooter}>
             <button type="button" className={styles.saveBtn} onClick={this.onSubmit}>

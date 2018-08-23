@@ -40,8 +40,8 @@ class OrganizationAutocomplete extends React.Component {
         }
         inputProps={{onBlur: this.props.onBlur, onFocus: this.props.onFocus}}
         value={this.props.value}
-        onChange={e => this.props.onChange(e)}
-        onSelect={(value, item) => this.props.onSelect(value, item._id)}
+        onChange={this.props.onChange}
+        onSelect={(value, item) => this.props.onSelect(value, item)}
       />
     );
   }

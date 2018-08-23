@@ -5,7 +5,7 @@ import user from "./user";
 import stage from "./stage";
 import funnel from "./funnel";
 import lead from "./lead";
-import organization from './organization';
+import organization from "./organization";
 
 const router = new Router();
 
