@@ -16,9 +16,7 @@ class Notes extends Component {
           return (
             <InfoItemWrapper
               key={note._id}
-              component={
-                <Note note={note}/>
-              }
+              component={<Note note={note}/>}
             />
           );
         }) : null}
