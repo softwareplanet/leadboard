@@ -3,7 +3,7 @@ import Stage from "../../models/stage";
 
 import express from "../../express";
 import routes from "..";
-import { dropTables, createUserAndDomain, createFunnel, createStage, createLead, createNote } from "../../test/db-prepare";
+import { dropTables, createUserAndDomain, createFunnel, createStage, createLead } from "../../test/db-prepare";
 
 const app = () => express(routes);
 
