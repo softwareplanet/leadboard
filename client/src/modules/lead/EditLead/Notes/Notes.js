@@ -17,10 +17,7 @@ class Notes extends Component {
             <InfoItemWrapper
               key={note._id}
               component={
-                <Note
-                  user={note.user.firstname + " " + note.user.lastname}
-                  text={note.text}
-                  date={note.date}/>
+                <Note note={note}/>
               }
             />
           );

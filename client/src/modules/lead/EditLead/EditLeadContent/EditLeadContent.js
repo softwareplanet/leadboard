@@ -8,8 +8,8 @@ export default class EditLead extends Component {
   render() {
     return (
       <div className={styles.content}>
-        <EditLeadTabs/>
-        <Notes/>
+        <EditLeadTabs />
+        <Notes />
       </div>
     );
   }
