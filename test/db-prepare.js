@@ -72,7 +72,7 @@ export async function createStage(app, token, funnelId, name = "Stage",order = 1
 }
 
 export async function createLead(app, token, user, stage, domain, order, name = "Lead") {
-  return  await request(app())
+  return await request(app())
     .post("/api/lead")
     .set("Authorization", token)
     .send({ owner: user, stage: stage, order, domain, name, contact:"Test contact" })

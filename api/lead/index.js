@@ -103,4 +103,21 @@ router.patch("/:id", (req, res) => {
       res.status(400).json({ errors: { message: error } });
     });
 });
+
+// @route   POST api/lead/:id/notes
+// @desc    Create note for lead
+// @access  Private
+router.post("/:id/notes", (req, res) => {
+  Lead.findByIdAndUpdate(req.params.id, { $push:{ notes: req.body } }, { new: true })
+    .populate({ path: "contact", populate: { path: "organization" } })
+    .populate("owner")
+    .populate("stage")
+    .then(lead => {
+      res.json(lead);
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
+});
+
 export default router;

@@ -5,7 +5,6 @@ import {
   LOAD_LEADS,
   LOAD_LEAD,
   UPDATE_LEAD,
-  SET_EDIT_FUNNEL_ID
 } from "./types";
 import { GET_ERRORS } from "../../actionTypes";
 
@@ -100,6 +99,24 @@ export const loadLead = leadId => dispatch => {
 export const updateLead = lead => dispatch => {
   axios
     .patch(`/api/lead/${lead._id}`, lead)
+    .then(res => {
+      dispatch({
+        type: UPDATE_LEAD,
+        payload: res.data
+      });
+    })
+    .catch(error => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error
+      });
+    });
+};
+
+// Create note for lead
+export const createNote = (leadId, note) => dispatch => {
+  axios
+    .post(`/api/lead/${leadId}/notes`, note)
     .then(res => {
       dispatch({
         type: UPDATE_LEAD,
