@@ -110,9 +110,9 @@ class AddLead extends React.Component {
   onNameChange = (event) => {
     this.setState({
       ...this.state,
-      nameChanged: this.state.name.length,
+      nameChanged: event.target.value !== this.state.name,
       name: event.target.value,
-      showPlaceholder: false,
+      showPlaceholder: this.state.name.length === 0,
       errors: {
         ...this.state.errors,
         name: undefined
@@ -159,15 +159,42 @@ class AddLead extends React.Component {
     })
   };
 
+  getNameValue = () => {
+    let name = "";
+    if(this.state.organization.name.length > 0){
+      if(this.state.nameChanged) {
+        name= this.state.name;
+      } else {
+        name = this.state.organization.name + " lead";
+      }
+    } else {
+      if(this.state.name.length) {
+        name = this.state.name;
+      } else {
+        name = "";
+      }
+    }
+    return name;
+  };
+
+  getPlaceholderValue = () => {
+    let placeholder = "";
+    if(this.state.organization.name.length > 0) {
+      placeholder = this.state.organization.name + " lead";
+    } else {
+      placeholder = "";
+    }
+    return placeholder;
+  };
+
   onAutocompleteBlur = (event) => {
     event.target.parentNode.parentNode.removeAttribute("style");
     this.setState({
       ...this.state,
-      name: !this.state.nameChanged && this.state.organization.name.length > 0 ?
-        `${this.state.organization.name} lead` : `${this.state.name}`,
+      name: this.getNameValue(),
       openDropdown: false,
       showBadge: this.state.organization.name.length > 0 && this.state.afterSelectShowBadge && !this.state.organization.id,
-      namePlaceholder: this.state.organization.name.length ? `${this.state.organization.name} lead` : "",
+      namePlaceholder: this.getPlaceholderValue()
     });
   };
 

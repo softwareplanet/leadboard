@@ -3,6 +3,8 @@ import ReactAutocomplete from "react-autocomplete";
 import "../styles/Autocomplete.css";
 import styles from "../styles/autocomplete-styles";
 
+const COUNT_OF_DISPLAYED_ORGANIZATIONS = 4;
+
 class OrganizationAutocomplete extends React.Component {
   render() {
     return (
@@ -13,7 +15,7 @@ class OrganizationAutocomplete extends React.Component {
         getItemValue={item => item.name}
         renderMenu={(items) =>
           items.length !== 0 ? (
-            <div className="renderMenu" style={styles.organization.menu} children={items.splice(0, 4)} />
+            <div className="renderMenu" style={styles.organization.menu} children={items.splice(0, COUNT_OF_DISPLAYED_ORGANIZATIONS)} />
           ) : (
               <div className="renderMenu" style={styles.organization.menu}>
               {
