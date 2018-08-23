@@ -13,7 +13,7 @@ class SingleEditView extends Component {
     this.setState({ updatedValue: value });
   };
 
-  onSaveClicked() {
+  onSaveClicked = () => {
     this.props.onChange(this.props.fieldName, this.state.updatedValue);
     //Calling cancel to close edit mode on parent
     this.props.onCancel();
@@ -35,7 +35,7 @@ class SingleEditView extends Component {
           </button>
           <button
             className={styles.saveButton}
-            onClick={this.onSaveClicked.bind(this)}>
+            onClick={this.onSaveClicked}>
             Save
           </button>
         </div>
