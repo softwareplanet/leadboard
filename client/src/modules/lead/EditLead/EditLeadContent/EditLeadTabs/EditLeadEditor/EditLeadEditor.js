@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import styles from "./EditLeadEditor.css"
-import isBlank from "../../../../../utils/isBlank"
+import isBlank from "../../../../../../utils/isBlank"
 
 export default class EditLeadEditor extends Component {
   state = {
@@ -16,6 +16,7 @@ export default class EditLeadEditor extends Component {
 
   onCancel = () => {
     this.clearEditor();
+    this.props.onCancel();
   }
 
   onSave = () => {
