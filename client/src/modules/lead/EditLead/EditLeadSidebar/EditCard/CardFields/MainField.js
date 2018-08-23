@@ -26,33 +26,39 @@ class MainField extends Component {
     const name = this.props.value;
     const { isInEditMode } = this.state;
     return (
-      <div className={styles.fieldValue}>
+      <div>
         {
           !isInEditMode &&
-          <div className={styles.mainFieldValueWrapper}>
+          <div className={styles.fieldValue}>
+            <div className={styles.mainFieldValueWrapper}>
           <span className={styles.badge}>
             <img className={styles.icon} src={this.props.icon} alt="Icon" />
           </span>
-            <h3>
+              <h3>
               <span className={styles.mainValue}>
                 {name}
               </span>
-            </h3>
-            <button className={styles.buttonRename}
-                    onClick={this.openEditMode}>
-              Rename
-            </button>
+              </h3>
+              <button className={styles.buttonRename}
+                      onClick={this.openEditMode}>
+                Rename
+              </button>
+            </div>
           </div>
         }
         {
           isInEditMode &&
-          <SingleEditView
-            fieldName={"Name"}
-            fieldValue={name}
-            onChange={this.handleNameUpdate}
-            onCancel={this.closeEditMode} />
+          <div className={styles.fieldEditValue}>
+            <SingleEditView
+              fieldName={"Name"}
+              fieldValue={name}
+              onChange={this.handleNameUpdate}
+              onCancel={this.closeEditMode} />
+          </div>
         }
       </div>
+
+
     );
   }
 }

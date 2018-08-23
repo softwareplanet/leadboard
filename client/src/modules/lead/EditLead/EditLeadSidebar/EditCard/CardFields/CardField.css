@@ -68,9 +68,13 @@ span {
 .fieldValue {
   display: flex;
   align-items: flex-end;
+  margin-top: 12px;
   padding: 8px;
-  margin-top: 8px;
-  height: 60px;
+}
+
+.fieldEditValue {
+  display: flex;
+  align-items: flex-end;
 }
 
 .fieldsWrapper {
