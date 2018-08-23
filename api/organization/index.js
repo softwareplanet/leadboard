@@ -28,7 +28,7 @@ router.post("/", (req, res) => {
   const organization = new Organisation({
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
-    domain: req.body.domain,
+    domain: req.user.domain,
   });
 
   Organisation.create(organization)

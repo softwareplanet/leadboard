@@ -17,14 +17,14 @@ describe("Organization", function() {
     const { status, body } = await request(app())
       .post("/api/organization")
       .set("Authorization", cred.token)
-      .send({ domain: cred.domainId, name: "EpicSoftware", custom: [] });
+      .send({ name: "EpicSoftware", custom: [] });
 
     expect(status).toBe(200);
     expect(typeof body._id).toBe("string");
   });
 
   it("should get organization by id", async () => {
-    const organization = await createOrganization(app, cred.token, cred.domainId, "Company 1");
+    const organization = await createOrganization(app, cred.token, "Company 1");
 
     const { status, body } = await request(app())
       .get(`/api/organization/${organization._id}`)
@@ -36,7 +36,7 @@ describe("Organization", function() {
   });
 
   it("should update properly", async () => {
-    const newOrg = await createOrganization(app, cred.token, cred.domainId, "Company 1");
+    const newOrg = await createOrganization(app, cred.token, "Company 1");
 
     const newCompanyName = "EpicSoftware";
     const { status, body } = await request(app())
