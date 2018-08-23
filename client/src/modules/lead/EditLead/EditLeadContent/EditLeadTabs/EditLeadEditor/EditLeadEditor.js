@@ -23,6 +23,7 @@ export default class EditLeadEditor extends Component {
     if (!isBlank(this.state.noteText)) {
       this.props.onSave(this.state.noteText);
       this.clearEditor();
+      this.props.onCancel();
     }
   }
 
