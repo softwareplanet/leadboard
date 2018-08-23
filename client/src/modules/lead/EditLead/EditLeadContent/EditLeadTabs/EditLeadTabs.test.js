@@ -17,10 +17,4 @@ describe("<EditLeadTabs/>", () => {
     wrapper = shallow(<EditLeadTabs />);
     expect(wrapper.find("div.fakeNote").exists()).to.equal(true);
   });
-  
-  it("render Fake Note", () => {
-    wrapper = shallow(<EditLeadTabs />);
-    expect(wrapper.find("div.fakeNote").exists()).to.equal(true);
-  });
-
 });
