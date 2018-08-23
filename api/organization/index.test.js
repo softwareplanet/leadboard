@@ -20,22 +20,10 @@ beforeEach(async done => {
 });
 
 describe("Organization", function() {
-  it("should return status 400 if domain is not exists", async () => {
-    const { status, body } = await request(app())
-      .get("/api/organization")
-      .set("Authorization", cred.token)
-      .send({ domain: null });
-    expect(status).toBe(400);
-    expect(Object.keys(body).length).toBe(1);
-    expect(body.errors.domain).toBe("Domain cannot be empty");
-  });
-
   it("should retrieve all domain' organizations", async () => {
-    const { status, body } = await request(app())
+    const { status } = await request(app())
       .get("/api/organization")
-      .set("Authorization", cred.token)
-      .send({ domain: cred.domainId });
+      .set("Authorization", cred.token);
     expect(status).toBe(200);
-    expect(Object.keys(body).length).toBe(0);
   });
 });
