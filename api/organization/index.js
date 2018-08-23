@@ -5,13 +5,26 @@ import { validateOrganizationCreation, validateOrganizationUpdate } from "../../
 
 const router = new Router;
 
-// @route   GET api/organization
+// @route   GET api/organization/:id
 // @desc    Get organization by id
 // @access  Private
 router.get("/:id", (req, res) => {
   Organisation.findById(req.params.id)
     .then(organizations => {
       res.status(200).json(organizations);
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
+});
+
+// @route   GET api/organization
+// @desc    Return all organizations by domain
+// @access  Private
+router.get("/", (req, res) => {
+  Organization.find({domain: req.user.domain}, "_id name")
+    .then(organizations => {
+      res.json(organizations);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });

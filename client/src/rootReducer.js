@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
 import authReducer from "./modules/auth/authReducer";
 import leadReducer from "./modules/lead/leadReducer";
+import organizationReducer from "./modules/lead/AddLead/autocomplete/organization/organizationReducer";
+
 import { GET_ERRORS } from "./actionTypes";
 
 const initialState = {};
@@ -18,4 +20,5 @@ export default combineReducers({
   auth: authReducer,
   leads: leadReducer,
   errors: errorReducer,
+  organizations: organizationReducer
 });

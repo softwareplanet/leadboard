@@ -4,3 +4,5 @@ export const LOAD_LEADS = "LOAD_LEADS";
 export const UPDATE_ORGANIZATION = "UPDATE_ORGANIZATION";
 export const LOAD_LEAD = "LOAD_LEAD";
 export const UPDATE_LEAD = "UPDATE_LEAD";
+export const LOAD_ORGANIZATIONS = "LOAD_ORGANIZATIONS";
+
