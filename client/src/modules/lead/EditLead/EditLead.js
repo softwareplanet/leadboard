@@ -7,12 +7,17 @@ import styles from "./EditLead.css";
 
 export default class EditLead extends Component {
   render() {
+
+    const displayFlex = {
+      display: "flex"
+    };
+
     return (
       <div className={ styles.scroll }>
         <div className={styles.headerContainer}>
           <EditLeadHeader match={this.props.match} />
         </div>
-        <div className={styles.mainContainer}>
+        <div style={displayFlex}>
           <EditLeadSidebar />
           <EditLeadContent />
         </div>

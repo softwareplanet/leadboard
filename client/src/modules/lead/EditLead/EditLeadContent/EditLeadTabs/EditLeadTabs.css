@@ -1,3 +1,7 @@
+.font{
+  font: 14px/20px "Open Sans",sans-serif;
+}
+
 .tabs {
   flex-grow: 2;
   border: 1px solid #e5e5e5;
@@ -12,7 +16,7 @@
 }
 
 .headerItem {
-  font: 14px/20px "Open Sans",sans-serif;
+  composes:font;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,8 +30,8 @@
 }
 
 .fakeNote {
+  composes:font;
   padding: 14px 16px;
-  font: 400 14px/20px "Open Sans",sans-serif;
   color: #b9babb;
   background-color: #fff;
   border-top: none;

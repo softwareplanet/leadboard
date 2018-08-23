@@ -1,16 +1,10 @@
 import React, { Component } from "react";
 import styles from "./EditLeadTabs.css";
 
-var context = require.context("../../../../../assets", true, /\.svg$/);
-var images = {};
-context.keys().forEach(function(key) {
-  let newKey = key
-    .split("/")
-    .pop()
-    .slice(0, -4);
-  images[newKey] = context(key);
-});
-console.log(images);
+import takeNotesIcon from "../../../../../assets/take-notes/take-notes.svg"
+import takeNotesIconActive from "../../../../../assets/take-notes/take-notes-active.svg"
+import addActivitiIcon from "../../../../../assets/add-activity/add-activity.svg"
+import addActivitiIconActive from "../../../../../assets/add-activity/add-activity.svg"
 
 export default class EditLeadTabs extends Component {
   state = {
@@ -29,20 +23,20 @@ export default class EditLeadTabs extends Component {
         <ul className={styles.header}>
           <li className={styles.headerItem} onClick={() => this.tabHandler("<EditLeadEditor />")}>
             <img
-              src={takeNotesCondition ? images["take-notes-active"] : images["take-notes"]}
+              src={takeNotesCondition ? takeNotesIconActive : takeNotesIcon}
               className={styles.headerItemIcon}
               alt="take note icon"
             />
             Take notes
           </li>
-          {/* <li className={styles.headerItem} onClick={() => this.tabHandler("<AddActivity />")}>
+          <li className={styles.headerItem} onClick={() => this.tabHandler("<AddActivity />")}>
             <img
-              src={addActivityCondition ? images["add-activity-active"] : images["add-activity"]}
+              src={addActivityCondition ? addActivitiIconActive : addActivitiIcon}
               className={styles.headerItemIcon}
               alt="add activity icon"
             />
             Add activity
-          </li> */}
+          </li>
         </ul>
         {this.state.activeTab ? (
           <div className={styles.content}>{this.state.activeTab}</div>
