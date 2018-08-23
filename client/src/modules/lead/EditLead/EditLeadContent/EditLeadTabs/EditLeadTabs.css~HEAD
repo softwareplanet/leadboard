@@ -3,8 +3,7 @@
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
   border: 1px solid #e5e5e5;
-  margin-right: 8vw;
-  height: 18vh
+  height: 18vh;
 }
 
 .header {
@@ -20,7 +19,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 10px
+  margin: 10px;
+  color: #747678;
+}
+
+.headerItem:hover {
+  color: #26292c;
 }
 
 .headerItemIcon {

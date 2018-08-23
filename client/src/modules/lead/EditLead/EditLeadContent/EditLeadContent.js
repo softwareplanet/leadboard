@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import styles from './EditLeadContent.css'
-import EditLeadTabs from './EditLeadTabs/EditLeadTabs'
+import EditLeadTabs from "./EditLeadTabs/EditLeadTabs";
+import styles from "./EditLeadContent.css";
 
-class EditLeadContent extends Component {
+export default class EditLead extends Component {
+  
   render() {
     return (
       <div className={styles.content}>
         <EditLeadTabs />
       </div>
-    )
+    );
   }
 }
-export default EditLeadContent;

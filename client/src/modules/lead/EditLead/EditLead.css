@@ -1,7 +1,10 @@
-.container {
+.headerContainer {
   display: flex;
 }
 
 .mainContainer {
   display: flex;
+}
+.scroll {
+  overflow: auto;
 }

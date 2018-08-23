@@ -3,20 +3,16 @@ import Navbar from "../../layouts/Navbar/Navbar";
 import EditLeadHeader from "./EditLeadHeader/EditLeadHeader";
 import EditLeadSidebar from "./EditLeadSidebar/EditLeadSidebar";
 import EditLeadContent from "./EditLeadContent/EditLeadContent";
-
-const displayFlex = {
-  display: "flex"
-};
+import styles from "./EditLead.css";
 
 export default class EditLead extends Component {
   render() {
     return (
-      <div>
-        <Navbar />
-        <div style={displayFlex}>
+      <div className={ styles.scroll }>
+        <div className={styles.headerContainer}>
           <EditLeadHeader match={this.props.match} />
         </div>
-        <div style={displayFlex}>
+        <div className={styles.mainContainer}>
           <EditLeadSidebar />
           <EditLeadContent />
         </div>
