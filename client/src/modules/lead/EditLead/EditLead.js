@@ -13,7 +13,8 @@ export default class EditLead extends Component {
     };
 
     return (
-      <div className={ styles.scroll }>
+      <div>
+       <Navbar />
         <div className={styles.headerContainer}>
           <EditLeadHeader match={this.props.match} />
         </div>
