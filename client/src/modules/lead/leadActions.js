@@ -120,10 +120,27 @@ export const updateOrganization = organization => dispatch => {
       });
     })
     .catch(error => {
-      console.log(error);
       dispatch({
         type: GET_ERRORS,
         payload: error,
+      });
+    });
+};
+
+// Create note for lead
+export const createNote = (leadId, note) => dispatch => {
+  axios
+    .post(`/api/lead/${leadId}/notes`, note)
+    .then(res => {
+      dispatch({
+        type: UPDATE_LEAD,
+        payload: res.data
+      });
+    })
+    .catch(error => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error
       });
     });
 };
