@@ -1,6 +1,6 @@
 import { Router } from "express";
 import mongoose from "mongoose";
-import Organisation from "../../models/organization";
+import Organization from "../../models/organization";
 import { validateOrganizationCreation, validateOrganizationUpdate } from "../../validation/organization";
 
 const router = new Router;
@@ -9,7 +9,7 @@ const router = new Router;
 // @desc    Get organization by id
 // @access  Private
 router.get("/:id", (req, res) => {
-  Organisation.findById(req.params.id)
+  Organization.findById(req.params.id)
     .then(organizations => {
       res.status(200).json(organizations);
     })
@@ -38,13 +38,13 @@ router.post("/", (req, res) => {
   const { hasErrors, errors } = validateOrganizationCreation(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 
-  const organization = new Organisation({
+  const organization = new Organization({
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
     domain: req.user.domain,
   });
 
-  Organisation.create(organization)
+  Organization.create(organization)
     .then(org => {
       res.status(200).json(org);
     })
@@ -60,7 +60,7 @@ router.patch("/:id", (req, res) => {
   const { hasErrors, errors } = validateOrganizationUpdate(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 
-  Organisation.findOneAndUpdate(
+  Organization.findOneAndUpdate(
     req.params.id,
     { $set: req.body },
     { new: true })
