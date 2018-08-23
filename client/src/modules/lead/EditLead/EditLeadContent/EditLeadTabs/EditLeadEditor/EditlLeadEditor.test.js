@@ -7,14 +7,14 @@ import styles from "./EditLeadEditor.css"
 
 describe("<EditLeadEditor />", () => {
   it("should change state after input", () => {
-    let wrapper = shallow(<EditLeadEditor />);
+    let wrapper = shallow(<EditLeadEditor onCancel={ () => {} }/>);
     let textarea = wrapper.find("textarea");
     textarea.simulate("change", { target: { value: "Note" } });
     expect(wrapper.state().noteText).to.be.equal("Note");
   });
 
   it("should clear editor after cancel", () => {
-    let wrapper = shallow(<EditLeadEditor />);
+    let wrapper = shallow(<EditLeadEditor onCancel={ () => {} }/>);
     let textarea = wrapper.find("textarea");
     let cancelButton = wrapper.findWhere(node => node.hasClass(styles.button));
     cancelButton.simulate("click");

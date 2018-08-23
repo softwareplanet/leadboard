@@ -62,4 +62,6 @@ const mapStateToProps = state => ({
   userId: state.auth.userid
 })
 
+export { EditLeadTabs }
+
 export default connect(mapStateToProps, { createNote })(EditLeadTabs)

@@ -2,7 +2,7 @@ import "jsdom-global/register";
 import React from "react";
 import { expect } from "chai";
 import { shallow } from "enzyme";
-import EditLeadTabs from "./EditLeadTabs"
+import { EditLeadTabs } from "./EditLeadTabs"
 
 describe("<EditLeadTabs/>", () => {
   
