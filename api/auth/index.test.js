@@ -130,5 +130,4 @@ describe("User login", async () => {
     expect(status).toBe(404);
     expect(body.errors.password).toBe("Incorrect password");
   });
-
 });
