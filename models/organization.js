@@ -34,6 +34,18 @@ organizationSchema.statics.findOneOrCreate = (organizationData) => {
   return Organization.create(organization);
 };
 
+//custom fields
+const DEFAULT_CUSTOM_FIELDS = [{ name: "Address", value: "" }];
+
+organizationSchema.pre("save", function (next) {
+  if (this.isNew) {
+    if (this.custom.length === 0) {
+      this.custom = DEFAULT_CUSTOM_FIELDS;
+    }
+  }
+  next();
+});
+
 const Organization = mongoose.model("Organization", organizationSchema);
 
 module.exports = Organization;
