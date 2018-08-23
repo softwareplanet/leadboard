@@ -16,7 +16,7 @@
 }
 
 .headerItem {
-  composes:font;
+  composes: font;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,8 +29,8 @@
   margin-right: 5px
 }
 
-.fakeNote {
-  composes:font;
+.fakeInput {
+  composes: font;
   padding: 14px 16px;
   color: #b9babb;
   background-color: #fff;

@@ -13,8 +13,8 @@ describe("<EditLeadTabs/>", () => {
     expect(wrapper.exists()).to.equal(true);
   });
 
-  it("render Fake Note", () => {
+  it("render fake input", () => {
     wrapper = shallow(<EditLeadTabs />);
-    expect(wrapper.find("div.fakeNote").exists()).to.equal(true);
+    expect(wrapper.find("div.fakeInput").exists()).to.equal(true);
   });
 });

@@ -17,7 +17,6 @@ export default class EditLeadTabs extends Component {
 
   render() {
     let takeNotesCondition = this.state.activeTab === "<EditLeadEditor />" || this.state.activeTab === null;
-    let addActivityCondition = this.state.activeTab === "<AddActivity />";
     return (
       <div className={styles.tabs}>
         <ul className={styles.header}>
@@ -33,7 +32,7 @@ export default class EditLeadTabs extends Component {
         {this.state.activeTab ? (
           <div className={styles.content}>{this.state.activeTab}</div>
         ) : (
-          <div className={styles.fakeNote} onClick={() => this.tabHandler("<EditLeadEditor />")}>Click here to take notes...</div>
+          <div className={styles.fakeInput} onClick={() => this.tabHandler("<EditLeadEditor />")}>Click here to take notes...</div>
         )}
       </div>
     );
