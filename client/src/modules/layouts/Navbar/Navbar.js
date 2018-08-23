@@ -1,49 +1,25 @@
 import React, { Component } from "react";
-import { withRouter, Link, NavLink } from "react-router-dom";
-import styles from "./Navbar.css";
-import { logoutUser } from "../../auth/authActions";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-
-const leadsRoute = "/home";
+import styles from './Navbar.css';
 
 class Navbar extends Component {
-  renderUserAvatar = () => {
-    return this.props.user ?
-      <img className={styles.userImg} src={this.props.user.avatar} alt="user" /> :
-      <span className={styles.userIcon} />
-  };
-
   render() {
     return (
       <header>
         <ul className={styles.menu} role="navigation">
-
-          <li className={styles.logo}><Link to={leadsRoute}>Leadboard</Link></li>
-          <li className={styles.logoSmall}><Link to={leadsRoute}><h1>L</h1></Link></li>
-
-          <li className={this.props.location.pathname === leadsRoute ? styles.active : styles.itemWithLink}>
-            <NavLink
-              className={styles.link}
-              activeClassName={styles.currentLink}
-              to={leadsRoute}>
-              <div>
-                <span className={styles.dealsIcon} />Deals
-              </div>
-            </NavLink>
+          <li className={styles.logo}>Leadboard</li>
+          <li>
+            <form>
+              <input className={styles.search} placeholder="Search" />
+            </form>
           </li>
-          <li className={styles.rightItem}>
+          <li className={styles.item}>
             <div>
-              {this.renderUserAvatar()}
-              <div className={styles.userInfo}>
-                <span>{this.props.auth.userName}</span>
-                <small>{this.props.auth.domainName}</small>
-              </div>
+              <span className={styles.icon + ' fa fa-check-circle'} />Сделки
             </div>
           </li>
-          <li id="logout" onClick={() => this.props.logoutUser(this.props.history)} className={styles.item}>
+          <li className={styles.item}>
             <div>
-              Logout
+              <span className={styles.icon + ' fa fa-address-card'} />Контакты
             </div>
           </li>
         </ul>
@@ -52,15 +28,4 @@ class Navbar extends Component {
   }
 }
 
-Navbar.propTypes = {
-  logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-  auth: state.auth
-});
-
-export { Navbar };
-export default connect(mapStateToProps, { logoutUser })(withRouter(Navbar));
+export default Navbar;

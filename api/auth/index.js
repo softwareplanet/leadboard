@@ -93,7 +93,6 @@ router.post("/login", function(req, res) {
     return res.status(400).json({ errors: errors });
   }
   User.findOne({ email: req.body.email })
-    .populate({ path: "domain" })
     .then(user => {
       if (!user) {
         errors.email = "Incorrect login";
@@ -112,8 +111,6 @@ router.post("/login", function(req, res) {
                   token: "Bearer " + token,
                   userId: user._id.toString(),
                   domainId: user.domain._id.toString(),
-                  domainName: user.domain.name.toString(),
-                  userName: `${user.firstname.toString()} ${user.lastname.toString()}`
                 });
               });
           } else {

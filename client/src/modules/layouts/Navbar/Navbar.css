@@ -15,7 +15,6 @@ ul {
 
 .menu {
     display: flex;
-    width: 100%;
     align-items: center;
 }
 
@@ -25,32 +24,15 @@ ul {
     padding: 0 20px 0 10px;
 }
 
-.logo a {
+.search {
+    height: 32px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    border: medium none;
+    padding: 8px 4px 8px 32px;
+    margin-right: 20px;
+    background-color: #747678;
     color: white;
-}
-
-.logo a:hover {
-    font-size: 25px;
-    color: white;
-    text-decoration: none;
-}
-
-.logoSmall {
-    composes:logo;
-    display:none
-}
-
-.logoSmall h1 {
-    margin: 0;
-}
-
-.item {
-    padding: 13px;
-    color: #b9babb;
-}
-
-.item:hover {
-    cursor: default;
 }
 
 .item div {
@@ -59,117 +41,23 @@ ul {
     flex-wrap: nowrap;
 }
 
-.item div:hover {
-    color: white;
-    cursor: pointer;
-}
-
-.itemWithLink {
+.item {
     padding: 13px;
-}
-
-.rightItem {
-    composes:item;
-    margin-left: auto;
-    padding: 4px;
-}
-
-.rightItem div:hover{
     color: #b9babb;
-    cursor: default;
+}
+
+.item:hover {
+    background-color: black;
+    color: white;
 }
 
 .active {
     composes: item;
-    background-color: #26292c;
+    background-color: black;
     color: white;
 }
 
 .icon {
-    composes: fa from global;
     font-size: 1.5em;
     padding-right: 10px;
 }
-
-.dealsIcon {
-    composes: icon;
-    composes: fa-check-circle from global;
-}
-
-.userIcon {
-    composes: fa from global;
-    composes: fa-user-circle from global;
-    font-size: 32px;
-    padding-right: 10px;
-}
-
-.userImg {
-    border-radius: 50%;
-    width: 31px;
-    height: 31px;
-    margin-right: 10px;
-}
-
-.link {
-    composes: item;
-    padding: 0;
-}
-
-.currentLink {
-    composes:link;
-    color: white;
-}
-
-.link div {
-    display: flex;
-    align-items: center;
-    flex-wrap: nowrap;
-}
-
-.link:hover {
-    text-decoration: none;
-}
-
-.userInfo {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-right: 10px;
-}
-
-.userInfo small {
-    font-size: 10px;
-    height: 16px;
-}
-
-.userInfo span {
-    font-size: 12px;
-    height: 16px;
-}
-
-@media only screen and (max-width: 590px) {
-    .userInfo span,small {
-        display: none;
-    }
-
-    .userImg {
-        padding: 0;
-    }
-
-    .userIcon {
-        padding: 0;
-    }
-
-    .userInfo {
-        padding: 0;
-    }
-
-    .logo {
-        display: none;
-    }
-
-    .logoSmall {
-        display: flex;
-    }
-}
-
