@@ -21,12 +21,12 @@ describe("<MainField/>", () => {
 
   it("should render correct contact name with props", () => {
     wrapper = shallow(<MainField field={contact} />);
-    expect(wrapper.find("a.mainValue").children().text()).to.equal(contact.name);
+    expect(wrapper.find("span.mainValue").children().text()).to.equal(contact.name);
   });
 
   it("should render correct organization name with props", () => {
     wrapper = shallow(<MainField field={contact.organization} />);
-    expect(wrapper.find("a.mainValue").children().text()).to.equal(contact.organization.name);
+    expect(wrapper.find("span.mainValue").children().text()).to.equal(contact.organization.name);
   });
 
   it("should switch to edit view on click Rename", () => {
