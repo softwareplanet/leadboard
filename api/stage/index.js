@@ -2,6 +2,7 @@ import { Router } from "express";
 import mongoose from "mongoose";
 import Stage from "../../models/stage";
 import { validateStageInput, validateStageSearchInput } from "../../validation/stage";
+
 const router = new Router();
 
 // @route   GET api/stage
@@ -14,7 +15,7 @@ router.get("/", function(req, res) {
   Stage.find({ funnel: req.query.funnel })
     .sort({ order: "asc" })
     .then(stages => {
-      res.status(200).json({ data: stages });
+      res.status(200).json(stages);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });
@@ -37,7 +38,7 @@ router.post("/", function(req, res) {
 
   Stage.create(stage)
     .then(stage => {
-      res.status(200).json({ data: { stage: stage._id } });
+      res.status(200).json(stage._id);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });

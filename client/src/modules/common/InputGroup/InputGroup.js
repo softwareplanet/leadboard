@@ -1,9 +1,7 @@
-import material from "@material-ui/core/";
-import grey from "@material-ui/core/es/colors/grey";
-import Input from "@material-ui/core/es/Input/Input";
-import InputLabel from "@material-ui/core/es/InputLabel/InputLabel";
-import FormControl from "@material-ui/core/es/FormControl/FormControl";
-import FormHelperText from "@material-ui/core/es/FormHelperText/FormHelperText";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel/InputLabel";
+import FormControl from "@material-ui/core/FormControl/FormControl";
+import FormHelperText from "@material-ui/core/FormHelperText/FormHelperText";
 import React from "react";
 import classnames from "classnames";
 import PropTypes from "prop-types";
@@ -18,7 +16,7 @@ const styles = ({
     color: "#A9A9A9",
     "&$cssFocused": {
       marginLeft: "0px",
-      color: grey[500],
+      color: "#A9A9A9",
       fontSize: "20px"
     }
   },

@@ -1,7 +1,9 @@
 import React from "react";
 import ReactAutocomplete from "react-autocomplete";
-import "../styles/Autocomplete.css";
+import "../../styles/Autocomplete.css";
 import styles from "../styles/autocomplete-styles";
+
+const COUNT_OF_DISPLAYED_ORGANIZATIONS = 4;
 
 class ContactAutocomplete extends React.Component {
   render() {
@@ -13,7 +15,7 @@ class ContactAutocomplete extends React.Component {
         getItemValue={item => item.name}
         renderMenu={(items) =>
           items.length !== 0 ? (
-            <div style={styles.contact.menu} children={items.splice(0, 4)} />
+            <div style={styles.contact.menu} children={items.splice(0, COUNT_OF_DISPLAYED_ORGANIZATIONS)} />
           ) : (
             <div style={styles.contact.menu}>
               {
@@ -38,8 +40,8 @@ class ContactAutocomplete extends React.Component {
         }
         inputProps={{onBlur: this.props.onBlur}}
         value={this.props.value}
-        onChange={e => this.props.onChange(e)}
-        onSelect={(value, item) => this.props.onSelect(value, item._id, item.organization)}
+        onChange={this.props.onChange}
+        onSelect={(value, item) => this.props.onSelect(value, item)}
       />
     );
   }

@@ -1,0 +1,36 @@
+
+.border{
+  border-style: solid;
+  border-color: #e5e5e5;
+  border-width: 1px;  
+}
+
+.container { 
+  composes:border;
+  
+  display: block;
+  width: 100%;
+  margin-bottom: 8px;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+.title {
+  padding: 16px 0;
+  composes:border;
+  border-width: 0px;
+  border-bottom-width: 1px;
+  margin: 0 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.titleName {
+  display: inline-block;
+  font-size: 12px;
+  margin-top: 2px;
+  color: #800ace;
+  font-weight: 600;
+  text-transform: uppercase;
+  user-select: none;
+}

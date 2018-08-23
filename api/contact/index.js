@@ -3,13 +3,8 @@ import Contact from "../../models/contact";
 
 const router = new Router();
 
-router.get("/", function(req, res) {
-  const domain = req.query.domain || req.body.domain;
-  if(!domain) {
-    return res.status(400).json({ errors: {domain: "Domain cannot be empty"} });
-  }
-
-  Contact.find({ domain: domain, name: {$exists: true} }, "name")
+router.get("/", (req, res) => {
+  Contact.find({ domain: req.user.domain, name: {$exists: true} }, "name")
     .populate("organization", "_id name")
     .then(contacts => {
       res.json({ data: contacts })

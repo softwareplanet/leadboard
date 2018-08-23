@@ -2,19 +2,17 @@ import React from "react";
 import Modal from "react-modal";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { loadOrganizations } from "./autocomplete/organization/organizationActions";
+import { loadContacts } from "./autocomplete/contact/contactActions";
 import { createLead } from "../leadActions";
 import classNames from "classnames";
 import styles from "./AddLead.css";
-import { flow, isEmpty, trim } from "lodash/fp";
+import { isEmpty } from "lodash/fp";
+import isBlank from "../../../utils/isBlank";
+
 import SelectStageOnCreation from "./SelectStage/SelectStageOnCreation";
-
-import ContactAutocomplete from "./ContactAutocomplete/ContactAutocomplete";
-import { loadContacts } from "./ContactAutocomplete/contactActions";
-
-const isBlank = flow(
-  trim,
-  isEmpty,
-);
+import OrganizationAutocomplete from "./autocomplete/organization/OrganizationAutocomplete";
+import ContactAutocomplete from "./autocomplete/contact/ContactAutocomplete";
 
 const customStyles = {
   content: {
@@ -40,20 +38,36 @@ class AddLead extends React.Component {
     this.state = {
       name: "",
       stage: "",
-      contact: { id: null, name: "" },
-      organization: {id: null, name: ""},
-      errors: {},
+      organizations: [],
       contacts: [],
+
+      contact: { id: null, name: "" },
+      organization: { id: null, name: "" },
+      errors: {},
+
       openContactDropdown: false,
+      openOrganizationDropdown: true,
+
+      showOrganizationBadge: false,
+      showContactBadge: false,
+
+      afterOrganizationSelectShowBadge: false,
+      afterContactSelectShowBadge: false,
+
+      nameChanged: false,
+      namePlaceholder: "",
+      showPlaceholder: false,
+
+      organizationAfterSelect: { id: null, name: "" },
+      contactAfterSelect: { id: null, name: "" },
+
       validationIsShown: false,
       modalIsOpen: false,
     };
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-
     this.selectStageHandler = this.selectStageHandler.bind(this);
-    this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
@@ -61,13 +75,15 @@ class AddLead extends React.Component {
     if (nextProps.leads) {
       this.setState({
         contacts: nextProps.contacts,
+        organizations: nextProps.organizations,
       });
     }
   }
 
   openModal() {
     const { stages } = this.props.leads;
-    this.props.loadContacts(this.props.auth.domainid);
+    this.props.loadContacts();
+    this.props.loadOrganizations();
     this.setState({
       modalIsOpen: true,
       stage: Object.keys(stages).length > 0 ? stages[0]._id : "",
@@ -76,31 +92,191 @@ class AddLead extends React.Component {
 
   closeModal() {
     this.setState({
-      modalIsOpen: false,
-      validationIsShown: false,
-      errors: {},
       name: "",
+      stage: "",
+      organizations: [],
+      contacts: [],
+
       contact: { id: null, name: "" },
-      organization: {id: null, name: ""},
+      organization: { id: null, name: "" },
+      errors: {},
+
+      openContactDropdown: false,
+      openOrganizationDropdown: true,
+
+      showOrganizationBadge: false,
       showContactBadge: false,
+
+      afterOrganizationSelectShowBadge: false,
+      afterContactSelectShowBadge: false,
+
+      nameChanged: false,
+      namePlaceholder: "",
+      showPlaceholder: false,
+
+      organizationAfterSelect: { id: null, name: "" },
+      contactAfterSelect: { id: null, name: "" },
+
+      validationIsShown: false,
+      modalIsOpen: false,
     });
   }
 
-  onChange(event) {
-    let newState = { ...this.state };
-    newState[event.target.name] = event.target.value;
+  onNameChange = (event) => {
     this.setState({
-      [event.target.name]: event.target.value,
-      errors: this.validateLead(newState),
+      ...this.state,
+      nameChanged: event.target.value !== this.state.name,
+      name: event.target.value,
+      showPlaceholder: this.state.name.length === 0,
+      errors: {
+        ...this.state.errors,
+        name: undefined,
+      },
     });
-  }
+  };
+
+  onOrganizationChange = (event) => {
+    let newState = {
+      ...this.state,
+      organization: {
+        id: this.state.organizationAfterSelect.name === event.target.value ? this.state.organizationAfterSelect.id : null,
+        name: event.target.value,
+      },
+      openOrganizationDropdown: true,
+      afterOrganizationSelectShowBadge: true,
+    };
+    this.setState({
+      ...newState,
+      errors: {
+        ...this.state.errors,
+        contact: undefined,
+        organization: undefined,
+        name: undefined,
+      },
+    });
+  };
+
+  onOrganizationSelect = (value, item) => {
+    this.setState({
+      organizationAfterSelect: {
+        id: item._id,
+        name: value,
+      },
+      organization: {
+        id: item._id,
+        name: value,
+      },
+      name: !this.state.nameChanged ?
+        `${value} lead` : `${this.state.name}`,
+      openDropdown: false,
+      showBadge: false,
+      afterSelectShowBadge: false,
+    });
+  };
+
+  getNameValue = () => {
+    let name = "";
+    if (this.state.organization.name.length > 0) {
+      if (this.state.nameChanged) {
+        name = this.state.name;
+      } else {
+        name = this.state.organization.name + " lead";
+      }
+    } else {
+      if (this.state.name.length) {
+        name = this.state.name;
+      } else {
+        name = "";
+      }
+    }
+    return name;
+  };
+
+  getPlaceholderValue = () => {
+    let placeholder = "";
+    if (this.state.organization.name.length > 0) {
+      placeholder = this.state.organization.name + " lead";
+    } else {
+      placeholder = "";
+    }
+    return placeholder;
+  };
+
+  onOrganizationBlur = (event) => {
+    event.target.parentNode.parentNode.removeAttribute("style");
+    this.setState({
+      ...this.state,
+      name: this.getNameValue(),
+      openDropdown: false,
+      showBadge: this.state.organization.name.length > 0 && this.state.afterSelectShowBadge && !this.state.organization.id,
+      namePlaceholder: this.getPlaceholderValue(),
+    });
+  };
+
+  onContactChange = (event) => {
+    let newState = {
+      ...this.state,
+      contact: {
+        id: this.state.contactAfterSelect.name === event.target.value ? this.state.contactAfterSelect.id : null,
+        name: event.target.value,
+      },
+      openDropdown: true,
+      afterContactSelectShowBadge: true,
+    };
+    this.setState({
+      ...newState,
+      errors: {
+        ...this.state.errors,
+        contact: undefined,
+        organization: undefined,
+        name: undefined,
+      },
+    });
+  };
+
+  onContactSelect = (value, item) => {
+    this.setState({
+      contact: {
+        id: item._id,
+        name: value,
+      },
+      contactAfterSelect: {
+        id: item._id,
+        name: value,
+      },
+      organization: {
+        id: item.organization !== undefined ? item.organization._id : null,
+        name: item.organization !== undefined ? item.organization.name : "",
+      },
+      name: item.organization !== undefined ? item.organization.name + " lead" : "",
+      openContactDropdown: false,
+      showContactBadge: false,
+      afterContactSelectShowBadge: false,
+    });
+  };
+
+  onContactBlur = () => {};
+
+  onAutocompleteFocus = (event) => {
+    event.target.parentNode.parentNode.setAttribute("style", "border: 1px solid #317ae2");
+  };
+
+  onFocus = (event) => {
+    event.target.parentNode.setAttribute("style", "border: 1px solid #317ae2");
+  };
+
+  onBlur = (event) => {
+    event.target.parentNode.removeAttribute("style");
+  };
 
   validateLead(lead) {
     let errors = {};
-    if (isBlank(lead.name)) {
+    let name = lead.name;
+
+    if (isBlank(isBlank(name) ? name : lead.namePlaceholder)) {
       errors.name = "Name must not be empty";
     }
-    if (isBlank(lead.organization) && isBlank(lead.contact)) {
+    if (isBlank(lead.organization.name) && isBlank(lead.contact)) {
       errors.organization = "Organisation or contact must not be empty";
       errors.contact = "Contact or organisation must not be empty";
     }
@@ -118,7 +294,7 @@ class AddLead extends React.Component {
         domain: this.props.auth.domainid,
         owner: this.props.auth.userid,
         stage: this.state.stage,
-        name: this.state.name,
+        name: this.state.name.length ? this.state.name : this.state.namePlaceholder,
         contact: this.state.contact.id ? this.state.contact.id : this.state.contact.name,
         organization: this.state.organization.id ? this.state.organization.id : this.state.organization.name,
         order: this.getNextLeadNumber(this.state.stage),
@@ -137,40 +313,6 @@ class AddLead extends React.Component {
   selectStageHandler(stageid) {
     this.setState({ stage: stageid });
   }
-
-  onContactChange = (event) => {
-    this.setState({
-      contact: {
-        name: event.target.value,
-      },
-      openContactDropdown: true,
-      afterSelectShowBadge: true,
-    });
-  };
-
-  onContactSelect = (value, id, organization) => {
-    this.setState({
-      contact: {
-        id,
-        name: value,
-      },
-      organization: {
-        id: organization !== undefined ? organization._id : null,
-        name: organization !== undefined ? organization.name : "",
-      },
-      name: organization !== undefined ? organization.name + " deal" : "",
-      openContactDropdown: false,
-      showContactBadge: false,
-      afterSelectShowBadge: false,
-    });
-  };
-
-  onContactBlur = () => {
-    this.setState({
-      openContactDropdown: false,
-      showContactBadge: this.state.contact.name.length > 1 && this.state.afterSelectShowBadge,
-    });
-  };
 
   render() {
     const { errors, validationIsShown } = this.state;
@@ -191,6 +333,7 @@ class AddLead extends React.Component {
             </span>
           </button>
           <form autoComplete="off" className={styles.form}>
+
             <label className={styles.inputLabel}>Contact person name</label>
             <div className={validationIsShown && errors.contact ? styles.invalidContainer : styles.inputContainer}>
               <i className={classNames("fas fa-user", styles.inputIcon)}/>
@@ -205,26 +348,36 @@ class AddLead extends React.Component {
               {this.state.showContactBadge ? <span className={styles.newBadge}>NEW</span> : null}
             </div>
 
-            <label className={styles.inputLabel}>Organization name</label>
-            <div className={validationIsShown && errors.organization ? styles.invalidContainer : styles.inputContainer}>
+            <label className={styles.inputLabel}>
+              Organization name
+            </label>
+            <div className={validationIsShown && errors.organization
+              ? styles.invalidContainer
+              : styles.inputContainer}>
               <i className={classNames("fas fa-building", styles.inputIcon)}/>
-              <input
-                name="organization"
-                type="text"
-                className={styles.formInput}
-                onChange={this.onChange}
+              <OrganizationAutocomplete
+                onFocus={this.onAutocompleteFocus}
+                items={this.state.organizations}
+                onChange={this.onOrganizationChange}
+                onSelect={this.onOrganizationSelect}
+                onBlur={this.onOrganizationBlur}
                 value={this.state.organization.name}
+                open={this.state.openDropdown}
               />
+              {this.state.showOrganizationBadge ? <span className={styles.newBadge}>NEW</span> : null}
             </div>
 
-            <label className={styles.inputLabel}>Lead title</label>
+            <label className={styles.inputLabel}>Lead name</label>
             <div className={validationIsShown && errors.name ? styles.invalidContainer : styles.inputContainer}>
               <input
+                placeholder={this.state.namePlaceholder}
                 name="name"
                 type="text"
                 className={styles.formInput}
-                onChange={this.onChange}
-                value={this.state.name}
+                value={this.state.showPlaceholder ? "" : this.state.name}
+                onChange={this.onNameChange}
+                onFocus={this.onFocus}
+                onBlur={this.onBlur}
               />
             </div>
             <SelectStageOnCreation stages={this.props.leads.stages} onStageChange={this.selectStageHandler}/>
@@ -244,17 +397,19 @@ AddLead.propTypes = {
   leads: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
-  contacts: PropTypes.array.isRequired
+  contacts: PropTypes.array.isRequired,
+  organizations: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = state => ({
   leads: state.leads,
   contacts: state.contacts,
+  organizations: state.organizations,
   auth: state.auth,
   errors: state.errors,
 });
 export { AddLead };
 export default connect(
   mapStateToProps,
-  { createLead, loadContacts },
+  { loadOrganizations, createLead, loadContacts },
 )(AddLead);

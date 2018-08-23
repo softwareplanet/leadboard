@@ -5,6 +5,9 @@ import Domain from "../models/domain";
 import Funnel from "../models/funnel";
 import Stage from "../models/stage";
 import Lead from "../models/lead";
+import { connectToMongoose } from "../mongoose";
+
+connectToMongoose();
 
 export async function dropTables() {
   await User.remove({});
@@ -32,56 +35,50 @@ export async function createUserAndDomain(app, company = "Acme Corp.", email = "
   const user = await request(app())
     .post("/api/login")
     .send({ email: email, password: "secret" })
+    .then(res => res.body)
     .catch(error => {
       console.log("Cannon login a user" + error);
       throw "Cannon login a user" + error;
     });
-
   return {
-    token: user.body.token,
-    user: user.body.data.user,
-    domain: user.body.data.domain
+    token: user.token,
+    userId: user.userId,
+    domainId: user.domainId
   };
 }
 
-export async function createFunnel(app, token, domain, name = "Funnel") {
-  const { body } = await request(app())
+export async function createFunnel(app, token, domainId, name = "Funnel") {
+  return await request(app())
     .post("/api/funnel")
-    .send({ token, domain, name })
+    .set("Authorization", token)
+    .send({ domain: domainId, name: name })
+    .then(res => res.body)
     .catch(error => {
       console.log("Cannon create a funnel" + error);
       throw "Cannon create a funnel";
     });
-
-  return {
-    funnel: body.data.funnel
-  };
 }
 
-export async function createStage(app, token, funnel, name = "Stage", order = "1") {
-  const { body } = await request(app())
+export async function createStage(app, token, funnelId, name = "Stage",order = 1, userId ) {
+  return await request(app())
     .post("/api/stage")
-    .send({ token, funnel: funnel, name, order: order })
+    .set("Authorization", token)
+    .send({ funnel: funnelId, name: name, order: order, owner: userId })
+    .then(res => res.body)
     .catch(error => {
       console.log("Cannon create a stage" + error);
       throw "Cannon create a stage";
     });
-
-  return {
-    stage: body.data.stage
-  };
 }
 
 export async function createLead(app, token, user, stage, domain, order, name = "Lead") {
-  const { body } = await request(app())
+  return  await request(app())
     .post("/api/lead")
-    .send({ token, owner: user, stage: stage, order, name, domain, contact:"Test contact"})
+    .set("Authorization", token)
+    .send({ owner: user, stage: stage, order, domain, name, contact:"Test contact" })
+    .then(res => res.body)
     .catch(error => {
       console.log("Cannon create a lead" + error);
       throw "Cannon create a lead";
     });
-
-  return {
-    lead: body.data.lead
-  };
 }

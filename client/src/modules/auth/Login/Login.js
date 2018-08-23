@@ -25,19 +25,13 @@ class Login extends Component {
 
   componentDidMount() {
     document.title = "Log In";
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/home");
-    }
   }
 
   componentWillUnmount() {
-    document.title = "Leadbord";
+    document.title = "Leadboard";
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/home");
-    }
     this.setState({ errors: nextProps.errors });
   }
 
@@ -76,7 +70,7 @@ class Login extends Component {
 
     return (
       <div id="login" className={styles.container}>
-        <form onSubmit={this.onSubmit}>
+        <form className="loginForm" onSubmit={this.onSubmit}>
           <div className={styles.form}>
             <div className={styles.formTitle}>Log in</div>
             <InputGroup
