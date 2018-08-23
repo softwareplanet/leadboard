@@ -81,6 +81,7 @@
 .inputContainer {
     border: 1px solid #cbcccd;
     display: flex;
+    align-items: center;
     flex-wrap: nowrap;
     height: 32px;
     border-radius: 3px;
@@ -142,3 +143,13 @@
      composes: green;
  }
 
+.newBadge {
+    background: #317ae2;
+    padding: 3px 5px;
+    display: inline-block;
+    border-radius: 10px;
+    color: #fff;
+    line-height: 1;
+    font-size: 75%;
+    margin-left: 15px;
+}
