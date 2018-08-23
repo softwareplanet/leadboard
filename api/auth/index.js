@@ -110,7 +110,7 @@ router.post("/login", function(req, res) {
                   success: true,
                   token: "Bearer " + token,
                   userId: user._id.toString(),
-                  domainId: user.domain._id.toString(),
+                  domainId: user.domain.toString()
                 });
               });
           } else {
