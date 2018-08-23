@@ -19,7 +19,7 @@ export const formatDate = (date) => {
 
   let month = monthNames[unformatedTimestamp.getMonth() - 1];
   let day = unformatedTimestamp.getDate();
-  if (currentDate.getFullYear() === unformatedDate.getFullYear()) {
+  if (currentDate.getFullYear() === unformatedTimestamp.getFullYear()) {
     return thisYearFormat(month, day, hours, minutes);
   }
 
