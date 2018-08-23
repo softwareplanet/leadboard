@@ -13,7 +13,7 @@ const customField = {
 
 describe("EditFieldGroup", () => {
   it("renders without crashing", function() {
-    const fieldGroupWrapper = mount(<EditFieldGroup/>);
+    const fieldGroupWrapper = mount(<EditFieldGroup />);
     expect(fieldGroupWrapper.find("input").hasClass(styles.input)).to.equal(true);
   });
 
@@ -28,9 +28,12 @@ describe("EditFieldGroup", () => {
 
   it("reacts correctly on change", function() {
     let handleChange = sinon.spy();
-    const fieldGroupWrapper = mount(<EditFieldGroup name={customField.name}
-                                                    value={customField.value}
-                                                    onChange={handleChange}/>);
+    const fieldGroupWrapper = mount(
+      <EditFieldGroup
+        name={customField.name}
+        value={customField.value}
+        onChange={handleChange} />,
+    );
     const input = fieldGroupWrapper.find("input");
     const newValue = "Gogolya st.";
     input.simulate("change", { target: { value: newValue } });
