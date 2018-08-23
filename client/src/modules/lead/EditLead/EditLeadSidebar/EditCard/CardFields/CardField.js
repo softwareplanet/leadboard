@@ -1,36 +1,70 @@
 import React, { Component } from "react";
 import styles from "./CardField.css";
-import { Link } from "react-router-dom";
-import isBlank from '../../../../../../utils/isBlank';
-
+import SingleEditView from "./EditView/SingleEditView/SingleEditView";
+import PropTypes from "prop-types";
+import isBlank from "../../../../../../utils/isBlank";
+import EditButton from "../EditButton/EditButton";
 
 class CardField extends Component {
+
+  state = {
+    isInEditMode: false,
+  };
+
+  openEditMode = () => {
+    this.setState({ isInEditMode: true });
+  };
+
+  closeEditMode = () => {
+    this.setState({ isInEditMode: false });
+  };
+
   render() {
-    let addValue = (
-      <span className={styles.addValue}>
-        <Link to=' '>+ Add value</Link>
+    const { name, value } = this.props.field;
+    const { isInEditMode } = this.state;
+
+    let valueAdd = (
+      <span className={styles.addValue} onClick={this.openEditMode}>
+          + Add value
       </span>
     );
-    let value = (
+    let valueShow = (
       <div id="fieldValue" className={styles.customFieldValueWrap}>
         <span className={styles.customFieldValue}>
-          <Link to=' '>{this.props.customFieldValue}</Link>
+          {value}
         </span>
       </div>
     );
     return (
       <div className={styles.customValue}>
-        <div className={styles.allCustomFieldsWrapper}>
+        {
+          !isInEditMode &&
           <div className={styles.customFieldsWrapper}>
             <div id="fieldLabel" className={styles.customFieldLabelWrap}>
-              <span className={styles.customFieldLabel}>{this.props.customFieldName}</span>
+              <span className={styles.customFieldLabel}>{name}</span>
             </div>
-            {isBlank(this.props.customFieldValue) ? addValue : value}
+            {isBlank(value) ? valueAdd : valueShow}
+            {
+              !isBlank(value) && <EditButton onClick={this.openEditMode} style={styles.editButton} />
+            }
           </div>
-        </div>
+        }
+        {
+          this.state.isInEditMode &&
+          <SingleEditView
+            fieldName={name}
+            fieldValue={value}
+            onChange={this.props.onUpdate}
+            onCancel={this.closeEditMode} />
+        }
       </div>
-    )
+    );
   }
 }
+
+CardField.propTypes = {
+  field: PropTypes.object,
+  onUpdate: PropTypes.func,
+};
 
 export default CardField;

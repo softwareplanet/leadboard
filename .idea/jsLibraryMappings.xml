@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="PROJECT" libraries="{@types/chai, @types/enzyme, @types/enzyme-adapter-react-16, @types/express, @types/jest, @types/mongoose, react, react-dom}" />
+    <file url="PROJECT" libraries="{@types/chai, @types/enzyme, @types/enzyme-adapter-react-16, @types/express, @types/jest, @types/mongoose, @types/passport, @types/passport-jwt, react, react-dom}" />
   </component>
 </project>

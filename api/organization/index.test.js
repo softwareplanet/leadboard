@@ -1,7 +1,14 @@
 import request from "supertest";
 import express from "../../express";
 import routes from "..";
-import { dropTables, createUserAndDomain, createFunnel, createStage, createLead } from "../../test/db-prepare";
+import {
+  createFunnel,
+  createLead,
+  createOrganization,
+  createStage,
+  createUserAndDomain,
+  dropTables,
+} from "../../test/db-prepare";
 
 const app = () => express(routes);
 
@@ -20,10 +27,47 @@ beforeEach(async done => {
 });
 
 describe("Organization", function() {
-  it("should retrieve all domain' organizations", async () => {
-    const { status } = await request(app())
-      .get("/api/organization")
-      .set("Authorization", cred.token);
+  it("should create a new organization", async () => {
+    const { status, body } = await request(app())
+      .post("/api/organization")
+      .set("Authorization", cred.token)
+      .send({ name: "EpicSoftware", custom: [] });
+
     expect(status).toBe(200);
+    expect(typeof body._id).toBe("string");
+  });
+
+  it("should get organization by id", async () => {
+    const organization = await createOrganization(app, cred.token, "Company 1");
+
+    const { status, body } = await request(app())
+      .get(`/api/organization/${organization._id}`)
+      .set("Authorization", cred.token)
+      .send({});
+
+    expect(status).toBe(200);
+    expect(typeof body).toBe("object");
+  });
+
+  it("should update properly", async () => {
+    const newOrg = await createOrganization(app, cred.token, "Company 1");
+
+    const newCompanyName = "EpicSoftware";
+    const { status, body } = await request(app())
+      .patch(`/api/organization/${newOrg._id}`)
+      .set("Authorization", cred.token)
+      .send({ name: newCompanyName });
+
+    expect(status).toBe(200);
+    expect((body).name).toBe(newCompanyName);
+  });
+
+  it("should retrieve all domain' organizations", async () => {
+    const { status, body } = await request(app())
+      .get("/api/organization")
+      .set("Authorization", cred.token)
+      .send({ domain: cred.domainId });
+    expect(status).toBe(200);
+    expect(Object.keys(body).length).toBe(0);
   });
 });

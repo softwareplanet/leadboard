@@ -46,7 +46,7 @@ class AddLead extends React.Component {
       errors: {},
 
       openContactDropdown: false,
-      openOrganizationDropdown: true,
+      openOrganizationDropdown: false,
 
       showOrganizationBadge: false,
       showContactBadge: false,
@@ -102,7 +102,7 @@ class AddLead extends React.Component {
       errors: {},
 
       openContactDropdown: false,
-      openOrganizationDropdown: true,
+      openOrganizationDropdown: false,
 
       showOrganizationBadge: false,
       showContactBadge: false,
@@ -168,7 +168,7 @@ class AddLead extends React.Component {
       },
       name: !this.state.nameChanged ?
         `${value} lead` : `${this.state.name}`,
-      openDropdown: false,
+      openOrganizationDropdown: false,
       showBadge: false,
       afterSelectShowBadge: false,
     });
@@ -207,8 +207,8 @@ class AddLead extends React.Component {
     this.setState({
       ...this.state,
       name: this.getNameValue(),
-      openDropdown: false,
-      showBadge: this.state.organization.name.length > 0 && this.state.afterSelectShowBadge && !this.state.organization.id,
+      openOrganizationDropdown: false,
+      showOrganizationBadge: this.state.organization.name.length > 0 && this.state.afterOrganizationSelectShowBadge && !this.state.organization.id,
       namePlaceholder: this.getPlaceholderValue(),
     });
   };
@@ -220,7 +220,7 @@ class AddLead extends React.Component {
         id: this.state.contactAfterSelect.name === event.target.value ? this.state.contactAfterSelect.id : null,
         name: event.target.value,
       },
-      openDropdown: true,
+      openContactDropdown: true,
       afterContactSelectShowBadge: true,
     };
     this.setState({
@@ -255,7 +255,15 @@ class AddLead extends React.Component {
     });
   };
 
-  onContactBlur = () => {};
+  onContactBlur = (event) => {
+    event.target.parentNode.parentNode.removeAttribute("style");
+    this.setState({
+      ...this.state,
+      name: this.getNameValue(),
+      openContactDropdown: false,
+      showContactBadge: this.state.contact.name.length > 0 && this.state.afterContactSelectShowBadge && !this.state.contact.id,
+    })
+  };
 
   onAutocompleteFocus = (event) => {
     event.target.parentNode.parentNode.setAttribute("style", "border: 1px solid #317ae2");
@@ -272,11 +280,12 @@ class AddLead extends React.Component {
   validateLead(lead) {
     let errors = {};
     let name = lead.name;
+    console.log(lead.namePlaceholder.length === 0);
 
-    if (isBlank(isBlank(name) ? name : lead.namePlaceholder)) {
+    if (isBlank(!isBlank(name) ? name : lead.namePlaceholder)) {
       errors.name = "Name must not be empty";
     }
-    if (isBlank(lead.organization.name) && isBlank(lead.contact)) {
+    if (isBlank(lead.organization.name) && isBlank(lead.contact.name)) {
       errors.organization = "Organisation or contact must not be empty";
       errors.contact = "Contact or organisation must not be empty";
     }
@@ -294,7 +303,7 @@ class AddLead extends React.Component {
         domain: this.props.auth.domainid,
         owner: this.props.auth.userid,
         stage: this.state.stage,
-        name: this.state.name.length ? this.state.name : this.state.namePlaceholder,
+        name: this.state.name.length > 0 ? this.state.name : this.state.namePlaceholder,
         contact: this.state.contact.id ? this.state.contact.id : this.state.contact.name,
         organization: this.state.organization.id ? this.state.organization.id : this.state.organization.name,
         order: this.getNextLeadNumber(this.state.stage),
@@ -339,6 +348,7 @@ class AddLead extends React.Component {
               <i className={classNames("fas fa-user", styles.inputIcon)}/>
               <ContactAutocomplete
                 items={this.state.contacts}
+                onFocus={this.onAutocompleteFocus}
                 onChange={this.onContactChange}
                 onSelect={this.onContactSelect}
                 onBlur={this.onContactBlur}
@@ -356,13 +366,13 @@ class AddLead extends React.Component {
               : styles.inputContainer}>
               <i className={classNames("fas fa-building", styles.inputIcon)}/>
               <OrganizationAutocomplete
-                onFocus={this.onAutocompleteFocus}
                 items={this.state.organizations}
+                onFocus={this.onAutocompleteFocus}
                 onChange={this.onOrganizationChange}
                 onSelect={this.onOrganizationSelect}
                 onBlur={this.onOrganizationBlur}
                 value={this.state.organization.name}
-                open={this.state.openDropdown}
+                open={this.state.openOrganizationDropdown}
               />
               {this.state.showOrganizationBadge ? <span className={styles.newBadge}>NEW</span> : null}
             </div>
@@ -374,13 +384,13 @@ class AddLead extends React.Component {
                 name="name"
                 type="text"
                 className={styles.formInput}
-                value={this.state.showPlaceholder ? "" : this.state.name}
+                value={this.state.name}
                 onChange={this.onNameChange}
                 onFocus={this.onFocus}
                 onBlur={this.onBlur}
               />
             </div>
-            <SelectStageOnCreation stages={this.props.leads.stages} onStageChange={this.selectStageHandler}/>
+            <SelectStageOnCreation stages={this.props.leads.stages} onStageChange={this.selectStageHandler} />
           </form>
           <div className={styles.formFooter}>
             <button type="button" className={styles.saveBtn} onClick={this.onSubmit}>

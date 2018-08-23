@@ -9,9 +9,9 @@ import contact from "./contact";
 import organization from "./organization";
 
 const router = new Router();
+const authenticate = passport.authenticate("jwt", { session: false });
 
 router.use("/api", auth);
-let authenticate = passport.authenticate("jwt", { session: false });
 router.use("/api/user", authenticate, user);
 router.use("/api/stage", authenticate, stage);
 router.use("/api/funnel", authenticate, funnel);

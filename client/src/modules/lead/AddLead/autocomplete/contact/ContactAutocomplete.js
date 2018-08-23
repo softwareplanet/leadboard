@@ -1,6 +1,6 @@
 import React from "react";
 import ReactAutocomplete from "react-autocomplete";
-import "../../styles/Autocomplete.css";
+import "../styles/Autocomplete.css";
 import styles from "../styles/autocomplete-styles";
 
 const COUNT_OF_DISPLAYED_ORGANIZATIONS = 4;
@@ -38,7 +38,7 @@ class ContactAutocomplete extends React.Component {
             {item.organization !== undefined ? `${item.name} (${ item.organization.name })` : `${item.name}`}
           </div>
         }
-        inputProps={{onBlur: this.props.onBlur}}
+        inputProps={{onBlur: this.props.onBlur, onFocus: this.props.onFocus}}
         value={this.props.value}
         onChange={this.props.onChange}
         onSelect={(value, item) => this.props.onSelect(value, item)}
