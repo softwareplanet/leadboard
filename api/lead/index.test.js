@@ -61,8 +61,22 @@ describe("Lead", () => {
         name: "Updated Lead",
         order: "1"
       });
-
     expect(status).toBe(200);
     expect(body.name).toBe("Updated Lead");
+  });
+
+  it("should create note for lead", async () => {
+    const { status, body } = await request(app())
+      .post(`/api/lead/${leadId}/notes`)
+      .set("Authorization", cred.token)
+      .send({
+        user: cred.userId,
+        text: "First note"
+      });
+    expect(status).toBe(200);
+    expect(body.notes[0]).toBeDefined();
+    expect(body.notes[0]).toMatchObject({
+      text: "First note"
+    });
   });
 });

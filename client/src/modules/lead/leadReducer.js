@@ -1,4 +1,4 @@
-import { LOAD_LEADBOARD, LOAD_STAGES, LOAD_LEADS, LOAD_LEAD, UPDATE_LEAD, SET_EDIT_FUNNEL_ID } from "./types";
+import { LOAD_LEADBOARD, LOAD_STAGES, LOAD_LEADS, LOAD_LEAD, UPDATE_LEAD, SET_EDIT_FUNNEL_ID, CREATE_NOTE } from "./types";
 
 const initialState = {
   funnels: [],
