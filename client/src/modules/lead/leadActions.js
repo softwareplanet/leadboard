@@ -1,5 +1,13 @@
 import axios from "axios";
-import { LOAD_LEAD, LOAD_LEADBOARD, LOAD_LEADS, LOAD_STAGES, UPDATE_LEAD, UPDATE_ORGANIZATION } from "./types";
+import {
+  LOAD_LEAD,
+  LOAD_LEADBOARD,
+  LOAD_LEADS,
+  LOAD_STAGES,
+  UPDATE_CONTACT,
+  UPDATE_LEAD,
+  UPDATE_ORGANIZATION,
+} from "./types";
 import { GET_ERRORS } from "../../actionTypes";
 
 // Load leadboard by Domain ID
@@ -120,6 +128,26 @@ export const updateOrganization = organization => dispatch => {
       });
     })
     .catch(error => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error,
+      });
+    });
+};
+
+export const updateContact = contact => dispatch => {
+  const contactId = contact._id;
+  delete contact._id;
+  axios
+    .patch(`/api/contact/${contactId}`, contact)
+    .then(res => {
+      dispatch({
+        type: UPDATE_CONTACT,
+        payload: res.data,
+      });
+    })
+    .catch(error => {
+      console.log(error);
       dispatch({
         type: GET_ERRORS,
         payload: error,
