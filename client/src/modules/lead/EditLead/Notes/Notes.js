@@ -18,7 +18,7 @@ class Notes extends Component {
               key={note._id}
               component={
                 <Note
-                  user={note.user.firstname}
+                  user={note.user.firstname + " " + note.user.lastname}
                   text={note.text}
                   date={note.date}/>
               }

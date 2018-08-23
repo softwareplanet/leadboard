@@ -93,6 +93,7 @@ router.get("/:id", (req, res) => {
 // @access  Private
 router.patch("/:id", (req, res) => {
   Lead.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
+    .populate("notes.user", {password: 0})
     .populate({ path: "contact", populate: { path: "organization" } })
     .populate("owner")
     .populate("stage")
@@ -109,6 +110,7 @@ router.patch("/:id", (req, res) => {
 // @access  Private
 router.post("/:id/notes", (req, res) => {
   Lead.findByIdAndUpdate(req.params.id, { $push:{ notes: req.body } }, { new: true })
+    .populate("notes.user", {password: 0})
     .populate({ path: "contact", populate: { path: "organization" } })
     .populate("owner")
     .populate("stage")
