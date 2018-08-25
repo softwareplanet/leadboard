@@ -18,22 +18,36 @@ beforeEach(async done => {
 
 describe("Contact", function() {
   it("should create a new contact", async () => {
+    let contactName = "John Doe";
     const { status, body } = await request(app())
       .post("/api/contact")
       .set("Authorization", cred.token)
-      .send({ domain: cred.domainId, organization: organization._id, name: "John Doe" });
+      .send({ organization: organization._id, name: contactName });
 
     expect(status).toBe(200);
-    expect(typeof body).toBe("string");
+    expect(typeof body._id).toBe("string");
+    expect(body.name).toBe(contactName);
+    expect(body.domain).toBe(cred.domainId);
+    expect(body.organization).toBe(organization._id);
+  });
+
+  it("should fail to create a new contact", async () => {
+    const { status, body } = await request(app())
+      .post("/api/contact")
+      .set("Authorization", cred.token)
+      .send({ name: "John Doe" });
+
+    expect(status).toBe(400);
+    expect(body.errors.organization).toBe("Organization cannot be empty");
   });
 
   it("should update properly", async () => {
-    const contactId = await createContact(app, cred.token, cred.domainId, organization, "John");
+    const contact = await createContact(app, cred.token, organization._id, "John");
 
     const newContactName = "John Doe";
 
     const { status, body } = await request(app())
-      .patch(`/api/contact/${contactId}`)
+      .patch(`/api/contact/${contact._id}`)
       .set("Authorization", cred.token)
       .send({ name: newContactName });
 

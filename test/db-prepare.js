@@ -95,11 +95,11 @@ export async function createOrganization(app, token, name = "Organization") {
   return body;
 }
 
-export async function createContact(app, token, domain, organization, name = "John D") {
+export async function createContact(app, token, organization, name = "John D") {
   const { body } = await request(app())
     .post("/api/contact")
     .set("Authorization", token)
-    .send({ name, domain, organization })
+    .send({ name, organization })
     .catch(error => {
       console.log("Cannon create a contact" + error);
       throw "Cannon create a contact";

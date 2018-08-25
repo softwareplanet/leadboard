@@ -1,5 +1,5 @@
-import { validateContactUpdate } from "../../validation/contact";
-import Organisation from "../../models/organization";
+import { validateContactCreation, validateContactUpdate } from "../../validation/contact";
+import Contact from "../../models/contact";
 import mongoose from "mongoose";
 import { Router } from "express";
 
@@ -9,19 +9,19 @@ const router = new Router;
 // @desc    Create organization
 // @access  Private
 router.post("/", function(req, res) {
-  const { hasErrors, errors } = validateContactUpdate(req.body);
+  const { hasErrors, errors } = validateContactCreation(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 
-  const contact = new Organisation({
+  const contact = new Contact({
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
-    domain: req.body.domain,
+    domain: req.user.domain,
     organization: req.body.organization,
     custom: req.body.custom ? req.body.custom : [],
   });
-  Organisation.create(contact)
-    .then(org => {
-      res.status(200).json(org._id);
+  Contact.create(contact)
+    .then(contact => {
+      res.status(200).json(contact);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });
@@ -35,7 +35,7 @@ router.patch("/:id", function(req, res) {
   const { hasErrors, errors } = validateContactUpdate(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 
-  Organisation.findOneAndUpdate(
+  Contact.findOneAndUpdate(
     req.params.id,
     { $set: req.body },
     { new: true })
