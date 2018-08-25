@@ -115,6 +115,7 @@ export const updateLead = lead => dispatch => {
     });
 };
 
+//Update organization by id
 export const updateOrganization = organization => dispatch => {
   let organizationCopy = { ...organization };
   const organizationId = organizationCopy._id;
@@ -135,11 +136,13 @@ export const updateOrganization = organization => dispatch => {
     });
 };
 
+//Update contact by id
 export const updateContact = contact => dispatch => {
-  const contactId = contact._id;
-  delete contact._id;
+  let contactCopy = { ...contact };
+  const contactId = contactCopy._id;
+  delete contactCopy._id;
   axios
-    .patch(`/api/contact/${contactId}`, contact)
+    .patch(`/api/contact/${contactId}`, contactCopy)
     .then(res => {
       dispatch({
         type: UPDATE_CONTACT,
@@ -162,13 +165,13 @@ export const createNote = (leadId, note) => dispatch => {
     .then(res => {
       dispatch({
         type: UPDATE_LEAD,
-        payload: res.data
+        payload: res.data,
       });
     })
     .catch(error => {
       dispatch({
         type: GET_ERRORS,
-        payload: error
+        payload: error,
       });
     });
 };
