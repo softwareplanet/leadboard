@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Button, ButtonGroup } from 'reactstrap';
 import style from "./AddActivity.css";
-import phoneIcon from "../../../../assets/add-activity/phone.svg"
-import meetingIcon from "../../../../assets/add-activity/meeting.svg"
-import taskIcon from "../../../../assets/add-activity/task.svg"
-import deadlineIcon from "../../../../assets/add-activity/deadline.svg"
-import emailIcon from "../../../../assets/add-activity/email.svg"
-import lunchIcon from "../../../../assets/add-activity/lunch.svg"
+import phoneIcon from "../../../../../../assets/add-activity/phone.svg"
+import meetingIcon from "../../../../../../assets/add-activity/meeting.svg"
+import taskIcon from "../../../../../../assets/add-activity/task.svg"
+import deadlineIcon from "../../../../../../assets/add-activity/deadline.svg"
+import emailIcon from "../../../../../../assets/add-activity/email.svg"
+import lunchIcon from "../../../../../../assets/add-activity/lunch.svg"
 
 
 export default class AddActivity extends Component {

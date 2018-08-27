@@ -15,7 +15,8 @@ import Registration from "./modules/auth/Registration/Registration";
 import "./App.css";
 import { Switch } from "react-router-dom";
 import EditLead from "./modules/lead/EditLead/EditLead";
-import AddActivity from "./modules/lead/EditLead/AddActivity/AddActivity";
+// /home/intern/Documents/leadboard/client/src/modules/lead/EditLead/EditLeadContent/EditLeadTabs/AddActivity/AddActivity.js
+import AddActivity from "./modules/lead/EditLead/EditLeadContent/EditLeadTabs/AddActivity/AddActivity";
 
 // restore redux/storage on page reload
 if (localStorage.jwtToken) {

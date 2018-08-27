@@ -22,6 +22,11 @@
   justify-content: center;
   align-items: center;
   padding: 9px 14px;
+  user-select: none;
+}
+
+.headerItem:hover{
+color: #26292c;
 }
 
 .headerItemIcon {
