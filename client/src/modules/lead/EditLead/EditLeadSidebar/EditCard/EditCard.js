@@ -38,6 +38,7 @@ class EditCard extends Component {
   };
 
   render() {
+    const isInEditMode = this.state.isInEditMode;
     let fields = this.props.model.custom.map((field, index) =>
       <CardField key={index}
                  field={field}
@@ -48,9 +49,9 @@ class EditCard extends Component {
           <span className={styles.titleName}>
             {this.props.title}
             </span>
-          <EditButton onClick={this.openEditMode} />
+          {!isInEditMode && <EditButton onClick={this.openEditMode} />}
         </div>
-        {!this.state.isInEditMode &&
+        {!isInEditMode &&
         <div>
           <MainField title={this.props.title}
                      value={this.props.model.name}
@@ -60,7 +61,7 @@ class EditCard extends Component {
         </div>
         }
         {
-          this.state.isInEditMode &&
+          isInEditMode &&
           <BulkEditView model={this.props.model}
                         onCancel={this.closeEditMode}
                         onChange={this.updateModel} />

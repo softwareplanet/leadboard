@@ -4,7 +4,7 @@ import EditCard from "./EditCard/EditCard";
 import personIcon from "../../../../img/personIcon.svg";
 import organizationIcon from "../../../../img/organizationIcon.svg";
 import PropTypes from "prop-types";
-import { loadLead, updateOrganization } from "../../leadActions";
+import { loadLead, updateContact, updateOrganization } from "../../leadActions";
 import { connect } from "react-redux";
 import _ from "lodash";
 
@@ -16,7 +16,8 @@ class EditLeadSidebar extends Component {
         <EditCard
           model={contact}
           title={"Person"}
-          icon={personIcon} />;
+          icon={personIcon}
+          onUpdate={this.props.updateContact} />;
       let cards;
       if ("organization" in contact) {
         const { organization } = contact;
@@ -44,6 +45,7 @@ class EditLeadSidebar extends Component {
 EditLeadSidebar.propTypes = {
   loadLead: PropTypes.func.isRequired,
   updateOrganization: PropTypes.func,
+  updateContact: PropTypes.func,
   editLead: PropTypes.object,
 };
 
@@ -55,5 +57,5 @@ export { EditLeadSidebar };
 
 export default connect(
   mapStateToProps,
-  { loadLead, updateOrganization },
+  { loadLead, updateOrganization, updateContact },
 )(EditLeadSidebar);
