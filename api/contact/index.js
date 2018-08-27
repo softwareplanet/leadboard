@@ -6,7 +6,7 @@ import { Router } from "express";
 const router = new Router;
 
 // @route   POST api/contact
-// @desc    Create organization
+// @desc    Create contact
 // @access  Private
 router.post("/", function(req, res) {
   const { hasErrors, errors } = validateContactCreation(req.body);
@@ -28,7 +28,7 @@ router.post("/", function(req, res) {
     });
 });
 
-// @route   PATCH api/contact
+// @route   PATCH api/contact/:id
 // @desc    Update contact
 // @access  Private
 router.patch("/:id", function(req, res) {
