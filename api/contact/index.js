@@ -19,8 +19,6 @@ router.get("/", (req, res) => {
     })
 });
 
-const router = new Router;
-
 // @route   POST api/contact
 // @desc    Create contact
 // @access  Private

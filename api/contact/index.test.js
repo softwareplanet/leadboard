@@ -71,7 +71,7 @@ describe("Contact", function() {
 
   it("should return all contacts", async () => {
     const organization = await createOrganization(app, cred.token, "Company 1");
-    await createContact(app, cred.token, "Nazar", organization._id);
+    await createContact(app, cred.token, organization._id, "Nazar");
 
     const { status, body } = await request(app())
       .get("/api/contact")
