@@ -1,10 +1,12 @@
 import axios from "axios";
 import {
-  LOAD_LEADBOARD,
-  LOAD_STAGES,
-  LOAD_LEADS,
   LOAD_LEAD,
+  LOAD_LEADBOARD,
+  LOAD_LEADS,
+  LOAD_STAGES,
+  UPDATE_CONTACT,
   UPDATE_LEAD,
+  UPDATE_ORGANIZATION,
 } from "./types";
 import { GET_ERRORS } from "../../actionTypes";
 
@@ -13,8 +15,8 @@ export const loadLeadboard = domain => dispatch => {
   axios
     .get("/api/funnel", {
       params: {
-        domain
-      }
+        domain,
+      },
     })
     .then(result => {
       dispatch(loadLeadboardAction(result.data));
@@ -32,8 +34,8 @@ export const loadStages = funnel => dispatch => {
   axios
     .get("/api/stage", {
       params: {
-        funnel
-      }
+        funnel,
+      },
     })
     .then(result => {
       dispatch(loadStagesAction(result.data));
@@ -51,8 +53,8 @@ export const loadLeads = stage => dispatch => {
   axios
     .get("/api/lead", {
       params: {
-        stage
-      }
+        stage,
+      },
     })
     .then(result => {
       dispatch(loadLeadsAction(stage, result.data));
@@ -66,7 +68,7 @@ export const loadLeads = stage => dispatch => {
 export const createLead = lead => (dispatch, getState) => {
   return axios
     .post("/api/lead", lead)
-    .then(response => {
+    .then(() => {
       dispatch(loadLeadboard(getState().auth.domainid));
     })
     .catch(error => {
@@ -82,7 +84,7 @@ export const loadLead = leadId => dispatch => {
       let lead = res.data;
       dispatch({
         type: LOAD_LEAD,
-        payload: lead
+        payload: lead,
       });
 
       dispatch(loadStages(lead.stage.funnel));
@@ -90,7 +92,7 @@ export const loadLead = leadId => dispatch => {
     .catch(error => {
       dispatch({
         type: GET_ERRORS,
-        payload: error.response.data.errors
+        payload: error.response.data.errors,
       });
     });
 };
@@ -102,13 +104,55 @@ export const updateLead = lead => dispatch => {
     .then(res => {
       dispatch({
         type: UPDATE_LEAD,
-        payload: res.data
+        payload: res.data,
       });
     })
     .catch(error => {
       dispatch({
         type: GET_ERRORS,
-        payload: error
+        payload: error,
+      });
+    });
+};
+
+//Update organization by id
+export const updateOrganization = organization => dispatch => {
+  let organizationCopy = { ...organization };
+  const organizationId = organizationCopy._id;
+  delete organizationCopy._id;
+  axios
+    .patch(`/api/organization/${organizationId}`, organizationCopy)
+    .then(res => {
+      dispatch({
+        type: UPDATE_ORGANIZATION,
+        payload: res.data,
+      });
+    })
+    .catch(error => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error,
+      });
+    });
+};
+
+//Update contact by id
+export const updateContact = contact => dispatch => {
+  let contactCopy = { ...contact };
+  const contactId = contactCopy._id;
+  delete contactCopy._id;
+  axios
+    .patch(`/api/contact/${contactId}`, contactCopy)
+    .then(res => {
+      dispatch({
+        type: UPDATE_CONTACT,
+        payload: res.data,
+      });
+    })
+    .catch(error => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error,
       });
     });
 };
@@ -120,13 +164,13 @@ export const createNote = (leadId, note) => dispatch => {
     .then(res => {
       dispatch({
         type: UPDATE_LEAD,
-        payload: res.data
+        payload: res.data,
       });
     })
     .catch(error => {
       dispatch({
         type: GET_ERRORS,
-        payload: error
+        payload: error,
       });
     });
 };
@@ -134,21 +178,21 @@ export const createNote = (leadId, note) => dispatch => {
 export function loadLeadboardAction(data) {
   return {
     type: LOAD_LEADBOARD,
-    payload: data
+    payload: data,
   };
 }
 
 export function getErrorsAction(errors) {
   return {
     type: GET_ERRORS,
-    payload: errors
+    payload: errors,
   };
 }
 
 export function loadStagesAction(data) {
   return {
     type: LOAD_STAGES,
-    payload: data
+    payload: data,
   };
 }
 
@@ -156,6 +200,6 @@ export function loadLeadsAction(stage, data) {
   return {
     type: LOAD_LEADS,
     stage: stage,
-    payload: data
+    payload: data,
   };
 }

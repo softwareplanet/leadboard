@@ -16,5 +16,7 @@
     <orderEntry type="library" name="@types/mongoose" level="application" />
     <orderEntry type="library" name="react" level="application" />
     <orderEntry type="library" name="react-dom" level="application" />
+    <orderEntry type="library" name="@types/passport-jwt" level="application" />
+    <orderEntry type="library" name="@types/passport" level="application" />
   </component>
 </module>

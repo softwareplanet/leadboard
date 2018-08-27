@@ -1,51 +1,61 @@
 import React, { Component } from "react";
 import styles from "./EditLeadSidebar.css";
 import EditCard from "./EditCard/EditCard";
+import personIcon from "../../../../img/personIcon.svg";
+import organizationIcon from "../../../../img/organizationIcon.svg";
 import PropTypes from "prop-types";
-import { loadLead } from "../../leadActions";
+import { loadLead, updateContact, updateOrganization } from "../../leadActions";
 import { connect } from "react-redux";
 import _ from "lodash";
 
 class EditLeadSidebar extends Component {
   render() {
-    return this.props.editLead ? <div className={styles.sidebar}>{Cards(EditCard)(this.props.editLead.contact)}</div> :
-      <div />;
+    if (this.props.editLead) {
+      const { contact } = this.props.editLead;
+      const contactCard =
+        <EditCard
+          model={contact}
+          title={"Person"}
+          icon={personIcon}
+          onUpdate={this.props.updateContact} />;
+      let cards;
+      if ("organization" in contact) {
+        const { organization } = contact;
+        const organizationCard =
+          <EditCard
+            model={organization}
+            title={"Organization"}
+            icon={organizationIcon}
+            onUpdate={this.props.updateOrganization} />;
+        cards = <div>{organizationCard}{contactCard}</div>;
+        if (_.isEmpty(contact.name)) {
+          cards = <div>{organizationCard}</div>;
+        }
+      }
+      else {
+        cards = <div>{contactCard}</div>;
+      }
+      return <div className={styles.sidebar}>{cards}</div>;
+    } else {
+      return <div />;
+    }
   }
 }
 
-const Cards = Component => props => {
-  if ("organization" in props && _.isEmpty(props.name)) {
-    return (
-      <div>
-        <Component value={props.organization} title={"Organization"} />
-      </div>
-    );
-  } else if ("organization" in props) {
-    return (
-      <div>
-        <Component value={props.organization} title={"Organization"} />
-        <Component value={props} title={"Person"} />
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <Component value={props} title={"Person"} />
-      </div>
-    );
-  }
-};
-
 EditLeadSidebar.propTypes = {
   loadLead: PropTypes.func.isRequired,
-  editLead: PropTypes.object.isRequired
+  updateOrganization: PropTypes.func,
+  updateContact: PropTypes.func,
+  editLead: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
-  editLead: state.leads.editLead
+  editLead: state.leads.editLead,
 });
+
+export { EditLeadSidebar };
 
 export default connect(
   mapStateToProps,
-  { loadLead }
+  { loadLead, updateOrganization, updateContact },
 )(EditLeadSidebar);
