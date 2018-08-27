@@ -108,12 +108,13 @@ ul {
 }
 
 .link {
+  padding: 12px 13px;
   composes: item;
-  padding: 0;
 }
 
 .currentLink {
   composes: link;
+  background-color: #26292c;
   color: white;
 }
 
@@ -124,6 +125,8 @@ ul {
 }
 
 .link:hover {
+  color: white;
+  cursor: pointer;
   text-decoration: none;
 }
 

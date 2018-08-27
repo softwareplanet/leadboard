@@ -17,6 +17,17 @@ class Navbar extends Component {
       <img className={styles.defaultImg} src={profileIcon} alt="user" />
   };
 
+  onLogout = () => {
+    this.props.logoutUser(this.props.history);
+  };
+
+  getDealsIcon = () => {
+    return this.props.location.pathname === leadsRoute ?
+    dealsIconActive :
+    dealsIcon
+  };
+
+
   render() {
     return (
       <header>
@@ -24,18 +35,15 @@ class Navbar extends Component {
 
           <li className={styles.logo}><Link to={leadsRoute}>Leadboard</Link></li>
           <li className={styles.logoSmall}><Link to={leadsRoute}><h1>L</h1></Link></li>
-
-          <li id="deals" className={this.props.location.pathname === leadsRoute ? styles.active : styles.itemWithLink}>
-            <NavLink
-              className={styles.link}
-              activeClassName={styles.currentLink}
-              to={leadsRoute}>
-              <div>
-                <img className={styles.icon}
-                     src={this.props.location.pathname === leadsRoute ? dealsIconActive : dealsIcon} alt="deals" />Deals
-              </div>
-            </NavLink>
-          </li>
+          <NavLink
+            className={styles.link}
+            activeClassName={styles.currentLink}
+            to={leadsRoute}>
+            <div>
+              <img className={styles.icon}
+                   src={this.getDealsIcon()} alt="deals" />Deals
+            </div>
+          </NavLink>
           <li className={styles.rightItem}>
             <div>
               {this.renderUserAvatar()}
@@ -45,7 +53,7 @@ class Navbar extends Component {
               </div>
             </div>
           </li>
-          <li id="logout" onClick={() => this.props.logoutUser(this.props.history)} className={styles.item}>
+          <li id="logout" onClick={this.onLogout} className={styles.item}>
             <div>
               Logout
             </div>
