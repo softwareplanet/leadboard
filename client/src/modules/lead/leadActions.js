@@ -1,5 +1,13 @@
 import axios from "axios";
-import { LOAD_LEAD, LOAD_LEADBOARD, LOAD_LEADS, LOAD_STAGES, UPDATE_LEAD, UPDATE_ORGANIZATION } from "./types";
+import {
+  LOAD_LEAD,
+  LOAD_LEADBOARD,
+  LOAD_LEADS,
+  LOAD_STAGES,
+  UPDATE_CONTACT,
+  UPDATE_LEAD,
+  UPDATE_ORGANIZATION,
+} from "./types";
 import { GET_ERRORS } from "../../actionTypes";
 
 // Load leadboard by Domain ID
@@ -107,6 +115,7 @@ export const updateLead = lead => dispatch => {
     });
 };
 
+//Update organization by id
 export const updateOrganization = organization => dispatch => {
   let organizationCopy = { ...organization };
   const organizationId = organizationCopy._id;
@@ -127,6 +136,27 @@ export const updateOrganization = organization => dispatch => {
     });
 };
 
+//Update contact by id
+export const updateContact = contact => dispatch => {
+  let contactCopy = { ...contact };
+  const contactId = contactCopy._id;
+  delete contactCopy._id;
+  axios
+    .patch(`/api/contact/${contactId}`, contactCopy)
+    .then(res => {
+      dispatch({
+        type: UPDATE_CONTACT,
+        payload: res.data,
+      });
+    })
+    .catch(error => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error,
+      });
+    });
+};
+
 // Create note for lead
 export const createNote = (leadId, note) => dispatch => {
   axios
@@ -134,13 +164,13 @@ export const createNote = (leadId, note) => dispatch => {
     .then(res => {
       dispatch({
         type: UPDATE_LEAD,
-        payload: res.data
+        payload: res.data,
       });
     })
     .catch(error => {
       dispatch({
         type: GET_ERRORS,
-        payload: error
+        payload: error,
       });
     });
 };
