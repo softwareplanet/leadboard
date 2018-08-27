@@ -7,6 +7,8 @@ import Modal from "react-modal";
 import configureStore from "redux-mock-store";
 
 import styles from "./AddLead.css";
+import { loadOrganizations } from "./autocomplete/organization/organizationActions";
+import { createLead } from "../leadActions";
 
 let store;
 const mockStore = configureStore();
@@ -18,6 +20,10 @@ describe("<AddLead />", () => {
   beforeEach(() => {
     store = mockStore(initialState);
   });
+  const organizations = [
+    { _id: "5b7c0c6e42b4cb4a2c72492d", domain: "5b6ab060f60c0524980fa23b", name: "Company 1" },
+    { _id: "5b7c0cc542b4cb4a2c724933", domain: "5b6ab060f60c0524980fa23b", name: "Company 2" },
+  ];
   const auth = {
     isAuthenticated: true,
     userid: "5b6ab060f60c0524980fa23c",
@@ -43,12 +49,30 @@ describe("<AddLead />", () => {
   };
 
   it("renders without crashing", () => {
-    let mountedAddLead = mount(<AddLead auth={auth} store={store} leads={leads} errors={{}} />);
+    let mountedAddLead = mount(
+      <AddLead
+        loadOrganizations={loadOrganizations()}
+        organizations={organizations}
+        auth={auth}
+        store={store}
+        leads={leads}
+        errors={{}}
+      />,
+    );
     expect(mountedAddLead).to.have.length(1);
   });
 
   it("shows proper amount of inputs", () => {
-    let mountedAddLead = mount(<AddLead auth={auth} store={store} leads={leads} errors={{}} />);
+    let mountedAddLead = mount(
+      <AddLead
+        loadOrganizations={loadOrganizations()}
+        organizations={organizations}
+        auth={auth}
+        store={store}
+        leads={leads}
+        errors={{}}
+      />,
+    );
 
     let openModalBtn = mountedAddLead.find("button");
     openModalBtn.simulate("click", {});
@@ -58,7 +82,17 @@ describe("<AddLead />", () => {
   });
 
   it("shows validation when necessary", () => {
-    let mountedAddLead = mount(<AddLead auth={auth} store={store} leads={leads} errors={{}} />);
+    let mountedAddLead = mount(
+      <AddLead
+        createLead={createLead({})}
+        loadOrganizations={loadOrganizations()}
+        organizations={organizations}
+        auth={auth}
+        store={store}
+        leads={leads}
+        errors={{}}
+      />,
+    );
     let openModalBtn = mountedAddLead.find("button");
     openModalBtn.simulate("click", {});
 
@@ -71,10 +105,84 @@ describe("<AddLead />", () => {
 
     let contactInput = mountedAddLead.find("[name='contact']");
     contactInput.simulate("change", { target: { name: "contact", value: "Bob" } });
+    saveLeadBtn.simulate("click", {});
     expect(mountedAddLead.find(`.${invalidContainerClass}`).length).to.equal(1);
 
     let nameInput = mountedAddLead.find("[name='name']");
     nameInput.simulate("change", { target: { name: "name", value: "Deal with Bob" } });
-    expect(mountedAddLead.find(`.${invalidContainerClass}`).length).to.equal(0);
+    saveLeadBtn.simulate("click", {});
+    expect(mountedAddLead.find(`.${invalidContainerClass}`).length).to.equal(1);
+  });
+
+  it("on organization input blur, lead title will change", () => {
+    let mountedAddLead = mount(
+      <AddLead
+        loadOrganizations={loadOrganizations(auth.domainid)}
+        organizations={organizations}
+        auth={auth}
+        store={store}
+        leads={leads}
+        errors={{}}
+      />,
+    );
+    let openModalBtn = mountedAddLead.find("button");
+    openModalBtn.simulate("click", {});
+
+    const containerClass = styles.inputContainer;
+    let organizationAutocomplete = mountedAddLead.find(`.${containerClass}`).find("[role='combobox']");
+    organizationAutocomplete.simulate("change", {target: {value: "companay"}});
+    expect(mountedAddLead.state().organization.name).to.equal("companay");
+
+    organizationAutocomplete.simulate("blur", {});
+    expect(mountedAddLead.state().name).to.equal(`${mountedAddLead.state().organization.name} lead`);
+  });
+
+  it("on new organization input blur, showBadge will be true", () => {
+    let mountedAddLead = mount(
+      <AddLead
+        loadOrganizations={loadOrganizations(auth.domainid)}
+        organizations={organizations}
+        auth={auth}
+        store={store}
+        leads={leads}
+        errors={{}}
+      />,
+    );
+    let openModalBtn = mountedAddLead.find("button");
+    openModalBtn.simulate("click", {});
+
+    const containerClass = styles.inputContainer;
+    let organizationAutocomplete = mountedAddLead.find(`.${containerClass}`).find("[role='combobox']");
+    organizationAutocomplete.simulate("change", {target: {value: "companay"}});
+    expect(mountedAddLead.state().organization.name).to.equal("companay");
+
+    organizationAutocomplete.simulate("blur", {});
+    expect(mountedAddLead.state().showBadge).to.equal(true);
+  });
+
+  it("on new organization input change, items menu will be shown", () => {
+    let mountedAddLead = mount(
+      <AddLead
+        loadOrganizations={loadOrganizations(auth.domainid)}
+        organizations={organizations}
+        auth={auth}
+        store={store}
+        leads={leads}
+        errors={{}}
+      />,
+    );
+
+    let openModalBtn = mountedAddLead.find("button");
+    openModalBtn.simulate("click", {});
+
+    const containerClass = styles.inputContainer;
+    let organizationAutocomplete = mountedAddLead.find(`.${containerClass}`).find("[role='combobox']");
+    organizationAutocomplete.simulate("change", {target: {value: "companay"}});
+    const renderMenu = mountedAddLead.findWhere(node => node.hasClass('renderMenu')).at(0);
+    const renderMenuProps = renderMenu.props();
+    const renderMenuChildrenObject = renderMenuProps.children;
+    const renderMenuChildrenText = renderMenuChildrenObject.props.children;
+    expect(renderMenu.exists()).to.equal(true);
+    expect(renderMenuChildrenText).to.equal(`"${mountedAddLead.state().organization.name}" will be added as a new organization`);
   });
 });

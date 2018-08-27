@@ -18,7 +18,7 @@ export async function dropTables() {
 }
 
 export async function createUserAndDomain(app, company = "Acme Corp.", email = "johnsmith@example.com") {
-  const registration = await request(app())
+  await request(app())
     .post("/api/register")
     .send({
       firstname: "John",
@@ -72,7 +72,7 @@ export async function createStage(app, token, funnelId, name = "Stage",order = 1
 }
 
 export async function createLead(app, token, user, stage, domain, order, name = "Lead") {
-  return  await request(app())
+  return await request(app())
     .post("/api/lead")
     .set("Authorization", token)
     .send({ owner: user, stage: stage, order, domain, name, contact:"Test contact" })
@@ -81,4 +81,16 @@ export async function createLead(app, token, user, stage, domain, order, name = 
       console.log("Cannon create a lead" + error);
       throw "Cannon create a lead";
     });
+}
+
+export async function createOrganization(app, token, name = "Organization") {
+  const { body } = await request(app())
+    .post("/api/organization")
+    .set("Authorization", token)
+    .send({ name, custom: [] })
+    .catch(error => {
+      console.log("Cannon create a organization" + error);
+      throw "Cannon create a organization";
+    });
+  return body;
 }

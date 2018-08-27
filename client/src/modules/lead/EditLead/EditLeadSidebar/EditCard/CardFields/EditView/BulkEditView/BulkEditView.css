@@ -1,0 +1,16 @@
+.editView {
+  padding-top: 8px;
+  background: #f7f7f7;
+  border-top: 1px solid #e5e5e5;
+  margin-top: -1px;
+}
+
+.actions {
+  composes: actions from "../EditViewCommon.css";
+  padding: 8px 16px 16px;
+}
+
+.saveBtn {
+  composes: button from "../../../../../../../../styles/common.css";
+  composes: buttonGreen from "../../../../../../../../styles/common.css";
+}

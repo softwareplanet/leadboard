@@ -1,13 +1,9 @@
-
-.border{
-  border-style: solid;
-  border-color: #e5e5e5;
-  border-width: 1px;  
+.border {
+  border: 1px solid #e5e5e5;
 }
 
-.container { 
-  composes:border;
-  
+.container {
+  composes: border;
   display: block;
   width: 100%;
   margin-bottom: 8px;
@@ -17,8 +13,8 @@
 
 .title {
   padding: 16px 0;
-  composes:border;
-  border-width: 0px;
+  composes: border;
+  border-width: 0;
   border-bottom-width: 1px;
   margin: 0 16px;
   display: flex;
@@ -34,3 +30,5 @@
   text-transform: uppercase;
   user-select: none;
 }
+
+

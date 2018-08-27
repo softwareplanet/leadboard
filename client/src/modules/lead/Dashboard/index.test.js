@@ -102,7 +102,7 @@ describe("Connected DASHBOARD (SMART component)", () => {
 
   beforeEach(() => {
     store = mockStore(initState);
-    container = shallow(<Provider store={store}><ConnectedDashboard /></Provider>);
+    container = shallow(<Provider store={store}><ConnectedDashboard/></Provider>);
   });
 
   it("render the connected(SMART) component", () => {

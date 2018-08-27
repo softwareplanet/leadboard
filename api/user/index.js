@@ -9,7 +9,6 @@ const router = new Router();
 router.get("/:id", function(req, res) {
   if (isEmpty(req.params.id)) return res.status(400).json({ errors: { id: "UserID is not defined" } });
   User.findById(req.params.id)
-    .populate({ path: "domain" })
     .then(user => {
       user.password = undefined;
       res.json(user);

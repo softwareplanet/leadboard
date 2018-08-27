@@ -1,6 +1,6 @@
 import axios from "axios";
 import setAuthToken from "../../utils/setAuthToken";
-import { SET_LOGIN_DATA, LOGOUT_USER } from "./types";
+import { SET_LOGIN_DATA } from "./types";
 import { GET_ERRORS } from "../../actionTypes";
 
 // Register user
@@ -25,6 +25,7 @@ export const loginUser = (user, history) => dispatch => {
       localStorage.setItem("jwtToken", token);
       setAuthToken(token);
       dispatch(setLoginData(result.data));
+
       if (history) history.push("/home");
     })
     .catch(error => {
@@ -43,9 +44,7 @@ export const loginUserById = id => dispatch => {
     .then(result => {
       const loginData = {
         userId: result.data._id,
-        userName: `${result.data.firstname} ${result.data.lastname}`,
-        domainId: result.data.domain._id,
-        domainName: result.data.domain.name
+        domainId: result.data.domain
       };
       dispatch(setLoginData(loginData));
     })
@@ -58,15 +57,4 @@ export const setLoginData = data => {
     type: SET_LOGIN_DATA,
     payload: data
   };
-};
-
-export const logoutUser = history => dispatch => {
-  localStorage.removeItem("jwtToken");
-
-  setAuthToken({});
-  dispatch({
-    type: LOGOUT_USER,
-  });
-
-  if (history) history.push("/");
 };
