@@ -26,12 +26,14 @@ describe("Contact", function() {
 
     expect(status).toBe(200);
     expect(typeof body._id).toBe("string");
-    expect(body.name).toBe(contactName);
-    expect(body.domain).toBe(cred.domainId);
-    expect(body.organization).toBe(organization._id);
+    expect(body).toMatchObject({
+      name: contactName,
+      domain: cred.domainId,
+      organization: organization._id,
+    });
   });
 
-  it("should fail to create a new contact", async () => {
+  it("should fail to create a new contact without name", async () => {
     const { status, body } = await request(app())
       .post("/api/contact")
       .set("Authorization", cred.token)
@@ -44,7 +46,7 @@ describe("Contact", function() {
   it("should update properly", async () => {
     const contact = await createContact(app, cred.token, organization._id, "John");
 
-    const newContactName = "John Doe";
+    const newContactName = "John Smith";
 
     const { status, body } = await request(app())
       .patch(`/api/contact/${contact._id}`)
