@@ -2,13 +2,15 @@ import "jsdom-global/register";
 import React from "react";
 import { mount } from "enzyme";
 import { expect } from "chai";
+import chai from "chai";
+import spies from "chai-spies";
+
 import { AddLead } from "./AddLead";
 import Modal from "react-modal";
 import configureStore from "redux-mock-store";
-
 import styles from "./AddLead.css";
-import { loadOrganizations } from "./autocomplete/organization/organizationActions";
-import { createLead } from "../leadActions";
+
+chai.use(spies);
 
 let store;
 const mockStore = configureStore();
@@ -16,6 +18,7 @@ Modal.setAppElement("body");
 
 describe("<AddLead />", () => {
   const initialState = {};
+  const spy = chai.spy(()=>{});
 
   beforeEach(() => {
     store = mockStore(initialState);
@@ -32,10 +35,10 @@ describe("<AddLead />", () => {
   let leads = {
     funnels: [{ _id: "5b6b0fbe91e0774579ed6700", name: "renkonazbkafunnel", domain: "5b6ab060f60c0524980fa23b" }],
     stages: [
-      { _id: "5b6b123391e0774579ed6701", funnel: "5b6b0fbe91e0774579ed6700", name: "Lead In", order: 1 },
-      { _id: "5b6b123391e0774579ed6702", funnel: "5b6b0fbe91e0774579ed6700", name: "Lead In", order: 1 },
-      { _id: "5b6b123391e0774579ed6703", funnel: "5b6b0fbe91e0774579ed6700", name: "Lead In", order: 1 },
-      { _id: "5b6b123391e0774579ed6704", funnel: "5b6b0fbe91e0774579ed6700", name: "Lead In", order: 1 }
+      { _id: "5b6b123391e0774579ed6701", funnel: "5b6b0fbe91e0774579ed6700", name: "Awareness", order: 1 },
+      { _id: "5b6b123391e0774579ed6702", funnel: "5b6b0fbe91e0774579ed6700", name: "Interest", order: 2 },
+      { _id: "5b6b123391e0774579ed6703", funnel: "5b6b0fbe91e0774579ed6700", name: "Decision", order: 3 },
+      { _id: "5b6b123391e0774579ed6704", funnel: "5b6b0fbe91e0774579ed6700", name: "Action", order: 4 }
     ],
     leads: {
       _5b6b123391e0774579ed6701: {
@@ -51,7 +54,8 @@ describe("<AddLead />", () => {
   it("renders without crashing", () => {
     let mountedAddLead = mount(
       <AddLead
-        loadOrganizations={loadOrganizations()}
+        contacts={[]}
+        loadOrganizations={spy}
         organizations={organizations}
         auth={auth}
         store={store}
@@ -65,7 +69,9 @@ describe("<AddLead />", () => {
   it("shows proper amount of inputs", () => {
     let mountedAddLead = mount(
       <AddLead
-        loadOrganizations={loadOrganizations()}
+        contacts={[]}
+        loadContacts={spy}
+        loadOrganizations={spy}
         organizations={organizations}
         auth={auth}
         store={store}
@@ -84,8 +90,10 @@ describe("<AddLead />", () => {
   it("shows validation when necessary", () => {
     let mountedAddLead = mount(
       <AddLead
-        createLead={createLead({})}
-        loadOrganizations={loadOrganizations()}
+        contacts={[]}
+        loadContacts={spy}
+        createLead={spy}
+        loadOrganizations={spy}
         organizations={organizations}
         auth={auth}
         store={store}
@@ -103,21 +111,22 @@ describe("<AddLead />", () => {
     saveLeadBtn.simulate("click", {});
     expect(mountedAddLead.find(`.${invalidContainerClass}`).length).to.equal(3);
 
-    let contactInput = mountedAddLead.find("[name='contact']");
-    contactInput.simulate("change", { target: { name: "contact", value: "Bob" } });
+    let contactInput = mountedAddLead.find(".contact-input");
+    contactInput.simulate("change", { target: { value: "Bob" } });
     saveLeadBtn.simulate("click", {});
     expect(mountedAddLead.find(`.${invalidContainerClass}`).length).to.equal(1);
 
     let nameInput = mountedAddLead.find("[name='name']");
     nameInput.simulate("change", { target: { name: "name", value: "Deal with Bob" } });
     saveLeadBtn.simulate("click", {});
-    expect(mountedAddLead.find(`.${invalidContainerClass}`).length).to.equal(1);
+    expect(mountedAddLead.find(`.${invalidContainerClass}`).length).to.equal(0);
   });
-
   it("on organization input blur, lead title will change", () => {
     let mountedAddLead = mount(
       <AddLead
-        loadOrganizations={loadOrganizations(auth.domainid)}
+        contacts={[]}
+        loadContacts={spy}
+        loadOrganizations={spy}
         organizations={organizations}
         auth={auth}
         store={store}
@@ -128,19 +137,21 @@ describe("<AddLead />", () => {
     let openModalBtn = mountedAddLead.find("button");
     openModalBtn.simulate("click", {});
 
-    const containerClass = styles.inputContainer;
-    let organizationAutocomplete = mountedAddLead.find(`.${containerClass}`).find("[role='combobox']");
-    organizationAutocomplete.simulate("change", {target: {value: "companay"}});
-    expect(mountedAddLead.state().organization.name).to.equal("companay");
+    let organizationAutocomplete = mountedAddLead.find(".organization-input");
+    organizationAutocomplete.simulate("change", {target: {value: "Company 3"}});
+    expect(organizationAutocomplete.render().attr("value")).to.equal("Company 3");
 
     organizationAutocomplete.simulate("blur", {});
-    expect(mountedAddLead.state().name).to.equal(`${mountedAddLead.state().organization.name} lead`);
+    let nameInput = mountedAddLead.find("[name='name']");
+    expect(nameInput.render().attr("value")).to.equal("Company 3 lead");
   });
 
   it("on new organization input blur, showBadge will be true", () => {
     let mountedAddLead = mount(
       <AddLead
-        loadOrganizations={loadOrganizations(auth.domainid)}
+        contacts={[]}
+        loadContacts={spy}
+        loadOrganizations={spy}
         organizations={organizations}
         auth={auth}
         store={store}
@@ -151,19 +162,20 @@ describe("<AddLead />", () => {
     let openModalBtn = mountedAddLead.find("button");
     openModalBtn.simulate("click", {});
 
-    const containerClass = styles.inputContainer;
-    let organizationAutocomplete = mountedAddLead.find(`.${containerClass}`).find("[role='combobox']");
-    organizationAutocomplete.simulate("change", {target: {value: "companay"}});
-    expect(mountedAddLead.state().organization.name).to.equal("companay");
-
+    let organizationAutocomplete = mountedAddLead.find(".organization-input");
+    organizationAutocomplete.simulate("change", {target: {value: "Company 3"}});
     organizationAutocomplete.simulate("blur", {});
-    expect(mountedAddLead.state().showBadge).to.equal(true);
+
+    let organizationBadge = mountedAddLead.find("#organization-badge");
+    expect(organizationBadge.exists()).to.equal(true);
   });
 
   it("on new organization input change, items menu will be shown", () => {
     let mountedAddLead = mount(
       <AddLead
-        loadOrganizations={loadOrganizations(auth.domainid)}
+        contacts={[]}
+        loadContacts={spy}
+        loadOrganizations={spy}
         organizations={organizations}
         auth={auth}
         store={store}
@@ -175,14 +187,13 @@ describe("<AddLead />", () => {
     let openModalBtn = mountedAddLead.find("button");
     openModalBtn.simulate("click", {});
 
-    const containerClass = styles.inputContainer;
-    let organizationAutocomplete = mountedAddLead.find(`.${containerClass}`).find("[role='combobox']");
-    organizationAutocomplete.simulate("change", {target: {value: "companay"}});
+    let organizationAutocomplete = mountedAddLead.find(".organization-input");
+    organizationAutocomplete.simulate("change", {target: {value: "Company 3"}});
     const renderMenu = mountedAddLead.findWhere(node => node.hasClass('renderMenu')).at(0);
     const renderMenuProps = renderMenu.props();
     const renderMenuChildrenObject = renderMenuProps.children;
     const renderMenuChildrenText = renderMenuChildrenObject.props.children;
     expect(renderMenu.exists()).to.equal(true);
-    expect(renderMenuChildrenText).to.equal(`"${mountedAddLead.state().organization.name}" will be added as a new organization`);
+    expect(renderMenuChildrenText).to.equal(`"Company 3" will be added as a new organization`);
   });
 });

@@ -292,7 +292,6 @@ class AddLead extends React.Component {
   validateLead(lead) {
     let errors = {};
     let name = lead.name;
-    console.log(lead.namePlaceholder.length === 0);
 
     if (isBlank(!isBlank(name) ? name : lead.namePlaceholder)) {
       errors.name = "Name must not be empty";
@@ -367,7 +366,7 @@ class AddLead extends React.Component {
                 value={this.state.contact.name}
                 open={this.state.openContactDropdown}
               />
-              {this.state.showContactBadge ? <span className={styles.newBadge}>NEW</span> : null}
+              {this.state.showContactBadge ? <span id="contact-badge" className={styles.newBadge}>NEW</span> : null}
             </div>
 
             <label className={styles.inputLabel}>
@@ -386,7 +385,7 @@ class AddLead extends React.Component {
                 value={this.state.organization.name}
                 open={this.state.openOrganizationDropdown}
               />
-              {this.state.showOrganizationBadge ? <span className={styles.newBadge}>NEW</span> : null}
+              {this.state.showOrganizationBadge ? <span id="organization-badge" className={styles.newBadge}>NEW</span> : null}
             </div>
 
             <label className={styles.inputLabel}>Lead name</label>
