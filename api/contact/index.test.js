@@ -35,10 +35,10 @@ describe("Contact", function() {
     const { status, body } = await request(app())
       .post("/api/contact")
       .set("Authorization", cred.token)
-      .send({ name: "John Doe" });
+      .send({});
 
     expect(status).toBe(400);
-    expect(body.errors.organization).toBe("Organization cannot be empty");
+    expect(body.errors.name).toBe("Name cannot be empty");
   });
 
   it("should update properly", async () => {
