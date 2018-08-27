@@ -4,6 +4,7 @@ import { mount } from "enzyme";
 import { expect } from "chai";
 import chai from "chai";
 import spies from "chai-spies";
+import { noop } from "lodash";
 
 import { AddLead } from "./AddLead";
 import Modal from "react-modal";
@@ -18,7 +19,6 @@ Modal.setAppElement("body");
 
 describe("<AddLead />", () => {
   const initialState = {};
-  const spy = chai.spy(()=>{});
 
   const organizations = [
     { _id: "5b7c0c6e42b4cb4a2c72492d", domain: "5b6ab060f60c0524980fa23b", name: "Company 1" },
@@ -56,9 +56,9 @@ describe("<AddLead />", () => {
     store = mockStore(initialState);
     mountedAddLead = mount(
       <AddLead
-        createLead={spy}
-        loadContacts={spy}
-        loadOrganizations={spy}
+        createLead={noop}
+        loadContacts={noop}
+        loadOrganizations={noop}
         contacts={contacts}
         organizations={organizations}
         auth={auth}

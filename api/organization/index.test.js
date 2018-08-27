@@ -66,6 +66,9 @@ describe("Organization", function() {
     await createOrganization(app, cred.token, "Company 1");
     await createOrganization(app, cred.token, "Company 2");
 
+    let newDomain = await createUserAndDomain(app, "Better software", "bobnumberone@mail.com");
+    await createOrganization(app, newDomain.token, "Company 3");
+
     const { status, body } = await request(app())
       .get("/api/organization")
       .set("Authorization", cred.token)
@@ -74,5 +77,6 @@ describe("Organization", function() {
     expect(status).toBe(200);
     expect(body[0].name).toBe("Company 1");
     expect(body[1].name).toBe("Company 2");
+    expect(body.length).toBe(2);
   });
 });

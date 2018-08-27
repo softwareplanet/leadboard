@@ -1,7 +1,7 @@
 import React from "react";
 import ReactAutocomplete from "react-autocomplete";
 import "../styles/Autocomplete.css";
-import styles from "../styles/autocomplete-styles";
+import { styles } from "../styles/autocomplete-styles";
 
 const COUNT_OF_DISPLAYED_ORGANIZATIONS = 4;
 
@@ -41,7 +41,7 @@ class OrganizationAutocomplete extends React.Component {
         inputProps={{onBlur: this.props.onBlur, onFocus: this.props.onFocus, className: "organization-input"}}
         value={this.props.value}
         onChange={this.props.onChange}
-        onSelect={(value, item) => this.props.onSelect(value, item)}
+        onSelect={this.props.onSelect}
       />
     );
   }
