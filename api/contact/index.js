@@ -1,9 +1,23 @@
-import { validateContactCreation, validateContactUpdate } from "../../validation/contact";
-import Contact from "../../models/contact";
-import mongoose from "mongoose";
 import { Router } from "express";
+import mongoose from "mongoose";
+import Contact from "../../models/contact";
+import { validateContactCreation, validateContactUpdate } from "../../validation/contact";
 
-const router = new Router;
+const router = new Router();
+
+// @route GET api/contact
+// @desc Return all contacts that have name field
+// @access Private
+router.get("/", (req, res) => {
+  Contact.find({ domain: req.user.domain, name: {$exists: true} }, "name")
+    .populate("organization", "_id name")
+    .then(contacts => {
+      res.json(contacts)
+    })
+    .catch(error => {
+      res.status(400).json({ errors: {message: error} })
+    })
+});
 
 // @route   POST api/contact
 // @desc    Create contact

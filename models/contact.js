@@ -19,15 +19,8 @@ contactSchema.statics.findOneOrCreate = (contactData) => {
     domain: contactData.domain ? mongoose.Types.ObjectId(contactData.domain) : '',
     ...organization
   };
-
-  if (contactData.contact && mongoose.Types.ObjectId.isValid(contactData.contact)) {
-    return Contact.findById(contactData.contact).then(contact => {
-      if (contact === null) {
-        return Contact.create(newContact)
-      }
-    })
-  }
-
+  if (contactData.contact && mongoose.Types.ObjectId.isValid(contactData.contact))
+    return Contact.findById(contactData.contact);
   return Contact.create(newContact);
 };
 
