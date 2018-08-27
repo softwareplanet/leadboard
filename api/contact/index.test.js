@@ -18,7 +18,7 @@ beforeEach(async done => {
 
 describe("Contact", function() {
   it("should create a new contact", async () => {
-    let contactName = "John Doe";
+    let contactName = "John Smith";
     const { status, body } = await request(app())
       .post("/api/contact")
       .set("Authorization", cred.token)
