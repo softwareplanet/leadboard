@@ -6,7 +6,7 @@ export const loadContacts = () => dispatch => {
   axios.get("/api/contact")
     .then(result => dispatch({
       type: LOAD_CONTACTS,
-      payload: result.data.data,
+      payload: result.data,
     }))
     .catch(error => dispatch({
       type: GET_ERRORS,
