@@ -3,13 +3,24 @@ import isEmpty from "lodash.isempty";
 export function validateContactCreation(data) {
   let errors = {};
 
-  if (isEmpty(data.name) && isEmpty(data.organization.name)) errors.contact = "Both name and organization cannot be empty at the same time";
-  if (!("custom" in data)) {
-    errors.custom = "Custom must be present";
-  } else {
-    if (typeof data.custom !== "object") {
-      errors.custom = "Custom must be an array";
-    }
+  if (isEmpty(data.name)) errors.name = "Name cannot be empty";
+  if ("custom" in data && !Array.isArray(data.custom)) {
+    errors.custom = "Custom must be an array";
+  }
+
+  return {
+    errors,
+    hasErrors: !isEmpty(errors),
+  };
+}
+
+export function validateContactUpdate(data) {
+  let errors = {};
+
+  if (data.name && isEmpty(data.name)) errors.name = "Name cannot be empty";
+  if (data.organization && isEmpty(data.organization)) errors.organization = "Organization cannot be empty";
+  if ("custom" in data && !Array.isArray(data.custom)) {
+    errors.custom = "Custom must be an array";
   }
 
   return {

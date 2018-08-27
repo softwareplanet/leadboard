@@ -95,14 +95,14 @@ export async function createOrganization(app, token, name = "Organization") {
   return body;
 }
 
-export async function createContact(app, token, name = "Contact", organization) {
+export async function createContact(app, token, organization, name = "John D") {
   const { body } = await request(app())
     .post("/api/contact")
     .set("Authorization", token)
-    .send({ name, custom: [], organization })
+    .send({ name, organization })
     .catch(error => {
-      console.log("Cannot create a contact" + error);
-      throw "Cannot create a contact";
+      console.log("Cannon create a contact" + error);
+      throw "Cannon create a contact";
     });
   return body;
 }

@@ -18,5 +18,6 @@ router.use("/api/funnel", authenticate, funnel);
 router.use("/api/lead", authenticate, lead);
 router.use("/api/contact", authenticate, contact);
 router.use("/api/organization", authenticate, organization);
+router.use("/api/contact", authenticate, contact);
 
 export default router;
