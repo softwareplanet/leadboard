@@ -2,7 +2,6 @@ import { Router } from "express";
 import mongoose from "mongoose";
 
 import validateLeadInput from "../../validation/lead";
-import isEmpty from "lodash.isempty";
 
 import Lead from "../../models/lead";
 import Contact from "../../models/contact";
@@ -15,7 +14,7 @@ const router = new Router();
 // @access  Private
 router.get("/", (req, res) => {
   Lead.find({ stage: req.query.stage })
-    .populate({ path: "contact", populate: { path: "organization" } })
+    .populate([{ path: "contact" }, { path: "organization" }])
     .sort({ order: "asc" })
     .then(leads => {
       res.json(leads);
@@ -28,55 +27,75 @@ router.get("/", (req, res) => {
 // @route   POST api/lead
 // @desc    Create lead
 // @access  Private
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   const { hasErrors, errors } = validateLeadInput(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 
-  if (req.body.organization) {
-    Organization.findOneOrCreate(req.body).then(organization => {
-      let body = { ...req.body, organization: organization._id };
-      if (isEmpty(body.contact)) delete body["contact"];
-      createLead({ body: body }, res);
+  let organization = req.body.organization;
+  let contact = req.body.contact;
+
+  let newLead = {
+    _id: new mongoose.Types.ObjectId(),
+    owner: req.body.owner,
+    stage: req.body.stage,
+    name: req.body.name,
+    order: req.body.order,
+  };
+
+  if (!mongoose.Types.ObjectId.isValid(organization)) {
+    organization = await Organization.create({
+      _id: new mongoose.Types.ObjectId(),
+      name: organization,
+      domain: req.user.domain,
     });
   } else {
-    createLead(req, res);
+    const existingOrganization = await Organization.findById(organization);
+    if (!existingOrganization) {
+      return res.status(400).json({ errors: { organization: "Organization does not exist" } });
+    }
+    if (existingOrganization.domain !== req.user.domain) {
+      return res.status(400).json({ errors: { organization: "Organization does not belong to your domain" } });
+    }
   }
-});
+  newLead.organization = organization;
 
-const createLead = (req, res) => {
-  Contact.findOneOrCreate(req.body)
-    .then(contact => {
-      let lead = {
-        _id: new mongoose.Types.ObjectId(),
-        owner: req.body.owner,
-        stage: req.body.stage,
-        name: req.body.name,
-        order: req.body.order,
-        contact: contact._id
-      };
-      Lead.create(lead)
-        .then(lead => {
-          res.json(lead._id);
-        })
-        .catch(error => {
-          res.status(400).json({ errors: { message: error } });
-        });
+  if (!mongoose.Types.ObjectId.isValid(contact)) {
+    contact = await Contact.create({
+      _id: new mongoose.Types.ObjectId(),
+      name: contact,
+      organization: organization,
+      domain: req.user.domain,
+    });
+  } else {
+    const existingContact = await Contact.findById(contact);
+    if (!existingContact) {
+      return res.status(400).json({ errors: { contact: "Contact does not exist" } });
+    }
+    if (existingContact.domain !== req.user.domain) {
+      return res.status(400).json({ errors: { contact: "Contact does not belong to your domain" } });
+    }
+    if (existingContact.organization !== organization) {
+      return res.status(400).json({ errors: { contact: "Contact does not belong to given organization" } });
+    }
+  }
+  newLead.contact = contact;
+
+  Lead.create(newLead)
+    .then(lead => {
+      res.json(lead);
     })
     .catch(error => {
-      res.status(400).json({
-        errors: { message: error }
-      });
+      res.status(400).json({ errors: { message: error } });
     });
-};
-
+});
 
 // @route   GET api/lead/:id
 // @desc    Load lead by id
 // @access  Private
 router.get("/:id", (req, res) => {
   Lead.findById(req.params.id)
-    .populate("notes.user", {password: 0})
-    .populate({ path: "contact", populate: { path: "organization" } })
+    .populate("notes.user", { password: 0 })
+    .populate([{ path: "contact" }, { path: "organization" }])
     .populate("owner")
     .populate("stage")
     .then(lead => {
@@ -92,8 +111,8 @@ router.get("/:id", (req, res) => {
 // @access  Private
 router.patch("/:id", (req, res) => {
   Lead.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
-    .populate("notes.user", {password: 0})
-    .populate({ path: "contact", populate: { path: "organization" } })
+    .populate("notes.user", { password: 0 })
+    .populate([{ path: "contact" }, { path: "organization" }])
     .populate("owner")
     .populate("stage")
     .then(lead => {
@@ -108,9 +127,9 @@ router.patch("/:id", (req, res) => {
 // @desc    Create note for lead
 // @access  Private
 router.post("/:id/notes", (req, res) => {
-  Lead.findByIdAndUpdate(req.params.id, { $push:{ notes: req.body } }, { new: true })
-    .populate("notes.user", {password: 0})
-    .populate({ path: "contact", populate: { path: "organization" } })
+  Lead.findByIdAndUpdate(req.params.id, { $push: { notes: req.body } }, { new: true })
+    .populate("notes.user", { password: 0 })
+    .populate([{ path: "contact" }, { path: "organization" }])
     .populate("owner")
     .populate("stage")
     .then(lead => {
