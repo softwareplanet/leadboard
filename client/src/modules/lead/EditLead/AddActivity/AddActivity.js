@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { Button, ButtonGroup } from 'reactstrap';
 import style from "./AddActivity.css";
-import phoneIcon from "../../../../assets/add-activity/phone.svg"
-import meetingIcon from "../../../../assets/add-activity/meeting.svg"
-import taskIcon from "../../../../assets/add-activity/task.svg"
-import deadlineIcon from "../../../../assets/add-activity/deadline.svg"
-import emailIcon from "../../../../assets/add-activity/email.svg"
-import lunchIcon from "../../../../assets/add-activity/lunch.svg"
+import ButtonWithImg from "./ButtonWithImg";
+import phoneIcon from "../../../../assets/add-activity/phone.svg";
+import meetingIcon from "../../../../assets/add-activity/meeting.svg";
+import taskIcon from "../../../../assets/add-activity/task.svg";
+import deadlineIcon from "../../../../assets/add-activity/deadline.svg";
+import emailIcon from "../../../../assets/add-activity/email.svg";
+import lunchIcon from "../../../../assets/add-activity/lunch.svg";
+import deleteIcon from "../../../../assets/add-activity/delete.svg";
 
 
 export default class AddActivity extends Component {
@@ -29,10 +31,34 @@ export default class AddActivity extends Component {
             <button className={style.typeButton}>
               <img className={style.iconImg} src={meetingIcon} alt="meeting" />
               Meeting</button>
-            <button className={style.typeButton}>Task</button>
-            <button className={style.typeButton}>Deadline</button>
-            <button className={style.typeButton}>Email</button>
-            <button className={style.typeButton}>Lunch</button>
+            <ButtonWithImg
+              className={style.typeButton}
+              imgClassName={style.iconImg}
+              src={taskIcon}
+              alt="task">
+              Task
+            </ButtonWithImg>
+            <ButtonWithImg
+              className={style.typeButton}
+              imgClassName={style.iconImg}
+              src={deadlineIcon}
+              alt="deadline">
+              Deadline
+            </ButtonWithImg>
+            <ButtonWithImg
+              className={style.typeButton}
+              imgClassName={style.iconImg}
+              src={emailIcon}
+              alt="email">
+              Email
+            </ButtonWithImg>
+            <ButtonWithImg
+              className={style.typeButton}
+              imgClassName={style.iconImg}
+              src={lunchIcon}
+              alt="lunch">
+              Lunch
+            </ButtonWithImg>
           </ButtonGroup>
         </div>
         <input className={style.typeInput} type="text"/>
