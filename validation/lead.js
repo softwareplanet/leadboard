@@ -11,7 +11,6 @@ module.exports = function validateLeadInput(data) {
   if(isEmpty(data.contact) && isEmpty(data.organization)) errors.contact = "Specify contact or organization";
 
   if (!isNumber(data.order)) errors.order = "Order must be a number";
-
   if (isEmpty("" + data.order)) errors.order = "Order cannot be empty";
 
   if (isEmpty(data.name)) {
@@ -21,10 +20,6 @@ module.exports = function validateLeadInput(data) {
       errors.name = "Lead name cannot be more 30 characters";
     }
   }
-
-  if (isEmpty("" + data.order)) errors.order = "Order cannot be empty";
-
-  if (isEmpty("" + data.name)) errors.name = "Name cannot be empty";
 
   return {
     errors,
