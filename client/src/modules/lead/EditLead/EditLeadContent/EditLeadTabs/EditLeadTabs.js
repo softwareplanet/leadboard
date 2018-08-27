@@ -26,12 +26,8 @@ class EditLeadTabs extends Component {
     }
     this.props.createNote(this.props.editLead._id, note)
   }
-  onNoteSave = noteText => {
-    let note = {
-      text: noteText,
-      user: this.props.userId,
-    }
-    this.props.createNote(this.props.editLead._id, note)
+  onActivitySave = activity => {
+    this.props.createActivity(activity)
   }
 
   onCancel = () => {
@@ -39,19 +35,23 @@ class EditLeadTabs extends Component {
   }
 
   isActive = (component) => {
-    return (this.state.activeTab ? this.state.activeTab.type : null) === component 
-    || this.state.activeTab === null;
+    return (this.state.activeTab ? this.state.activeTab.type : null) === component;
   }
 
   render() {
     let takeNotesCondition = this.isActive(EditLeadEditor);
     let addActivityCondition = this.isActive(AddActivity);
+    let nullCondition = this.state.activeTab === null;
+    console.log("add: " + addActivityCondition);
+    console.log("note: " + takeNotesCondition);
+    console.log("note+null: " + (takeNotesCondition || nullCondition));
+    console.log("null: " + nullCondition);
     return (
       <div className={styles.tabs}>
         <ul className={styles.header}>
           <li className={styles.headerItem} onClick={() => this.tabHandler(<EditLeadEditor onCancel={this.onCancel} onSave={this.onNoteSave}/>)}>
             <img
-              src={takeNotesCondition ? takeNotesIconActive : takeNotesIcon}
+              src={(takeNotesCondition || nullCondition) ? takeNotesIconActive : takeNotesIcon }
               className={styles.headerItemIcon}
               alt="take note icon"
             />
@@ -59,7 +59,7 @@ class EditLeadTabs extends Component {
           </li>
           <li className={styles.headerItem} onClick={() => this.tabHandler(<AddActivity onCancel={this.onCancel} onSave={this.onActivitySave}/>)}>
             <img
-              src={addActivityCondition ? addActivityIcon : addActivityIconActive }
+              src={addActivityCondition ? addActivityIconActive : addActivityIcon }
               className={styles.headerItemIcon}
               alt="add activity icon"
             />
