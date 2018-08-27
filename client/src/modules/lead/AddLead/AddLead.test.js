@@ -12,7 +12,7 @@ import styles from "./AddLead.css";
 
 chai.use(spies);
 
-let store;
+let store, mountedAddLead;
 const mockStore = configureStore();
 Modal.setAppElement("body");
 
@@ -20,12 +20,13 @@ describe("<AddLead />", () => {
   const initialState = {};
   const spy = chai.spy(()=>{});
 
-  beforeEach(() => {
-    store = mockStore(initialState);
-  });
   const organizations = [
     { _id: "5b7c0c6e42b4cb4a2c72492d", domain: "5b6ab060f60c0524980fa23b", name: "Company 1" },
     { _id: "5b7c0cc542b4cb4a2c724933", domain: "5b6ab060f60c0524980fa23b", name: "Company 2" },
+  ];
+  const contacts = [
+    { _id: "5b7eb55995019343c59b0c8c", domain: "5b6ab060f60c0524980fa23b", name: "Bob", organization: "5b7c0c6e42b4cb4a2c72492d" },
+    { _id: "5b7eac4a6a0682428f35485e", domain: "5b6ab060f60c0524980fa23b", name: "Mike", organization: "5b7c0cc542b4cb4a2c724933" },
   ];
   const auth = {
     isAuthenticated: true,
@@ -51,11 +52,14 @@ describe("<AddLead />", () => {
     }
   };
 
-  it("renders without crashing", () => {
-    let mountedAddLead = mount(
+  beforeEach(() => {
+    store = mockStore(initialState);
+    mountedAddLead = mount(
       <AddLead
-        contacts={[]}
+        createLead={spy}
+        loadContacts={spy}
         loadOrganizations={spy}
+        contacts={contacts}
         organizations={organizations}
         auth={auth}
         store={store}
@@ -63,23 +67,13 @@ describe("<AddLead />", () => {
         errors={{}}
       />,
     );
+  });
+
+  it("renders without crashing", () => {
     expect(mountedAddLead).to.have.length(1);
   });
 
   it("shows proper amount of inputs", () => {
-    let mountedAddLead = mount(
-      <AddLead
-        contacts={[]}
-        loadContacts={spy}
-        loadOrganizations={spy}
-        organizations={organizations}
-        auth={auth}
-        store={store}
-        leads={leads}
-        errors={{}}
-      />,
-    );
-
     let openModalBtn = mountedAddLead.find("button");
     openModalBtn.simulate("click", {});
 
@@ -88,19 +82,6 @@ describe("<AddLead />", () => {
   });
 
   it("shows validation when necessary", () => {
-    let mountedAddLead = mount(
-      <AddLead
-        contacts={[]}
-        loadContacts={spy}
-        createLead={spy}
-        loadOrganizations={spy}
-        organizations={organizations}
-        auth={auth}
-        store={store}
-        leads={leads}
-        errors={{}}
-      />,
-    );
     let openModalBtn = mountedAddLead.find("button");
     openModalBtn.simulate("click", {});
 
@@ -121,19 +102,8 @@ describe("<AddLead />", () => {
     saveLeadBtn.simulate("click", {});
     expect(mountedAddLead.find(`.${invalidContainerClass}`).length).to.equal(0);
   });
-  it("on organization input blur, lead title will change", () => {
-    let mountedAddLead = mount(
-      <AddLead
-        contacts={[]}
-        loadContacts={spy}
-        loadOrganizations={spy}
-        organizations={organizations}
-        auth={auth}
-        store={store}
-        leads={leads}
-        errors={{}}
-      />,
-    );
+
+  it("on organization input blur, it's value and lead title will change", () => {
     let openModalBtn = mountedAddLead.find("button");
     openModalBtn.simulate("click", {});
 
@@ -146,19 +116,7 @@ describe("<AddLead />", () => {
     expect(nameInput.render().attr("value")).to.equal("Company 3 lead");
   });
 
-  it("on new organization input blur, showBadge will be true", () => {
-    let mountedAddLead = mount(
-      <AddLead
-        contacts={[]}
-        loadContacts={spy}
-        loadOrganizations={spy}
-        organizations={organizations}
-        auth={auth}
-        store={store}
-        leads={leads}
-        errors={{}}
-      />,
-    );
+  it("on organization input blur, NEW badge will be shown", () => {
     let openModalBtn = mountedAddLead.find("button");
     openModalBtn.simulate("click", {});
 
@@ -171,29 +129,73 @@ describe("<AddLead />", () => {
   });
 
   it("on new organization input change, items menu will be shown", () => {
-    let mountedAddLead = mount(
-      <AddLead
-        contacts={[]}
-        loadContacts={spy}
-        loadOrganizations={spy}
-        organizations={organizations}
-        auth={auth}
-        store={store}
-        leads={leads}
-        errors={{}}
-      />,
-    );
-
     let openModalBtn = mountedAddLead.find("button");
     openModalBtn.simulate("click", {});
 
     let organizationAutocomplete = mountedAddLead.find(".organization-input");
     organizationAutocomplete.simulate("change", {target: {value: "Company 3"}});
-    const renderMenu = mountedAddLead.findWhere(node => node.hasClass('renderMenu')).at(0);
+    const renderMenu = mountedAddLead.findWhere(node => node.hasClass('organizationsList')).at(0);
     const renderMenuProps = renderMenu.props();
     const renderMenuChildrenObject = renderMenuProps.children;
     const renderMenuChildrenText = renderMenuChildrenObject.props.children;
     expect(renderMenu.exists()).to.equal(true);
     expect(renderMenuChildrenText).to.equal(`"Company 3" will be added as a new organization`);
   });
+
+  it("on contact input change, items menu will be shown", () => {
+    let openModalBtn = mountedAddLead.find("button");
+    openModalBtn.simulate("click", {});
+
+    let contactAutocomplete = mountedAddLead.find(".contact-input");
+    contactAutocomplete.simulate("change", {target: {value: "John"}});
+    const renderMenu = mountedAddLead.findWhere(node => node.hasClass('contactsList')).at(0);
+    const renderMenuProps = renderMenu.props();
+    const renderMenuChildrenObject = renderMenuProps.children;
+    const renderMenuChildrenText = renderMenuChildrenObject.props.children;
+    expect(renderMenu.exists()).to.equal(true);
+    expect(renderMenuChildrenText).to.equal(`"John" will be added as a new contact`);
+  });
+
+  it("on contact input blur, NEW badge will be shown", () => {
+    let openModalBtn = mountedAddLead.find("button");
+    openModalBtn.simulate("click", {});
+
+    let contactAutocomplete = mountedAddLead.find(".contact-input");
+    contactAutocomplete.simulate("change", {target: {value: "John"}});
+    contactAutocomplete.simulate("blur", {});
+
+    let organizationBadge = mountedAddLead.find("#contact-badge");
+    expect(organizationBadge.exists()).to.equal(true);
+  });
+
+  it("on contact input blur, it's value and lead title will change", () => {
+    let openModalBtn = mountedAddLead.find("button");
+    openModalBtn.simulate("click", {});
+
+    let contactAutocomplete = mountedAddLead.find(".contact-input");
+    contactAutocomplete.simulate("change", {target: {value: "John"}});
+    expect(contactAutocomplete.render().attr("value")).to.equal("John");
+
+    contactAutocomplete.simulate("blur", {});
+    let nameInput = mountedAddLead.find("[name='name']");
+    expect(nameInput.render().attr("value")).to.equal("John lead");
+  });
+
+  it("on contact input blur and organization input blur, lead title will be equal to organization value", () => {
+    let openModalBtn = mountedAddLead.find("button");
+    openModalBtn.simulate("click", {});
+
+    let contactAutocomplete = mountedAddLead.find(".contact-input");
+    contactAutocomplete.simulate("change", {target: {value: "John"}});
+    expect(contactAutocomplete.render().attr("value")).to.equal("John");
+
+    let organizationAutocomplete = mountedAddLead.find(".organization-input");
+    organizationAutocomplete.simulate("change", {target: {value: "New company"}});
+
+    contactAutocomplete.simulate("blur", {});
+    organizationAutocomplete.simulate("blur", {});
+
+    let nameInput = mountedAddLead.find("[name='name']");
+    expect(nameInput.render().attr("value")).to.equal("New company lead");
+  })
 });

@@ -15,9 +15,9 @@ class ContactAutocomplete extends React.Component {
         getItemValue={item => item.name}
         renderMenu={(items) =>
           items.length !== 0 ? (
-            <div style={styles.contact.menu} children={items.splice(0, COUNT_OF_DISPLAYED_ORGANIZATIONS)} />
+            <div className="contactsList" style={styles.contact.menu} children={items.splice(0, COUNT_OF_DISPLAYED_ORGANIZATIONS)} />
           ) : (
-            <div style={styles.contact.menu}>
+            <div className="contactsList" style={styles.contact.menu}>
               {
                 <div style={styles.contact.emptyMenuItem}>
                   { `"${this.props.value}" will be added as a new contact` }
