@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
   lastname: { type: String, default: "" },
   email: { type: String, required: [true, "E-Mail is required"], index: { unique: true } },
   password: { type: String, required: [true, "Password is required"] },
-  domain: { type: mongoose.Schema.Types.ObjectId, required: true },
+  domain: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Domain" },
   timestamp: { type: Date, default: Date.now }
 });
 
