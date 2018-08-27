@@ -38,7 +38,7 @@ class OrganizationAutocomplete extends React.Component {
             {item.name}
           </div>
         }
-        inputProps={{onBlur: this.props.onBlur, onFocus: this.props.onFocus}}
+        inputProps={{onBlur: this.props.onBlur, onFocus: this.props.onFocus, className: "organization-input"}}
         value={this.props.value}
         onChange={this.props.onChange}
         onSelect={(value, item) => this.props.onSelect(value, item)}

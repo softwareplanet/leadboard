@@ -171,7 +171,7 @@ class AddLead extends React.Component {
       openOrganizationDropdown: false,
       showBadge: false,
       afterSelectShowBadge: false,
-    });
+    }, () => this.onOrganizationBlur());
   };
 
   getNameValue = () => {
@@ -183,10 +183,18 @@ class AddLead extends React.Component {
         name = this.state.organization.name + " lead";
       }
     } else {
-      if (this.state.name.length) {
-        name = this.state.name;
+      if(this.state.contact.name.length > 0) {
+        if (this.state.nameChanged) {
+          name = this.state.name;
+        } else {
+          name = this.state.contact.name + " lead";
+        }
       } else {
-        name = "";
+        if (this.state.name.length) {
+          name = this.state.name;
+        } else {
+          name = "";
+        }
       }
     }
     return name;
@@ -197,13 +205,17 @@ class AddLead extends React.Component {
     if (this.state.organization.name.length > 0) {
       placeholder = this.state.organization.name + " lead";
     } else {
-      placeholder = "";
+     if(this.state.contact.name.length > 0) {
+       placeholder = this.state.contact.name + " lead";
+     } else {
+       placeholder = "";
+     }
     }
     return placeholder;
   };
 
-  onOrganizationBlur = (event) => {
-    event.target.parentNode.parentNode.removeAttribute("style");
+  onOrganizationBlur = () => {
+    document.getElementById("organization-wrapper").removeAttribute("style");
     this.setState({
       ...this.state,
       name: this.getNameValue(),
@@ -252,17 +264,17 @@ class AddLead extends React.Component {
       openContactDropdown: false,
       showContactBadge: false,
       afterContactSelectShowBadge: false,
-    });
+    }, () => this.onContactBlur())
   };
 
-  onContactBlur = (event) => {
-    event.target.parentNode.parentNode.removeAttribute("style");
+  onContactBlur = () => {
+    document.getElementById("contact-wrapper").removeAttribute("style");
     this.setState({
       ...this.state,
       name: this.getNameValue(),
       openContactDropdown: false,
       showContactBadge: this.state.contact.name.length > 0 && this.state.afterContactSelectShowBadge && !this.state.contact.id,
-    })
+    }, () => this.onOrganizationBlur())
   };
 
   onAutocompleteFocus = (event) => {
@@ -344,7 +356,7 @@ class AddLead extends React.Component {
           <form autoComplete="off" className={styles.form}>
 
             <label className={styles.inputLabel}>Contact person name</label>
-            <div className={validationIsShown && errors.contact ? styles.invalidContainer : styles.inputContainer}>
+            <div id="contact-wrapper" className={validationIsShown && errors.contact ? styles.invalidContainer : styles.inputContainer}>
               <i className={classNames("fas fa-user", styles.inputIcon)}/>
               <ContactAutocomplete
                 items={this.state.contacts}
@@ -361,7 +373,7 @@ class AddLead extends React.Component {
             <label className={styles.inputLabel}>
               Organization name
             </label>
-            <div className={validationIsShown && errors.organization
+            <div id="organization-wrapper" className={validationIsShown && errors.organization
               ? styles.invalidContainer
               : styles.inputContainer}>
               <i className={classNames("fas fa-building", styles.inputIcon)}/>
