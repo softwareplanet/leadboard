@@ -44,7 +44,7 @@ const createActivity = (req, res) => {
   };
   Activity.create(activity)
     .then(activity => {
-      res.json(activity._id);
+      res.json(activity);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });
