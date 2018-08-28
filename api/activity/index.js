@@ -36,13 +36,13 @@ const createActivity = (req, res) => {
     subject: req.body.subject,
     duration: req.body.duration,
     note: req.body.note,
-    assignedTo: req.body.assignedTo._id,
-    lead: req.body.lead._id,
+    assignedTo: req.body.assignedTo,
+    lead: req.body.lead,
     participants: req.body.participants,
     organization: req.body.organization,
     done: req.body.done
   };
-  Activity.model.create(activity)
+  Activity.create(activity)
     .then(activity => {
       res.json(activity._id);
     })
