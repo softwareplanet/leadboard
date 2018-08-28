@@ -42,7 +42,6 @@ router.post("/", async (req, res) => {
     stage: req.body.stage,
     name: req.body.name,
     order: req.body.order,
-    domain: req.user.domain,
   };
 
   if (!isEmpty(organization)) {
