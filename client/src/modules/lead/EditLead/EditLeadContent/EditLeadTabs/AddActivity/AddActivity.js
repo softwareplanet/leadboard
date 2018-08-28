@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Button, ButtonGroup } from 'reactstrap';
 import style from "./AddActivity.css";
 import ButtonWithImg from "./ButtonWithImg";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker-cssmodules.css"
 import phoneIcon from "../../../../../../assets/add-activity/phone.svg";
 import meetingIcon from "../../../../../../assets/add-activity/meeting.svg";
 import taskIcon from "../../../../../../assets/add-activity/task.svg";
@@ -63,8 +65,14 @@ export default class AddActivity extends Component {
         </div>
         <input className={style.typeInput} type="text"/>
         <div className={style.dateInputs}>
-          <input className={style.dateInput} type="date"/>
-          <input className={style.dateInput} type="text"/>
+          {/*<input className={style.dateInput} type="date"/>*/}
+          <DatePicker className={style.dateInput} />
+          <DatePicker
+            className={style.dateInput}
+            showTimeSelect
+            showTimeSelectOnly
+            timeIntervals={15}
+            timeCaption="Time" />
           <input className={style.dateInput} type="text"/>
         </div>
       </form>
