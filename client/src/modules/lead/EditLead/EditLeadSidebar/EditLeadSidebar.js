@@ -8,7 +8,11 @@ import { loadLead, updateContact, updateOrganization } from "../../leadActions";
 import { connect } from "react-redux";
 import _ from "lodash";
 
+import editCardStyles from "./EditCard/EditCard.css";
 import EmptyCard from "./EmptyCard/EmptyCard";
+import classNames from "classnames";
+import ContactAutocomplete from "../../AddLead/autocomplete/contact/ContactAutocomplete";
+import OrganizationAutocomplete from "../../AddLead/autocomplete/organization/OrganizationAutocomplete";
 
 class EditLeadSidebar extends Component {
   render() {
@@ -39,11 +43,18 @@ class EditLeadSidebar extends Component {
       }
       return (
         <div className={styles.sidebar}>
-          <EmptyCard title="Organization">
-
+          <EmptyCard
+            title="Organization"
+            iTagClass={classNames("fas fa-building", editCardStyles.inputIcon)}
+          >
+            <OrganizationAutocomplete />
           </EmptyCard>
-          <EmptyCard title="Person">
 
+          <EmptyCard
+            title="Person"
+            iTagClass={classNames("fas fa-user", editCardStyles.inputIcon)}
+          >
+            <ContactAutocomplete />
           </EmptyCard>
         </div>
       );
