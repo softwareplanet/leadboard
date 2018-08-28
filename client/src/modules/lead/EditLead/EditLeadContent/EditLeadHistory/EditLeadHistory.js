@@ -54,7 +54,6 @@ class EditLeadHistory extends React.Component {
           classes={{indicator: classes.tabsIndicator}}
           value={selectedTab}
           onChange={this.handleChange}
-          indicatorColor="primary"
           centered={true}>
 
           <Tab label={`NOTES ${this.state.itemsCount.notes}`} classes={{root: classes.tabRoot}} />
