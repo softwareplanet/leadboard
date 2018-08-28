@@ -1,0 +1,7 @@
+.container {
+    composes: container from "../Notes/Notes.css";
+}
+
+.timeLineBar {
+    composes: timeLineBar from "../Notes/Notes.css";
+}
