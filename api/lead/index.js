@@ -93,7 +93,6 @@ router.get("/:id", (req, res) => {
 router.patch("/:id", (req, res) => {
   Lead.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
     .populate("notes.user", {password: 0})
-    .populate("activities")
     .populate({ path: "contact", populate: { path: "organization" } })
     .populate("owner")
     .populate("stage")
