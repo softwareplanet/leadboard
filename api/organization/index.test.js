@@ -62,12 +62,21 @@ describe("Organization", function() {
     expect((body).name).toBe(newCompanyName);
   });
 
-  it("should retrieve all domain' organizations", async () => {
+  it("should return all domain' organizations", async () => {
+    await createOrganization(app, cred.token, "Company 1");
+    await createOrganization(app, cred.token, "Company 2");
+
+    let newDomain = await createUserAndDomain(app, "Better software", "bobnumberone@mail.com");
+    await createOrganization(app, newDomain.token, "Company 3");
+
     const { status, body } = await request(app())
       .get("/api/organization")
       .set("Authorization", cred.token)
-      .send({ domain: cred.domainId });
+      .send({});
+
     expect(status).toBe(200);
-    expect(Object.keys(body).length).toBe(0);
+    expect(body[0].name).toBe("Company 1");
+    expect(body[1].name).toBe("Company 2");
+    expect(body.length).toBe(2);
   });
 });
