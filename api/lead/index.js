@@ -2,7 +2,8 @@ import { Router } from "express";
 import mongoose from "mongoose";
 
 import validateLeadInput from "../../validation/lead";
-
+import isEmpty from "lodash.isempty";
+import { isEqual } from "lodash";
 import Lead from "../../models/lead";
 import Contact from "../../models/contact";
 import Organization from "../../models/organization";
@@ -40,45 +41,52 @@ router.post("/", async (req, res) => {
     stage: req.body.stage,
     name: req.body.name,
     order: req.body.order,
+    domain: req.user.domain,
   };
 
-  if (!mongoose.Types.ObjectId.isValid(organization)) {
-    organization = await Organization.create({
-      _id: new mongoose.Types.ObjectId(),
-      name: organization,
-      domain: req.user.domain,
-    });
-  } else {
-    const existingOrganization = await Organization.findById(organization);
-    if (!existingOrganization) {
-      return res.status(400).json({ errors: { organization: "Organization does not exist" } });
+  if (!isEmpty(organization)) {
+    if (!mongoose.Types.ObjectId.isValid(organization)) {
+      organization = await Organization.create({
+        _id: new mongoose.Types.ObjectId(),
+        name: organization,
+        domain: req.user.domain,
+      });
+    } else {
+      const existingOrganization = await Organization.findById(organization);
+      if (!existingOrganization) {
+        return res.status(400).json({ errors: { organization: "Organization does not exist" } });
+      }
+      if (!isEqual(existingOrganization.domain, req.user.domain)) {
+        return res.status(400).json({ errors: { organization: "Organization does not belong to your domain" } });
+      }
     }
-    if (existingOrganization.domain !== req.user.domain) {
-      return res.status(400).json({ errors: { organization: "Organization does not belong to your domain" } });
-    }
+    newLead.organization = organization;
   }
-  newLead.organization = organization;
 
-  if (!mongoose.Types.ObjectId.isValid(contact)) {
-    contact = await Contact.create({
-      _id: new mongoose.Types.ObjectId(),
-      name: contact,
-      organization: organization,
-      domain: req.user.domain,
-    });
-  } else {
-    const existingContact = await Contact.findById(contact);
-    if (!existingContact) {
-      return res.status(400).json({ errors: { contact: "Contact does not exist" } });
+  if (!isEmpty(contact)) {
+    if (!mongoose.Types.ObjectId.isValid(contact)) {
+      let contactToCreate = {
+        _id: new mongoose.Types.ObjectId(),
+        name: contact,
+        organization: organization,
+        domain: req.user.domain,
+      };
+      if (isEmpty(contactToCreate.organization)) delete contactToCreate.organization;
+      contact = await Contact.create(contactToCreate);
+    } else {
+      const existingContact = await Contact.findById(contact);
+      if (!existingContact) {
+        return res.status(400).json({ errors: { contact: "Contact does not exist" } });
+      }
+      if (!isEqual(existingContact.domain, req.user.domain)) {
+        return res.status(400).json({ errors: { contact: "Contact does not belong to your domain" } });
+      }
+      if (existingContact.organization && !isEqual(existingContact.organization.toString(), organization)) {
+        return res.status(400).json({ errors: { contact: "Contact does not belong to given organization" } });
+      }
     }
-    if (existingContact.domain !== req.user.domain) {
-      return res.status(400).json({ errors: { contact: "Contact does not belong to your domain" } });
-    }
-    if (existingContact.organization !== organization) {
-      return res.status(400).json({ errors: { contact: "Contact does not belong to given organization" } });
-    }
+    newLead.contact = contact;
   }
-  newLead.contact = contact;
 
   Lead.create(newLead)
     .then(lead => {
