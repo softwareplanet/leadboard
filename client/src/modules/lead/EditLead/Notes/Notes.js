@@ -4,6 +4,7 @@ import styles from "./Notes.css";
 import PropTypes from "prop-types";
 import Note from "./Note/Note";
 import InfoItemWrapper from "../../../common/InfoWraper/InfoItemWrapper";
+import { updateNote } from "../../leadActions";
 
 class Notes extends Component {
   render() {
@@ -16,7 +17,7 @@ class Notes extends Component {
           return (
             <InfoItemWrapper
               key={note._id}
-              component={<Note note={note}/>}
+              component={<Note leadId={this.props.editLead._id} updateNote={this.props.updateNote} note={note}/>}
             />
           );
         }) : null}
@@ -33,4 +34,4 @@ Notes.PropTypes = {
   editLead: PropTypes.object
 };
 
-export default connect(mapStateToProps)(Notes);
+export default connect(mapStateToProps, { updateNote })(Notes);

@@ -18,8 +18,9 @@ class Note extends Component {
     });
   }
 
-  onSave = () => {
-
+  onSave = (text) => {
+    let note = { _id: this.props.note._id, text }
+    this.props.updateNote(this.props.leadId, note)
   }
 
   showEditor = () => {
