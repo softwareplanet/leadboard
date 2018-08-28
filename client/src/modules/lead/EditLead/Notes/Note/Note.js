@@ -4,10 +4,12 @@ import styles from "./Note.css";
 import { formatDate } from "../../../../../utils/formatDate";
 import spreadButton from "../../../../../assets/spread-button.svg"
 import { Popover, PopoverBody } from "reactstrap";
+import EditLeadEditor from "../../EditLeadContent/EditLeadTabs/EditLeadEditor/EditLeadEditor";
 
 class Note extends Component {
   state = {
-    popoverOpen: false
+    popoverOpen: false,
+    showEditor: false
   }
 
   toggle = () => {
@@ -16,9 +18,24 @@ class Note extends Component {
     });
   }
 
+  onSave = () => {
+
+  }
+
+  onCancel = () => {
+
+  }
+
+  showEditor = () => {
+    this.setState({
+      showEditor: !this.state.showEditor
+    });
+  }
+
   render() {
     let { date, user, text } = this.props.note;
-    return (
+
+    let noteContent = (
       <div className={styles.noteContent}>
         <div className={styles.header}>
           <div className={styles.mainInfo}>
@@ -41,7 +58,7 @@ class Note extends Component {
             >
               <PopoverBody className={styles.popover}>
                 <ul className={styles.ul}>
-                   <li className={styles.li}>Edit</li>
+                   <li className={styles.li} onClick={this.showEditor}>Edit</li>
                 </ul>
               </PopoverBody>
             </Popover>
@@ -52,6 +69,11 @@ class Note extends Component {
         </div>
       </div>
     );
+
+    let editor = <EditLeadEditor onSave={this.onSave} onCancel={this.onCancel} />
+
+    return this.state.showEditor ? editor : noteContent
+      
   }
 }
 

@@ -28,6 +28,7 @@ class Notes extends Component {
 const mapStateToProps = state => ({
   editLead: state.leads.editLead,
 });
+
 Notes.PropTypes = {
   editLead: PropTypes.object
 };
