@@ -14,8 +14,11 @@
 
 .activityWrapper:hover {
     color: #26292c;
-
     text-decoration: underline;
+}
+
+.wrapper h3 {
+    margin-bottom: 8px;
 }
 
 .markAsDone {

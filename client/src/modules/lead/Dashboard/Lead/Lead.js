@@ -1,7 +1,7 @@
-import React from "react"
-import { Link, withRouter } from "react-router-dom"
-import profile from "../../../../img/profile.svg"
-import PropTypes from "prop-types"
+import React from "react";
+import { Link } from "react-router-dom";
+import profile from "../../../../img/profile.svg";
+import PropTypes from "prop-types";
 import styles from "./Lead.css";
 
 
@@ -13,22 +13,19 @@ const lead = (props) => {
       <div className={styles.info}>
         <Link className={styles.linkInfo} to={props.link}>
           <strong><img className={styles.avatar}
-                       src={lead.owner && lead.owner.avatar ? lead.owner.avatar : profile}/>
+                       src={lead.owner && lead.owner.avatar ? lead.owner.avatar : profile} />
             {lead.name}
           </strong>
-
-          {lead.contact ?
-            <small>{lead.contact.name ? lead.contact.name : lead.contact.organization.name}</small> :
-            <small style={{height: "20px"}}> </small>}
+          <small>{lead.contact ? lead.contact.name : lead.organization.name}</small>
         </Link>
       </div>
     </div>
-  )
+  );
 };
 
 
 lead.propTypes = {
-    link: PropTypes.string.isRequired,
-    lead: PropTypes.object.isRequired
+  link: PropTypes.string.isRequired,
+  lead: PropTypes.object.isRequired,
 };
-export default lead
+export default lead;

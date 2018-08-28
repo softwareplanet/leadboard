@@ -14,21 +14,8 @@ describe("<EditLeadSidebar/>", () => {
       _id: "5b7be33d41e06c0b72930acd",
       name: "John",
       domain: "5b7a69c07e53b4214177526e",
-      organization: {
-        _id: "5b7be33d41e06c0b72930acb",
-        domain: "5b7a69c07e53b4214177526e",
-        name: "RedDog Inc",
-        __v: 0,
-        timestamp: "2018-08-21T10:02:37.973Z",
-        custom: [
-          {
-            name: "Address",
-            value: "",
-            _id: "5b7be33d41e06c0b72930acc",
-          },
-        ],
-      },
       __v: 0,
+      organization: "5b7be33d41e06c0b72930acb",
       timestamp: "2018-08-21T10:02:37.985Z",
       custom: [
         {
@@ -43,6 +30,20 @@ describe("<EditLeadSidebar/>", () => {
         },
       ],
     },
+    organization: {
+      _id: "5b7be33d41e06c0b72930acb",
+      domain: "5b7a69c07e53b4214177526e",
+      name: "RedDog Inc",
+      __v: 0,
+      timestamp: "2018-08-21T10:02:37.973Z",
+      custom: [
+        {
+          name: "Address",
+          value: "",
+          _id: "5b7be33d41e06c0b72930acc",
+        },
+      ],
+    },
   };
 
   const initialState = { leads: { editLead: editLead } };
@@ -50,7 +51,6 @@ describe("<EditLeadSidebar/>", () => {
   beforeEach(() => {
     store = mockStore(initialState);
   });
-
 
   let wrapper;
 

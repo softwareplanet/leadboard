@@ -1,6 +1,6 @@
 import axios from "axios";
 import setAuthToken from "../../utils/setAuthToken";
-import { SET_LOGIN_DATA } from "./types";
+import { SET_LOGIN_DATA, LOGOUT_USER } from "./types";
 import { GET_ERRORS } from "../../actionTypes";
 
 // Register user
@@ -44,7 +44,9 @@ export const loginUserById = id => dispatch => {
     .then(result => {
       const loginData = {
         userId: result.data._id,
-        domainId: result.data.domain
+        userName: `${result.data.firstname} ${result.data.lastname}`,
+        domainId: result.data.domain._id,
+        domainName: result.data.domain.name
       };
       dispatch(setLoginData(loginData));
     })
@@ -57,4 +59,15 @@ export const setLoginData = data => {
     type: SET_LOGIN_DATA,
     payload: data
   };
+};
+
+export const logoutUser = history => dispatch => {
+  localStorage.removeItem("jwtToken");
+
+  setAuthToken({});
+  dispatch({
+    type: LOGOUT_USER,
+  });
+
+  if (history) history.push("/");
 };
