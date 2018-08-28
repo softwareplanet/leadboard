@@ -6,35 +6,28 @@ import organizationIcon from "../../../../img/organizationIcon.svg";
 import PropTypes from "prop-types";
 import { loadLead, updateContact, updateOrganization } from "../../leadActions";
 import { connect } from "react-redux";
-import _ from "lodash";
 
 class EditLeadSidebar extends Component {
   render() {
     if (this.props.editLead) {
-      const { contact } = this.props.editLead;
+      const { contact, organization } = this.props.editLead;
       const contactCard =
         <EditCard
           model={contact}
           title={"Person"}
           icon={personIcon}
           onUpdate={this.props.updateContact} />;
-      let cards;
-      if ("organization" in contact) {
-        const { organization } = contact;
-        const organizationCard =
-          <EditCard
-            model={organization}
-            title={"Organization"}
-            icon={organizationIcon}
-            onUpdate={this.props.updateOrganization} />;
-        cards = <div>{organizationCard}{contactCard}</div>;
-        if (_.isEmpty(contact.name)) {
-          cards = <div>{organizationCard}</div>;
-        }
-      }
-      else {
-        cards = <div>{contactCard}</div>;
-      }
+      const organizationCard =
+        <EditCard
+          model={organization}
+          title={"Organization"}
+          icon={organizationIcon}
+          onUpdate={this.props.updateOrganization} />;
+      let cards =
+        <div>
+          {organization ? organizationCard : ""}
+          {contact ? contactCard : ""}
+        </div>;
       return <div className={styles.sidebar}>{cards}</div>;
     } else {
       return <div />;
