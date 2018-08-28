@@ -29,35 +29,35 @@ function TabContainer(props) {
 
 class EditLeadHistory extends React.Component {
   state = {
-    value: 0,
-    notes: "",
+    selectedTab: 0,
+    itemsCount: {}
   };
 
-  handleChange = (event, value) => {
-    this.setState({ value });
+  handleChange = (event,selectedTab) => {
+    this.setState({ selectedTab });
   };
 
   setCount = (entity, count) => {
     let newState = { ...this.state };
-    newState[entity] = count;
+    newState.itemsCount[entity] = count;
     this.setState(newState);
   };
 
   render() {
-    const { value } = this.state;
+    const { selectedTab } = this.state;
     const { classes } = this.props;
     return (
       <div>
         <Tabs
           classes={{ indicator: classes.tabsIndicator }}
-          value={value}
+          value={selectedTab}
           onChange={this.handleChange}
           indicatorColor="primary"
           centered={true}>
 
-          <Tab label={`NOTES ${this.state.notes}`} classes={{ root: classes.tabRoot }} />
+          <Tab label={`NOTES ${this.state.itemsCount.notes}`} classes={{ root: classes.tabRoot }} />
         </Tabs>
-        {value === 0 && <TabContainer><Notes setCount={this.setCount} /></TabContainer>}
+        {selectedTab === 0 && <TabContainer><Notes setCount={this.setCount} /></TabContainer>}
       </div>
     );
   }
