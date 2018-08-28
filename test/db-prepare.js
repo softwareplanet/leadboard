@@ -71,11 +71,11 @@ export async function createStage(app, token, funnelId, name = "Stage",order = 1
     });
 }
 
-export async function createLead(app, token, user, stage, domain, order, name = "Lead") {
+export async function createLead(app, token, user, stage, order, name = "Lead") {
   return await request(app())
     .post("/api/lead")
     .set("Authorization", token)
-    .send({ owner: user, stage: stage, order, domain, name, contact:"Test contact" })
+    .send({ owner: user, stage, order, name, contact: "Test contact" })
     .then(res => res.body)
     .catch(error => {
       console.log("Cannon create a lead" + error);
