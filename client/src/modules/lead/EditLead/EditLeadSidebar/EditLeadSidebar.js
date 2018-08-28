@@ -8,7 +8,6 @@ import { loadLead, updateContact, updateOrganization } from "../../leadActions";
 import { loadOrganizations } from "../../AddLead/autocomplete/organization/organizationActions";
 import { loadContacts } from "../../AddLead/autocomplete/contact/contactActions";
 import { connect } from "react-redux";
-import _ from "lodash";
 
 import editCardStyles from "./EditCard/EditCard.css";
 import EmptyCard from "./EmptyCard/EmptyCard";
@@ -18,12 +17,12 @@ import OrganizationAutocomplete from "../../AddLead/autocomplete/organization/Or
 import { autocompleteStyles } from "../../AddLead/autocomplete/styles/autocomplete-styles";
 
 class EditLeadSidebar extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       contacts: [],
       organizations: [],
-    }
+    };
   }
 
   componentDidMount() {
@@ -35,59 +34,56 @@ class EditLeadSidebar extends Component {
     this.setState({
       contacts: props.contacts,
       organizations: props.organizations,
-    })
+    });
   }
 
   render() {
     if (this.props.editLead) {
-      const { contact } = this.props.editLead;
+      const { contact, organization } = this.props.editLead;
       const contactCard =
         <EditCard
           model={contact}
           title={"Person"}
           icon={personIcon}
           onUpdate={this.props.updateContact} />;
-      let cards;
-      if ("organization" in contact) {
-        const { organization } = contact;
-        const organizationCard =
-          <EditCard
-            model={organization}
-            title={"Organization"}
-            icon={organizationIcon}
-            onUpdate={this.props.updateOrganization} />;
-        cards = <div>{organizationCard}{contactCard}</div>;
-        if (_.isEmpty(contact.name)) {
-          cards = <div>{organizationCard}</div>;
-        }
-      }
-      else {
-        cards = <div>{contactCard}</div>;
-      }
-      return (
-        <div className={styles.sidebar}>
-          <EmptyCard
-            title="Organization"
-            styles={autocompleteStyles.linkOrganization}
-            iTagClass={classNames("fas fa-building", editCardStyles.inputIcon)}
-            loadItems={this.props.loadOrganizations}
-            items={this.state.organizations}
-          >
-            <OrganizationAutocomplete />
-          </EmptyCard>
-
-          <EmptyCard
-            title="Person"
-            styles={autocompleteStyles.linkPerson}
-            iTagClass={classNames("fas fa-user", editCardStyles.inputIcon)}
-            items={this.state.contacts}
-          >
-            <ContactAutocomplete />
-          </EmptyCard>
-        </div>
+      const organizationCard =
+        <EditCard
+          model={organization}
+          title={"Organization"}
+          icon={organizationIcon}
+          onUpdate={this.props.updateOrganization} />;
+      const emptyOrganizationCard = (
+        <EmptyCard
+          id="organization-card"
+          title="Organization"
+          styles={autocompleteStyles.linkOrganization}
+          iTagClass={classNames("fas fa-building", editCardStyles.inputIcon)}
+          loadItems={this.props.loadOrganizations}
+          items={this.state.organizations}
+        >
+          <OrganizationAutocomplete />
+        </EmptyCard>
       );
+      const emptyContactCard = (
+        <EmptyCard
+          id="contact-card"
+          title="Person"
+          styles={autocompleteStyles.linkPerson}
+          iTagClass={classNames("fas fa-user", editCardStyles.inputIcon)}
+          items={this.state.contacts}
+        >
+          <ContactAutocomplete />
+        </EmptyCard>
+      );
+
+      let cards =
+        <div>
+          {organization ? organizationCard : emptyOrganizationCard}
+          {contact ? contactCard : emptyContactCard}
+        </div>;
+      return <div className={styles.sidebar}>{cards}</div>;
     } else {
-      return <div />;
+      return <div className={styles.sidebar} />;
     }
   }
 }

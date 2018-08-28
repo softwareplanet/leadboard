@@ -8,6 +8,7 @@ const leadSchema = new mongoose.Schema({
   name: String,
   order: { type: Number, index: { unique: false } },
   contact: { type: mongoose.Schema.Types.ObjectId, ref: "Contact" },
+  organization: { type: mongoose.Schema.Types.ObjectId, ref: "Organization" },
   custom: [{ name: "string", value: "string" }],
   timestamp: { type: Date, default: Date.now },
   status: {

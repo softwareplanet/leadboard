@@ -108,7 +108,7 @@ class EmptyCard extends Component {
   };
 
   clearInput = () => {
-    document.getElementsByTagName("input")[1].focus();
+    document.getElementById(`${this.props.title.toLowerCase()}-card`).getElementsByTagName("input")[0].focus();
     this.setState({
       name: "",
       item: {
@@ -173,7 +173,7 @@ class EmptyCard extends Component {
             </span>
           </button>
 
-          <div className={styles.modalContent}>
+          <div id={this.props.id} className={styles.modalContent}>
             <form className={styles.modalForm}>
               <label style={{width: "100%"}}>
                 <span className={styles.formSpan}>{this.props.title} name</span>
