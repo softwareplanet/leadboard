@@ -4,7 +4,7 @@ import isBlank from "../../../../../../utils/isBlank"
 
 export default class EditLeadEditor extends Component {
   state = {
-    noteText: ""
+    noteText: this.props.text ? this.props.text : ""
   }
 
   onChange = e => {
