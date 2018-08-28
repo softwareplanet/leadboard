@@ -2,20 +2,16 @@ import { Router } from "express";
 import mongoose from "mongoose";
 
 import validateActivityInput from "../../validation/activity";
-import isEmpty from "lodash.isempty";
 
-import Lead from "../../models/lead";
 import Activity from "../../models/activity";
-import Contact from "../../models/contact";
-import Organization from "../../models/organization";
 
 const router = new Router();
 
-// @route   GET api/activity
-// @desc    Find activities by domain
+// @route   GET api/activity?lead=:id
+// @desc    Find activities by lead
 // @access  Private
 router.get("/", (req, res) => {
-  Activity.model.find()
+  Activity.find({ lead: req.query.lead })
     .then(activities => {
       res.json(activities);
     })
@@ -28,8 +24,8 @@ router.get("/", (req, res) => {
 // @desc    Create activity
 // @access  Private
 router.post("/", (req, res) => {
-  // const { hasErrors, errors } = validateActivityInput(req.body);
-  // if (hasErrors) return res.status(400).json({ errors });
+  const { hasErrors, errors } = validateActivityInput(req.body);
+  if (hasErrors) return res.status(400).json({ errors });
   createActivity(req, res);
 });
 
@@ -54,8 +50,5 @@ const createActivity = (req, res) => {
       res.status(400).json({ errors: { message: error } });
     });
 };
-
-
-
 
 export default router;

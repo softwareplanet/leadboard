@@ -11,10 +11,10 @@ const activitySchema = new mongoose.Schema({
   duration: { type: Number },
   note: { type: String, default:""},
   assignedTo: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-  lead: { type: mongoose.Schema.Types.ObjectId, ref: "Lead"},
+  lead: { type: mongoose.Schema.Types.ObjectId, ref: "Lead", default: ""},
   participants:  [{type: mongoose.Schema.Types.ObjectId, ref:"Contact"}],
   organization: {type: mongoose.Schema.Types.ObjectId, ref: "Organoztion"},
   done: {type: Boolean, default: false},
 });
 
-module.exports = {model:mongoose.model("Activity", activitySchema), schema: activitySchema};
+module.exports = mongoose.model("Activity", activitySchema);

@@ -13,7 +13,6 @@ import {
 const app = () => express(routes);
 
 let cred;
-let leadId;
 let stageId;
 
 beforeEach(async done => {
@@ -21,7 +20,7 @@ beforeEach(async done => {
   cred = await createUserAndDomain(app);
   let funnelId = await createFunnel(app, cred.token, cred.domainId, "Funnel");
   stageId = await createStage(app, cred.token, funnelId, "Stage", 2, cred.userId);
-  leadId = await createLead(app, cred.token, cred.userId, stageId, cred.domainId, 2, "Lead A");
+  await createLead(app, cred.token, cred.userId, stageId, cred.domainId, 2, "Lead A");
   await createLead(app, cred.token, cred.userId, stageId, cred.domainId, 1, "Lead B");
   done();
 });
@@ -75,8 +74,8 @@ describe("Organization", function() {
       .send({});
 
     expect(status).toBe(200);
+    expect(body.length).toBe(2);
     expect(body[0].name).toBe("Company 1");
     expect(body[1].name).toBe("Company 2");
-    expect(body.length).toBe(2);
   });
 });

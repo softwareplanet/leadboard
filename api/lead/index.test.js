@@ -1,22 +1,20 @@
 import request from "supertest";
-import Stage from "../../models/stage";
-
 import express from "../../express";
 import routes from "..";
-import { dropTables, createUserAndDomain, createFunnel, createStage, createLead } from "../../test/db-prepare";
+import { createFunnel, createLead, createStage, createUserAndDomain, dropTables } from "../../test/db-prepare";
 
 const app = () => express(routes);
 
 let cred;
-let leadId;
+let lead;
 let stageId;
 beforeEach(async done => {
   await dropTables();
   cred = await createUserAndDomain(app);
   let funnelId = await createFunnel(app, cred.token, cred.domainId, "Funnel");
   stageId = await createStage(app, cred.token, funnelId, "Stage", 2, cred.userId);
-  leadId = await createLead(app, cred.token, cred.userId, stageId, cred.domainId, 2, "Lead A");
-  await createLead(app, cred.token, cred.userId, stageId, cred.domainId, 1, "Lead B");
+  lead = await createLead(app, cred.token, cred.userId, stageId, 2, "Lead A");
+  await createLead(app, cred.token, cred.userId, stageId, 1, "Lead B");
   done();
 });
 
@@ -35,7 +33,7 @@ describe("Lead", () => {
         organization: ""
       });
     expect(status).toBe(200);
-    expect(typeof body).toBe("string");
+    expect(typeof body._id).toBe("string");
   });
 
   it("should return an ordered leads by stage", async () => {
@@ -53,7 +51,7 @@ describe("Lead", () => {
 
   it("should update lead", async () => {
     const { status, body } = await request(app())
-      .patch(`/api/lead/${leadId}`)
+      .patch(`/api/lead/${lead._id}`)
       .set("Authorization", cred.token)
       .send({
         owner: cred.userId,
@@ -67,7 +65,7 @@ describe("Lead", () => {
 
   it("should create note for lead", async () => {
     const { status, body } = await request(app())
-      .post(`/api/lead/${leadId}/notes`)
+      .post(`/api/lead/${lead._id}/notes`)
       .set("Authorization", cred.token)
       .send({
         user: cred.userId,
