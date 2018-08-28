@@ -208,6 +208,7 @@
   flex-wrap: nowrap;
   height: 32px;
   border-radius: 3px;
+  margin: 0 0 16px 0;
 }
 
 .inputIcon {

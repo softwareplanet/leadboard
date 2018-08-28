@@ -13,6 +13,7 @@ import isBlank from "../../../utils/isBlank";
 import SelectStageOnCreation from "./SelectStage/SelectStageOnCreation";
 import OrganizationAutocomplete from "./autocomplete/organization/OrganizationAutocomplete";
 import ContactAutocomplete from "./autocomplete/contact/ContactAutocomplete";
+import { autocompleteStyles } from "./autocomplete/styles/autocomplete-styles";
 
 const customStyles = {
   content: {
@@ -365,6 +366,7 @@ class AddLead extends React.Component {
                 onBlur={this.onContactBlur}
                 value={this.state.contact.name}
                 open={this.state.openContactDropdown}
+                styles={autocompleteStyles.contact}
               />
               {this.state.showContactBadge ? <span id="contact-badge" className={styles.newBadge}>NEW</span> : null}
             </div>
@@ -384,6 +386,7 @@ class AddLead extends React.Component {
                 onBlur={this.onOrganizationBlur}
                 value={this.state.organization.name}
                 open={this.state.openOrganizationDropdown}
+                styles={autocompleteStyles.organization}
               />
               {this.state.showOrganizationBadge ? <span id="organization-badge" className={styles.newBadge}>NEW</span> : null}
             </div>

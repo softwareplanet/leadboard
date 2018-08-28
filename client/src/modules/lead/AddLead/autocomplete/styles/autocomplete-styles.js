@@ -3,7 +3,6 @@ const autocomplete = {
     position: "absolute",
     left: 15,
     zIndex: 7000,
-    width: "318px",
     backgroundColor: "white",
     color: "#317ae2",
     borderRadius: "0 0 4px 4px",
@@ -29,6 +28,7 @@ const organization = {
   menu: {
     ...autocomplete.menu,
     top: 180,
+    width: "318px",
   },
   emptyMenuItem: {
     ...autocomplete.emptyMenuItem,
@@ -42,6 +42,7 @@ const contact = {
   menu: {
     ...autocomplete.menu,
     top: 120,
+    width: "318px",
   },
   emptyMenuItem: {
     ...autocomplete.emptyMenuItem,
@@ -51,7 +52,25 @@ const contact = {
   },
 };
 
-export const styles = {
+const linkOrganization = {
+  menu: {
+    ...autocomplete.menu,
+    top: 127,
+    width: "387px",
+  },
+  emptyMenuItem: {
+    ...autocomplete.emptyMenuItem,
+  },
+  menuItem: {
+    ...autocomplete.menuItem,
+  },
+};
+
+const linkPerson = Object.assign({}, linkOrganization);
+
+export const autocompleteStyles = {
   organization,
   contact,
+  linkOrganization,
+  linkPerson
 };

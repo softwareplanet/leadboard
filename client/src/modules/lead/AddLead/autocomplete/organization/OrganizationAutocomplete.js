@@ -1,12 +1,12 @@
 import React from "react";
 import ReactAutocomplete from "react-autocomplete";
 import "../styles/Autocomplete.css";
-import { styles } from "../styles/autocomplete-styles";
 
 const COUNT_OF_DISPLAYED_ORGANIZATIONS = 4;
 
 class OrganizationAutocomplete extends React.Component {
   render() {
+    const styles = this.props.styles;
     return (
       <ReactAutocomplete
         open={this.props.value.length > 1 && this.props.open}
@@ -15,11 +15,11 @@ class OrganizationAutocomplete extends React.Component {
         getItemValue={item => item.name}
         renderMenu={(items) =>
           items.length !== 0 ? (
-            <div className="organizationsList" style={styles.organization.menu} children={items.splice(0, COUNT_OF_DISPLAYED_ORGANIZATIONS)} />
+            <div className="organizationsList" style={styles.menu} children={items.splice(0, COUNT_OF_DISPLAYED_ORGANIZATIONS)} />
           ) : (
-              <div className="organizationsList" style={styles.organization.menu}>
+              <div className="organizationsList" style={styles.menu}>
               {
-                <div style={styles.organization.emptyMenuItem}>
+                <div style={styles.emptyMenuItem}>
                   { `"${this.props.value}" will be added as a new organization` }
                 </div>
               }
@@ -30,7 +30,7 @@ class OrganizationAutocomplete extends React.Component {
           <div
             key={item._id}
             style={{
-              ...styles.organization.menuItem,
+              ...styles.menuItem,
               backgroundColor: highlighted ? "#317ae2" : "transparent",
               color: highlighted ? "#fff" : "#317ae2"
             }}

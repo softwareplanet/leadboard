@@ -13,6 +13,7 @@ import EmptyCard from "./EmptyCard/EmptyCard";
 import classNames from "classnames";
 import ContactAutocomplete from "../../AddLead/autocomplete/contact/ContactAutocomplete";
 import OrganizationAutocomplete from "../../AddLead/autocomplete/organization/OrganizationAutocomplete";
+import { autocompleteStyles } from "../../AddLead/autocomplete/styles/autocomplete-styles";
 
 class EditLeadSidebar extends Component {
   render() {
@@ -45,6 +46,7 @@ class EditLeadSidebar extends Component {
         <div className={styles.sidebar}>
           <EmptyCard
             title="Organization"
+            styles={autocompleteStyles.linkOrganization}
             iTagClass={classNames("fas fa-building", editCardStyles.inputIcon)}
           >
             <OrganizationAutocomplete />
@@ -52,6 +54,7 @@ class EditLeadSidebar extends Component {
 
           <EmptyCard
             title="Person"
+            styles={autocompleteStyles.linkPerson}
             iTagClass={classNames("fas fa-user", editCardStyles.inputIcon)}
           >
             <ContactAutocomplete />

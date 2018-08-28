@@ -27,10 +27,18 @@ class EmptyCard extends Component {
     this.state = {
       isModalOpen: false,
       isLinkDisabled: true,
-      items: [],
+      items: [
+        { _id: "1", name: "Company 1"},
+        { _id: "2", name: "Company 2"},
+        { _id: "3", name: "Company 3"},
+      ],
+      item: {
+        id: null,
+        name: ""
+      },
       name: "",
       openDropdown: false,
-
+      showAdditionalMessage: false,
     };
   }
 
@@ -43,6 +51,14 @@ class EmptyCard extends Component {
   closeModal = () => {
     this.setState({
       isModalOpen: false,
+      isLinkDisabled: true,
+      item: {
+        id: null,
+        name: ""
+      },
+      name: "",
+      openDropdown: false,
+      showAdditionalMessage: false,
     });
   };
 
@@ -52,19 +68,39 @@ class EmptyCard extends Component {
   };
 
   onFocus = () => {
-    console.log("Focus");
+    document.getElementById(`${this.props.title.toLowerCase()}-input`).setAttribute("style", "border: 1px solid #317ae2");
   };
 
-  onChange = () => {
-    console.log("Change");
+  onChange = (event) => {
+    this.setState({
+      item: {
+        id: null,
+        name: event.target.value
+      },
+      openDropdown: true,
+      showAdditionalMessage: event.target.value.length === 0 ? false : this.state.showAdditionalMessage,
+      isLinkDisabled: event.target.value.length === 0 ? true : this.state.isLinkDisabled,
+    })
   };
 
-  onSelect = () => {
-    console.log("Select");
+  onSelect = (value, item) => {
+    this.setState({
+      item: {
+        id: item._id,
+        name: value
+      },
+      openDropdown: false,
+    }, () => this.onBlur())
   };
 
   onBlur = () => {
-    console.log("Blur");
+    document.getElementById(`${this.props.title.toLowerCase()}-input`).removeAttribute("style");
+    this.setState({
+      openDropdown: false,
+      name: this.state.item.name,
+      showAdditionalMessage: this.state.item.name.length !== 0,
+      isLinkDisabled: this.state.item.name.length === 0,
+    })
   };
 
   render() {
@@ -74,11 +110,21 @@ class EmptyCard extends Component {
       onChange: this.onChange,
       onSelect: this.onSelect,
       onBlur: this.onBlur,
-      value: this.state.name,
+      value: this.state.item.name,
       open: this.state.openDropdown,
+      styles: this.props.styles,
     });
 
-    let title = this.props.title.toLowerCase();
+    const title = this.props.title.toLowerCase();
+    const additionalMessage = (
+      <div className={styles.additionMessage}>
+        { !this.state.item.id ?
+          `A new ${title} (${this.state.name}) will be created and linked to this deal.` :
+          `The existing person (${this.state.name}) will be linked to this deal.`
+        }
+      </div>
+    );
+
     return (
       <div className={styles.container}>
         <div className={styles.title}>
@@ -113,16 +159,16 @@ class EmptyCard extends Component {
             <form className={styles.modalForm}>
               <label style={{width: "100%"}}>
                 <span className={styles.formSpan}>{this.props.title} name</span>
-                <div className={styles.inputContainer}>
+                <div id={`${title}-input`} className={styles.inputContainer}>
                   <i className={this.props.iTagClass} />
                   {
                     childrenWithExtraProps
                   }
                 </div>
               </label>
-              <div className={styles.additionMessage}>
-                A new person (*here input*) will be created and linked to this deal.
-              </div>
+              {
+                this.state.showAdditionalMessage ? additionalMessage : <div/>
+              }
             </form>
           </div>
 
