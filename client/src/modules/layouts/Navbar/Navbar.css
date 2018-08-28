@@ -1,63 +1,181 @@
 header {
-    background-color: #404346;
+  background-color: #404346;
 }
 
 li {
-    padding: 0 5px;
-    cursor: pointer;
+  padding: 0 5px;
+  cursor: pointer;
 }
 
 ul {
-    padding: 0;
-    margin: 0;
-    list-style: none;
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
 .menu {
-    display: flex;
-    align-items: center;
+  display: flex;
+  width: 100%;
+  align-items: center;
 }
 
 .logo {
-    font-size: 25px;
-    color: white;
-    padding: 0 20px 0 10px;
+  font-size: 25px;
+  color: white;
+  padding: 0 20px 0 10px;
 }
 
-.search {
-    height: 32px;
-    border-radius: 4px;
-    box-sizing: border-box;
-    border: medium none;
-    padding: 8px 4px 8px 32px;
-    margin-right: 20px;
-    background-color: #747678;
-    color: white;
+.logo a {
+  color: white;
 }
 
-.item div {
-    display: flex;
-    align-items: center;
-    flex-wrap: nowrap;
+.logo a:hover {
+  font-size: 25px;
+  color: white;
+  text-decoration: none;
+}
+
+.logoSmall {
+  composes: logo;
+  display: none
+}
+
+.logoSmall h1 {
+  margin: 0;
+}
+
+.itemWithLink {
+  padding: 12px 13px;
 }
 
 .item {
-    padding: 13px;
-    color: #b9babb;
+  composes: itemWithLink;
+  color: #b9babb;
 }
 
 .item:hover {
-    background-color: black;
-    color: white;
+  cursor: default;
+}
+
+.item div {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.item div:hover {
+  color: white;
+  cursor: pointer;
+}
+
+.rightItem {
+  composes: item;
+  margin-left: auto;
+  padding: 4px;
+}
+
+.rightItem div:hover {
+  color: #b9babb;
+  cursor: default;
 }
 
 .active {
-    composes: item;
-    background-color: black;
-    color: white;
+  composes: item;
+  background-color: #26292c;
+  color: white;
 }
 
 .icon {
-    font-size: 1.5em;
-    padding-right: 10px;
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.icon image {
+  width: 24px;
+  height: 24px;
+}
+
+.userImg {
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+}
+.defaultImg {
+  composes: userImg;
+  background-color: #686a6c;
+}
+
+.link {
+  padding: 12px 13px;
+  composes: item;
+}
+
+.currentLink {
+  composes: link;
+  background-color: #26292c;
+  color: white;
+}
+
+.link div {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.link:hover {
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.userInfo small {
+  align-self: flex-start;
+  font-size: 10px;
+  height: 16px;
+}
+
+.userInfo span {
+  color: #fff;
+  align-self: flex-start;
+  font-size: 14px;
+  height: 16px;
+}
+
+@media only screen and (max-width: 590px) {
+  .userInfo span, small {
+    display: none;
+  }
+
+  .userImg {
+    padding: 0;
+    margin-right: 0;
+  }
+
+  .userIcon {
+    padding: 0;
+  }
+
+  .userInfo {
+    padding: 0;
+  }
+
+  .defaultImgContainer {
+    margin-right: 0;
+  }
+
+  .logo {
+    display: none;
+  }
+
+  .logoSmall {
+    display: flex;
+  }
 }

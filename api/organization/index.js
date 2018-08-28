@@ -60,7 +60,7 @@ router.patch("/:id", (req, res) => {
   const { hasErrors, errors } = validateOrganizationUpdate(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 
-  Organization.findOneAndUpdate(
+  Organization.findByIdAndUpdate(
     req.params.id,
     { $set: req.body },
     { new: true })

@@ -49,7 +49,7 @@ router.patch("/:id", function(req, res) {
   const { hasErrors, errors } = validateContactUpdate(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 
-  Contact.findOneAndUpdate(
+  Contact.findByIdAndUpdate(
     req.params.id,
     { $set: req.body },
     { new: true })
