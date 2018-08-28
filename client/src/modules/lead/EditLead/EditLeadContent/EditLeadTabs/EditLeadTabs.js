@@ -9,6 +9,7 @@ import { connect } from 'react-redux'
 import { createNote } from "../../../leadActions";
 import EditLeadEditor from "./EditLeadEditor/EditLeadEditor";
 import AddActivity from "./AddActivity/AddActivity";
+import isBlank from '../../../../../utils/isBlank'
 
 class EditLeadTabs extends Component {
   state = {
@@ -41,17 +42,12 @@ class EditLeadTabs extends Component {
   render() {
     let takeNotesCondition = this.isActive(EditLeadEditor);
     let addActivityCondition = this.isActive(AddActivity);
-    let nullCondition = this.state.activeTab === null;
-    console.log("add: " + addActivityCondition);
-    console.log("note: " + takeNotesCondition);
-    console.log("note+null: " + (takeNotesCondition || nullCondition));
-    console.log("null: " + nullCondition);
     return (
       <div className={styles.tabs}>
         <ul className={styles.header}>
           <li className={styles.headerItem} onClick={() => this.tabHandler(<EditLeadEditor onCancel={this.onCancel} onSave={this.onNoteSave}/>)}>
             <img
-              src={(takeNotesCondition || nullCondition) ? takeNotesIconActive : takeNotesIcon }
+              src={(takeNotesCondition || isBlank(this.state.activeTab)) ? takeNotesIconActive : takeNotesIcon }
               className={styles.headerItemIcon}
               alt="take note icon"
             />

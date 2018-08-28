@@ -5,7 +5,7 @@ import { styles } from "../styles/autocomplete-styles";
 
 const COUNT_OF_DISPLAYED_ORGANIZATIONS = 4;
 
-class OrganizationAutocomplete extends React.Component {
+class ContactAutocomplete extends React.Component {
   render() {
     return (
       <ReactAutocomplete
@@ -15,12 +15,12 @@ class OrganizationAutocomplete extends React.Component {
         getItemValue={item => item.name}
         renderMenu={(items) =>
           items.length !== 0 ? (
-            <div className="organizationsList" style={styles.organization.menu} children={items.splice(0, COUNT_OF_DISPLAYED_ORGANIZATIONS)} />
+            <div className="contactsList" style={styles.contact.menu} children={items.splice(0, COUNT_OF_DISPLAYED_ORGANIZATIONS)} />
           ) : (
-              <div className="organizationsList" style={styles.organization.menu}>
+            <div className="contactsList" style={styles.contact.menu}>
               {
-                <div style={styles.organization.emptyMenuItem}>
-                  { `"${this.props.value}" will be added as a new organization` }
+                <div style={styles.contact.emptyMenuItem}>
+                  { `"${this.props.value}" will be added as a new contact` }
                 </div>
               }
             </div>
@@ -30,15 +30,15 @@ class OrganizationAutocomplete extends React.Component {
           <div
             key={item._id}
             style={{
-              ...styles.organization.menuItem,
+              ...styles.contact.menuItem,
               backgroundColor: highlighted ? "#317ae2" : "transparent",
               color: highlighted ? "#fff" : "#317ae2"
             }}
           >
-            {item.name}
+            {item.organization !== undefined ? `${item.name} (${ item.organization.name })` : `${item.name}`}
           </div>
         }
-        inputProps={{onBlur: this.props.onBlur, onFocus: this.props.onFocus, className: "organization-input"}}
+        inputProps={{onBlur: this.props.onBlur, onFocus: this.props.onFocus, className: "contact-input"}}
         value={this.props.value}
         onChange={this.props.onChange}
         onSelect={this.props.onSelect}
@@ -47,4 +47,4 @@ class OrganizationAutocomplete extends React.Component {
   }
 }
 
-export default OrganizationAutocomplete;
+export default ContactAutocomplete;

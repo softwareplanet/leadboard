@@ -29,8 +29,8 @@ router.get("/", (req, res) => {
 // @desc    Create lead
 // @access  Private
 router.post("/", (req, res) => {
-  const { hasErrors, errors } = validateLeadInput(req.body);
-  if (hasErrors) return res.status(400).json({ errors });
+  // const { hasErrors, errors } = validateLeadInput(req.body);
+  // if (hasErrors) return res.status(400).json({ errors });
 
   if (req.body.organization) {
     Organization.findOneOrCreate(req.body).then(organization => {
@@ -93,6 +93,7 @@ router.get("/:id", (req, res) => {
 router.patch("/:id", (req, res) => {
   Lead.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
     .populate("notes.user", {password: 0})
+    .populate("activities")
     .populate({ path: "contact", populate: { path: "organization" } })
     .populate("owner")
     .populate("stage")
