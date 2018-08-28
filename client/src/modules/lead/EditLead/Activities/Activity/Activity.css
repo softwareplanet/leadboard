@@ -1,29 +1,60 @@
 .activityContent {
     position: relative;
     display: flex;
+    flex-direction: column;
 }
 
-.activityContent h3 {
-    font: 14px/20px "Open Sans",sans-serif;
+.activityWrapper {
+    font: 400 16px/24px "Open Sans",sans-serif;;
     color: #26292c;
     margin-bottom: 8px;
+    cursor: pointer;
+    word-wrap: break-word;
 }
 
-.activityContent h3 .doneMark {
+.activityWrapper:hover {
+    color: #26292c;
+
+    text-decoration: underline;
+}
+
+.markAsDone {
     margin-right: 4px;
     vertical-align: middle;
 }
 
 .checkBox {
-    top: 2px;
+    width: auto;
+    border: none;
     padding: 0;
-    cursor: pointer;
-    display: inline-flex;
-    box-sizing: border-box;
-    position: relative;
+    box-shadow: none;
+    margin-right: 3px;
 }
 
+.wrapper {
+    display: flex;
+    flex-direction: row;
+}
 
-input .doneMark {
+.activityDetails {
+    margin-right: 10px;
+}
 
+.activityDetails>span {
+    font: 400 12px/16px "Open Sans",sans-serif;
+    color: #747678;
+}
+
+.separator {
+    margin: 0;
+    padding: 0 5px;
+    width: 8px;
+    cursor: default;
+    text-align: center;
+}
+
+.today {
+    color: #2cbf55;
+    display: inline-block;
+    font: 600 12px/16px "Open Sans",sans-serif;
 }

@@ -3,7 +3,13 @@
 }
 
 .timeLineBar {
-    composes: timeLineBar from "../Notes/Notes.css";
+    position: absolute;
+    left: 18px;
+    top: 0px;
+    width: 2px;
+    bottom: 10px;
+    background-color: #f7f7f7;
+    background-image: url("../../../../assets/hatch.png");
 }
 
 .activityCard {
@@ -14,15 +20,6 @@
 .arrow {
     background-color: #ffffff;
     composes: arrow from "../../../common/InfoWraper/InfoItemWrapper.css";
-}
-
-.timeLineBar {
-    position: absolute;
-    left: 18px;
-    top: 0px;
-    width: 2px;
-    bottom: -130px;
-    background-size: 2px 14px;
 }
 
 .card {

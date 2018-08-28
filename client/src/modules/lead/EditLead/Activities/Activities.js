@@ -34,7 +34,7 @@ class Activities extends Component {
         return (
             <div className={styles.container}>
                 <div className={styles.timeLineBar} />
-                {this.props.editLead ? this.props.editLead.activity.map((activity) => {
+                {/*{this.props.editLead ? this.props.editLead.activity.map((activity) => {
                     return (
                         <InfoItemWrapper
                             key={activity._id}
@@ -44,7 +44,19 @@ class Activities extends Component {
                             arrowStyles={styles.arrow}
                             activity={activity}/>
                     );
-                }) : null}
+                }) : null}*/}
+                <InfoItemWrapper
+                    component={<Activity />}
+                    icon={callIcon}
+                    cardStyles={styles.activityCard}
+                    arrowStyles={styles.arrow}
+                />
+                <InfoItemWrapper
+                    component={<Activity />}
+                    icon={callIcon}
+                    cardStyles={styles.activityCard}
+                    arrowStyles={styles.arrow}
+                />
             </div>
         )
     }
