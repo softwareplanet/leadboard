@@ -45,17 +45,14 @@ export default function(state = initialState, action) {
       };
     case UPDATE_ORGANIZATION:
       let updatedLead = { ...state.editLead };
-      updatedLead.contact = { ...state.editLead.contact };
-      updatedLead.contact.organization = action.payload;
+      updatedLead.organization = action.payload;
       return {
         ...state,
         editLead: updatedLead,
       };
     case UPDATE_CONTACT:
       let leadWithUpdatedContact = { ...state.editLead };
-      const organization = leadWithUpdatedContact.contact.organization;
       leadWithUpdatedContact.contact = action.payload;
-      leadWithUpdatedContact.contact.organization = organization;
       return {
         ...state,
         editLead: leadWithUpdatedContact,
