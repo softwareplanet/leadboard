@@ -9,6 +9,7 @@
 }
 
 .timeLineBar {
+  margin-bottom: 50px;
   position: absolute;
   left: 18px;
   top: 23px;
@@ -16,3 +17,5 @@
   width: 2px;
   background-color: #e5e5e5;
 }
+
+

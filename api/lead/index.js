@@ -151,14 +151,21 @@ router.post("/:id/notes", (req, res) => {
     });
 });
 
-// @route   PATCH api/lead/:id/notes/:id
+// @route   PATCH api/lead/:id/note/:id
 // @desc    Update note's lead
 // @access  Private
 router.patch("/:leadId/note/:noteId", (req, res) => {
-  Lead.updateOne({_id: req.params.leadId, "notes._id": req.params.noteId}, 
-    { $set:{ "notes.$.text": req.body.text, "notes.$.lastUpdater": req.body.lastUpdater } })
+  Lead.findOneAndUpdate(
+    {_id: req.params.leadId, "notes._id": req.params.noteId}, 
+    { $set:{ "notes.$.text": req.body.text, "notes.$.lastUpdater": req.body.lastUpdater } }, 
+    {new: true})
+    .populate("notes.user", {password: 0})
+    .populate("notes.lastUpdater", {password: 0})
+    .populate([{ path: "contact" }, { path: "organization" }])
+    .populate("owner")
+    .populate("stage")
     .then(lead => {
-      res.json(lead);
+      return res.json(lead);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });

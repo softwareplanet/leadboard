@@ -40,7 +40,7 @@ class Note extends Component {
     let noteContent = (
       <div className={styles.noteContent}>
         <div className={styles.header}>
-          <div className={styles.mainInfo}>
+          <div className={styles.dateWrapper}>
             <span>{formatDate(date)}</span>
             <span name="separator">&nbsp; &#183; &nbsp;</span>{user.firstname + " " + user.lastname}
             {lastUpdaterSpan}

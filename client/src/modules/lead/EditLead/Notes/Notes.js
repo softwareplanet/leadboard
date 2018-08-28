@@ -37,7 +37,7 @@ const mapStateToProps = state => ({
   editLead: state.leads.editLead,
 });
 
-Notes.PropTypes = {
+Notes.propTypes = {
   editLead: PropTypes.object
 };
 
