@@ -19,6 +19,16 @@ const leadSchema = new mongoose.Schema({
     text: String,
     date: { type: Date, default: Date.now },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  }],
+  activities: [{
+    type: {
+      type: String,
+      enum: ["Call", "Meeting", "Task", "Deadline", "Email", "Lunch"],
+      default: "Call"
+    },
+    name: { type: String, default: "Call" },
+    date: { type: Date, default: Date.now },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   }]
 });
 
