@@ -22,14 +22,6 @@ const styles = {
   },
 };
 
-function TabContainer(props) {
-  return (
-    <Typography component="div">
-      {props.children}
-    </Typography>
-  );
-}
-
 class EditLeadHistory extends React.Component {
   state = {
     selectedTab: 0,
@@ -52,7 +44,7 @@ class EditLeadHistory extends React.Component {
 
           <Tab label={`NOTES ${this.props.notesCount}`} classes={{ root: classes.tabRoot }} />
         </Tabs>
-        {selectedTab === 0 && <TabContainer><Notes /></TabContainer>}
+        {selectedTab === 0 && <Notes />}
       </div>
     );
   }
