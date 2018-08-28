@@ -17,7 +17,12 @@ class Notes extends Component {
           return (
             <InfoItemWrapper
               key={note._id}
-              component={<Note leadId={this.props.editLead._id} updateNote={this.props.updateNote} note={note}/>}
+              component={<Note 
+                lastUpdater={this.props.userId} 
+                leadId={this.props.editLead._id} 
+                updateNote={this.props.updateNote} 
+                note={note}
+              />}
             />
           );
         }) : null}
@@ -27,6 +32,7 @@ class Notes extends Component {
 }
 
 const mapStateToProps = state => ({
+  userId: state.auth.userid,
   editLead: state.leads.editLead,
 });
 

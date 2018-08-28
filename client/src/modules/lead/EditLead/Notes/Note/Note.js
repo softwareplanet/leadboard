@@ -19,7 +19,7 @@ class Note extends Component {
   }
 
   onSave = (text) => {
-    let note = { _id: this.props.note._id, text }
+    let note = { _id: this.props.note._id, text, lastUpdater: this.props.lastUpdater }
     this.props.updateNote(this.props.leadId, note)
   }
 
@@ -31,14 +31,19 @@ class Note extends Component {
   }
 
   render() {
-    let { date, user, text } = this.props.note;
-
+    let { date, user, text, lastUpdater} = this.props.note;
+    let lastUpdaterSpan = (
+      <span>
+        {lastUpdater ? (<span><span name="separator">&nbsp; &#183; &nbsp;</span>Last edited: { lastUpdater.firstname + " " + lastUpdater.lastname }</span>) : ""}
+      </span>
+    )
     let noteContent = (
       <div className={styles.noteContent}>
         <div className={styles.header}>
           <div className={styles.mainInfo}>
             <span>{formatDate(date)}</span>
             <span name="separator">&nbsp; &#183; &nbsp;</span>{user.firstname + " " + user.lastname}
+            {lastUpdaterSpan}
           </div>
           <div>
             <img 

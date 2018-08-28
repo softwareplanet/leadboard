@@ -76,6 +76,7 @@ const createLead = (req, res) => {
 router.get("/:id", (req, res) => {
   Lead.findById(req.params.id)
     .populate("notes.user", {password: 0})
+    .populate("notes.lastUpdater", {password: 0})
     .populate({ path: "contact", populate: { path: "organization" } })
     .populate("owner")
     .populate("stage")
@@ -93,6 +94,7 @@ router.get("/:id", (req, res) => {
 router.patch("/:id", (req, res) => {
   Lead.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
     .populate("notes.user", {password: 0})
+    .populate("notes.lastUpdater", {password: 0})
     .populate({ path: "contact", populate: { path: "organization" } })
     .populate("owner")
     .populate("stage")
@@ -110,6 +112,7 @@ router.patch("/:id", (req, res) => {
 router.post("/:id/notes", (req, res) => {
   Lead.findByIdAndUpdate(req.params.id, { $push:{ notes: req.body } }, { new: true })
     .populate("notes.user", {password: 0})
+    .populate("notes.lastUpdater", {password: 0})
     .populate({ path: "contact", populate: { path: "organization" } })
     .populate("owner")
     .populate("stage")
@@ -125,7 +128,8 @@ router.post("/:id/notes", (req, res) => {
 // @desc    Update note's lead
 // @access  Private
 router.patch("/:leadId/note/:noteId", (req, res) => {
-  Lead.updateOne({_id: req.params.leadId, "notes._id": req.params.noteId}, { $set:{ "notes.$.text": req.body.text } })
+  Lead.updateOne({_id: req.params.leadId, "notes._id": req.params.noteId}, 
+    { $set:{ "notes.$.text": req.body.text, "notes.$.lastUpdater": req.body.lastUpdater } })
     .then(lead => {
       res.json(lead);
     })

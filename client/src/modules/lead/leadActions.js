@@ -178,7 +178,7 @@ export const createNote = (leadId, note) => dispatch => {
 // Update lead's note
 export const updateNote = (leadId, note) => dispatch => {
   axios
-    .patch(`/api/lead/${leadId}/note/${note._id}`, { text: note.text })
+    .patch(`/api/lead/${leadId}/note/${note._id}`, note)
     .then(() => {
       dispatch(loadLead(leadId));
     })
