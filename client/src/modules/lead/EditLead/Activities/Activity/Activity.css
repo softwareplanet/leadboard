@@ -1,0 +1,29 @@
+.activityContent {
+    position: relative;
+    display: flex;
+}
+
+.activityContent h3 {
+    font: 14px/20px "Open Sans",sans-serif;
+    color: #26292c;
+    margin-bottom: 8px;
+}
+
+.activityContent h3 .doneMark {
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+.checkBox {
+    top: 2px;
+    padding: 0;
+    cursor: pointer;
+    display: inline-flex;
+    box-sizing: border-box;
+    position: relative;
+}
+
+
+input .doneMark {
+
+}

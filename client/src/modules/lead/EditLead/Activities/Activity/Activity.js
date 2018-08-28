@@ -5,11 +5,16 @@ class Activity extends Component {
     render() {
         return (
             <div className={styles.activityContent}>
-                <div className={styles.actionButtons}></div>
+                <div className={styles.actionButtons}>
+
+                </div>
                 <h3>
                     <span className={styles.doneMark}>
+                        <label className={styles.checkBox}>
+
+                        </label>
                     </span>
-                    <a className={styles.activityWrapper}></a>
+                    <a className={styles.activityWrapper}>Bob</a>
                 </h3>
                 <div className={styles.activityDetails}>
                 </div>
@@ -19,3 +24,5 @@ class Activity extends Component {
         )
     }
 }
+
+export default Activity;

@@ -5,3 +5,27 @@
 .timeLineBar {
     composes: timeLineBar from "../Notes/Notes.css";
 }
+
+.activityCard {
+    background-color: #ffffff;
+    composes: card from "../../../common/InfoWraper/InfoItemWrapper.css";
+}
+
+.arrow {
+    background-color: #ffffff;
+    composes: arrow from "../../../common/InfoWraper/InfoItemWrapper.css";
+}
+
+.timeLineBar {
+    position: absolute;
+    left: 18px;
+    top: 0px;
+    width: 2px;
+    bottom: -130px;
+    background-size: 2px 14px;
+}
+
+.card {
+    padding: 16px;
+    composes: card from "../../../common/InfoWraper/InfoItemWrapper.css";
+}

@@ -30,11 +30,6 @@ class InfoItemWrapper extends Component {
         <span className={this.state.arrowStyles}/>
         <div className={this.state.cardStyles}>
           {this.props.component}
-          <div className="fade">
-            <div>
-              {space}
-            </div>
-          </div>
         </div>
       </div>
     );
