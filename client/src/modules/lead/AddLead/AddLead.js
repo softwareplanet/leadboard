@@ -367,6 +367,7 @@ class AddLead extends React.Component {
                 value={this.state.contact.name}
                 open={this.state.openContactDropdown}
                 styles={autocompleteStyles.contact}
+                inputStyle={autocompleteStyles.addLeadInput}
               />
               {this.state.showContactBadge ? <span id="contact-badge" className={styles.newBadge}>NEW</span> : null}
             </div>
@@ -387,6 +388,7 @@ class AddLead extends React.Component {
                 value={this.state.organization.name}
                 open={this.state.openOrganizationDropdown}
                 styles={autocompleteStyles.organization}
+                inputStyle={autocompleteStyles.addLeadInput}
               />
               {this.state.showOrganizationBadge ? <span id="organization-badge" className={styles.newBadge}>NEW</span> : null}
             </div>

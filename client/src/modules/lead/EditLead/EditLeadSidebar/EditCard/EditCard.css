@@ -226,3 +226,15 @@
   background: rgba(38,41,44,.32);
   z-index: 100;
 }
+
+.newBadge {
+  background: #317ae2;
+  padding: 3px 5px;
+  display: inline-block;
+  border-radius: 10px;
+  color: #fff;
+  line-height: 1;
+  font-size: 75%;
+  margin-left: 15px;
+}
+

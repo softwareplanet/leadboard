@@ -5,6 +5,8 @@ import personIcon from "../../../../img/personIcon.svg";
 import organizationIcon from "../../../../img/organizationIcon.svg";
 import PropTypes from "prop-types";
 import { loadLead, updateContact, updateOrganization } from "../../leadActions";
+import { loadOrganizations } from "../../AddLead/autocomplete/organization/organizationActions";
+import { loadContacts } from "../../AddLead/autocomplete/contact/contactActions";
 import { connect } from "react-redux";
 import _ from "lodash";
 
@@ -16,6 +18,26 @@ import OrganizationAutocomplete from "../../AddLead/autocomplete/organization/Or
 import { autocompleteStyles } from "../../AddLead/autocomplete/styles/autocomplete-styles";
 
 class EditLeadSidebar extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      contacts: [],
+      organizations: [],
+    }
+  }
+
+  componentDidMount() {
+    this.props.loadContacts();
+    this.props.loadOrganizations();
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState({
+      contacts: props.contacts,
+      organizations: props.organizations,
+    })
+  }
+
   render() {
     if (this.props.editLead) {
       const { contact } = this.props.editLead;
@@ -48,6 +70,8 @@ class EditLeadSidebar extends Component {
             title="Organization"
             styles={autocompleteStyles.linkOrganization}
             iTagClass={classNames("fas fa-building", editCardStyles.inputIcon)}
+            loadItems={this.props.loadOrganizations}
+            items={this.state.organizations}
           >
             <OrganizationAutocomplete />
           </EmptyCard>
@@ -56,6 +80,7 @@ class EditLeadSidebar extends Component {
             title="Person"
             styles={autocompleteStyles.linkPerson}
             iTagClass={classNames("fas fa-user", editCardStyles.inputIcon)}
+            items={this.state.contacts}
           >
             <ContactAutocomplete />
           </EmptyCard>
@@ -72,15 +97,19 @@ EditLeadSidebar.propTypes = {
   updateOrganization: PropTypes.func,
   updateContact: PropTypes.func,
   editLead: PropTypes.object,
+  loadOrganizations: PropTypes.func,
+  loadContacts: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
   editLead: state.leads.editLead,
+  contacts: state.contacts,
+  organizations: state.organizations,
 });
 
 export { EditLeadSidebar };
 
 export default connect(
   mapStateToProps,
-  { loadLead, updateOrganization, updateContact },
+  { loadLead, updateOrganization, updateContact, loadOrganizations, loadContacts },
 )(EditLeadSidebar);

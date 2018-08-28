@@ -3,6 +3,7 @@ import styles from "../EditCard/EditCard.css";
 import Modal from "react-modal";
 import classNames from "classnames";
 import indefiniteArticle from "../../../../../utils/indefiniteArticle";
+import { autocompleteStyles } from "../../../AddLead/autocomplete/styles/autocomplete-styles";
 
 const customStyles = {
   content: {
@@ -27,11 +28,7 @@ class EmptyCard extends Component {
     this.state = {
       isModalOpen: false,
       isLinkDisabled: true,
-      items: [
-        { _id: "1", name: "Company 1"},
-        { _id: "2", name: "Company 2"},
-        { _id: "3", name: "Company 3"},
-      ],
+      items: [],
       item: {
         id: null,
         name: ""
@@ -39,12 +36,14 @@ class EmptyCard extends Component {
       name: "",
       openDropdown: false,
       showAdditionalMessage: false,
+      showBadge: false,
     };
   }
 
   openModal = () => {
     this.setState({
       isModalOpen: true,
+      items: this.props.items,
     });
   };
 
@@ -59,6 +58,7 @@ class EmptyCard extends Component {
       name: "",
       openDropdown: false,
       showAdditionalMessage: false,
+      showBadge: false,
     });
   };
 
@@ -80,6 +80,7 @@ class EmptyCard extends Component {
       openDropdown: true,
       showAdditionalMessage: event.target.value.length === 0 ? false : this.state.showAdditionalMessage,
       isLinkDisabled: event.target.value.length === 0 ? true : this.state.isLinkDisabled,
+      showBadge: event.target.value.length === 0 ? false : this.state.showBadge,
     })
   };
 
@@ -90,6 +91,7 @@ class EmptyCard extends Component {
         name: value
       },
       openDropdown: false,
+      showBadge: false,
     }, () => this.onBlur())
   };
 
@@ -100,6 +102,7 @@ class EmptyCard extends Component {
       name: this.state.item.name,
       showAdditionalMessage: this.state.item.name.length !== 0,
       isLinkDisabled: this.state.item.name.length === 0,
+      showBadge: !this.state.item.id && this.state.item.name.length,
     })
   };
 
@@ -113,6 +116,7 @@ class EmptyCard extends Component {
       value: this.state.item.name,
       open: this.state.openDropdown,
       styles: this.props.styles,
+      inputStyle: autocompleteStyles.linkLeadInput,
     });
 
     const title = this.props.title.toLowerCase();
@@ -161,9 +165,8 @@ class EmptyCard extends Component {
                 <span className={styles.formSpan}>{this.props.title} name</span>
                 <div id={`${title}-input`} className={styles.inputContainer}>
                   <i className={this.props.iTagClass} />
-                  {
-                    childrenWithExtraProps
-                  }
+                  { childrenWithExtraProps }
+                  { this.state.showBadge ? <span id={`${title}-badge`} className={styles.newBadge}>NEW</span> : null }
                 </div>
               </label>
               {

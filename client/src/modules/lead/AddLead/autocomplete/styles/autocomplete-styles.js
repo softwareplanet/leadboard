@@ -68,9 +68,27 @@ const linkOrganization = {
 
 const linkPerson = Object.assign({}, linkOrganization);
 
+const input = {
+  border: "none",
+  outline: "none",
+};
+
+const addLeadInput = {
+  ...input,
+  marginLeft: "8px",
+  width: "220px",
+};
+
+const linkLeadInput = {
+  ...input,
+  width: "295px",
+};
+
 export const autocompleteStyles = {
   organization,
   contact,
   linkOrganization,
-  linkPerson
+  linkPerson,
+  addLeadInput,
+  linkLeadInput,
 };
