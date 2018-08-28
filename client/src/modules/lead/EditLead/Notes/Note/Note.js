@@ -22,13 +22,10 @@ class Note extends Component {
 
   }
 
-  onCancel = () => {
-
-  }
-
   showEditor = () => {
     this.setState({
-      showEditor: !this.state.showEditor
+      showEditor: !this.state.showEditor,
+      popoverOpen: false
     });
   }
 
@@ -44,7 +41,7 @@ class Note extends Component {
           </div>
           <div>
             <img 
-              id="note-spread-button" 
+              id={`id${this.props.note._id}`} 
               onClick={this.toggle} 
               className={styles.spreadButton} 
               src={spreadButton} 
@@ -53,7 +50,7 @@ class Note extends Component {
             <Popover 
               placement="bottom-end"
               isOpen={this.state.popoverOpen} 
-              target="note-spread-button" 
+              target={`id${this.props.note._id}`} 
               toggle={this.toggle}
             >
               <PopoverBody className={styles.popover}>
@@ -70,7 +67,7 @@ class Note extends Component {
       </div>
     );
 
-    let editor = <EditLeadEditor onSave={this.onSave} onCancel={this.onCancel} />
+    let editor = <EditLeadEditor onSave={this.onSave} onCancel={this.showEditor} />
 
     return this.state.showEditor ? editor : noteContent
       
