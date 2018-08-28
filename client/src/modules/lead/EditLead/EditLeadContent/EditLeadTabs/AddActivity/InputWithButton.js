@@ -5,8 +5,11 @@ const inputWithButton = (props) => {
 
 
   return(
-    <div>
-
+    <div className={props.className}>
+      {props.children}
+      <button className={props.buttonClassName}>
+        <img src={props.src} alt={props.alt} />
+      </button>
     </div>
   )
 };

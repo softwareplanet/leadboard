@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button, ButtonGroup } from 'reactstrap';
 import style from "./AddActivity.css";
 import ButtonWithImg from "./ButtonWithImg";
+import moment from "moment";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker-cssmodules.css"
 import phoneIcon from "../../../../../../assets/add-activity/phone.svg";
@@ -11,6 +12,8 @@ import deadlineIcon from "../../../../../../assets/add-activity/deadline.svg";
 import emailIcon from "../../../../../../assets/add-activity/email.svg";
 import lunchIcon from "../../../../../../assets/add-activity/lunch.svg";
 import deleteIcon from "../../../../../../assets/add-activity/delete.svg";
+import EditLeadEditor from "../EditLeadEditor/EditLeadEditor";
+import InputWithButton from "./InputWithButton";
 
 
 export default class AddActivity extends Component {
@@ -65,16 +68,41 @@ export default class AddActivity extends Component {
         </div>
         <input className={style.typeInput} type="text"/>
         <div className={style.dateInputs}>
-          {/*<input className={style.dateInput} type="date"/>*/}
-          <DatePicker className={style.dateInput} />
-          <DatePicker
+          <label>
+            <span className={style.dateInputSpan}>DATE</span>
+            <DatePicker
+              placeholderText={`${moment().format("MM/DD/YYYY")}`}
+              className={style.dateInput}
+              popperPlacement="bottom"/>
+          </label>
+          <label>
+            <span className={style.dateInputSpan}>TIME</span>
+            <DatePicker
             className={style.dateInput}
+            popperPlacement="bottom"
             showTimeSelect
             showTimeSelectOnly
             timeIntervals={15}
             timeCaption="Time" />
-          <input className={style.dateInput} type="text"/>
+          </label>
+          <label>
+            <span className={style.dateInputSpan}>DURATION</span>
+            <div className={style.inputContainer}>
+              <DatePicker
+                className={style.dateInput}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={15}
+                minTime={moment().hours(0).minutes(15)}
+                maxTime={moment().hours(8).minutes(0)}
+                timeFormat="HH:mm"
+              />              <button className={style.inputButton}>
+                <img className={style.inputImg} src={deleteIcon} alt="del" />
+              </button>
+            </div>
+          </label>
         </div>
+        <textarea className={style.note} placeholder="Notes"/>
       </form>
     );
   }

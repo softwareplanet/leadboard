@@ -59,7 +59,7 @@
   font-size: 14px;
   line-height: 28px;
   color: #26292c;
-  margin-bottom: 16px;
+  margin-bottom: 3px;
   width: 100%;
   -ms-box-sizing: border-box;
   -o-box-sizing: border-box;
@@ -68,9 +68,21 @@
 }
 
 .dateInput {
+  margin-top: 8px;
+  width: 98%;
   margin-left: 0;
   composes: input;
-  width: 32%;
+}
+
+
+.durationInput {
+  composes:dateInput;
+  margin-left: 0;
+}
+
+.dateInputSpan {
+  font: 600 10px/14px "Open Sans",sans-serif;
+  color: #747678;
 }
 
 .typeInput {
@@ -89,4 +101,46 @@
   width: 16px;
   margin-right: 4px;
   margin-bottom: 4px;
+}
+
+.note {
+  background-color: #fffcdc;
+  width: 100%;
+  min-height: 83px;
+  padding: 6px 6px;
+  resize: none;
+  outline: none;
+  margin: 0;
+  border: 1px solid #cbcccd;
+  border-radius: 3px
+}
+
+
+
+.inputContainer {
+  position: relative;
+  align-items: center;
+}
+
+.inputButton {
+  height: 80%;
+  background-color: inherit;
+  border: none;
+  position: absolute;
+  bottom: 2px;
+  right: 5px;
+}
+
+.inputImg {
+  height: 14px;
+  width: 14px;
+  margin: 0;
+}
+
+.inputButton:focus {
+  outline: none;
+}
+
+.inputButton:hover {
+  cursor: pointer;
 }
