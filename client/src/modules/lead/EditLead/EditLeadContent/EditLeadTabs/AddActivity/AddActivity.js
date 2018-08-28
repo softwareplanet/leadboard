@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { ButtonGroup } from 'reactstrap';
 import style from "./AddActivity.css";
-import ButtonWithImg from "./ButtonWithImg";
 import moment from "moment";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker-cssmodules.css"
@@ -12,9 +10,8 @@ import deadlineIcon from "../../../../../../assets/add-activity/deadline.svg";
 import emailIcon from "../../../../../../assets/add-activity/email.svg";
 import lunchIcon from "../../../../../../assets/add-activity/lunch.svg";
 import deleteIcon from "../../../../../../assets/add-activity/delete.svg";
-import EditLeadEditor from "../EditLeadEditor/EditLeadEditor";
-import InputWithButton from "./InputWithButton";
 import ActivityButtons from "./ActivityButtons";
+import isBlank from "../../../../../../utils/isBlank"
 
 const activityTypes = [
   {type: "Call", icon: phoneIcon},
@@ -30,14 +27,32 @@ export default class AddActivity extends Component {
     super(props);
 
     this.state = {
-      activeTab: "Call"
+      activeTab: activityTypes[0].type,
+      subject: "",
+      date:""
     }
   }
+
+  onTypeButtonClick = (event,type) => {
+    event.preventDefault();
+    this.setState({
+        activeTab:type,
+        })
+  };
+
+  onSubjectChange = event => {
+    this.setState({subject:event.target.value})
+  };
+
+  onInputChange = event => {
+    this.setState({date:event.target.value})
+  };
 
   render() {
         return (
       <form className={style.activityForm}>
         <ActivityButtons
+          onButtonClick={this.onTypeButtonClick}
           activeButton={this.state.activeTab}
           buttons={activityTypes}
           groupClassName={style.typeButtons}
@@ -45,7 +60,12 @@ export default class AddActivity extends Component {
           activeClassName={style.typeButtonActive}
           imgClassName={style.iconImg}
         />
-        <input placeholder={this.state.activeTab} className={style.typeInput} type="text"/>
+        <input
+          onChange={this.onSubjectChange}
+          className={style.typeInput}
+          placeholder={this.state.activeTab}
+          value={this.state.subject}
+          type="text"/>
         <div className={style.dateInputs}>
           <label>
             <span className={style.dateInputSpan}>DATE</span>

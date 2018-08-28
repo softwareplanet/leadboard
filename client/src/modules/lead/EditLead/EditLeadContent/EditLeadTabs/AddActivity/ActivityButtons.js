@@ -9,7 +9,9 @@ const activityButtons = (props) => {
   let buttons = props.buttons.map(button => {
     return (
       <ButtonWithImg
+        key={button.type}
         className={button.type === props.activeButton?props.activeClassName:props.buttonsClassName}
+        onClick={(e) => props.onButtonClick(e,button.type)}
         imgClassName={props.imgClassName}
         src={button.icon}
         alt={`${button.type.toLowerCase()}`}>
