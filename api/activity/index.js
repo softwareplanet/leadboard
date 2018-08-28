@@ -2,7 +2,6 @@ import { Router } from "express";
 import mongoose from "mongoose";
 
 import validateActivityInput from "../../validation/activity";
-import isEmpty from "lodash.isempty";
 
 import Activity from "../../models/activity";
 
@@ -25,8 +24,8 @@ router.get("/", (req, res) => {
 // @desc    Create activity
 // @access  Private
 router.post("/", (req, res) => {
-  // const { hasErrors, errors } = validateActivityInput(req.body);
-  // if (hasErrors) return res.status(400).json({ errors });
+  const { hasErrors, errors } = validateActivityInput(req.body);
+  if (hasErrors) return res.status(400).json({ errors });
   createActivity(req, res);
 });
 
