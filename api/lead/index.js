@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import validateLeadInput from "../../validation/lead";
 import isEmpty from "lodash.isempty";
 import { isEqual } from "lodash";
+import { isValidModelId } from "../../validation/validationUtils";
 import Lead from "../../models/lead";
 import Contact from "../../models/contact";
 import Organization from "../../models/organization";
@@ -45,7 +46,7 @@ router.post("/", async (req, res) => {
   };
 
   if (!isEmpty(organization)) {
-    if (!mongoose.Types.ObjectId.isValid(organization)) {
+    if (!isValidModelId(organization)) {
       organization = await Organization.create({
         _id: new mongoose.Types.ObjectId(),
         name: organization,
@@ -64,7 +65,7 @@ router.post("/", async (req, res) => {
   }
 
   if (!isEmpty(contact)) {
-    if (!mongoose.Types.ObjectId.isValid(contact)) {
+    if (!isValidModelId(contact)) {
       let contactToCreate = {
         _id: new mongoose.Types.ObjectId(),
         name: contact,
