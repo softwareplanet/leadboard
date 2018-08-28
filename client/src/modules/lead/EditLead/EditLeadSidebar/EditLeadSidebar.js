@@ -8,6 +8,8 @@ import { loadLead, updateContact, updateOrganization } from "../../leadActions";
 import { connect } from "react-redux";
 import _ from "lodash";
 
+import EmptyCard from "./EmptyCard/EmptyCard";
+
 class EditLeadSidebar extends Component {
   render() {
     if (this.props.editLead) {
@@ -35,7 +37,16 @@ class EditLeadSidebar extends Component {
       else {
         cards = <div>{contactCard}</div>;
       }
-      return <div className={styles.sidebar}>{cards}</div>;
+      return (
+        <div className={styles.sidebar}>
+          <EmptyCard title="Organization">
+
+          </EmptyCard>
+          <EmptyCard title="Person">
+
+          </EmptyCard>
+        </div>
+      );
     } else {
       return <div />;
     }
