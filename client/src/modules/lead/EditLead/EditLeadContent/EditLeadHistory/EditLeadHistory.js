@@ -4,6 +4,9 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Notes from "../../Notes/Notes";
 import { withStyles } from "@material-ui/core/styles";
+import { connect } from "react-redux";
+import { compose } from "redux";
+
 
 const styles = {
   tabsIndicator: {
@@ -30,19 +33,10 @@ function TabContainer(props) {
 class EditLeadHistory extends React.Component {
   state = {
     selectedTab: 0,
-    itemsCount: {
-      notes: "",
-    },
   };
 
   handleChange = (event, selectedTab) => {
     this.setState({ selectedTab });
-  };
-
-  setCount = (entity, count) => {
-    let newState = { ...this.state };
-    newState.itemsCount[entity] = count;
-    this.setState(newState);
   };
 
   render() {
@@ -51,17 +45,24 @@ class EditLeadHistory extends React.Component {
     return (
       <div>
         <Tabs
-          classes={{indicator: classes.tabsIndicator}}
+          classes={{ indicator: classes.tabsIndicator }}
           value={selectedTab}
           onChange={this.handleChange}
           centered={true}>
 
-          <Tab label={`NOTES ${this.state.itemsCount.notes}`} classes={{root: classes.tabRoot}} />
+          <Tab label={`NOTES ${this.props.notesCount}`} classes={{ root: classes.tabRoot }} />
         </Tabs>
-        {selectedTab === 0 && <TabContainer><Notes setCount={this.setCount} /></TabContainer>}
+        {selectedTab === 0 && <TabContainer><Notes /></TabContainer>}
       </div>
     );
   }
 }
 
-export default withStyles(styles)(EditLeadHistory);
+const mapStateToProps = state => ({
+  notesCount: state.leads.editLead ? state.leads.editLead.notes.length : "",
+});
+
+export default compose(
+  connect(mapStateToProps),
+  withStyles(styles),
+)(EditLeadHistory);
