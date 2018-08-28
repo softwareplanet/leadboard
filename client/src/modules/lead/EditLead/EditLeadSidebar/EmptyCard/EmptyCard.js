@@ -72,15 +72,16 @@ class EmptyCard extends Component {
   };
 
   onChange = (event) => {
+    let inputLength = event.target.value.length;
     this.setState({
       item: {
         id: null,
         name: event.target.value
       },
       openDropdown: true,
-      showAdditionalMessage: event.target.value.length === 0 ? false : this.state.showAdditionalMessage,
-      isLinkDisabled: event.target.value.length === 0 ? true : this.state.isLinkDisabled,
-      showBadge: event.target.value.length === 0 ? false : this.state.showBadge,
+      showAdditionalMessage: inputLength === 0 ? false : this.state.showAdditionalMessage,
+      isLinkDisabled: inputLength === 0 ? true : this.state.isLinkDisabled,
+      showBadge: inputLength === 0 ? false : this.state.showBadge,
     })
   };
 
@@ -103,6 +104,19 @@ class EmptyCard extends Component {
       showAdditionalMessage: this.state.item.name.length !== 0,
       isLinkDisabled: this.state.item.name.length === 0,
       showBadge: !this.state.item.id && this.state.item.name.length,
+    })
+  };
+
+  clearInput = () => {
+    document.getElementsByTagName("input")[1].focus();
+    this.setState({
+      name: "",
+      item: {
+        id: null,
+        name: ""
+      },
+      showAdditionalMessage: false,
+      isLinkDisabled: true,
     })
   };
 
@@ -166,7 +180,13 @@ class EmptyCard extends Component {
                 <div id={`${title}-input`} className={styles.inputContainer}>
                   <i className={this.props.iTagClass} />
                   { childrenWithExtraProps }
-                  { this.state.showBadge ? <span id={`${title}-badge`} className={styles.newBadge}>NEW</span> : null }
+                  {
+                    this.state.showBadge ? <span id={`${title}-badge`} className={styles.newBadge}>NEW</span> : (
+                      <button type="button" className={styles.clearBtn} onClick={this.clearInput}>
+                        <span className={styles.clearIcon}>&times;</span>
+                      </button>
+                    )
+                  }
                 </div>
               </label>
               {
@@ -188,7 +208,7 @@ class EmptyCard extends Component {
               <span>
                 <button
                   className={this.state.isLinkDisabled ? styles.disabledButton : styles.enableButton}
-                  onClick={() => alert("Linking")}
+                  onClick={() => console.log(this.state.item)}
                   disabled={this.state.isLinkDisabled}
                 >
                   <span className={styles.linkSpan}>Link {indefiniteArticle(title)} {title}</span>
