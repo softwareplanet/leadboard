@@ -13,6 +13,7 @@ class Notes extends Component {
         {this.props.editLead ? this.props.editLead.notes.sort(function(a, b) {
           return new Date(b.date) - new Date(a.date);
         }).map((note) => {
+          this.props.setCount("notes",this.props.editLead.notes.length);
           return (
             <InfoItemWrapper
               key={note._id}
