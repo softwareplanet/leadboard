@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, ButtonGroup } from 'reactstrap';
+import { ButtonGroup } from 'reactstrap';
 import style from "./AddActivity.css";
 import ButtonWithImg from "./ButtonWithImg";
 import moment from "moment";
@@ -14,76 +14,65 @@ import lunchIcon from "../../../../../../assets/add-activity/lunch.svg";
 import deleteIcon from "../../../../../../assets/add-activity/delete.svg";
 import EditLeadEditor from "../EditLeadEditor/EditLeadEditor";
 import InputWithButton from "./InputWithButton";
+import ActivityButtons from "./ActivityButtons";
 
+const activityTypes = [
+  {type: "Call", icon: phoneIcon},
+  {type: "Meeting", icon: meetingIcon},
+  {type: "Task", icon: taskIcon},
+  {type: "Deadline", icon: deadlineIcon},
+  {type: "Email", icon: emailIcon},
+  {type: "Lunch", icon: lunchIcon},
+  ];
 
 export default class AddActivity extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      activeTab: "call"
+      activeTab: "Call"
     }
   }
 
   render() {
         return (
       <form className={style.activityForm}>
-        <div className={style.typeButtonsContainer}>
-          <ButtonGroup className={style.typeButtons}>
-            <button className={style.typeButtonActive}>
-              <img className={style.iconImg} src={phoneIcon} alt="phone" />
-              Call</button>
-            <button className={style.typeButton}>
-              <img className={style.iconImg} src={meetingIcon} alt="meeting" />
-              Meeting</button>
-            <ButtonWithImg
-              className={style.typeButton}
-              imgClassName={style.iconImg}
-              src={taskIcon}
-              alt="task">
-              Task
-            </ButtonWithImg>
-            <ButtonWithImg
-              className={style.typeButton}
-              imgClassName={style.iconImg}
-              src={deadlineIcon}
-              alt="deadline">
-              Deadline
-            </ButtonWithImg>
-            <ButtonWithImg
-              className={style.typeButton}
-              imgClassName={style.iconImg}
-              src={emailIcon}
-              alt="email">
-              Email
-            </ButtonWithImg>
-            <ButtonWithImg
-              className={style.typeButton}
-              imgClassName={style.iconImg}
-              src={lunchIcon}
-              alt="lunch">
-              Lunch
-            </ButtonWithImg>
-          </ButtonGroup>
-        </div>
-        <input className={style.typeInput} type="text"/>
+        <ActivityButtons
+          activeButton={this.state.activeTab}
+          buttons={activityTypes}
+          groupClassName={style.typeButtons}
+          buttonsClassName={style.typeButton}
+          activeClassName={style.typeButtonActive}
+          imgClassName={style.iconImg}
+        />
+        <input placeholder={this.state.activeTab} className={style.typeInput} type="text"/>
         <div className={style.dateInputs}>
           <label>
             <span className={style.dateInputSpan}>DATE</span>
-            <DatePicker
-              placeholderText={`${moment().format("MM/DD/YYYY")}`}
-              className={style.dateInput}
-              popperPlacement="bottom"/>
+            <div className={style.inputContainer}>
+              <DatePicker
+                placeholderText={`${moment().format("MM/DD/YYYY")}`}
+                className={style.dateInput}
+                popperPlacement="bottom"/>
+              <button className={style.inputButton}>
+                <img className={style.inputImg} src={deleteIcon} alt="del" />
+              </button>
+            </div>
           </label>
           <label>
             <span className={style.dateInputSpan}>TIME</span>
-            <DatePicker
-            className={style.dateInput}
-            popperPlacement="bottom"
-            showTimeSelect
-            showTimeSelectOnly
-            timeIntervals={15}
-            timeCaption="Time" />
+            <div className={style.inputContainer}>
+              <DatePicker
+                className={style.dateInput}
+                popperPlacement="bottom"
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={15}
+                timeCaption="Time" />
+              <button className={style.inputButton}>
+                <img className={style.inputImg} src={deleteIcon} alt="del" />
+              </button>
+            </div>
           </label>
           <label>
             <span className={style.dateInputSpan}>DURATION</span>
@@ -96,7 +85,8 @@ export default class AddActivity extends Component {
                 minTime={moment().hours(0).minutes(15)}
                 maxTime={moment().hours(8).minutes(0)}
                 timeFormat="HH:mm"
-              />              <button className={style.inputButton}>
+              />
+              <button className={style.inputButton}>
                 <img className={style.inputImg} src={deleteIcon} alt="del" />
               </button>
             </div>
