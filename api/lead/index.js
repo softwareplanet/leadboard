@@ -121,4 +121,17 @@ router.post("/:id/notes", (req, res) => {
     });
 });
 
+// @route   PATCH api/lead/:id/notes/:id
+// @desc    Update note's lead
+// @access  Private
+router.patch("/:leadId/note/:noteId", (req, res) => {
+  Lead.updateOne({_id: req.params.leadId, "notes._id": req.params.noteId}, { $set:{ "notes.$.text": req.body.text } })
+    .then(lead => {
+      res.json(lead);
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
+});
+
 export default router;

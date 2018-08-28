@@ -175,6 +175,24 @@ export const createNote = (leadId, note) => dispatch => {
     });
 };
 
+// Update lead's note
+export const updateNote = (leadId, note) => dispatch => {
+  axios
+    .patch(`/api/lead/${leadId}/note/${note._id}`, note.text)
+    .then(res => {
+      dispatch({
+        type: UPDATE_LEAD,
+        payload: res.data,
+      });
+    })
+    .catch(error => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error,
+      });
+    });
+};
+
 export function loadLeadboardAction(data) {
   return {
     type: LOAD_LEADBOARD,
