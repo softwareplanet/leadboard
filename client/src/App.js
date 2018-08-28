@@ -54,7 +54,6 @@ class App extends Component {
             </Switch>
             <Route exact path="/" component={store.getState().auth.isAuthenticated ? Home: Login}/>
             <Route exact path="/register" component={store.getState().auth.isAuthenticated ? Home: Registration}/>
-            <Route exact path="/test" component={AddActivity}/>
             <Footer/>
           </div>
         </Router>

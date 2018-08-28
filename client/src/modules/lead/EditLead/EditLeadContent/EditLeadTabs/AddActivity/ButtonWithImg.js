@@ -1,7 +1,7 @@
-import React from "react"
+import React from "react";
 
 
-const inputWithButton = (props) => {
+const buttonWithImg = (props) => {
   let propsCopy = {
     ...props
   };
@@ -17,5 +17,6 @@ const inputWithButton = (props) => {
       {props.children}
     </button>
   )
+
 };
-export default inputWithButton;
+export default buttonWithImg;

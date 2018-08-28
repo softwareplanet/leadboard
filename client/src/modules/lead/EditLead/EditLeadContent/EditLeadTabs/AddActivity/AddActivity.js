@@ -8,7 +8,7 @@ import taskIcon from "../../../../../../assets/add-activity/task.svg";
 import deadlineIcon from "../../../../../../assets/add-activity/deadline.svg";
 import emailIcon from "../../../../../../assets/add-activity/email.svg";
 import lunchIcon from "../../../../../../assets/add-activity/lunch.svg";
-import deleteIcon from "../../../../assets/add-activity/delete.svg";
+import deleteIcon from "../../../../../../assets/add-activity/delete.svg";
 
 
 export default class AddActivity extends Component {
