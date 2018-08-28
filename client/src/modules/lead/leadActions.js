@@ -86,7 +86,6 @@ export const loadLead = leadId => dispatch => {
         type: LOAD_LEAD,
         payload: lead,
       });
-
       dispatch(loadStages(lead.stage.funnel));
     })
     .catch(error => {

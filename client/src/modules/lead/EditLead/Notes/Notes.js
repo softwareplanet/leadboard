@@ -17,7 +17,8 @@ class Notes extends Component {
           return (
             <InfoItemWrapper
               key={note._id}
-              component={<Note 
+              component={
+              <Note 
                 lastUpdater={this.props.userId} 
                 leadId={this.props.editLead._id} 
                 updateNote={this.props.updateNote} 

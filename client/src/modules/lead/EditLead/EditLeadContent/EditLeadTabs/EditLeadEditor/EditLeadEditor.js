@@ -33,14 +33,12 @@ export default class EditLeadEditor extends Component {
 
   render() {
     return (
-      <div>
-        <div className={styles.editor}>
-          <textarea value={this.state.noteText} onChange={this.onChange} className={styles.textArea}/>
-          <div className={styles.footer}>
-            <button onClick={this.onCancel} className={styles.button}><span>Cancel</span></button>
-            <button onClick={this.onSave} className={styles.buttonSave}><span>Save</span></button>
-          </div>
-        </div>
+      <div className={styles.editor}>
+        <textarea value={this.state.noteText} onChange={this.onChange} className={styles.textArea}/>
+        <div className={styles.footer}>
+          <button onClick={this.onCancel} className={styles.button}><span>Cancel</span></button>
+          <button onClick={this.onSave} className={styles.buttonSave}><span>Save</span></button>
+         </div>
       </div>
     )
   }
