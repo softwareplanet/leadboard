@@ -3,8 +3,19 @@ import PropTypes from "prop-types";
 import styles from "./Note.css";
 import { formatDate } from "../../../../../utils/formatDate";
 import spreadButton from "../../../../../assets/spread-button.svg"
+import { Popover, PopoverBody } from "reactstrap";
 
 class Note extends Component {
+  state = {
+    popoverOpen: false
+  }
+
+  toggle = () => {
+    this.setState({
+      popoverOpen: !this.state.popoverOpen
+    });
+  }
+
   render() {
     let { date, user, text } = this.props.note;
     return (
@@ -15,7 +26,25 @@ class Note extends Component {
             <span name="separator">&nbsp; &#183; &nbsp;</span>{user.firstname + " " + user.lastname}
           </div>
           <div>
-            <img className={styles.spreadButton} src={spreadButton} alt="options" />
+            <img 
+              id="note-spread-button" 
+              onClick={this.toggle} 
+              className={styles.spreadButton} 
+              src={spreadButton} 
+              alt="options" 
+            />
+            <Popover 
+              placement="bottom-end"
+              isOpen={this.state.popoverOpen} 
+              target="note-spread-button" 
+              toggle={this.toggle}
+            >
+              <PopoverBody className={styles.popover}>
+                <ul className={styles.ul}>
+                   <li className={styles.li}>Edit</li>
+                </ul>
+              </PopoverBody>
+            </Popover>
           </div>
         </div>
         <div className={styles.textWrapper}>
