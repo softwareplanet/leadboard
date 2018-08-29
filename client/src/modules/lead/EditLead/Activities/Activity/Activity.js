@@ -1,8 +1,15 @@
 import React, { Component } from "react";
 import styles from "./Activity.css";
 import doneMark from "../../../../../assets/done-mark.svg"
+import
 
 class Activity extends Component {
+
+    changeStatus = e => {
+        e.preventDefault();
+
+        e.target.className = styles.markAsDone;
+    };
 
     checkDate = date => {
       if(date === Date.now()){
@@ -21,9 +28,9 @@ class Activity extends Component {
                    <div className={styles.actionButtons}>
                     </div>
                     <h3>
-                    <span className={styles.markAsDone}>
-                        <input type="checkBox" className={styles.checkBox} />
-                    </span>
+                    <div className={styles.mark} onClick={this.changeStatus}>
+                            <img className={styles.markAsNotDone} src={doneMark} />
+                    </div>
                     <span className={styles.activityWrapper}>Bob</span>
                 </h3>
                </div>
@@ -36,6 +43,7 @@ class Activity extends Component {
                     <span className={styles.author}>{this.props.author}Влад Тимофеев</span>
                 </div>
                 <div className={styles.relatedItems}>
+
                 </div>
             </div>
             </div>

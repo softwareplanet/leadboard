@@ -4,6 +4,7 @@ import styles from "./Activities.css";
 import PropTypes from "prop-types";
 import InfoItemWrapper from "../../../common/InfoWraper/InfoItemWrapper";
 import Activity from "./Activity/Activity";
+import { loadLeadActivities } from "./activityActions";
 import callIcon from "../../../../assets/call-activity.svg";
 import meetingIcon from "../../../../assets/meeting-activity.svg";
 import taskIcon from "../../../../assets/task-activity.svg";
@@ -63,11 +64,12 @@ class Activities extends Component {
 }
 
 const mapStateToProps = state => ({
-    editLead: state.leads.editLead,
+    editLeadActivities: state.Activities,
 });
 
 Activities.PropTypes = {
-    editLead: PropTypes.object
+    loadLeadActivities: PropTypes.func.isRequired,
+    editLeadActivities: PropTypes.object
 };
 
-export default connect(mapStateToProps)(Activities);
+export default connect(mapStateToProps, { loadLeadActivities })(Activities);

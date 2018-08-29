@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LOAD_LEAD_ACTIVITIES } from "./types";
+import { LOAD_LEAD_ACTIVITIES, LOAD_ACTIVITY, UPDATE_ACTIVITY_STATUS } from "./types";
 import { GET_ERRORS } from "../../../../actionTypes";
 
 //load activities by lead Id

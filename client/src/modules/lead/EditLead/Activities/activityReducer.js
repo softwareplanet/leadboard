@@ -1,4 +1,4 @@
-import { LOAD_LEAD_ACTIVITIES } from "./types";
+import { LOAD_LEAD_ACTIVITIES, LOAD_ACTIVITY, UPDATE_ACTIVITY_STATUS } from "./types";
 
 const initialState = {
   activities: [],
@@ -11,6 +11,10 @@ export default function(state = initialState, action) {
         ...state,
         editLeadActivities: action.payload,
       };
+      case LOAD_ACTIVITY:
+        return {
+            ...state,
+        }
     default:
       return state;
   }
