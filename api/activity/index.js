@@ -1,7 +1,7 @@
 import { Router } from "express";
 import mongoose from "mongoose";
 
-import validateActivityInput from "../../validation/activity";
+/*import validateActivityInput from "../../validation/activity";*/
 
 import Activity from "../../models/activity";
 
@@ -32,3 +32,5 @@ router.patch("/", (req, res) => {
       res.status(400).json({ errors: { message: error } });
     });
 });
+
+export default router;

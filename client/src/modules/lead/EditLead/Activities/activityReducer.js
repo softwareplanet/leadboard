@@ -11,10 +11,6 @@ export default function(state = initialState, action) {
         ...state,
         editLeadActivities: action.payload,
       };
-      case LOAD_ACTIVITY:
-        return {
-            ...state,
-        }
     default:
       return state;
   }

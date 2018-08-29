@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import styles from "./Activity.css";
 import doneMark from "../../../../../assets/done-mark.svg"
-import
 
 class Activity extends Component {
 

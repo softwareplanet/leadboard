@@ -1,5 +1,5 @@
 .container {
-    composes: container from "../Notes/Notes.css";
+    composes: container from "../EditLeadContent/EditLeadHistory/Notes/Notes.css";
 }
 
 .timeLineBar {

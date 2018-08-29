@@ -2,6 +2,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    margin: 17px;
 }
 
 .activityWrapper {
@@ -51,17 +52,6 @@
     composes: markAsNotDone;
     background-color: #2cbf55;
 }
-/*
-.checkBox {
-    margin-left: 2px;
-    width: auto;
-    border: none;
-    padding: 0;
-    box-shadow: none;
-    margin-right: 4px;
-    cursor: pointer;
-}
-*/
 
 .wrapper {
     display: flex;
