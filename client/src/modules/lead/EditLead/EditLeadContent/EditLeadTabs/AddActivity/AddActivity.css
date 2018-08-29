@@ -77,7 +77,7 @@
 
 .dateInput {
   margin-top: 8px;
-  /*width: 98%;*/
+  width: 100%;
   margin-left: 0;
   composes: input;
 }
@@ -182,6 +182,13 @@
 
 .button>span{
   font: 600 14px/16px Open Sans,sans-serif;
+}
+
+.cancelButton {
+  composes: button;
+}
+.cancelButton:hover {
+  background-color: #f7f7f7;
 }
 
 .buttonSave{

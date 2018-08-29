@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import Activity from "../models/activity";
 
 const leadSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
@@ -22,7 +21,6 @@ const leadSchema = new mongoose.Schema({
     date: { type: Date, default: Date.now },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   }],
-  activities: [{type:mongoose.Schema.Types.ObjectId, ref:"Activity"}],
 
 });
 
