@@ -157,7 +157,7 @@ router.post("/:id/notes", (req, res) => {
 router.patch("/:leadId/note/:noteId", (req, res) => {
   Lead.findOneAndUpdate(
     { _id: req.params.leadId, "notes._id": req.params.noteId }, 
-    { $set:{ "notes.$.text": req.body.text, "notes.$.lastUpdater": req.body.lastUpdater } }, 
+    { $set:{ "notes.$.text": req.body.text, "notes.$.lastUpdater": req.user.id } }, 
     { new: true })
     .populate("notes.user", { password: 0 })
     .populate("notes.lastUpdater", { password: 0 })

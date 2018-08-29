@@ -86,7 +86,6 @@ describe("Lead", () => {
       .set("Authorization", cred.token)
       .send({
         text: UPDATED_NOTE,
-        lastUpdater: cred.userId
       });
     expect(status).toBe(200);
     expect(body.notes[0].text).toEqual(UPDATED_NOTE)

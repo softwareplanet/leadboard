@@ -19,11 +19,11 @@ class Note extends Component {
   }
 
   onSave = (text) => {
-    let note = { _id: this.props.note._id, text, lastUpdater: this.props.lastUpdater }
-    this.props.updateNote(this.props.leadId, note)
+    let note = { _id: this.props.note._id, text }
+    this.props.updateNote(note)
   }
 
-  showEditor = () => {
+  toggleEditor = () => {
     this.setState({
       showEditor: !this.state.showEditor,
       showPopover: false
@@ -70,7 +70,7 @@ class Note extends Component {
             >
               <PopoverBody className={styles.popover}>
                 <ul className={styles.list}>
-                  <li className={styles.listElement} onClick={this.showEditor}>Edit</li>
+                  <li className={styles.listElement} onClick={this.toggleEditor}>Edit</li>
                 </ul>
               </PopoverBody>
             </Popover>
@@ -82,7 +82,14 @@ class Note extends Component {
       </div>
     );
 
-    let editor = <EditLeadEditor height={100} text={this.props.note.text} onSave={this.onSave} onCancel={this.showEditor} />
+    let editor =  (
+      <EditLeadEditor 
+        height={100} 
+        text={this.props.note.text} 
+        onSave={this.onSave} 
+        onCancel={this.toggleEditor} 
+      />
+    )
 
     return this.state.showEditor ? editor : noteContent
   }

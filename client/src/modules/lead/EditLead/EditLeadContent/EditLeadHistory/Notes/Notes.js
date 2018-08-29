@@ -7,6 +7,11 @@ import InfoItemWrapper from "../../../../../common/InfoWraper/InfoItemWrapper";
 import { updateNote } from "../../../../leadActions";
 
 class Notes extends Component {
+
+  noteUpdateHandler = (note) => {
+    this.props.updateNote(this.props.editLead._id, note)
+  }
+
   render() {
     return (
       <div className={styles.container}>
@@ -19,9 +24,7 @@ class Notes extends Component {
               key={note._id}
               component={
               <Note 
-                lastUpdater={this.props.userId} 
-                leadId={this.props.editLead._id} 
-                updateNote={this.props.updateNote} 
+                updateNote={this.noteUpdateHandler} 
                 note={note}
               />}
             />

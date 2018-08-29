@@ -32,7 +32,7 @@ describe("<Note />", () => {
   it("should render editor", () => {
     let wrapper = shallow(<Note note={note}/>)
     let instance = wrapper.instance();
-    instance.showEditor();
+    instance.toggleEditor();
     expect(wrapper.find(EditLeadEditor)).toHaveLength(1)
   });
 
