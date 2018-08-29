@@ -1,13 +1,14 @@
 import request from "supertest";
 import express from "../../express";
 import routes from "..";
-import { createFunnel, createLead, createStage, createUserAndDomain, dropTables } from "../../test/db-prepare";
+import { createFunnel, createLead, createStage, createUserAndDomain, dropTables, createNote } from "../../test/db-prepare";
 
 const app = () => express(routes);
 
 let cred;
 let lead;
 let stageId;
+const UPDATED_NOTE = "Updated note"
 beforeEach(async done => {
   await dropTables();
   cred = await createUserAndDomain(app);
@@ -76,5 +77,17 @@ describe("Lead", () => {
     expect(body.notes[0]).toMatchObject({
       text: "First note"
     });
+  });
+
+  it("should update note", async () => {
+    lead = await createNote(app, cred.token, lead._id, cred.userId, "New note")
+    const { status, body } = await request(app())
+      .patch(`/api/lead/${lead._id}/note/${lead.notes[0]._id}`)
+      .set("Authorization", cred.token)
+      .send({
+        text: UPDATED_NOTE,
+      });
+    expect(status).toBe(200);
+    expect(body.notes[0].text).toEqual(UPDATED_NOTE)
   });
 });
