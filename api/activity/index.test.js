@@ -7,7 +7,6 @@ import { dropTables, createUserAndDomain, createFunnel, createStage, createLead 
 const app = () => express(routes);
 
 let cred;
-let leadId;
 let stageId;
 beforeEach(async done => {
   await dropTables();
