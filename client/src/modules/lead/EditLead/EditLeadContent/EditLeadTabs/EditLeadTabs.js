@@ -15,11 +15,21 @@ import isBlank from '../../../../../utils/isBlank'
 class EditLeadTabs extends Component {
   state = {
     activeTab: null,
-    showFakeInput: true
+    showFakeInput: true,
+    fakeInputContent: "take notes",
   };
 
+  componentDidMount() {
+    if (this.state.activeTab === null) {
+      this.setState({ activeTab: <EditLeadEditor onCancel={this.onCancel} onSave={this.onNoteSave} /> });
+    }
+  }
+
   tabHandler = content => {
-    this.setState({ activeTab: content, showFakeInput: false });
+    this.setState({
+      activeTab: content.component, showFakeInput: false,
+      fakeInputContent: content.fakeText
+    });
   };
 
   onNoteSave = noteText => {
@@ -29,6 +39,7 @@ class EditLeadTabs extends Component {
     }
     this.props.createNote(this.props.editLead._id, note)
   }
+
   onActivitySave = activity => {
     this.props.createActivity(activity)
   }
@@ -45,12 +56,13 @@ class EditLeadTabs extends Component {
     const noteEditor = <EditLeadEditor onCancel={this.onCancel} onSave={this.onNoteSave} />;
     const addActivity = <AddActivity onCancel={this.onCancel} onSave={this.onActivitySave} />;
 
-    let takeNotesCondition = this.isActive(EditLeadEditor);
+    let takeNotesCondition = this.isActive(EditLeadEditor) || isBlank(this.state.activeTab);
     let addActivityCondition = this.isActive(AddActivity);
     return (
       <div className={styles.tabs}>
         <ul className={styles.header}>
-          <li className={styles.headerItem} onClick={() => this.tabHandler(noteEditor)}>
+          <li className={styles.headerItem} onClick={() =>
+            this.tabHandler({ component: noteEditor, fakeText: "take notes" })}>
             <img
               src={(takeNotesCondition || isBlank(this.state.activeTab)) ? takeNotesIconActive : takeNotesIcon}
               className={styles.headerItemIcon}
@@ -58,7 +70,7 @@ class EditLeadTabs extends Component {
             />
             Take notes
           </li>
-          <li className={styles.headerItem} onClick={() => this.tabHandler(addActivity)}>
+          <li className={styles.headerItem} onClick={() => this.tabHandler({ component: addActivity, fakeText: "add activity" })}>
             <img
               src={addActivityCondition ? addActivityIconActive : addActivityIcon}
               className={styles.headerItemIcon}
@@ -68,7 +80,10 @@ class EditLeadTabs extends Component {
           </li>
         </ul>
         {this.state.showFakeInput ? (
-          <div className={styles.fakeInput} onClick={() => this.tabHandler(this.state.activeTab)}>Click here to take notes...</div>
+          <div className={styles.fakeInput} onClick={() =>
+            this.tabHandler(takeNotesCondition ?
+              { component: noteEditor, fakeText: "take notes" }
+              : this.state.activeTab)}>Click here to {this.state.fakeInputContent}...</div>
         ) : (
             <div>{this.state.activeTab}</div>
           )}
