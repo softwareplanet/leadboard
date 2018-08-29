@@ -137,8 +137,8 @@ class EmptyCard extends Component {
     const additionalMessage = (
       <div className={styles.additionMessage}>
         { !this.state.item.id ?
-          `A new ${title} (${this.state.name}) will be created and linked to this deal.` :
-          `The existing person (${this.state.name}) will be linked to this deal.`
+          `A new ${title} (${this.state.name}) will be created and linked to this lead.` :
+          `The existing ${title} (${this.state.name}) will be linked to this lead.`
         }
       </div>
     );
