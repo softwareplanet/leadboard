@@ -41,7 +41,12 @@ class EditLeadTabs extends Component {
   }
 
   onActivitySave = activity => {
-    this.props.createActivity(activity)
+    this.props.createActivity({
+      ...activity,
+      lead: this.props.editLead._id,
+      assignedTo: this.props.userId,
+    })
+    this.setState({ showFakeInput: true })
   }
 
   onCancel = () => {

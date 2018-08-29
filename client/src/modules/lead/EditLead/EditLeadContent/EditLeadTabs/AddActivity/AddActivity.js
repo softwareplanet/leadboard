@@ -86,7 +86,7 @@ export default class AddActivity extends Component {
   };
 
   render() {
-    console.log(this.getActivity());
+    let activity = this.getActivity();
         return (
           <div className={style.activityForm}>
             <div className={style.activityContainer}>
@@ -166,7 +166,7 @@ export default class AddActivity extends Component {
             </div>
             <div className={style.footer}>
               <button onClick={this.props.onCancel} className={style.cancelButton}><span>Cancel</span></button>
-              <button onClick={this.props.onSave} className={style.buttonSave}><span>Save</span></button>
+              <button onClick={() => this.props.onSave(activity)} className={style.buttonSave}><span>Save</span></button>
             </div>
           </div>
     );
