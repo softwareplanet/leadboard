@@ -19,6 +19,7 @@ const customStyles = {
     border: "1px solid #e5e5e5",
     boxShadow: "0 10px 45px rgba(38,41,44,.88)",
     boxSizing: "border-box",
+    overflow: "hidden",
   },
 };
 
@@ -147,6 +148,7 @@ class EmptyCard extends Component {
       open: this.state.openDropdown,
       styles: this.props.styles,
       inputStyle: autocompleteStyles.linkLeadInput,
+      itemsCount: 3,
     });
 
     const title = this.props.title.toLowerCase();
