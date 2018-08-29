@@ -82,7 +82,7 @@ class Note extends Component {
       </div>
     );
 
-    let editor = <EditLeadEditor text={this.props.note.text} onSave={this.onSave} onCancel={this.showEditor} />
+    let editor = <EditLeadEditor height={100} text={this.props.note.text} onSave={this.onSave} onCancel={this.showEditor} />
 
     return this.state.showEditor ? editor : noteContent
   }

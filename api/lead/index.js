@@ -137,7 +137,7 @@ router.patch("/:id", (req, res) => {
 // @desc    Create note for lead
 // @access  Private
 router.post("/:id/notes", (req, res) => {
-  Lead.findByIdAndUpdate(req.params.id, { $push:{ notes: req.body } }, { new: true })
+  Lead.findByIdAndUpdate(req.params.id, { $push: { notes: req.body } }, { new: true })
     .populate("notes.user", { password: 0 })
     .populate("notes.lastUpdater", { password: 0 })
     .populate([{ path: "contact" }, { path: "organization" }])

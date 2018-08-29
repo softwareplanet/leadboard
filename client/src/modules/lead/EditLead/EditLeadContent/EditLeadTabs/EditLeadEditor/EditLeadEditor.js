@@ -32,8 +32,11 @@ export default class EditLeadEditor extends Component {
   }
 
   render() {
+    let editorStyles = {
+      height: `${this.props.height}px`
+    }
     return (
-      <div className={styles.editor}>
+      <div style={editorStyles} className={styles.editor}>
         <textarea value={this.state.noteText} onChange={this.onChange} className={styles.textArea}/>
         <div className={styles.footer}>
           <button onClick={this.onCancel} className={styles.button}><span>Cancel</span></button>
