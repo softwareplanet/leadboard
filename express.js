@@ -5,6 +5,7 @@ import morgan from "morgan";
 import bodyParser from "body-parser";
 import passport from "passport";
 import { connectToMongoose } from "./mongoose";
+import path from "path"
 
 export default (routes) => {
   const app = express();
