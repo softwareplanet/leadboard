@@ -8,6 +8,7 @@ const app = () => express(routes);
 let cred;
 let lead;
 let stageId;
+const UPDATED_NOTE = "Updated note"
 beforeEach(async done => {
   await dropTables();
   cred = await createUserAndDomain(app);
@@ -84,10 +85,10 @@ describe("Lead", () => {
       .patch(`/api/lead/${lead._id}/note/${lead.notes[0]._id}`)
       .set("Authorization", cred.token)
       .send({
-        text: "Updated note",
+        text: UPDATED_NOTE,
         lastUpdater: cred.userId
       });
     expect(status).toBe(200);
-    expect(body.notes[0].text).toEqual("Updated note")
+    expect(body.notes[0].text).toEqual(UPDATED_NOTE)
   });
 });

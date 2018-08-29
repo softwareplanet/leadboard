@@ -40,20 +40,20 @@
   padding: 10px 0
 }
 
-.ul {
+.list {
   width: 100%;
   list-style-type: none;
   overflow-x: hidden;
   list-style: none;
 }
 
-.li {
+.listElement {
   font-size: 14px;
   padding: 6px 16px;
   line-height: 20px;
 }
 
-.li:hover {
+.listElement:hover {
   text-decoration: none;
   background-color: #317ae2;
   color: #fff;

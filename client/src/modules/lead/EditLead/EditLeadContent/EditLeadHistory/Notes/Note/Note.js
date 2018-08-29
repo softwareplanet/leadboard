@@ -12,7 +12,7 @@ class Note extends Component {
     showEditor: false
   }
 
-  toggle = () => {
+  togglePopover = () => {
     this.setState({
       showPopover: !this.state.showPopover
     });
@@ -57,7 +57,7 @@ class Note extends Component {
           <div>
             <img 
               id={`id${this.props.note._id}`} 
-              onClick={this.toggle} 
+              onClick={this.togglePopover} 
               className={styles.spreadButton} 
               src={spreadButton} 
               alt="options" 
@@ -66,11 +66,11 @@ class Note extends Component {
               placement="bottom-end"
               isOpen={this.state.showPopover} 
               target={`id${this.props.note._id}`} 
-              toggle={this.toggle}
+              toggle={this.togglePopover}
             >
               <PopoverBody className={styles.popover}>
-                <ul className={styles.ul}>
-                  <li className={styles.li} onClick={this.showEditor}>Edit</li>
+                <ul className={styles.list}>
+                  <li className={styles.listElement} onClick={this.showEditor}>Edit</li>
                 </ul>
               </PopoverBody>
             </Popover>
