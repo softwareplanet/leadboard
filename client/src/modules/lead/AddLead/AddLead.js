@@ -189,13 +189,7 @@ class AddLead extends React.Component {
         } else {
           name = this.state.contact.name + " lead";
         }
-      } else {
-        if (this.state.name.length) {
-          name = this.state.name;
-        } else {
-          name = "";
-        }
-      }
+      } else name = "";
     }
     return name;
   };
@@ -207,9 +201,7 @@ class AddLead extends React.Component {
     } else {
      if(this.state.contact.name.length > 0) {
        placeholder = this.state.contact.name + " lead";
-     } else {
-       placeholder = "";
-     }
+     } else placeholder = "";
     }
     return placeholder;
   };
@@ -219,9 +211,10 @@ class AddLead extends React.Component {
     this.setState({
       ...this.state,
       name: this.getNameValue(),
+      namePlaceholder: this.getPlaceholderValue(),
+      nameChanged: this.state.organization.name.length === 0 && this.state.contact.name.length === 0 ? false : this.state.nameChanged,
       openOrganizationDropdown: false,
       showOrganizationBadge: this.state.organization.name.length > 0 && this.state.afterOrganizationSelectShowBadge && !this.state.organization.id,
-      namePlaceholder: this.getPlaceholderValue(),
     });
   };
 
@@ -257,10 +250,9 @@ class AddLead extends React.Component {
         name: value,
       },
       organization: {
-        id: item.organization !== undefined ? item.organization._id : null,
-        name: item.organization !== undefined ? item.organization.name : "",
+        id: item.organization !== undefined ? item.organization._id : this.state.organization._id,
+        name: item.organization !== undefined ? item.organization.name : this.state.organization.name,
       },
-      name: item.organization !== undefined ? item.organization.name + " lead" : "",
       openContactDropdown: false,
       showContactBadge: false,
       afterContactSelectShowBadge: false,
@@ -272,6 +264,8 @@ class AddLead extends React.Component {
     this.setState({
       ...this.state,
       name: this.getNameValue(),
+      namePlaceholder: this.getPlaceholderValue(),
+      nameChanged: this.state.organization.name.length === 0 && this.state.contact.name.length === 0 ? false : this.state.nameChanged,
       openContactDropdown: false,
       showContactBadge: this.state.contact.name.length > 0 && this.state.afterContactSelectShowBadge && !this.state.contact.id,
     }, () => this.onOrganizationBlur())
