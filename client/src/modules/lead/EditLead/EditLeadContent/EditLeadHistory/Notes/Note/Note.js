@@ -1,20 +1,20 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import styles from "./Note.css";
-import { formatDate } from "../../../../../utils/formatDate";
-import spreadButton from "../../../../../assets/spread-button.svg"
+import { formatDate } from "../../../../../../../utils/formatDate";
+import spreadButton from "../../../../../../../assets/spread-button.svg"
 import { Popover, PopoverBody } from "reactstrap";
-import EditLeadEditor from "../../EditLeadContent/EditLeadTabs/EditLeadEditor/EditLeadEditor";
+import EditLeadEditor from "../../../EditLeadTabs/EditLeadEditor/EditLeadEditor";
 
 class Note extends Component {
   state = {
-    popoverOpen: false,
+    showPopover: false,
     showEditor: false
   }
 
   toggle = () => {
     this.setState({
-      popoverOpen: !this.state.popoverOpen
+      showPopover: !this.state.showPopover
     });
   }
 
@@ -26,7 +26,7 @@ class Note extends Component {
   showEditor = () => {
     this.setState({
       showEditor: !this.state.showEditor,
-      popoverOpen: false
+      showPopover: false
     });
   }
 
@@ -34,7 +34,16 @@ class Note extends Component {
     let { date, user, text, lastUpdater} = this.props.note;
     let lastUpdaterSpan = (
       <span>
-        {lastUpdater ? (<span><span name="separator">&nbsp; &#183; &nbsp;</span>Last edited: { lastUpdater.firstname + " " + lastUpdater.lastname }</span>) : ""}
+        {
+          lastUpdater ? 
+            (
+              <span>
+                <span name="separator">&nbsp; &#183; &nbsp;</span>
+                  Last edited: { lastUpdater.firstname + " " + lastUpdater.lastname }
+              </span>
+            )
+            : ""
+        }
       </span>
     )
     let noteContent = (
@@ -55,13 +64,13 @@ class Note extends Component {
             />
             <Popover 
               placement="bottom-end"
-              isOpen={this.state.popoverOpen} 
+              isOpen={this.state.showPopover} 
               target={`id${this.props.note._id}`} 
               toggle={this.toggle}
             >
               <PopoverBody className={styles.popover}>
                 <ul className={styles.ul}>
-                   <li className={styles.li} onClick={this.showEditor}>Edit</li>
+                    <li className={styles.li} onClick={this.showEditor}>Edit</li>
                 </ul>
               </PopoverBody>
             </Popover>
@@ -76,7 +85,6 @@ class Note extends Component {
     let editor = <EditLeadEditor text={this.props.note.text} onSave={this.onSave} onCancel={this.showEditor} />
 
     return this.state.showEditor ? editor : noteContent
-      
   }
 }
 

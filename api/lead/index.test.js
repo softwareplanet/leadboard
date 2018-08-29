@@ -8,8 +8,6 @@ const app = () => express(routes);
 let cred;
 let lead;
 let stageId;
-let noteId;
-
 beforeEach(async done => {
   await dropTables();
   cred = await createUserAndDomain(app);

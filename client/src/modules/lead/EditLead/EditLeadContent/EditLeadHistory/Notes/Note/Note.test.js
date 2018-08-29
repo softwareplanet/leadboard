@@ -1,11 +1,8 @@
 import "jsdom-global/register";
 import React from "react";
-import { shallow, mount } from "enzyme";
+import { shallow } from "enzyme";
 import Note from "./Note"
-import styles from "./Note.css";
-import editorStyles from "../../EditLeadContent/EditLeadTabs/EditLeadEditor/EditLeadEditor.css"
-import { Popover } from "reactstrap";
-import EditLeadEditor from "../../EditLeadContent/EditLeadTabs/EditLeadEditor/EditLeadEditor";
+import EditLeadEditor from "../../../EditLeadTabs/EditLeadEditor/EditLeadEditor";
 
 const note = {
   _id: "5b8512352e3cf23faa3fc712",

@@ -51,9 +51,9 @@ class EditLeadTabs extends Component {
           <div className={styles.content}>{this.state.activeTab}</div>
         ) : (
           <div 
-          className={styles.fakeInput} 
-          onClick={() => this.tabHandler(<EditLeadEditor onCancel={this.onNoteCancel} onSave={this.onNoteSave}/>)}>
-            Click here to take notes...
+            className={styles.fakeInput} 
+            onClick={() => this.tabHandler(<EditLeadEditor onCancel={this.onNoteCancel} onSave={this.onNoteSave}/>)}>
+              Click here to take notes...
           </div>
         )}
       </div>

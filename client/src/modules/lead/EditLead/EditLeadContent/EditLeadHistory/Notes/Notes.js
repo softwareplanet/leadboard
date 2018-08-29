@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import styles from "./Notes.css";
 import PropTypes from "prop-types";
 import Note from "./Note/Note";
-import InfoItemWrapper from "../../../common/InfoWraper/InfoItemWrapper";
-import { updateNote } from "../../leadActions";
+import InfoItemWrapper from "../../../../../common/InfoWraper/InfoItemWrapper";
+import { updateNote } from "../../../../leadActions";
 
 class Notes extends Component {
   render() {
