@@ -70,7 +70,7 @@ class Note extends Component {
             >
               <PopoverBody className={styles.popover}>
                 <ul className={styles.ul}>
-                    <li className={styles.li} onClick={this.showEditor}>Edit</li>
+                  <li className={styles.li} onClick={this.showEditor}>Edit</li>
                 </ul>
               </PopoverBody>
             </Popover>

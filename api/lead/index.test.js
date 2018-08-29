@@ -80,7 +80,6 @@ describe("Lead", () => {
 
   it("should update note", async () => {
     lead = await createNote(app, cred.token, lead._id, cred.userId, "New note")
-    console.log(`/api/lead/${lead._id}/nots/${lead.notes[0]._id}`);
     const { status, body } = await request(app())
       .patch(`/api/lead/${lead._id}/note/${lead.notes[0]._id}`)
       .set("Authorization", cred.token)
