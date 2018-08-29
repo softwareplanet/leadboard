@@ -1,8 +1,6 @@
 import React from "react";
 import ReactAutocomplete from "react-autocomplete";
 
-const COUNT_OF_DISPLAYED_ORGANIZATIONS = 4;
-
 class OrganizationAutocomplete extends React.Component {
   render() {
     const styles = this.props.styles;
@@ -14,7 +12,7 @@ class OrganizationAutocomplete extends React.Component {
         getItemValue={item => item.name}
         renderMenu={(items) =>
           items.length !== 0 ? (
-            <div className="organizationsList" style={styles.menu} children={items.splice(0, COUNT_OF_DISPLAYED_ORGANIZATIONS)} />
+            <div className="organizationsList" style={styles.menu} children={items.splice(0, this.props.itemsCount)} />
           ) : (
               <div className="organizationsList" style={styles.menu}>
               {

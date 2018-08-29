@@ -1,7 +1,7 @@
 const autocomplete = {
   menu: {
     position: "absolute",
-    left: 15,
+    left: 16,
     zIndex: 7000,
     backgroundColor: "white",
     color: "#317ae2",
