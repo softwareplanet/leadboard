@@ -3,6 +3,7 @@ import style from "./AddActivity.css";
 import moment from "moment";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker-cssmodules.css"
+import datepicker from "react-datepicker/dist/react-datepicker-cssmodules.css"
 import phoneIcon from "../../../../../../assets/add-activity/phone.svg";
 import meetingIcon from "../../../../../../assets/add-activity/meeting.svg";
 import taskIcon from "../../../../../../assets/add-activity/task.svg";
@@ -10,7 +11,7 @@ import deadlineIcon from "../../../../../../assets/add-activity/deadline.svg";
 import emailIcon from "../../../../../../assets/add-activity/email.svg";
 import lunchIcon from "../../../../../../assets/add-activity/lunch.svg";
 import deleteIcon from "../../../../../../assets/add-activity/delete.svg";
-import ActivityButtons from "./ActivityButtons";
+import ActivityButtons from "./buttons/ActivityButtons";
 import isBlank from "../../../../../../utils/isBlank"
 
 const activityTypes = [
@@ -58,12 +59,11 @@ export default class AddActivity extends Component {
   getActivityDateAndTime = () => {
     let date = this.state.date ? moment(this.state.date) : moment().startOf("day");
     if(!this.state.time) {
-      console.log("No time");
       return { date : Date.parse(date._d) };
     }
 
     let time = moment.duration(this.state.time.diff(moment().startOf("day")));
-    date = date.add(time.asMinutes(), "minutes");
+    date = date.add(Math.floor(time.asMinutes()), "minutes");
     return { date : Date.parse(date._d)};
   };
 
@@ -83,6 +83,14 @@ export default class AddActivity extends Component {
       ...this.getDuration(),
       ...this.getActivityDateAndTime()
     }
+  };
+
+  getSelectedDate = () => {
+    return this.state.date? {selected: this.state.date} : {};
+  };
+
+  getSelectedTime = () => {
+    return this.state.time? {selected: this.state.time} : {};
   };
 
   render() {
@@ -110,7 +118,7 @@ export default class AddActivity extends Component {
                   <span className={style.dateInputSpan}>DATE</span>
                   <div className={style.inputContainer}>
                     <DatePicker
-                      selected={this.state.date}
+                      {...this.getSelectedDate()}
                       onChange={(date) => this.onInputPick(date, "date")}
                       placeholderText={`${moment().format("MM/DD/YYYY")}`}
                       showYearDropdown
@@ -126,7 +134,7 @@ export default class AddActivity extends Component {
                   <span className={style.dateInputSpan}>TIME</span>
                   <div className={style.inputContainer}>
                     <DatePicker
-                      selected={isBlank(this.state.time) ? "" : this.state.time}
+                      {...this.getSelectedTime()}
                       dateFormat="LT"
                       timeFormat="HH:mm A"
                       onChange={(time) => this.onInputPick(time, "time")}
@@ -145,10 +153,10 @@ export default class AddActivity extends Component {
                   <span className={style.dateInputSpan}>DURATION</span>
                   <div className={style.inputContainer}>
                     <DatePicker
-                      className={style.dateInput}
-                      // customInput={<input value={isBlank(this.state.duration) ? "" : `${this.state.duration.format("HH:mm")}`}/>}
-                      selected={isBlank(this.state.duration) ? "" : this.state.duration}
+                      customInput={<div><input className={style.dateInput}
+                                               value={isBlank(this.state.duration) ? "" : this.state.duration.format("HH:mm")} /></div>}
                       onChange={(duration) => this.onInputPick(duration, "duration")}
+                      popperClassName={style.popper}
                       dateFormat="LT"
                       showTimeSelect
                       showTimeSelectOnly

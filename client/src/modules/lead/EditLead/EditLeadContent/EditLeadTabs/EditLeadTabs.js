@@ -36,8 +36,6 @@ class EditLeadTabs extends Component {
     const noteEditor = <EditLeadEditor onCancel={this.onCancel} onSave={this.onNoteSave} />;
     const addActivity = <AddActivity onCancel={this.onCancel} onSave={this.onActivitySave} />;
 
-    console.log(activeTab.type === noteEditor.type);
-    console.log(activeTab.type === addActivity.type);
     switch (activeTab.type) {
       case (noteEditor.type): {
         this.setState({ fakeInputContent: "take notes" })
