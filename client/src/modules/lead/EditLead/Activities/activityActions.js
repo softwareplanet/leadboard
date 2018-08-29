@@ -1,22 +1,22 @@
 import axios from "axios";
-import { LOAD_LEADS_ACTIVITIES } from "./types";
+import { LOAD_LEAD_ACTIVITIES } from "./types";
 import { GET_ERRORS } from "../../../../actionTypes";
 
 //load activities by lead Id
-export const loadLeadsActivities = leadId => dispatch => {
+export const loadLeadActivities = leadId => dispatch => {
   axios
     .get(`api/activity/${leadId}`)
     .then(result => {
-      dispatch(loadLeadsActivitiesAction(result.data));
+      dispatch(loadLeadActivitiesAction(result.data));
     })
     .catch(error => {
       dispatch(getErrorsAction(error.response.data.errors));
     });
 };
 
-export function loadLeadsActivitiesAction(data) {
+export function loadLeadActivitiesAction(data) {
   return {
-    type: LOAD_LEADS_ACTIVITIES,
+    type: LOAD_LEAD_ACTIVITIES,
     payload: data,
   };
 }
