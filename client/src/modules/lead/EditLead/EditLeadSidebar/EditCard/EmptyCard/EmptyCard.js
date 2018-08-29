@@ -33,6 +33,10 @@ class EmptyCard extends Component {
         id: null,
         name: ""
       },
+      itemAfterSelect : {
+        id: null,
+        name: "",
+      },
       name: "",
       openDropdown: false,
       showAdditionalMessage: false,
@@ -55,6 +59,10 @@ class EmptyCard extends Component {
         id: null,
         name: ""
       },
+      itemAfterSelect : {
+        id: null,
+        name: "",
+      },
       name: "",
       openDropdown: false,
       showAdditionalMessage: false,
@@ -75,7 +83,7 @@ class EmptyCard extends Component {
     let inputLength = event.target.value.length;
     this.setState({
       item: {
-        id: null,
+        id: this.state.itemAfterSelect.name === event.target.value ? this.state.itemAfterSelect.id : null,
         name: event.target.value
       },
       openDropdown: true,
@@ -93,6 +101,10 @@ class EmptyCard extends Component {
       },
       openDropdown: false,
       showBadge: false,
+      itemAfterSelect: {
+        id: item._id,
+        name: value,
+      },
     }, () => this.onBlur())
   };
 
@@ -114,6 +126,10 @@ class EmptyCard extends Component {
       item: {
         id: null,
         name: ""
+      },
+      itemAfterSelect : {
+        id: null,
+        name: "",
       },
       showAdditionalMessage: false,
       isLinkDisabled: true,
