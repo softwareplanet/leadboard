@@ -6,7 +6,6 @@ import {
   UPDATE_CONTACT,
   UPDATE_LEAD,
   UPDATE_ORGANIZATION,
-  CREATE_ACTIVITY,
 } from "./types";
 
 const initialState = {
@@ -58,13 +57,6 @@ export default function (state = initialState, action) {
       return {
         ...state,
         editLead: leadWithUpdatedContact,
-      };
-    case CREATE_ACTIVITY:
-      let activities = { ...state.activities };
-      activities.push(action.payload);
-      return {
-        ...state,
-        activities: activities,
       };
     default:
       return state;

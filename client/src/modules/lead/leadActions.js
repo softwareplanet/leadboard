@@ -7,7 +7,6 @@ import {
   UPDATE_CONTACT,
   UPDATE_LEAD,
   UPDATE_ORGANIZATION,
-  CREATE_ACTIVITY,
 } from "./types";
 import { GET_ERRORS } from "../../actionTypes";
 
@@ -176,21 +175,6 @@ export const createNote = (leadId, note) => dispatch => {
     });
 };
 
-// Create activity lead
-export const createActivity = (data) => dispatch => {
-  axios
-    .post(`/api/activity`, data)
-    .then(res => {
-      dispatch(createActivityAction(res.data));
-    })
-    .catch(error => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: error,
-      });
-    });
-};
-
 export function loadLeadboardAction(data) {
   return {
     type: LOAD_LEADBOARD,
@@ -216,12 +200,6 @@ export function loadLeadsAction(stage, data) {
   return {
     type: LOAD_LEADS,
     stage: stage,
-    payload: data,
-  };
-}
-export function createActivityAction(data) {
-  return {
-    type: CREATE_ACTIVITY,
     payload: data,
   };
 }

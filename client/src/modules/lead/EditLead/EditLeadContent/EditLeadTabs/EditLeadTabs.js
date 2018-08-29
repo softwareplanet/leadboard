@@ -7,17 +7,29 @@ import addActivityIcon from "../../../../../assets/add-activity/add-activity.svg
 import addActivityIconActive from "../../../../../assets/add-activity/add-activity-active.svg"
 import { connect } from 'react-redux'
 import { createNote } from "../../../leadActions";
+import { createActivity } from "../../Activities/activityActions"
 import EditLeadEditor from "./EditLeadEditor/EditLeadEditor";
 import AddActivity from "./AddActivity/AddActivity";
 import isBlank from '../../../../../utils/isBlank'
 
 class EditLeadTabs extends Component {
   state = {
-    activeTab: null
+    activeTab: null,
+    showFakeInput: true,
+    fakeInputContent: "take notes",
   };
 
+  componentDidMount() {
+    if (this.state.activeTab === null) {
+      this.setState({ activeTab: <EditLeadEditor onCancel={this.onCancel} onSave={this.onNoteSave} /> });
+    }
+  }
+
   tabHandler = content => {
-    this.setState({ activeTab: content });
+    this.setState({
+      activeTab: content.component, showFakeInput: false,
+      fakeInputContent: content.fakeText
+    });
   };
 
   onNoteSave = noteText => {
@@ -27,12 +39,13 @@ class EditLeadTabs extends Component {
     }
     this.props.createNote(this.props.editLead._id, note)
   }
+
   onActivitySave = activity => {
     this.props.createActivity(activity)
   }
 
   onCancel = () => {
-    this.setState({ activeTab: null })
+    this.setState({ showFakeInput: true })
   }
 
   isActive = (component) => {
@@ -40,33 +53,40 @@ class EditLeadTabs extends Component {
   }
 
   render() {
-    let takeNotesCondition = this.isActive(EditLeadEditor);
+    const noteEditor = <EditLeadEditor onCancel={this.onCancel} onSave={this.onNoteSave} />;
+    const addActivity = <AddActivity onCancel={this.onCancel} onSave={this.onActivitySave} />;
+
+    let takeNotesCondition = this.isActive(EditLeadEditor) || isBlank(this.state.activeTab);
     let addActivityCondition = this.isActive(AddActivity);
     return (
       <div className={styles.tabs}>
         <ul className={styles.header}>
-          <li className={styles.headerItem} onClick={() => this.tabHandler(<EditLeadEditor onCancel={this.onCancel} onSave={this.onNoteSave}/>)}>
+          <li className={styles.headerItem} onClick={() =>
+            this.tabHandler({ component: noteEditor, fakeText: "take notes" })}>
             <img
-              src={(takeNotesCondition || isBlank(this.state.activeTab)) ? takeNotesIconActive : takeNotesIcon }
+              src={(takeNotesCondition || isBlank(this.state.activeTab)) ? takeNotesIconActive : takeNotesIcon}
               className={styles.headerItemIcon}
               alt="take note icon"
             />
             Take notes
           </li>
-          <li className={styles.headerItem} onClick={() => this.tabHandler(<AddActivity onCancel={this.onCancel} onSave={this.onActivitySave}/>)}>
+          <li className={styles.headerItem} onClick={() => this.tabHandler({ component: addActivity, fakeText: "add activity" })}>
             <img
-              src={addActivityCondition ? addActivityIconActive : addActivityIcon }
+              src={addActivityCondition ? addActivityIconActive : addActivityIcon}
               className={styles.headerItemIcon}
               alt="add activity icon"
             />
             Add activity
           </li>
         </ul>
-        {this.state.activeTab ? (
-          <div className={styles.content}>{this.state.activeTab}</div>
+        {this.state.showFakeInput ? (
+          <div className={styles.fakeInput} onClick={() =>
+            this.tabHandler(takeNotesCondition ?
+              { component: noteEditor, fakeText: "take notes" }
+              : this.state.activeTab)}>Click here to {this.state.fakeInputContent}...</div>
         ) : (
-          <div className={styles.fakeInput} onClick={() => this.tabHandler(<EditLeadEditor onCancel={this.onCancel} onSave={this.onNoteSave}/>)}>Click here to take notes...</div>
-        )}
+            <div>{this.state.activeTab}</div>
+          )}
       </div>
     );
   }
@@ -79,4 +99,4 @@ const mapStateToProps = state => ({
 
 export { EditLeadTabs }
 
-export default connect(mapStateToProps, { createNote })(EditLeadTabs)
+export default connect(mapStateToProps, { createNote, createActivity })(EditLeadTabs)
