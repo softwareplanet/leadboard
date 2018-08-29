@@ -159,11 +159,6 @@ router.patch("/:leadId/note/:noteId", (req, res) => {
     { _id: req.params.leadId, "notes._id": req.params.noteId }, 
     { $set:{ "notes.$.text": req.body.text, "notes.$.lastUpdater": req.user.id } }, 
     { new: true })
-    .populate("notes.user", { password: 0 })
-    .populate("notes.lastUpdater", { password: 0 })
-    .populate([{ path: "contact" }, { path: "organization" }])
-    .populate("owner")
-    .populate("stage")
     .then(lead => {
       return res.json(lead);
     })
