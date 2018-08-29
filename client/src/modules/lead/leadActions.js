@@ -7,6 +7,7 @@ import {
   UPDATE_CONTACT,
   UPDATE_LEAD,
   UPDATE_ORGANIZATION,
+  CLEAR_LEADS,
 } from "./types";
 import { GET_ERRORS } from "../../actionTypes";
 
@@ -188,6 +189,12 @@ export const updateNote = (leadId, note) => dispatch => {
       });
     });
 };
+
+export const clearLeads = () => {
+  return {
+    type: CLEAR_LEADS
+  }
+}
 
 export function loadLeadboardAction(data) {
   return {
