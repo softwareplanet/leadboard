@@ -19,3 +19,16 @@ router.get("/", (req, res) => {
       res.status(400).json({ errors: { message: error } });
     });
 });
+
+// @route   PATCH api/activity?id=:id
+// @desc    Update activity by id
+// @access  Private
+router.patch("/", (req, res) => {
+  Activity.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then(activity => {
+      res.json(activity);
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
+});
