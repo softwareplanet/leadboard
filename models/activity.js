@@ -8,6 +8,7 @@ const activitySchema = new mongoose.Schema({
   },
   subject: { type: String, default: "Call" },
   date: { type: Date, default: Date.now },
+  hasStartTime: {type: Boolean, default:false},
   duration: { type: Number },
   note: { type: String, default:""},
   assignedTo: { type: mongoose.Schema.Types.ObjectId, ref: "User"},

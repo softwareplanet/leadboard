@@ -20,6 +20,7 @@ const createActivity = (req, res) => {
   let activity = {
     _id: new mongoose.Types.ObjectId(),
     date: req.body.date,
+    hasStartTime: req.body.hasStartTime,
     type: req.body.type,
     subject: req.body.subject,
     duration: req.body.duration,
