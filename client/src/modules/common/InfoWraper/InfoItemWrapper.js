@@ -11,11 +11,11 @@ class InfoItemWrapper extends Component {
     this.state = {
       containerStyles: this.props.containerStyles ? this.props.containerStyles : defaultStyles.container,
       iconBoxStyles: this.props.iconBoxStyles ? this.props.iconBoxStyles : defaultStyles.iconBox,
-      iconWrapperStyles : this.props.iconWrapperStyles ? this.props.iconWrapperStyles : defaultStyles.iconWrapper,
+      iconWrapperStyles: this.props.iconWrapperStyles ? this.props.iconWrapperStyles : defaultStyles.iconWrapper,
       iconStyles: this.props.iconStyles ? this.props.iconStyles : defaultStyles.icon,
       icon: this.props.icon ? this.props.icon : defaultIcon,
       arrowStyles: this.props.arrowStyles ? this.props.arrowStyles : defaultStyles.arrow,
-      cardStyles: this.props.cardStyles ? this.props.cardStyles : defaultStyles.card
+      cardStyles: this.props.cardStyles ? this.props.cardStyles : defaultStyles.card,
     };
   }
 
@@ -24,24 +24,19 @@ class InfoItemWrapper extends Component {
       <div className={this.state.containerStyles}>
         <span className={this.state.iconBoxStyles}>
           <span className={this.state.iconWrapperStyles}>
-            <img src={this.state.icon} alt="note" className={this.state.iconStyles}/>
+            <img src={this.state.icon} alt="note" className={this.state.iconStyles} />
           </span>
 	      </span>
-        <span className={this.state.arrowStyles}/>
+        <span className={this.state.arrowStyles} />
         <div className={this.state.cardStyles}>
           {this.props.component}
-          <div className="fade">
-            <div>
-              {space}
-            </div>
-          </div>
         </div>
       </div>
     );
   }
 }
 
-InfoItemWrapper.protoTypes ={
+InfoItemWrapper.protoTypes = {
   component: PropTypes.object.isRequired,
   containerStyles: PropTypes.object,
   iconBoxStyles: PropTypes.object,
@@ -49,7 +44,7 @@ InfoItemWrapper.protoTypes ={
   iconStyles: PropTypes.object,
   icon: PropTypes.object,
   arrowStyles: PropTypes.object,
-  cardStyles: PropTypes.object
+  cardStyles: PropTypes.object,
 };
 
 export default InfoItemWrapper;

@@ -30,7 +30,7 @@ class EditLeadSidebar extends Component {
         </div>;
       return <div className={styles.sidebar}>{cards}</div>;
     } else {
-      return <div />;
+      return <div className={styles.sidebar}/>;
     }
   }
 }

@@ -17,6 +17,14 @@ export async function dropTables() {
   await Lead.remove({});
 }
 
+const notes = [{
+  user: "5b6a9a31d4b6b82050ab6c18",
+  text: "Note",
+  _id: "5b8512352e3cf23faa3fc712",
+  lastUpdater: "5b6a9a31d4b6b82050ab6c18",
+  date: "2018-08-28T09:13:25.733Z"
+}]
+
 export async function createUserAndDomain(app, company = "Acme Corp.", email = "johnsmith@example.com") {
   await request(app())
     .post("/api/register")
@@ -83,11 +91,11 @@ export async function createLead(app, token, user, stage, order, name = "Lead") 
     });
 }
 
-export async function createActivity(app, token, type, subject, date, duration) {
+export async function createActivity(app, token, type, subject, date, duration, lead) {
   return await request(app())
     .post("/api/activity")
     .set("Authorization", token)
-    .send({ type, subject, date, duration})
+    .send({ type, subject, date, duration, lead})
     .then(res => res.body)
     .catch(error => {
       console.log("Cannot create an activity" + error);
@@ -115,6 +123,18 @@ export async function createContact(app, token, organization, name = "John D") {
     .catch(error => {
       console.log("Cannon create a contact" + error);
       throw "Cannon create a contact";
+    });
+  return body;
+}
+
+export async function createNote(app, token, leadId, user, text = "Note 1") {
+  const { body } = await request(app())
+    .post(`/api/lead/${leadId}/notes`)
+    .set("Authorization", token)
+    .send({ text, user })
+    .catch(error => {
+      console.log("Cannon create a note" + error);
+      throw "Cannon create a note";
     });
   return body;
 }
