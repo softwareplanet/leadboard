@@ -185,6 +185,7 @@ describe("LEADBOARD REDUCERS", () => {
 
   it("should return initial state", () => {
     expect(reducer(undefined, {})).toEqual({
+      activities: [],
       funnels: [],
       stages: [],
       leads: {}
