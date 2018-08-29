@@ -7,17 +7,19 @@ import addActivityIcon from "../../../../../assets/add-activity/add-activity.svg
 import addActivityIconActive from "../../../../../assets/add-activity/add-activity-active.svg"
 import { connect } from 'react-redux'
 import { createNote } from "../../../leadActions";
+import { createActivity } from "../../Activities/activityActions"
 import EditLeadEditor from "./EditLeadEditor/EditLeadEditor";
 import AddActivity from "./AddActivity/AddActivity";
 import isBlank from '../../../../../utils/isBlank'
 
 class EditLeadTabs extends Component {
   state = {
-    activeTab: null
+    activeTab: null,
+    showFakeInput: true
   };
 
   tabHandler = content => {
-    this.setState({ activeTab: content });
+    this.setState({ activeTab: content, showFakeInput: false });
   };
 
   onNoteSave = noteText => {
@@ -32,7 +34,7 @@ class EditLeadTabs extends Component {
   }
 
   onCancel = () => {
-    this.setState({ activeTab: null })
+    this.setState({ showFakeInput: true })
   }
 
   isActive = (component) => {
@@ -40,33 +42,36 @@ class EditLeadTabs extends Component {
   }
 
   render() {
+    const noteEditor = <EditLeadEditor onCancel={this.onCancel} onSave={this.onNoteSave} />;
+    const addActivity = <AddActivity onCancel={this.onCancel} onSave={this.onActivitySave} />;
+
     let takeNotesCondition = this.isActive(EditLeadEditor);
     let addActivityCondition = this.isActive(AddActivity);
     return (
       <div className={styles.tabs}>
         <ul className={styles.header}>
-          <li className={styles.headerItem} onClick={() => this.tabHandler(<EditLeadEditor onCancel={this.onCancel} onSave={this.onNoteSave}/>)}>
+          <li className={styles.headerItem} onClick={() => this.tabHandler(noteEditor)}>
             <img
-              src={(takeNotesCondition || isBlank(this.state.activeTab)) ? takeNotesIconActive : takeNotesIcon }
+              src={(takeNotesCondition || isBlank(this.state.activeTab)) ? takeNotesIconActive : takeNotesIcon}
               className={styles.headerItemIcon}
               alt="take note icon"
             />
             Take notes
           </li>
-          <li className={styles.headerItem} onClick={() => this.tabHandler(<AddActivity onCancel={this.onCancel} onSave={this.onActivitySave}/>)}>
+          <li className={styles.headerItem} onClick={() => this.tabHandler(addActivity)}>
             <img
-              src={addActivityCondition ? addActivityIconActive : addActivityIcon }
+              src={addActivityCondition ? addActivityIconActive : addActivityIcon}
               className={styles.headerItemIcon}
               alt="add activity icon"
             />
             Add activity
           </li>
         </ul>
-        {this.state.activeTab ? (
-          <div className={styles.content}>{this.state.activeTab}</div>
+        {this.state.showFakeInput ? (
+          <div className={styles.fakeInput} onClick={() => this.tabHandler(this.state.activeTab)}>Click here to take notes...</div>
         ) : (
-          <div className={styles.fakeInput} onClick={() => this.tabHandler(<EditLeadEditor onCancel={this.onNoteCancel} onSave={this.onNoteSave}/>)}>Click here to take notes...</div>
-        )}
+            <div>{this.state.activeTab}</div>
+          )}
       </div>
     );
   }
@@ -79,4 +84,4 @@ const mapStateToProps = state => ({
 
 export { EditLeadTabs }
 
-export default connect(mapStateToProps, { createNote })(EditLeadTabs)
+export default connect(mapStateToProps, { createNote, createActivity })(EditLeadTabs)

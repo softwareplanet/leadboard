@@ -135,7 +135,7 @@ export default class AddActivity extends Component {
               </div>
             </div>
             <div className={style.footer}>
-              <button onClick={this.onCancel} className={style.button}><span>Cancel</span></button>
+              <button onClick={this.props.onCancel} className={style.button}><span>Cancel</span></button>
               <button onClick={this.onSave} className={style.buttonSave}><span>Save</span></button>
             </div>
           </form>
