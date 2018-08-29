@@ -184,18 +184,80 @@ describe("Lead", () => {
     expect(body[1].name).toBe("Lead A");
   });
 
-  it("should update lead", async () => {
+  it("should update lead's name", async () => {
+    const newLeadsName = "Updated Lead";
     const { status, body } = await request(app())
       .patch(`/api/lead/${lead._id}`)
       .set("Authorization", cred.token)
       .send({
-        owner: cred.userId,
-        stage: stageId,
-        name: "Updated Lead",
-        order: "1",
+        name: newLeadsName,
       });
     expect(status).toBe(200);
-    expect(body.name).toBe("Updated Lead");
+    expect(body.name).toBe(newLeadsName);
+  });
+
+  it("should fail to update lead with empty contact and organization", async () => {
+    const { status, body } = await request(app())
+      .patch(`/api/lead/${lead._id}`)
+      .set("Authorization", cred.token)
+      .send({
+        contact: "",
+        organization: "",
+      });
+
+    expect(status).toBe(400);
+    expect(body).toMatchObject({ errors: { contact: "Specify contact or organization" } });
+  });
+
+  it("should fail to patch lead from other domain", async () => {
+    const otherUser = await createUserAndDomain(app, "Other Domain", "other@testmail.com");
+
+    const { status, body } = await request(app())
+      .patch(`/api/lead/${lead._id}`)
+      .set("Authorization", otherUser.token)
+      .send({});
+
+    expect(status).toBe(400);
+    expect(body).toMatchObject({ errors: { domain: "You are trying to patch lead from other domain" } });
+  });
+
+  it("should fail to set contact empty for lead without organization", async () => {
+    const { status, body } = await request(app())
+      .patch(`/api/lead/${lead._id}`)
+      .set("Authorization", cred.token)
+      .send({
+        contact: "",
+      });
+
+    expect(status).toBe(400);
+    expect(body).toMatchObject({ errors: { contact: "Specify contact or organization" } });
+  });
+
+  it("should create new contact on lead update", async () => {
+    const newContactName = "Alice A";
+    const { status, body } = await request(app())
+      .patch(`/api/lead/${lead._id}`)
+      .set("Authorization", cred.token)
+      .send({
+        contact: newContactName,
+      });
+
+    expect(status).toBe(200);
+    expect(body).toMatchObject({ contact: { name: newContactName } });
+  });
+
+  it("should create new contact and organization on lead update", async () => {
+    const newContactName = "Alice A";
+    const newOrganizationName = "Alice Inc";
+    const { status, body } = await request(app())
+      .patch(`/api/lead/${lead._id}`)
+      .set("Authorization", cred.token)
+      .send({
+        contact: newContactName,
+        organization: newOrganizationName,
+      });
+    expect(status).toBe(200);
+    expect(body).toMatchObject({ contact: { name: newContactName }, organization: { name: newOrganizationName } });
   });
 
   it("should create note for lead", async () => {
