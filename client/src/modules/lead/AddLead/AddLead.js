@@ -212,7 +212,7 @@ class AddLead extends React.Component {
       ...this.state,
       name: this.getNameValue(),
       namePlaceholder: this.getPlaceholderValue(),
-      nameChanged: this.state.organization.name.length === 0 && this.state.contact.name.length === 0 ? false : this.state.nameChanged,
+      nameChanged: isBlank(this.state.organization.name) && isBlank(this.state.contact.name) ? false : this.state.nameChanged,
       openOrganizationDropdown: false,
       showOrganizationBadge: this.state.organization.name.length > 0 && this.state.afterOrganizationSelectShowBadge && !this.state.organization.id,
     });
@@ -265,7 +265,7 @@ class AddLead extends React.Component {
       ...this.state,
       name: this.getNameValue(),
       namePlaceholder: this.getPlaceholderValue(),
-      nameChanged: this.state.organization.name.length === 0 && this.state.contact.name.length === 0 ? false : this.state.nameChanged,
+      nameChanged: isBlank(this.state.organization.name) && isBlank(this.state.contact.name) ? false : this.state.nameChanged,
       openContactDropdown: false,
       showContactBadge: this.state.contact.name.length > 0 && this.state.afterContactSelectShowBadge && !this.state.contact.id,
     }, () => this.onOrganizationBlur())
