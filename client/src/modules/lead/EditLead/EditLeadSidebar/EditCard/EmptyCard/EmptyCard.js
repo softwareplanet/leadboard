@@ -108,7 +108,7 @@ class EmptyCard extends Component {
   };
 
   clearInput = () => {
-    document.getElementById(`${this.props.title.toLowerCase()}-card`).getElementsByTagName("input")[0].focus();
+    document.getElementById(`${this.props.title.toLowerCase()}-input`).getElementsByTagName("input")[0].focus();
     this.setState({
       name: "",
       item: {

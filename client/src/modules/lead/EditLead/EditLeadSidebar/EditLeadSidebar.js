@@ -17,24 +17,9 @@ import OrganizationAutocomplete from "../../../common/autocomplete/organization/
 import { autocompleteStyles } from "../../../common/autocomplete/styles/autocomplete-styles";
 
 class EditLeadSidebar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      contacts: [],
-      organizations: [],
-    };
-  }
-
   componentDidMount() {
     this.props.loadContacts();
     this.props.loadOrganizations();
-  }
-
-  componentWillReceiveProps(props) {
-    this.setState({
-      contacts: props.contacts,
-      organizations: props.organizations,
-    });
   }
 
   render() {
@@ -58,8 +43,7 @@ class EditLeadSidebar extends Component {
           title="Organization"
           styles={autocompleteStyles.linkOrganization}
           iTagClass={classNames("fas fa-building", editCardStyles.inputIcon)}
-          loadItems={this.props.loadOrganizations}
-          items={this.state.organizations}
+          items={this.props.organizations}
         >
           <OrganizationAutocomplete />
         </EmptyCard>
@@ -70,7 +54,7 @@ class EditLeadSidebar extends Component {
           title="Person"
           styles={autocompleteStyles.linkPerson}
           iTagClass={classNames("fas fa-user", editCardStyles.inputIcon)}
-          items={this.state.contacts}
+          items={this.props.contacts}
         >
           <ContactAutocomplete />
         </EmptyCard>
