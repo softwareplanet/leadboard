@@ -21,7 +21,7 @@ class EditLeadTabs extends Component {
 
   componentDidMount() {
     if (this.state.activeTab === null) {
-      this.setState({ activeTab: <EditLeadEditor onCancel={this.onCancel} onSave={this.onNoteSave} /> });
+      this.setState({ activeTab: <EditLeadEditor height={160} onCancel={this.onCancel} onSave={this.onNoteSave} /> });
     }
   }
 
@@ -33,20 +33,20 @@ class EditLeadTabs extends Component {
   };
 
   fakeHandler = (activeTab) => {
-    const noteEditor = <EditLeadEditor onCancel={this.onCancel} onSave={this.onNoteSave} />;
+    const noteEditor = <EditLeadEditor height={160} onCancel={this.onCancel} onSave={this.onNoteSave} />;
     const addActivity = <AddActivity onCancel={this.onCancel} onSave={this.onActivitySave} />;
 
     switch (activeTab.type) {
       case (noteEditor.type): {
-        this.setState({ fakeInputContent: "take notes" })
+        this.setState({ fakeInputContent: " take notes" })
         break;
       }
       case (addActivity.type): {
-        this.setState({ fakeInputContent: "add activity" })
+        this.setState({ fakeInputContent: " add activity" })
         break;
       }
       default: {
-        this.setState({ fakeInputContent: "take notes" })
+        this.setState({ fakeInputContent: " take notes" })
         break;
       }
 
@@ -79,7 +79,7 @@ class EditLeadTabs extends Component {
   }
 
   render() {
-    const noteEditor = <EditLeadEditor onCancel={this.onCancel} onSave={this.onNoteSave} />;
+    const noteEditor = <EditLeadEditor height={160} onCancel={this.onCancel} onSave={this.onNoteSave} />;
     const addActivity = <AddActivity onCancel={this.onCancel} onSave={this.onActivitySave} />;
 
     let takeNotesCondition = this.isActive(EditLeadEditor) || isBlank(this.state.activeTab);
