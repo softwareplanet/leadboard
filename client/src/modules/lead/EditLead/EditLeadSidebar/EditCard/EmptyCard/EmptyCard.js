@@ -68,7 +68,7 @@ class EmptyCard extends Component {
   };
 
   onFocus = () => {
-    document.getElementById(`${this.props.title.toLowerCase()}-input`).setAttribute("style", "border: 1px solid #317ae2");
+    document.getElementById(`${this.props.title.toLowerCase()}-input-wrapper`).setAttribute("style", "border: 1px solid #317ae2");
   };
 
   onChange = (event) => {
@@ -97,7 +97,7 @@ class EmptyCard extends Component {
   };
 
   onBlur = () => {
-    document.getElementById(`${this.props.title.toLowerCase()}-input`).removeAttribute("style");
+    document.getElementById(`${this.props.title.toLowerCase()}-input-wrapper`).removeAttribute("style");
     this.setState({
       openDropdown: false,
       name: this.state.item.name,
@@ -108,7 +108,7 @@ class EmptyCard extends Component {
   };
 
   clearInput = () => {
-    document.getElementById(`${this.props.title.toLowerCase()}-input`).getElementsByTagName("input")[0].focus();
+    document.getElementById(`${this.props.title.toLowerCase()}-input-wrapper`).getElementsByTagName("input")[0].focus();
     this.setState({
       name: "",
       item: {
@@ -177,7 +177,7 @@ class EmptyCard extends Component {
             <form className={styles.modalForm}>
               <label style={{width: "100%"}}>
                 <span className={styles.formSpan}>{this.props.title} name</span>
-                <div id={`${title}-input`} className={styles.inputContainer}>
+                <div id={`${title}-input-wrapper`} className={styles.inputContainer}>
                   <i className={this.props.iTagClass} />
                   { childrenWithExtraProps }
                   {
@@ -222,5 +222,5 @@ class EmptyCard extends Component {
     );
   }
 }
-
+export {EmptyCard};
 export default EmptyCard;

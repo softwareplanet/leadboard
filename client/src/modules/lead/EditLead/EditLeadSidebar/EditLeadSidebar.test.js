@@ -5,7 +5,6 @@ import { mount, shallow } from "enzyme";
 import { EditLeadSidebar } from "./EditLeadSidebar";
 import configureStore from "redux-mock-store";
 import noop from "lodash";
-import styles from "../EditLeadSidebar/EditCard/EditCard.css";
 
 let store;
 const mockStore = configureStore();
@@ -61,23 +60,32 @@ describe("<EditLeadSidebar/>", () => {
 
   beforeEach(() => {
     store = mockStore(initialState);
+    wrapper = mount(<EditLeadSidebar
+      loadLead={noop}
+      editLead={editLead}
+      loadContacts={noop}
+      loadOrganizations={noop}
+      contacts={contacts}
+      organizations={organizations}
+    />);
   });
 
   let wrapper;
 
   it("render EditLeadSidebar component", () => {
-    wrapper = mount(<EditLeadSidebar
-      loadLead={noop}
-      editLead={editLead}
-      loadContacts={noop}
-      loadOrganizations={noop}
-      contacts={contacts}
-      organizations={organizations}
-    />);
     expect(wrapper.exists()).to.equal(true);
   });
 
   it("render correct EditCard quantity", () => {
+    wrapper.update();
+    expect(wrapper.find('EditCard').length).to.equal(2);
+  });
+
+  it("should render correct EmptyCard quantity", () => {
+    editLead = {
+      ...editLead,
+      contact: null
+    };
     wrapper = mount(<EditLeadSidebar
       loadLead={noop}
       editLead={editLead}
@@ -86,7 +94,22 @@ describe("<EditLeadSidebar/>", () => {
       contacts={contacts}
       organizations={organizations}
     />);
-    wrapper.update();
-    expect(wrapper.find('EditCard').length).to.equal(2);
-  });
+    expect(wrapper.find('EmptyCard').length).to.equal(1);
+
+    editLead = {
+      ...editLead,
+      contact: null,
+      organization: null,
+    };
+
+    wrapper = mount(<EditLeadSidebar
+      loadLead={noop}
+      editLead={editLead}
+      loadContacts={noop}
+      loadOrganizations={noop}
+      contacts={contacts}
+      organizations={organizations}
+    />);
+    expect(wrapper.find('EmptyCard').length).to.equal(2);
+  })
 });
