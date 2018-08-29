@@ -1,10 +1,12 @@
 .activityForm {
   display: flex;
   flex-direction: column;
+  background-color: #ffffff;
 }
 .activityContainer {
   padding: 16px;
   max-width: 537px;
+  align-self: center;
   background-color: #ffffff;
 }
 
