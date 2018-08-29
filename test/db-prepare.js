@@ -5,6 +5,8 @@ import Domain from "../models/domain";
 import Funnel from "../models/funnel";
 import Stage from "../models/stage";
 import Lead from "../models/lead";
+import Organization from "../models/organization";
+import Contact from "../models/contact";
 import { connectToMongoose } from "../mongoose";
 
 connectToMongoose();
@@ -15,6 +17,8 @@ export async function dropTables() {
   await Funnel.remove({});
   await Stage.remove({});
   await Lead.remove({});
+  await Organization.remove({});
+  await Contact.remove({});
 }
 
 export async function createUserAndDomain(app, company = "Acme Corp.", email = "johnsmith@example.com") {
