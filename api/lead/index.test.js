@@ -35,7 +35,6 @@ describe("Lead", () => {
       .set("Authorization", cred.token)
       .send({
         owner: cred.userId,
-        domain: cred.domainId,
         stage: stageId,
         name: "My Lead",
         order: 1,
@@ -54,7 +53,6 @@ describe("Lead", () => {
       .set("Authorization", cred.token)
       .send({
         owner: cred.userId,
-        domain: cred.domainId,
         stage: stageId,
         name: "My Lead",
         order: 1,
@@ -73,7 +71,6 @@ describe("Lead", () => {
       .set("Authorization", cred.token)
       .send({
         owner: cred.userId,
-        domain: cred.domainId,
         stage: stageId,
         name: "My Lead",
         order: 1,
@@ -92,7 +89,6 @@ describe("Lead", () => {
       .set("Authorization", cred.token)
       .send({
         owner: cred.userId,
-        domain: cred.domainId,
         stage: stageId,
         name: "My Lead",
         order: 1,
@@ -111,7 +107,6 @@ describe("Lead", () => {
       .set("Authorization", cred.token)
       .send({
         owner: cred.userId,
-        domain: cred.domainId,
         stage: stageId,
         name: "My Lead",
         order: 1,
@@ -130,7 +125,6 @@ describe("Lead", () => {
       .set("Authorization", cred.token)
       .send({
         owner: cred.userId,
-        domain: cred.domainId,
         stage: stageId,
         name: "My Lead",
         order: 1,
@@ -148,7 +142,6 @@ describe("Lead", () => {
       .set("Authorization", cred.token)
       .send({
         owner: cred.userId,
-        domain: cred.domainId,
         stage: stageId,
         name: "My Lead",
         order: 1,
@@ -158,6 +151,24 @@ describe("Lead", () => {
     expect(body).toMatchObject({ contact: { name: newContactName } });
     expect(body.contact.organization).toBeFalsy();
     expect(body.organization).toBeFalsy();
+  });
+
+  it("should create lead with new contact and existing organization", async () => {
+    const organization = await createOrganization(app, cred.token, "Software Company");
+    const newContactName = "Jane";
+    const { status, body } = await request(app())
+      .post("/api/lead")
+      .set("Authorization", cred.token)
+      .send({
+        owner: cred.userId,
+        stage: stageId,
+        name: "My Lead",
+        order: 1,
+        contact: newContactName,
+        organization: organization._id,
+      });
+    expect(status).toBe(200);
+    expect(body).toMatchObject({ contact: { name: newContactName }, organization: organization._id });
   });
 
   it("should return an ordered leads by stage", async () => {
@@ -211,6 +222,6 @@ describe("Lead", () => {
         text: UPDATED_NOTE,
       });
     expect(status).toBe(200);
-    expect(body.notes[0].text).toEqual(UPDATED_NOTE)
+    expect(body.notes[0].text).toEqual(UPDATED_NOTE);
   });
 });
