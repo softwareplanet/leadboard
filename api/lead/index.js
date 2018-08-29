@@ -33,9 +33,6 @@ router.post("/", async (req, res) => {
   const { hasErrors, errors } = validateLeadInput(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 
-  let organization = req.body.organization;
-  let contact = req.body.contact;
-
   let newLead = {
     _id: new mongoose.Types.ObjectId(),
     owner: req.body.owner,
@@ -44,46 +41,30 @@ router.post("/", async (req, res) => {
     order: req.body.order,
   };
 
+  let organization = req.body.organization;
   if (!isEmpty(organization)) {
-    if (!isValidModelId(organization)) {
-      organization = await Organization.create({
-        _id: new mongoose.Types.ObjectId(),
-        name: organization,
-        domain: req.user.domain,
-      });
-    } else {
+    if (isValidModelId(organization)) {
       const existingOrganization = await Organization.findById(organization);
-      if (!existingOrganization) {
-        return res.status(400).json({ errors: { organization: "Organization does not exist" } });
-      }
-      if (!isEqual(existingOrganization.domain, req.user.domain)) {
-        return res.status(400).json({ errors: { organization: "Organization does not belong to your domain" } });
-      }
+      let { errors, hasErrors } = validateExisting(existingOrganization, "Organization", req.user.domain);
+      if (hasErrors) return res.status(400).json({ errors });
+    } else {
+      organization = await createOrganization(organization, req.user.domain);
     }
     newLead.organization = organization;
   }
 
+  let contact = req.body.contact;
   if (!isEmpty(contact)) {
-    if (!isValidModelId(contact)) {
-      let contactToCreate = {
-        _id: new mongoose.Types.ObjectId(),
-        name: contact,
-        organization: organization,
-        domain: req.user.domain,
-      };
-      if (isEmpty(contactToCreate.organization)) delete contactToCreate.organization;
-      contact = await Contact.create(contactToCreate);
-    } else {
+    if (isValidModelId(contact)) {
       const existingContact = await Contact.findById(contact);
-      if (!existingContact) {
-        return res.status(400).json({ errors: { contact: "Contact does not exist" } });
+      let { errors, hasErrors } = validateExisting(existingContact, "Contact", req.user.domain);
+      if (hasErrors) return res.status(400).json({ errors });
+      if (existingContact.organization && existingContact.organization !== organization) {
+        errors.contact = "Contact does not belong to given organization";
+        return res.status(400).json({ errors });
       }
-      if (!isEqual(existingContact.domain, req.user.domain)) {
-        return res.status(400).json({ errors: { contact: "Contact does not belong to your domain" } });
-      }
-      if (existingContact.organization && !isEqual(existingContact.organization.toString(), organization)) {
-        return res.status(400).json({ errors: { contact: "Contact does not belong to given organization" } });
-      }
+    } else {
+      contact = await createContact(contact, organization, req.user.domain);
     }
     newLead.contact = contact;
   }
@@ -96,6 +77,38 @@ router.post("/", async (req, res) => {
       res.status(400).json({ errors: { message: error } });
     });
 });
+
+function createOrganization(name, domain) {
+  return Organization.create({
+    _id: new mongoose.Types.ObjectId(),
+    name: name,
+    domain: domain,
+  });
+}
+
+function createContact(name, organization, domain) {
+  let contactToCreate = {
+    _id: new mongoose.Types.ObjectId(),
+    name: name,
+    organization: organization,
+    domain: domain,
+  };
+  if (isEmpty(contactToCreate.organization)) delete contactToCreate.organization;
+  return Contact.create(contactToCreate);
+}
+
+function validateExisting(model, name, domain) {
+  let errors = {};
+  if (!model) {
+    errors[name.toLowerCase()] = `${name} does not exist`;
+  } else if (!isEqual(model.domain, domain)) {
+    errors[name.toLowerCase()] = `${name} does not belong to your domain`;
+  }
+  return {
+    errors,
+    hasErrors: !isEmpty(errors),
+  };
+}
 
 // @route   GET api/lead/:id
 // @desc    Load lead by id
