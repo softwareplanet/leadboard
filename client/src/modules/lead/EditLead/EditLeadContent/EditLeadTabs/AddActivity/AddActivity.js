@@ -55,12 +55,40 @@ export default class AddActivity extends Component {
     this.setState({[field]:""})
   };
 
+  getActivityDateAndTime = () => {
+    let date = this.state.date ? moment(this.state.date) : moment().startOf("day");
+    if(!this.state.time) {
+      console.log("No time");
+      return { date : Date.parse(date._d) };
+    }
 
+    let time = moment.duration(this.state.time.diff(moment().startOf("day")));
+    date = date.add(time.asMinutes(), "minutes");
+    return { date : Date.parse(date._d)};
+  };
+
+  getDuration = () => {
+    let duration = {};
+    if(this.state.duration) {
+      let duration = moment.duration(this.state.duration.diff(moment().startOf("day")));
+      return {duration: Math.floor(duration.asMinutes())};
+    }
+    return duration;
+  };
+
+  getActivity = () => {
+    return {
+      type: this.state.activeTab,
+      subject: isBlank(this.state.subject) ? this.state.activeTab : this.state.subject,
+      ...this.getDuration(),
+      ...this.getActivityDateAndTime()
+    }
+  };
 
   render() {
-    console.log(isBlank(this.state.duration) ? "" : `${this.state.duration.format("HH:mm")}`);
+    let activity = this.getActivity();
         return (
-          <form className={style.activityForm}>
+          <div className={style.activityForm}>
             <div className={style.activityContainer}>
               <ActivityButtons
                 onButtonClick={this.onTypeButtonClick}
@@ -85,6 +113,8 @@ export default class AddActivity extends Component {
                       selected={this.state.date}
                       onChange={(date) => this.onInputPick(date, "date")}
                       placeholderText={`${moment().format("MM/DD/YYYY")}`}
+                      showYearDropdown
+                      showMonthDropdown
                       className={style.dateInput}
                       popperPlacement="bottom" />
                     <button onClick={(e) => this.onDeleteClick(e, "date")} className={style.inputButton}>
@@ -135,10 +165,10 @@ export default class AddActivity extends Component {
               </div>
             </div>
             <div className={style.footer}>
-              <button onClick={this.props.onCancel} className={style.button}><span>Cancel</span></button>
-              <button onClick={this.onSave} className={style.buttonSave}><span>Save</span></button>
+              <button onClick={this.props.onCancel} className={style.cancelButton}><span>Cancel</span></button>
+              <button onClick={() => this.props.onSave(activity)} className={style.buttonSave}><span>Save</span></button>
             </div>
-          </form>
+          </div>
     );
   }
 }
