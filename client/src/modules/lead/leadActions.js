@@ -86,7 +86,6 @@ export const loadLead = leadId => dispatch => {
         type: LOAD_LEAD,
         payload: lead,
       });
-
       dispatch(loadStages(lead.stage.funnel));
     })
     .catch(error => {
@@ -166,6 +165,21 @@ export const createNote = (leadId, note) => dispatch => {
         type: UPDATE_LEAD,
         payload: res.data,
       });
+    })
+    .catch(error => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error,
+      });
+    });
+};
+
+// Update lead's note
+export const updateNote = (leadId, note) => dispatch => {
+  axios
+    .patch(`/api/lead/${leadId}/note/${note._id}`, note)
+    .then(() => {
+      dispatch(loadLead(leadId));
     })
     .catch(error => {
       dispatch({

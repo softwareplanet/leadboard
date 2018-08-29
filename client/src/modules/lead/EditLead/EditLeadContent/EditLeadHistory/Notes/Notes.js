@@ -3,9 +3,15 @@ import { connect } from "react-redux";
 import styles from "./Notes.css";
 import PropTypes from "prop-types";
 import Note from "./Note/Note";
-import InfoItemWrapper from "../../../common/InfoWraper/InfoItemWrapper";
+import InfoItemWrapper from "../../../../../common/InfoWraper/InfoItemWrapper";
+import { updateNote } from "../../../../leadActions";
 
 class Notes extends Component {
+
+  noteUpdateHandler = (note) => {
+    this.props.updateNote(this.props.editLead._id, note)
+  }
+
   render() {
     return (
       <div className={styles.container}>
@@ -16,7 +22,11 @@ class Notes extends Component {
           return (
             <InfoItemWrapper
               key={note._id}
-              component={<Note note={note}/>}
+              component={
+              <Note 
+                updateNote={this.noteUpdateHandler} 
+                note={note}
+              />}
             />
           );
         }) : null}
@@ -26,10 +36,12 @@ class Notes extends Component {
 }
 
 const mapStateToProps = state => ({
+  userId: state.auth.userid,
   editLead: state.leads.editLead,
 });
+
 Notes.propTypes = {
   editLead: PropTypes.object
 };
 
-export default connect(mapStateToProps)(Notes);
+export default connect(mapStateToProps, { updateNote })(Notes);

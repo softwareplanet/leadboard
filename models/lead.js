@@ -20,6 +20,7 @@ const leadSchema = new mongoose.Schema({
     text: String,
     date: { type: Date, default: Date.now },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    lastUpdater: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
   }]
 });
 
