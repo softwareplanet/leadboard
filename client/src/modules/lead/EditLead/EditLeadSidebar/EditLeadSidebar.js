@@ -5,16 +5,16 @@ import personIcon from "../../../../img/personIcon.svg";
 import organizationIcon from "../../../../img/organizationIcon.svg";
 import PropTypes from "prop-types";
 import { loadLead, updateContact, updateOrganization } from "../../leadActions";
-import { loadOrganizations } from "../../AddLead/autocomplete/organization/organizationActions";
-import { loadContacts } from "../../AddLead/autocomplete/contact/contactActions";
+import { loadOrganizations } from "../../../common/autocomplete/organization/organizationActions";
+import { loadContacts } from "../../../common/autocomplete/contact/contactActions";
 import { connect } from "react-redux";
 
 import editCardStyles from "./EditCard/EditCard.css";
-import EmptyCard from "./EmptyCard/EmptyCard";
+import EmptyCard from "./EditCard/EmptyCard/EmptyCard";
 import classNames from "classnames";
-import ContactAutocomplete from "../../AddLead/autocomplete/contact/ContactAutocomplete";
-import OrganizationAutocomplete from "../../AddLead/autocomplete/organization/OrganizationAutocomplete";
-import { autocompleteStyles } from "../../AddLead/autocomplete/styles/autocomplete-styles";
+import ContactAutocomplete from "../../../common/autocomplete/contact/ContactAutocomplete";
+import OrganizationAutocomplete from "../../../common/autocomplete/organization/OrganizationAutocomplete";
+import { autocompleteStyles } from "../../../common/autocomplete/styles/autocomplete-styles";
 
 class EditLeadSidebar extends Component {
   constructor(props) {

@@ -2,8 +2,8 @@ import React from "react";
 import Modal from "react-modal";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { loadOrganizations } from "./autocomplete/organization/organizationActions";
-import { loadContacts } from "./autocomplete/contact/contactActions";
+import { loadOrganizations } from "../../common/autocomplete/organization/organizationActions";
+import { loadContacts } from "../../common/autocomplete/contact/contactActions";
 import { createLead } from "../leadActions";
 import classNames from "classnames";
 import styles from "./AddLead.css";
@@ -11,9 +11,9 @@ import { isEmpty } from "lodash/fp";
 import isBlank from "../../../utils/isBlank";
 
 import SelectStageOnCreation from "./SelectStage/SelectStageOnCreation";
-import OrganizationAutocomplete from "./autocomplete/organization/OrganizationAutocomplete";
-import ContactAutocomplete from "./autocomplete/contact/ContactAutocomplete";
-import { autocompleteStyles } from "./autocomplete/styles/autocomplete-styles";
+import OrganizationAutocomplete from "../../common/autocomplete/organization/OrganizationAutocomplete";
+import ContactAutocomplete from "../../common/autocomplete/contact/ContactAutocomplete";
+import { autocompleteStyles } from "../../common/autocomplete/styles/autocomplete-styles";
 
 const customStyles = {
   content: {
