@@ -3,7 +3,6 @@ import style from "./AddActivity.css";
 import moment from "moment";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker-cssmodules.css"
-import datepicker from "react-datepicker/dist/react-datepicker-cssmodules.css"
 import phoneIcon from "../../../../../../assets/add-activity/phone.svg";
 import meetingIcon from "../../../../../../assets/add-activity/meeting.svg";
 import taskIcon from "../../../../../../assets/add-activity/task.svg";
@@ -109,6 +108,7 @@ export default class AddActivity extends Component {
               />
               <input
                 onChange={this.onSubjectChange}
+                autoFocus
                 className={style.typeInput}
                 placeholder={this.state.activeTab}
                 value={this.state.subject}
@@ -136,7 +136,7 @@ export default class AddActivity extends Component {
                     <DatePicker
                       {...this.getSelectedTime()}
                       dateFormat="LT"
-                      timeFormat="HH:mm A"
+                      timeFormat="HH:mm"
                       onChange={(time) => this.onInputPick(time, "time")}
                       className={style.dateInput}
                       popperPlacement="bottom"
@@ -156,7 +156,6 @@ export default class AddActivity extends Component {
                       customInput={<div><input className={style.dateInput}
                                                value={isBlank(this.state.duration) ? "" : this.state.duration.format("HH:mm")} /></div>}
                       onChange={(duration) => this.onInputPick(duration, "duration")}
-                      popperClassName={style.popper}
                       dateFormat="LT"
                       showTimeSelect
                       showTimeSelectOnly
@@ -171,6 +170,7 @@ export default class AddActivity extends Component {
                   </div>
                 </label>
               </div>
+
             </div>
             <div className={style.footer}>
               <button onClick={this.props.onCancel} className={style.cancelButton}><span>Cancel</span></button>
