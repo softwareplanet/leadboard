@@ -9,10 +9,10 @@
 }
 
 .header {
+  composes:backgroundColor from "../../../../../styles/common.css";
   display: flex;
   list-style: none;
   height: 38px;
-  background-color: #f7f7f7;
   border-bottom: 1px solid #e5e5e5;
 }
 

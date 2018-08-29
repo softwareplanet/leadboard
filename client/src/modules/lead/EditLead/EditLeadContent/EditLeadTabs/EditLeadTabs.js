@@ -27,10 +27,33 @@ class EditLeadTabs extends Component {
 
   tabHandler = content => {
     this.setState({
-      activeTab: content.component, showFakeInput: false,
-      fakeInputContent: content.fakeText
+      activeTab: content, showFakeInput: false,
     });
+    this.fakeHandler(content)
   };
+
+  fakeHandler = (activeTab) => {
+    const noteEditor = <EditLeadEditor onCancel={this.onCancel} onSave={this.onNoteSave} />;
+    const addActivity = <AddActivity onCancel={this.onCancel} onSave={this.onActivitySave} />;
+
+    console.log(activeTab.type === noteEditor.type);
+    console.log(activeTab.type === addActivity.type);
+    switch (activeTab.type) {
+      case (noteEditor.type): {
+        this.setState({ fakeInputContent: "take notes" })
+        break;
+      }
+      case (addActivity.type): {
+        this.setState({ fakeInputContent: "add activity" })
+        break;
+      }
+      default: {
+        this.setState({ fakeInputContent: "take notes" })
+        break;
+      }
+
+    }
+  }
 
   onNoteSave = noteText => {
     let note = {
@@ -67,15 +90,15 @@ class EditLeadTabs extends Component {
       <div className={styles.tabs}>
         <ul className={styles.header}>
           <li className={styles.headerItem} onClick={() =>
-            this.tabHandler({ component: noteEditor, fakeText: "take notes" })}>
+            this.tabHandler(noteEditor)}>
             <img
-              src={(takeNotesCondition || isBlank(this.state.activeTab)) ? takeNotesIconActive : takeNotesIcon}
+              src={(takeNotesCondition) ? takeNotesIconActive : takeNotesIcon}
               className={styles.headerItemIcon}
               alt="take note icon"
             />
             Take notes
           </li>
-          <li className={styles.headerItem} onClick={() => this.tabHandler({ component: addActivity, fakeText: "add activity" })}>
+          <li className={styles.headerItem} onClick={() => this.tabHandler(addActivity)}>
             <img
               src={addActivityCondition ? addActivityIconActive : addActivityIcon}
               className={styles.headerItemIcon}
@@ -86,9 +109,8 @@ class EditLeadTabs extends Component {
         </ul>
         {this.state.showFakeInput ? (
           <div className={styles.fakeInput} onClick={() =>
-            this.tabHandler(takeNotesCondition ?
-              { component: noteEditor, fakeText: "take notes" }
-              : this.state.activeTab)}>Click here to {this.state.fakeInputContent}...</div>
+            this.tabHandler(takeNotesCondition ? noteEditor : this.state.activeTab)}>Click here to
+            {this.state.fakeInputContent}...</div>
         ) : (
             <div>{this.state.activeTab}</div>
           )}
