@@ -1,7 +1,7 @@
 import { Router } from "express";
 import mongoose from "mongoose";
 
-import validateLeadInput from "../../validation/lead";
+import { validateLeadInput, validateLeadUpdate } from "../../validation/lead";
 import isEmpty from "lodash.isempty";
 import { isEqual } from "lodash";
 import { isValidModelId } from "../../validation/validationUtils";
