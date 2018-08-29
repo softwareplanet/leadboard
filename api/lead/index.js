@@ -172,4 +172,17 @@ router.patch("/:leadId/note/:noteId", (req, res) => {
     });
 });
 
+// @route   DELETE api/lead/:id/note/:id
+// @desc    Delete note's lead
+// @access  Private
+router.delete("/:leadId/note/:noteId", (req, res) => {
+  Lead.findByIdAndUpdate(req.params.leadId, { $pull: { notes: { _id: req.params.noteId } } }, { new: true })
+    .then(lead => {
+      return res.json(lead);
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
+});
+
 export default router;
