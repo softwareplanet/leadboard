@@ -21,12 +21,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #747678;
   padding: 9px 14px;
-  user-select: none;
 }
 
 .headerItem:hover{
 color: #26292c;
+}
+
+.active{
+  color: #26292c;
 }
 
 .headerItemIcon {

@@ -10,13 +10,15 @@ import { createNote } from "../../../leadActions";
 import { createActivity } from "../../Activities/activityActions"
 import EditLeadEditor from "./EditLeadEditor/EditLeadEditor";
 import AddActivity from "./AddActivity/AddActivity";
-import isBlank from '../../../../../utils/isBlank'
+import isBlank from "../../../../../utils/isBlank";
+import classNames from "classnames/bind";
 
+let cx = classNames.bind(styles);
 class EditLeadTabs extends Component {
   state = {
     activeTab: null,
     showFakeInput: true,
-    fakeInputContent: "take notes",
+    fakeInputContent: " take notes",
   };
 
   componentDidMount() {
@@ -59,6 +61,7 @@ class EditLeadTabs extends Component {
       user: this.props.userId,
     }
     this.props.createNote(this.props.editLead._id, note)
+    this.setState({ showFakeInput: true })
   }
 
   onActivitySave = activity => {
@@ -87,16 +90,15 @@ class EditLeadTabs extends Component {
     return (
       <div className={styles.tabs}>
         <ul className={styles.header}>
-          <li className={styles.headerItem} onClick={() =>
-            this.tabHandler(noteEditor)}>
+          <li className={cx({ headerItem: true, active: takeNotesCondition })} onClick={() => this.tabHandler(noteEditor)}>
             <img
-              src={(takeNotesCondition) ? takeNotesIconActive : takeNotesIcon}
+              src={takeNotesCondition ? takeNotesIconActive : takeNotesIcon}
               className={styles.headerItemIcon}
               alt="take note icon"
             />
             Take notes
           </li>
-          <li className={styles.headerItem} onClick={() => this.tabHandler(addActivity)}>
+          <li className={cx({ headerItem: true, active: addActivityCondition })} onClick={() => this.tabHandler(addActivity)}>
             <img
               src={addActivityCondition ? addActivityIconActive : addActivityIcon}
               className={styles.headerItemIcon}
