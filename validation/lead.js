@@ -1,6 +1,7 @@
 import Validator from "validator";
 import isEmpty from "lodash.isempty";
 import { isNumber } from "./validationUtils";
+import { isEqual } from "lodash";
 
 export const validateLeadInput = (data) => {
   let errors = {};
@@ -28,7 +29,7 @@ export const validateLeadInput = (data) => {
   };
 };
 
-export const validateLeadUpdate = (data) => {
+export const validateLeadUpdate = (data, previousLead, currentUser) => {
   let errors = {};
 
   if (data.owner && isEmpty(data.owner)) errors.owner = "Owner ID cannot be empty";
@@ -47,6 +48,16 @@ export const validateLeadUpdate = (data) => {
         errors.name = "Lead name cannot be more 30 characters";
       }
     }
+  }
+
+  if (!isEqual(previousLead.owner.domain, currentUser.domain)) {
+    errors.domain = "You are trying to patch lead from other domain";
+  }
+  if (!previousLead.organization && "contact" in data && isEmpty(data.contact)) {
+    errors.contact = "Specify contact or organization";
+  }
+  if (!previousLead.contact && "organization" in data && isEmpty(data.organization)) {
+    errors.organization = "Specify contact or organization";
   }
 
   return {
