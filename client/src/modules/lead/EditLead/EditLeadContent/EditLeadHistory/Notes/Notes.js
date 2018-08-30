@@ -4,12 +4,16 @@ import styles from "./Notes.css";
 import PropTypes from "prop-types";
 import Note from "./Note/Note";
 import InfoItemWrapper from "../../../../../common/InfoWraper/InfoItemWrapper";
-import { updateNote } from "../../../../leadActions";
+import { updateNote, deleteNote } from "../../../../leadActions";
 
 class Notes extends Component {
 
   noteUpdateHandler = (note) => {
     this.props.updateNote(this.props.editLead._id, note)
+  }
+
+  noteDeleteHandler = (noteId) => {
+    this.props.deleteNote(this.props.editLead._id, noteId)
   }
 
   render() {
@@ -25,6 +29,7 @@ class Notes extends Component {
               component={
               <Note 
                 updateNote={this.noteUpdateHandler} 
+                deleteNote={this.noteDeleteHandler}
                 note={note}
               />}
             />
@@ -44,4 +49,4 @@ Notes.propTypes = {
   editLead: PropTypes.object
 };
 
-export default connect(mapStateToProps, { updateNote })(Notes);
+export default connect(mapStateToProps, { updateNote, deleteNote })(Notes);
