@@ -5,7 +5,7 @@ import jwt_decode from "jwt-decode";
 
 import store from "./store.js";
 import setAuthToken from "./utils/setAuthToken.js";
-import setInterceptors from "./utils/setInterceptors"
+import setInterceptors from "./utils/setAuthInterceptor"
 import { loginUserById, logoutUser,setLoginData } from "./modules/auth/authActions";
 import PrivateRoute from "./modules/common/PrivateRoute";
 import Home from "./modules/layouts/Home";

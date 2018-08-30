@@ -9,9 +9,6 @@ import Lead from "../../models/lead";
 import Contact from "../../models/contact";
 import Organization from "../../models/organization";
 
-const NOT_VALID_DOMAIN_MESSAGE = "This item is not visible to you or does not exist. " + 
-  "If you think you should be able to access this item, please contact an administrator.";
-
 const router = new Router();
 
 const validateLeadDomain = (req, res, next) => {
@@ -21,7 +18,7 @@ const validateLeadDomain = (req, res, next) => {
       if (lead.owner.domain.toString() === req.user.domain.toString()){
         next()
       } else {
-        return res.status(404).json({ errors: { message: NOT_VALID_DOMAIN_MESSAGE }})
+        return res.status(404).json({ errors: { message: "Not valid domain" }})
       }
     })
 }
