@@ -14,7 +14,7 @@ import ActivityButtons from "./buttons/ActivityButtons";
 import isBlank from "../../../../../../utils/isBlank"
 import CustomSelect from "./buttons/CustomSelect";
 import DatePicker from 'react-pikaday-datepicker';
-
+import PropTypes from "prop-types";
 
 const timeIntervalMinutes = 15;
 const activityTypes = [
@@ -155,7 +155,8 @@ export default class AddActivity extends Component {
                       showDaysInNextAndPreviousMonths={true}
                       enableSelectionDaysInNextAndPreviousMonths={true}
                       className={style.dateInput} />
-                    <button onClick={(e) => this.onDeleteClick(e, "date")} className={style.inputButton}>
+                    <button onClick={(e) => this.onDeleteClick(e, "date")}
+                            className={style.inputButton}>
                       <img className={style.inputImg} src={deleteIcon} alt="del" />
                     </button>
                   </div>
@@ -167,7 +168,8 @@ export default class AddActivity extends Component {
                                   value={isBlank(this.state.time) ? "" : this.state.time.format("hh:mm A")}
                                   options={this.getTimeOptions()}
                                   onSelect={time => this.onInputPick(time, "time")} />
-                    <button onClick={(e) => this.onDeleteClick(e, "time")} className={style.inputButton}>
+                    <button onClick={(e) => this.onDeleteClick(e, "time")}
+                            className={style.inputButton}>
                       <img className={style.inputImg} src={deleteIcon} alt="del" />
                     </button>
                   </div>
@@ -179,7 +181,8 @@ export default class AddActivity extends Component {
                                   value={isBlank(this.state.duration) ? "" : this.renderDurationValue()}
                                   options={this.getDurationOptions()}
                                   onSelect={duration => this.onInputPick(duration, "duration")} />
-                    <button onClick={(e) => this.onDeleteClick(e, "duration")} className={style.inputButton}>
+                    <button onClick={(e) => this.onDeleteClick(e, "duration")}
+                            className={style.inputButton}>
                       <img className={style.inputImg} src={deleteIcon} alt="del" />
                     </button>
                   </div>
@@ -188,10 +191,22 @@ export default class AddActivity extends Component {
 
             </div>
             <div className={style.footer}>
-              <button onClick={this.props.onCancel} className={style.cancelButton}><span>Cancel</span></button>
-              <button id="saveActivityButton" onClick={() => this.props.onSave(activity)} className={style.buttonSave}><span>Save</span></button>
+              <button onClick={this.props.onCancel}
+                      className={style.cancelButton}>
+                <span>Cancel</span>
+              </button>
+              <button id="saveActivityButton"
+                      onClick={() => this.props.onSave(activity)}
+                      className={style.buttonSave}>
+                <span>Save</span>
+              </button>
             </div>
           </div>
     );
   }
 }
+
+AddActivity.propTypes = {
+  onCancel: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired
+};
