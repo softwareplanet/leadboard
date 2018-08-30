@@ -204,3 +204,9 @@
 .buttonSave:hover {
   background-color: #4ec970;
 }
+
+@media only screen and (max-width: 925px) {
+  .buttonText {
+    display: none;
+  }
+}

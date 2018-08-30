@@ -9,10 +9,11 @@ import emailIcon from "../../../../../../assets/add-activity/email.svg";
 import lunchIcon from "../../../../../../assets/add-activity/lunch.svg";
 import deleteIcon from "../../../../../../assets/add-activity/delete.svg";
 import ActivityButtons from "./buttons/ActivityButtons";
-import isBlank from "../../../../../../utils/isBlank";
+import isBlank from "../../../../../../utils/isBlank"
+import CustomSelect from "./buttons/CustomSelect";
 import DatePicker from 'react-pikaday-datepicker';
 
-
+const timeIntervalMinutes = 15;
 const activityTypes = [
   {type: "Call", icon: phoneIcon},
   {type: "Meeting", icon: meetingIcon},
@@ -72,8 +73,7 @@ export default class AddActivity extends Component {
   getDuration = () => {
     let duration = {};
     if(this.state.duration) {
-      let duration = moment.duration(this.state.duration.diff(moment().startOf("day")));
-      return {duration: Math.floor(duration.asMinutes())};
+      return {duration: this.state.duration};
     }
     return duration;
   };
@@ -91,8 +91,26 @@ export default class AddActivity extends Component {
     return this.state.date? {selected: this.state.date} : {};
   };
 
-  getSelectedTime = () => {
-    return this.state.time? {selected: this.state.time} : {};
+  getDurationOptions = () => {
+    let time = moment().startOf("day").add(timeIntervalMinutes, "minutes");
+    let options = [];
+    let minutes = timeIntervalMinutes;
+    for (let i = 0; i < 32; i++) {
+      options.push({value: minutes, text: time.format("HH:mm").toString()});
+      minutes += timeIntervalMinutes;
+      time.add(timeIntervalMinutes, "minutes")
+    }
+    return options;
+  };
+
+  getTimeOptions = () => {
+    let time = moment().startOf("day");
+    let options = [];
+    for (let i = 0; i < 96; i++) {
+      options.push({value: moment(time), text: time.format("HH:mm A").toString()});
+      time.add(timeIntervalMinutes, "minutes")
+    }
+    return options;
   };
 
   render() {
@@ -105,6 +123,7 @@ export default class AddActivity extends Component {
                 activeButton={this.state.activeTab}
                 buttons={activityTypes}
                 groupClassName={style.typeButtons}
+                textClassName={style.buttonText}
                 buttonsClassName={style.typeButton}
                 activeClassName={style.typeButtonActive}
                 imgClassName={style.iconImg}
@@ -116,6 +135,7 @@ export default class AddActivity extends Component {
                 placeholder={this.state.activeTab}
                 value={this.state.subject}
                 type="text" />
+
               <div className={style.dateInputs}>
                 <label>
                   <span className={style.dateInputSpan}>DATE</span>
@@ -135,26 +155,32 @@ export default class AddActivity extends Component {
                 <label>
                   <span className={style.dateInputSpan}>TIME</span>
                   <div className={style.inputContainer}>
-                    
+                    <CustomSelect className={style.dateInput} value={isBlank(this.state.time) ? "" : this.state.time.format("HH:mm A")}
+                                  options={this.getTimeOptions()}
+                                  onSelect={time => this.onInputPick(time, "time")}/>
                     <button onClick={(e) => this.onDeleteClick(e, "time")} className={style.inputButton}>
                       <img className={style.inputImg} src={deleteIcon} alt="del" />
                     </button>
                   </div>
                 </label>
-                <label>
-                  <span className={style.dateInputSpan}>DURATION</span>
-                  <div className={style.inputContainer}>
-                    <button onClick={(e) => this.onDeleteClick(e, "duration")} className={style.inputButton}>
-                      <img className={style.inputImg} src={deleteIcon} alt="del" />
-                    </button>
-                  </div>
-                </label>
-              </div>
+              <label>
+                <span className={style.dateInputSpan}>DURATION</span>
+                <div className={style.inputContainer}>
+                  <CustomSelect className={style.dateInput}
+                                value={isBlank(this.state.duration) ? "" : `${moment().startOf("day").add(this.state.duration, "minutes").format("HH:mm")}`}
+                                options={this.getDurationOptions()}
+                                onSelect={duration => this.onInputPick(duration,"duration")}/>
+                  <button onClick={(e) => this.onDeleteClick(e, "duration")} className={style.inputButton}>
+                    <img className={style.inputImg} src={deleteIcon} alt="del" />
+                  </button>
+                </div>
+              </label>
+            </div>
 
             </div>
             <div className={style.footer}>
               <button onClick={this.props.onCancel} className={style.cancelButton}><span>Cancel</span></button>
-              <button onClick={() => this.props.onSave(activity)} className={style.buttonSave}><span>Save</span></button>
+              <button id="saveActivityButton" onClick={() => this.props.onSave(activity)} className={style.buttonSave}><span>Save</span></button>
             </div>
           </div>
     );

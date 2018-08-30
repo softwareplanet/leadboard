@@ -2,6 +2,8 @@ import React from "react"
 import ButtonWithImg from "./ButtonWithImg";
 import { ButtonGroup } from 'reactstrap';
 import style from "./ActivityButtons.css";
+import PropTypes from "prop-types";
+
 
 
 
@@ -12,6 +14,7 @@ const activityButtons = (props) => {
         key={button.type}
         className={button.type === props.activeButton?props.activeClassName:props.buttonsClassName}
         onClick={(e) => props.onButtonClick(e,button.type)}
+        textClassName={props.textClassName}
         imgClassName={props.imgClassName}
         src={button.icon}
         alt={`${button.type.toLowerCase()}`}>
@@ -27,6 +30,11 @@ const activityButtons = (props) => {
       </ButtonGroup>
     </div>
   )
+};
+
+activityButtons.propTypes = {
+  buttons: PropTypes.array.isRequired,
+  onButtonClick: PropTypes.func.isRequired
 };
 
 export default activityButtons;
