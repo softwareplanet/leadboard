@@ -5,9 +5,7 @@ export const dateFormater = (date, hasStartTime) => {
     let unformatedTimestamp = new Date(date);
     let unformatedDate = new Date(unformatedTimestamp.toLocaleDateString());
     let currentDate = new Date(new Date().toLocaleDateString());
-    let sevenDayAfter = new Date();
-    console.log(currentDate);
-    console.log(sevenDayAfter);
+
     let hours = unformatedTimestamp.getHours();
     let minutes = unformatedTimestamp.getMinutes();
     if (currentDate.getTime() === unformatedDate.getTime()) {
