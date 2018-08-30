@@ -1,0 +1,267 @@
+@charset "UTF-8";
+
+/*!
+ * Pikaday
+ * Copyright © 2014 David Bushell | BSD & MIT license | http://dbushell.com/
+ */
+
+.pika-single {
+    z-index: 9999;
+    display: block;
+    position: relative;
+    color: #333;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-bottom-color: #bbb;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/*
+clear child float (pika-lendar), using the famous micro clearfix hack
+http://nicolasgallagher.com/micro-clearfix-hack/
+*/
+.pika-single:before,
+.pika-single:after {
+    content: " ";
+    display: table;
+}
+.pika-single:after { clear: both }
+.pika-single { *zoom: 1 }
+
+.pika-single.is-hidden {
+    display: none;
+}
+
+.pika-single.is-bound {
+    position: absolute;
+    margin-top: 1px;
+    box-shadow: 0 5px 15px -5px rgba(0,0,0,.5);
+    border-radius: 4px;
+}
+
+.pika-lendar {
+    float: left;
+    width: 240px;
+    margin: 8px;
+}
+
+.pika-title {
+    position: relative;
+    text-align: center;
+    height: 49px;
+    text-transform: capitalize;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.pika-label {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    margin: 8px 2px;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: #fff;
+    color: #317ae2;
+    cursor: pointer;
+    z-index: 6501;
+}
+.pika-label:hover {
+    text-decoration: underline;
+}
+
+.pika-title select {
+    cursor: pointer;
+    position: absolute;
+    z-index: 6499;
+    margin: 0;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+}
+
+.pika-prev,
+.pika-next {
+    display: block;
+    cursor: pointer;
+    position: relative;
+    outline: none;
+    border: 1px solid #b9babb;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 75% 75%;
+    white-space: nowrap;
+    text-indent: 110%;
+    overflow: hidden;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px 0 rgba(38,41,44,0.08);
+}
+
+.pika-prev:hover,
+.pika-next:hover {
+    background-color: #f7f7f7;
+}
+
+.pika-prev,
+.is-rtl .pika-next {
+    float: left;
+    background-image: url("/static/media/prev-month.24fd2d8b.svg");
+}
+
+.pika-next,
+.is-rtl .pika-prev {
+    float: right;
+    background-image: url("/static/media/next-month.db5435bf.svg");
+}
+
+.pika-prev.is-disabled,
+.pika-next.is-disabled {
+    cursor: default;
+    opacity: .2;
+}
+
+.pika-select {
+    display: inline-block;
+    *display: inline;
+}
+
+.pika-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 0;
+}
+
+.pika-single .pika-table thead{
+  height:32px;
+  border-bottom: 1px solid #e5e5e5;
+}
+.pika-single .pika-table tbody:before {
+  height: 8px;
+  content: '';
+  display: block;
+}
+
+.pika-table th,
+.pika-table td {
+    width: 14.285714285714286%;
+    padding: 0;
+    border: none;
+}
+
+.pika-single .pika-table thead th {
+  color: rgba(38,41,44,0.64);
+  font-size: 10px;
+  font-weight: bold;
+  line-height: 1.4;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  border: none;
+  width: 32px;
+  height: 32px;
+}
+.pika-single .pika-table thead th abbr{
+  text-decoration: none;
+  cursor: auto;
+}
+
+.pika-button {
+  display: block;
+  width: 100%;
+  height: 32px;
+  border: 0;
+  margin: 0;
+  outline: none;
+  cursor: pointer;
+  color: #404346;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  vertical-align: middle;
+  background: transparent;
+  position: relative;
+}
+.pika-single .pika-table td .pika-button:hover {
+  color: #317ae2;
+}
+
+.pika-week {
+    font-size: 11px;
+    color: #999;
+}
+
+.is-today .pika-button {
+    font-weight: bold;
+    background-color: #f7f7f7;
+    border-radius: 3px;
+}
+
+.is-selected .pika-button,
+.has-event .pika-button {
+    color: #fff;
+    font-weight: bold;
+    background: #317ae2;
+    border-radius: 3px;
+    box-shadow: inset 0 1px 3px #178fe5;
+}
+
+.has-event .pika-button {
+    background: #005da9;
+    box-shadow: inset 0 1px 3px #0076c9;
+}
+
+.is-disabled .pika-button,
+.is-inrange .pika-button {
+    background: #D5E9F7;
+}
+
+.is-startrange .pika-button {
+    color: #fff;
+    background: #6CB31D;
+    box-shadow: none;
+    border-radius: 3px;
+}
+
+.is-endrange .pika-button {
+    color: #fff;
+    background: #33aaff;
+    box-shadow: none;
+    border-radius: 3px;
+}
+
+.is-disabled .pika-button {
+    pointer-events: none;
+    cursor: default;
+    color: #999;
+    opacity: .3;
+}
+
+.is-outside-current-month .pika-button {
+    opacity: .3;
+}
+
+.is-selection-disabled {
+    pointer-events: none;
+    cursor: default;
+}
+
+.pika-button:hover,
+.pika-row.pick-whole-week:hover .pika-button {
+    color: #fff;
+    background: rgba(49,122,226,0.16);
+    border-radius: 3px;
+    box-shadow: none;
+}
+
+/* styling for abbr */
+.pika-table abbr {
+    border-bottom: none;
+    cursor: help;
+}
+

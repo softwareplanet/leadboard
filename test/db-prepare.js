@@ -91,6 +91,18 @@ export async function createLead(app, token, user, stage, order, name = "Lead") 
     });
 }
 
+export async function createActivity(app, token, type, subject, date, duration, lead) {
+  return await request(app())
+    .post("/api/activity")
+    .set("Authorization", token)
+    .send({ type, subject, date, duration, lead})
+    .then(res => res.body)
+    .catch(error => {
+      console.log("Cannot create an activity" + error);
+      throw "Cannot create an activity";
+    });
+}
+
 export async function createOrganization(app, token, name = "Organization") {
   const { body } = await request(app())
     .post("/api/organization")
