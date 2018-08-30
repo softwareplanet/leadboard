@@ -3,6 +3,7 @@ import {
   UPDATE_CONTACT,
   UPDATE_LEAD,
   UPDATE_ORGANIZATION,
+  CLEAR_LEADS,
 } from "./types";
 
 const initialState = {};

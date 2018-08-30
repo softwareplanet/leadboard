@@ -18,13 +18,13 @@ import PropTypes from "prop-types";
 
 const timeIntervalMinutes = 15;
 const activityTypes = [
-  {type: "Call", icon: phoneIcon},
-  {type: "Meeting", icon: meetingIcon},
-  {type: "Task", icon: taskIcon},
-  {type: "Deadline", icon: deadlineIcon},
-  {type: "Email", icon: emailIcon},
-  {type: "Lunch", icon: lunchIcon},
-  ];
+  { type: "Call", icon: phoneIcon },
+  { type: "Meeting", icon: meetingIcon },
+  { type: "Task", icon: taskIcon },
+  { type: "Deadline", icon: deadlineIcon },
+  { type: "Email", icon: emailIcon },
+  { type: "Lunch", icon: lunchIcon },
+];
 
 export default class AddActivity extends Component {
   constructor(props) {
@@ -35,14 +35,14 @@ export default class AddActivity extends Component {
       subject: "",
       date: "",
       time: "",
-      duration:"",
+      duration: "",
     }
   }
 
-  onTypeButtonClick = (event,type) => {
+  onTypeButtonClick = (event, type) => {
     event.preventDefault();
     this.setState({
-        activeTab: type,
+      activeTab: type,
     })
   };
 
@@ -54,35 +54,35 @@ export default class AddActivity extends Component {
     this.setState({ [field]: value })
   };
 
-  onDeleteClick = (e,field) => {
+  onDeleteClick = (e, field) => {
     e.preventDefault();
     this.setState({ [field]: "" })
   };
 
   getActivityDateAndTime = () => {
     let date = this.state.date ? moment(this.state.date) : moment().startOf("day");
-    if(!this.state.time) {
-      return { date : Date.parse(date._d) };
+    if (!this.state.time) {
+      return { date: Date.parse(date._d) };
     }
 
     let time = moment.duration(this.state.time.diff(moment().startOf("day")));
     date = date.add(Math.floor(time.asMinutes()), "minutes");
     return {
-      hasStartTime: true, 
-      date : Date.parse(date._d)
+      hasStartTime: true,
+      date: Date.parse(date._d)
     };
   };
 
   getDuration = () => {
     let duration = {};
-    if(this.state.duration) {
+    if (this.state.duration) {
       return { duration: this.state.duration };
     }
     return duration;
   };
 
   renderDurationValue = () => {
-    return `${ moment().startOf("day").add(this.state.duration, "minutes").format("HH:mm") }`;
+    return `${moment().startOf("day").add(this.state.duration, "minutes").format("HH:mm")}`;
   };
 
   getActivity = () => {
@@ -95,7 +95,7 @@ export default class AddActivity extends Component {
   };
 
   getSelectedDate = () => {
-    return this.state.date? { value: this.state.date } : {};
+    return this.state.date ? { value: this.state.date } : {};
   };
 
   getDurationOptions = () => {
@@ -157,6 +157,7 @@ export default class AddActivity extends Component {
                   className={style.dateInput} />
                 <button onClick={(e) => this.onDeleteClick(e, "date")}
                         className={style.inputButton}>
+
                   <img className={style.inputImg} src={deleteIcon} alt="del" />
                 </button>
               </div>
@@ -188,7 +189,6 @@ export default class AddActivity extends Component {
               </div>
             </label>
           </div>
-
         </div>
         <div className={style.footer}>
           <button onClick={this.props.onCancel}
