@@ -149,7 +149,7 @@ router.patch("/:id", async (req, res) => {
 
   let organization = updates.organization;
   if (!isEmpty(organization)) {
-    if (isValidModelId(organization)) {
+    if (isValidModelId(organization._id ? organization._id : organization)) {
       const existingOrganization = await Organization.findById(organization);
       let { errors, hasErrors } = validateExisting(existingOrganization, "Organization", req.user.domain);
       if (hasErrors) return res.status(400).json({ errors });
@@ -161,7 +161,7 @@ router.patch("/:id", async (req, res) => {
 
   let contact = updates.contact;
   if (!isEmpty(contact)) {
-    if (isValidModelId(contact)) {
+    if (isValidModelId(contact._id ? contact._id : contact)) {
       const existingContact = await Contact.findById(contact);
       let { errors, hasErrors } = validateExisting(existingContact, "Contact", req.user.domain);
       if (hasErrors) return res.status(400).json({ errors });
