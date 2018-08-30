@@ -2,6 +2,10 @@ import React from "react";
 import ReactAutocomplete from "react-autocomplete";
 
 class OrganizationAutocomplete extends React.Component {
+  inputFocus = () => {
+    this.input.focus();
+  };
+
   render() {
     const styles = this.props.styles;
     return (
@@ -39,12 +43,12 @@ class OrganizationAutocomplete extends React.Component {
           onBlur: this.props.onBlur,
           onFocus: this.props.onFocus,
           className: "organization-input",
-          ref: this.props.inputRef,
           style: this.props.inputStyle,
         }}
         value={this.props.value}
         onChange={this.props.onChange}
         onSelect={this.props.onSelect}
+        ref={el => this.input = el}
       />
     );
   }

@@ -44,7 +44,7 @@ const initialState = {
 
 class EmptyCard extends Component {
   state = initialState;
-  input = React.createRef();
+  child = React.createRef();
 
   openModal = () => {
     this.setState({
@@ -115,7 +115,7 @@ class EmptyCard extends Component {
   };
 
   clearInput = () => {
-    this.input.focus();
+    this.child.current.inputFocus();
     this.setState({
       name: "",
       item: {
@@ -143,7 +143,7 @@ class EmptyCard extends Component {
       styles: this.props.styles,
       inputStyle: autocompleteStyles.linkLeadInput,
       itemsCount: 3,
-      inputRef: this.input,
+      ref: this.child,
     });
 
     const title = this.props.title.toLowerCase();
