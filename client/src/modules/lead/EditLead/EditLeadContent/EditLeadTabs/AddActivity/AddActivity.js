@@ -18,13 +18,13 @@ import DatePicker from 'react-pikaday-datepicker';
 
 const timeIntervalMinutes = 15;
 const activityTypes = [
-  {type: "Call", icon: phoneIcon},
-  {type: "Meeting", icon: meetingIcon},
-  {type: "Task", icon: taskIcon},
-  {type: "Deadline", icon: deadlineIcon},
-  {type: "Email", icon: emailIcon},
-  {type: "Lunch", icon: lunchIcon},
-  ];
+  { type: "Call", icon: phoneIcon },
+  { type: "Meeting", icon: meetingIcon },
+  { type: "Task", icon: taskIcon },
+  { type: "Deadline", icon: deadlineIcon },
+  { type: "Email", icon: emailIcon },
+  { type: "Lunch", icon: lunchIcon },
+];
 
 export default class AddActivity extends Component {
   constructor(props) {
@@ -35,14 +35,14 @@ export default class AddActivity extends Component {
       subject: "",
       date: "",
       time: "",
-      duration:"",
+      duration: "",
     }
   }
 
-  onTypeButtonClick = (event,type) => {
+  onTypeButtonClick = (event, type) => {
     event.preventDefault();
     this.setState({
-        activeTab: type,
+      activeTab: type,
     })
   };
 
@@ -54,35 +54,35 @@ export default class AddActivity extends Component {
     this.setState({ [field]: value })
   };
 
-  onDeleteClick = (e,field) => {
+  onDeleteClick = (e, field) => {
     e.preventDefault();
     this.setState({ [field]: "" })
   };
 
   getActivityDateAndTime = () => {
     let date = this.state.date ? moment(this.state.date) : moment().startOf("day");
-    if(!this.state.time) {
-      return { date : Date.parse(date._d) };
+    if (!this.state.time) {
+      return { date: Date.parse(date._d) };
     }
 
     let time = moment.duration(this.state.time.diff(moment().startOf("day")));
     date = date.add(Math.floor(time.asMinutes()), "minutes");
     return {
-      hasStartTime: true, 
-      date : Date.parse(date._d)
+      hasStartTime: true,
+      date: Date.parse(date._d)
     };
   };
 
   getDuration = () => {
     let duration = {};
-    if(this.state.duration) {
+    if (this.state.duration) {
       return { duration: this.state.duration };
     }
     return duration;
   };
 
   renderDurationValue = () => {
-    return `${ moment().startOf("day").add(this.state.duration, "minutes").format("HH:mm") }`;
+    return `${moment().startOf("day").add(this.state.duration, "minutes").format("HH:mm")}`;
   };
 
   getActivity = () => {
@@ -95,7 +95,7 @@ export default class AddActivity extends Component {
   };
 
   getSelectedDate = () => {
-    return this.state.date? { value: this.state.date } : {};
+    return this.state.date ? { value: this.state.date } : {};
   };
 
   getDurationOptions = () => {
@@ -122,76 +122,76 @@ export default class AddActivity extends Component {
 
   render() {
     let activity = this.getActivity();
-        return (
-          <div className={style.activityForm}>
-            <div className={style.activityContainer}>
-              <ActivityButtons
-                onButtonClick={this.onTypeButtonClick}
-                activeButton={this.state.activeTab}
-                buttons={activityTypes}
-                groupClassName={style.typeButtons}
-                textClassName={style.buttonText}
-                buttonsClassName={style.typeButton}
-                activeClassName={style.typeButtonActive}
-                imgClassName={style.iconImg}
-              />
-              <input
-                onChange={this.onSubjectChange}
-                autoFocus
-                className={style.typeInput}
-                placeholder={this.state.activeTab}
-                value={this.state.subject}
-                type="text" />
+    return (
+      <div className={style.activityForm}>
+        <div className={style.activityContainer}>
+          <ActivityButtons
+            onButtonClick={this.onTypeButtonClick}
+            activeButton={this.state.activeTab}
+            buttons={activityTypes}
+            groupClassName={style.typeButtons}
+            textClassName={style.buttonText}
+            buttonsClassName={style.typeButton}
+            activeClassName={style.typeButtonActive}
+            imgClassName={style.iconImg}
+          />
+          <input
+            onChange={this.onSubjectChange}
+            autoFocus
+            className={style.typeInput}
+            placeholder={this.state.activeTab}
+            value={this.state.subject}
+            type="text" />
 
-              <div className={style.dateInputs}>
-                <label>
-                  <span className={style.dateInputSpan}>DATE</span>
-                  <div className={style.inputContainer}>
-                    <DatePicker
-                      {...this.getSelectedDate()}
-                      onChange={(date) => this.onInputPick(date, "date")}
-                      format="MM/DD/YYYY"
-                      placeholder={`${moment().format("MM/DD/YYYY")}`}
-                      showDaysInNextAndPreviousMonths={true}
-                      enableSelectionDaysInNextAndPreviousMonths={true}
-                      className={style.dateInput} />
-                    <button onClick={(e) => this.onDeleteClick(e, "date")} className={style.inputButton}>
-                      <img className={style.inputImg} src={deleteIcon} alt="del" />
-                    </button>
-                  </div>
-                </label>
-                <label>
-                  <span className={style.dateInputSpan}>TIME</span>
-                  <div className={style.inputContainer}>
-                    <CustomSelect className={style.dateInput}
-                                  value={isBlank(this.state.time) ? "" : this.state.time.format("hh:mm A")}
-                                  options={this.getTimeOptions()}
-                                  onSelect={time => this.onInputPick(time, "time")} />
-                    <button onClick={(e) => this.onDeleteClick(e, "time")} className={style.inputButton}>
-                      <img className={style.inputImg} src={deleteIcon} alt="del" />
-                    </button>
-                  </div>
-                </label>
-                <label>
-                  <span className={style.dateInputSpan}>DURATION</span>
-                  <div className={style.inputContainer}>
-                    <CustomSelect className={style.dateInput}
-                                  value={isBlank(this.state.duration) ? "" : this.renderDurationValue()}
-                                  options={this.getDurationOptions()}
-                                  onSelect={duration => this.onInputPick(duration, "duration")} />
-                    <button onClick={(e) => this.onDeleteClick(e, "duration")} className={style.inputButton}>
-                      <img className={style.inputImg} src={deleteIcon} alt="del" />
-                    </button>
-                  </div>
-                </label>
-            </div>
-
-            </div>
-            <div className={style.footer}>
-              <button onClick={this.props.onCancel} className={style.cancelButton}><span>Cancel</span></button>
-              <button id="saveActivityButton" onClick={() => this.props.onSave(activity)} className={style.buttonSave}><span>Save</span></button>
-            </div>
+          <div className={style.dateInputs}>
+            <label>
+              <span className={style.dateInputSpan}>DATE</span>
+              <div className={style.inputContainer}>
+                <DatePicker
+                  {...this.getSelectedDate()}
+                  onChange={(date) => this.onInputPick(date, "date")}
+                  format="MM/DD/YYYY"
+                  placeholder={`${moment().format("MM/DD/YYYY")}`}
+                  showDaysInNextAndPreviousMonths={true}
+                  enableSelectionDaysInNextAndPreviousMonths={true}
+                  className={style.dateInput} />
+                <button onClick={(e) => this.onDeleteClick(e, "date")} className={style.inputButton}>
+                  <img className={style.inputImg} src={deleteIcon} alt="del" />
+                </button>
+              </div>
+            </label>
+            <label>
+              <span className={style.dateInputSpan}>TIME</span>
+              <div className={style.inputContainer}>
+                <CustomSelect className={style.dateInput}
+                  value={isBlank(this.state.time) ? "" : this.state.time.format("hh:mm A")}
+                  options={this.getTimeOptions()}
+                  onSelect={time => this.onInputPick(time, "time")} />
+                <button onClick={(e) => this.onDeleteClick(e, "time")} className={style.inputButton}>
+                  <img className={style.inputImg} src={deleteIcon} alt="del" />
+                </button>
+              </div>
+            </label>
+            <label>
+              <span className={style.dateInputSpan}>DURATION</span>
+              <div className={style.inputContainer}>
+                <CustomSelect className={style.dateInput}
+                  value={isBlank(this.state.duration) ? "" : this.renderDurationValue()}
+                  options={this.getDurationOptions()}
+                  onSelect={duration => this.onInputPick(duration, "duration")} />
+                <button onClick={(e) => this.onDeleteClick(e, "duration")} className={style.inputButton}>
+                  <img className={style.inputImg} src={deleteIcon} alt="del" />
+                </button>
+              </div>
+            </label>
           </div>
+
+        </div>
+        <div className={style.footer}>
+          <button onClick={this.props.onCancel} className={style.cancelButton}><span>Cancel</span></button>
+          <button id="saveActivityButton" onClick={() => this.props.onSave(activity)} className={style.buttonSave}><span>Save</span></button>
+        </div>
+      </div>
     );
   }
 }
