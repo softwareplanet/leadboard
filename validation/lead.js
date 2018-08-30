@@ -6,7 +6,6 @@ import { isEqual } from "lodash";
 export const validateLeadInput = (data) => {
   let errors = {};
 
-  if (isEmpty(data.owner)) errors.owner = "Owner ID cannot be empty";
   if (isEmpty(data.stage)) errors.stage = "Stage ID cannot be empty";
   if (!data.contact && !data.organization) errors.contact = "Specify contact or organization";
   if (isEmpty(data.contact) && isEmpty(data.organization)) errors.contact = "Specify contact or organization";
