@@ -32,7 +32,6 @@ class Navbar extends Component {
     return (
       <header>
         <ul className={styles.menu} role="navigation">
-
           <li className={styles.logo}><Link to={leadsRoute}>Leadboard</Link></li>
           <li className={styles.logoSmall}><Link to={leadsRoute}><h1>L</h1></Link></li>
           <NavLink

@@ -3,7 +3,6 @@ import {
   UPDATE_CONTACT,
   UPDATE_LEAD,
   UPDATE_ORGANIZATION,
-  NOT_FOUND
 } from "./types";
 
 const initialState = {};

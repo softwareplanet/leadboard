@@ -7,7 +7,7 @@ import {
   UPDATE_CONTACT,
   UPDATE_LEAD,
   UPDATE_ORGANIZATION,
-  NOT_FOUND
+  NOT_FOUND,
 } from "./types";
 import { GET_ERRORS } from "../../actionTypes";
 
