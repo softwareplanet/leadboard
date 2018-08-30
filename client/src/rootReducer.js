@@ -1,7 +1,8 @@
 import { combineReducers } from "redux";
 import authReducer from "./modules/auth/authReducer";
-import leadReducer from "./modules/lead/leadReducer";
+import leadReducersAggregator from "./modules/lead/leadReducersAggregator";
 import contactReducer from "./modules/lead/AddLead/autocomplete/contact/contactReducer";
+import activityReducer from "./modules/lead/EditLead/Activities/activityReducer";
 import organizationReducer from "./modules/lead/AddLead/autocomplete/organization/organizationReducer";
 import { GET_ERRORS } from "./actionTypes";
 
@@ -18,8 +19,9 @@ function errorReducer(state = initialState, action) {
 
 export default combineReducers({
   auth: authReducer,
-  leads: leadReducer,
+  leads: leadReducersAggregator,
   errors: errorReducer,
   contacts: contactReducer,
-  organizations: organizationReducer
+  organizations: organizationReducer,
+  activities: activityReducer,
 });

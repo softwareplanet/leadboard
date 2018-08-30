@@ -6,6 +6,7 @@ import Activities from "../../Activities/Activities";
 import { withStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import { compose } from "redux";
+import { isEmpty } from "lodash";
 
 const styles = {
   tabsIndicator: {
@@ -52,9 +53,8 @@ class EditLeadHistory extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  notesCount: state.leads.editLead ? state.leads.editLead.notes.length : "",
-  activitiesCount:  "",
-  //activitiesCount: state.leads.editLead ? state.leads.editLead.activities.length : "",
+  notesCount: !isEmpty(state.leads.editLead.lead) ? state.leads.editLead.lead.notes.length !== 0 ? state.leads.editLead.lead.notes.length : "" : "",
+  activitiesCount: "",
 });
 
 export default compose(

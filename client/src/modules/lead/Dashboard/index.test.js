@@ -2,7 +2,7 @@ import React from "react";
 import configureStore from "redux-mock-store";
 import { loadLeadboardAction, loadStagesAction, loadLeadsAction } from "../leadActions";
 import * as types from "../types";
-import reducer from "../leadReducer";
+import reducer from "../leadReducersAggregator";
 
 import { shallow } from "enzyme";
 
