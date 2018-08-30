@@ -16,6 +16,7 @@ import Registration from "./modules/auth/Registration/Registration";
 import "./App.css";
 import { Switch } from "react-router-dom";
 import EditLead from "./modules/lead/EditLead/EditLead";
+import NotFound from "./modules/common/NotFound/NotFound.js";
 
 setInterceptors();
 // restore redux/storage on page reload
@@ -61,9 +62,9 @@ class App extends Component {
                 path="/lead/:leadId"
                 component={EditLead}
               />
-            </Switch>
-            <Route exact path="/" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Login/>}/>
-            <Route exact path="/register" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Registration/>}/>
+            </Switch>     
+            <Route exact path="/" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Login /> }/>
+            <Route exact path="/register" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Registration /> } />  
             <Footer/>
           </div>
         </Router>

@@ -22,7 +22,7 @@ class Navbar extends Component {
   };
 
   getDealsIcon = () => {
-    return this.props.location.pathname === leadsRoute ?
+    return this.props.history.location.pathname === leadsRoute ?
     dealsIconActive :
     dealsIcon
   };
