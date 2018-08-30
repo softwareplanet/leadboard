@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styles from "./NotFound.css";
-import { Navbar } from '../../layouts/Navbar/Navbar';
+
 export default class NotFound extends Component {
   render() {
     return (

@@ -12,15 +12,19 @@ import Organization from "../../models/organization";
 const router = new Router();
 
 const validateLeadDomain = (req, res, next) => {
-  Lead.findById(req.params.leadId)
-    .populate("owner")
-    .then(lead => {
-      if (lead.owner.domain.toString() === req.user.domain.toString()){
-        next()
-      } else {
-        return res.status(404).json({ errors: { message: "Not valid domain" }})
-      }
-    })
+  if (isValidModelId(req.params.leadId)) {
+    Lead.findById(req.params.leadId)
+      .populate("owner")
+      .then(lead => {
+        if (lead.owner.domain.toString() === req.user.domain.toString()){
+          next()
+        } else {
+          return res.status(404).json({ errors: { message: "Lead with provided id is not found in your domain" }})
+        }
+      })
+  } else {
+    return res.status(404).json({ errors: { message: "Provided lead's id is not valid" }})
+  }
 }
 
 // @route   GET api/lead
@@ -109,7 +113,7 @@ router.post("/", async (req, res) => {
     });
 });
 
-// @route   GET api/lead/:id
+// @route   GET api/lead/:leadId
 // @desc    Load lead by id
 // @access  Private
 router.get("/:leadId", validateLeadDomain, (req, res) => {
@@ -127,7 +131,7 @@ router.get("/:leadId", validateLeadDomain, (req, res) => {
     });
 });
 
-// @route   PATCH api/lead/:id
+// @route   PATCH api/lead/:leadId
 // @desc    Update lead by id
 // @access  Private
 router.patch("/:leadId", validateLeadDomain, (req, res) => {
@@ -145,7 +149,7 @@ router.patch("/:leadId", validateLeadDomain, (req, res) => {
     });
 });
 
-// @route   POST api/lead/:id/notes
+// @route   POST api/lead/:leadId/notes
 // @desc    Create note for lead
 // @access  Private
 router.post("/:leadId/notes", validateLeadDomain, (req, res) => {
@@ -163,7 +167,7 @@ router.post("/:leadId/notes", validateLeadDomain, (req, res) => {
     });
 });
 
-// @route   PATCH api/lead/:id/note/:id
+// @route   PATCH api/lead/:leadId/note/:id
 // @desc    Update note's lead
 // @access  Private
 router.patch("/:leadId/note/:noteId", validateLeadDomain, (req, res) => {
@@ -179,7 +183,7 @@ router.patch("/:leadId/note/:noteId", validateLeadDomain, (req, res) => {
     });
 });
 
-// @route   DELETE api/lead/:id/note/:id
+// @route   DELETE api/lead/:leadId/note/:id
 // @desc    Delete note's lead
 // @access  Private
 router.delete("/:leadId/note/:noteId", (req, res) => {

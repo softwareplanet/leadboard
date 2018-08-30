@@ -5,7 +5,7 @@ import jwt_decode from "jwt-decode";
 
 import store from "./store.js";
 import setAuthToken from "./utils/setAuthToken.js";
-import setInterceptors from "./utils/setAuthInterceptor"
+import setAuthInterceptor from "./utils/setAuthInterceptor"
 import { loginUserById, logoutUser,setLoginData } from "./modules/auth/authActions";
 import PrivateRoute from "./modules/common/PrivateRoute";
 import Home from "./modules/layouts/Home";
@@ -16,9 +16,8 @@ import Registration from "./modules/auth/Registration/Registration";
 import "./App.css";
 import { Switch } from "react-router-dom";
 import EditLead from "./modules/lead/EditLead/EditLead";
-import NotFound from "./modules/common/NotFound/NotFound.js";
 
-setInterceptors();
+setAuthInterceptor();
 // restore redux/storage on page reload
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -63,8 +62,8 @@ class App extends Component {
                 component={EditLead}
               />
             </Switch>     
-            <Route exact path="/" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Login /> }/>
-            <Route exact path="/register" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Registration /> } />  
+            <Route exact path="/" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Login />} />
+            <Route exact path="/register" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Registration />} />  
             <Footer/>
           </div>
         </Router>
