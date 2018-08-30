@@ -5,13 +5,14 @@ import styles from "./EditLeadHeader.css";
 import EditLeadStageProgress from "./EditLeadStageProgress/EditLeadStageProgress";
 import EditLeadPopover from "./EditLeadPopover/EditLeadPopover";
 import ownerIcon from "../../../../assets/user-icon.svg";
+import { isEmpty }from "lodash";
 
 class EditLeadHeader extends Component {
   state = {
     popoverOpen: false
   };
 
-  componentDidMount() {
+  componentWillMount() {
     let leadId = this.props.match.params.leadId;
     this.props.loadLead(leadId);
   }
@@ -23,7 +24,7 @@ class EditLeadHeader extends Component {
   };
 
   render() {
-    let editLead = this.props.editLead ? this.props.editLead : null;
+    let editLead = !isEmpty( this.props.editLead ) ? this.props.editLead : null;
     return (
       <div className={styles.header}>
         <div className={styles.description}>
@@ -67,7 +68,7 @@ class EditLeadHeader extends Component {
 }
 
 const mapStateToProps = state => ({
-  editLead: state.leads.editLead
+  editLead: state.leads.editLead.lead
 });
 
 export { EditLeadHeader };

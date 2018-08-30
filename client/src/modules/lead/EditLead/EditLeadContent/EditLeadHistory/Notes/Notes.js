@@ -5,18 +5,19 @@ import PropTypes from "prop-types";
 import Note from "./Note/Note";
 import InfoItemWrapper from "../../../../../common/InfoWraper/InfoItemWrapper";
 import { updateNote } from "../../../../leadActions";
+import { isEmpty } from "lodash";
 
 class Notes extends Component {
 
   noteUpdateHandler = (note) => {
     this.props.updateNote(this.props.editLead._id, note)
-  }
+  };
 
   render() {
     return (
       <div className={styles.container}>
-        <div className={styles.timeLineBar}/>
-        {this.props.editLead ? this.props.editLead.notes.sort(function(a, b) {
+        <div className={styles.timeLineBar} />
+        {!isEmpty(this.props.editLead) ? this.props.editLead.notes.sort(function(a, b) {
           return new Date(b.date) - new Date(a.date);
         }).map((note) => {
           return (
@@ -41,7 +42,7 @@ const mapStateToProps = state => ({
 });
 
 Notes.propTypes = {
-  editLead: PropTypes.object
+  editLead: PropTypes.object,
 };
 
 export default connect(mapStateToProps, { updateNote })(Notes);
