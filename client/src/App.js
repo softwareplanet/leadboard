@@ -5,7 +5,7 @@ import jwt_decode from "jwt-decode";
 
 import store from "./store.js";
 import setAuthToken from "./utils/setAuthToken.js";
-import setAuthInterceptor from "./utils/setAuthInterceptor.js"
+import setInterceptors from "./utils/setInterceptors"
 import { loginUserById, logoutUser,setLoginData } from "./modules/auth/authActions";
 import PrivateRoute from "./modules/common/PrivateRoute";
 import Home from "./modules/layouts/Home";
@@ -17,7 +17,7 @@ import "./App.css";
 import { Switch } from "react-router-dom";
 import EditLead from "./modules/lead/EditLead/EditLead";
 
-setAuthInterceptor();
+setInterceptors();
 // restore redux/storage on page reload
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
