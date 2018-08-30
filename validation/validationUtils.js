@@ -1,7 +1,7 @@
 import Validator from "validator";
 
 export function isNumber(data) {
-  return typeof data === "number" || Validator.isNumeric(data);
+  return data && (typeof data === "number" || Validator.isNumeric(data));
 }
 
 export function isValidModelId(data) {
