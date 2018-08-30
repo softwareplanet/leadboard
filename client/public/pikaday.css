@@ -34,7 +34,9 @@ http://nicolasgallagher.com/micro-clearfix-hack/
 
 .pika-single.is-bound {
     position: absolute;
+    margin-top: 1px;
     box-shadow: 0 5px 15px -5px rgba(0,0,0,.5);
+    border-radius: 4px;
 }
 
 .pika-lendar {
