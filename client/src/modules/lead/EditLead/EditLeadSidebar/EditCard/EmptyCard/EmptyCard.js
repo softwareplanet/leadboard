@@ -24,27 +24,27 @@ const customStyles = {
   },
 };
 
+const initialState = {
+  isModalOpen: false,
+  isLinkDisabled: true,
+  items: [],
+  item: {
+    id: null,
+    name: "",
+  },
+  itemAfterSelect: {
+    id: null,
+    name: "",
+  },
+  name: "",
+  openDropdown: false,
+  showAdditionalMessage: false,
+  showBadge: false,
+};
+
 class EmptyCard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isModalOpen: false,
-      isLinkDisabled: true,
-      items: [],
-      item: {
-        id: null,
-        name: ""
-      },
-      itemAfterSelect : {
-        id: null,
-        name: "",
-      },
-      name: "",
-      openDropdown: false,
-      showAdditionalMessage: false,
-      showBadge: false,
-    };
-  }
+  state = initialState;
+  input = React.createRef();
 
   openModal = () => {
     this.setState({
@@ -54,22 +54,7 @@ class EmptyCard extends Component {
   };
 
   closeModal = () => {
-    this.setState({
-      isModalOpen: false,
-      isLinkDisabled: true,
-      item: {
-        id: null,
-        name: ""
-      },
-      itemAfterSelect : {
-        id: null,
-        name: "",
-      },
-      name: "",
-      openDropdown: false,
-      showAdditionalMessage: false,
-      showBadge: false,
-    });
+    this.setState(initialState);
   };
 
   onLinkClick = (e) => {
@@ -78,20 +63,20 @@ class EmptyCard extends Component {
   };
 
   onFocus = () => {
-    document.getElementById(`${this.props.title.toLowerCase()}-input-wrapper`).setAttribute("style", "border: 1px solid #317ae2");
+    this.inputWrapper.setAttribute("style", "border: 1px solid #317ae2");
   };
 
   onChange = (event) => {
-    let inputValue = event.target.value;
+    let value = event.target.value;
     this.setState({
       item: {
-        id: this.state.itemAfterSelect.name === event.target.value ? this.state.itemAfterSelect.id : null,
-        name: event.target.value
+        id: this.state.itemAfterSelect.name === value ? this.state.itemAfterSelect.id : null,
+        name: value
       },
       openDropdown: true,
-      showAdditionalMessage: isBlank(inputValue) ? false : this.state.showAdditionalMessage,
-      isLinkDisabled: isBlank(inputValue) ? true : this.state.isLinkDisabled,
-      showBadge: isBlank(inputValue) ? false : this.state.showBadge,
+      showAdditionalMessage: isBlank(value) ? false : this.state.showAdditionalMessage,
+      isLinkDisabled: isBlank(value) ? true : this.state.isLinkDisabled,
+      showBadge: isBlank(value) ? false : this.state.showBadge,
     })
   };
 
@@ -119,7 +104,7 @@ class EmptyCard extends Component {
   };
 
   onBlur = () => {
-    document.getElementById(`${this.props.title.toLowerCase()}-input-wrapper`).removeAttribute("style");
+    this.inputWrapper.removeAttribute("style");
     this.setState({
       openDropdown: false,
       name: this.state.item.name,
@@ -130,7 +115,7 @@ class EmptyCard extends Component {
   };
 
   clearInput = () => {
-    document.getElementById(`${this.props.title.toLowerCase()}-input-wrapper`).getElementsByTagName("input")[0].focus();
+    this.input.focus();
     this.setState({
       name: "",
       item: {
@@ -158,6 +143,7 @@ class EmptyCard extends Component {
       styles: this.props.styles,
       inputStyle: autocompleteStyles.linkLeadInput,
       itemsCount: 3,
+      inputRef: this.input,
     });
 
     const title = this.props.title.toLowerCase();
@@ -204,7 +190,7 @@ class EmptyCard extends Component {
             <form className={styles.modalForm}>
               <label style={{width: "100%"}}>
                 <span className={styles.formSpan}>{this.props.title} name</span>
-                <div id={`${title}-input-wrapper`} className={styles.inputContainer}>
+                <div ref={(inputWrapper) => {this.inputWrapper = inputWrapper}} className={styles.inputContainer}>
                   <i className={this.props.iTagClass} />
                   { childrenWithExtraProps }
                   {

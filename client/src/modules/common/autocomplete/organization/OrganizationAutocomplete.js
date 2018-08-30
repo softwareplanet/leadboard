@@ -39,6 +39,7 @@ class OrganizationAutocomplete extends React.Component {
           onBlur: this.props.onBlur,
           onFocus: this.props.onFocus,
           className: "organization-input",
+          ref: this.props.inputRef,
           style: this.props.inputStyle,
         }}
         value={this.props.value}

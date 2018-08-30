@@ -41,13 +41,13 @@ describe("<EmptyCard />", () => {
   it("shows proper amount of inputs", () => {
     let openModalLink = wrapper.find("a");
     openModalLink.simulate("click", fakeEvent);
-    expect(wrapper.find(`.${styles.inputContainer}`).length).to.equal(1);
+    expect(wrapper.find(`.${styles.inputContainer}`)).to.have.lengthOf(1);
   });
 
   it("after modal is opened, should return one disabled `Link an organization` button", () => {
     let openModalLink = wrapper.find("a");
     openModalLink.simulate("click", fakeEvent);
-    expect(wrapper.find(`.${styles.disabledButton}`).length).to.equal(1);
+    expect(wrapper.find(`.${styles.disabledButton}`)).to.have.lengthOf(1);
   });
 
   it("after input is changed, should return one enabled `Link an organization` button", () => {
@@ -57,7 +57,7 @@ describe("<EmptyCard />", () => {
     let input = wrapper.find(".organization-input");
     input.simulate("change", { target: { value: "Orion Company" } });
     input.simulate("blur", {});
-    expect(wrapper.find(`.${styles.enableButton}`).length).to.equal(1);
+    expect(wrapper.find(`.${styles.enableButton}`)).to.have.lengthOf(1);
   });
 
   it("after input is changed, should return an additional message", () => {
