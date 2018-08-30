@@ -44,7 +44,8 @@ class Activities extends Component {
                             arrowStyles={styles.arrow}
                             activity={activity}/>
                     );
-                }) : null}*/}
+                }) : null}*/
+                console.log(this.props.activities)}
                 <InfoItemWrapper
                     component={<Activity />}
                     icon={callIcon}
@@ -63,12 +64,12 @@ class Activities extends Component {
 }
 
 const mapStateToProps = state => ({
-    editLeadActivities: state.Activities,
+    activities: state.leads.editLead.activities,
 });
 
 Activities.PropTypes = {
     loadLeadActivities: PropTypes.func.isRequired,
-    editLeadActivities: PropTypes.object
+    activities: PropTypes.object
 };
 
 export default connect(mapStateToProps)(Activities);
