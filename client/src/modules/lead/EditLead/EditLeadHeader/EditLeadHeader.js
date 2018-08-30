@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { loadLead, updateLead } from "../../leadActions";
+import { updateLead } from "../../leadActions";
 import styles from "./EditLeadHeader.css";
 import EditLeadStageProgress from "./EditLeadStageProgress/EditLeadStageProgress";
 import EditLeadPopover from "./EditLeadPopover/EditLeadPopover";
@@ -10,11 +10,6 @@ class EditLeadHeader extends Component {
   state = {
     popoverOpen: false
   };
-
-  componentDidMount() {
-    let leadId = this.props.match.params.leadId;
-    this.props.loadLead(leadId);
-  }
 
   toggle = () => {
     this.setState(prevState => {
@@ -74,5 +69,5 @@ export { EditLeadHeader };
 
 export default connect(
   mapStateToProps,
-  { loadLead, updateLead }
+  { updateLead }
 )(EditLeadHeader);
