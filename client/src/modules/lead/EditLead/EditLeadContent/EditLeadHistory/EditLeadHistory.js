@@ -49,9 +49,12 @@ class EditLeadHistory extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  notesCount: !isEmpty(state.leads.editLead.lead.notes) ? state.leads.editLead.lead.notes.length  : "",
-});
+const mapStateToProps = state => {
+  const notes = state.leads.editLead.lead.notes;
+  return {
+    notesCount: !isEmpty(notes) ? notes.length : "",
+  };
+};
 
 export default compose(
   connect(mapStateToProps),
