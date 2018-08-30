@@ -15,7 +15,7 @@ export const validateLeadInput = (data) => {
     errors.order = "Order must be a number";
   }
 
-  if (isEmpty(data.name)) {
+  if (!data.name || isBlank(...data.name)) {
     errors.name = "Name cannot be empty";
   } else {
     if (!Validator.isLength(data.name, { max: 30 })) {
@@ -32,9 +32,9 @@ export const validateLeadInput = (data) => {
 export const validateLeadUpdate = (data, previousLead, currentUser) => {
   let errors = {};
 
-  if (data.owner && isEmpty(data.owner)) errors.owner = "Owner ID cannot be empty";
-  if (data.stage && isEmpty(data.stage)) errors.stage = "Stage ID cannot be empty";
-  if ("contact" in data && isEmpty(data.contact) && "organization" in data && isEmpty(data.organization)) {
+  if (data.owner && isBlank(data.owner)) errors.owner = "Owner ID cannot be empty";
+  if (data.stage && isBlank(data.stage)) errors.stage = "Stage ID cannot be empty";
+  if ("contact" in data && isBlank(data.contact) && "organization" in data && isBlank(data.organization)) {
     errors.contact = "Specify contact or organization";
   }
   if (data.order && !isNumber(data.order)) {
@@ -53,10 +53,10 @@ export const validateLeadUpdate = (data, previousLead, currentUser) => {
   if (!isEqual(previousLead.owner.domain, currentUser.domain)) {
     errors.domain = "You are trying to patch lead from other domain";
   }
-  if (!previousLead.organization && "contact" in data && isEmpty(data.contact)) {
+  if (!previousLead.organization && "contact" in data && isBlank(data.contact)) {
     errors.contact = "Specify contact or organization";
   }
-  if (!previousLead.contact && "organization" in data && isEmpty(data.organization)) {
+  if (!previousLead.contact && "organization" in data && isBlank(data.organization)) {
     errors.organization = "Specify contact or organization";
   }
 

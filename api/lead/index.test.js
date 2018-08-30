@@ -51,6 +51,7 @@ describe("Lead", () => {
       .set("Authorization", cred.token)
       .send({
         contact: " ",
+        name: " ",
       });
 
     expect(status).toBe(400);
