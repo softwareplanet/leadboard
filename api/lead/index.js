@@ -128,20 +128,11 @@ router.get("/:id", (req, res) => {
 // @desc    Update lead by id
 // @access  Private
 router.patch("/:id", async (req, res) => {
-  const { hasErrors, errors } = validateLeadUpdate(req.body);
+  const previousLead = await Lead.findById(req.params.id).populate("owner", { password: 0 });
+  const { hasErrors, errors } = validateLeadUpdate(req.body, previousLead, req.user);
   if (hasErrors) return res.status(400).json({ errors });
 
   let updates = req.body;
-  const previousLead = await Lead.findById(req.params.id).populate("owner", { password: 0 });
-  if (!isEqual(previousLead.owner.domain, req.user.domain)) {
-    return res.status(400).json({ errors: { domain: "You are trying to patch lead from other domain" } });
-  }
-  if (!previousLead.organization && "contact" in updates && isEmpty(updates.contact)) {
-    return res.status(400).json({ errors: { contact: "Specify contact or organization" } });
-  }
-  if (!previousLead.contact && "organization" in updates && isEmpty(updates.organization)) {
-    return res.status(400).json({ errors: { organization: "Specify contact or organization" } });
-  }
 
   let organization = updates.organization;
   if (!isEmpty(organization)) {
@@ -180,6 +171,7 @@ router.patch("/:id", async (req, res) => {
       res.status(400).json({ errors: { message: error } });
     });
 });
+
 
 // @route   POST api/lead/:id/notes
 // @desc    Create note for lead
