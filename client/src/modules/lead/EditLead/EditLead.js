@@ -41,8 +41,8 @@ class EditLead extends Component {
 }
 
 const mapStateToProps = state => ({
-  editLead: state.leads.editLead,
-  notFound: state.leads.notFound
+  editLead: state.leads.editLead.lead,
+  notFound: state.leads.editLead.notFound
 })
 
 export default connect(mapStateToProps, { loadLead })(EditLead)

@@ -83,18 +83,16 @@ export const loadLead = leadId => dispatch => {
     .get(`/api/lead/${leadId}`)
     .then(res => {
       let lead = res.data;
-        dispatch({
-          type: LOAD_LEAD,
-          payload: lead,
-        });
+      dispatch({
+        type: LOAD_LEAD,
+        payload: lead,
+      });
+      dispatch(notFoundAction(false));
       dispatch(loadStages(lead.stage.funnel));
     })
     .catch(error => {
       if (error.response.status === 404) {
-        dispatch({
-          type: NOT_FOUND,
-          payload: true
-        });
+        dispatch(notFoundAction(true));
       } else {
         dispatch({
           type: GET_ERRORS,
@@ -196,6 +194,28 @@ export const updateNote = (leadId, note) => dispatch => {
       });
     });
 };
+
+// Delete lead's note
+export const deleteNote = (leadId, noteId) => dispatch => {
+  axios
+    .delete(`/api/lead/${leadId}/note/${noteId}`)
+    .then(() => {
+      dispatch(loadLead(leadId));
+    })
+    .catch(error => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error,
+      });
+    });
+};
+
+export const notFoundAction = (status) => {
+  return {
+    type: NOT_FOUND,
+    payload: status,
+  };
+}
 
 export function loadLeadboardAction(data) {
   return {
