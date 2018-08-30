@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import authReducer from "./modules/auth/authReducer";
-import leadReducersAggregator from "./modules/lead/leadReducersAggregator";
+import leadReducersAggregator from "./modules/lead/leadRootReducer";
 import contactReducer from "./modules/lead/AddLead/autocomplete/contact/contactReducer";
 import organizationReducer from "./modules/lead/AddLead/autocomplete/organization/organizationReducer";
 import { GET_ERRORS } from "./actionTypes";
