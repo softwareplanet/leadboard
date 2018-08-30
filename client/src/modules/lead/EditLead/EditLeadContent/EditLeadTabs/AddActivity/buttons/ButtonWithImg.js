@@ -6,6 +6,7 @@ const buttonWithImg = (props) => {
     ...props
   };
 
+  delete propsCopy.textClassName;
   delete propsCopy.imgClassName;
   delete propsCopy.src;
   delete propsCopy.alt;
@@ -14,7 +15,7 @@ const buttonWithImg = (props) => {
   return(
     <button {...propsCopy}>
       <img className={props.imgClassName} src={props.src} alt={props.alt} />
-      {props.children}
+      <span className={props.textClassName}>{props.children}</span>
     </button>
   )
 
