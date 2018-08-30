@@ -1,12 +1,11 @@
 import React from "react";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
 import Notes from "./Notes/Notes";
 import { withStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import { compose } from "redux";
-
+import { isEmpty } from "lodash";
 
 const styles = {
   tabsIndicator: {
@@ -50,9 +49,12 @@ class EditLeadHistory extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  notesCount: state.leads.editLead ? state.leads.editLead.notes.length : "",
-});
+const mapStateToProps = state => {
+  const notes = state.leads.editLead.lead.notes;
+  return {
+    notesCount: !isEmpty(notes) ? notes.length : "",
+  };
+};
 
 export default compose(
   connect(mapStateToProps),

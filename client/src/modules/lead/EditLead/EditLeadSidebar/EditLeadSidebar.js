@@ -87,7 +87,7 @@ EditLeadSidebar.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  editLead: state.leads.editLead,
+  editLead: state.leads.editLead.lead,
   contacts: state.contacts,
   organizations: state.organizations,
 });

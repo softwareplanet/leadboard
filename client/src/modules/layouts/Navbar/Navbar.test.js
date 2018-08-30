@@ -9,6 +9,7 @@ configure({ adapter: new Adapter });
 describe("<Navbar /> :", () => {
   let wrapper;
   let logoutUser;
+  let clearLeads;
 
   let auth = {
     isAuthenticated: true,
@@ -24,7 +25,8 @@ describe("<Navbar /> :", () => {
 
   it("should call method logoutUser user when Logout clicked", () => {
     logoutUser = jest.fn();
-    wrapper = shallow(<Navbar location={location} auth={auth} logoutUser={logoutUser} />);
+    clearLeads = jest.fn();
+    wrapper = shallow(<Navbar clearLeads={clearLeads} location={location} auth={auth} logoutUser={logoutUser} />);
     wrapper.find("#logout").simulate("click");
     expect(logoutUser).toHaveBeenCalledTimes(1);
   });
