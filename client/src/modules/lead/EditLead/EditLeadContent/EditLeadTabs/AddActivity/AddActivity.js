@@ -8,10 +8,13 @@ import deadlineIcon from "../../../../../../assets/add-activity/deadline.svg";
 import emailIcon from "../../../../../../assets/add-activity/email.svg";
 import lunchIcon from "../../../../../../assets/add-activity/lunch.svg";
 import deleteIcon from "../../../../../../assets/add-activity/delete.svg";
+import nextMonthIcon from "../../../../../../assets/add-activity/next-month.svg";
+import prevMonthIcon from "../../../../../../assets/add-activity/prev-month.svg";
 import ActivityButtons from "./buttons/ActivityButtons";
 import isBlank from "../../../../../../utils/isBlank"
 import CustomSelect from "./buttons/CustomSelect";
 import DatePicker from 'react-pikaday-datepicker';
+
 
 const timeIntervalMinutes = 15;
 const activityTypes = [
