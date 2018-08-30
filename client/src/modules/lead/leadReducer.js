@@ -6,7 +6,6 @@ import {
   CLEAR_LEADS,
 } from "./types";
 
-
 const initialState = {};
 
 export default function(state = initialState, action) {
