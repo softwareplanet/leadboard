@@ -5,7 +5,6 @@ import {
   UPDATE_ORGANIZATION,
 } from "./types";
 
-
 const initialState = {};
 
 export default function(state = initialState, action) {

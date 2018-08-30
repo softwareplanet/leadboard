@@ -6,5 +6,4 @@ import activityReducer from "../../modules/lead/EditLead/Activities/activityRedu
 export default combineReducers({
   lead: leadReducer,
   activities: activityReducer,
-
 });
