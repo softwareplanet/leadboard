@@ -2,7 +2,7 @@ import React from "react";
 import configureStore from "redux-mock-store";
 import { loadLeadboardAction, loadStagesAction, loadLeadsAction } from "../leadActions";
 import * as types from "../types";
-import reducer from "../leadReducer";
+import reducer from "../leadRootReducer";
 
 import { shallow } from "enzyme";
 
@@ -125,6 +125,11 @@ describe("LEADBOARD REDUCERS", () => {
         }
       })
     ).toEqual({
+      funnels:[],
+      stages:[],
+      editLead:{
+        lead:{},
+      },
       leads: {
         _5b6b123391e0774579ed6701: {
           leads: {
@@ -136,6 +141,7 @@ describe("LEADBOARD REDUCERS", () => {
           }
         }
       }
+
     });
   });
 
@@ -150,6 +156,11 @@ describe("LEADBOARD REDUCERS", () => {
         ]
       })
     ).toEqual({
+      editLead:{
+        lead:{},
+      },
+      funnels:[],
+      leads:[],
       stages: [
         { _id: "5b6b123391e0774579ed6701", funnel: "5b6b0fbe91e0774579ed6700", name: "Lead In", order: 1 },
         { _id: "5b6be3866553a21188441cb1", funnel: "5b6b0fbe91e0774579ed6700", name: "Demo Scheduled", order: 2 },
@@ -172,6 +183,9 @@ describe("LEADBOARD REDUCERS", () => {
         ]
       })
     ).toEqual({
+      editLead:{
+        lead:{},
+      },
       funnels: [
         {
           _id: "5b6b0fbe91e0774579ed6700",
@@ -179,15 +193,20 @@ describe("LEADBOARD REDUCERS", () => {
           name: "renkonazbkafunnel",
           timestamp: "2018-08-08T15:43:58.469Z"
         }
-      ]
+      ],
+      stages:[],
+      leads:[],
     });
   });
 
   it("should return initial state", () => {
     expect(reducer(undefined, {})).toEqual({
+      editLead:{
+        lead:{},
+      },
       funnels: [],
       stages: [],
-      leads: {}
+      leads: [],
     });
   });
 

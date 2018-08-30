@@ -43,7 +43,7 @@ EditLeadSidebar.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  editLead: state.leads.editLead,
+  editLead: state.leads.editLead.lead,
 });
 
 export { EditLeadSidebar };
