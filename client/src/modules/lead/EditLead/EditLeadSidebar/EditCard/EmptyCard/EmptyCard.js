@@ -109,6 +109,14 @@ class EmptyCard extends Component {
     }, () => this.onBlur())
   };
 
+  onSave = () => {
+    let updatedLead = {};
+    updatedLead._id = this.props.lead._id;
+    const { item } = this.state;
+    updatedLead[this.props.id.split("-")[0]] = item.id ? item.id : item.name;
+    this.props.onUpdate(updatedLead);
+  };
+
   onBlur = () => {
     document.getElementById(`${this.props.title.toLowerCase()}-input-wrapper`).removeAttribute("style");
     this.setState({
@@ -226,7 +234,7 @@ class EmptyCard extends Component {
               <span>
                 <button
                   className={this.state.isLinkDisabled ? styles.disabledButton : styles.enableButton}
-                  onClick={() => console.log(this.state.item)}
+                  onClick={this.onSave}
                   disabled={this.state.isLinkDisabled}
                 >
                   <span className={styles.linkSpan}>Link {indefiniteArticle(title)} {title}</span>
