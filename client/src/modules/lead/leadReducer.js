@@ -6,12 +6,14 @@ import {
   UPDATE_CONTACT,
   UPDATE_LEAD,
   UPDATE_ORGANIZATION,
+  NOT_FOUND
 } from "./types";
 
 const initialState = {
   funnels: [],
   stages: [],
   leads: {},
+  notFound: false
 };
 export default function(state = initialState, action) {
   switch (action.type) {
@@ -37,6 +39,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         editLead: action.payload,
+        notFound: false
       };
     case UPDATE_LEAD:
       return {
@@ -57,6 +60,11 @@ export default function(state = initialState, action) {
         ...state,
         editLead: leadWithUpdatedContact,
       };
+    case NOT_FOUND:
+      return {
+        ...state,
+        notFound: action.payload
+      }
     default:
       return state;
   }

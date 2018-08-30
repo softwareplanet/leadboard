@@ -5,6 +5,7 @@ import EditLeadSidebar from "./EditLeadSidebar/EditLeadSidebar";
 import { loadLead } from "../leadActions";
 import EditLeadContent from "./EditLeadContent/EditLeadContent";
 import { connect } from "react-redux";
+import NotFound from "../../common/NotFound/NotFound";
 
 class EditLead extends Component {
 
@@ -17,10 +18,9 @@ class EditLead extends Component {
     const displayFlex = {
       display: "flex"
     };
-
-    return (
+    
+    let editLead = (
       <div>
-       <Navbar />
         <div style={displayFlex}>
           <EditLeadHeader match={this.props.match} />
         </div>
@@ -29,12 +29,20 @@ class EditLead extends Component {
           <EditLeadContent />
         </div>
       </div>
+    )
+
+    return (
+      <div>
+       <Navbar />
+        { this.props.notFound ? <NotFound /> : editLead }
+      </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  editLead: state.leads.editLead
+  editLead: state.leads.editLead,
+  notFound: state.leads.notFound
 })
 
 export default connect(mapStateToProps, { loadLead })(EditLead)

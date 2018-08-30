@@ -7,6 +7,7 @@ import {
   UPDATE_CONTACT,
   UPDATE_LEAD,
   UPDATE_ORGANIZATION,
+  NOT_FOUND
 } from "./types";
 import { GET_ERRORS } from "../../actionTypes";
 
@@ -82,17 +83,24 @@ export const loadLead = leadId => dispatch => {
     .get(`/api/lead/${leadId}`)
     .then(res => {
       let lead = res.data;
-      dispatch({
-        type: LOAD_LEAD,
-        payload: lead,
-      });
+        dispatch({
+          type: LOAD_LEAD,
+          payload: lead,
+        });
       dispatch(loadStages(lead.stage.funnel));
     })
     .catch(error => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: error.response.data.errors,
-      });
+      if (error.response.status === 404) {
+        dispatch({
+          type: NOT_FOUND,
+          payload: true
+        });
+      } else {
+        dispatch({
+          type: GET_ERRORS,
+          payload: error.response.data.errors,
+        });
+      }
     });
 };
 
