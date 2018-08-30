@@ -17,7 +17,7 @@ const activitySchema = new mongoose.Schema({
   organization: {type: mongoose.Schema.Types.ObjectId, ref: "Organoztion"},
   done: {type: Boolean, default: false},
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User"},
-  modifiedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User"},
+  lastEditor: { type: mongoose.Schema.Types.ObjectId, ref: "User"},
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });
