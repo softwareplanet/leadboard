@@ -4,7 +4,7 @@ import EditCard from "./EditCard/EditCard";
 import personIcon from "../../../../img/personIcon.svg";
 import organizationIcon from "../../../../img/organizationIcon.svg";
 import PropTypes from "prop-types";
-import { loadLead, updateContact, updateOrganization } from "../../leadActions";
+import { loadLead, updateContact, updateLead, updateOrganization } from "../../leadActions";
 import { loadOrganizations } from "../../../common/autocomplete/organization/organizationActions";
 import { loadContacts } from "../../../common/autocomplete/contact/contactActions";
 import { connect } from "react-redux";
@@ -44,6 +44,8 @@ class EditLeadSidebar extends Component {
           styles={autocompleteStyles.linkOrganization}
           iTagClass={classNames("fas fa-building", editCardStyles.inputIcon)}
           items={this.props.organizations}
+          lead={this.props.editLead}
+          onUpdate={this.props.updateLead}
         >
           <OrganizationAutocomplete />
         </EmptyCard>
@@ -55,6 +57,8 @@ class EditLeadSidebar extends Component {
           styles={autocompleteStyles.linkPerson}
           iTagClass={classNames("fas fa-user", editCardStyles.inputIcon)}
           items={this.props.contacts}
+          lead={this.props.editLead}
+          onUpdate={this.props.updateLead}
         >
           <ContactAutocomplete />
         </EmptyCard>
@@ -79,6 +83,7 @@ EditLeadSidebar.propTypes = {
   editLead: PropTypes.object,
   loadOrganizations: PropTypes.func,
   loadContacts: PropTypes.func,
+  updateLead: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -91,5 +96,5 @@ export { EditLeadSidebar };
 
 export default connect(
   mapStateToProps,
-  { loadLead, updateOrganization, updateContact, loadOrganizations, loadContacts },
+  { loadLead, updateOrganization, updateContact, loadOrganizations, loadContacts, updateLead },
 )(EditLeadSidebar);
