@@ -23,6 +23,13 @@ class Note extends Component {
     this.props.updateNote(note)
   }
 
+  onNoteDelete = () => {
+    this.togglePopover();
+    if (window.confirm("Are you sure?")){
+      this.props.deleteNote(this.props.note._id)
+    }
+  }
+
   toggleEditor = () => {
     this.setState({
       showEditor: !this.state.showEditor,
@@ -71,6 +78,7 @@ class Note extends Component {
               <PopoverBody className={styles.popover}>
                 <ul className={styles.list}>
                   <li className={styles.listElement} onClick={this.toggleEditor}>Edit</li>
+                  <li className={styles.listElement} onClick={this.onNoteDelete}>Delete</li>
                 </ul>
               </PopoverBody>
             </Popover>
