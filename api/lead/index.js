@@ -59,10 +59,6 @@ router.post("/", async (req, res) => {
       const existingContact = await Contact.findById(contact);
       let { errors, hasErrors } = validateExisting(existingContact, "Contact", req.user.domain);
       if (hasErrors) return res.status(400).json({ errors });
-      if (existingContact.organization && existingContact.organization !== organization) {
-        errors.contact = "Contact does not belong to given organization";
-        return res.status(400).json({ errors });
-      }
     } else {
       contact = await createContact(contact, organization, req.user.domain);
     }
