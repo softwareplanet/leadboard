@@ -13,24 +13,25 @@ export default class CustomSelect extends Component {
   onFocus = () => {
     this.setState(prevState => {
       if(!prevState.isOpened) {
-        return {isOpened : true}
+        return { isOpened : true }
       }
       return prevState;
     })
   };
 
   onBlur = () => {
-    this.setState({isOpened: false})
+    this.setState({ isOpened: false })
   };
 
   onSelect = value => {
-    this.setState({isOpened: false});
+    this.setState({ isOpened: false });
     this.props.onSelect(value)
   };
 
   renderOptions = () => {
     return this.props.options.map(option =>
       <li
+        key={option.text}
         className={style.option}
         onMouseDown={() => this.onSelect(option.value)}>
         {option.text}
@@ -38,7 +39,7 @@ export default class CustomSelect extends Component {
   };
 
   getInputProps =() => {
-    let propsCopy = {...this.props};
+    let propsCopy = { ...this.props };
     delete propsCopy.onSelect;
     delete propsCopy.options;
     return propsCopy;
@@ -54,5 +55,4 @@ export default class CustomSelect extends Component {
       </div>
     )
   }
-
 };

@@ -92,7 +92,7 @@ export default class AddActivity extends Component {
   };
 
   getSelectedDate = () => {
-    return this.state.date? { selected: this.state.date } : {};
+    return this.state.date? { value: this.state.date } : {};
   };
 
   getDurationOptions = () => {
@@ -111,7 +111,7 @@ export default class AddActivity extends Component {
     let time = moment().startOf("day");
     let options = [];
     for (let i = 0; i < 96; i++) {
-      options.push({ value: moment(time), text: time.format("HH:mm A").toString() });
+      options.push({ value: moment(time), text: time.format("hh:mm A").toString() });
       time.add(timeIntervalMinutes, "minutes")
     }
     return options;
@@ -147,6 +147,7 @@ export default class AddActivity extends Component {
                     <DatePicker
                       {...this.getSelectedDate()}
                       onChange={(date) => this.onInputPick(date, "date")}
+                      format="MM/DD/YYYY"
                       placeholder={`${moment().format("MM/DD/YYYY")}`}
                       showDaysInNextAndPreviousMonths={true}
                       enableSelectionDaysInNextAndPreviousMonths={true}
@@ -160,7 +161,7 @@ export default class AddActivity extends Component {
                   <span className={style.dateInputSpan}>TIME</span>
                   <div className={style.inputContainer}>
                     <CustomSelect className={style.dateInput}
-                                  value={isBlank(this.state.time) ? "" : this.state.time.format("HH:mm A")}
+                                  value={isBlank(this.state.time) ? "" : this.state.time.format("hh:mm A")}
                                   options={this.getTimeOptions()}
                                   onSelect={time => this.onInputPick(time, "time")} />
                     <button onClick={(e) => this.onDeleteClick(e, "time")} className={style.inputButton}>
