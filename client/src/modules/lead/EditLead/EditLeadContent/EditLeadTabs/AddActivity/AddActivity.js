@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import style from "./AddActivity.css";
 import moment from "moment";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker-cssmodules.css"
 import phoneIcon from "../../../../../../assets/add-activity/phone.svg";
 import meetingIcon from "../../../../../../assets/add-activity/meeting.svg";
 import taskIcon from "../../../../../../assets/add-activity/task.svg";
@@ -13,6 +11,7 @@ import deleteIcon from "../../../../../../assets/add-activity/delete.svg";
 import ActivityButtons from "./buttons/ActivityButtons";
 import isBlank from "../../../../../../utils/isBlank"
 import CustomSelect from "./buttons/CustomSelect";
+import DatePicker from 'react-pikaday-datepicker';
 
 const timeIntervalMinutes = 15;
 const activityTypes = [
@@ -148,11 +147,10 @@ export default class AddActivity extends Component {
                     <DatePicker
                       {...this.getSelectedDate()}
                       onChange={(date) => this.onInputPick(date, "date")}
-                      placeholderText={`${moment().format("MM/DD/YYYY")}`}
-                      showYearDropdown
-                      showMonthDropdown
-                      className={style.dateInput}
-                      popperPlacement="bottom" />
+                      placeholder={`${moment().format("MM/DD/YYYY")}`}
+                      showDaysInNextAndPreviousMonths={true}
+                      enableSelectionDaysInNextAndPreviousMonths={true}
+                      className={style.dateInput} />
                     <button onClick={(e) => this.onDeleteClick(e, "date")} className={style.inputButton}>
                       <img className={style.inputImg} src={deleteIcon} alt="del" />
                     </button>
