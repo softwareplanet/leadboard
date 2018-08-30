@@ -4,6 +4,7 @@ import Modal from "react-modal";
 import classNames from "classnames";
 import indefiniteArticle from "../../../../../../utils/indefiniteArticle";
 import { autocompleteStyles } from "../../../../../common/autocomplete/styles/autocomplete-styles";
+import isBlank from "../../../../../../utils/isBlank";
 
 const customStyles = {
   content: {
@@ -81,16 +82,16 @@ class EmptyCard extends Component {
   };
 
   onChange = (event) => {
-    let inputLength = event.target.value.length;
+    let inputValue = event.target.value;
     this.setState({
       item: {
         id: this.state.itemAfterSelect.name === event.target.value ? this.state.itemAfterSelect.id : null,
         name: event.target.value
       },
       openDropdown: true,
-      showAdditionalMessage: inputLength === 0 ? false : this.state.showAdditionalMessage,
-      isLinkDisabled: inputLength === 0 ? true : this.state.isLinkDisabled,
-      showBadge: inputLength === 0 ? false : this.state.showBadge,
+      showAdditionalMessage: isBlank(inputValue) ? false : this.state.showAdditionalMessage,
+      isLinkDisabled: isBlank(inputValue) ? true : this.state.isLinkDisabled,
+      showBadge: isBlank(inputValue) ? false : this.state.showBadge,
     })
   };
 
@@ -122,8 +123,8 @@ class EmptyCard extends Component {
     this.setState({
       openDropdown: false,
       name: this.state.item.name,
-      showAdditionalMessage: this.state.item.name.length !== 0,
-      isLinkDisabled: this.state.item.name.length === 0,
+      showAdditionalMessage: !isBlank(this.state.item.name),
+      isLinkDisabled: isBlank(this.state.item.name),
       showBadge: !this.state.item.id && this.state.item.name.length,
     })
   };
