@@ -107,11 +107,8 @@ class EditLeadTabs extends Component {
         </ul>
         {this.state.showFakeInput ? (
           <div className={styles.fakeInput} onClick={() =>
-            this.tabHandler(takeNotesCondition ? noteEditor : this.state.activeTab)}>Click here to
-            {this.state.fakeInputContent}...</div>
-        ) : (
-            <div>{this.state.activeTab}</div>
-          )}
+            this.tabHandler(takeNotesCondition ? noteEditor : this.state.activeTab)}>Click here to{this.state.fakeInputContent}...</div>
+        ) : (<div>{this.state.activeTab}</div>)}
       </div>
     );
   }
