@@ -1,4 +1,10 @@
 import Validator from "validator";
+import { flow, isEmpty, trim } from "lodash/fp";
+
+export const isBlank = flow(
+  trim,
+  isEmpty,
+);
 
 export function isNumber(data) {
   return data && (typeof data === "number" || Validator.isNumeric(data));
