@@ -62,7 +62,6 @@ describe("<EditLeadSidebar/>", () => {
   it("render correct EditCard quantity", () => {
     wrapper = mount(<EditLeadSidebar store={store} editLead={editLead} />);
     wrapper.update();
-    console.log(wrapper.html());
     expect(wrapper.find("EditCard").length).to.equal(2);
   });
 });
