@@ -12,5 +12,5 @@ export function isNumber(data) {
 
 export function isValidModelId(data) {
   const idRegexp = new RegExp("^[a-fA-F0-9]{24}$");
-  return data && typeof data === "string" && !Validator.isEmpty(data) && idRegexp.test(data);
+  return data && typeof data === "string" && idRegexp.test(data);
 }
