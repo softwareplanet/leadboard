@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import style from "./AddActivity.css";
 import moment from "moment";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker-cssmodules.css"
 import phoneIcon from "../../../../../../assets/add-activity/phone.svg";
 import meetingIcon from "../../../../../../assets/add-activity/meeting.svg";
 import taskIcon from "../../../../../../assets/add-activity/task.svg";
@@ -11,7 +9,9 @@ import emailIcon from "../../../../../../assets/add-activity/email.svg";
 import lunchIcon from "../../../../../../assets/add-activity/lunch.svg";
 import deleteIcon from "../../../../../../assets/add-activity/delete.svg";
 import ActivityButtons from "./buttons/ActivityButtons";
-import isBlank from "../../../../../../utils/isBlank"
+import isBlank from "../../../../../../utils/isBlank";
+import DatePicker from 'react-pikaday-datepicker';
+
 
 const activityTypes = [
   {type: "Call", icon: phoneIcon},
@@ -123,11 +123,10 @@ export default class AddActivity extends Component {
                     <DatePicker
                       {...this.getSelectedDate()}
                       onChange={(date) => this.onInputPick(date, "date")}
-                      placeholderText={`${moment().format("MM/DD/YYYY")}`}
-                      showYearDropdown
-                      showMonthDropdown
-                      className={style.dateInput}
-                      popperPlacement="bottom" />
+                      placeholder={`${moment().format("MM/DD/YYYY")}`}
+                      showDaysInNextAndPreviousMonths={true}
+                      enableSelectionDaysInNextAndPreviousMonths={true}
+                      className={style.dateInput} />
                     <button onClick={(e) => this.onDeleteClick(e, "date")} className={style.inputButton}>
                       <img className={style.inputImg} src={deleteIcon} alt="del" />
                     </button>
@@ -136,17 +135,7 @@ export default class AddActivity extends Component {
                 <label>
                   <span className={style.dateInputSpan}>TIME</span>
                   <div className={style.inputContainer}>
-                    <DatePicker
-                      {...this.getSelectedTime()}
-                      dateFormat="LT"
-                      timeFormat="HH:mm"
-                      onChange={(time) => this.onInputPick(time, "time")}
-                      className={style.dateInput}
-                      popperPlacement="bottom"
-                      showTimeSelect
-                      showTimeSelectOnly
-                      timeIntervals={15}
-                      timeCaption="Time" />
+                    
                     <button onClick={(e) => this.onDeleteClick(e, "time")} className={style.inputButton}>
                       <img className={style.inputImg} src={deleteIcon} alt="del" />
                     </button>
@@ -155,18 +144,6 @@ export default class AddActivity extends Component {
                 <label>
                   <span className={style.dateInputSpan}>DURATION</span>
                   <div className={style.inputContainer}>
-                    <DatePicker
-                      customInput={<div><input className={style.dateInput}
-                                               value={isBlank(this.state.duration) ? "" : this.state.duration.format("HH:mm")} /></div>}
-                      onChange={(duration) => this.onInputPick(duration, "duration")}
-                      dateFormat="LT"
-                      showTimeSelect
-                      showTimeSelectOnly
-                      timeIntervals={15}
-                      minTime={moment().hours(0).minutes(15)}
-                      maxTime={moment().hours(8).minutes(0)}
-                      timeFormat="HH:mm"
-                    />
                     <button onClick={(e) => this.onDeleteClick(e, "duration")} className={style.inputButton}>
                       <img className={style.inputImg} src={deleteIcon} alt="del" />
                     </button>
