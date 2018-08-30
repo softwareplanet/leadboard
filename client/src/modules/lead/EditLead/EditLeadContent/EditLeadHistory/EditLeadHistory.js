@@ -1,7 +1,7 @@
 import React from "react";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Notes from "../../Notes/Notes";
+import Notes from "./Notes/Notes";
 import { withStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import { compose } from "redux";
@@ -50,7 +50,7 @@ class EditLeadHistory extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  notesCount: !isEmpty(state.leads.editLead.lead) ? state.leads.editLead.lead.notes.length !== 0 ? state.leads.editLead.lead.notes.length : "" : "",
+  notesCount: !isEmpty(state.leads.editLead.lead.notes) ? state.leads.editLead.lead.notes.length  : "",
 });
 
 export default compose(
