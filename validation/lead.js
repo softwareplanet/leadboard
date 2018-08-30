@@ -1,14 +1,15 @@
 import Validator from "validator";
 import isEmpty from "lodash.isempty";
-import { isNumber } from "./validationUtils";
+import { isBlank, isNumber } from "./validationUtils";
 import { isEqual } from "lodash";
 
 export const validateLeadInput = (data) => {
   let errors = {};
 
   if (isEmpty(data.stage)) errors.stage = "Stage ID cannot be empty";
-  if (!data.contact && !data.organization) errors.contact = "Specify contact or organization";
-  if (isEmpty(data.contact) && isEmpty(data.organization)) errors.contact = "Specify contact or organization";
+  if ((!data.contact || isBlank(data.contact)) && (!data.organization || isBlank(data.organization))) {
+    errors.contact = "Specify contact or organization";
+  }
 
   if (!isNumber(data.order)) {
     errors.order = "Order must be a number";
@@ -18,7 +19,7 @@ export const validateLeadInput = (data) => {
     errors.name = "Name cannot be empty";
   } else {
     if (!Validator.isLength(data.name, { max: 30 })) {
-      errors.name = "Lead name cannot be more 30 characters";
+      errors.name = "Lead's name cannot be longer than 30 characters";
     }
   }
 
