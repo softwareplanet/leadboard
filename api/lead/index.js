@@ -9,7 +9,22 @@ import Lead from "../../models/lead";
 import Contact from "../../models/contact";
 import Organization from "../../models/organization";
 
+const NOT_VALID_DOMAIN_MESSAGE = "This item is not visible to you or does not exist. " + 
+  "If you think you should be able to access this item, please contact an administrator.";
+
 const router = new Router();
+
+const validateLeadDomain = (req, res, next) => {
+  Lead.findById(req.params.leadId)
+    .populate("owner")
+    .then(lead => {
+      if (lead.owner.domain.toString() === req.user.domain.toString()){
+        next()
+      } else {
+        return res.status(404).json({ errors: { message: NOT_VALID_DOMAIN_MESSAGE }})
+      }
+    })
+}
 
 // @route   GET api/lead
 // @desc    Find sorted leads by domain and stage IDs
@@ -100,8 +115,8 @@ router.post("/", async (req, res) => {
 // @route   GET api/lead/:id
 // @desc    Load lead by id
 // @access  Private
-router.get("/:id", (req, res) => {
-  Lead.findById(req.params.id)
+router.get("/:leadId", validateLeadDomain, (req, res) => {
+  Lead.findById(req.params.leadId)
     .populate("notes.user", { password: 0 })
     .populate("notes.lastUpdater", { password: 0 })
     .populate([{ path: "contact" }, { path: "organization" }])
@@ -118,8 +133,8 @@ router.get("/:id", (req, res) => {
 // @route   PATCH api/lead/:id
 // @desc    Update lead by id
 // @access  Private
-router.patch("/:id", (req, res) => {
-  Lead.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
+router.patch("/:leadId", validateLeadDomain, (req, res) => {
+  Lead.findByIdAndUpdate(req.params.leadId, { $set: req.body }, { new: true })
     .populate("notes.user", { password: 0 })
     .populate("notes.lastUpdater", { password: 0 })
     .populate([{ path: "contact" }, { path: "organization" }])
@@ -136,8 +151,8 @@ router.patch("/:id", (req, res) => {
 // @route   POST api/lead/:id/notes
 // @desc    Create note for lead
 // @access  Private
-router.post("/:id/notes", (req, res) => {
-  Lead.findByIdAndUpdate(req.params.id, { $push: { notes: req.body } }, { new: true })
+router.post("/:leadId/notes", validateLeadDomain, (req, res) => {
+  Lead.findByIdAndUpdate(req.params.leadId, { $push: { notes: req.body } }, { new: true })
     .populate("notes.user", { password: 0 })
     .populate("notes.lastUpdater", { password: 0 })
     .populate([{ path: "contact" }, { path: "organization" }])
@@ -154,7 +169,7 @@ router.post("/:id/notes", (req, res) => {
 // @route   PATCH api/lead/:id/note/:id
 // @desc    Update note's lead
 // @access  Private
-router.patch("/:leadId/note/:noteId", (req, res) => {
+router.patch("/:leadId/note/:noteId", validateLeadDomain, (req, res) => {
   Lead.findOneAndUpdate(
     { _id: req.params.leadId, "notes._id": req.params.noteId }, 
     { $set:{ "notes.$.text": req.body.text, "notes.$.lastUpdater": req.user.id } }, 
