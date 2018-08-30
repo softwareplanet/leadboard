@@ -59,9 +59,7 @@ export default function(state = initialState, action) {
         editLead: leadWithUpdatedContact,
       };
     case CLEAR_LEADS:
-      return {
-        ...initialState
-      }
+      return initialState
     default:
       return state;
   }
