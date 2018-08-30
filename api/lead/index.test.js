@@ -80,25 +80,6 @@ describe("Lead", () => {
     expect(body).toMatchObject({ errors: { contact: "Contact does not belong to your domain" } });
   });
 
-  it("should fail to create lead where contact does not belong to supplied organization", async () => {
-    const organization = await createOrganization(app, cred.token, "Software Company");
-    const contact = await createContact(app, cred.token, organization._id, "Jane Smith");
-    const wrongOrganization = await createOrganization(app, cred.token, "Software Company 2");
-    const { status, body } = await request(app())
-      .post("/api/lead")
-      .set("Authorization", cred.token)
-      .send({
-        owner: cred.userId,
-        stage: stageId,
-        name: "My Lead",
-        order: 1,
-        contact: contact._id,
-        organization: wrongOrganization._id,
-      });
-    expect(status).toBe(400);
-    expect(body).toMatchObject({ errors: { contact: "Contact does not belong to given organization" } });
-  });
-
   it("should create lead with new contact and new organization", async () => {
     const newOrganizationName = "Software Company";
     const newContactName = "Jane";
