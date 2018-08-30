@@ -118,9 +118,9 @@ class EditLeadTabs extends Component {
 }
 
 const mapStateToProps = state => ({
-  editLead: state.leads.editLead,
+  editLead: state.leads.editLead.lead,
   userId: state.auth.userid
-})
+});
 
 export { EditLeadTabs }
 

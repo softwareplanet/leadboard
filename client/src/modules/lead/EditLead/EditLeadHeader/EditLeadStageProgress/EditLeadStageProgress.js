@@ -4,6 +4,7 @@ import EditLeadStage from "./EditLeadStage/EditLeadStage";
 import { updateLead, loadLead } from "../../../leadActions";
 import styles from "./EditLeadStageProgress.css";
 import ReactTooltip from "react-tooltip";
+import { isEmpty } from "lodash";
 
 class EditLeadStageProgress extends Component {
   onStageClick = stage => {
@@ -19,7 +20,7 @@ class EditLeadStageProgress extends Component {
   }
 
   render() {
-    if (this.props.editLead) {
+    if (!isEmpty(this.props.editLead)) {
       let stages = this.props.stages.map((stage, index) => {
         let active = stage.order <= this.props.editLead.stage.order;
         let isFirst = index === 0;
@@ -55,7 +56,7 @@ class EditLeadStageProgress extends Component {
 
 const mapStateToProps = state => ({
   stages: state.leads.stages,
-  editLead: state.leads.editLead
+  editLead: state.leads.editLead.lead
 });
 
 export { EditLeadStageProgress };

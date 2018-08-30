@@ -189,6 +189,21 @@ export const updateNote = (leadId, note) => dispatch => {
     });
 };
 
+// Delete lead's note
+export const deleteNote = (leadId, noteId) => dispatch => {
+  axios
+    .delete(`/api/lead/${leadId}/note/${noteId}`)
+    .then(() => {
+      dispatch(loadLead(leadId));
+    })
+    .catch(error => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error,
+      });
+    });
+};
+
 export function loadLeadboardAction(data) {
   return {
     type: LOAD_LEADBOARD,

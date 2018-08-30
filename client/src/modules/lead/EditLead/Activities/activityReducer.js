@@ -2,19 +2,14 @@ import {
   CREATE_ACTIVITY,
 } from "./types";
 
-const initialState = {
-  activities: [],
-};
+const initialState = [];
 
 export default function (state = initialState, action) {
   switch (action.type) {
     case CREATE_ACTIVITY:
-      let activities = { ...state.activities };
+      let activities = [];
       activities.push(action.payload);
-      return {
-        ...state,
-        activities: activities,
-      };
+      return [...state,...activities];
     default:
       return state;
   }
