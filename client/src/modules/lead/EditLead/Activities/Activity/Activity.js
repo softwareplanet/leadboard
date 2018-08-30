@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import styles from "./Activity.css";
 import doneMark from "../../../../../assets/done-mark.svg"
+import { dateFormater } from "./dateFormatter";
 
 class Activity extends Component {
 
     changeStatus = e => {
         e.preventDefault();
-
         e.target.className = styles.markAsDone;
     };
 
@@ -19,8 +19,8 @@ class Activity extends Component {
     };
 
     render() {
-        let today = Date.now();
-
+        let today = new Date("2018-07-30 06:30:00.000");
+        let hasStartTime = true;
         return (
             <div className={styles.activityContent}>
                <div className={styles.wrapper}>
@@ -36,7 +36,7 @@ class Activity extends Component {
                 <div className={styles.wrapper}>
                 <div className={styles.activityDetails}>
                     <span>
-                        {this.checkDate(today)}
+                        {dateFormater(today, hasStartTime)}
                     </span>
                     <span className={styles.separator}>·</span>
                     <span className={styles.author}>{this.props.author}Влад Тимофеев</span>
