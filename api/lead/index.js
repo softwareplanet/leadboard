@@ -207,11 +207,19 @@ router.patch("/:leadId/note/:noteId", (req, res) => {
     { _id: req.params.leadId, "notes._id": req.params.noteId },
     { $set: { "notes.$.text": req.body.text, "notes.$.lastUpdater": req.user.id } },
     { new: true })
-    .populate("notes.user", { password: 0 })
-    .populate("notes.lastUpdater", { password: 0 })
-    .populate([{ path: "contact" }, { path: "organization" }])
-    .populate("owner", { password: 0 })
-    .populate("stage")
+    .then(lead => {
+      return res.json(lead);
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
+});
+
+// @route   DELETE api/lead/:id/note/:id
+// @desc    Delete note's lead
+// @access  Private
+router.delete("/:leadId/note/:noteId", (req, res) => {
+  Lead.findByIdAndUpdate(req.params.leadId, { $pull: { notes: { _id: req.params.noteId } } }, { new: true })
     .then(lead => {
       return res.json(lead);
     })
