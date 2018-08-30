@@ -1,7 +1,7 @@
 import { Router } from "express";
 import mongoose from "mongoose";
 
-import { validateLeadInput, validateLeadUpdate } from "../../validation/lead";
+import validateLeadInput from "../../validation/lead";
 import isEmpty from "lodash.isempty";
 import { isEqual } from "lodash";
 import { isValidModelId } from "../../validation/validationUtils";
@@ -33,6 +33,9 @@ router.post("/", async (req, res) => {
   const { hasErrors, errors } = validateLeadInput(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 
+  let organization = req.body.organization;
+  let contact = req.body.contact;
+
   let newLead = {
     _id: new mongoose.Types.ObjectId(),
     owner: req.body.owner,
@@ -41,26 +44,46 @@ router.post("/", async (req, res) => {
     order: req.body.order,
   };
 
-  let organization = req.body.organization;
   if (!isEmpty(organization)) {
-    if (isValidModelId(organization)) {
-      const existingOrganization = await Organization.findById(organization);
-      let { errors, hasErrors } = validateExisting(existingOrganization, "Organization", req.user.domain);
-      if (hasErrors) return res.status(400).json({ errors });
+    if (!isValidModelId(organization)) {
+      organization = await Organization.create({
+        _id: new mongoose.Types.ObjectId(),
+        name: organization,
+        domain: req.user.domain,
+      });
     } else {
-      organization = await createOrganization(organization, req.user.domain);
+      const existingOrganization = await Organization.findById(organization);
+      if (!existingOrganization) {
+        return res.status(400).json({ errors: { organization: "Organization does not exist" } });
+      }
+      if (!isEqual(existingOrganization.domain, req.user.domain)) {
+        return res.status(400).json({ errors: { organization: "Organization does not belong to your domain" } });
+      }
     }
     newLead.organization = organization;
   }
 
-  let contact = req.body.contact;
   if (!isEmpty(contact)) {
-    if (isValidModelId(contact)) {
-      const existingContact = await Contact.findById(contact);
-      let { errors, hasErrors } = validateExisting(existingContact, "Contact", req.user.domain);
-      if (hasErrors) return res.status(400).json({ errors });
+    if (!isValidModelId(contact)) {
+      let contactToCreate = {
+        _id: new mongoose.Types.ObjectId(),
+        name: contact,
+        organization: organization,
+        domain: req.user.domain,
+      };
+      if (isEmpty(contactToCreate.organization)) delete contactToCreate.organization;
+      contact = await Contact.create(contactToCreate);
     } else {
-      contact = await createContact(contact, organization, req.user.domain);
+      const existingContact = await Contact.findById(contact);
+      if (!existingContact) {
+        return res.status(400).json({ errors: { contact: "Contact does not exist" } });
+      }
+      if (!isEqual(existingContact.domain, req.user.domain)) {
+        return res.status(400).json({ errors: { contact: "Contact does not belong to your domain" } });
+      }
+      if (existingContact.organization && !isEqual(existingContact.organization.toString(), organization)) {
+        return res.status(400).json({ errors: { contact: "Contact does not belong to given organization" } });
+      }
     }
     newLead.contact = contact;
   }
@@ -74,38 +97,6 @@ router.post("/", async (req, res) => {
     });
 });
 
-function createOrganization(name, domain) {
-  return Organization.create({
-    _id: new mongoose.Types.ObjectId(),
-    name: name,
-    domain: domain,
-  });
-}
-
-function createContact(name, organization, domain) {
-  let contactToCreate = {
-    _id: new mongoose.Types.ObjectId(),
-    name: name,
-    organization: organization,
-    domain: domain,
-  };
-  if (isEmpty(contactToCreate.organization)) delete contactToCreate.organization;
-  return Contact.create(contactToCreate);
-}
-
-function validateExisting(model, name, domain) {
-  let errors = {};
-  if (!model) {
-    errors[name.toLowerCase()] = `${name} does not exist`;
-  } else if (!isEqual(model.domain, domain)) {
-    errors[name.toLowerCase()] = `${name} does not belong to your domain`;
-  }
-  return {
-    errors,
-    hasErrors: !isEmpty(errors),
-  };
-}
-
 // @route   GET api/lead/:id
 // @desc    Load lead by id
 // @access  Private
@@ -114,7 +105,7 @@ router.get("/:id", (req, res) => {
     .populate("notes.user", { password: 0 })
     .populate("notes.lastUpdater", { password: 0 })
     .populate([{ path: "contact" }, { path: "organization" }])
-    .populate("owner", { password: 0 })
+    .populate("owner")
     .populate("stage")
     .then(lead => {
       res.json(lead);
@@ -127,51 +118,12 @@ router.get("/:id", (req, res) => {
 // @route   PATCH api/lead/:id
 // @desc    Update lead by id
 // @access  Private
-router.patch("/:id", async (req, res) => {
-  const { hasErrors, errors } = validateLeadUpdate(req.body);
-  if (hasErrors) return res.status(400).json({ errors });
-
-  let updates = req.body;
-  const previousLead = await Lead.findById(req.params.id).populate("owner", { password: 0 });
-  if (!isEqual(previousLead.owner.domain, req.user.domain)) {
-    return res.status(400).json({ errors: { domain: "You are trying to patch lead from other domain" } });
-  }
-  if (!previousLead.organization && "contact" in updates && isEmpty(updates.contact)) {
-    return res.status(400).json({ errors: { contact: "Specify contact or organization" } });
-  }
-  if (!previousLead.contact && "organization" in updates && isEmpty(updates.organization)) {
-    return res.status(400).json({ errors: { organization: "Specify contact or organization" } });
-  }
-
-  let organization = updates.organization;
-  if (!isEmpty(organization)) {
-    if (isValidModelId(organization._id ? organization._id : organization)) {
-      const existingOrganization = await Organization.findById(organization);
-      let { errors, hasErrors } = validateExisting(existingOrganization, "Organization", req.user.domain);
-      if (hasErrors) return res.status(400).json({ errors });
-    } else {
-      organization = await createOrganization(organization, req.user.domain);
-    }
-    updates.organization = (typeof organization === "object" ? organization._id : organization);
-  }
-
-  let contact = updates.contact;
-  if (!isEmpty(contact)) {
-    if (isValidModelId(contact._id ? contact._id : contact)) {
-      const existingContact = await Contact.findById(contact);
-      let { errors, hasErrors } = validateExisting(existingContact, "Contact", req.user.domain);
-      if (hasErrors) return res.status(400).json({ errors });
-    } else {
-      contact = await createContact(contact, updates.organization, req.user.domain);
-    }
-    updates.contact = (typeof contact === "object" ? contact._id : contact);
-  }
-
-  Lead.findByIdAndUpdate(req.params.id, { $set: updates }, { new: true })
+router.patch("/:id", (req, res) => {
+  Lead.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
     .populate("notes.user", { password: 0 })
     .populate("notes.lastUpdater", { password: 0 })
     .populate([{ path: "contact" }, { path: "organization" }])
-    .populate("owner", { password: 0 })
+    .populate("owner")
     .populate("stage")
     .then(lead => {
       res.json(lead);
@@ -189,7 +141,7 @@ router.post("/:id/notes", (req, res) => {
     .populate("notes.user", { password: 0 })
     .populate("notes.lastUpdater", { password: 0 })
     .populate([{ path: "contact" }, { path: "organization" }])
-    .populate("owner", { password: 0 })
+    .populate("owner")
     .populate("stage")
     .then(lead => {
       res.json(lead);
@@ -204,14 +156,22 @@ router.post("/:id/notes", (req, res) => {
 // @access  Private
 router.patch("/:leadId/note/:noteId", (req, res) => {
   Lead.findOneAndUpdate(
-    { _id: req.params.leadId, "notes._id": req.params.noteId },
-    { $set: { "notes.$.text": req.body.text, "notes.$.lastUpdater": req.user.id } },
+    { _id: req.params.leadId, "notes._id": req.params.noteId }, 
+    { $set:{ "notes.$.text": req.body.text, "notes.$.lastUpdater": req.user.id } }, 
     { new: true })
-    .populate("notes.user", { password: 0 })
-    .populate("notes.lastUpdater", { password: 0 })
-    .populate([{ path: "contact" }, { path: "organization" }])
-    .populate("owner", { password: 0 })
-    .populate("stage")
+    .then(lead => {
+      return res.json(lead);
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
+});
+
+// @route   DELETE api/lead/:id/note/:id
+// @desc    Delete note's lead
+// @access  Private
+router.delete("/:leadId/note/:noteId", (req, res) => {
+  Lead.findByIdAndUpdate(req.params.leadId, { $pull: { notes: { _id: req.params.noteId } } }, { new: true })
     .then(lead => {
       return res.json(lead);
     })
