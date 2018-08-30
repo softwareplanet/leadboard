@@ -61,7 +61,7 @@ class App extends Component {
                 path="/lead/:leadId"
                 component={EditLead}
               />
-            </Switch>     
+            </Switch>
             <Route exact path="/" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Login />} />
             <Route exact path="/register" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Registration />} />  
             <Footer/>

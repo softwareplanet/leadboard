@@ -18,7 +18,7 @@ class EditLead extends Component {
     const displayFlex = {
       display: "flex"
     };
-    
+
     let editLead = (
       <div>
         <div style={displayFlex}>
