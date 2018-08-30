@@ -1,7 +1,4 @@
 import { Router } from "express";
-import mongoose from "mongoose";
-
-/*import validateActivityInput from "../../validation/activity";*/
 
 import Activity from "../../models/activity";
 
