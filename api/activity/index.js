@@ -4,15 +4,14 @@ import Activity from "../../models/activity";
 
 const router = new Router();
 
-// @route   GET api/activity?lead=:id
-// @desc    Find activities by lead
-// @access  Private
-router.get("/", (req, res) => {
-    Activity.find({ lead: req.query.lead })
-        .then(activities => {
-            res.json(activities);
-        })
-        .catch(error => {
-            res.status(400).json({ errors: { message: error } });
-        });
+router.patch("/", (req, res) => {
+  Activity.findByIdAndUpdate(req.body._id, req.body, { new: true })
+    .then(activity => {
+      res.json(activity);
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
 });
+
+export default router;

@@ -2,12 +2,16 @@ import React, { Component } from "react";
 import styles from "./Activity.css";
 import doneMark from "../../../../../assets/done-mark.svg"
 import { dateFormater } from "./dateFormatter";
+import { updateActivity } from "../activityActions";
+import store from "../../../../../store.js";
 
 class Activity extends Component {
 
     changeStatus = e => {
         e.preventDefault();
-        e.target.className = styles.markAsDone;
+        let activity = { ...this.props.activity };
+        activity.done = !activity.done;
+        store.dispatch(updateActivity(activity));
     };
 
     render() {
@@ -40,4 +44,4 @@ class Activity extends Component {
     }
 }
 
-export default Activity;
+export default  Activity;
