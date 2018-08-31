@@ -58,3 +58,59 @@
 .leadName {
   font: 24px/32px "Open Sans";
 }
+
+.leadOptions {
+  display: flex
+}
+
+.button {
+  background: #2cbf55;
+  border: 0;
+  padding: 4px 8px;
+  color: #fff;
+  border-radius: 3px;
+  cursor: pointer;
+  margin: 0;
+  height: 32px;
+  min-width: 62px;
+  outline: none;
+  box-sizing: border-box;
+  text-decoration: none;
+  font: 600 14px/20px Open Sans,sans-serif;
+  padding: 4px 8px;
+  vertical-align: top;
+  margin-left: 16px
+}
+
+.button:hover {
+  background: #4ec970;
+}
+
+.buttonLost {
+  composes: button;
+  background: #e84546
+}
+
+.buttonLost:hover {
+  background: #ec6464;
+}
+
+.badge {
+  margin-left: 12px;
+  padding: 6px 12px;
+  font: 14px/20px "Open Sans",sans-serif;
+  font-weight: 600;
+  border-radius: 99px;
+  color: #fff;
+  background-color: #2cbf55;
+}
+
+.lostBadge {
+  composes: badge;
+  background: #e84546
+}
+
+.leadActions {
+  display: flex;
+  height: 32px;
+}

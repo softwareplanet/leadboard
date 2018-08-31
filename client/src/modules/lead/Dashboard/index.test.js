@@ -128,7 +128,9 @@ describe("LEADBOARD REDUCERS", () => {
       funnels:[],
       stages:[],
       editLead:{
+        activities:[],
         lead:{},
+        notFound: false,
       },
       leads: {
         _5b6b123391e0774579ed6701: {
@@ -157,7 +159,9 @@ describe("LEADBOARD REDUCERS", () => {
       })
     ).toEqual({
       editLead:{
+        activities:[],
         lead:{},
+        notFound: false,
       },
       funnels:[],
       leads:[],
@@ -184,7 +188,9 @@ describe("LEADBOARD REDUCERS", () => {
       })
     ).toEqual({
       editLead:{
+        activities:[],
         lead:{},
+        notFound: false,
       },
       funnels: [
         {
@@ -202,7 +208,9 @@ describe("LEADBOARD REDUCERS", () => {
   it("should return initial state", () => {
     expect(reducer(undefined, {})).toEqual({
       editLead:{
+        activities:[],
         lead:{},
+        notFound: false,
       },
       funnels: [],
       stages: [],

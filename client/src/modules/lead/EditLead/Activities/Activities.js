@@ -27,19 +27,21 @@ class Activities extends Component {
         return emailIcon;
       case "Lunch":
         return lunchIcon;
+      default:
+        return callIcon;
     }
   };
 
   render() {
     return (
       <div className={styles.container}>
-        <div className={this.props.done ? styles.pastTimeLineBar : styles.plannedTimeLineBar} />
-        {this.props.activities.length !== 0 ? this.props.activities.map((activity) => {
+        <div className={this.props.done ? styles.pastTimeLineBar : styles.plannedTimeLineBar}/>
+        {this.props.activities ? this.props.activities.map((activity) => {
           if (activity.done === this.props.done) {
             return (
               <InfoItemWrapper
                 key={activity._id}
-                component={<Activity activity={activity} />}
+                component={<Activity activity={activity}/>}
                 icon={this.getActivityIcon(activity.type)}
                 cardStyles={styles.activityCard}
                 arrowStyles={styles.arrow}
@@ -57,9 +59,9 @@ const mapStateToProps = state => ({
   leadId: state.leads.editLead.lead._id,
 });
 
-Activities.PropTypes = {
+Activities.propTypes = {
   loadLeadActivities: PropTypes.func.isRequired,
-  activities: PropTypes.object,
+  activities: PropTypes.object
 };
 
 export default connect(mapStateToProps)(Activities);

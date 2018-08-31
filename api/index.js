@@ -7,7 +7,8 @@ import funnel from "./funnel";
 import lead from "./lead";
 import organization from "./organization";
 import contact from "./contact";
-import activity from "./activity"
+import activity from "./activity";
+
 const router = new Router();
 const authenticate = passport.authenticate("jwt", { session: false });
 

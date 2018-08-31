@@ -5,6 +5,9 @@ import Domain from "../models/domain";
 import Funnel from "../models/funnel";
 import Stage from "../models/stage";
 import Lead from "../models/lead";
+import Organization from "../models/organization";
+import Contact from "../models/contact";
+import Activity from "../models/activity";
 import { connectToMongoose } from "../mongoose";
 
 connectToMongoose();
@@ -15,6 +18,9 @@ export async function dropTables() {
   await Funnel.remove({});
   await Stage.remove({});
   await Lead.remove({});
+  await Activity.remove({});
+  await Organization.remove({});
+  await Contact.remove({});
 }
 
 const notes = [{
@@ -88,6 +94,18 @@ export async function createLead(app, token, user, stage, order, name = "Lead") 
     .catch(error => {
       console.log("Cannon create a lead" + error);
       throw "Cannon create a lead";
+    });
+}
+
+export async function createActivity(app, token, type, subject, date, duration, lead) {
+  return await request(app())
+    .post("/api/activity")
+    .set("Authorization", token)
+    .send({ type, subject, date, duration, lead})
+    .then(res => res.body)
+    .catch(error => {
+      console.log("Cannot create an activity" + error);
+      throw "Cannot create an activity";
     });
 }
 
