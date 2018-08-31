@@ -42,7 +42,7 @@ class Navbar extends Component {
             to={leadsRoute}>
             <div>
               <img className={styles.icon}
-                   src={this.getDealsIcon()} alt="deals" />Deals
+                   src={this.getDealsIcon()} alt="leads" />Leads
             </div>
           </NavLink>
           <li className={styles.rightItem}>
