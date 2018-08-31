@@ -29,7 +29,7 @@ export const validateLeadInput = (data) => {
   };
 };
 
-export const validateLeadUpdate = (data, previousLead, currentUser) => {
+export const validateLeadUpdate = (data, previousLead) => {
   let errors = {};
 
   if (data.owner && isBlank(data.owner)) errors.owner = "Owner ID cannot be empty";
@@ -50,9 +50,6 @@ export const validateLeadUpdate = (data, previousLead, currentUser) => {
     }
   }
 
-  if (!isEqual(previousLead.owner.domain, currentUser.domain)) {
-    errors.domain = "You are trying to patch lead from other domain";
-  }
   if (!previousLead.organization && "contact" in data && isBlank(data.contact)) {
     errors.contact = "Specify contact or organization";
   }
