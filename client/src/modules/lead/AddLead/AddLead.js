@@ -7,7 +7,7 @@ import { loadContacts } from "./autocomplete/contact/contactActions";
 import { createLead } from "../leadActions";
 import classNames from "classnames";
 import styles from "./AddLead.css";
-import { isEmpty } from "lodash/fp";
+import { isEmpty, trim } from "lodash/fp";
 import isBlank from "../../../utils/isBlank";
 
 import SelectStageOnCreation from "./SelectStage/SelectStageOnCreation";
@@ -180,14 +180,14 @@ class AddLead extends React.Component {
       if (this.state.nameChanged) {
         name = this.state.name;
       } else {
-        name = this.state.organization.name + " lead";
+        name = trim(this.state.organization.name) + " lead";
       }
     } else {
       if(this.state.contact.name.length > 0) {
         if (this.state.nameChanged) {
           name = this.state.name;
         } else {
-          name = this.state.contact.name + " lead";
+          name = trim(this.state.contact.name) + " lead";
         }
       } else name = "";
     }
@@ -197,10 +197,10 @@ class AddLead extends React.Component {
   getPlaceholderValue = () => {
     let placeholder = "";
     if (this.state.organization.name.length > 0) {
-      placeholder = this.state.organization.name + " lead";
+      placeholder = trim(this.state.organization.name) + " lead";
     } else {
      if(this.state.contact.name.length > 0) {
-       placeholder = this.state.contact.name + " lead";
+       placeholder = trim(this.state.contact.name) + " lead";
      } else placeholder = "";
     }
     return placeholder;
@@ -211,6 +211,10 @@ class AddLead extends React.Component {
     this.setState({
       ...this.state,
       name: this.getNameValue(),
+      organization: {
+        id: this.state.organizationAfterSelect.id,
+        name: trim(this.state.organization.name),
+      },
       namePlaceholder: this.getPlaceholderValue(),
       nameChanged: isBlank(this.state.organization.name) && isBlank(this.state.contact.name) ? false : this.state.nameChanged,
       openOrganizationDropdown: false,
@@ -219,6 +223,7 @@ class AddLead extends React.Component {
   };
 
   onContactChange = (event) => {
+    console.log(trim(event.target.value).length);
     let newState = {
       ...this.state,
       contact: {
@@ -264,6 +269,10 @@ class AddLead extends React.Component {
     this.setState({
       ...this.state,
       name: this.getNameValue(),
+      contact: {
+        id: this.state.contactAfterSelect.id,
+        name: trim(this.state.contact.name),
+      },
       namePlaceholder: this.getPlaceholderValue(),
       nameChanged: isBlank(this.state.organization.name) && isBlank(this.state.contact.name) ? false : this.state.nameChanged,
       openContactDropdown: false,
@@ -308,11 +317,12 @@ class AddLead extends React.Component {
         domain: this.props.auth.domainid,
         owner: this.props.auth.userid,
         stage: this.state.stage,
-        name: this.state.name.length > 0 ? this.state.name : this.state.namePlaceholder,
+        name: this.state.name.length > 0 ? trim(this.state.name) : trim(this.state.namePlaceholder),
         contact: this.state.contact.id ? this.state.contact.id : this.state.contact.name,
         organization: this.state.organization.id ? this.state.organization.id : this.state.organization.name,
         order: this.getNextLeadNumber(this.state.stage),
       };
+      console.log(lead);
       this.props.createLead(lead);
       this.closeModal();
     } else {
