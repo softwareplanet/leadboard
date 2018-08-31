@@ -13,53 +13,53 @@ import emailIcon from "../../../../assets/email-activity.svg";
 import lunchIcon from "../../../../assets/lunch-activity.svg";
 
 class Activities extends Component {
-    getActivityIcon = type => {
-        switch (type) {
-            case "Call":
-                return callIcon;
-            case "Meeting":
-                return meetingIcon;
-            case "Task":
-                return taskIcon;
-            case "Deadline":
-                return deadlineIcon;
-            case "Email":
-                return emailIcon;
-            case "Lunch":
-                return lunchIcon;
-        }
-    };
-
-    render() {
-        return (
-          <div className={styles.container}>
-                <div className={this.props.done ? styles.pastTimeLineBar : styles.plannedTimeLineBar} />
-                {this.props.activities.length !== 0 ? this.props.activities.map((activity) => {
-                    if(activity.done === this.props.done){
-                      return (
-                        <InfoItemWrapper
-                          key={activity._id}
-                          component={<Activity activity={activity}/>}
-                          icon={this.getActivityIcon(activity.type)}
-                          cardStyles={styles.activityCard}
-                          arrowStyles={styles.arrow}
-                        />
-                      );
-                    }
-                }) : <p className={styles.noActivitiesMessage}>You have no upcoming activities</p>}
-            </div>
-        )
+  getActivityIcon = type => {
+    switch (type) {
+      case "Call":
+        return callIcon;
+      case "Meeting":
+        return meetingIcon;
+      case "Task":
+        return taskIcon;
+      case "Deadline":
+        return deadlineIcon;
+      case "Email":
+        return emailIcon;
+      case "Lunch":
+        return lunchIcon;
     }
+  };
+
+  render() {
+    return (
+      <div className={styles.container}>
+        <div className={this.props.done ? styles.pastTimeLineBar : styles.plannedTimeLineBar} />
+        {this.props.activities.length !== 0 ? this.props.activities.map((activity) => {
+          if (activity.done === this.props.done) {
+            return (
+              <InfoItemWrapper
+                key={activity._id}
+                component={<Activity activity={activity} />}
+                icon={this.getActivityIcon(activity.type)}
+                cardStyles={styles.activityCard}
+                arrowStyles={styles.arrow}
+              />
+            );
+          }
+        }) : <p className={styles.noActivitiesMessage}>You have no activities</p>}
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = state => ({
-    activities: state.leads.editLead.activities,
-    leadId: state.leads.editLead.lead._id,
+  activities: state.leads.editLead.activities,
+  leadId: state.leads.editLead.lead._id,
 });
 
 Activities.PropTypes = {
-    loadLeadActivities: PropTypes.func.isRequired,
-    activities: PropTypes.object
+  loadLeadActivities: PropTypes.func.isRequired,
+  activities: PropTypes.object,
 };
 
 export default connect(mapStateToProps)(Activities);
