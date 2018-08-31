@@ -1,7 +1,7 @@
 import axios from "axios";
 import setAuthToken from "../../utils/setAuthToken";
 import { SET_LOGIN_DATA, LOGOUT_USER } from "./types";
-import { GET_ERRORS } from "../../actionTypes";
+import { GET_ERRORS, CLEAR_STORE } from "../../actionTypes";
 
 // Register user
 export const registerUser = (user, history) => dispatch => {
@@ -68,6 +68,10 @@ export const logoutUser = history => dispatch => {
   dispatch({
     type: LOGOUT_USER,
   });
+
+  dispatch({
+    type: CLEAR_STORE
+  })
 
   if (history) history.push("/");
 };

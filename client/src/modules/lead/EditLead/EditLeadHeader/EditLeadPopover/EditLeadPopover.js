@@ -18,7 +18,7 @@ class EditLeadPopover extends Component {
       <Popover
         className={styles.popover}
         placement="bottom-start"
-        target={this.props.target}
+        target={this.props.target ? this.props.target : ""}
         isOpen={this.props.isOpen}
         toggle={this.props.toggle}
       >

@@ -235,8 +235,8 @@ describe("Lead", () => {
       .set("Authorization", otherUser.token)
       .send({});
 
-    expect(status).toBe(400);
-    expect(body).toMatchObject({ errors: { domain: "You are trying to patch lead from other domain" } });
+    expect(status).toBe(404);
+    expect(body).toMatchObject({ errors: { message: "Lead with provided id is not found in your domain" } });
   });
 
   it("should fail to set contact empty for lead without organization", async () => {
