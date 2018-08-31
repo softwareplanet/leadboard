@@ -45,6 +45,43 @@ describe("Lead", () => {
     expect(typeof body._id).toBe("string");
   });
 
+  it("should fail to create a new lead with invalid data", async () => {
+    const { status, body } = await request(app())
+      .post("/api/lead")
+      .set("Authorization", cred.token)
+      .send({
+        contact: " ",
+        name: " ",
+      });
+
+    expect(status).toBe(400);
+    const expectedErrors = {
+      errors: {
+        name: "Name cannot be empty",
+        stage: "Stage ID cannot be empty",
+        contact: "Specify contact or organization",
+        order: "Order must be a number",
+      },
+    };
+    expect(body).toMatchObject(expectedErrors);
+  });
+
+  it("should fail to create a new lead with long name", async () => {
+    const { status, body } = await request(app())
+      .post("/api/lead")
+      .set("Authorization", cred.token)
+      .send({
+        name: "Very                   Long                    Name",
+      });
+    expect(status).toBe(400);
+    const expectedErrors = {
+      errors: {
+        name: "Lead's name cannot be longer than 30 characters",
+      },
+    };
+    expect(body).toMatchObject(expectedErrors);
+  });
+
   it("should fail to create lead with organization from other domain", async () => {
     const otherUser = await createUserAndDomain(app, "Other Domain", "other@testmail.com");
     const organization = await createOrganization(app, otherUser.token, "Other Inc");
