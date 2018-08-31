@@ -130,6 +130,7 @@ describe("LEADBOARD REDUCERS", () => {
       editLead:{
         activities:[],
         lead:{},
+        notFound: false,
       },
       leads: {
         _5b6b123391e0774579ed6701: {
@@ -160,6 +161,7 @@ describe("LEADBOARD REDUCERS", () => {
       editLead:{
         activities:[],
         lead:{},
+        notFound: false,
       },
       funnels:[],
       leads:[],
@@ -188,6 +190,7 @@ describe("LEADBOARD REDUCERS", () => {
       editLead:{
         activities:[],
         lead:{},
+        notFound: false,
       },
       funnels: [
         {
@@ -207,6 +210,7 @@ describe("LEADBOARD REDUCERS", () => {
       editLead:{
         activities:[],
         lead:{},
+        notFound: false,
       },
       funnels: [],
       stages: [],

@@ -11,6 +11,37 @@ import Organization from "../../models/organization";
 
 const router = new Router();
 
+
+const assertLeadIdParam = (req, res, next) => {
+  if (req.params.id) {
+    return res.status(500).json({ 
+      errors: { message: "You should use :leadId instead of :id in API request handlers" }
+    })
+  } 
+  next();
+}
+
+const validateLeadDomain = (req, res, next) => {
+  if (isValidModelId(req.params.leadId)) {
+    Lead.findById(req.params.leadId)
+      .populate("owner")
+      .then(lead => {
+        if (lead !== null && lead.owner.domain.equals(req.user.domain)){
+          next()
+        } else {
+          return res.status(404).json({ errors: { message: "Lead with provided id is not found in your domain" }})
+        }
+      })
+  } else {
+    return res.status(404).json({ errors: { message: "Provided lead's id is not valid" }})
+  }
+}
+const leadMembersMiddlewares = [validateLeadDomain];
+
+if (process.env.NODE_ENV !== "production") {
+  leadMembersMiddlewares.unshift(assertLeadIdParam);
+}
+
 // @route   GET api/lead
 // @desc    Find sorted leads by domain and stage IDs
 // @access  Private
@@ -106,11 +137,11 @@ function validateExisting(model, name, domain) {
   };
 }
 
-// @route   GET api/lead/:id
+// @route   GET api/lead/:leadId
 // @desc    Load lead by id
 // @access  Private
-router.get("/:id", (req, res) => {
-  Lead.findById(req.params.id)
+router.get("/:leadId", leadMembersMiddlewares, (req, res) => {
+  Lead.findById(req.params.leadId)
     .populate("notes.user", { password: 0 })
     .populate("notes.lastUpdater", { password: 0 })
     .populate([{ path: "contact" }, { path: "organization" }])
@@ -124,12 +155,12 @@ router.get("/:id", (req, res) => {
     });
 });
 
-// @route   PATCH api/lead/:id
+// @route   PATCH api/lead/:leadId
 // @desc    Update lead by id
 // @access  Private
-router.patch("/:id", async (req, res) => {
-  const previousLead = await Lead.findById(req.params.id).populate("owner", { password: 0 });
-  const { hasErrors, errors } = validateLeadUpdate(req.body, previousLead, req.user);
+router.patch("/:leadId", leadMembersMiddlewares, async (req, res) => {
+  const previousLead = await Lead.findById(req.params.leadId).populate("owner", { password: 0 });
+  const { hasErrors, errors } = validateLeadUpdate(req.body, previousLead);
   if (hasErrors) return res.status(400).json({ errors });
 
   let updates = req.body;
@@ -158,7 +189,7 @@ router.patch("/:id", async (req, res) => {
     updates.contact = (typeof contact === "object" ? contact._id : contact);
   }
 
-  Lead.findByIdAndUpdate(req.params.id, { $set: updates }, { new: true })
+  Lead.findByIdAndUpdate(req.params.leadId, { $set: updates }, { new: true })
     .populate("notes.user", { password: 0 })
     .populate("notes.lastUpdater", { password: 0 })
     .populate([{ path: "contact" }, { path: "organization" }])
@@ -172,12 +203,11 @@ router.patch("/:id", async (req, res) => {
     });
 });
 
-
-// @route   POST api/lead/:id/notes
+// @route   POST api/lead/:leadId/notes
 // @desc    Create note for lead
 // @access  Private
-router.post("/:id/notes", (req, res) => {
-  Lead.findByIdAndUpdate(req.params.id, { $push: { notes: req.body } }, { new: true })
+router.post("/:leadId/notes", leadMembersMiddlewares, (req, res) => {
+  Lead.findByIdAndUpdate(req.params.leadId, { $push: { notes: req.body } }, { new: true })
     .populate("notes.user", { password: 0 })
     .populate("notes.lastUpdater", { password: 0 })
     .populate([{ path: "contact" }, { path: "organization" }])
@@ -191,10 +221,10 @@ router.post("/:id/notes", (req, res) => {
     });
 });
 
-// @route   PATCH api/lead/:id/note/:id
+// @route   PATCH api/lead/:leadId/note/:id
 // @desc    Update note's lead
 // @access  Private
-router.patch("/:leadId/note/:noteId", (req, res) => {
+router.patch("/:leadId/note/:noteId", leadMembersMiddlewares, (req, res) => {
   Lead.findOneAndUpdate(
     { _id: req.params.leadId, "notes._id": req.params.noteId },
     { $set: { "notes.$.text": req.body.text, "notes.$.lastUpdater": req.user.id } },
@@ -207,10 +237,10 @@ router.patch("/:leadId/note/:noteId", (req, res) => {
     });
 });
 
-// @route   DELETE api/lead/:id/note/:id
+// @route   DELETE api/lead/:leadId/note/:id
 // @desc    Delete note's lead
 // @access  Private
-router.delete("/:leadId/note/:noteId", (req, res) => {
+router.delete("/:leadId/note/:noteId", leadMembersMiddlewares, (req, res) => {
   Lead.findByIdAndUpdate(req.params.leadId, { $pull: { notes: { _id: req.params.noteId } } }, { new: true })
     .then(lead => {
       return res.json(lead);
