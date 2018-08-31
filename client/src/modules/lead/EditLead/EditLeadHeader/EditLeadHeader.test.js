@@ -35,13 +35,13 @@ describe("<EditLeadHeader />", () => {
   it("should call updateLead after won and lost buttons click", () => {
     loadLead = jest.fn();
     updateLead = jest.fn();
-    let wrapper = shallow(
-    <EditLeadHeader 
-      match={match}
-      editLead={editLead} 
-      loadLead={loadLead} 
-      updateLead={updateLead}
-    />
+    let wrapper = shallow (
+      <EditLeadHeader 
+        match={match}
+        editLead={editLead} 
+        loadLead={loadLead} 
+        updateLead={updateLead}
+      />
     )
     wrapper.find(`.${styles.button}`).simulate("click");
     wrapper.find(`.${styles.buttonLost}`).simulate("click");
