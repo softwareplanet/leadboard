@@ -88,7 +88,7 @@ export default class AddActivity extends Component {
     return duration;
   };
 
-  renderDurationValue = () => {
+  formatDurationValue = () => {
     return `${moment().startOf("day").add(this.state.duration, "minutes").format("HH:mm")}`;
   };
 
@@ -102,7 +102,7 @@ export default class AddActivity extends Component {
   };
 
   getSelectedDate = () => {
-    return this.state.date ? { value: this.state.date } : {};
+    return this.state.date ? { value: this.state.date._d } : {};
   };
 
   getDurationOptions = () => {
@@ -138,6 +138,8 @@ export default class AddActivity extends Component {
   };
 
   getNewEvent = () => {
+
+
     return {
       title: this.state.subject || this.state.activeTab,
       allDay: !this.state.time,
@@ -152,15 +154,20 @@ export default class AddActivity extends Component {
       <div className={style.activityForm}>
         <div className={style.container}>
           <BigCalendar
+            // elementProps={{
+            //   value: this.state.date ? Date.parse(this.state.date._d) : Date.parse(moment()._d)
+            // }}
             style={{ height: 540, paddingTop:"16px" }}
             // selectable
             onSelectSlot={event => this.onSelectSlot(event)}
             events={[this.getNewEvent()]}
+            allDayAccessor={"allDay"}
             startAccessor="startDate"
             endAccessor="endDate"
             localizer={localizer}
             defaultView={"day"}
-            date={this.state.date ? Date.parse(this.state.date) : new Date()}
+            // date={this.state.date ? Date.parse(this.state.date._d) : Date.parse(moment()._d)}
+            onNavigate={date => this.setState({date: moment(date)})}
             views={["day"]}
             step={30}
           />
@@ -219,7 +226,7 @@ export default class AddActivity extends Component {
                 <span className={style.dateInputSpan}>DURATION</span>
                 <div className={style.inputContainer}>
                   <CustomSelect className={style.dateInput}
-                                value={isBlank(this.state.duration) ? "" : this.renderDurationValue()}
+                                value={isBlank(this.state.duration) ? "" : this.formatDurationValue()}
                                 options={this.getDurationOptions()}
                                 onSelect={duration => this.onInputPick(duration, "duration")} />
                   <button onClick={(e) => this.onDeleteClick(e, "duration")}

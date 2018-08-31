@@ -90,7 +90,7 @@ class EditLeadTabs extends Component {
     return (
       <div className={styles.tabs}>
         <ul className={styles.header}>
-          <li className={cx({ headerItem: true, active: takeNotesCondition })} onClick={() => this.tabHandler(noteEditor)}>
+          <li className={cx(styles.headerItem, { active: takeNotesCondition })} onClick={() => this.tabHandler(noteEditor)}>
             <img
               src={takeNotesCondition ? takeNotesIconActive : takeNotesIcon}
               className={styles.headerItemIcon}
@@ -98,7 +98,7 @@ class EditLeadTabs extends Component {
             />
             Take notes
           </li>
-          <li className={cx({ headerItem: true, active: addActivityCondition })} onClick={() => this.tabHandler(addActivity)}>
+          <li className={cx(styles.headerItem, { active: addActivityCondition })} onClick={() => this.tabHandler(addActivity)}>
             <img
               src={addActivityCondition ? addActivityIconActive : addActivityIcon}
               className={styles.headerItemIcon}

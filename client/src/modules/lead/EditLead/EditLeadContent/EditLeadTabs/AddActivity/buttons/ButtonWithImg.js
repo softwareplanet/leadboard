@@ -1,6 +1,5 @@
 import React from "react";
 
-
 const buttonWithImg = (props) => {
   let propsCopy = {
     ...props
@@ -18,6 +17,6 @@ const buttonWithImg = (props) => {
       <span className={props.textClassName}>{props.children}</span>
     </button>
   )
-
 };
+
 export default buttonWithImg;
