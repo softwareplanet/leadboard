@@ -69,14 +69,14 @@ export default class AddActivity extends Component {
   getActivityDateAndTime = () => {
     let date = this.state.date ? moment(this.state.date) : moment().startOf("day");
     if (!this.state.time) {
-      return { date: Date.parse(date._d) };
+      return { date: date._d };
     }
 
     let time = moment.duration(this.state.time.diff(moment().startOf("day")));
     date = date.add(Math.floor(time.asMinutes()), "minutes");
     return {
       hasStartTime: true,
-      date: Date.parse(date._d)
+      date: date._d
     };
   };
 
