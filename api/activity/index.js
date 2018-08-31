@@ -5,7 +5,7 @@ import Activity from "../../models/activity";
 
 const router = new Router();
 
-// @route   PATCH api/activity
+// @route   PATCH api/activity/:activityId
 // @desc    Update activity
 // @access  Private
 router.patch("/:activityId", (req, res) => {
