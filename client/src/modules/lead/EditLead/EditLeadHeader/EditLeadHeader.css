@@ -105,6 +105,11 @@
   background-color: #2cbf55;
 }
 
+.lostBadge {
+  composes: badge;
+  background: #e84546
+}
+
 .leadActions {
   display: flex;
   height: 32px;

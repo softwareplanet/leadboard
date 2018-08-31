@@ -33,7 +33,7 @@ class EditLeadHeader extends Component {
   render() {
     let editLead = !isEmpty( this.props.editLead ) ? this.props.editLead : null;
     let statusBadge = (
-      <div className={styles.badge}> 
+      <div className={editLead && editLead.status === WON ? styles.badge : styles.lostBadge}> 
         {editLead ? editLead.status.toUpperCase() : ""}
       </div>
     )
