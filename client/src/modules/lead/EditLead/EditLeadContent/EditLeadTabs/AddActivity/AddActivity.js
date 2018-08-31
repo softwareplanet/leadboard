@@ -95,7 +95,7 @@ export default class AddActivity extends Component {
   };
 
   getSelectedDate = () => {
-    return this.state.date ? { value: this.state.date._d } : {};
+    return this.state.date ? { value: new Date(this.state.date) } : {};
   };
 
   getDurationOptions = () => {
@@ -157,7 +157,6 @@ export default class AddActivity extends Component {
                   className={style.dateInput} />
                 <button onClick={(e) => this.onDeleteClick(e, "date")}
                         className={style.inputButton}>
-
                   <img className={style.inputImg} src={deleteIcon} alt="del" />
                 </button>
               </div>
