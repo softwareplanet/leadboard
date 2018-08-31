@@ -1,3 +1,4 @@
+/* eslint import/no-webpack-loader-syntax: off */
 import React, { Component } from "react";
 import style from "./AddActivity.css";
 import moment from "moment";
@@ -13,8 +14,12 @@ import prevMonthIcon from "../../../../../../assets/add-activity/prev-month.svg"
 import ActivityButtons from "./buttons/ActivityButtons";
 import isBlank from "../../../../../../utils/isBlank"
 import CustomSelect from "./buttons/CustomSelect";
-import DatePicker from 'react-pikaday-datepicker';
+import DatePicker from "react-pikaday-datepicker";
+import BigCalendar from "react-big-calendar";
 import PropTypes from "prop-types";
+import "!style-loader!css-loader!react-big-calendar/lib/css/react-big-calendar.css"
+
+const localizer = BigCalendar.momentLocalizer(moment);
 
 const timeIntervalMinutes = 15;
 const activityTypes = [
@@ -120,74 +125,104 @@ export default class AddActivity extends Component {
     return options;
   };
 
+  onSelectSlot = (event) => {
+    let dateTime = moment(event.start);
+    let date = dateTime.startOf("day");
+    let time = moment.duration(moment(date._i).diff(dateTime));
+
+    this.setState({ time: moment().startOf("day").add(time.asMinutes(),"minutes"), date: date._i});
+
+    console.log(time.asMinutes())
+  };
+
   render() {
     let activity = this.getActivity();
     return (
       <div className={style.activityForm}>
-        <div className={style.activityContainer}>
-          <ActivityButtons
-            onButtonClick={this.onTypeButtonClick}
-            activeButton={this.state.activeTab}
-            buttons={activityTypes}
-            groupClassName={style.typeButtons}
-            textClassName={style.buttonText}
-            buttonsClassName={style.typeButton}
-            activeClassName={style.typeButtonActive}
-            imgClassName={style.iconImg}
+        <div className={style.container}>
+          <BigCalendar
+            style={{ height: 540, paddingTop:"16px" }}
+            selectable
+            onSelectSlot={event => this.onSelectSlot(event)}
+            events={[
+              {
+                id: 0,
+                title: this.state.subject || this.state.activeTab,
+                allDay: !this.state.time,
+                start: Date.parse(this.state.date) || Date.now(),
+                // end: Date.parse(this.state.date.add(1,"hours")._d)
+              },
+            ]}
+            localizer={localizer}
+            defaultView={"day"}
+            views={["day"]}
+            step={30}
           />
-          <input
-            onChange={this.onSubjectChange}
-            autoFocus
-            className={style.typeInput}
-            placeholder={this.state.activeTab}
-            value={this.state.subject}
-            type="text" />
+          <div className={style.activityContainer}>
+            <ActivityButtons
+              onButtonClick={this.onTypeButtonClick}
+              activeButton={this.state.activeTab}
+              buttons={activityTypes}
+              groupClassName={style.typeButtons}
+              textClassName={style.buttonText}
+              buttonsClassName={style.typeButton}
+              activeClassName={style.typeButtonActive}
+              imgClassName={style.iconImg}
+            />
+            <input
+              onChange={this.onSubjectChange}
+              autoFocus
+              className={style.typeInput}
+              placeholder={this.state.activeTab}
+              value={this.state.subject}
+              type="text" />
 
-          <div className={style.dateInputs}>
-            <label>
-              <span className={style.dateInputSpan}>DATE</span>
-              <div className={style.inputContainer}>
-                <DatePicker
-                  {...this.getSelectedDate()}
-                  onChange={(date) => this.onInputPick(date, "date")}
-                  format="MM/DD/YYYY"
-                  placeholder={`${moment().format("MM/DD/YYYY")}`}
-                  showDaysInNextAndPreviousMonths={true}
-                  enableSelectionDaysInNextAndPreviousMonths={true}
-                  className={style.dateInput} />
-                <button onClick={(e) => this.onDeleteClick(e, "date")}
-                        className={style.inputButton}>
+            <div className={style.dateInputs}>
+              <label>
+                <span className={style.dateInputSpan}>DATE</span>
+                <div className={style.inputContainer}>
+                  <DatePicker
+                    {...this.getSelectedDate()}
+                    onChange={(date) => this.onInputPick(date, "date")}
+                    format="MM/DD/YYYY"
+                    placeholder={`${moment().format("MM/DD/YYYY")}`}
+                    showDaysInNextAndPreviousMonths={true}
+                    enableSelectionDaysInNextAndPreviousMonths={true}
+                    className={style.dateInput} />
+                  <button onClick={(e) => this.onDeleteClick(e, "date")}
+                          className={style.inputButton}>
 
-                  <img className={style.inputImg} src={deleteIcon} alt="del" />
-                </button>
-              </div>
-            </label>
-            <label>
-              <span className={style.dateInputSpan}>TIME</span>
-              <div className={style.inputContainer}>
-                <CustomSelect className={style.dateInput}
-                              value={isBlank(this.state.time) ? "" : this.state.time.format("hh:mm A")}
-                              options={this.getTimeOptions()}
-                              onSelect={time => this.onInputPick(time, "time")} />
-                <button onClick={(e) => this.onDeleteClick(e, "time")}
-                        className={style.inputButton}>
-                  <img className={style.inputImg} src={deleteIcon} alt="del" />
-                </button>
-              </div>
-            </label>
-            <label>
-              <span className={style.dateInputSpan}>DURATION</span>
-              <div className={style.inputContainer}>
-                <CustomSelect className={style.dateInput}
-                              value={isBlank(this.state.duration) ? "" : this.renderDurationValue()}
-                              options={this.getDurationOptions()}
-                              onSelect={duration => this.onInputPick(duration, "duration")} />
-                <button onClick={(e) => this.onDeleteClick(e, "duration")}
-                        className={style.inputButton}>
-                  <img className={style.inputImg} src={deleteIcon} alt="del" />
-                </button>
-              </div>
-            </label>
+                    <img className={style.inputImg} src={deleteIcon} alt="del" />
+                  </button>
+                </div>
+              </label>
+              <label>
+                <span className={style.dateInputSpan}>TIME</span>
+                <div className={style.inputContainer}>
+                  <CustomSelect className={style.dateInput}
+                                value={isBlank(this.state.time) ? "" : this.state.time.format("hh:mm A")}
+                                options={this.getTimeOptions()}
+                                onSelect={time => this.onInputPick(time, "time")} />
+                  <button onClick={(e) => this.onDeleteClick(e, "time")}
+                          className={style.inputButton}>
+                    <img className={style.inputImg} src={deleteIcon} alt="del" />
+                  </button>
+                </div>
+              </label>
+              <label>
+                <span className={style.dateInputSpan}>DURATION</span>
+                <div className={style.inputContainer}>
+                  <CustomSelect className={style.dateInput}
+                                value={isBlank(this.state.duration) ? "" : this.renderDurationValue()}
+                                options={this.getDurationOptions()}
+                                onSelect={duration => this.onInputPick(duration, "duration")} />
+                  <button onClick={(e) => this.onDeleteClick(e, "duration")}
+                          className={style.inputButton}>
+                    <img className={style.inputImg} src={deleteIcon} alt="del" />
+                  </button>
+                </div>
+              </label>
+            </div>
           </div>
         </div>
         <div className={style.footer}>
