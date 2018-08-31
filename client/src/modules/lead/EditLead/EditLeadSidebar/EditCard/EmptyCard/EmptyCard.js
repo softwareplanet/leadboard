@@ -5,6 +5,7 @@ import classNames from "classnames";
 import indefiniteArticle from "../../../../../../utils/indefiniteArticle";
 import { autocompleteStyles } from "../../../../../common/autocomplete/styles/autocomplete-styles";
 import isBlank from "../../../../../../utils/isBlank";
+import { trim } from "lodash";
 
 const customStyles = {
   content: {
@@ -69,15 +70,16 @@ class EmptyCard extends Component {
 
   onChange = (event) => {
     let value = event.target.value;
+    let state = this.state;
     this.setState({
       item: {
-        id: this.state.itemAfterSelect.name === value ? this.state.itemAfterSelect.id : null,
+        id: state.itemAfterSelect.name === value ? state.itemAfterSelect.id : null,
         name: value
       },
-      openDropdown: true,
-      showAdditionalMessage: isBlank(value) ? false : this.state.showAdditionalMessage,
-      isLinkDisabled: isBlank(value) ? true : this.state.isLinkDisabled,
-      showBadge: isBlank(value) ? false : this.state.showBadge,
+      openDropdown: !isBlank(state.item.name),
+      showAdditionalMessage: isBlank(value) ? false : state.showAdditionalMessage,
+      isLinkDisabled: isBlank(value) ? true : state.isLinkDisabled,
+      showBadge: isBlank(value) ? false : state.showBadge,
     })
   };
 
@@ -106,19 +108,23 @@ class EmptyCard extends Component {
 
   onBlur = () => {
     this.inputWrapper.current.removeAttribute("style");
+    let { item } = this.state;
     this.setState({
       openDropdown: false,
-      name: this.state.item.name,
-      showAdditionalMessage: !isBlank(this.state.item.name),
-      isLinkDisabled: isBlank(this.state.item.name),
-      showBadge: !this.state.item.id && this.state.item.name.length,
+      item: {
+        ...item,
+        name: trim(item.name)
+      },
+      name: trim(item.name),
+      showAdditionalMessage: !isBlank(item.name),
+      isLinkDisabled: isBlank(item.name),
+      showBadge: !item.id && !isBlank(item.name),
     })
   };
 
   clearInput = () => {
     this.child.current.inputFocus();
     this.setState({
-      name: "",
       item: {
         id: null,
         name: ""
@@ -127,6 +133,7 @@ class EmptyCard extends Component {
         id: null,
         name: "",
       },
+      name: "",
       showAdditionalMessage: false,
       isLinkDisabled: true,
     })
