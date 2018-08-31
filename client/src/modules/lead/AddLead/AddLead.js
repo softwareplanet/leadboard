@@ -220,7 +220,7 @@ class AddLead extends React.Component {
       namePlaceholder: this.getPlaceholderValue(),
       nameChanged: isBlank(this.state.organization.name) && isBlank(this.state.contact.name) ? false : this.state.nameChanged,
       openOrganizationDropdown: false,
-      showOrganizationBadge: this.state.organization.name.length > 0 && this.state.afterOrganizationSelectShowBadge && !this.state.organization.id && !isBlank(this.state.organization.name),
+      showOrganizationBadge: this.state.afterOrganizationSelectShowBadge && !this.state.organization.id && !isBlank(this.state.organization.name),
     });
   };
 
@@ -278,7 +278,7 @@ class AddLead extends React.Component {
       namePlaceholder: this.getPlaceholderValue(),
       nameChanged: isBlank(this.state.organization.name) && isBlank(this.state.contact.name) ? false : this.state.nameChanged,
       openContactDropdown: false,
-      showContactBadge: this.state.contact.name.length > 0 && this.state.afterContactSelectShowBadge && !this.state.contact.id && !isBlank(this.state.contact.name),
+      showContactBadge: this.state.afterContactSelectShowBadge && !this.state.contact.id && !isBlank(this.state.contact.name),
     }, () => this.onOrganizationBlur())
   };
 
@@ -319,12 +319,11 @@ class AddLead extends React.Component {
         domain: this.props.auth.domainid,
         owner: this.props.auth.userid,
         stage: this.state.stage,
-        name: trim(this.state.name).length > 0 ? trim(this.state.name) : trim(this.state.namePlaceholder),
+        name: !isBlank(this.state.name) ? trim(this.state.name) : trim(this.state.namePlaceholder),
         contact: this.state.contact.id ? this.state.contact.id : this.state.contact.name,
         organization: this.state.organization.id ? this.state.organization.id : this.state.organization.name,
         order: this.getNextLeadNumber(this.state.stage),
       };
-      console.log(lead);
       this.props.createLead(lead);
       this.closeModal();
     } else {
