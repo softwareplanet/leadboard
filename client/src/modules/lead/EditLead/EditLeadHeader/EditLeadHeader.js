@@ -18,13 +18,13 @@ class EditLeadHeader extends Component {
     this.props.loadLead(leadId);
   }
 
-  toggle = () => {
+  togglePopover = () => {
     this.setState(prevState => {
       return { popoverOpen: !prevState.popoverOpen };
     });
   };
 
-  statusHandler = (status) => {
+  statusChangeHandler = (status) => {
     let lead = this.props.editLead;
     lead.status = status;
     this.props.updateLead(lead);  
@@ -35,7 +35,7 @@ class EditLeadHeader extends Component {
     return (
       <div className={styles.header}>
         <div className={styles.description}>
-          <h4 onClick={this.toggle} className={styles.leadName} id="edit-lead-header-name">
+          <h4 onClick={this.togglePopover} className={styles.leadName} id="edit-lead-header-name">
             {editLead ? editLead.name : null}
           </h4>
           <EditLeadPopover
@@ -44,7 +44,7 @@ class EditLeadHeader extends Component {
             value={editLead ? editLead.name : null}
             isOpen={this.state.popoverOpen}
             target="edit-lead-header-name"
-            toggle={this.toggle}
+            toggle={this.togglePopover}
             title="Rename this lead:"
           />
           <div className={styles.leadOptions}>
@@ -56,8 +56,8 @@ class EditLeadHeader extends Component {
               </div>
             </div>
             <div>
-              <button onClick={() => this.statusHandler(WON)} className={styles.button}>Won</button>
-              <button onClick={() => this.statusHandler(LOST)} className={styles.buttonLost}>Lost</button>
+              <button onClick={() => this.statusChangeHandler(WON)} className={styles.button}>Won</button>
+              <button onClick={() => this.statusChangeHandler(LOST)} className={styles.buttonLost}>Lost</button>
             </div>
           </div>
         </div>
@@ -72,11 +72,11 @@ class EditLeadHeader extends Component {
     let lead = this.props.editLead;
     lead.name = name;
     this.props.updateLead(lead);
-    this.toggle();
+    this.togglePopover();
   };
 
   onPopoverCancel = () => {
-    this.toggle();
+    this.togglePopover();
   };
 }
 
