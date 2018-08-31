@@ -57,7 +57,7 @@ const mapStateToProps = state => ({
     leadId: state.leads.editLead.lead._id,
 });
 
-Activities.PropTypes = {
+Activities.propTypes = {
     loadLeadActivities: PropTypes.func.isRequired,
     activities: PropTypes.object
 };

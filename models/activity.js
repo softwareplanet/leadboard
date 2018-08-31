@@ -14,7 +14,7 @@ const activitySchema = new mongoose.Schema({
     assignedTo: { type: mongoose.Schema.Types.ObjectId, ref: "User"},
     lead: { type: mongoose.Schema.Types.ObjectId, ref: "Lead"},
     participants:  [{type: mongoose.Schema.Types.ObjectId, ref:"Contact"}],
-    organization: {type: mongoose.Schema.Types.ObjectId, ref: "Organoztion"},
+    organization: {type: mongoose.Schema.Types.ObjectId, ref: "Organization"},
     done: {type: Boolean, default: false},
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User"},
     modifiedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User"},

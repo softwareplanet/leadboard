@@ -1,20 +1,20 @@
-import { combineReducers } from "redux";
+import {combineReducers} from "redux";
 import authReducer from "./modules/auth/authReducer";
 import leadReducersAggregator from "./modules/lead/leadRootReducer";
 
-import { GET_ERRORS, CLEAR_STORE } from "./actionTypes";
+import {GET_ERRORS, CLEAR_STORE} from "./actionTypes";
 import contactReducer from "./modules/common/autocomplete/contact/contactReducer";
 import organizationReducer from "./modules/common/autocomplete/organization/organizationReducer";
 
 const initialState = {};
 
 function errorReducer(state = initialState, action) {
-    switch (action.type) {
-        case GET_ERRORS:
-            return action.payload;
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case GET_ERRORS:
+      return action.payload;
+    default:
+      return state;
+  }
 }
 
 const appReducer = combineReducers({

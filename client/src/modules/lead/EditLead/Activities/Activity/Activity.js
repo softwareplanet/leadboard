@@ -10,7 +10,6 @@ class Activity extends Component {
 
   changeStatus = e => {
     e.preventDefault();
-
   };
 
   checkTime = (date, hasStartTime, status) => {
@@ -18,15 +17,14 @@ class Activity extends Component {
     let activityDate = new Date(activityFullDate.toLocaleDateString());
     let currentDate = new Date(new Date().toLocaleDateString());
 
-    if(status) {
+    if (status) {
       return styles.defaultTime;
-    }
-    else {
+    } else {
       if (currentDate.getTime() === activityDate.getTime()) {
-        if(hasStartTime){
+        if (hasStartTime) {
           if (activityFullDate.getTime() < new Date().getTime()) {
-          return styles.expiredTime;
-        }
+            return styles.expiredTime;
+          }
           return styles.defaultTime;
         }
         return styles.today;
@@ -38,7 +36,6 @@ class Activity extends Component {
   };
 
   render() {
-    console.log(new Date().getTime());
     return (
       <div className={styles.activityContent}>
         <div className={styles.wrapper}>
@@ -56,14 +53,13 @@ class Activity extends Component {
         </div>
         <div className={styles.wrapper}>
           <div className={styles.activityDetails}>
-                    <span className={this.checkTime(this.props.activity.date, this.props.activity.hasStartTime, this.props.activity.done)}>
-                        {dateFormater(this.props.activity.date, this.props.activity.hasStartTime)}
-                    </span>
+            <span
+              className={this.checkTime(this.props.activity.date, this.props.activity.hasStartTime, this.props.activity.done)}>
+                        {dateFormater(this.props.activity.date, this.props.activity.hasStartTime)}</span>
             <span className={styles.separator}></span>
             <span className={styles.author}>{this.props.author}</span>
           </div>
           <div className={styles.relatedItems}>
-
           </div>
         </div>
       </div>
