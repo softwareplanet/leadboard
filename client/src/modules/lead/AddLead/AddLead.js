@@ -7,7 +7,7 @@ import { loadContacts } from "../../common/autocomplete/contact/contactActions";
 import { createLead } from "../leadActions";
 import classNames from "classnames";
 import styles from "./AddLead.css";
-import { isEmpty } from "lodash/fp";
+import { isEmpty, trim } from "lodash/fp";
 import isBlank from "../../../utils/isBlank";
 
 import SelectStageOnCreation from "./SelectStage/SelectStageOnCreation";
@@ -137,13 +137,14 @@ class AddLead extends React.Component {
   };
 
   onOrganizationChange = (event) => {
+    let value = event.target.value;
     let newState = {
       ...this.state,
       organization: {
-        id: this.state.organizationAfterSelect.name === event.target.value ? this.state.organizationAfterSelect.id : null,
-        name: event.target.value,
+        id: this.state.organizationAfterSelect.name === value ? this.state.organizationAfterSelect.id : null,
+        name: value,
       },
-      openOrganizationDropdown: true,
+      openOrganizationDropdown: !isBlank(value),
       afterOrganizationSelectShowBadge: true,
     };
     this.setState({
@@ -170,25 +171,25 @@ class AddLead extends React.Component {
       name: !this.state.nameChanged ?
         `${value} lead` : `${this.state.name}`,
       openOrganizationDropdown: false,
-      showBadge: false,
+      showOrganizationBadge: false,
       afterSelectShowBadge: false,
     }, () => this.onOrganizationBlur());
   };
 
   getNameValue = () => {
     let name = "";
-    if (this.state.organization.name.length > 0) {
+    if (!isBlank(this.state.organization.name)) {
       if (this.state.nameChanged) {
         name = this.state.name;
       } else {
-        name = this.state.organization.name + " lead";
+        name = trim(this.state.organization.name) + " lead";
       }
     } else {
-      if(this.state.contact.name.length > 0) {
+      if (!isBlank(this.state.contact.name)) {
         if (this.state.nameChanged) {
           name = this.state.name;
         } else {
-          name = this.state.contact.name + " lead";
+          name = trim(this.state.contact.name) + " lead";
         }
       } else name = "";
     }
@@ -197,12 +198,12 @@ class AddLead extends React.Component {
 
   getPlaceholderValue = () => {
     let placeholder = "";
-    if (this.state.organization.name.length > 0) {
-      placeholder = this.state.organization.name + " lead";
+    if (!isBlank(this.state.organization.name)) {
+      placeholder = trim(this.state.organization.name) + " lead";
     } else {
-     if(this.state.contact.name.length > 0) {
-       placeholder = this.state.contact.name + " lead";
-     } else placeholder = "";
+      if (!isBlank(this.state.contact.name)) {
+        placeholder = trim(this.state.contact.name) + " lead";
+      } else placeholder = "";
     }
     return placeholder;
   };
@@ -212,21 +213,26 @@ class AddLead extends React.Component {
     this.setState({
       ...this.state,
       name: this.getNameValue(),
+      organization: {
+        id: this.state.organizationAfterSelect.id,
+        name: trim(this.state.organization.name),
+      },
       namePlaceholder: this.getPlaceholderValue(),
       nameChanged: isBlank(this.state.organization.name) && isBlank(this.state.contact.name) ? false : this.state.nameChanged,
       openOrganizationDropdown: false,
-      showOrganizationBadge: this.state.organization.name.length > 0 && this.state.afterOrganizationSelectShowBadge && !this.state.organization.id,
+      showOrganizationBadge: this.state.afterOrganizationSelectShowBadge && !this.state.organization.id && !isBlank(this.state.organization.name),
     });
   };
 
   onContactChange = (event) => {
+    let value = event.target.value;
     let newState = {
       ...this.state,
       contact: {
-        id: this.state.contactAfterSelect.name === event.target.value ? this.state.contactAfterSelect.id : null,
-        name: event.target.value,
+        id: this.state.contactAfterSelect.name === value ? this.state.contactAfterSelect.id : null,
+        name: value,
       },
-      openContactDropdown: true,
+      openContactDropdown: !isBlank(value),
       afterContactSelectShowBadge: true,
     };
     this.setState({
@@ -254,10 +260,14 @@ class AddLead extends React.Component {
         id: item.organization !== undefined ? item.organization._id : this.state.organization._id,
         name: item.organization !== undefined ? item.organization.name : this.state.organization.name,
       },
+      organizationAfterSelect: {
+        id: item.organization !== undefined ? item.organization._id : this.state.organization._id,
+        name: item.organization !== undefined ? item.organization.name : this.state.organization.name,
+      },
       openContactDropdown: false,
       showContactBadge: false,
       afterContactSelectShowBadge: false,
-    }, () => this.onContactBlur())
+    }, () => this.onContactBlur());
   };
 
   onContactBlur = () => {
@@ -265,11 +275,15 @@ class AddLead extends React.Component {
     this.setState({
       ...this.state,
       name: this.getNameValue(),
+      contact: {
+        id: this.state.contactAfterSelect.id,
+        name: trim(this.state.contact.name),
+      },
       namePlaceholder: this.getPlaceholderValue(),
       nameChanged: isBlank(this.state.organization.name) && isBlank(this.state.contact.name) ? false : this.state.nameChanged,
       openContactDropdown: false,
-      showContactBadge: this.state.contact.name.length > 0 && this.state.afterContactSelectShowBadge && !this.state.contact.id,
-    }, () => this.onOrganizationBlur())
+      showContactBadge: this.state.afterContactSelectShowBadge && !this.state.contact.id && !isBlank(this.state.contact.name),
+    }, () => this.onOrganizationBlur());
   };
 
   onAutocompleteFocus = (event) => {
@@ -309,7 +323,7 @@ class AddLead extends React.Component {
         domain: this.props.auth.domainid,
         owner: this.props.auth.userid,
         stage: this.state.stage,
-        name: this.state.name.length > 0 ? this.state.name : this.state.namePlaceholder,
+        name: !isBlank(this.state.name) ? trim(this.state.name) : trim(this.state.namePlaceholder),
         contact: this.state.contact.id ? this.state.contact.id : this.state.contact.name,
         organization: this.state.organization.id ? this.state.organization.id : this.state.organization.name,
         order: this.getNextLeadNumber(this.state.stage),
@@ -350,8 +364,9 @@ class AddLead extends React.Component {
           <form autoComplete="off" className={styles.form}>
 
             <label className={styles.inputLabel}>Contact person name</label>
-            <div id="contact-wrapper" className={validationIsShown && errors.contact ? styles.invalidContainer : styles.inputContainer}>
-              <i className={classNames("fas fa-user", styles.inputIcon)}/>
+            <div id="contact-wrapper"
+                 className={validationIsShown && errors.contact ? styles.invalidContainer : styles.inputContainer}>
+              <i className={classNames("fas fa-user", styles.inputIcon)} />
               <ContactAutocomplete
                 items={this.state.contacts}
                 onFocus={this.onAutocompleteFocus}
@@ -373,7 +388,7 @@ class AddLead extends React.Component {
             <div id="organization-wrapper" className={validationIsShown && errors.organization
               ? styles.invalidContainer
               : styles.inputContainer}>
-              <i className={classNames("fas fa-building", styles.inputIcon)}/>
+              <i className={classNames("fas fa-building", styles.inputIcon)} />
               <OrganizationAutocomplete
                 items={this.state.organizations}
                 onFocus={this.onAutocompleteFocus}
@@ -386,7 +401,8 @@ class AddLead extends React.Component {
                 inputStyle={autocompleteStyles.addLeadInput}
                 itemsCount={5}
               />
-              {this.state.showOrganizationBadge ? <span id="organization-badge" className={styles.newBadge}>NEW</span> : null}
+              {this.state.showOrganizationBadge ?
+                <span id="organization-badge" className={styles.newBadge}>NEW</span> : null}
             </div>
 
             <label className={styles.inputLabel}>Lead name</label>

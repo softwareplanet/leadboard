@@ -1,5 +1,6 @@
 import React from "react";
 import ReactAutocomplete from "react-autocomplete";
+import { trim } from "lodash";
 
 class ContactAutocomplete extends React.Component {
   input = React.createRef();
@@ -14,7 +15,7 @@ class ContactAutocomplete extends React.Component {
       <ReactAutocomplete
         open={this.props.value.length > 1 && this.props.open}
         items={this.props.items}
-        shouldItemRender={(item, value) => item.name.toLowerCase().indexOf(value.toLowerCase()) > -1}
+        shouldItemRender={(item, value) => item.name.toLowerCase().indexOf(trim(value).toLowerCase()) > -1}
         getItemValue={item => item.name}
         renderMenu={(items) =>
           items.length !== 0 ? (

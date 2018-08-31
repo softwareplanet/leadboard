@@ -24,6 +24,11 @@ const localizer = BigCalendar.momentLocalizer(moment);
 
 
 const timeIntervalMinutes = 15;
+const minutesInHour = 60;
+const optionsInHour = minutesInHour / timeIntervalMinutes;
+const hoursInDay = 24;
+const maxDurationTime = 8;
+
 const activityTypes = [
   { type: "Call", icon: phoneIcon },
   { type: "Meeting", icon: meetingIcon },
@@ -34,16 +39,12 @@ const activityTypes = [
 ];
 
 export default class AddActivity extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      activeTab: activityTypes[0].type,
-      subject: "",
-      date: "",
-      time: "",
-      duration: "",
-    }
+  state = {
+    activeTab: activityTypes[0].type,
+    subject: "",
+    date: "",
+    time: "",
+    duration: "",
   }
 
   onTypeButtonClick = (event, type) => {
@@ -109,7 +110,9 @@ export default class AddActivity extends Component {
     let time = moment().startOf("day").add(timeIntervalMinutes, "minutes");
     let options = [];
     let minutes = timeIntervalMinutes;
-    for (let i = 0; i < 32; i++) {
+    let amountOfDurationOptions = optionsInHour * maxDurationTime;
+    
+    for (let i = 0; i < amountOfDurationOptions; i++) {
       options.push({ value: minutes, text: time.format("HH:mm").toString() });
       minutes += timeIntervalMinutes;
       time.add(timeIntervalMinutes, "minutes")
@@ -120,7 +123,8 @@ export default class AddActivity extends Component {
   getTimeOptions = () => {
     let time = moment().startOf("day");
     let options = [];
-    for (let i = 0; i < 96; i++) {
+    let amountOfTimeOptions = optionsInHour * hoursInDay;
+    for (let i = 0; i < amountOfTimeOptions; i++) {
       options.push({ value: moment(time), text: time.format("hh:mm A").toString() });
       time.add(timeIntervalMinutes, "minutes")
     }
@@ -242,12 +246,12 @@ export default class AddActivity extends Component {
         </div>
         <div className={style.footer}>
           <button onClick={this.props.onCancel}
-                  className={style.cancelButton}>
+            className={style.cancelButton}>
             <span>Cancel</span>
           </button>
           <button id="saveActivityButton"
-                  onClick={() => this.props.onSave(activity)}
-                  className={style.buttonSave}>
+            onClick={() => this.props.onSave(activity)}
+            className={style.buttonSave}>
             <span>Save</span>
           </button>
         </div>

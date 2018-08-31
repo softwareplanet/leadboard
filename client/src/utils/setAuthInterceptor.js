@@ -1,6 +1,10 @@
 import axios from "axios";
 import { logoutUser } from "../modules/auth/authActions";
 import store from "../store";
+import createHistory from 'history/createBrowserHistory'
+
+const history = createHistory()
+
 
 const setAuthInterceptor = () => {
   axios.interceptors.response.use(response => {
@@ -8,7 +12,7 @@ const setAuthInterceptor = () => {
   }, err => {
     if (err.response.status === 401) {
       store.dispatch(logoutUser());
-      window.location.href = "/"
+      history.push("/");
     }
     return Promise.reject(err);
   });

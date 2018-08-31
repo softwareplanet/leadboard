@@ -15,12 +15,14 @@
   overflow-x: hidden;
   z-index: 1000;
 }
+
 .option {
   width: 100%;
   margin: 2px 0;
   padding: 0;
   text-align: center;
 }
+
 .option:hover {
   cursor: pointer;
   background-color: #4a8ae6;

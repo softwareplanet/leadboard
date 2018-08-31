@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { withRouter, Link, NavLink } from "react-router-dom";
 import styles from "./Navbar.css";
 import { logoutUser } from "../../auth/authActions";
-import { clearLeads } from "../../lead/leadActions";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import dealsIcon from "../../../assets/deals-icon.svg"
@@ -19,7 +18,6 @@ class Navbar extends Component {
   };
 
   onLogout = () => {
-    this.props.clearLeads();
     this.props.logoutUser(this.props.history);
   };
 
@@ -76,4 +74,4 @@ const mapStateToProps = state => ({
 });
 
 export { Navbar };
-export default connect(mapStateToProps, { logoutUser, clearLeads })(withRouter(Navbar));
+export default connect(mapStateToProps, { logoutUser })(withRouter(Navbar));
