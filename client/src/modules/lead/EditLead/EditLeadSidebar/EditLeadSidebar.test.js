@@ -1,9 +1,10 @@
 import "jsdom-global/register";
 import React from "react";
 import { expect } from "chai";
-import { mount, shallow } from "enzyme";
-import EditLeadSidebar from "./EditLeadSidebar";
+import { mount } from "enzyme";
+import { EditLeadSidebar } from "./EditLeadSidebar";
 import configureStore from "redux-mock-store";
+import noop from "lodash";
 
 let store;
 const mockStore = configureStore();
@@ -46,22 +47,79 @@ describe("<EditLeadSidebar/>", () => {
     },
   };
 
-  const initialState = { leads: { editLead: editLead } };
+  const organizations = [
+    { _id: "5b7c0c6e42b4cb4a2c72492d", domain: "5b6ab060f60c0524980fa23b", name: "Company 1" },
+    { _id: "5b7c0cc542b4cb4a2c724933", domain: "5b6ab060f60c0524980fa23b", name: "Company 2" },
+  ];
+  const contacts = [
+    {
+      _id: "5b7eb55995019343c59b0c8c",
+      domain: "5b6ab060f60c0524980fa23b",
+      name: "Bob",
+      organization: "5b7c0c6e42b4cb4a2c72492d",
+    },
+    {
+      _id: "5b7eac4a6a0682428f35485e",
+      domain: "5b6ab060f60c0524980fa23b",
+      name: "Mike",
+      organization: "5b7c0cc542b4cb4a2c724933",
+    },
+  ];
+
+  const initialState = { leads: { editLead: editLead }, contacts: contacts, organizations: organizations };
 
   beforeEach(() => {
     store = mockStore(initialState);
+    wrapper = mount(<EditLeadSidebar
+      loadLead={noop}
+      editLead={editLead}
+      loadContacts={noop}
+      loadOrganizations={noop}
+      contacts={contacts}
+      organizations={organizations}
+    />);
   });
 
   let wrapper;
 
   it("render EditLeadSidebar component", () => {
-    wrapper = shallow(<EditLeadSidebar store={store} editLead={editLead} />);
     expect(wrapper.exists()).to.equal(true);
   });
 
   it("render correct EditCard quantity", () => {
-    wrapper = mount(<EditLeadSidebar store={store} editLead={editLead} />);
     wrapper.update();
-    expect(wrapper.find("EditCard").length).to.equal(2);
+    expect(wrapper.find("EditCard")).to.have.lengthOf(2);
+  });
+
+  it("should render correct EmptyCard quantity", () => {
+    editLead = {
+      ...editLead,
+      contact: null,
+    };
+    wrapper = mount(<EditLeadSidebar
+      loadLead={noop}
+      editLead={editLead}
+      loadContacts={noop}
+      loadOrganizations={noop}
+      contacts={contacts}
+      organizations={organizations}
+    />);
+    expect(wrapper.find("EmptyCard")).to.have.lengthOf(1);
+
+    editLead = {
+      ...editLead,
+      contact: null,
+      organization: null,
+    };
+
+    wrapper = mount(<EditLeadSidebar
+      loadLead={noop}
+      editLead={editLead}
+      loadContacts={noop}
+      loadOrganizations={noop}
+      contacts={contacts}
+      organizations={organizations}
+    />);
+    expect(wrapper.find("EmptyCard")).to.have.lengthOf(2);
   });
 });

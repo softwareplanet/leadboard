@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withRouter, Link, NavLink } from "react-router-dom";
 import styles from "./Navbar.css";
 import { logoutUser } from "../../auth/authActions";
+import { clearLeads } from "../../lead/leadActions";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import dealsIcon from "../../../assets/deals-icon.svg"
@@ -18,6 +19,7 @@ class Navbar extends Component {
   };
 
   onLogout = () => {
+    this.props.clearLeads();
     this.props.logoutUser(this.props.history);
   };
 
@@ -32,7 +34,6 @@ class Navbar extends Component {
     return (
       <header>
         <ul className={styles.menu} role="navigation">
-
           <li className={styles.logo}><Link to={leadsRoute}>Leadboard</Link></li>
           <li className={styles.logoSmall}><Link to={leadsRoute}><h1>L</h1></Link></li>
           <NavLink
@@ -41,7 +42,7 @@ class Navbar extends Component {
             to={leadsRoute}>
             <div>
               <img className={styles.icon}
-                   src={this.getDealsIcon()} alt="deals" />Deals
+                   src={this.getDealsIcon()} alt="leads" />Leads
             </div>
           </NavLink>
           <li className={styles.rightItem}>
@@ -75,4 +76,4 @@ const mapStateToProps = state => ({
 });
 
 export { Navbar };
-export default connect(mapStateToProps, { logoutUser })(withRouter(Navbar));
+export default connect(mapStateToProps, { logoutUser, clearLeads })(withRouter(Navbar));

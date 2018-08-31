@@ -4,19 +4,24 @@ import styles from "./Notes.css";
 import PropTypes from "prop-types";
 import Note from "./Note/Note";
 import InfoItemWrapper from "../../../../../common/InfoWraper/InfoItemWrapper";
-import { updateNote } from "../../../../leadActions";
+import { updateNote, deleteNote } from "../../../../leadActions";
+import { isEmpty } from "lodash";
 
 class Notes extends Component {
 
   noteUpdateHandler = (note) => {
     this.props.updateNote(this.props.editLead._id, note)
-  }
+  };
+
+  noteDeleteHandler = (noteId) => {
+    this.props.deleteNote(this.props.editLead._id, noteId)
+  };
 
   render() {
     return (
       <div className={styles.container}>
-        <div className={styles.timeLineBar}/>
-        {this.props.editLead ? this.props.editLead.notes.sort(function(a, b) {
+        <div className={styles.timeLineBar} />
+        {!isEmpty(this.props.editLead) ? this.props.editLead.notes.sort(function(a, b) {
           return new Date(b.date) - new Date(a.date);
         }).map((note) => {
           return (
@@ -25,6 +30,7 @@ class Notes extends Component {
               component={
               <Note 
                 updateNote={this.noteUpdateHandler} 
+                deleteNote={this.noteDeleteHandler}
                 note={note}
               />}
             />
@@ -37,11 +43,11 @@ class Notes extends Component {
 
 const mapStateToProps = state => ({
   userId: state.auth.userid,
-  editLead: state.leads.editLead,
+  editLead: state.leads.editLead.lead,
 });
 
 Notes.propTypes = {
-  editLead: PropTypes.object
+  editLead: PropTypes.object,
 };
 
-export default connect(mapStateToProps, { updateNote })(Notes);
+export default connect(mapStateToProps, { updateNote, deleteNote })(Notes);

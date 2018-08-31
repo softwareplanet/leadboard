@@ -1,12 +1,15 @@
 import React from "react";
 import ReactAutocomplete from "react-autocomplete";
-import "../styles/Autocomplete.css";
-import { styles } from "../styles/autocomplete-styles";
-
-const COUNT_OF_DISPLAYED_ORGANIZATIONS = 4;
 
 class ContactAutocomplete extends React.Component {
+  input = React.createRef();
+
+  inputFocus = () => {
+    this.input.current.focus();
+  };
+
   render() {
+    const styles = this.props.styles;
     return (
       <ReactAutocomplete
         open={this.props.value.length > 1 && this.props.open}
@@ -15,11 +18,11 @@ class ContactAutocomplete extends React.Component {
         getItemValue={item => item.name}
         renderMenu={(items) =>
           items.length !== 0 ? (
-            <div className="contactsList" style={styles.contact.menu} children={items.splice(0, COUNT_OF_DISPLAYED_ORGANIZATIONS)} />
+            <div className="contactsList" style={styles.menu} children={items.splice(0, this.props.itemsCount)} />
           ) : (
-            <div className="contactsList" style={styles.contact.menu}>
+            <div className="contactsList" style={styles.menu}>
               {
-                <div style={styles.contact.emptyMenuItem}>
+                <div style={styles.emptyMenuItem}>
                   { `"${this.props.value}" will be added as a new contact` }
                 </div>
               }
@@ -30,7 +33,7 @@ class ContactAutocomplete extends React.Component {
           <div
             key={item._id}
             style={{
-              ...styles.contact.menuItem,
+              ...styles.menuItem,
               backgroundColor: highlighted ? "#317ae2" : "transparent",
               color: highlighted ? "#fff" : "#317ae2"
             }}
@@ -38,10 +41,16 @@ class ContactAutocomplete extends React.Component {
             {item.organization !== undefined ? `${item.name} (${ item.organization.name })` : `${item.name}`}
           </div>
         }
-        inputProps={{onBlur: this.props.onBlur, onFocus: this.props.onFocus, className: "contact-input"}}
+        inputProps={{
+          onBlur: this.props.onBlur,
+          onFocus: this.props.onFocus,
+          className: "contact-input",
+          style: this.props.inputStyle,
+        }}
         value={this.props.value}
         onChange={this.props.onChange}
         onSelect={this.props.onSelect}
+        ref={this.input}
       />
     );
   }
