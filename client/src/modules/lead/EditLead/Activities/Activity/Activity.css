@@ -62,11 +62,6 @@
     margin-right: 10px;
 }
 
-.activityDetails>span {
-    font: 400 12px/16px "Open Sans",sans-serif;
-    color: #747678;
-}
-
 .author {
     display: inline-block;
     font: 400 12px/16px "Open Sans",sans-serif;
@@ -95,4 +90,13 @@
 
 ul {
     list-style: none;
+}
+
+.expiredTime {
+    color: red;
+}
+
+.defaultTime>span {
+    font: 400 12px/16px "Open Sans",sans-serif;
+    color: #747678;
 }
