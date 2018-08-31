@@ -40,11 +40,17 @@ class EditLeadHeader extends Component {
             toggle={this.toggle}
             title="Rename this lead:"
           />
-          <div className={styles.owner}>
-            <img src={ownerIcon} className={styles.ownerPicture} />
-            <div className={styles.ownerBody}>
-              <span>{editLead ? editLead.owner.firstname + " " + editLead.owner.lastname : null}</span>
-              <small className={styles.ownerRole}>Owner</small>
+          <div className={styles.leadOptions}>
+            <div className={styles.owner}>
+              <img src={ownerIcon} className={styles.ownerPicture} />
+              <div className={styles.ownerBody}>
+                <span>{editLead ? editLead.owner.firstname + " " + editLead.owner.lastname : null}</span>
+                <small className={styles.ownerRole}>Owner</small>
+              </div>
+            </div>
+            <div>
+              <button className={styles.button}>Won</button>
+              <button className={styles.buttonLost}>Lost</button>
             </div>
           </div>
         </div>
