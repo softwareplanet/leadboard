@@ -19,7 +19,9 @@ import BigCalendar from "react-big-calendar";
 import PropTypes from "prop-types";
 import "!style-loader!css-loader!react-big-calendar/lib/css/react-big-calendar.css"
 
+
 const localizer = BigCalendar.momentLocalizer(moment);
+
 
 const timeIntervalMinutes = 15;
 const activityTypes = [
@@ -149,10 +151,13 @@ export default class AddActivity extends Component {
                 id: 0,
                 title: this.state.subject || this.state.activeTab,
                 allDay: !this.state.time,
-                start: Date.parse(this.state.date) || Date.now(),
+                startDate: this.state.date ? Date.parse(this.state.date) : new Date(),
+                endDate: new Date(new Date().getHours() + 3),
                 // end: Date.parse(this.state.date.add(1,"hours")._d)
               },
             ]}
+            startAccessor="startDate"
+            endAccessor="startDate"
             localizer={localizer}
             defaultView={"day"}
             views={["day"]}
