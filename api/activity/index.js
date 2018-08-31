@@ -29,7 +29,8 @@ const createActivity = (req, res) => {
     lead: req.body.lead,
     participants: req.body.participants,
     organization: req.body.organization,
-    done: req.body.done
+    done: req.body.done,
+    createdBy: req.user._id,
   };
   Activity.create(activity)
     .then(activity => {

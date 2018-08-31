@@ -12,8 +12,8 @@ const activityButtons = (props) => {
     return (
       <ButtonWithImg
         key={button.type}
-        className={button.type === props.activeButton?props.activeClassName:props.buttonsClassName}
-        onClick={(e) => props.onButtonClick(e,button.type)}
+        className={button.type === props.activeButton ? props.activeClassName : props.buttonsClassName}
+        onClick={e => props.onButtonClick(e, button.type)}
         textClassName={props.textClassName}
         imgClassName={props.imgClassName}
         src={button.icon}
@@ -23,7 +23,7 @@ const activityButtons = (props) => {
     )
   });
 
-  return(
+  return (
     <div className={style.tabsContainer}>
       <ButtonGroup className={props.groupClassName}>
         {buttons}

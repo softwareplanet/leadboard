@@ -4,7 +4,7 @@ import {
 } from "./types";
 import { GET_ERRORS } from "../../../../actionTypes";
 
-// Create activity lead
+// Create activity
 export const createActivity = (data) => dispatch => {
   axios
     .post(`/api/activity`, data)

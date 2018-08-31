@@ -15,6 +15,7 @@ export async function dropTables() {
   await Funnel.remove({});
   await Stage.remove({});
   await Lead.remove({});
+  await Activity.remove({});
 }
 
 const notes = [{

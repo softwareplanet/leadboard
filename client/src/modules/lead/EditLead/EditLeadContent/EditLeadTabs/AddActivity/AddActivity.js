@@ -81,7 +81,7 @@ export default class AddActivity extends Component {
     return duration;
   };
 
-  renderDurationValue = () => {
+  formatDurationValue = () => {
     return `${moment().startOf("day").add(this.state.duration, "minutes").format("HH:mm")}`;
   };
 
@@ -179,7 +179,7 @@ export default class AddActivity extends Component {
               <span className={style.dateInputSpan}>DURATION</span>
               <div className={style.inputContainer}>
                 <CustomSelect className={style.dateInput}
-                              value={isBlank(this.state.duration) ? "" : this.renderDurationValue()}
+                              value={isBlank(this.state.duration) ? "" : this.formatDurationValue()}
                               options={this.getDurationOptions()}
                               onSelect={duration => this.onInputPick(duration, "duration")} />
                 <button onClick={(e) => this.onDeleteClick(e, "duration")}

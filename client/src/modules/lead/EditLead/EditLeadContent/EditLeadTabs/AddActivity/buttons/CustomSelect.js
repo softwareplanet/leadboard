@@ -1,7 +1,6 @@
 import style from "./CustomSelect.css"
 import React, { Component } from "react";
 
-
 export default class CustomSelect extends Component {
   constructor(props) {
     super(props);
