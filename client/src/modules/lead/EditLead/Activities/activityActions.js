@@ -5,7 +5,7 @@ import { GET_ERRORS } from "../../../../actionTypes";
 //load activities by lead Id
 export const loadLeadActivities = leadId => dispatch => {
     axios
-        .get(`api/activity/${leadId}`)
+        .get(`/api/lead/${leadId}/activities`)
         .then(result => {
             dispatch(loadLeadActivitiesAction(result.data));
         })
@@ -17,7 +17,7 @@ export const loadLeadActivities = leadId => dispatch => {
 //update activity by id
 export const updateActivity = id => dispatch => {
     axios
-        .patch(`api/activity/${id}`)
+        .patch(`/api/activity/${id}`)
         .then(result => {
             dispatch(updateActivityAction(result.data));
         })

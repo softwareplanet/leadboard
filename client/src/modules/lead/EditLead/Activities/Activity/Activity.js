@@ -10,17 +10,7 @@ class Activity extends Component {
         e.target.className = styles.markAsDone;
     };
 
-    checkDate = date => {
-      if(date === Date.now()){
-          return <span className={styles.today}>
-              Today
-          </span>
-      }
-    };
-
     render() {
-        let today = new Date("2018-07-30 06:30:00.000");
-        let hasStartTime = true;
         return (
             <div className={styles.activityContent}>
                <div className={styles.wrapper}>
@@ -30,16 +20,16 @@ class Activity extends Component {
                     <div className={styles.mark} onClick={this.changeStatus}>
                             <img className={styles.markAsNotDone} src={doneMark} />
                     </div>
-                    <span className={styles.activityWrapper}>Bob</span>
+                    <span className={styles.activityWrapper}>{this.props.activity.subject}</span>
                 </h3>
                </div>
                 <div className={styles.wrapper}>
                 <div className={styles.activityDetails}>
                     <span>
-                        {dateFormater(today, hasStartTime)}
+                        {dateFormater(this.props.activity.date, this.props.activity.hasStartTime)}
                     </span>
-                    <span className={styles.separator}>·</span>
-                    <span className={styles.author}>{this.props.author}Влад Тимофеев</span>
+                    <span className={styles.separator}></span>
+                    <span className={styles.author}>{this.props.author}</span>
                 </div>
                 <div className={styles.relatedItems}>
 

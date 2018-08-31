@@ -8,6 +8,7 @@ import { isValidModelId } from "../../validation/validationUtils";
 import Lead from "../../models/lead";
 import Contact from "../../models/contact";
 import Organization from "../../models/organization";
+import Activity from "../../models/activity";
 
 const router = new Router();
 
@@ -178,6 +179,19 @@ router.delete("/:leadId/note/:noteId", (req, res) => {
     .catch(error => {
       res.status(400).json({ errors: { message: error } });
     });
+});
+
+// @route   GET api/lead/:leadId/activities
+// @desc    Find activities by lead
+// @access  Private
+router.get("/:leadId/activities", (req, res) => {
+    Activity.find({ lead: req.params.leadId })
+        .then(activities => {
+            res.json(activities);
+        })
+        .catch(error => {
+            res.status(400).json({ errors: { message: error } });
+        });
 });
 
 export default router;

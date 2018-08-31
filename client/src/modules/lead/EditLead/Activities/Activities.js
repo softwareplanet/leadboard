@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import styles from "./Activities.css";
 import PropTypes from "prop-types";
+import { isEmpty } from "lodash";
 import InfoItemWrapper from "../../../common/InfoWraper/InfoItemWrapper";
 import Activity from "./Activity/Activity";
 import callIcon from "../../../../assets/call-activity.svg";
@@ -12,7 +13,6 @@ import emailIcon from "../../../../assets/email-activity.svg";
 import lunchIcon from "../../../../assets/lunch-activity.svg";
 
 class Activities extends Component {
-
     getActivityIcon = type => {
         switch (type) {
             case "Call":
@@ -34,30 +34,17 @@ class Activities extends Component {
         return (
             <div className={styles.container}>
                 <div className={styles.timeLineBar} />
-                {/*{this.props.editLead ? this.props.editLead.activity.map((activity) => {
+                {this.props.activities ? this.props.activities.map((activity) => {
                     return (
                         <InfoItemWrapper
                             key={activity._id}
-                            component={<Activity />}
+                            component={<Activity activity={activity}/>}
                             icon={this.getActivityIcon(activity.type)}
                             cardStyles={styles.activityCard}
                             arrowStyles={styles.arrow}
-                            activity={activity}/>
+                            />
                     );
-                }) : null}*/
-                console.log(this.props.activities)}
-                <InfoItemWrapper
-                    component={<Activity />}
-                    icon={callIcon}
-                    cardStyles={styles.activityCard}
-                    arrowStyles={styles.arrow}
-                />
-                <InfoItemWrapper
-                    component={<Activity />}
-                    icon={callIcon}
-                    cardStyles={styles.activityCard}
-                    arrowStyles={styles.arrow}
-                />
+                }) : null}
             </div>
         )
     }
@@ -65,6 +52,7 @@ class Activities extends Component {
 
 const mapStateToProps = state => ({
     activities: state.leads.editLead.activities,
+    leadId: state.leads.editLead.lead._id,
 });
 
 Activities.PropTypes = {

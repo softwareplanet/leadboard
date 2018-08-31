@@ -6,6 +6,7 @@ import EditLeadStageProgress from "./EditLeadStageProgress/EditLeadStageProgress
 import EditLeadPopover from "./EditLeadPopover/EditLeadPopover";
 import ownerIcon from "../../../../assets/user-icon.svg";
 import { isEmpty }from "lodash";
+import { loadLeadActivities } from "../Activities/activityActions";
 
 class EditLeadHeader extends Component {
   state = {
@@ -14,6 +15,7 @@ class EditLeadHeader extends Component {
 
   componentDidMount() {
     let leadId = this.props.match.params.leadId;
+    this.props.loadLeadActivities(leadId);
     this.props.loadLead(leadId);
   }
 
@@ -75,5 +77,5 @@ export { EditLeadHeader };
 
 export default connect(
   mapStateToProps,
-  { loadLead, updateLead }
+  { loadLead, updateLead, loadLeadActivities }
 )(EditLeadHeader);
