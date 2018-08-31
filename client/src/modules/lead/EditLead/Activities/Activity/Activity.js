@@ -14,24 +14,24 @@ class Activity extends Component {
   };
 
   checkTime = (date, hasStartTime, status) => {
-    let activityDate = new Date(date);
-    let activityDay = new Date(activityDate.toLocaleDateString());
+    let activityFullDate = new Date(date);
+    let activityDate = new Date(activityFullDate.toLocaleDateString());
     let currentDate = new Date(new Date().toLocaleDateString());
 
     if(status) {
       return styles.defaultTime;
     }
     else {
-      if (currentDate.getTime() === activityDay.getTime()) {
+      if (currentDate.getTime() === activityDate.getTime()) {
         if(hasStartTime){
-          if (activityDate.getTime() < new Date().getTime()) {
+          if (activityFullDate.getTime() < new Date().getTime()) {
           return styles.expiredTime;
         }
           return styles.defaultTime;
         }
         return styles.today;
       }
-      if (currentDate.getTime() > activityDay.getTime()) {
+      if (currentDate.getTime() > activityDate.getTime()) {
         return styles.expiredTime;
       }
     }
