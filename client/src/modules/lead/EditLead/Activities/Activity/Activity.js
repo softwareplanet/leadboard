@@ -10,10 +10,6 @@ class Activity extends Component {
         e.target.className = styles.markAsDone;
     };
 
-    getDateStyles = () =>{
-      return styles.today
-    };
-
     render() {
         return (
             <div className={styles.activityContent}>

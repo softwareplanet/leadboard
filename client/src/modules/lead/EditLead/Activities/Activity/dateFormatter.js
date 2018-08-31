@@ -1,21 +1,14 @@
-import React from "react";
-import styles from "../../Activities/Activity/Activity.css"
-let style = styles.defaultTime;
 export const dateFormater = (date, hasStartTime) => {
   const weekDays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
   let unformatedTimestamp = new Date(date);
   let unformatedDate = new Date(unformatedTimestamp.toLocaleDateString());
   let currentDate = new Date(new Date().toLocaleDateString());
 
-  if(currentDate.getTime() > unformatedDate.getTime()){
-    style = styles.expiredTime;
-  }
-
   let hours = unformatedTimestamp.getHours();
   let minutes = unformatedTimestamp.getMinutes();
   if (currentDate.getTime() === unformatedDate.getTime()) {
-      style = styles.today;
     return todayFormat(hasStartTime, hours, minutes);
   }
 
@@ -42,15 +35,15 @@ export const dateFormater = (date, hasStartTime) => {
 };
 
 const yesterdayFormat = (hasStartTime, hours, minutes) => {
-  return <span className={styles.expiredTime}>{hasStartTime ? `Yesterday at ${hours}:${minutes} PM` : `Yesterday`}</span>
+  return hasStartTime ? `Yesterday at ${hours}:${minutes} PM` : `Yesterday`
 };
 
 const tomorrowFormat = (hasStartTime, hours, minutes) => {
-  return <span className={style}>{hasStartTime ? `Tomorrow at ${hours}:${minutes} PM` : `Tomorrow`}</span>
+  return hasStartTime ? `Tomorrow at ${hours}:${minutes} PM` : `Tomorrow`
 };
 
 const thisYearFormat = (hasStartTime, month, day, hours, minutes) => {
-  return <span className={style}>{hasStartTime ? `${month} ${day} ${hours}:${minutes} PM` : `${month} ${day}`}</span>
+  return hasStartTime ? `${month} ${day} ${hours}:${minutes} PM` : `${month} ${day}`;
 };
 
 const getYesterday = () =>{
@@ -66,5 +59,5 @@ const getTomorrow = () =>{
 };
 
 const todayFormat = (hasStartTime, hours, minutes) => {
-  return <span className={style}>{hasStartTime ? `Today at  ${hours}:${minutes}` : `Today`}</span>;
+  return hasStartTime ? `Today at  ${hours}:${minutes}` : `Today`;
 };

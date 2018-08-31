@@ -2,7 +2,6 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    margin: 17px;
 }
 
 .activityWrapper {
@@ -20,37 +19,19 @@
 
 .wrapper h3 {
     margin-bottom: 8px;
-    display: flex;
-}
-
-.mark {
-    margin-top: 3px;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    box-sizing: border-box;
-    box-shadow: inset 0 0 0 2px #b9babb;
-    margin-right: 6px;
-    vertical-align: middle;
-    cursor: pointer;
-    text-align: center;
-}
-
-.mark:hover {
-    box-shadow: inset 0 0 0 2px #2cbf55;
-}
-
-.markAsNotDone {
-    border-radius: 50%;
-    margin-top: 0;
-    margin-right: 0;
-    padding: 0;
-    margin-bottom: 7px;
 }
 
 .markAsDone {
-    composes: markAsNotDone;
-    background-color: #2cbf55;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+.checkBox {
+    width: auto;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+    margin-right: 3px;
 }
 
 .wrapper {
@@ -62,8 +43,7 @@
     margin-right: 10px;
 }
 
-.author {
-    display: inline-block;
+.activityDetails>span {
     font: 400 12px/16px "Open Sans",sans-serif;
     color: #747678;
 }
@@ -80,23 +60,4 @@
     color: #2cbf55;
     display: inline-block;
     font: 600 12px/16px "Open Sans",sans-serif;
-}
-
-.relatedItems {
-    overflow: hidden;
-    height: 20px;
-    line-height: 24px;
-}
-
-ul {
-    list-style: none;
-}
-
-.expiredTime {
-    color: red;
-}
-
-.defaultTime>span {
-    font: 400 12px/16px "Open Sans",sans-serif;
-    color: #747678;
 }
