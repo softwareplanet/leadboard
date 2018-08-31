@@ -21,7 +21,7 @@ export default (routes) => {
   app.use(bodyParser.json());
   app.use(routes);
 
-  if (process.env.ENV === "PROD") {
+  if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "/client/build")));
     app.use(morgan("common"));
   } else {

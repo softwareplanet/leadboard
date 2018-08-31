@@ -38,7 +38,7 @@ const validateLeadDomain = (req, res, next) => {
 }
 const leadMembersMiddlewares = [validateLeadDomain];
 
-if (process.env.ENV !== "PROD") {
+if (process.env.NODE_ENV !== "production") {
   leadMembersMiddlewares.unshift(assertLeadIdParam);
 }
 
