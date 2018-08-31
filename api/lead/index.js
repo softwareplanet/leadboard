@@ -11,6 +11,7 @@ import Organization from "../../models/organization";
 
 const router = new Router();
 
+const IN_PROGRESS = "InProgress";
 
 const assertLeadIdParam = (req, res, next) => {
   if (req.params.id) {
@@ -46,7 +47,7 @@ if (process.env.NODE_ENV !== "production") {
 // @desc    Find sorted leads by domain and stage IDs
 // @access  Private
 router.get("/", (req, res) => {
-  Lead.find({ stage: req.query.stage })
+  Lead.find({ stage: req.query.stage, status: IN_PROGRESS })
     .populate([{ path: "contact" }, { path: "organization" }])
     .sort({ order: "asc" })
     .then(leads => {
