@@ -1,38 +1,42 @@
 .container {
-    composes: container from "../EditLeadContent/EditLeadHistory/Notes/Notes.css";
+  composes: container from "../EditLeadContent/EditLeadHistory/Notes/Notes.css";
 }
 
 .plannedTimeLineBar {
-    position: absolute;
-    left: 18px;
-    top: 0px;
-    width: 2px;
-    bottom: 0px;
-    background-color: #f7f7f7;
-    background-image: url("../../../../assets/hatch.png");
+  position: absolute;
+  left: 18px;
+  top: 0px;
+  width: 2px;
+  bottom: 0px;
+  background-color: #f7f7f7;
+  background-image: url("../../../../assets/hatch.png");
 }
 
 .pastTimeLineBar {
-    margin-bottom: 50px;
-    position: absolute;
-    left: 18px;
-    top: 23px;
-    bottom: 30px;
-    width: 2px;
-    background-color: #e5e5e5;
+  margin-bottom: 50px;
+  position: absolute;
+  left: 18px;
+  top: 23px;
+  bottom: 30px;
+  width: 2px;
+  background-color: #e5e5e5;
 }
 
 .activityCard {
-    background-color: #ffffff;
-    composes: card from "../../../common/InfoWraper/InfoItemWrapper.css";
+  background-color: #ffffff;
+  composes: card from "../../../common/InfoWraper/InfoItemWrapper.css";
 }
 
 .arrow {
-    background-color: #ffffff;
-    composes: arrow from "../../../common/InfoWraper/InfoItemWrapper.css";
+  background-color: #ffffff;
+  composes: arrow from "../../../common/InfoWraper/InfoItemWrapper.css";
 }
 
 .card {
-    padding: 16px;
-    composes: card from "../../../common/InfoWraper/InfoItemWrapper.css";
+  padding: 16px;
+  composes: card from "../../../common/InfoWraper/InfoItemWrapper.css";
+}
+
+.noActivitiesMessage {
+  text-align: center;
 }

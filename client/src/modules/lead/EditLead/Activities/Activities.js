@@ -32,9 +32,9 @@ class Activities extends Component {
 
     render() {
         return (
-            <div className={styles.container}>
+          <div className={styles.container}>
                 <div className={this.props.done ? styles.pastTimeLineBar : styles.plannedTimeLineBar} />
-                {this.props.activities ? this.props.activities.map((activity) => {
+                {this.props.activities.length !== 0 ? this.props.activities.map((activity) => {
                     if(activity.done === this.props.done){
                       return (
                         <InfoItemWrapper
@@ -46,7 +46,7 @@ class Activities extends Component {
                         />
                       );
                     }
-                }) : null}
+                }) : <p className={styles.noActivitiesMessage}>You have no upcoming activities</p>}
             </div>
         )
     }
