@@ -11,8 +11,9 @@ import Organization from "../../models/organization";
 
 const router = new Router();
 
+
 const assertLeadIdParam = (req, res, next) => {
-  if (process.env.ENV !== "PROD" && req.params.id) {
+  if (req.params.id) {
     return res.status(500).json({ 
       errors: { message: "You should use :leadId instead of :id in API request handlers" }
     })
@@ -35,8 +36,11 @@ const validateLeadDomain = (req, res, next) => {
     return res.status(404).json({ errors: { message: "Provided lead's id is not valid" }})
   }
 }
+const leadMembersMiddlewares = [validateLeadDomain];
 
-const leadMembersMiddlewares = [assertLeadIdParam, validateLeadDomain]
+if (process.env.ENV !== "PROD") {
+  leadMembersMiddlewares.unshift(assertLeadIdParam);
+}
 
 // @route   GET api/lead
 // @desc    Find sorted leads by domain and stage IDs
