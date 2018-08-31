@@ -6,4 +6,4 @@ export const UPDATE_CONTACT = "UPDATE_CONTACT";
 export const LOAD_LEAD = "LOAD_LEAD";
 export const UPDATE_LEAD = "UPDATE_LEAD";
 export const LOAD_ORGANIZATIONS = "LOAD_ORGANIZATIONS";
-export const NOT_FOUND = "NOT_FOUND";
+export const LEAD_NOT_FOUND = "LEAD_NOT_FOUND";

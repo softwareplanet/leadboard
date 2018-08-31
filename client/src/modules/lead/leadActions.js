@@ -7,7 +7,7 @@ import {
   UPDATE_CONTACT,
   UPDATE_LEAD,
   UPDATE_ORGANIZATION,
-  NOT_FOUND,
+  LEAD_NOT_FOUND,
 } from "./types";
 import { GET_ERRORS } from "../../actionTypes";
 
@@ -87,12 +87,11 @@ export const loadLead = leadId => dispatch => {
         type: LOAD_LEAD,
         payload: lead,
       });
-      dispatch(notFoundAction(false));
       dispatch(loadStages(lead.stage.funnel));
     })
     .catch(error => {
       if (error.response.status === 404) {
-        dispatch(notFoundAction(true));
+        dispatch(leadNotFound());
       } else {
         dispatch({
           type: GET_ERRORS,
@@ -210,10 +209,9 @@ export const deleteNote = (leadId, noteId) => dispatch => {
     });
 };
 
-export const notFoundAction = (status) => {
+export const leadNotFound = () => {
   return {
-    type: NOT_FOUND,
-    payload: status,
+    type: LEAD_NOT_FOUND,
   };
 }
 

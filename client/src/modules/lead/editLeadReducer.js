@@ -1,12 +1,16 @@
 import leadReducer from "./leadReducer";
 import { combineReducers } from "redux";
-import { NOT_FOUND } from "./types";
+import { LEAD_NOT_FOUND, LOAD_LEAD } from "./types";
 
 const notFoundReducer = (state = false, action) => {
-  if (action.type === NOT_FOUND){ 
-    return action.payload
+  switch (action.type) {
+    case LEAD_NOT_FOUND:
+      return true;
+    case LOAD_LEAD:
+      return false
+    default:
+      return state;
   }
-  return state;
 }
 
 export default combineReducers({
