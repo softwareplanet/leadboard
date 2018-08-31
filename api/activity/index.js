@@ -19,17 +19,7 @@ router.post("/", (req, res) => {
 const createActivity = (req, res) => {
   let activity = {
     _id: new mongoose.Types.ObjectId(),
-    date: req.body.date,
-    hasStartTime: req.body.hasStartTime,
-    type: req.body.type,
-    subject: req.body.subject,
-    duration: req.body.duration,
-    note: req.body.note,
-    assignedTo: req.body.assignedTo,
-    lead: req.body.lead,
-    participants: req.body.participants,
-    organization: req.body.organization,
-    done: req.body.done,
+    ...req.body,
     createdBy: req.user._id,
   };
   Activity.create(activity)

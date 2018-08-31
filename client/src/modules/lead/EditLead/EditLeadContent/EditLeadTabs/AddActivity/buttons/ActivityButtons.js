@@ -4,9 +4,6 @@ import { ButtonGroup } from 'reactstrap';
 import style from "./ActivityButtons.css";
 import PropTypes from "prop-types";
 
-
-
-
 const activityButtons = (props) => {
   let buttons = props.buttons.map(button => {
     return (

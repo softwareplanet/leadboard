@@ -2,17 +2,14 @@ import style from "./CustomSelect.css"
 import React, { Component } from "react";
 
 export default class CustomSelect extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isOpened: false
-    }
+  state = {
+    isOpened: false
   }
 
   onFocus = () => {
     this.setState(prevState => {
-      if(!prevState.isOpened) {
-        return { isOpened : true }
+      if (!prevState.isOpened) {
+        return { isOpened: true }
       }
       return prevState;
     })
@@ -37,7 +34,7 @@ export default class CustomSelect extends Component {
       </li>)
   };
 
-  getInputProps =() => {
+  getInputProps = () => {
     let propsCopy = { ...this.props };
     delete propsCopy.onSelect;
     delete propsCopy.options;
@@ -45,9 +42,14 @@ export default class CustomSelect extends Component {
   };
 
   render() {
-    return(
+    return (
       <div>
-        <input {...this.getInputProps()} onFocus={this.onFocus} onBlurCapture={this.onBlur} className={this.props.className} type="text" />
+        <input
+          {...this.getInputProps()}
+          onFocus={this.onFocus}
+          onBlurCapture={this.onBlur}
+          className={this.props.className}
+          type="text" />
         <ul className={this.state.isOpened ? style.itemsList : style.closed}>
           {this.renderOptions()}
         </ul>
