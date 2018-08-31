@@ -152,12 +152,12 @@ export default class AddActivity extends Component {
                 title: this.state.subject || this.state.activeTab,
                 allDay: !this.state.time,
                 startDate: this.state.date ? Date.parse(this.state.date) : new Date(),
-                endDate: new Date(new Date().getHours() + 3),
+                endDate: this.state.date ? Date.parse(this.state.date) : new Date(),
                 // end: Date.parse(this.state.date.add(1,"hours")._d)
               },
             ]}
             startAccessor="startDate"
-            endAccessor="startDate"
+            endAccessor="endDate"
             localizer={localizer}
             defaultView={"day"}
             views={["day"]}
