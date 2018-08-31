@@ -1,6 +1,7 @@
 import {
   CREATE_ACTIVITY,
   LOAD_LEAD_ACTIVITIES,
+  UPDATE_ACTIVITY,
 } from "./types";
 
 const initialState = [];

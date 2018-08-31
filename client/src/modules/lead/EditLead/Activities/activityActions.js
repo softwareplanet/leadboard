@@ -21,12 +21,27 @@ export const loadLeadActivities = leadId => dispatch => {
 //update activity by id
 export const updateActivity = (activity) => dispatch => {
   axios
-    .patch(`/api/activity`, activity)
+    .patch(`/api/activity/${activity._id}`, activity)
     .then(res => {
       dispatch(updateActivityAction(res.data));
     })
     .catch(error => {
       dispatch(getErrorsAction(error));
+    });
+};
+
+// Create activity
+export const createActivity = (data) => dispatch => {
+  axios
+    .post(`/api/activity`, data)
+    .then(res => {
+      dispatch(createActivityAction(res.data));
+    })
+    .catch(error => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error,
+      });
     });
 };
 
@@ -50,21 +65,6 @@ export function getErrorsAction(errors) {
     payload: errors,
   };
 }
-
-// Create activity
-export const createActivity = (data) => dispatch => {
-  axios
-    .post(`/api/activity`, data)
-    .then(res => {
-      dispatch(createActivityAction(res.data));
-    })
-    .catch(error => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: error,
-      });
-    });
-};
 
 export function createActivityAction(data) {
   return {
