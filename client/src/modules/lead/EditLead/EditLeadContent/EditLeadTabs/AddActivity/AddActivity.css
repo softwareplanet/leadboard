@@ -1,0 +1,214 @@
+.activityForm {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.activityContainer {
+  padding: 16px;
+  max-width: 537px;
+  width: 100%;
+  align-self: center;
+  background-color: #ffffff;
+}
+
+.typeButtonsContainer {
+  width: 100%;
+  padding-bottom: 15px;
+}
+
+.typeButtons {
+  overflow: hidden;
+  display: flex;
+  border: 1px solid #cbcccd;
+  border-right: none;
+  border-radius: 4px;
+  justify-content: stretch;
+  width: 100%;
+  height: 32px;
+}
+
+.typeButton {
+  flex-grow: 1;
+  border: none;
+  border-right: 1px solid #cbcccd;
+  overflow: hidden;
+  background-color: #ffffff;
+  color: #747678;
+}
+
+.typeButtonActive {
+  composes: typeButton;
+  background-color: #e5e5e5;
+}
+
+.typeButton:focus {
+  outline: none;
+}
+
+.typeButton:hover {
+  cursor: pointer;
+  background-color: #f7f7f7;
+}
+
+.typeButtonActive:hover {
+  background-color: #e5e5e5;
+}
+
+.dateInputs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.dateInputs label {
+  width: 32%;
+}
+
+.input {
+  border: 1px solid #cbcccd;
+  padding: 0 8px;
+  font-size: 14px;
+  line-height: 28px;
+  color: #26292c;
+  margin-bottom: 3px;
+  width: 100%;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 3px
+}
+
+.dateInput {
+  composes: input;
+  margin-top: 8px;
+  margin-left: 0;
+  width: 100%;
+}
+
+.durationInput {
+  composes: dateInput;
+  margin-left: 0;
+}
+
+.dateInputSpan {
+  font: 600 10px/14px "Open Sans", sans-serif;
+  color: #747678;
+}
+
+.typeInput {
+  margin-left: 0;
+  font-size: 20px;
+  composes: input;
+  line-height: 38px;
+  margin-bottom: 7px;
+}
+
+.input:focus {
+  border-color: #3279e2;
+  outline: 0;
+}
+
+.iconImg {
+  height: 16px;
+  width: 16px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+}
+
+.note {
+  background-color: #fffcdc;
+  width: 100%;
+  min-height: 83px;
+  padding: 6px 6px;
+  resize: none;
+  outline: none;
+  margin: 0;
+  border: 1px solid #cbcccd;
+  border-radius: 3px
+}
+
+.inputContainer {
+  position: relative;
+  align-items: center;
+}
+
+.inputButton {
+  height: 80%;
+  background-color: inherit;
+  border: none;
+  position: absolute;
+  bottom: 2px;
+  right: 1%;
+}
+
+.inputImg {
+  height: 14px;
+  width: 14px;
+  margin: 0;
+}
+
+.inputButton:focus {
+  outline: none;
+}
+
+.inputButton:hover {
+  cursor: pointer;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid #e5e5e5;
+  padding: 10px 18px;
+  background-color: #f7f7f7;
+}
+
+.button {
+  background: #fff;
+  border: 0;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-right: 5px;
+  min-height: 32px;
+  min-width: 24px;
+  padding: 8px 10px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  text-decoration: none;
+  color: #26292c;
+  box-shadow: inset 0 0 0 1px #cbcccd, 0 1px 2px rgba(38, 41, 44, .08);
+}
+
+.button>span {
+  font: 600 14px/16px Open Sans, sans-serif;
+}
+
+.cancelButton {
+  composes: button;
+}
+
+.cancelButton:hover {
+  background-color: #f7f7f7;
+}
+
+.buttonSave {
+  composes: button;
+  background: #2cbf55;
+  ;
+  box-shadow: none;
+  color: #fff;
+}
+
+.buttonSave:hover {
+  background-color: #4ec970;
+}
+
+@media only screen and (max-width: 925px) {
+  .buttonText {
+    display: none;
+  }
+}

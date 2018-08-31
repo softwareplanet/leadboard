@@ -1,5 +1,7 @@
 import leadReducer from "./leadReducer";
 import { combineReducers } from "redux";
+import activityReducer from "../../modules/lead/EditLead/Activities/activityReducer";
+
 import { LEAD_NOT_FOUND, LOAD_LEAD } from "./types";
 
 const notFoundReducer = (state = false, action) => {
@@ -7,13 +9,14 @@ const notFoundReducer = (state = false, action) => {
     case LEAD_NOT_FOUND:
       return true;
     case LOAD_LEAD:
-      return false
+      return false;
     default:
       return state;
   }
-}
+};
 
 export default combineReducers({
   lead: leadReducer,
+  activities: activityReducer,
   notFound: notFoundReducer,
 });

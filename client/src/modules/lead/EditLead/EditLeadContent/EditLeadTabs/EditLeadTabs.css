@@ -1,5 +1,5 @@
-.font{
-  font: 14px/20px "Open Sans",sans-serif;
+.font {
+  font: 14px/20px "Open Sans", sans-serif;
 }
 
 .tabs {
@@ -9,10 +9,10 @@
 }
 
 .header {
+  composes: backgroundColor from "../../../../../styles/common.css";
   display: flex;
   list-style: none;
   height: 38px;
-  background-color: #ffffff;
   border-bottom: 1px solid #e5e5e5;
 }
 
@@ -21,7 +21,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #747678;
   padding: 9px 14px;
+}
+
+.headerItem:hover {
+  color: #26292c;
+}
+
+.active {
+  color: #26292c;
 }
 
 .headerItemIcon {
