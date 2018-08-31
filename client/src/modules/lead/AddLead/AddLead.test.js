@@ -4,7 +4,7 @@ import { mount } from "enzyme";
 import { expect } from "chai";
 import chai from "chai";
 import spies from "chai-spies";
-import { noop } from "lodash";
+import noop from "lodash";
 
 import { AddLead } from "./AddLead";
 import Modal from "react-modal";
