@@ -26,6 +26,14 @@
   margin-left: 8px;
 }
 
+.backgroundColor {
+  background-color: #f7f7f7;
+}
+
+.componentsBackgroundColor {
+  background-color: #fff;
+}
+
 .button:focus {
   outline: none;
 }
