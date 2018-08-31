@@ -22,7 +22,7 @@ const validateLeadDomain = (req, res, next) => {
     Lead.findById(req.params.leadId)
       .populate("owner")
       .then(lead => {
-        if (lead !== null && lead.owner.domain.toString() === req.user.domain.toString()){
+        if (lead !== null && lead.owner.domain.equals(req.user.domain)){
           next()
         } else {
           return res.status(404).json({ errors: { message: "Lead with provided id is not found in your domain" }})
