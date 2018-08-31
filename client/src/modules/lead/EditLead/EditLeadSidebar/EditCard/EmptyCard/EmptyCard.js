@@ -45,6 +45,7 @@ const initialState = {
 class EmptyCard extends Component {
   state = initialState;
   child = React.createRef();
+  inputWrapper = React.createRef();
 
   openModal = () => {
     this.setState({
@@ -63,7 +64,7 @@ class EmptyCard extends Component {
   };
 
   onFocus = () => {
-    this.inputWrapper.setAttribute("style", "border: 1px solid #317ae2");
+    this.inputWrapper.current.setAttribute("style", "border: 1px solid #317ae2");
   };
 
   onChange = (event) => {
@@ -104,7 +105,7 @@ class EmptyCard extends Component {
   };
 
   onBlur = () => {
-    this.inputWrapper.removeAttribute("style");
+    this.inputWrapper.current.removeAttribute("style");
     this.setState({
       openDropdown: false,
       name: this.state.item.name,
@@ -190,7 +191,7 @@ class EmptyCard extends Component {
             <form className={styles.modalForm}>
               <label style={{width: "100%"}}>
                 <span className={styles.formSpan}>{this.props.title} name</span>
-                <div ref={(inputWrapper) => {this.inputWrapper = inputWrapper}} className={styles.inputContainer}>
+                <div ref={this.inputWrapper} className={styles.inputContainer}>
                   <i className={this.props.iTagClass} />
                   { childrenWithExtraProps }
                   {
