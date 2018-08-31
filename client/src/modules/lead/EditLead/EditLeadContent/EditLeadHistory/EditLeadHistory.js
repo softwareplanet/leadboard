@@ -7,8 +7,9 @@ import { withStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { isEmpty } from "lodash";
+import styles from "./EditLeadHistory.css";
 
-const styles = {
+const tabStyles = {
   tabsIndicator: {
     backgroundColor: "#800ace",
   },
@@ -36,6 +37,13 @@ class EditLeadHistory extends React.Component {
     const { classes } = this.props;
     return (
       <div>
+        <div className={styles.sectionTag}>
+          <span className={styles.pill}>PLANNED</span>
+        </div>
+        <Activities done={false} />
+        <div className={styles.sectionTag}>
+          <span className={styles.pill}>PAST</span>
+        </div>
         <Tabs
           classes={{ indicator: classes.tabsIndicator }}
           value={selectedTab}
@@ -46,7 +54,7 @@ class EditLeadHistory extends React.Component {
           <Tab label={`ACTIVITIES ${this.props.activitiesCount}`} classes={{ root: classes.tabRoot }} />
         </Tabs>
         {selectedTab === 0 && <Notes />}
-        {selectedTab === 1 && <Activities />}
+        {selectedTab === 1 && <Activities done={true} />}
       </div>
     );
   }
@@ -63,5 +71,5 @@ const mapStateToProps = state => {
 
 export default compose(
   connect(mapStateToProps),
-  withStyles(styles),
+  withStyles(tabStyles),
 )(EditLeadHistory);

@@ -33,17 +33,19 @@ class Activities extends Component {
     render() {
         return (
             <div className={styles.container}>
-                <div className={styles.timeLineBar} />
+                <div className={this.props.done ? styles.pastTimeLineBar : styles.plannedTimeLineBar} />
                 {this.props.activities ? this.props.activities.map((activity) => {
-                    return (
+                    if(activity.done === this.props.done){
+                      return (
                         <InfoItemWrapper
-                            key={activity._id}
-                            component={<Activity activity={activity}/>}
-                            icon={this.getActivityIcon(activity.type)}
-                            cardStyles={styles.activityCard}
-                            arrowStyles={styles.arrow}
-                            />
-                    );
+                          key={activity._id}
+                          component={<Activity activity={activity}/>}
+                          icon={this.getActivityIcon(activity.type)}
+                          cardStyles={styles.activityCard}
+                          arrowStyles={styles.arrow}
+                        />
+                      );
+                    }
                 }) : null}
             </div>
         )

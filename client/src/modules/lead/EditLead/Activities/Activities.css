@@ -2,14 +2,24 @@
     composes: container from "../EditLeadContent/EditLeadHistory/Notes/Notes.css";
 }
 
-.timeLineBar {
+.plannedTimeLineBar {
     position: absolute;
     left: 18px;
     top: 0px;
     width: 2px;
-    bottom: 10px;
+    bottom: 0px;
     background-color: #f7f7f7;
     background-image: url("../../../../assets/hatch.png");
+}
+
+.pastTimeLineBar {
+    margin-bottom: 50px;
+    position: absolute;
+    left: 18px;
+    top: 23px;
+    bottom: 30px;
+    width: 2px;
+    background-color: #e5e5e5;
 }
 
 .activityCard {
