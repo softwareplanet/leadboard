@@ -6,6 +6,7 @@ import EditLeadStageProgress from "./EditLeadStageProgress/EditLeadStageProgress
 import EditLeadPopover from "./EditLeadPopover/EditLeadPopover";
 import ownerIcon from "../../../../assets/user-icon.svg";
 import { isEmpty }from "lodash";
+import { loadLeadActivities } from "../Activities/activityActions";
 
 class EditLeadHeader extends Component {
   state = {

@@ -137,6 +137,15 @@ export default class AddActivity extends Component {
     console.log(time.asMinutes())
   };
 
+  getNewEvent = () => {
+    return {
+      title: this.state.subject || this.state.activeTab,
+      allDay: !this.state.time,
+      startDate:this.state.date ? Date.parse(this.state.date) : new Date(),
+      endDate: this.state.date ? Date.parse(this.state.date) : new Date(),
+    };
+  };
+
   render() {
     let activity = this.getActivity();
     return (
@@ -144,22 +153,14 @@ export default class AddActivity extends Component {
         <div className={style.container}>
           <BigCalendar
             style={{ height: 540, paddingTop:"16px" }}
-            selectable
+            // selectable
             onSelectSlot={event => this.onSelectSlot(event)}
-            events={[
-              {
-                id: 0,
-                title: this.state.subject || this.state.activeTab,
-                allDay: !this.state.time,
-                startDate: this.state.date ? Date.parse(this.state.date) : new Date(),
-                endDate: this.state.date ? Date.parse(this.state.date) : new Date(),
-                // end: Date.parse(this.state.date.add(1,"hours")._d)
-              },
-            ]}
+            events={[this.getNewEvent()]}
             startAccessor="startDate"
             endAccessor="endDate"
             localizer={localizer}
             defaultView={"day"}
+            date={this.state.date ? Date.parse(this.state.date) : new Date()}
             views={["day"]}
             step={30}
           />
