@@ -1,17 +1,24 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updateLead } from "../../leadActions";
+import { updateLead, loadLead } from "../../leadActions";
 import styles from "./EditLeadHeader.css";
 import EditLeadStageProgress from "./EditLeadStageProgress/EditLeadStageProgress";
 import EditLeadPopover from "./EditLeadPopover/EditLeadPopover";
 import ownerIcon from "../../../../assets/user-icon.svg";
 import { isEmpty }from "lodash";
+import { loadLeadActivities } from "../Activities/activityActions";
 import { WON, LOST, IN_PROGRESS } from "../../../../constants";
 
 class EditLeadHeader extends Component {
   state = {
     popoverOpen: false
   };
+
+  componentDidMount() {
+    let leadId = this.props.match.params.leadId;
+    this.props.loadLeadActivities(leadId);
+    this.props.loadLead(leadId);
+  }
 
   togglePopover = () => {
     this.setState(prevState => {
@@ -23,7 +30,7 @@ class EditLeadHeader extends Component {
     let lead = this.props.editLead;
     lead.status = status;
     this.props.updateLead(lead);  
-  }
+  };
 
   render() {
     let editLead = !isEmpty( this.props.editLead ) ? this.props.editLead : null;
@@ -31,7 +38,7 @@ class EditLeadHeader extends Component {
       <div className={editLead && editLead.status === WON ? styles.badge : styles.lostBadge}> 
         {editLead ? editLead.status.toUpperCase() : ""}
       </div>
-    )
+    );
     return (
       <div className={styles.header}>
         <div className={styles.description}>
@@ -89,5 +96,5 @@ export { EditLeadHeader };
 
 export default connect(
   mapStateToProps,
-  { updateLead }
+  { loadLead, updateLead, loadLeadActivities }
 )(EditLeadHeader);
