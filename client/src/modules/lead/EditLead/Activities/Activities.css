@@ -36,3 +36,7 @@
   padding: 16px;
   composes: card from "../../../common/InfoWraper/InfoItemWrapper.css";
 }
+
+.noActivitiesMessage {
+  text-align: center;
+}
