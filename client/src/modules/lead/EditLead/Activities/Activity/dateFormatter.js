@@ -1,6 +1,5 @@
 export const dateFormater = (date, hasStartTime) => {
-  const weekDays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
   let unformatedTimestamp = new Date(date);
   let unformatedDate = new Date(unformatedTimestamp.toLocaleDateString());
@@ -32,33 +31,50 @@ export const dateFormater = (date, hasStartTime) => {
 };
 
 const yesterdayFormat = (hasStartTime, date) => {
-  return hasStartTime ? `Yesterday at ${date.toLocaleString("en-US", { hour: "numeric", minute: "numeric" })} ` : `Yesterday`
+  return hasStartTime ? `Yesterday at ${date.toLocaleString("en-US", {
+    hour: "numeric",
+    minute: "numeric"
+  })} ` : `Yesterday`
 };
 
 const tomorrowFormat = (hasStartTime, date) => {
-  return hasStartTime ? `Tomorrow at ${date.toLocaleString("en-US", { hour: "numeric", minute: "numeric" })} ` : `Tomorrow`
+  return hasStartTime ? `Tomorrow at ${date.toLocaleString("en-US", {
+    hour: "numeric",
+    minute: "numeric"
+  })} ` : `Tomorrow`
 };
 
 const thisYearFormat = (hasStartTime, date) => {
-  return hasStartTime ? `${date.toLocaleString("en-US", { month: "long", day: "numeric", hour: "numeric", minute: "numeric" })} ` : ` ${ date.toLocaleString("en-US", { mounth: "long", day: "numeric"})}`;
+  return hasStartTime ? `${date.toLocaleString("en-US", {
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric"
+  })} ` : ` ${ date.toLocaleString("en-US", {mounth: "long", day: "numeric"})}`;
 };
 
-const getYesterday = () =>{
-  let yesterday =  new Date(new Date().toLocaleDateString());
+const getYesterday = () => {
+  let yesterday = new Date(new Date().toLocaleDateString());
   yesterday.setDate(yesterday.getDate() - 1);
   return yesterday;
 };
 
-const getTomorrow = () =>{
-  let tomorrow =  new Date(new Date().toLocaleDateString());
+const getTomorrow = () => {
+  let tomorrow = new Date(new Date().toLocaleDateString());
   tomorrow.setDate(tomorrow.getDate() + 1);
   return tomorrow;
 };
 
 const todayFormat = (hasStartTime, date) => {
-  return hasStartTime ? `Today at  ${date.toLocaleString("en-US", { hour: "numeric", minute: "numeric" })}` : `Today`;
+  return hasStartTime ? `Today at  ${date.toLocaleString("en-US", {hour: "numeric", minute: "numeric"})}` : `Today`;
 };
 
 const notThisYearFormat = (date) => {
-  return `${date.toLocaleString("en-US", { month: "long", day: "numeric", year: "numeric", hour: "numeric", minute: "numeric" })}`;
+  return `${date.toLocaleString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "numeric"
+  })}`;
 };

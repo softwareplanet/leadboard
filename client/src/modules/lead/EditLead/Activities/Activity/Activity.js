@@ -1,7 +1,7 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import styles from "./Activity.css";
 import doneMark from "../../../../../assets/done-mark.svg"
-import {dateFormater} from "./dateFormatter";
+import { dateFormater } from "./dateFormatter";
 import classNames from "classnames/bind";
 
 let cx = classNames.bind(styles);
@@ -56,7 +56,8 @@ class Activity extends Component {
             <span
               className={this.checkTime(this.props.activity.date, this.props.activity.hasStartTime, this.props.activity.done)}>
                         {dateFormater(this.props.activity.date, this.props.activity.hasStartTime)}</span>
-            <span className={styles.separator}></span>
+            <span className={styles.separator}>
+            </span>
             <span className={styles.author}>{this.props.author}</span>
           </div>
           <div className={styles.relatedItems}>
