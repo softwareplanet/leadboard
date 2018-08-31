@@ -102,7 +102,7 @@ export default class AddActivity extends Component {
   };
 
   getSelectedDate = () => {
-    return this.state.date ? { value: this.state.date._d } : {};
+    return this.state.date ? { value: new Date(this.state.date) } : {};
   };
 
   getDurationOptions = () => {
@@ -134,17 +134,17 @@ export default class AddActivity extends Component {
 
     this.setState({ time: moment().startOf("day").add(time.asMinutes(),"minutes"), date: date._i});
 
-    console.log(time.asMinutes())
+    // console.log(time.asMinutes())
   };
 
   getNewEvent = () => {
-
+    console.log(!this.state.time);
 
     return {
       title: this.state.subject || this.state.activeTab,
       allDay: !this.state.time,
-      startDate:this.state.date ? Date.parse(this.state.date) : new Date(),
-      endDate: this.state.date ? Date.parse(this.state.date) : new Date(),
+      startDate:this.state.date ? new Date(this.state.date) : new Date(moment().startOf("day")),
+      endDate: this.state.date ? new Date(this.state.date) : new Date(moment().startOf("day")),
     };
   };
 
@@ -154,20 +154,22 @@ export default class AddActivity extends Component {
       <div className={style.activityForm}>
         <div className={style.container}>
           <BigCalendar
-            // elementProps={{
-            //   value: this.state.date ? Date.parse(this.state.date._d) : Date.parse(moment()._d)
-            // }}
             style={{ height: 540, paddingTop:"16px" }}
-            // selectable
+            selectable
             onSelectSlot={event => this.onSelectSlot(event)}
             events={[this.getNewEvent()]}
-            allDayAccessor={"allDay"}
             startAccessor="startDate"
             endAccessor="endDate"
             localizer={localizer}
             defaultView={"day"}
-            // date={this.state.date ? Date.parse(this.state.date._d) : Date.parse(moment()._d)}
+            date={this.state.date ? new Date(this.state.date) : new Date(moment())}
             onNavigate={date => this.setState({date: moment(date)})}
+            // onNavigate={date => this.setState(prevState => {
+            //   if(prevState.date) {
+            //     return Date.parse(date._d) === Date.parse(prevState.date._d) ? prevState : {...prevState, date: moment(date)}
+            //   }
+            //   return {...prevState, date: moment(date)}
+            // })}
             views={["day"]}
             step={30}
           />
