@@ -142,7 +142,7 @@ class AddLead extends React.Component {
       ...this.state,
       organization: {
         id: this.state.organizationAfterSelect.name === value ? this.state.organizationAfterSelect.id : null,
-        name:value,
+        name: value,
       },
       openOrganizationDropdown: !isBlank(value),
       afterOrganizationSelectShowBadge: true,
@@ -185,7 +185,7 @@ class AddLead extends React.Component {
         name = trim(this.state.organization.name) + " lead";
       }
     } else {
-      if(!isBlank(this.state.contact.name)) {
+      if (!isBlank(this.state.contact.name)) {
         if (this.state.nameChanged) {
           name = this.state.name;
         } else {
@@ -201,9 +201,9 @@ class AddLead extends React.Component {
     if (!isBlank(this.state.organization.name)) {
       placeholder = trim(this.state.organization.name) + " lead";
     } else {
-     if(!isBlank(this.state.contact.name)) {
-       placeholder = trim(this.state.contact.name) + " lead";
-     } else placeholder = "";
+      if (!isBlank(this.state.contact.name)) {
+        placeholder = trim(this.state.contact.name) + " lead";
+      } else placeholder = "";
     }
     return placeholder;
   };
@@ -263,7 +263,7 @@ class AddLead extends React.Component {
       openContactDropdown: false,
       showContactBadge: false,
       afterContactSelectShowBadge: false,
-    }, () => this.onContactBlur())
+    }, () => this.onContactBlur());
   };
 
   onContactBlur = () => {
@@ -279,7 +279,7 @@ class AddLead extends React.Component {
       nameChanged: isBlank(this.state.organization.name) && isBlank(this.state.contact.name) ? false : this.state.nameChanged,
       openContactDropdown: false,
       showContactBadge: this.state.afterContactSelectShowBadge && !this.state.contact.id && !isBlank(this.state.contact.name),
-    }, () => this.onOrganizationBlur())
+    }, () => this.onOrganizationBlur());
   };
 
   onAutocompleteFocus = (event) => {
@@ -360,8 +360,9 @@ class AddLead extends React.Component {
           <form autoComplete="off" className={styles.form}>
 
             <label className={styles.inputLabel}>Contact person name</label>
-            <div id="contact-wrapper" className={validationIsShown && errors.contact ? styles.invalidContainer : styles.inputContainer}>
-              <i className={classNames("fas fa-user", styles.inputIcon)}/>
+            <div id="contact-wrapper"
+                 className={validationIsShown && errors.contact ? styles.invalidContainer : styles.inputContainer}>
+              <i className={classNames("fas fa-user", styles.inputIcon)} />
               <ContactAutocomplete
                 items={this.state.contacts}
                 onFocus={this.onAutocompleteFocus}
@@ -383,7 +384,7 @@ class AddLead extends React.Component {
             <div id="organization-wrapper" className={validationIsShown && errors.organization
               ? styles.invalidContainer
               : styles.inputContainer}>
-              <i className={classNames("fas fa-building", styles.inputIcon)}/>
+              <i className={classNames("fas fa-building", styles.inputIcon)} />
               <OrganizationAutocomplete
                 items={this.state.organizations}
                 onFocus={this.onAutocompleteFocus}
@@ -396,7 +397,8 @@ class AddLead extends React.Component {
                 inputStyle={autocompleteStyles.addLeadInput}
                 itemsCount={5}
               />
-              {this.state.showOrganizationBadge ? <span id="organization-badge" className={styles.newBadge}>NEW</span> : null}
+              {this.state.showOrganizationBadge ?
+                <span id="organization-badge" className={styles.newBadge}>NEW</span> : null}
             </div>
 
             <label className={styles.inputLabel}>Lead name</label>
