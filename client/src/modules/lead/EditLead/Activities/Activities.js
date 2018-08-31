@@ -48,9 +48,9 @@ class Activities extends Component {
               />
             );
           }
-        }) : null}
+        }) : <p className={styles.noActivitiesMessage}>You have no activities</p>}
       </div>
-    )
+    );
   }
 }
 

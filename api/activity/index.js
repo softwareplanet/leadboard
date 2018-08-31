@@ -1,11 +1,22 @@
 import { Router } from "express";
 import mongoose from "mongoose";
-
 import validateActivityInput from "../../validation/activity";
-
 import Activity from "../../models/activity";
 
 const router = new Router();
+
+// @route   PATCH api/activity/:activityId
+// @desc    Update activity
+// @access  Private
+router.patch("/:activityId", (req, res) => {
+  Activity.findByIdAndUpdate(req.params.activityId, req.body, { new: true })
+    .then(activity => {
+      res.json(activity);
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
+});
 
 // @route   POST api/activity
 // @desc    Create activity

@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import styles from "./Activity.css";
 import doneMark from "../../../../../assets/done-mark.svg"
-import moment from "moment";
 import { dateFormater } from "./dateFormatter";
+import { updateActivity } from "../activityActions";
+import store from "../../../../../store.js";
 import classNames from "classnames/bind";
 
 let cx = classNames.bind(styles);
@@ -11,6 +12,9 @@ class Activity extends Component {
 
   changeStatus = e => {
     e.preventDefault();
+    let activity = { ...this.props.activity };
+    activity.done = !activity.done;
+    store.dispatch(updateActivity(activity));
   };
 
   checkTime = (date, hasStartTime, status) => {

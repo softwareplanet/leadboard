@@ -1,7 +1,8 @@
 import axios from "axios";
 import {
   LOAD_LEAD_ACTIVITIES,
-  CREATE_ACTIVITY
+  CREATE_ACTIVITY,
+  UPDATE_ACTIVITY,
 } from "./types";
 import { GET_ERRORS } from "../../../../actionTypes";
 
@@ -17,20 +18,17 @@ export const loadLeadActivities = leadId => dispatch => {
     });
 };
 
-
-export function loadLeadActivitiesAction(data) {
-  return {
-    type: LOAD_LEAD_ACTIVITIES,
-    payload: data,
-  };
-}
-
-export function getErrorsAction(errors) {
-  return {
-    type: GET_ERRORS,
-    payload: errors,
-  };
-}
+//update activity by id
+export const updateActivity = (activity) => dispatch => {
+  axios
+    .patch(`/api/activity/${activity._id}`, activity)
+    .then(res => {
+      dispatch(updateActivityAction(res.data));
+    })
+    .catch(error => {
+      dispatch(getErrorsAction(error));
+    });
+};
 
 // Create activity
 export const createActivity = (data) => dispatch => {
@@ -47,9 +45,31 @@ export const createActivity = (data) => dispatch => {
     });
 };
 
+export function loadLeadActivitiesAction(data) {
+  return {
+    type: LOAD_LEAD_ACTIVITIES,
+    payload: data,
+  };
+}
+
+export function updateActivityAction(data) {
+  return {
+    type: UPDATE_ACTIVITY,
+    payload: data,
+  };
+}
+
+export function getErrorsAction(errors) {
+  return {
+    type: GET_ERRORS,
+    payload: errors,
+  };
+}
+
 export function createActivityAction(data) {
   return {
     type: CREATE_ACTIVITY,
     payload: data,
+
   };
 }
