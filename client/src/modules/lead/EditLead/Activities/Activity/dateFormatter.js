@@ -1,12 +1,8 @@
 export const dateFormater = (date, hasStartTime) => {
-  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
   let unformatedTimestamp = new Date(date);
   let unformatedDate = new Date(unformatedTimestamp.toLocaleDateString());
   let currentDate = new Date(new Date().toLocaleDateString());
 
-  let hours = unformatedTimestamp.getHours();
-  let minutes = unformatedTimestamp.getMinutes();
   if (currentDate.getTime() === unformatedDate.getTime()) {
     return todayFormat(hasStartTime, unformatedTimestamp);
   }
@@ -21,10 +17,8 @@ export const dateFormater = (date, hasStartTime) => {
     return tomorrowFormat(hasStartTime, unformatedTimestamp);
   }
 
-  let month = months[unformatedTimestamp.getMonth() - 1];
-  let day = unformatedTimestamp.getDate();
   if (currentDate.getFullYear() === unformatedTimestamp.getFullYear()) {
-    return thisYearFormat(hasStartTime, month, day, hours, minutes);
+    return thisYearFormat(hasStartTime, date);
   }
 
   return notThisYearFormat(unformatedTimestamp);
