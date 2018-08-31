@@ -101,6 +101,7 @@
   font-size: 20px;
   composes: input;
   line-height: 38px;
+  margin-bottom: 7px;
 }
 
 .input:focus {
