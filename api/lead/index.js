@@ -158,9 +158,9 @@ router.get("/:leadId", leadMembersMiddlewares, (req, res) => {
 // @route   PATCH api/lead/:leadId
 // @desc    Update lead by id
 // @access  Private
-router.patch("/:leadId", async (req, res) => {
+router.patch("/:leadId", leadMembersMiddlewares, async (req, res) => {
   const previousLead = await Lead.findById(req.params.leadId).populate("owner", { password: 0 });
-  const { hasErrors, errors } = validateLeadUpdate(req.body, previousLead, req.user);
+  const { hasErrors, errors } = validateLeadUpdate(req.body, previousLead);
   if (hasErrors) return res.status(400).json({ errors });
 
   let updates = req.body;
@@ -189,7 +189,7 @@ router.patch("/:leadId", async (req, res) => {
     updates.contact = (typeof contact === "object" ? contact._id : contact);
   }
 
-  Lead.findByIdAndUpdate(req.params.id, { $set: updates }, { new: true })
+  Lead.findByIdAndUpdate(req.params.leadId, { $set: updates }, { new: true })
     .populate("notes.user", { password: 0 })
     .populate("notes.lastUpdater", { password: 0 })
     .populate([{ path: "contact" }, { path: "organization" }])
