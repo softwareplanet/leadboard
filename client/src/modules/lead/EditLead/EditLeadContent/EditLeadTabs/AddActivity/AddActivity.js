@@ -135,15 +135,12 @@ export default class AddActivity extends Component {
     let dateTime = moment(event.start);
     let date = dateTime.startOf("day");
     let time = moment.duration(moment(date._i).diff(dateTime));
+    console.log(time.asMinutes());
 
-    this.setState({ time: moment().startOf("day").add(time.asMinutes(),"minutes"), date: date._i});
-
-    // console.log(time.asMinutes())
+    this.setState({ time:time.asMinutes() === 0 ? "" : moment().startOf("day").add(time.asMinutes(),"minutes"), date: date._i});
   };
 
   getNewEvent = () => {
-    console.log(!this.state.time);
-
     return {
       title: this.state.subject || this.state.activeTab,
       allDay: !this.state.time,
