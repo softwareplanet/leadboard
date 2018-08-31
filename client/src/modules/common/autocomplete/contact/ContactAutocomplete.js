@@ -9,6 +9,10 @@ class ContactAutocomplete extends React.Component {
     this.input.current.focus();
   };
 
+  inputBlur = () => {
+    this.input.current.blur();
+  };
+
   render() {
     const styles = this.props.styles;
     return (

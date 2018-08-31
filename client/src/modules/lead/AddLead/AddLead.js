@@ -33,55 +33,39 @@ const customStyles = {
 };
 
 class AddLead extends React.Component {
-  constructor(props) {
-    super(props);
+  contactWrapper = React.createRef();
+  organizationWrapper = React.createRef();
+  contactAutocomplete = React.createRef();
+  organizationAutocomplete = React.createRef();
 
-    this.state = {
-      name: "",
-      stage: "",
-      organizations: [],
-      contacts: [],
+  state = {
+    name: "",
+    stage: "",
 
-      contact: { id: null, name: "" },
-      organization: { id: null, name: "" },
-      errors: {},
+    contact: { id: null, name: "" },
+    organization: { id: null, name: "" },
+    errors: {},
 
-      openContactDropdown: false,
-      openOrganizationDropdown: false,
+    openContactDropdown: false,
+    openOrganizationDropdown: false,
 
-      showOrganizationBadge: false,
-      showContactBadge: false,
+    showOrganizationBadge: false,
+    showContactBadge: false,
 
-      afterOrganizationSelectShowBadge: false,
-      afterContactSelectShowBadge: false,
+    afterOrganizationSelectShowBadge: false,
+    afterContactSelectShowBadge: false,
 
-      nameChanged: false,
-      namePlaceholder: "",
-      showPlaceholder: false,
+    nameChanged: false,
+    namePlaceholder: "",
 
-      organizationAfterSelect: { id: null, name: "" },
-      contactAfterSelect: { id: null, name: "" },
+    organizationAfterSelect: { id: null, name: "" },
+    contactAfterSelect: { id: null, name: "" },
 
-      validationIsShown: false,
-      modalIsOpen: false,
-    };
+    validationIsShown: false,
+    modalIsOpen: false,
+  };
 
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-    this.selectStageHandler = this.selectStageHandler.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.leads) {
-      this.setState({
-        contacts: nextProps.contacts,
-        organizations: nextProps.organizations,
-      });
-    }
-  }
-
-  openModal() {
+  openModal = () => {
     const { stages } = this.props.leads;
     this.props.loadContacts();
     this.props.loadOrganizations();
@@ -89,14 +73,12 @@ class AddLead extends React.Component {
       modalIsOpen: true,
       stage: Object.keys(stages).length > 0 ? stages[0]._id : "",
     });
-  }
+  };
 
-  closeModal() {
+  closeModal = () => {
     this.setState({
       name: "",
       stage: "",
-      organizations: [],
-      contacts: [],
 
       contact: { id: null, name: "" },
       organization: { id: null, name: "" },
@@ -113,7 +95,6 @@ class AddLead extends React.Component {
 
       nameChanged: false,
       namePlaceholder: "",
-      showPlaceholder: false,
 
       organizationAfterSelect: { id: null, name: "" },
       contactAfterSelect: { id: null, name: "" },
@@ -121,18 +102,20 @@ class AddLead extends React.Component {
       validationIsShown: false,
       modalIsOpen: false,
     });
-  }
+  };
+
+  getErrorsWithRemoveField = (errors, fieldName) => {
+    let newErrors = Object.assign({}, errors);
+    delete newErrors[fieldName];
+    return newErrors;
+  };
 
   onNameChange = (event) => {
     this.setState({
       ...this.state,
       nameChanged: event.target.value !== this.state.name,
       name: event.target.value,
-      showPlaceholder: this.state.name.length === 0,
-      errors: {
-        ...this.state.errors,
-        name: undefined,
-      },
+      errors: this.getErrorsWithRemoveField(this.state.errors, "name"),
     });
   };
 
@@ -149,12 +132,7 @@ class AddLead extends React.Component {
     };
     this.setState({
       ...newState,
-      errors: {
-        ...this.state.errors,
-        contact: undefined,
-        organization: undefined,
-        name: undefined,
-      },
+      errors: {},
     });
   };
 
@@ -173,25 +151,19 @@ class AddLead extends React.Component {
       openOrganizationDropdown: false,
       showOrganizationBadge: false,
       afterSelectShowBadge: false,
-    }, () => this.onOrganizationBlur());
+    }, () => this.organizationAutocomplete.current.inputBlur());
   };
 
   getNameValue = () => {
     let name = "";
     if (!isBlank(this.state.organization.name)) {
-      if (this.state.nameChanged) {
-        name = this.state.name;
-      } else {
-        name = trim(this.state.organization.name) + " lead";
-      }
+      name = this.state.nameChanged ? this.state.name : trim(this.state.organization.name) + " lead";
     } else {
       if (!isBlank(this.state.contact.name)) {
-        if (this.state.nameChanged) {
-          name = this.state.name;
-        } else {
-          name = trim(this.state.contact.name) + " lead";
-        }
-      } else name = "";
+        name = this.state.nameChanged ? this.state.name : trim(this.state.contact.name) + " lead";
+      } else {
+        name = this.state.nameChanged ? this.state.name : "";
+      }
     }
     return name;
   };
@@ -209,7 +181,7 @@ class AddLead extends React.Component {
   };
 
   onOrganizationBlur = () => {
-    document.getElementById("organization-wrapper").removeAttribute("style");
+    this.organizationWrapper.current.removeAttribute("style");
     this.setState({
       ...this.state,
       name: this.getNameValue(),
@@ -237,12 +209,7 @@ class AddLead extends React.Component {
     };
     this.setState({
       ...newState,
-      errors: {
-        ...this.state.errors,
-        contact: undefined,
-        organization: undefined,
-        name: undefined,
-      },
+      errors: {},
     });
   };
 
@@ -267,11 +234,11 @@ class AddLead extends React.Component {
       openContactDropdown: false,
       showContactBadge: false,
       afterContactSelectShowBadge: false,
-    }, () => this.onContactBlur());
+    }, () => this.contactAutocomplete.current.inputBlur());
   };
 
   onContactBlur = () => {
-    document.getElementById("contact-wrapper").removeAttribute("style");
+    this.contactWrapper.current.removeAttribute("style");
     this.setState({
       ...this.state,
       name: this.getNameValue(),
@@ -283,7 +250,7 @@ class AddLead extends React.Component {
       nameChanged: isBlank(this.state.organization.name) && isBlank(this.state.contact.name) ? false : this.state.nameChanged,
       openContactDropdown: false,
       showContactBadge: this.state.afterContactSelectShowBadge && !this.state.contact.id && !isBlank(this.state.contact.name),
-    }, () => this.onOrganizationBlur());
+    }, () => this.organizationAutocomplete.current.inputBlur());
   };
 
   onAutocompleteFocus = (event) => {
@@ -298,7 +265,7 @@ class AddLead extends React.Component {
     event.target.parentNode.removeAttribute("style");
   };
 
-  validateLead(lead) {
+  validateLead = lead => {
     let errors = {};
     let name = lead.name;
 
@@ -310,9 +277,9 @@ class AddLead extends React.Component {
       errors.contact = "Contact or organisation must not be empty";
     }
     return errors;
-  }
+  };
 
-  onSubmit() {
+  onSubmit = () => {
     this.setState({
       validationIsShown: true,
     });
@@ -333,18 +300,24 @@ class AddLead extends React.Component {
     } else {
       this.setState({ errors: errors });
     }
-  }
+  };
 
-  getNextLeadNumber(stage) {
+  getNextLeadNumber = stage => {
     return this.props.leads.leads[`_${stage}`].leads.length + 1;
-  }
+  };
 
-  selectStageHandler(stageid) {
+  selectStageHandler = stageid => {
     this.setState({ stage: stageid });
-  }
+  };
 
   render() {
     const { errors, validationIsShown } = this.state;
+    const autocompleteProps = {
+      onFocus: this.onAutocompleteFocus,
+      inputStyle: autocompleteStyles.addLeadInput,
+      itemsCount: 5,
+    };
+
     return (
       <div>
         <div className={styles.toolPanel}>
@@ -364,43 +337,40 @@ class AddLead extends React.Component {
           <form autoComplete="off" className={styles.form}>
 
             <label className={styles.inputLabel}>Contact person name</label>
-            <div id="contact-wrapper"
-                 className={validationIsShown && errors.contact ? styles.invalidContainer : styles.inputContainer}>
+            <div
+              ref={this.contactWrapper}
+              className={validationIsShown && errors.contact ? styles.invalidContainer : styles.inputContainer}>
               <i className={classNames("fas fa-user", styles.inputIcon)} />
               <ContactAutocomplete
-                items={this.state.contacts}
-                onFocus={this.onAutocompleteFocus}
+                {...autocompleteProps}
+                items={this.props.contacts}
                 onChange={this.onContactChange}
                 onSelect={this.onContactSelect}
                 onBlur={this.onContactBlur}
                 value={this.state.contact.name}
                 open={this.state.openContactDropdown}
                 styles={autocompleteStyles.contact}
-                inputStyle={autocompleteStyles.addLeadInput}
-                itemsCount={5}
-              />
+                ref={this.contactAutocomplete} />
               {this.state.showContactBadge ? <span id="contact-badge" className={styles.newBadge}>NEW</span> : null}
             </div>
 
             <label className={styles.inputLabel}>
               Organization name
             </label>
-            <div id="organization-wrapper" className={validationIsShown && errors.organization
-              ? styles.invalidContainer
-              : styles.inputContainer}>
+            <div
+              ref={this.organizationWrapper}
+              className={validationIsShown && errors.organization ? styles.invalidContainer : styles.inputContainer}>
               <i className={classNames("fas fa-building", styles.inputIcon)} />
               <OrganizationAutocomplete
-                items={this.state.organizations}
-                onFocus={this.onAutocompleteFocus}
+                {...autocompleteProps}
+                items={this.props.organizations}
                 onChange={this.onOrganizationChange}
                 onSelect={this.onOrganizationSelect}
                 onBlur={this.onOrganizationBlur}
                 value={this.state.organization.name}
                 open={this.state.openOrganizationDropdown}
                 styles={autocompleteStyles.organization}
-                inputStyle={autocompleteStyles.addLeadInput}
-                itemsCount={5}
-              />
+                ref={this.organizationAutocomplete} />
               {this.state.showOrganizationBadge ?
                 <span id="organization-badge" className={styles.newBadge}>NEW</span> : null}
             </div>
@@ -415,8 +385,7 @@ class AddLead extends React.Component {
                 value={this.state.name}
                 onChange={this.onNameChange}
                 onFocus={this.onFocus}
-                onBlur={this.onBlur}
-              />
+                onBlur={this.onBlur} />
             </div>
             <SelectStageOnCreation stages={this.props.leads.stages} onStageChange={this.selectStageHandler} />
           </form>
