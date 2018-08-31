@@ -6,6 +6,7 @@ import EditLeadStageProgress from "./EditLeadStageProgress/EditLeadStageProgress
 import EditLeadPopover from "./EditLeadPopover/EditLeadPopover";
 import ownerIcon from "../../../../assets/user-icon.svg";
 import { isEmpty }from "lodash";
+import { WON, LOST } from "../../../../constants";
 
 class EditLeadHeader extends Component {
   state = {
@@ -22,6 +23,12 @@ class EditLeadHeader extends Component {
       return { popoverOpen: !prevState.popoverOpen };
     });
   };
+
+  statusHandler = (status) => {
+    let lead = this.props.editLead;
+    lead.status = status;
+    this.props.updateLead(lead);  
+  }
 
   render() {
     let editLead = !isEmpty( this.props.editLead ) ? this.props.editLead : null;
@@ -49,8 +56,8 @@ class EditLeadHeader extends Component {
               </div>
             </div>
             <div>
-              <button className={styles.button}>Won</button>
-              <button className={styles.buttonLost}>Lost</button>
+              <button onClick={() => this.statusHandler(WON)} className={styles.button}>Won</button>
+              <button onClick={() => this.statusHandler(LOST)} className={styles.buttonLost}>Lost</button>
             </div>
           </div>
         </div>
