@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styles from "./Activity.css";
 import doneMark from "../../../../../assets/done-mark.svg"
+import moment from "moment";
 import { dateFormater } from "./dateFormatter";
 import classNames from "classnames/bind";
 
@@ -36,6 +37,7 @@ class Activity extends Component {
   };
 
   render() {
+    let { date, hasStartTime, done, subject } = this.props.activity;
     return (
       <div className={styles.activityContent}>
         <div className={styles.wrapper}>
@@ -44,18 +46,18 @@ class Activity extends Component {
           <h3>
             <div className={styles.mark} onClick={this.changeStatus}>
               <img alt={"status"} className={cx({
-                markedAsDone: this.props.activity.done === true,
-                markedAsNotDone: this.props.activity.done === false
+                markedAsDone: done === true,
+                markedAsNotDone: done === false
               })} src={doneMark}/>
             </div>
-            <span className={styles.activityWrapper}>{this.props.activity.subject}</span>
+            <span className={styles.activityWrapper}>{subject}</span>
           </h3>
         </div>
         <div className={styles.wrapper}>
           <div className={styles.activityDetails}>
             <span
-              className={this.checkTime(this.props.activity.date, this.props.activity.hasStartTime, this.props.activity.done)}>
-                        {dateFormater(this.props.activity.date, this.props.activity.hasStartTime)}</span>
+              className={this.checkTime(date, hasStartTime, this.props.activity.done)}>
+                        {dateFormater(date, hasStartTime)}</span>
             <span className={styles.separator}>
             </span>
             <span className={styles.author}>{this.props.author}</span>

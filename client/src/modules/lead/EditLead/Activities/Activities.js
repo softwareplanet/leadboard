@@ -27,6 +27,8 @@ class Activities extends Component {
         return emailIcon;
       case "Lunch":
         return lunchIcon;
+      default:
+        return callIcon;
     }
   };
 
