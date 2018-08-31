@@ -94,3 +94,18 @@
 .buttonLost:hover {
   background: #ec6464;
 }
+
+.badge {
+  margin-left: 12px;
+  padding: 6px 12px;
+  font: 14px/20px "Open Sans",sans-serif;
+  font-weight: 600;
+  border-radius: 99px;
+  color: #fff;
+  background-color: #2cbf55;
+}
+
+.leadActions {
+  display: flex;
+  height: 32px;
+}

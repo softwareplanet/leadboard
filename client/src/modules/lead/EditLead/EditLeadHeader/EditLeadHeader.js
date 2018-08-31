@@ -6,7 +6,7 @@ import EditLeadStageProgress from "./EditLeadStageProgress/EditLeadStageProgress
 import EditLeadPopover from "./EditLeadPopover/EditLeadPopover";
 import ownerIcon from "../../../../assets/user-icon.svg";
 import { isEmpty }from "lodash";
-import { WON, LOST } from "../../../../constants";
+import { WON, LOST, IN_PROGRESS } from "../../../../constants";
 
 class EditLeadHeader extends Component {
   state = {
@@ -32,6 +32,11 @@ class EditLeadHeader extends Component {
 
   render() {
     let editLead = !isEmpty( this.props.editLead ) ? this.props.editLead : null;
+    let statusBadge = (
+      <div className={styles.badge}> 
+        {editLead ? editLead.status.toUpperCase() : ""}
+      </div>
+    )
     return (
       <div className={styles.header}>
         <div className={styles.description}>
@@ -55,7 +60,8 @@ class EditLeadHeader extends Component {
                 <small className={styles.ownerRole}>Owner</small>
               </div>
             </div>
-            <div>
+            <div className={styles.leadActions}>
+              {editLead && editLead.status !== IN_PROGRESS ? statusBadge : ""}
               <button onClick={() => this.statusChangeHandler(WON)} className={styles.button}>Won</button>
               <button onClick={() => this.statusChangeHandler(LOST)} className={styles.buttonLost}>Lost</button>
             </div>
