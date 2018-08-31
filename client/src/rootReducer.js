@@ -1,9 +1,10 @@
 import { combineReducers } from "redux";
 import authReducer from "./modules/auth/authReducer";
 import leadReducersAggregator from "./modules/lead/leadRootReducer";
-import contactReducer from "./modules/lead/AddLead/autocomplete/contact/contactReducer";
-import organizationReducer from "./modules/lead/AddLead/autocomplete/organization/organizationReducer";
+
 import { GET_ERRORS, CLEAR_STORE } from "./actionTypes";
+import contactReducer from "./modules/common/autocomplete/contact/contactReducer";
+import organizationReducer from "./modules/common/autocomplete/organization/organizationReducer";
 
 const initialState = {};
 
