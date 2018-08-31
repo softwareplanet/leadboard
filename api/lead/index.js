@@ -12,6 +12,12 @@ import Organization from "../../models/organization";
 const router = new Router();
 
 const validateLeadDomain = (req, res, next) => {
+  if (process.env.ENV !== "PROD" && req.params.id) {
+    return res.status(500).json({ 
+      errors: { message: "You should use :leadId instead of :id in API request handlers" }
+    })
+  }
+  
   if (isValidModelId(req.params.leadId)) {
     Lead.findById(req.params.leadId)
       .populate("owner")
