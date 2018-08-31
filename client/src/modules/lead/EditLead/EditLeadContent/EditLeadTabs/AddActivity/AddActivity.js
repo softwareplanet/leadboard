@@ -95,7 +95,7 @@ export default class AddActivity extends Component {
   };
 
   getSelectedDate = () => {
-    return this.state.date ? { value: this.state.date } : {};
+    return this.state.date ? { value: this.state.date._d } : {};
   };
 
   getDurationOptions = () => {
