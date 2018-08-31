@@ -14,7 +14,7 @@ beforeEach(async done => {
 });
 
 describe("Activity", () => {
-  it("should create a new activity", async (done) => {
+  it("should create a new activity", async () => {
     const { status, body } = await request(app())
       .post("/api/activity")
       .set("Authorization", cred.token)
@@ -25,10 +25,9 @@ describe("Activity", () => {
       });
     expect(status).toBe(200);
     expect(body).toMatchObject({ type: "Call", subject: "call Ben", duration: 25 });
-    done();
   });
 
-  it("should fail to create a new activity with invalid data", async (done) => {
+  it("should fail to create a new activity with invalid data", async () => {
     const { status, body } = await request(app())
       .post("/api/activity")
       .set("Authorization", cred.token)
@@ -42,9 +41,8 @@ describe("Activity", () => {
       errors: {
         type: "Type cannot be empty",
         subject: "Subject cannot be empty",
-        duration: "Duration must be a number"
+        duration: "Duration must be a number and cannot be empty"
       }
     });
-    done();
   });
 });

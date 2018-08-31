@@ -7,6 +7,7 @@ import Stage from "../models/stage";
 import Lead from "../models/lead";
 import Organization from "../models/organization";
 import Contact from "../models/contact";
+import Activity from "../models/activity";
 import { connectToMongoose } from "../mongoose";
 
 connectToMongoose();
