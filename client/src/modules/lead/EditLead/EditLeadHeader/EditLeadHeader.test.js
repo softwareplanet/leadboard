@@ -4,6 +4,7 @@ import { shallow } from "enzyme";
 import { EditLeadHeader } from "./EditLeadHeader";
 import styles from "./EditLeadHeader.css";
 import { LOST } from "../../../../constants";
+
 const editLead = {
   _id: "5b86aa21ed17641891c50127",
   owner: "5b6a9a31d4b6b82050ab6c18",
