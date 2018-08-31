@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const dateFormater = (date, hasStartTime) => {
   let unformatedTimestamp = new Date(date);
   let unformatedDate = new Date(unformatedTimestamp.toLocaleDateString());
@@ -39,12 +41,7 @@ const tomorrowFormat = (hasStartTime, date) => {
 };
 
 const thisYearFormat = (hasStartTime, date) => {
-  return hasStartTime ? `${date.toLocaleString("en-US", {
-    month: "long",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric"
-  })} ` : ` ${ date.toLocaleString("en-US", {mounth: "long", day: "numeric"})}`;
+  return hasStartTime ? ` ${ moment(date).format("MMMM DD HH:mm A")}` : ` ${ moment(date).format("MMMM DD")}`;
 };
 
 const getYesterday = () => {
