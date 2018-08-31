@@ -65,8 +65,12 @@ const mapStateToProps = state => {
   const activities = state.leads.editLead.activities;
   return {
     notesCount: !isEmpty(notes) ? notes.length : "",
-    activitiesCount: !isEmpty(activities) ? activities.length : "",
+    activitiesCount: !isEmpty(activities) ? getCountOfDoneActivities(activities) : "",
   };
+};
+
+const getCountOfDoneActivities = (activities) =>{
+  return activities.filter(activity => activity.done).length;
 };
 
 export default compose(
