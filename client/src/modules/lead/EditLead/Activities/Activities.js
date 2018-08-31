@@ -42,7 +42,6 @@ class Activities extends Component {
                           component={<Activity activity={activity}/>}
                           icon={this.getActivityIcon(activity.type)}
                           cardStyles={styles.activityCard}
-                          arrowStyles={styles.arrow}
                         />
                       );
                     }

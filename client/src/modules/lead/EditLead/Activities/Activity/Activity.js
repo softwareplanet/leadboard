@@ -18,7 +18,7 @@ class Activity extends Component {
                     </div>
                     <h3>
                     <div className={styles.mark} onClick={this.changeStatus}>
-                            <img className={styles.markAsNotDone} src={doneMark} />
+                            <img className={this.props.activity.done ? styles.markAsDone : styles.markAsNotDone} src={doneMark} />
                     </div>
                     <span className={styles.activityWrapper}>{this.props.activity.subject}</span>
                 </h3>
