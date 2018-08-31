@@ -171,7 +171,7 @@ class AddLead extends React.Component {
       name: !this.state.nameChanged ?
         `${value} lead` : `${this.state.name}`,
       openOrganizationDropdown: false,
-      showBadge: false,
+      showOrganizationBadge: false,
       afterSelectShowBadge: false,
     }, () => this.onOrganizationBlur());
   };
@@ -257,6 +257,10 @@ class AddLead extends React.Component {
         name: value,
       },
       organization: {
+        id: item.organization !== undefined ? item.organization._id : this.state.organization._id,
+        name: item.organization !== undefined ? item.organization.name : this.state.organization.name,
+      },
+      organizationAfterSelect: {
         id: item.organization !== undefined ? item.organization._id : this.state.organization._id,
         name: item.organization !== undefined ? item.organization.name : this.state.organization.name,
       },
