@@ -37,11 +37,11 @@ class EditLeadTabs extends Component {
   fakeHandler = (activeTab) => {
 
     switch (activeTab.type) {
-      case (this.getNoteEditor.type): {
+      case (this.getNoteEditor().type): {
         this.setState({ fakeInputContent: " take notes" })
         break;
       }
-      case (this.getAddActivity.type): {
+      case (this.getAddActivity().type): {
         this.setState({ fakeInputContent: " add activity" })
         break;
       }
@@ -82,7 +82,7 @@ class EditLeadTabs extends Component {
   renderFakeInput = (condition, notesCondition) => {
     if (condition) {
       return (<div className={styles.fakeInput} onClick={() =>
-        this.tabHandler(notesCondition ? this.getNoteEditor : this.state.activeTab)}>
+        this.tabHandler(notesCondition ? this.getNoteEditor() : this.state.activeTab)}>
         Click here to{this.state.fakeInputContent}...</div>);
     }
     else {
@@ -116,7 +116,7 @@ class EditLeadTabs extends Component {
           </li>
           <li
             className={cx(styles.headerItem, { active: addActivityCondition })}
-            onClick={() => this.tabHandler(this.getAddActivity)}>
+            onClick={() => this.tabHandler(this.getAddActivity())}>
             <img
               src={addActivityCondition ? addActivityIconActive : addActivityIcon}
               className={styles.headerItemIcon}
