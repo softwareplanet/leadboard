@@ -295,16 +295,16 @@ module.exports = {
           // https://github.com/mishoo/UglifyJS2/issues/2011
           comparisons: false,
         },
-      },
-      mangle: {
-        safari10: true,
-      },
-      output: {
-        ecma: 5,
-        comments: false,
-        // Turned on because emoji and regex is not minified properly using default
-        // https://github.com/facebook/create-react-app/issues/2488
-        ascii_only: true,
+        mangle: {
+          safari10: true,
+        },
+        output: {
+          ecma: 5,
+          comments: false,
+          // Turned on because emoji and regex is not minified properly using default
+          // https://github.com/facebook/create-react-app/issues/2488
+          ascii_only: true,
+        },
       },
       // Use multi-process parallel running to improve the build speed
       // Default number of concurrent runs: os.cpus().length - 1
