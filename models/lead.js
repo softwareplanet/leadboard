@@ -25,4 +25,31 @@ const leadSchema = new mongoose.Schema({
   }],
 });
 
+const basicPopulates = [
+  { path: "contact" },
+  { path: "organization" },
+];
+
+const notePopulates = [
+  { path: "notes.user", options: { password: 0 } },
+  { path: "notes.lastUpdater", options: { password: 0 } },
+];
+
+const detailedPopulates = [
+  ...basicPopulates,
+  { path: "owner", options: { password: 0 } },
+  { path: "stage" },
+];
+
+const fullPopulates = [
+  ...detailedPopulates,
+  ...notePopulates,
+];
+
+leadSchema.statics.populates = {
+  basic: basicPopulates,
+  detailed: detailedPopulates,
+  full: fullPopulates,
+};
+
 export default mongoose.model(LEAD, leadSchema);
