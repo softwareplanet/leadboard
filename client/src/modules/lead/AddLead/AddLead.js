@@ -32,38 +32,40 @@ const customStyles = {
   },
 };
 
+const initialState = {
+  name: "",
+  stage: "",
+
+  contact: { id: null, name: "" },
+  organization: { id: null, name: "" },
+  errors: {},
+
+  openContactDropdown: false,
+  openOrganizationDropdown: false,
+
+  showOrganizationBadge: false,
+  showContactBadge: false,
+
+  afterOrganizationSelectShowBadge: false,
+  afterContactSelectShowBadge: false,
+
+  nameChanged: false,
+  namePlaceholder: "",
+
+  organizationAfterSelect: { id: null, name: "" },
+  contactAfterSelect: { id: null, name: "" },
+
+  validationIsShown: false,
+  modalIsOpen: false,
+};
+
 class AddLead extends React.Component {
   contactWrapper = React.createRef();
   organizationWrapper = React.createRef();
   contactAutocomplete = React.createRef();
   organizationAutocomplete = React.createRef();
 
-  state = {
-    name: "",
-    stage: "",
-
-    contact: { id: null, name: "" },
-    organization: { id: null, name: "" },
-    errors: {},
-
-    openContactDropdown: false,
-    openOrganizationDropdown: false,
-
-    showOrganizationBadge: false,
-    showContactBadge: false,
-
-    afterOrganizationSelectShowBadge: false,
-    afterContactSelectShowBadge: false,
-
-    nameChanged: false,
-    namePlaceholder: "",
-
-    organizationAfterSelect: { id: null, name: "" },
-    contactAfterSelect: { id: null, name: "" },
-
-    validationIsShown: false,
-    modalIsOpen: false,
-  };
+  state = initialState;
 
   openModal = () => {
     const { stages } = this.props.leads;
@@ -76,32 +78,7 @@ class AddLead extends React.Component {
   };
 
   closeModal = () => {
-    this.setState({
-      name: "",
-      stage: "",
-
-      contact: { id: null, name: "" },
-      organization: { id: null, name: "" },
-      errors: {},
-
-      openContactDropdown: false,
-      openOrganizationDropdown: false,
-
-      showOrganizationBadge: false,
-      showContactBadge: false,
-
-      afterOrganizationSelectShowBadge: false,
-      afterContactSelectShowBadge: false,
-
-      nameChanged: false,
-      namePlaceholder: "",
-
-      organizationAfterSelect: { id: null, name: "" },
-      contactAfterSelect: { id: null, name: "" },
-
-      validationIsShown: false,
-      modalIsOpen: false,
-    });
+    this.setState(initialState);
   };
 
   getErrorsWithRemoveField = (errors, fieldName) => {
@@ -111,23 +88,24 @@ class AddLead extends React.Component {
   };
 
   onNameChange = (event) => {
+    let name = event.target.value;
     this.setState({
       ...this.state,
-      nameChanged: event.target.value !== this.state.name,
-      name: event.target.value,
+      nameChanged: isBlank(name) ? false : name !== this.state.name,
+      name,
       errors: this.getErrorsWithRemoveField(this.state.errors, "name"),
     });
   };
 
   onOrganizationChange = (event) => {
-    let value = event.target.value;
+    let name = event.target.value;
     let newState = {
       ...this.state,
       organization: {
-        id: this.state.organizationAfterSelect.name === value ? this.state.organizationAfterSelect.id : null,
-        name: value,
+        id: this.state.organizationAfterSelect.name === name ? this.state.organizationAfterSelect.id : null,
+        name,
       },
-      openOrganizationDropdown: !isBlank(value),
+      openOrganizationDropdown: !isBlank(name),
       afterOrganizationSelectShowBadge: true,
     };
     this.setState({
@@ -233,6 +211,7 @@ class AddLead extends React.Component {
       },
       openContactDropdown: false,
       showContactBadge: false,
+      showOrganizationBadge: false,
       afterContactSelectShowBadge: false,
     }, () => this.contactAutocomplete.current.inputBlur());
   };
@@ -247,7 +226,7 @@ class AddLead extends React.Component {
         name: trim(this.state.contact.name),
       },
       namePlaceholder: this.getPlaceholderValue(),
-      nameChanged: isBlank(this.state.organization.name) && isBlank(this.state.contact.name) ? false : this.state.nameChanged,
+      nameChanged: this.state.nameChanged,
       openContactDropdown: false,
       showContactBadge: this.state.afterContactSelectShowBadge && !this.state.contact.id && !isBlank(this.state.contact.name),
     }, () => this.organizationAutocomplete.current.inputBlur());
