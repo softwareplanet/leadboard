@@ -1,9 +1,9 @@
 import Funnel from "./Funnel";
 
-export default class Stage {
-  public _id: string;
-  public funnel: string | Funnel;
-  public name: string;
-  public order: number;
-  public timestamp: Date;
+export default interface Stage {
+   _id: string;
+  funnel: string | Funnel;
+  name: string;
+  order: number;
+  timestamp: Date;
 }

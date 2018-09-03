@@ -7,6 +7,9 @@
         "node_modules/**/*.ts",
         "coverage/lcov-report/*.js"
       ]
-    }
-  }
+    },
+    "rules": {
+      "interface-name": false,
+    },
+}
   

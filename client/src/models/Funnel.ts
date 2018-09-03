@@ -1,3 +1,3 @@
-export default class Funnel {
+export default interface Funnel {
   
 }
