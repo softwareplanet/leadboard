@@ -14,8 +14,19 @@ class ContactAutocomplete extends React.Component {
   };
 
   closeOnEsc = (isOpen) => {
-    this.props.onEsc();
     this.setState({ isOpen });
+  }
+
+  clearFunction = (e) => {
+    if (e.keyCode === 27) {
+      if (e.target.className === 'contact-input') {
+        this.props.onEsc();
+      }
+    }
+  }
+
+  componentDidMount() {
+    document.addEventListener("keydown", this.clearFunction, false);
   }
 
   render() {
@@ -35,7 +46,7 @@ class ContactAutocomplete extends React.Component {
               <div className="contactsList" style={styles.menu}>
                 {
                   <div style={styles.emptyMenuItem}>
-                    { `"${this.props.value}" will be added as a new contact` }
+                    {`"${this.props.value}" will be added as a new contact`}
                   </div>
                 }
               </div>
@@ -50,7 +61,7 @@ class ContactAutocomplete extends React.Component {
               color: highlighted ? "#fff" : "#317ae2"
             }}
           >
-            {item.organization !== undefined ? `${item.name} (${ item.organization.name })` : `${item.name}`}
+            {item.organization !== undefined ? `${item.name} (${item.organization.name})` : `${item.name}`}
           </div>
         }
         inputProps={{

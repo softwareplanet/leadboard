@@ -351,7 +351,21 @@ class AddLead extends React.Component {
     this.setState({ organization: { ...this.state.organization, name: "" } });
   }
 
-  
+  closeModalOnEsc = (e) => {
+    if (e.keyCode === 27) {
+      if (e.target.tagName.toLowerCase() === 'body' || e.target.tagName.toLowerCase() === 'div') {
+        this.closeModal();
+      }
+      else {
+        if (isBlank(e.target.value)) {
+          e.target.blur();
+        }
+      }
+    }
+  }
+  componentDidMount() {
+    document.addEventListener("keydown", this.closeModalOnEsc, false);
+  }
 
   render() {
     const { errors, validationIsShown } = this.state;
