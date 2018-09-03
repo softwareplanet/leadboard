@@ -1,32 +1,28 @@
 import * as React from 'react';
-import * as styles from "./EditLeadStage.css";
-import classNames from "classnames";
-import { LOST } from "../../../../../../constants";
+import * as styles from './EditLeadStage.css';
+import classNames from 'classnames';
+import { LOST } from '../../../../../../constants';
+import Stage from '../../../../../../models/Stage';
 
 export interface Props {
-  onStageClick(stage: any): any;
-  stage: any;
-  stages: any [];
+  stage: Stage;
+  stages: Stage [];
   status: string;
-  active: true;
+  active: boolean;
   isFirst: boolean;
+  onStageClick(stage: Stage): void;
 }
 
 export default class EditLeadStage extends React.Component<Props, object> {
 
-  onStageClick() {
-    let stage = this.props.stage;
-    this.props.onStageClick(stage);
-  }
-
-  render() {
-    let width = {
+  public render() {
+    const width = {
       width: `${100 / this.props.stages.length - 1}%`
     };
 
     return (
       <li
-        onClick={() => (this.props.status !== LOST ? this.onStageClick() : null)}
+        onClick={() => this.props.status !== LOST ? this.onStageClick() : null}
         className={classNames(
           { [styles.active]: this.props.active },
           { [styles.lost]: this.props.status === LOST },
@@ -36,5 +32,10 @@ export default class EditLeadStage extends React.Component<Props, object> {
         style={width}
       />
     );
+  }
+
+  private onStageClick = () => {
+    const stage = this.props.stage;
+    this.props.onStageClick(stage);
   }
 }
