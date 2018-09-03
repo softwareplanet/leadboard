@@ -38,19 +38,15 @@ class Activities extends Component {
       <div className={styles.container}>
         {hasActivities ?
           <div className={this.props.done ? styles.pastTimeLineBar : styles.plannedTimeLineBar} /> : null}
-        {hasActivities ? this.props.activities.map((activity) => {
-            if (activity.done === this.props.done) {
-              return (
-                <InfoItemWrapper
-                  key={activity._id}
-                  component={<Activity activity={activity} />}
-                  icon={this.getActivityIcon(activity.type)}
-                  cardStyles={styles.activityCard}
-                  arrowStyles={styles.arrow}
-                />
-              );
-            }
-          })
+        {hasActivities ? this.props.activities.map(activity => [
+            <InfoItemWrapper
+              key={activity._id}
+              component={<Activity activity={activity} />}
+              icon={this.getActivityIcon(activity.type)}
+              cardStyles={styles.activityCard}
+              arrowStyles={styles.arrow}
+            />,
+          ])
           : <p className={styles.noActivitiesMessage}>You have no planned activities</p>}
       </div>
     );
