@@ -16,6 +16,7 @@ import Registration from "./modules/auth/Registration/Registration";
 import "./App.css";
 import { Switch } from "react-router-dom";
 import EditLead from "./modules/lead/EditLead/EditLead";
+import Spinner from "./modules/common/Spinner/Spinner";
 
 setAuthInterceptor();
 // restore redux/storage on page reload
@@ -64,6 +65,7 @@ class App extends Component {
             </Switch>
             <Route exact path="/" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Login />} />
             <Route exact path="/register" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Registration />} />  
+            <Route exact path="/test" component={Spinner} />
             <Footer/>
           </div>
         </Router>
