@@ -39,7 +39,7 @@
     "lodash.isempty": "^4.4.0",
     "material": "^0.3.0",
     "mdbootstrap": "^4.5.8",
-    "mdbreact": "^4.6.1",
+    "mdbreact": "^4.7.0",
     "mongoose": "^4.4.5",
     "mongoose-error-parser": "^1.0.0",
     "morgan": "^1.7.0",

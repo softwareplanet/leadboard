@@ -134,6 +134,17 @@ describe("Lead", () => {
     expect(status).toBe(200);
     expect(body).toMatchObject({ organization: { name: newOrganizationName }, contact: { name: newContactName } });
     expect(body.organization._id).toBe(body.contact.organization._id);
+
+    const getResponse = await request(app())
+      .get(`/api/lead/${body._id}`)
+      .set("Authorization", cred.token)
+      .send({});
+    expect(getResponse.status).toBe(200);
+    expect(typeof getResponse.body.organization).toBe("object");
+    expect(typeof getResponse.body.contact).toBe("object");
+    expect(typeof getResponse.body.owner).toBe("object");
+    expect(typeof getResponse.body.stage).toBe("object");
+    expect(typeof getResponse.body.notes).toBe("object");
   });
 
   it("should create lead with new organization only", async () => {
