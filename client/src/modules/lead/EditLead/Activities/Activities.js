@@ -32,21 +32,13 @@ class Activities extends Component {
     }
   };
 
-  getActivitiesStatus = (activities) => {
-    if (this.props.done) {
-      return getCountOfDoneActivities(activities) > 0;
-    } else {
-      return getCountOfPlannedActivities(activities) > 0;
-    }
-  };
-
   render() {
-    const isExistActivities = this.getActivitiesStatus(this.props.activities);
+    const hasActivities = !isEmpty(this.props.activities);
     return (
       <div className={styles.container}>
-        {isExistActivities ?
+        {hasActivities ?
           <div className={this.props.done ? styles.pastTimeLineBar : styles.plannedTimeLineBar} /> : null}
-        {isExistActivities ? this.props.activities.map((activity) => {
+        {hasActivities ? this.props.activities.map((activity) => {
             if (activity.done === this.props.done) {
               return (
                 <InfoItemWrapper
@@ -65,22 +57,8 @@ class Activities extends Component {
   }
 }
 
-const getCountOfDoneActivities = (activities) => {
-  return activities.filter(activity => activity.done).length;
-};
-
-const getCountOfPlannedActivities = (activities) => {
-  return activities.filter(activity => !activity.done).length;
-};
-
-const mapStateToProps = state => ({
-  activities: state.leads.editLead.activities,
-  leadId: state.leads.editLead.lead._id,
-});
-
 Activities.propTypes = {
-  loadLeadActivities: PropTypes.func.isRequired,
-  activities: PropTypes.object,
+  activities: PropTypes.array,
 };
 
-export default connect(mapStateToProps)(Activities);
+export default (Activities);
