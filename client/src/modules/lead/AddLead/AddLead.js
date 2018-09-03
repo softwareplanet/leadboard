@@ -343,6 +343,16 @@ class AddLead extends React.Component {
     this.setState({ stage: stageid });
   }
 
+  clearContactOnEsc = () => {
+    this.setState({ contact: { ...this.state.contant, name: "" } });
+  }
+
+  clearOrganizationOnEsc = () => {
+    this.setState({ organization: { ...this.state.organization, name: "" } });
+  }
+
+  
+
   render() {
     const { errors, validationIsShown } = this.state;
     return (
@@ -353,8 +363,8 @@ class AddLead extends React.Component {
           </button>
         </div>
 
-        <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} shouldCloseOnOverlayClick={false}
-               style={customStyles}>
+        <Modal isOpen={this.state.modalIsOpen}
+          style={customStyles}>
           <header className={styles.formHeader}>Add lead</header>
           <button type="button" onClick={this.closeModal} aria-label="Close" className={styles.closeBtn}>
             <span aria-hidden="true" className={classNames("close", styles.closeIcon)}>
@@ -365,7 +375,7 @@ class AddLead extends React.Component {
 
             <label className={styles.inputLabel}>Contact person name</label>
             <div id="contact-wrapper"
-                 className={validationIsShown && errors.contact ? styles.invalidContainer : styles.inputContainer}>
+              className={validationIsShown && errors.contact ? styles.invalidContainer : styles.inputContainer}>
               <i className={classNames("fas fa-user", styles.inputIcon)} />
               <ContactAutocomplete
                 items={this.state.contacts}
@@ -374,6 +384,7 @@ class AddLead extends React.Component {
                 onSelect={this.onContactSelect}
                 onBlur={this.onContactBlur}
                 value={this.state.contact.name}
+                onEsc={this.clearContactOnEsc}
                 open={this.state.openContactDropdown}
                 styles={autocompleteStyles.contact}
                 inputStyle={autocompleteStyles.addLeadInput}
@@ -390,6 +401,7 @@ class AddLead extends React.Component {
               : styles.inputContainer}>
               <i className={classNames("fas fa-building", styles.inputIcon)} />
               <OrganizationAutocomplete
+                onEsc={this.clearOrganizationOnEsc}
                 items={this.state.organizations}
                 onFocus={this.onAutocompleteFocus}
                 onChange={this.onOrganizationChange}
@@ -401,6 +413,7 @@ class AddLead extends React.Component {
                 inputStyle={autocompleteStyles.addLeadInput}
                 itemsCount={5}
               />
+
               {this.state.showOrganizationBadge ?
                 <span id="organization-badge" className={styles.newBadge}>NEW</span> : null}
             </div>

@@ -3,32 +3,43 @@ import ReactAutocomplete from "react-autocomplete";
 import { trim } from "lodash";
 
 class ContactAutocomplete extends React.Component {
+  state = {
+    isOpen: false,
+  }
+
   input = React.createRef();
 
   inputFocus = () => {
     this.input.current.focus();
   };
 
+  closeOnEsc = (isOpen) => {
+    this.props.onEsc();
+    this.setState({ isOpen });
+  }
+
   render() {
+    let open = this.state.isOpen && (this.props.value.length > 1 && this.props.open);
     const styles = this.props.styles;
     return (
       <ReactAutocomplete
-        open={this.props.value.length > 1 && this.props.open}
+        open={open}
         items={this.props.items}
+        onMenuVisibilityChange={(isOpen) => this.closeOnEsc(isOpen)}
         shouldItemRender={(item, value) => item.name.toLowerCase().indexOf(trim(value).toLowerCase()) > -1}
         getItemValue={item => item.name}
         renderMenu={(items) =>
           items.length !== 0 ? (
             <div className="contactsList" style={styles.menu} children={items.splice(0, this.props.itemsCount)} />
           ) : (
-            <div className="contactsList" style={styles.menu}>
-              {
-                <div style={styles.emptyMenuItem}>
-                  { `"${this.props.value}" will be added as a new contact` }
-                </div>
-              }
-            </div>
-          )
+              <div className="contactsList" style={styles.menu}>
+                {
+                  <div style={styles.emptyMenuItem}>
+                    { `"${this.props.value}" will be added as a new contact` }
+                  </div>
+                }
+              </div>
+            )
         }
         renderItem={(item, highlighted) =>
           <div

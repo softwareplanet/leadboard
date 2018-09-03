@@ -3,17 +3,28 @@ import ReactAutocomplete from "react-autocomplete";
 import { trim } from "lodash";
 
 class OrganizationAutocomplete extends React.Component {
+  state = {
+    isOpen: false,
+  }
+
   input = React.createRef();
 
   inputFocus = () => {
     this.input.current.focus();
   };
 
+  closeOnEsc = (isOpen) => {
+    this.props.onEsc();
+    this.setState({ isOpen });
+  }
+
   render() {
     const styles = this.props.styles;
+    let open = this.state.isOpen && (this.props.value.length > 1 && this.props.open);
     return (
       <ReactAutocomplete
-        open={this.props.value.length > 1 && this.props.open}
+        open={open}
+        onMenuVisibilityChange={(isOpen) => this.closeOnEsc(isOpen)}
         items={this.props.items}
         shouldItemRender={(item, value) => item.name.toLowerCase().indexOf(trim(value).toLowerCase()) > -1}
         getItemValue={item => item.name}
