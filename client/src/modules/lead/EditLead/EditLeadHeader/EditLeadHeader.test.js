@@ -4,6 +4,7 @@ import { shallow } from "enzyme";
 import { EditLeadHeader } from "./EditLeadHeader";
 import styles from "./EditLeadHeader.css";
 import { LOST } from "../../../../constants";
+import { loadLeadActivities } from "../Activities/activityActions";
 
 const editLead = {
   _id: "5b86aa21ed17641891c50127",
@@ -32,15 +33,19 @@ describe("<EditLeadHeader />", () => {
       leadId: "5b86aa21ed17641891c50127"
     }
   }
+  let loadLeadActivities;
+
   it("should call updateLead after won and lost buttons click", () => {
     loadLead = jest.fn();
     updateLead = jest.fn();
+    loadLeadActivities = jest.fn();
     let wrapper = shallow (
       <EditLeadHeader 
         match={match}
         editLead={editLead} 
         loadLead={loadLead} 
         updateLead={updateLead}
+        loadLeadActivities={loadLeadActivities}
       />
     )
     wrapper.find(`.${styles.button}`).simulate("click");

@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import styles from "./Activity.css";
 import doneMark from "../../../../../assets/done-mark.svg"
-import { dateFormater } from "./dateFormatter";
+import { dateFormatter } from "./dateFormatter";
 import { updateActivity } from "../activityActions";
 import store from "../../../../../store.js";
 import classNames from "classnames/bind";
+import moment from "moment";
 
 let cx = classNames.bind(styles);
 
@@ -18,25 +19,22 @@ class Activity extends Component {
   };
 
   checkTime = (date, hasStartTime, status) => {
-    let activityFullDate = new Date(date);
-    let activityDate = new Date(activityFullDate.toLocaleDateString());
-    let currentDate = new Date(new Date().toLocaleDateString());
+    let activityDate = new Date(date);
+    let now = new Date();
 
     if (status) {
       return styles.defaultTime;
     } else {
-      if (currentDate.getTime() === activityDate.getTime()) {
+      if (moment(now).isSame(activityDate, "day")) {
         if (hasStartTime) {
-          if (activityFullDate.getTime() < new Date().getTime()) {
+          if (moment(now).isAfter(activityDate)) {
             return styles.expiredTime;
-          }
-          return styles.defaultTime;
+          } else return styles.defaultTime;
         }
         return styles.today;
-      }
-      if (currentDate.getTime() > activityDate.getTime()) {
+      } if (moment(now).isAfter(activityDate)){
         return styles.expiredTime;
-      }
+      } else return styles.defaultTime;
     }
   };
 
@@ -61,7 +59,7 @@ class Activity extends Component {
           <div className={styles.activityDetails}>
             <span
               className={this.checkTime(date, hasStartTime, this.props.activity.done)}>
-                        {dateFormater(date, hasStartTime)}</span>
+                        {dateFormatter(date, hasStartTime)}</span>
             <span className={styles.separator}>
             </span>
             <span className={styles.author}>{this.props.author}</span>
