@@ -2,7 +2,14 @@ import request from "supertest";
 
 import express from "../../express";
 import routes from "..";
-import { dropTables, createUserAndDomain, createActivity, createLead } from "../../test/db-prepare";
+import {
+  dropTables,
+  createUserAndDomain,
+  createActivity,
+  createLead,
+  createFunnel,
+  createStage,
+} from "../../test/db-prepare";
 
 const app = () => express(routes);
 
@@ -12,19 +19,20 @@ let lead;
 beforeEach(async done => {
   await dropTables();
   cred = await createUserAndDomain(app);
-  activity = await createActivity(app,cred.token,"Call", "First test call", 30);
-  activity = await createActivity(app,cred.token,"Call", "Second test call", 30);
-  lead = await createLead(app, cred.token, cred.userId, "id", 2, "Lead A");
-  console.log("lead  :" + lead);
+  let funnelId = await createFunnel(app, cred.token, cred.domainId, "Funnel");
+  let stageId = await createStage(app, cred.token, funnelId, "Stage", 2, cred.userId);
+  lead = await createLead(app, cred.token, cred.userId, stageId, 2, "Lead A");
+  activity = await createActivity(app, cred.token, "Call", "First test call", new Date(), 30, lead._id);
+  await createActivity(app, cred.token, "Call", "Second test call", new Date(), 30, lead._id);
   done();
 });
 
 describe("Activity", () => {
   it("should return all lead's activities ", async () => {
     const { body } = await request(app())
-      .get(`api/lead/${lead._id}/activities`)
+      .get(`/api/lead/${lead._id}/activities`)
       .set("Authorization", cred.token)
-      .send();
+      .send({});
     expect(body.length).toEqual(2);
   });
 
@@ -63,9 +71,9 @@ describe("Activity", () => {
   it("should mark activity as done", async () => {
     activity.done = true;
     const { body } = await request(app())
-      .patch("/api/activity")
+      .patch(`/api/activity/${activity._id}`)
       .set("Authorization", cred.token)
-      .send({ activity });
-    expect(body.done).toEqual(true)
+      .send({ ...activity });
+    expect(body.done).toEqual(true);
   });
 });
