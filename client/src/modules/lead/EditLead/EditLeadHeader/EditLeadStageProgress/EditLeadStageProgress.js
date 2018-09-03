@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import EditLeadStage from "./EditLeadStage/EditLeadStage.tsx";
+import * as EditLeadStage from "./EditLeadStage/EditLeadStage";
 import { updateLead, loadLead } from "../../../leadActions";
 import styles from "./EditLeadStageProgress.css";
 import ReactTooltip from "react-tooltip";
