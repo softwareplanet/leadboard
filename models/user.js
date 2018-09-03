@@ -1,5 +1,6 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
+import { DOMAIN, USER } from "./refs";
 
 // Web service users who can login
 const userSchema = new mongoose.Schema({
@@ -8,7 +9,7 @@ const userSchema = new mongoose.Schema({
   lastname: { type: String, default: "" },
   email: { type: String, required: [true, "E-Mail is required"], index: { unique: true } },
   password: { type: String, required: [true, "Password is required"] },
-  domain: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Domain" },
+  domain: { type: mongoose.Schema.Types.ObjectId, required: true, ref: DOMAIN },
   timestamp: { type: Date, default: Date.now }
 });
 
@@ -31,4 +32,4 @@ userSchema.methods.passwordMatches = (candidatePassword, user) => {
   return bcrypt.compare(candidatePassword, user.password);
 };
 
-module.exports = mongoose.model("User", userSchema);
+export default mongoose.model(USER, userSchema);

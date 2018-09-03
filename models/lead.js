@@ -1,27 +1,28 @@
 import mongoose from "mongoose";
+import { LEAD, USER, STAGE, ORGANIZATION, CONTACT } from "./refs";
 
 const leadSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
-  stage: { type: mongoose.Schema.Types.ObjectId, ref: "Stage" },
-  owner: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  stage: { type: mongoose.Schema.Types.ObjectId, ref: STAGE },
+  owner: { type: mongoose.Schema.Types.ObjectId, ref: USER },
   visibility: Number,
   name: String,
   order: { type: Number, index: { unique: false } },
-  contact: { type: mongoose.Schema.Types.ObjectId, ref: "Contact" },
-  organization: { type: mongoose.Schema.Types.ObjectId, ref: "Organization" },
+  contact: { type: mongoose.Schema.Types.ObjectId, ref: CONTACT },
+  organization: { type: mongoose.Schema.Types.ObjectId, ref: ORGANIZATION },
   custom: [{ name: "string", value: "string" }],
   timestamp: { type: Date, default: Date.now },
   status: {
     type: String,
     enum: ["Won", "Lost", "InProgress"],
-    default: "InProgress"
+    default: "InProgress",
   },
   notes: [{
     text: String,
     date: { type: Date, default: Date.now },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    lastUpdater: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
-  }]
+    user: { type: mongoose.Schema.Types.ObjectId, ref: USER },
+    lastUpdater: { type: mongoose.Schema.Types.ObjectId, ref: USER },
+  }],
 });
 
-module.exports = mongoose.model("Lead", leadSchema);
+export default mongoose.model(LEAD, leadSchema);

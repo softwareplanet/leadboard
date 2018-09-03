@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+import { CUSTOM_FIELDS } from "./refs";
 
 const customFieldsSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
@@ -11,4 +12,4 @@ const customFieldsSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model("CustomFields", customFieldsSchema);
+export default mongoose.model(CUSTOM_FIELDS, customFieldsSchema);
