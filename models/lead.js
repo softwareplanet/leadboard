@@ -35,13 +35,20 @@ const notePopulates = [
 ];
 
 const detailedPopulates = [
-  { path: "owner", options: { password: 0 } }, { path: "stage" },
-].concat(basicPopulates);
+  ...basicPopulates,
+  { path: "owner", options: { password: 0 } },
+  { path: "stage" },
+];
+
+const fullPopulates = [
+  ...detailedPopulates,
+  ...notePopulates,
+];
 
 leadSchema.statics.populates = {
   basic: basicPopulates,
   detailed: detailedPopulates,
-  full: detailedPopulates.concat(notePopulates),
+  full: fullPopulates,
 };
 
 module.exports = mongoose.model("Lead", leadSchema);
