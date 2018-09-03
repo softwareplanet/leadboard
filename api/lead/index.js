@@ -43,12 +43,32 @@ if (process.env.NODE_ENV !== "production") {
   leadMembersMiddlewares.unshift(assertLeadIdParam);
 }
 
+const basicPopulates = [
+  { path: "contact" },
+  { path: "organization" },
+];
+
+const notePopulates = [
+  { path: "notes.user", options: { password: 0 } },
+  { path: "notes.lastUpdater", options: { password: 0 } },
+];
+
+const detailedPopulates = [
+  { path: "owner", options: { password: 0 } }, { path: "stage" },
+].concat(basicPopulates);
+
+const leadPopulates = {
+  basic: basicPopulates,
+  detailed: detailedPopulates,
+  full: detailedPopulates.concat(notePopulates),
+};
+
 // @route   GET api/lead
 // @desc    Find sorted leads by domain and stage IDs
 // @access  Private
 router.get("/", (req, res) => {
   Lead.find({ stage: req.query.stage, status: IN_PROGRESS })
-    .populate([{ path: "contact" }, { path: "organization" }])
+    .populate(leadPopulates.basic)
     .sort({ order: "asc" })
     .then(leads => {
       res.json(leads);
@@ -143,11 +163,7 @@ function validateExisting(model, name, domain) {
 // @access  Private
 router.get("/:leadId", leadMembersMiddlewares, (req, res) => {
   Lead.findById(req.params.leadId)
-    .populate("notes.user", {password: 0})
-    .populate("notes.lastUpdater", {password: 0})
-    .populate([{path: "contact"}, {path: "organization"}])
-    .populate("owner", {password: 0})
-    .populate("stage")
+    .populate(leadPopulates.full)
     .then(lead => {
       res.json(lead);
     })
@@ -190,12 +206,8 @@ router.patch("/:leadId", leadMembersMiddlewares, async (req, res) => {
     updates.contact = (typeof contact === "object" ? contact._id : contact);
   }
 
-  Lead.findByIdAndUpdate(req.params.leadId, {$set: updates}, {new: true})
-    .populate("notes.user", {password: 0})
-    .populate("notes.lastUpdater", {password: 0})
-    .populate([{path: "contact"}, {path: "organization"}])
-    .populate("owner", {password: 0})
-    .populate("stage")
+  Lead.findByIdAndUpdate(req.params.leadId, { $set: updates }, { new: true })
+    .populate(leadPopulates.full)
     .then(lead => {
       res.json(lead);
     })
@@ -208,12 +220,8 @@ router.patch("/:leadId", leadMembersMiddlewares, async (req, res) => {
 // @desc    Create note for lead
 // @access  Private
 router.post("/:leadId/notes", leadMembersMiddlewares, (req, res) => {
-  Lead.findByIdAndUpdate(req.params.leadId, {$push: {notes: req.body}}, {new: true})
-    .populate("notes.user", {password: 0})
-    .populate("notes.lastUpdater", {password: 0})
-    .populate([{path: "contact"}, {path: "organization"}])
-    .populate("owner", {password: 0})
-    .populate("stage")
+  Lead.findByIdAndUpdate(req.params.leadId, { $push: { notes: req.body } }, { new: true })
+    .populate(leadPopulates.full)
     .then(lead => {
       res.json(lead);
     })
