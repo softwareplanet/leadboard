@@ -57,4 +57,4 @@ Activities.propTypes = {
   activities: PropTypes.array,
 };
 
-export default (Activities);
+export default Activities;
