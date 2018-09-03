@@ -305,7 +305,7 @@ class AddLead extends React.Component {
       else {
         if (isBlank(e.target.value)) {
           e.target.blur();
-        }
+        } else { e.target.value = ""; }
       }
     }
   }
