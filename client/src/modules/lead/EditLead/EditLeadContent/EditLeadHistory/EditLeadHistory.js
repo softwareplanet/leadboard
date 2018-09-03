@@ -52,7 +52,7 @@ class EditLeadHistory extends React.Component {
 
           <Tab label={`NOTES ${this.props.notesCount}`} classes={{ root: classes.tabRoot }} />
           <Tab label={`ACTIVITIES ${this.props.activitiesCount}`} classes={{ root: classes.tabRoot }}
-               disabled={!this.props.activitiesCount > 0} />
+               disabled={this.props.activitiesCount <= 0} />
         </Tabs>
         {selectedTab === 0 && <Notes />}
         {selectedTab === 1 && <Activities done={true} />}
