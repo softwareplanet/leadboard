@@ -33,7 +33,7 @@ class Activities extends Component {
   };
 
   render() {
-    const isExistActivities = isExistActivities(this.props.done ,this.props.activities);
+    const isExistActivities = getActivitiesStatus(this.props.done , this.props.activities);
     return (
       <div className={styles.container}>
         {isExistActivities ?
@@ -57,7 +57,7 @@ class Activities extends Component {
   }
 }
 
-const isExistActivities = (isDone, activities) => {
+const getActivitiesStatus = (isDone, activities) => {
   if (isDone) {
     return getCountOfDoneActivities(activities) > 0;
   }else{
