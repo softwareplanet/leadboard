@@ -32,8 +32,16 @@ class Activities extends Component {
     }
   };
 
+  getActivitiesStatus = (activities) => {
+    if (this.props.done) {
+      return getCountOfDoneActivities(activities) > 0;
+    } else {
+      return getCountOfPlannedActivities(activities) > 0;
+    }
+  };
+
   render() {
-    const isExistActivities = getActivitiesStatus(this.props.done , this.props.activities);
+    const isExistActivities = this.getActivitiesStatus(this.props.activities);
     return (
       <div className={styles.container}>
         {isExistActivities ?
@@ -56,14 +64,6 @@ class Activities extends Component {
     );
   }
 }
-
-const getActivitiesStatus = (isDone, activities) => {
-  if (isDone) {
-    return getCountOfDoneActivities(activities) > 0;
-  }else{
-    return getCountOfPlannedActivities(activities) > 0;
-  }
-};
 
 const getCountOfDoneActivities = (activities) => {
   return activities.filter(activity => activity.done).length;
