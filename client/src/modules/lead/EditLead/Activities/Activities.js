@@ -51,7 +51,7 @@ class Activities extends Component {
               );
             }
           })
-          : <p className={styles.noActivitiesMessage}>You have no activities</p>}
+          : <p className={styles.noActivitiesMessage}>You have no planned activities</p>}
       </div>
     );
   }
