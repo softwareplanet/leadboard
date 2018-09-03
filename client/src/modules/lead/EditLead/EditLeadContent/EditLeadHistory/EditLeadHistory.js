@@ -35,12 +35,13 @@ class EditLeadHistory extends React.Component {
   render() {
     const { selectedTab } = this.state;
     const { classes } = this.props;
+    const countOfDoneActivities = this.props.doneActivities.length;
     return (
       <div>
         <div className={styles.sectionTag}>
           <span className={styles.pill}>PLANNED</span>
         </div>
-        <Activities done={false} />
+        <Activities done={false} activities={this.props.plannedActivities} />
         <div className={styles.sectionTag}>
           <span className={styles.pill}>PAST</span>
         </div>
@@ -51,11 +52,12 @@ class EditLeadHistory extends React.Component {
           centered={true}>
 
           <Tab label={`NOTES ${this.props.notesCount}`} classes={{ root: classes.tabRoot }} />
-          <Tab label={`ACTIVITIES ${this.props.activitiesCount}`} classes={{ root: classes.tabRoot }}
-               disabled={this.props.activitiesCount <= 0} />
+          <Tab label={`ACTIVITIES ${countOfDoneActivities > 0 ? countOfDoneActivities : ""}`}
+               classes={{ root: classes.tabRoot }}
+               disabled={this.props.doneActivities.length <= 0} />
         </Tabs>
         {selectedTab === 0 && <Notes />}
-        {selectedTab === 1 && <Activities done={true} />}
+        {selectedTab === 1 && <Activities done={true} activities={this.props.doneActivities} />}
       </div>
     );
   }
@@ -66,12 +68,17 @@ const mapStateToProps = state => {
   const activities = state.leads.editLead.activities;
   return {
     notesCount: !isEmpty(notes) ? notes.length : "",
-    activitiesCount: !isEmpty(activities) ? getCountOfDoneActivities(activities) : "",
+    plannedActivities: getPlannedActivities(activities),
+    doneActivities: getDoneActivities(activities),
   };
 };
 
-const getCountOfDoneActivities = (activities) => {
-  return activities.filter(activity => activity.done).length;
+const getDoneActivities = (activities) => {
+  return activities.filter(activity => activity.done);
+};
+
+const getPlannedActivities = (activities) => {
+  return activities.filter(activity => !activity.done);
 };
 
 export default compose(
