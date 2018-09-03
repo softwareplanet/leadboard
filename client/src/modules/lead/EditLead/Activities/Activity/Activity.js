@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styles from "./Activity.css";
 import doneMark from "../../../../../assets/done-mark.svg"
-import { dateFormater } from "./dateFormatter";
+import { dateFormatter } from "./dateFormatter";
 import { updateActivity } from "../activityActions";
 import store from "../../../../../store.js";
 import classNames from "classnames/bind";
@@ -59,7 +59,7 @@ class Activity extends Component {
           <div className={styles.activityDetails}>
             <span
               className={this.checkTime(date, hasStartTime, this.props.activity.done)}>
-                        {dateFormater(date, hasStartTime)}</span>
+                        {dateFormatter(date, hasStartTime)}</span>
             <span className={styles.separator}>
             </span>
             <span className={styles.author}>{this.props.author}</span>
