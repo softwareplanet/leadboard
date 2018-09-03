@@ -14,14 +14,41 @@ const leadSchema = new mongoose.Schema({
   status: {
     type: String,
     enum: ["Won", "Lost", "InProgress"],
-    default: "InProgress"
+    default: "InProgress",
   },
   notes: [{
     text: String,
     date: { type: Date, default: Date.now },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    lastUpdater: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
-  }]
+    lastUpdater: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  }],
 });
+
+const basicPopulates = [
+  { path: "contact" },
+  { path: "organization" },
+];
+
+const notePopulates = [
+  { path: "notes.user", options: { password: 0 } },
+  { path: "notes.lastUpdater", options: { password: 0 } },
+];
+
+const detailedPopulates = [
+  ...basicPopulates,
+  { path: "owner", options: { password: 0 } },
+  { path: "stage" },
+];
+
+const fullPopulates = [
+  ...detailedPopulates,
+  ...notePopulates,
+];
+
+leadSchema.statics.populates = {
+  basic: basicPopulates,
+  detailed: detailedPopulates,
+  full: fullPopulates,
+};
 
 module.exports = mongoose.model("Lead", leadSchema);
