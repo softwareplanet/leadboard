@@ -51,7 +51,8 @@ class EditLeadHistory extends React.Component {
           centered={true}>
 
           <Tab label={`NOTES ${this.props.notesCount}`} classes={{ root: classes.tabRoot }} />
-          <Tab label={`ACTIVITIES ${this.props.activitiesCount}`} classes={{ root: classes.tabRoot }} />
+          <Tab label={`ACTIVITIES ${this.props.activitiesCount}`} classes={{ root: classes.tabRoot }}
+               disabled={!this.props.activitiesCount > 0} />
         </Tabs>
         {selectedTab === 0 && <Notes />}
         {selectedTab === 1 && <Activities done={true} />}
@@ -69,7 +70,7 @@ const mapStateToProps = state => {
   };
 };
 
-const getCountOfDoneActivities = (activities) =>{
+const getCountOfDoneActivities = (activities) => {
   return activities.filter(activity => activity.done).length;
 };
 

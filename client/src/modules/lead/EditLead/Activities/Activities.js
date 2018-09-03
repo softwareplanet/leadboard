@@ -33,22 +33,25 @@ class Activities extends Component {
   };
 
   render() {
+    const isExistActivities = this.props.activities.length > 0;
     return (
       <div className={styles.container}>
-        <div className={this.props.done ? styles.pastTimeLineBar : styles.plannedTimeLineBar}/>
-        {this.props.activities ? this.props.activities.map((activity) => {
-          if (activity.done === this.props.done) {
-            return (
-              <InfoItemWrapper
-                key={activity._id}
-                component={<Activity activity={activity}/>}
-                icon={this.getActivityIcon(activity.type)}
-                cardStyles={styles.activityCard}
-                arrowStyles={styles.arrow}
-              />
-            );
-          }
-        }) : <p className={styles.noActivitiesMessage}>You have no activities</p>}
+        {isExistActivities ?
+          <div className={this.props.done ? styles.pastTimeLineBar : styles.plannedTimeLineBar} /> : null}
+        {isExistActivities ? this.props.activities.map((activity) => {
+            if (activity.done === this.props.done) {
+              return (
+                <InfoItemWrapper
+                  key={activity._id}
+                  component={<Activity activity={activity} />}
+                  icon={this.getActivityIcon(activity.type)}
+                  cardStyles={styles.activityCard}
+                  arrowStyles={styles.arrow}
+                />
+              );
+            }
+          })
+          : <p className={styles.noActivitiesMessage}>You have no activities</p>}
       </div>
     );
   }
@@ -61,7 +64,7 @@ const mapStateToProps = state => ({
 
 Activities.propTypes = {
   loadLeadActivities: PropTypes.func.isRequired,
-  activities: PropTypes.object
+  activities: PropTypes.object,
 };
 
 export default connect(mapStateToProps)(Activities);
