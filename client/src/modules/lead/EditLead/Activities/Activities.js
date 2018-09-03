@@ -33,7 +33,7 @@ class Activities extends Component {
   };
 
   render() {
-    const isExistActivities = this.props.activities.length > 0;
+    const isExistActivities = isExistActivities(this.props.done ,this.props.activities);
     return (
       <div className={styles.container}>
         {isExistActivities ?
@@ -56,6 +56,22 @@ class Activities extends Component {
     );
   }
 }
+
+const isExistActivities = (isDone, activities) => {
+  if (isDone) {
+    return getCountOfDoneActivities(activities) > 0;
+  }else{
+    return getCountOfPlannedActivities(activities) > 0;
+  }
+};
+
+const getCountOfDoneActivities = (activities) => {
+  return activities.filter(activity => activity.done).length;
+};
+
+const getCountOfPlannedActivities = (activities) => {
+  return activities.filter(activity => !activity.done).length;
+};
 
 const mapStateToProps = state => ({
   activities: state.leads.editLead.activities,
