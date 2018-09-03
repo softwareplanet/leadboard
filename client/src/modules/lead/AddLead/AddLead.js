@@ -49,7 +49,7 @@ const initialState = {
   afterOrganizationSelectShowBadge: false,
   afterContactSelectShowBadge: false,
 
-  nameChanged: false,
+  isNameChanged: false,
   namePlaceholder: "",
 
   organizationAfterSelect: { id: null, name: "" },
@@ -81,8 +81,8 @@ class AddLead extends React.Component {
     this.setState(initialState);
   };
 
-  getErrorsWithRemoveField = (errors, fieldName) => {
-    let newErrors = Object.assign({}, errors);
+  removeErrorFromState = fieldName => {
+    let newErrors = { ...this.state.errors };
     delete newErrors[fieldName];
     return newErrors;
   };
@@ -91,9 +91,9 @@ class AddLead extends React.Component {
     let name = event.target.value;
     this.setState({
       ...this.state,
-      nameChanged: isBlank(name) ? false : name !== this.state.name,
+      isNameChanged: isBlank(name) ? false : name !== this.state.name,
       name,
-      errors: this.getErrorsWithRemoveField(this.state.errors, "name"),
+      errors: this.removeErrorFromState("name"),
     });
   };
 
@@ -124,7 +124,7 @@ class AddLead extends React.Component {
         id: item._id,
         name: value,
       },
-      name: !this.state.nameChanged ?
+      name: !this.state.isNameChanged ?
         `${value} lead` : `${this.state.name}`,
       openOrganizationDropdown: false,
       showOrganizationBadge: false,
@@ -135,12 +135,12 @@ class AddLead extends React.Component {
   getNameValue = () => {
     let name = "";
     if (!isBlank(this.state.organization.name)) {
-      name = this.state.nameChanged ? this.state.name : trim(this.state.organization.name) + " lead";
+      name = this.state.isNameChanged ? this.state.name : trim(this.state.organization.name) + " lead";
     } else {
       if (!isBlank(this.state.contact.name)) {
-        name = this.state.nameChanged ? this.state.name : trim(this.state.contact.name) + " lead";
+        name = this.state.isNameChanged ? this.state.name : trim(this.state.contact.name) + " lead";
       } else {
-        name = this.state.nameChanged ? this.state.name : "";
+        name = this.state.isNameChanged ? this.state.name : "";
       }
     }
     return name;
@@ -168,7 +168,7 @@ class AddLead extends React.Component {
         name: trim(this.state.organization.name),
       },
       namePlaceholder: this.getPlaceholderValue(),
-      nameChanged: isBlank(this.state.organization.name) && isBlank(this.state.contact.name) ? false : this.state.nameChanged,
+      isNameChanged: isBlank(this.state.organization.name) && isBlank(this.state.contact.name) ? false : this.state.isNameChanged,
       openOrganizationDropdown: false,
       showOrganizationBadge: this.state.afterOrganizationSelectShowBadge && !this.state.organization.id && !isBlank(this.state.organization.name),
     });
@@ -226,7 +226,7 @@ class AddLead extends React.Component {
         name: trim(this.state.contact.name),
       },
       namePlaceholder: this.getPlaceholderValue(),
-      nameChanged: this.state.nameChanged,
+      isNameChanged: this.state.isNameChanged,
       openContactDropdown: false,
       showContactBadge: this.state.afterContactSelectShowBadge && !this.state.contact.id && !isBlank(this.state.contact.name),
     }, () => this.organizationAutocomplete.current.inputBlur());
