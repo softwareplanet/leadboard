@@ -1,71 +1,35 @@
 import moment from "moment";
 
-export const dateFormater = (date, hasStartTime) => {
-  let unformatedTimestamp = new Date(date);
-  let unformatedDate = new Date(unformatedTimestamp.toLocaleDateString());
-  let currentDate = new Date(new Date().toLocaleDateString());
+export const dateFormatter = (date, hasStartTime) => {
+  let activityDate = new Date(date);
 
-  if (currentDate.getTime() === unformatedDate.getTime()) {
-    return todayFormat(hasStartTime, unformatedTimestamp);
+  if (hasStartTime) {
+    return moment(activityDate).calendar(null, {
+      lastDay: "[Yesterday at] h:mm A",
+      sameDay: "[Today at] h:mm A",
+      nextDay: "[Tomorrow at] h:mm A",
+      nextWeek: "dddd [at] h:mm A",
+      lastWeek: "[Last] dddd D [at] h:mm A",
+      sameElse: function (now) {
+        if (this.isSame(now, "year")) {
+          return "MMMM D h:mm A"
+        }
+        else return "MMMM D, YYYY hh:mm A"
+      }
+    });
+  } else {
+    return moment(activityDate).calendar(null, {
+      lastDay: "[Yesterday]",
+      sameDay: "[Today]",
+      nextDay: "[Tomorrow]",
+      lastWeek: "MMMM D",
+      nextWeek: "dddd",
+      sameElse: function (now) {
+        if (this.isSame(now, "year")) {
+          return "MMMM D"
+        }
+        else return "MMMM D, YYYY"
+      }
+    });
   }
-
-  let yesterday = getYesterday();
-  if (yesterday.getTime() === unformatedDate.getTime()) {
-    return yesterdayFormat(hasStartTime, unformatedTimestamp);
-  }
-
-  let tomorrow = getTomorrow();
-  if (tomorrow.getTime() === unformatedDate.getTime()) {
-    return tomorrowFormat(hasStartTime, unformatedTimestamp);
-  }
-
-  if (currentDate.getFullYear() === unformatedTimestamp.getFullYear()) {
-    return thisYearFormat(hasStartTime, date);
-  }
-
-  return notThisYearFormat(unformatedTimestamp);
-};
-
-const yesterdayFormat = (hasStartTime, date) => {
-  return hasStartTime ? `Yesterday at ${date.toLocaleString("en-US", {
-    hour: "numeric",
-    minute: "numeric"
-  })} ` : `Yesterday`
-};
-
-const tomorrowFormat = (hasStartTime, date) => {
-  return hasStartTime ? `Tomorrow at ${date.toLocaleString("en-US", {
-    hour: "numeric",
-    minute: "numeric"
-  })} ` : `Tomorrow`
-};
-
-const thisYearFormat = (hasStartTime, date) => {
-  return hasStartTime ? ` ${ moment(date).format("MMMM DD HH:mm A")}` : ` ${ moment(date).format("MMMM DD")}`;
-};
-
-const getYesterday = () => {
-  let yesterday = new Date(new Date().toLocaleDateString());
-  yesterday.setDate(yesterday.getDate() - 1);
-  return yesterday;
-};
-
-const getTomorrow = () => {
-  let tomorrow = new Date(new Date().toLocaleDateString());
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  return tomorrow;
-};
-
-const todayFormat = (hasStartTime, date) => {
-  return hasStartTime ? `Today at  ${date.toLocaleString("en-US", {hour: "numeric", minute: "numeric"})}` : `Today`;
-};
-
-const notThisYearFormat = (date) => {
-  return `${date.toLocaleString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-    hour: "numeric",
-    minute: "numeric"
-  })}`;
 };
