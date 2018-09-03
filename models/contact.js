@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
+import { CONTACT, ORGANIZATION } from "./refs";
 
 // Person
 const contactSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
   name: String,
-  organization: { type: mongoose.Schema.Types.ObjectId, ref: "Organization" },
+  organization: { type: mongoose.Schema.Types.ObjectId, ref: ORGANIZATION},
   custom: [{ name: "string", value: "string" }],
   domain: { type: mongoose.Schema.Types.ObjectId, required: true },
   timestamp: { type: Date, default: Date.now }
@@ -22,6 +23,4 @@ contactSchema.pre("save", function (next) {
   next();
 });
 
-const Contact = mongoose.model("Contact", contactSchema);
-
-module.exports = Contact;
+export default mongoose.model(CONTACT, contactSchema);
