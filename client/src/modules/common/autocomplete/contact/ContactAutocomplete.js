@@ -24,10 +24,12 @@ class ContactAutocomplete extends React.Component {
       }
     }
   }
-
   componentDidMount() {
     document.addEventListener("keydown", this.clearFunction, false);
   }
+  inputBlur = () => {
+    this.input.current.blur();
+  };
 
   render() {
     let open = this.state.isOpen && (this.props.value.length > 1 && this.props.open);

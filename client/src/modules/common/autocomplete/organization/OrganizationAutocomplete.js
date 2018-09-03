@@ -28,6 +28,9 @@ class OrganizationAutocomplete extends React.Component {
   componentDidMount() {
     document.addEventListener("keydown", this.clearFunction, false);
   }
+  inputBlur = () => {
+    this.input.current.blur();
+  };
 
   render() {
     const styles = this.props.styles;
