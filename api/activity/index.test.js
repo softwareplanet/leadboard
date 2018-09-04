@@ -3,12 +3,12 @@ import request from "supertest";
 import express from "../../express";
 import routes from "..";
 import {
-  dropTables,
-  createUserAndDomain,
   createActivity,
-  createLead,
   createFunnel,
+  createLead,
   createStage,
+  createUserAndDomain,
+  dropTables,
 } from "../../test/db-prepare";
 
 const app = () => express(routes);
@@ -64,6 +64,35 @@ describe("Activity", () => {
         type: "Type cannot be empty",
         subject: "Subject cannot be empty",
         duration: "Duration must be a number and cannot be empty",
+      },
+    });
+  });
+
+  it("should fail to update activity with invalid data", async () => {
+    const activity = await createActivity(app, cred.token, "Call", "Call Jack", Date.now(), 15);
+    const { status, body } = await request(app())
+      .patch(`/api/activity/${activity._id}`)
+      .set("Authorization", cred.token)
+      .send({
+        type: "",
+        subject: "",
+        duration: "",
+        assignedTo: "",
+        lead: "",
+        participants: "",
+        organization: "",
+        createdBy: "",
+      });
+    expect(status).toBe(400);
+    expect(body).toMatchObject({
+      errors: {
+        type: "Type cannot be empty",
+        subject: "Subject cannot be empty",
+        duration: "Duration must be a number and cannot be empty",
+        assignedTo: "Assigned to must be a valid object id",
+        lead: "Lead to must be a valid object id",
+        organization: "Organization must be a valid object id",
+        createdBy: "Activity creator could not be changed",
       },
     });
   });
