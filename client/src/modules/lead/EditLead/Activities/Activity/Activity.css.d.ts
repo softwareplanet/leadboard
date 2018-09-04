@@ -11,3 +11,6 @@ export const defaultTime: string;
 export const today: string;
 export const relatedItems: string;
 export const expiredTime: string;
+export const activityHeader: string;
+export const activityMainInfo: string;
+export const spreadButton: string;

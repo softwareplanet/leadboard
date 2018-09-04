@@ -101,3 +101,25 @@ ul {
   composes: defaultTime;
   color: red;
 }
+
+.activityHeader {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.activityMainInfo {
+  display: flex;
+}
+
+.spreadButton {
+  min-height: 24px;
+  min-width: 16px;
+  padding: 0 4px;
+  box-shadow: none;
+  background: transparent;
+  opacity: .64;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
