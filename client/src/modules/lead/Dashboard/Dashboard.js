@@ -18,20 +18,15 @@ export class Dashboard extends Component {
       this.setState({ leads: nextProps.leads });
     }
 
-    if (nextProps.auth.domainid) {
-      // reload dashboard if page was reloaded
-      if (!this.leadboardLoaded) {
-        this.leadboardLoaded = true;
-        this.props.loadLeadboard(nextProps.auth.domainid);
-      }
+    if (!this.leadboardLoaded) {
+      this.leadboardLoaded = true;
+      this.props.loadLeadboard();
     }
   }
 
   componentDidMount() {
-    if (this.props.auth.domainid) {
       this.leadboardLoaded = true;
-      this.props.loadLeadboard(this.props.auth.domainid);
-    }
+      this.props.loadLeadboard();
   }
 
   isStagesEmpty = () => {
@@ -97,15 +92,14 @@ export class Dashboard extends Component {
 
 Dashboard.propTypes = {
   loadLeadboard: PropTypes.func.isRequired,
-  leads: PropTypes.object.isRequired
+  leads: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
   leads: state.leads,
-  auth: state.auth
 });
 
 export default connect(
   mapStateToProps,
-  { loadLeadboard }
+  { loadLeadboard },
 )(Dashboard);
