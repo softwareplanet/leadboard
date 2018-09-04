@@ -111,8 +111,10 @@ class Activity extends React.Component<Props, State> {
 
   private changeStatus = (e: any) => {
     e.preventDefault();
-    const activity = { ...this.props.activity };
-    activity.done = !activity.done;
+    const activity = {
+      _id: this.props.activity._id,
+      done: !this.props.activity.done,
+    };
     store.dispatch(updateActivity(activity));
   };
 
