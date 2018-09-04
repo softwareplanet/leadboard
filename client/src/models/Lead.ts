@@ -1,21 +1,21 @@
-import Stage from "./Stage";
-import User from "./User";
-import Contact from "./Contact";
-import Organization from "./Organization";
-import Custom from "./Custom";
-import Status from "./Status";
-import Note from "./Note";
+import Contact from './Contact';
+import Custom from './Custom';
+import Note from './Note';
+import Organization from './Organization';
+import Stage from './Stage';
+import Status from './Status';
+import User from './User';
 
 export default interface Lead {
   _id: string;
-  stage: string | Stage;
-  owner: string | User;
+  stage: Stage;
+  owner: User;
   visibility: number;
   name: string;
   order: number;
-  contact: string | Contact;
-  organization: string | Organization;
-  custom: string[] | Custom[];
+  contact: Contact;
+  organization: Organization;
+  custom: Custom[];
   timestamp: Date;
   status: Status;
   notes: Note[];
