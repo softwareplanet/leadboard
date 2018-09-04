@@ -12,13 +12,9 @@ import {
 import { GET_ERRORS } from "../../actionTypes";
 
 // Load leadboard by Domain ID
-export const loadLeadboard = domain => dispatch => {
+export const loadLeadboard = () => dispatch => {
   axios
-    .get("/api/funnel", {
-      params: {
-        domain,
-      },
-    })
+    .get("/api/funnel")
     .then(result => {
       dispatch(loadLeadboardAction(result.data));
       if (typeof result.data[0]._id === "string") {
