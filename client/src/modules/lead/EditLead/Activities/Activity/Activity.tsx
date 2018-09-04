@@ -2,6 +2,7 @@ import * as classNames from 'classnames/bind';
 import * as moment from 'moment';
 import * as React from 'react';
 import doneMark from '../../../../../assets/done-mark.svg'
+import ActivityModel from '../../../../../models/Activity'
 import store from '../../../../../store.js';
 import { updateActivity } from '../activityActions';
 import * as styles  from './Activity.css';
@@ -10,7 +11,7 @@ import { dateFormatter } from './dateFormatter';
 const cx = classNames.bind(styles);
 
 export interface Props {
-  activity: any;
+  activity: ActivityModel;
 }
 
 class Activity extends React.Component<Props, object> {
