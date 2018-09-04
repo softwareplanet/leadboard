@@ -5,6 +5,19 @@ import Activity from "../../models/activity";
 
 const router = new Router();
 
+router.get("/firstInLeadPlan", (req, res) => {
+  Activity.aggregate([
+    { $match: { domain: req.user.domain, done: false } },
+    { $group: { _id: "$lead", date: { $min: "$date" } } },
+  ])
+    .then(activities => {
+      res.json(activities);
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
+});
+
 // @route   PATCH api/activity/:activityId
 // @desc    Update activity
 // @access  Private
@@ -31,6 +44,7 @@ const createActivity = (req, res) => {
   let activity = {
     _id: new mongoose.Types.ObjectId(),
     ...req.body,
+    domain: req.user.domain,
     createdBy: req.user._id,
   };
   Activity.create(activity)
