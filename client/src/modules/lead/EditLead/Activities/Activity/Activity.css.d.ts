@@ -14,3 +14,6 @@ export const expiredTime: string;
 export const activityHeader: string;
 export const activityMainInfo: string;
 export const spreadButton: string;
+export const popover: string;
+export const list: string;
+export const listElement: string;

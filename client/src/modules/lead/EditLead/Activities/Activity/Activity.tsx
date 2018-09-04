@@ -1,6 +1,7 @@
 import * as classNames from 'classnames/bind';
 import * as moment from 'moment';
 import * as React from 'react';
+import { Popover, PopoverBody } from 'reactstrap';
 // import * as Modal from "react-modal";
 import doneMark from '../../../../../assets/done-mark.svg'
 import spreadButton from '../../../../../assets/spread-button.svg';
@@ -52,6 +53,18 @@ class Activity extends React.Component<Props, State> {
                 src={spreadButton} 
                 alt="options" 
               />
+              <Popover 
+              placement="bottom-end"
+              isOpen={this.state.isPopoverOpen} 
+              target={`id${this.props.activity._id}`} 
+              toggle={this.togglePopover}
+            >
+              <PopoverBody className={styles.popover}>
+                <ul className={styles.list}>
+                  <li className={styles.listElement} onClick={this.togglePopover}>Edit</li>
+                </ul>
+              </PopoverBody>
+            </Popover>
             </div>
           </div>
         </div>
