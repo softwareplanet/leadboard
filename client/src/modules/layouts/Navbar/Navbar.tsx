@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, NavLink, RouteComponentProps, withRouter } from 'react-router-dom';
+import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
+import contactIcon from '../../../assets/contacts-icon.svg';
 import dealsIconActive from '../../../assets/deals-icon-active.svg';
 import dealsIcon from '../../../assets/deals-icon.svg';
 import profileIcon from '../../../assets/header-profile.svg';
@@ -11,10 +13,24 @@ const leadsRoute = '/home';
 
 interface Props extends RouteComponentProps<any> {
   auth: any;
+
   logoutUser(history: any): void;
 }
 
-class Navbar extends React.Component<Props, object> {
+interface State {
+  dropdownOpen: boolean;
+}
+
+class Navbar extends React.Component<Props, State> {
+
+  public componentWillMount = () => {
+    this.setState({ dropdownOpen: false });
+  };
+
+  public toggle = () => {
+    this.setState({ dropdownOpen: !this.state.dropdownOpen });
+  };
+
   public renderUserAvatar = () => {
     return this.props.auth && this.props.auth.avatar ?
       <img className={styles.userImg} src={this.props.auth.avatar} alt="user" /> :
@@ -46,6 +62,28 @@ class Navbar extends React.Component<Props, object> {
                    src={this.getDealsIcon()} alt="leads" />Leads
             </div>
           </NavLink>
+          <div className={styles.dropDownWrapper}>
+            <Dropdown className={this.state.dropdownOpen ? styles.openedDropDown : styles.closedDropDown}
+                      isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+              <DropdownToggle
+                className={this.state.dropdownOpen ? styles.dropDownToggleOpen : styles.dropDownToggle}
+                onClick={this.toggle}
+                data-toggle="dropdown"
+                aria-expanded={this.state.dropdownOpen}
+              >
+                <span >
+                  <img className={styles.icon} src={contactIcon} alt="contacts" />
+                </span>
+                <span className={styles.linkText}>
+                  Contacts
+                </span>
+
+              </DropdownToggle>
+              <DropdownMenu className={styles.dropDownMenu}>
+                <DropdownItem onClick={this.toggle}>People</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
           <li className={styles.rightItem}>
             <div>
               {this.renderUserAvatar()}
@@ -67,7 +105,7 @@ class Navbar extends React.Component<Props, object> {
 }
 
 const mapStateToProps = (state: any) => ({
-  auth: state.auth
+  auth: state.auth,
 });
 
 export { Navbar };

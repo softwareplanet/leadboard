@@ -102,6 +102,7 @@ ul {
   height: 32px;
   margin-right: 10px;
 }
+
 .defaultImg {
   composes: userImg;
   background-color: #686a6c;
@@ -178,4 +179,67 @@ ul {
   .logoSmall {
     display: flex;
   }
+}
+
+.dropDownToggle {
+  color: #b9babb;
+  background: none;
+  border: none;
+}
+
+.closedDropDown button:hover {
+  color: white;
+  border: none;
+  background: none;
+}
+
+.openedDropDown button:hover {
+  color: black;
+  border: none;
+  background: white;
+}
+
+.openedDropDown {
+  background: white;
+  border: none;
+}
+
+.openedDropDown button{
+  padding: 11px 13px;
+}
+
+.dropDownToggleOpen {
+  color: black;
+  border: none;
+  background: white;
+}
+
+.openedDropDown button:focus {
+  border: none;
+  box-shadow: none;
+}
+
+.dropDownMenu {
+  border: none;
+  border-radius: 0;
+  margin: 0px;
+  box-shadow: 0 4px 6px grey;
+}
+
+.dropDownMenu button:hover {
+  background: #317ae2;
+  color: white;
+}
+
+.dropDownMenu button {
+  font-size: 15px;
+  padding: 6px 15px;
+}
+
+.linkText {
+  font-size: 14px;
+}
+
+.dropDownWrapper {
+
 }
