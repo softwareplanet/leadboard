@@ -1,34 +1,40 @@
-import React, { Component } from "react";
-import { withRouter, Link, NavLink } from "react-router-dom";
-import styles from "./Navbar.css";
-import { logoutUser } from "../../auth/authActions";
+import * as React from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import dealsIcon from "../../../assets/deals-icon.svg"
-import dealsIconActive from "../../../assets/deals-icon-active.svg"
+import { Link, NavLink, RouteComponentProps, withRouter } from "react-router-dom";
+import dealsIconActive from "../../../assets/deals-icon-active.svg";
+import dealsIcon from "../../../assets/deals-icon.svg";
 import profileIcon from "../../../assets/header-profile.svg";
+import User from "../../../models/User";
+import { logoutUser } from "../../auth/authActions";
+import * as styles from "./Navbar.css";
 
 const leadsRoute = "/home";
 
-class Navbar extends Component {
-  renderUserAvatar = () => {
+interface Props extends RouteComponentProps<any> {
+  user: User;
+  auth: any;
+  logoutUser(history: any): void;
+}
+
+class Navbar extends React.Component<Props, object> {
+  public renderUserAvatar = () => {
     return this.props.user && this.props.user.avatar ?
       <img className={styles.userImg} src={this.props.user.avatar} alt="user" /> :
-      <img className={styles.defaultImg} src={profileIcon} alt="user" />
+      <img className={styles.defaultImg} src={profileIcon} alt="user" />;
   };
 
-  onLogout = () => {
+  public onLogout = () => {
     this.props.logoutUser(this.props.history);
   };
 
-  getDealsIcon = () => {
+  public getDealsIcon = () => {
     return this.props.location.pathname === leadsRoute ?
-    dealsIconActive :
-    dealsIcon
+      dealsIconActive :
+      dealsIcon;
   };
 
 
-  render() {
+  public render() {
     return (
       <header>
         <ul className={styles.menu} role="navigation">
@@ -63,13 +69,7 @@ class Navbar extends Component {
   }
 }
 
-Navbar.propTypes = {
-  logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any) => ({
   auth: state.auth
 });
 
