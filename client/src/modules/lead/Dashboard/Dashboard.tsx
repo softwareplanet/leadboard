@@ -3,7 +3,7 @@ import * as React from 'react';
 import * as styles from './Dashboard.css';
 
 import { connect } from 'react-redux';
-import ILead from '../../../models/Lead';
+import LeadModel from '../../../models/Lead';
 import Stage from '../../../models/Stage';
 import { loadLeadboard } from '../leadActions';
 import Lead from './Lead/Lead';
@@ -68,12 +68,12 @@ export class Dashboard extends React.Component<Props, State> {
   private createLeadCards = (stage: string) => {
     if (this.isStageIsUndefined(stage)) { return <div />; }
 
-    return this.props.leads.leads['_' + stage].leads.map((lead: ILead) => {
+    return this.props.leads.leads['_' + stage].leads.map((lead: LeadModel) => {
       return <Lead key={lead._id} lead={lead} link={this.leadPath(lead)} />;
     });
   };
 
-  private leadPath = (lead: ILead) => {
+  private leadPath = (lead: LeadModel) => {
     return `/lead/${lead._id}`;
   };
 
