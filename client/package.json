@@ -87,7 +87,10 @@
   },
   "proxy": "http://localhost:5000",
   "devDependencies": {
+    "@types/enzyme-adapter-react-16": "^1.0.3",
     "@types/jest": "^23.3.1",
+    "@types/react-redux": "^6.0.6",
+    "@types/react-router-dom": "^4.3.0",
     "chai": "^4.1.2",
     "enzyme": "^3.4.1",
     "enzyme-adapter-react-16": "^1.2.0",
