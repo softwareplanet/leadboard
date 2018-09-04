@@ -18,7 +18,7 @@ const customStyles = {
     transform: 'translate(-50%, 0)',
     margin: '0',
     padding: '0',
-    width: '420px',
+    width: '540px',
     borderRadius: '0 0 2px 2px',
     border: '1px solid #e5e5e5',
     boxShadow: '0 10px 45px rgba(38,41,44,.88)',
@@ -35,6 +35,7 @@ export default class EditActivityModal extends React.Component<Props, object> {
         onRequestClose={this.props.closeModal}
         shouldCloseOnOverlayClick={true}
         style={customStyles}
+        overlayClassName={styles.overlayModal}
       >
         <header className={styles.header}>{this.props.activity.subject}</header>
         <div>

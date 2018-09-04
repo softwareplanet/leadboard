@@ -16,7 +16,7 @@ const customStyles = {
     transform: "translate(-50%, 0)",
     margin: "0",
     padding: "0",
-    width: "750px",
+    width: "420px",
     borderRadius: "0 0 2px 2px",
     border: "1px solid #e5e5e5",
     boxShadow: "0 10px 45px rgba(38,41,44,.88)",
