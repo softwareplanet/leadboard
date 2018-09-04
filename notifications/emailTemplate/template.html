@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="styles.css" rel="stylesheet">
+  <title>Leadboard activities notification</title>
+</head>
+<body>
+  <main>
+<div class="header"><h1>Leadboard</h1></div>
+<div class="container">
+  <div class="greetings">Hello, {{ user.name }} <br></div>
+  <div class="info"> Here are your current Leadboard <strong> activities:</strong></div>
+<div class="currentDateWrapper">this is date:{{ currentDate }}</div>
+<div class="activitiesWrapper">
+  {% for activity in activities %}
+      {{ 
+        <div class="activityTime">{{activity.date}}</div>/home/intern/Documents/leadboard/notifications/emailTemplate/template.html
+    <div class="activityContent">
+      <div class="activityIcon"></div>
+      <div> <a href="#" style="text-decoration:none;  color: #3d4145;">{{activity.subject}}</a><br>
+      <div class="linkedTo">{{activity.assignedTo.name}} · {{activity.organization.name}} · 
+        <a style=" color: #727272;text-decoration:none;" href="{{leadPath}}">{{activity.lead.name}}</a>
+        </div>
+      </div>
+    </div>
+  </div> 
+      }}
+    {% endfor %}
+{% include "_gotoButton.njk" %}
+</div>
+</div>
+<div class="footer">Copyright © 2018 <a href="https://spg-leadboard.herokuapp.com">Leadboard</a> by Software Planet Group Ltd.</div>
+</main>
+</body>
+</html>

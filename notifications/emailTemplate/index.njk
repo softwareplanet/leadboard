@@ -1,21 +1,33 @@
 {% extends "parts/_template.njk" %} 
 
 {% macro chooseIcon(type) %}
-{% set icons = {"Call": "<img src='https://ci5.googleusercontent.com/proxy/B9olSHGYk7HFbq0FuujwA-jAiAwnxuBhnTIq3jWVj1e5Mm5fl1cliNA8eC2hNtABL2IE8PItxt7JU9P06srR0zBM3aoq5TH_qSLl-UHQ39xq4eBGgXPowRImYHhpSrgLm4w=s0-d-e1-ft#https://static.pipedriveassets.com/lib/img/emails/icons/activity_call_48.png' />"}
-%}
 
-{{icons[type] | safe}}
+{% if type==="Call" %}
+<img src='./images/call-activity.svg' />
+{% elif type === "Meeting" %}
+<img src='./images/meeting-activity.svg' />
+{% elif type === "Deadline" %}
+<img src='./images/deadline-activity.svg' />
+{% elif type === "Task" %}
+<img src='./images/task-activity.svg' />
+{% elif type === "Email" %}
+<img src='./images/email-activity.svg' />
+{% elif type === "Lunch" %}
+<img src='./images/lunch-activity.svg' />
+{% else %}
+<img src='./images/call-activity.svg' />
+{% endif %}
 
 {% endmacro %}
 
-{% macro create(activity) %}
+{% macro create(activity, icons) %}
 {% set leadPath = "https://spg-leadboard.herokuapp.com/lead/" + activity.lead._id%}
-    <div class="activityTime">{{activity.date}}</div>
+    <div class="activityTime">{{ activity.date }}</div>
     <div class="activityContent">
-      <div class="activityIcon">{{chooseIcon(activity.type)}}</div>
-      <div> <a href="#" style="text-decoration:none;  color: #3d4145;">{{activity.subject}}</a><br>
-      <div class="linkedTo">{{activity.assignedTo.name}} · {{activity.organization.name}} · 
-        <a style=" color: #727272;text-decoration:none;" href="{{leadPath}}">{{activity.lead.name}}</a>
+      <div class="activityIcon">{{ chooseIcon(activity.type) }}</div>
+      <div> <a href="#" style="text-decoration:none;  color: #3d4145;">{{ activity.subject }}</a><br>
+      <div class="linkedTo">{{ activity.assignedTo.name }} · {{ activity.organization.name }} · 
+        <a style="color: #727272;text-decoration:none;" href="{{ leadPath }}">{{ activity.lead.name }}</a>
         </div>
       </div>
     </div>
