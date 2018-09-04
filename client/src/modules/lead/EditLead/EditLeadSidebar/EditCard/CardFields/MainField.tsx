@@ -5,7 +5,7 @@ import SingleEditView from './EditView/SingleEditView/SingleEditView';
 export interface Props {
   title: string;
   value: string;
-  icon: string;
+  icon?: string;
 
   onUpdate(value: string): void;
 }
