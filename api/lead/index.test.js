@@ -225,6 +225,21 @@ describe("Lead", () => {
     expect(body.name).toBe(newLeadsName);
   });
 
+  it("should fail to update lead's notes", async () => {
+    const { status, body } = await request(app())
+      .patch(`/api/lead/${lead._id}`)
+      .set("Authorization", cred.token)
+      .send({
+        notes: [],
+      });
+    expect(status).toBe(400);
+    expect(body).toMatchObject({
+      errors: {
+        notes: "You cannot update notes using this route. Use 'api/lead/:leadId/note/:id' instead",
+      },
+    });
+  });
+
   it("should fail to update lead with empty contact and organization", async () => {
     const { status, body } = await request(app())
       .patch(`/api/lead/${lead._id}`)
