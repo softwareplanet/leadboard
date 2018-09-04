@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { loadLeadboard } from "../leadActions";
 import Lead from "./Lead/Lead";
 import Stage from "../../../models/Stage";
+import ILead from "../../../models/Lead";
 
 interface Props {
   leads: any;
@@ -31,39 +32,7 @@ export class Dashboard extends React.Component<Props, State> {
     }
   }
 
-  isStagesEmpty = () => {
-    let stages = Object.values(this.props.leads.leads);
-    return fp.all(s => s.leads.length === 0, stages);
-  };
-
-  createLeadCards = (stage: string) => {
-    let leads;
-
-    if (this.isStageIsUndefined(stage)) return <div />;
-
-    leads = this.props.leads.leads["_" + stage].leads.map((lead: Lead) => {
-      return <Lead key={lead._id} lead={lead} link={this.leadPath(lead)} />;
-    });
-    return leads;
-  };
-
-  leadPath = (lead: Lead) => {
-    return `/lead/${lead._id}`;
-  };
-
-  createEmptyLeadCards = (index: number) => {
-    let emptyLeads = [];
-    for (let i = 0; i < this.props.leads.stages.length - index; i++) {
-      emptyLeads.push(<div key={i} className={styles.stagePlaceholder} />);
-    }
-    return emptyLeads;
-  };
-
-  isStageIsUndefined = (stage: string) => {
-    return typeof this.props.leads.leads["_" + stage] === "undefined";
-  };
-
-  render() {
+  public render() {
     const { leads } = this.props;
     const noLeads = this.isStagesEmpty();
     let stages = leads.stages.map((stage: Stage, index: number) => {
@@ -91,6 +60,38 @@ export class Dashboard extends React.Component<Props, State> {
 
     return <div className={styles.dashboard}>{stages}</div>;
   }
+
+  private isStagesEmpty = () => {
+    let stages = Object.values(this.props.leads.leads);
+    return fp.all(s => s.leads.length === 0, stages);
+  };
+
+  private createLeadCards = (stage: string) => {
+    let leads;
+
+    if (this.isStageIsUndefined(stage)) return <div />;
+
+    leads = this.props.leads.leads["_" + stage].leads.map((lead: ILead) => {
+      return <Lead key={lead._id} lead={lead} link={this.leadPath(lead)} />;
+    });
+    return leads;
+  };
+
+  private leadPath = (lead: ILead) => {
+    return `/lead/${lead._id}`;
+  };
+
+  private createEmptyLeadCards = (index: number) => {
+    let emptyLeads = [];
+    for (let i = 0; i < this.props.leads.stages.length - index; i++) {
+      emptyLeads.push(<div key={i} className={styles.stagePlaceholder} />);
+    }
+    return emptyLeads;
+  };
+
+  private isStageIsUndefined = (stage: string) => {
+    return typeof this.props.leads.leads["_" + stage] === "undefined";
+  };
 }
 
 const mapStateToProps = (state: any) => ({

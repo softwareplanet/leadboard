@@ -9,7 +9,8 @@
   ]
   },
   "rules": {
-    "interface-name": false
+    "interface-name": false,
+    "quotemark": [true, "single", "jsx-double"]
   }
 }
   
