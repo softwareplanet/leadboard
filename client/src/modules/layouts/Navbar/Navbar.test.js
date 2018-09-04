@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Navbar.css";
 import { configure, shallow, mount } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { Navbar } from  "./Navbar";
+import { Navbar } from "./Navbar";
 
 configure({ adapter: new Adapter });
 
