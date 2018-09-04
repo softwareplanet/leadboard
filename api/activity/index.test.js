@@ -73,7 +73,7 @@ describe("Activity", () => {
     const { body } = await request(app())
       .patch(`/api/activity/${activity._id}`)
       .set("Authorization", cred.token)
-      .send({ ...activity });
+      .send(activity);
     expect(body.done).toEqual(true);
   });
 });
