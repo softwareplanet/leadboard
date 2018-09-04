@@ -4,8 +4,10 @@ import express from "../../express";
 import routes from "..";
 import {
   createActivity,
+  createContact,
   createFunnel,
   createLead,
+  createOrganization,
   createStage,
   createUserAndDomain,
   dropTables,
@@ -91,18 +93,42 @@ describe("Activity", () => {
         duration: "Duration must be a number and cannot be empty",
         assignedTo: "Assigned to must be a valid object id",
         lead: "Lead to must be a valid object id",
+        participants: "Participants must be an array",
         organization: "Organization must be a valid object id",
         createdBy: "Activity creator could not be changed",
       },
     });
   });
 
+  it("should fail to update activity with data from other domain", async () => {
+    const otherUser = await createUserAndDomain(app, "Domain", "ther@testmail.com");
+    const organization = await createOrganization(app, otherUser.token, "Software Company");
+    const contact = await createContact(app, otherUser.token, organization._id, "Jane Smith");
+
+    const activity = await createActivity(app, cred.token, "Call", "Call Jack", Date.now(), 15);
+    const { status, body } = await request(app())
+      .patch(`/api/activity/${activity._id}`)
+      .set("Authorization", cred.token)
+      .send({
+        assignedTo: otherUser.userId,
+        organization: organization._id,
+        participants: [contact._id],
+      });
+    expect(status).toBe(400);
+    expect(body).toMatchObject({
+      errors: {
+        assignedTo: "Assigned user does not belong to your domain",
+        organization: "Organization does not belong to your domain",
+        participants: ["Participant #1 does not belong to your domain"],
+      },
+    });
+  });
+
   it("should mark activity as done", async () => {
-    activity.done = true;
     const { body } = await request(app())
       .patch(`/api/activity/${activity._id}`)
       .set("Authorization", cred.token)
-      .send(activity);
+      .send({ done: true });
     expect(body.done).toEqual(true);
   });
 });

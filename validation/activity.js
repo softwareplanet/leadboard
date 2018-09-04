@@ -35,17 +35,20 @@ export const validateActivityUpdate = async (data, domain) => {
   }
 
   if ("participants" in data) {
+    if (!Array.isArray(data)) {
+      errors.participants = "Participants must be an array";
+    }
     let participantsErrors = [];
     for (let contact of data.participants) {
-      let participantNumber = data.participants.indexOf(contact + 1);
-      if (!isValidModelId(data.contact)) {
+      let participantNumber = data.participants.indexOf(contact) + 1;
+      if (!isValidModelId(contact)) {
         participantsErrors.push(`Participant #${participantNumber} must be a valid object id`);
       } else {
-        const contact = await Contact.findById(data.contact);
-        if (!contact) {
+        const existingContact = await Contact.findById(contact);
+        if (!existingContact) {
           participantsErrors.push(`Participant #${participantNumber} does not exist`);
         } else {
-          if (contact.domain !== domain)
+          if (existingContact.domain !== domain)
             participantsErrors.push(`Participant #${participantNumber} does not belong to your domain`);
         }
       }
@@ -68,7 +71,7 @@ export const validateActivityUpdate = async (data, domain) => {
   }
 
   if ("assignedTo" in data) {
-    if (!isValidModelId(data.organization)) {
+    if (!isValidModelId(data.assignedTo)) {
       errors.assignedTo = "Assigned to must be a valid object id";
     } else {
       const assignedTo = await User.findById(data.assignedTo);
@@ -82,14 +85,15 @@ export const validateActivityUpdate = async (data, domain) => {
   }
 
   if ("lead" in data) {
-    if (!isValidModelId(data.organization)) {
+    const leadId = data.lead._id ? data.lead._id : data.lead;
+    if (!isValidModelId(leadId)) {
       errors.lead = "Lead to must be a valid object id";
     } else {
-      const lead = await Lead.findById(data.lead).populate("owner");
-      if (!lead) {
+      const existingLead = await Lead.findById(leadId).populate("owner");
+      if (!existingLead) {
         errors.lead = "Lead does not exist";
       } else {
-        if (lead.owner.domain !== domain)
+        if (existingLead.owner.domain !== domain)
           errors.lead = "Lead does not belong to your domain";
       }
     }
