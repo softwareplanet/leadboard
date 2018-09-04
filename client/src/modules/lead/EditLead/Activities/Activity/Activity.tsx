@@ -1,11 +1,11 @@
-import * as React from 'react';
-import * as styles  from './Activity.css';
-import doneMark from '../../../../../assets/done-mark.svg'
-import { dateFormatter } from './dateFormatter';
-import { updateActivity } from '../activityActions';
-import store from '../../../../../store.js';
 import * as classNames from 'classnames/bind';
 import * as moment from 'moment';
+import * as React from 'react';
+import doneMark from '../../../../../assets/done-mark.svg'
+import store from '../../../../../store.js';
+import { updateActivity } from '../activityActions';
+import * as styles  from './Activity.css';
+import { dateFormatter } from './dateFormatter';
 
 const cx = classNames.bind(styles);
 
@@ -42,6 +42,7 @@ class Activity extends React.Component<Props, object> {
       </div>
     )
   }
+
   private changeStatus = (e: any) => {
     e.preventDefault();
     const activity = { ...this.props.activity };
@@ -56,7 +57,7 @@ class Activity extends React.Component<Props, object> {
     if (status) {
       return styles.defaultTime;
     } else {
-      if (moment(now).isSame(activityDate, "day")) {
+      if (moment(now).isSame(activityDate, 'day')) {
         if (hasStartTime) {
           if (moment(now).isAfter(activityDate)) {
             return styles.expiredTime;
