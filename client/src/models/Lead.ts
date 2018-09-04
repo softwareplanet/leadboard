@@ -1,9 +1,9 @@
 import Contact from './Contact';
-import Custom from './Custom';
+import CustomField from './CustomField';
 import Note from './Note';
 import Organization from './Organization';
 import Stage from './Stage';
-import Status from './Status';
+import Status from './types/Status';
 import User from './User';
 
 export default interface Lead {
@@ -15,7 +15,7 @@ export default interface Lead {
   order: number;
   contact: Contact;
   organization: Organization;
-  custom: Custom[];
+  custom: CustomField[];
   timestamp: Date;
   status: Status;
   notes: Note[];
