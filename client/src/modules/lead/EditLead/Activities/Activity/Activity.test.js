@@ -35,25 +35,25 @@ describe("<Activity/>", () => {
 
   it("should render Activity date with styles.expiredTime", () => {
     activity.date = moment().add(-1, "days");
-    let wrapper = mount(<Activity activity={activity}/>);
+    let wrapper = mount(<Activity activity={activity} />);
     expect(wrapper.find(`.${styles.expiredTime}`).exists()).to.equal(true);
   });
 
   it("should render Activity  date with styles.default", () => {
-    activity.date  = moment().add(10,"days");
-    let wrapper = mount(<Activity activity={activity}/>);
+    activity.date = moment().add(10, "days");
+    let wrapper = mount(<Activity activity={activity} />);
     expect(wrapper.find(`.${styles.defaultTime}`).exists()).to.equal(true);
   });
 
   it("should render Activity date with styles.today", () => {
     activity.hasStartTime = false;
-    let wrapper = mount(<Activity activity={activity}/>);
+    let wrapper = mount(<Activity activity={activity} />);
     expect(wrapper.find(`.${styles.today}`).exists()).to.equal(true);
   });
 
   it("should render Activity date with styles.default", () => {
     activity.done = true;
-    let wrapper = mount(<Activity activity={activity}/>);
+    let wrapper = mount(<Activity activity={activity} />);
     expect(wrapper.find(`.${styles.defaultTime}`).exists()).to.equal(true);
   });
 
@@ -64,8 +64,7 @@ describe("<Activity/>", () => {
 
   it("should render Activity checkBox with styles.markedAsDone", () => {
     activity.done = true;
-    let wrapper = mount(<Activity activity={activity}/>);
+    let wrapper = mount(<Activity activity={activity} />);
     expect(wrapper.find(`.${styles.markedAsDone}`).exists()).to.equal(true);
   });
 });
-
