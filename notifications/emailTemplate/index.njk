@@ -1,0 +1,50 @@
+{% extends "parts/_template.njk" %} 
+
+{% macro chooseIcon(type) %}
+{% set icons = {"Call": "<img src='https://ci5.googleusercontent.com/proxy/B9olSHGYk7HFbq0FuujwA-jAiAwnxuBhnTIq3jWVj1e5Mm5fl1cliNA8eC2hNtABL2IE8PItxt7JU9P06srR0zBM3aoq5TH_qSLl-UHQ39xq4eBGgXPowRImYHhpSrgLm4w=s0-d-e1-ft#https://static.pipedriveassets.com/lib/img/emails/icons/activity_call_48.png' />"}
+%}
+
+{{icons[type] | safe}}
+
+{% endmacro %}
+
+{% macro create(activity) %}
+{% set leadPath = "https://spg-leadboard.herokuapp.com/lead/" + activity.lead._id%}
+    <div class="activityTime">{{activity.date}}</div>
+    <div class="activityContent">
+      <div class="activityIcon">{{chooseIcon(activity.type)}}</div>
+      <div> <a href="#" style="text-decoration:none;  color: #3d4145;">{{activity.subject}}</a><br>
+      <div class="linkedTo">{{activity.assignedTo.name}} · {{activity.organization.name}} · 
+        <a style=" color: #727272;text-decoration:none;" href="{{leadPath}}">{{activity.lead.name}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endmacro %}
+
+
+{% block main %}
+{% set activities = [{
+          "type"  : "Call",
+          "subject" : "Call Bob",
+          "date" : "12.12.2018",
+          "assignedTo" : {"name": "John Smith"},
+          "lead" : {"_id": "5b8cd9a7548c7300146d9d5d" , "name": "new computer"},
+          "organization" : {"name": "Red Dog Inc"}
+        }]
+    %}
+
+<div class="container">
+  <div class="greetings">Hello, {{ user.name }} <br></div>
+  <div class="info"> Here are your current Leadboard <strong> activities:</strong></div>
+<div class="currentDateWrapper">this is date:{{ currentDate }}</div>
+<div class="activitiesWrapper">
+  {% for activity in activities %}
+      {{ 
+        create(activity) 
+      }}
+    {% endfor %}
+{% include "_gotoButton.njk" %}
+</div>
+</div>
+{% endblock %}
