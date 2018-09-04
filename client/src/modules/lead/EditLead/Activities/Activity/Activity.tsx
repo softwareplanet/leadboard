@@ -1,6 +1,7 @@
 import * as classNames from 'classnames/bind';
 import * as moment from 'moment';
 import * as React from 'react';
+// import * as Modal from "react-modal";
 import doneMark from '../../../../../assets/done-mark.svg'
 import ActivityModel from '../../../../../models/Activity'
 import store from '../../../../../store.js';
@@ -10,11 +11,15 @@ import { dateFormatter } from './dateFormatter';
 
 const cx = classNames.bind(styles);
 
-export interface Props {
+interface Props {
   activity: ActivityModel;
 }
 
-class Activity extends React.Component<Props, object> {
+interface State {
+  isModalOpen : boolean;
+}
+
+class Activity extends React.Component<Props, State> {
 
   public render() {
     const { date, hasStartTime, done, subject } = this.props.activity;
@@ -23,7 +28,7 @@ class Activity extends React.Component<Props, object> {
         <div className={styles.wrapper}>
           <h3>
             <div className={styles.mark} onClick={this.changeStatus}>
-              <img alt={'status'} className={cx({
+              <img alt="status" className={cx({
                 markedAsDone: done === true,
                 markedAsNotDone: done === false
               })} src={doneMark}/>
@@ -52,9 +57,8 @@ class Activity extends React.Component<Props, object> {
   };
 
   private checkTime = (date: Date, hasStartTime: boolean, status: boolean) => {
-    const activityDate = new Date(date);
+    const activityDate = date;
     const now = new Date();
-
     if (status) {
       return styles.defaultTime;
     } else {

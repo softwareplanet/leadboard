@@ -1,11 +1,11 @@
-import Contact from "./Contact";
-import Lead from "./Lead";
-import Organization from "./Organization";
-import User from "./User";
-import { ActivityTypes } from "./utils/ActivityTypes"
+import Contact from './Contact';
+import Lead from './Lead';
+import Organization from './Organization';
+import ActivityType from './types/ActivityType'
+import User from './User';
 
 export default interface Activity {
-  type: ActivityTypes;
+  type: ActivityType;
   subject: string;
   date: Date;
   hasStartTime: boolean;
@@ -13,7 +13,7 @@ export default interface Activity {
   note: string;
   assignedTo: string | User,
   lead: string | Lead;
-  participants:  Contact[] | string[];
+  participants: string[] | Contact[];
   organization: string | Organization;
   done: boolean;
   createdBy: string | User;
