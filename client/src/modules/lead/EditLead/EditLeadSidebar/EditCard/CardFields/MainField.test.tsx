@@ -2,7 +2,6 @@ import { shallow } from 'enzyme';
 import 'jsdom-global/register';
 import { noop } from 'lodash';
 import * as React from 'react';
-import * as sinon from 'sinon';
 import MainField from './MainField';
 
 describe('<MainField/>', () => {
@@ -39,7 +38,7 @@ describe('<MainField/>', () => {
   });
 
   it('should handle name change properly', () => {
-    const spy = sinon.spy();
+    const spy = jest.fn();
     wrapper = shallow(<MainField value={contact.organization.name} onUpdate={spy} title={title} />);
     const buttonRename = wrapper.find('button.buttonRename');
     buttonRename.simulate('click');

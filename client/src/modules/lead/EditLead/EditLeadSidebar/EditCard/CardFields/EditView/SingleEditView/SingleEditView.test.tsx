@@ -1,9 +1,7 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import 'jsdom-global/register';
 import { noop } from 'lodash';
 import * as React from 'react';
-import * as sinon from 'sinon';
 import SingleEditView from './SingleEditView';
 
 describe('<SingleEditView/>', () => {
@@ -21,11 +19,11 @@ describe('<SingleEditView/>', () => {
       fieldValue={contact.organization.name}
       onCancel={noop}
       onChange={noop} />);
-    expect(wrapper.length).to.equal(1);
+    expect(wrapper.length).toBe(1);
   });
 
   it('reacts on cancel properly', () => {
-    const spy = sinon.spy();
+    const spy = jest.fn();
     wrapper = shallow(<SingleEditView
       fieldName={'Name'}
       fieldValue={contact.organization.name}
@@ -33,11 +31,11 @@ describe('<SingleEditView/>', () => {
       onChange={noop} />);
     const buttonCancel = wrapper.find('.cancelButton');
     buttonCancel.simulate('click');
-    expect(spy.calledOnce).to.equal(true);
+    expect(spy).toHaveBeenCalledTimes(1);
   });
 
   it('handles input change and save properly', () => {
-    const spy = sinon.spy();
+    const spy = jest.fn();
     wrapper = shallow(<SingleEditView
       fieldName={'Name'}
       fieldValue={contact.organization.name}
@@ -49,6 +47,6 @@ describe('<SingleEditView/>', () => {
 
     const buttonSave = wrapper.find('.saveButton');
     buttonSave.simulate('click');
-    expect(spy.calledOnce).to.equal(true);
+    expect(spy).toHaveBeenCalledTimes(1);
   });
 });
