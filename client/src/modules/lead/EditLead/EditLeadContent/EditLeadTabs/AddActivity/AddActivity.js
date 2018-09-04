@@ -87,12 +87,16 @@ export default class AddActivity extends Component {
   };
 
   getActivity = () => {
-    return {
+    let activity = {
       type: this.state.activeTab,
       subject: isBlank(this.state.subject) ? this.state.activeTab : this.state.subject,
       ...this.getDuration(),
       ...this.getActivityDateAndTime()
+    };
+    if (this.props.activity) {
+      activity._id = this.props.activity._id
     }
+    return activity;
   };
 
   getSelectedDate = () => {

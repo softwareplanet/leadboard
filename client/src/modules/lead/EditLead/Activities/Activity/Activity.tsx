@@ -81,9 +81,17 @@ class Activity extends React.Component<Props, State> {
           isModalOpen={this.state.isModalOpen}
           closeModal={this.closeModal}
           activity={this.props.activity}
+          onSave={this.onSave}
         />
       </div>
     )
+  }
+
+  private onSave = (activity: ActivityModel) => {
+    store.dispatch(updateActivity(activity));
+    this.setState({
+      isModalOpen: false
+    })
   }
 
   private onEditClick = () => {

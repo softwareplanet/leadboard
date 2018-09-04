@@ -7,6 +7,7 @@ interface Props {
   activity: Activity;
   isModalOpen: boolean;
   closeModal(): void;
+  onSave(activity: Activity): void;
 }
 
 const customStyles = {
@@ -39,7 +40,7 @@ export default class EditActivityModal extends React.Component<Props, object> {
       >
         <header className={styles.header}>{this.props.activity.subject}</header>
         <div>
-          <AddActivity activity={this.props.activity} onCancel={this.props.closeModal}/>
+          <AddActivity onSave={this.props.onSave} activity={this.props.activity} onCancel={this.props.closeModal}/>
         </div>
       </Modal>
     )
