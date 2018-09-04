@@ -27,7 +27,7 @@ export const validateActivityUpdate = async (data, domain) => {
   if ("subject" in data && isBlank(data.subject)) errors.subject = "Subject cannot be empty";
 
   if ("duration" in data) {
-    if (data.duration && !isNumber(data.duration)) {
+    if (data.duration && isBlank(data.duration) || !isNumber(data.duration)) {
       errors.duration = "Duration must be a number and cannot be empty";
     } else {
       if (data.duration >= 480) errors.duration = "Duration must be less than 8 hours";
@@ -96,10 +96,14 @@ export const validateActivityUpdate = async (data, domain) => {
   }
 
   if ("createdBy" in data) {
-    const creator = await User.findById(data.assignedTo);
-    if (data.createdBy !== creator._id) errors.createdBy = "Activity creator could not be changed";
+    const createdByError = "Activity creator could not be changed";
+    if (!isValidModelId(data.createdBy)) {
+      errors.createdBy = createdByError;
+    } else {
+      const creator = await User.findById(data.assignedTo);
+      if (data.createdBy !== creator._id) errors.createdBy = createdByError;
+    }
   }
-
 
   return {
     errors,

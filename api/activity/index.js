@@ -8,14 +8,14 @@ const router = new Router();
 // @route   PATCH api/activity/:activityId
 // @desc    Update activity
 // @access  Private
-router.patch("/:activityId", (req, res) => {
-  const { hasErrors, errors } = validateActivityUpdate(req.body, req.user.domain);
+router.patch("/:activityId", async (req, res) => {
+  const { hasErrors, errors } = await validateActivityUpdate(req.body, req.user.domain);
   if (hasErrors) return res.status(400).json({ errors });
 
   let updatedActivity = { ...req.body };
   updatedActivity.lastEditor = req.user._id;
   updatedActivity.updatedAt = Date.now();
-  Activity.findByIdAndUpdate(req.params.activityId, updatedActivity, { new: true })
+  Activity.findByIdAndUpdate(req.params.activityId, { $set: updatedActivity }, { new: true })
     .then(activity => {
       res.json(activity);
     })
