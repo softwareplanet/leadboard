@@ -16,7 +16,7 @@ describe("<Navbar /> :", () => {
     userid: "5b6a9cca9a32282c3e8435c5",
     domainid: "5b6a9cca9a32282c3e8435c4",
     userName: "John Doe",
-``    domainName: "Test domain",
+    domainName: "Test domain",
   };
 
   let location = {
