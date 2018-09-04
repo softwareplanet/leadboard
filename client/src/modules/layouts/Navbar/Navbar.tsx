@@ -4,22 +4,20 @@ import { Link, NavLink, RouteComponentProps, withRouter } from 'react-router-dom
 import dealsIconActive from '../../../assets/deals-icon-active.svg';
 import dealsIcon from '../../../assets/deals-icon.svg';
 import profileIcon from '../../../assets/header-profile.svg';
-import User from '../../../models/User';
 import { logoutUser } from '../../auth/authActions';
 import * as styles from './Navbar.css';
 
 const leadsRoute = '/home';
 
 interface Props extends RouteComponentProps<any> {
-  user: User;
   auth: any;
   logoutUser(history: any): void;
 }
 
 class Navbar extends React.Component<Props, object> {
   public renderUserAvatar = () => {
-    return this.props.user && this.props.user.avatar ?
-      <img className={styles.userImg} src={this.props.user.avatar} alt="user" /> :
+    return this.props.auth && this.props.auth.avatar ?
+      <img className={styles.userImg} src={this.props.auth.avatar} alt="user" /> :
       <img className={styles.defaultImg} src={profileIcon} alt="user" />;
   };
 
