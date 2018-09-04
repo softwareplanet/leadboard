@@ -1,8 +1,7 @@
 import * as classNames from 'classnames/bind';
 import * as moment from 'moment';
 import * as React from 'react';
-import { Modal, Popover, PopoverBody } from 'reactstrap';
-// import * as Modal from "react-modal";
+import { Popover, PopoverBody } from 'reactstrap';
 import doneMark from '../../../../../assets/done-mark.svg'
 import spreadButton from '../../../../../assets/spread-button.svg';
 import ActivityModel from '../../../../../models/Activity'
@@ -10,6 +9,7 @@ import store from '../../../../../store.js';
 import { updateActivity } from '../activityActions';
 import * as styles  from './Activity.css';
 import { dateFormatter } from './dateFormatter';
+import EditActivityModal from '../EditActivityModal/EditActivityModal';
 
 const cx = classNames.bind(styles);
 
@@ -77,14 +77,11 @@ class Activity extends React.Component<Props, State> {
           </div>
           <div className={styles.relatedItems} />
         </div>
-
-        <Modal
-          isOpen={this.state.isModalOpen}
-          onRequestClose={this.closeModal}
-          shouldCloseOnOverlayClick={true}
-        >
-        <div onClick={this.closeModal}>Modalka</div>
-        </ Modal>
+        <EditActivityModal 
+          isModalOpen={this.state.isModalOpen}
+          closeModal={this.closeModal}
+          activity={this.props.activity}
+        />
       </div>
     )
   }
