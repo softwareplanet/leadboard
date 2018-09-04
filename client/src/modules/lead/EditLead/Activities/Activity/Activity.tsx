@@ -1,7 +1,7 @@
 import * as classNames from 'classnames/bind';
 import * as moment from 'moment';
 import * as React from 'react';
-import { Popover, PopoverBody } from 'reactstrap';
+import { Modal, Popover, PopoverBody } from 'reactstrap';
 // import * as Modal from "react-modal";
 import doneMark from '../../../../../assets/done-mark.svg'
 import spreadButton from '../../../../../assets/spread-button.svg';
@@ -24,7 +24,7 @@ interface State {
 
 class Activity extends React.Component<Props, State> {
 
-  public componentWillMount() {
+  public componentWillMount () {
     this.setState({
       isPopoverOpen: false
     })
@@ -61,7 +61,7 @@ class Activity extends React.Component<Props, State> {
             >
               <PopoverBody className={styles.popover}>
                 <ul className={styles.list}>
-                  <li className={styles.listElement} onClick={this.togglePopover}>Edit</li>
+                  <li className={styles.listElement} onClick={this.onEditClick}>Edit</li>
                 </ul>
               </PopoverBody>
             </Popover>
@@ -77,13 +77,33 @@ class Activity extends React.Component<Props, State> {
           </div>
           <div className={styles.relatedItems} />
         </div>
+
+        <Modal
+          isOpen={this.state.isModalOpen}
+          onRequestClose={this.closeModal}
+          shouldCloseOnOverlayClick={true}
+        >
+        <div onClick={this.closeModal}>Modalka</div>
+        </ Modal>
       </div>
     )
   }
 
+  private onEditClick = () => {
+    this.togglePopover();
+    this.setState({
+      isModalOpen: true
+    })
+  }
+
+  private closeModal = () => {
+    this.setState({
+      isModalOpen: false
+    })
+  }
+
   private togglePopover = () => {
     this.setState({
-      ...this.state,
       isPopoverOpen: !this.state.isPopoverOpen
     })
   }
@@ -95,7 +115,7 @@ class Activity extends React.Component<Props, State> {
     store.dispatch(updateActivity(activity));
   };
 
-  private checkTime = (date: Date, hasStartTime: boolean, status: boolean) => {
+  private checkTime(date: Date, hasStartTime: boolean, status: boolean) {
     const activityDate = date;
     const now = new Date();
     if (status) {
