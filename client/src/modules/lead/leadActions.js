@@ -105,7 +105,7 @@ export const loadLead = leadId => dispatch => {
 export const updateLead = lead => dispatch => {
   let updatedLead = { ...lead };
   if ("notes" in updatedLead) {
-    console.warn("You cannot update notes using updateLead() - use [create/update/delete]Note() instead");
+    console.warn("You cannot update notes using updateLead() - use [create|update|delete]Note() instead");
     delete updatedLead.notes;
   }
 
