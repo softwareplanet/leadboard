@@ -1,33 +1,30 @@
-import * as classNames from 'classnames/bind';
 import * as moment from 'moment';
 import * as React from 'react';
 import { Popover, PopoverBody } from 'reactstrap';
-import doneMark from '../../../../../assets/done-mark.svg'
+import doneMark from '../../../../../assets/done-mark.svg';
 import spreadButton from '../../../../../assets/spread-button.svg';
-import ActivityModel from '../../../../../models/Activity'
+import ActivityModel from '../../../../../models/Activity';
 import store from '../../../../../store.js';
 import { updateActivity } from '../activityActions';
-import * as styles  from './Activity.css';
-import { dateFormatter } from './dateFormatter';
 import EditActivityModal from '../EditActivityModal/EditActivityModal';
-
-const cx = classNames.bind(styles);
+import * as styles from './Activity.css';
+import { dateFormatter } from './dateFormatter';
 
 interface Props {
   activity: ActivityModel;
 }
 
 interface State {
-  isModalOpen : boolean;
+  isModalOpen: boolean;
   isPopoverOpen: boolean;
 }
 
 class Activity extends React.Component<Props, State> {
 
-  public componentWillMount () {
+  public componentWillMount() {
     this.setState({
-      isPopoverOpen: false
-    })
+      isPopoverOpen: false,
+    });
   }
 
   public render() {
@@ -38,33 +35,32 @@ class Activity extends React.Component<Props, State> {
           <div className={styles.activityHeader}>
             <div className={styles.activityMainInfo}>
               <div className={styles.mark} onClick={this.changeStatus}>
-                <img alt="status" className={cx({
-                  markedAsDone: done === true,
-                  markedAsNotDone: done === false
-                })} src={doneMark}/>
+                <img alt="status" src={doneMark}
+                     className={done ? styles.markedAsDone : styles.markedAsNotDone}
+                />
               </div>
               <span className={styles.activityWrapper}>{subject}</span>
             </div>
-            <div> 
-              <img 
-                id={`id${this.props.activity._id}`} 
-                onClick={this.togglePopover} 
-                className={styles.spreadButton} 
-                src={spreadButton} 
-                alt="options" 
+            <div>
+              <img
+                id={`id${this.props.activity._id}`}
+                onClick={this.togglePopover}
+                className={styles.spreadButton}
+                src={spreadButton}
+                alt="options"
               />
-              <Popover 
-              placement="bottom-end"
-              isOpen={this.state.isPopoverOpen} 
-              target={`id${this.props.activity._id}`} 
-              toggle={this.togglePopover}
-            >
-              <PopoverBody className={styles.popover}>
-                <ul className={styles.list}>
-                  <li className={styles.listElement} onClick={this.onEditClick}>Edit</li>
-                </ul>
-              </PopoverBody>
-            </Popover>
+              <Popover
+                placement="bottom-end"
+                isOpen={this.state.isPopoverOpen}
+                target={`id${this.props.activity._id}`}
+                toggle={this.togglePopover}
+              >
+                <PopoverBody className={styles.popover}>
+                  <ul className={styles.list}>
+                    <li className={styles.listElement} onClick={this.onEditClick}>Edit</li>
+                  </ul>
+                </PopoverBody>
+              </Popover>
             </div>
           </div>
         </div>
@@ -77,14 +73,14 @@ class Activity extends React.Component<Props, State> {
           </div>
           <div className={styles.relatedItems} />
         </div>
-        <EditActivityModal 
+        <EditActivityModal
           isModalOpen={this.state.isModalOpen}
           closeModal={this.closeModal}
           activity={this.props.activity}
           onSave={this.onSave}
         />
       </div>
-    )
+    );
   }
 
   private onSave = (activity: ActivityModel) => {
@@ -97,21 +93,21 @@ class Activity extends React.Component<Props, State> {
   private onEditClick = () => {
     this.togglePopover();
     this.setState({
-      isModalOpen: true
-    })
-  }
+      isModalOpen: true,
+    });
+  };
 
   private closeModal = () => {
     this.setState({
-      isModalOpen: false
-    })
-  }
+      isModalOpen: false,
+    });
+  };
 
   private togglePopover = () => {
     this.setState({
-      isPopoverOpen: !this.state.isPopoverOpen
-    })
-  }
+      isPopoverOpen: !this.state.isPopoverOpen,
+    });
+  };
 
   private changeStatus = (e: any) => {
     e.preventDefault();
@@ -135,7 +131,8 @@ class Activity extends React.Component<Props, State> {
           }
         }
         return styles.today;
-      } if (moment(now).isAfter(activityDate)){
+      }
+      if (moment(now).isAfter(activityDate)) {
         return styles.expiredTime;
       } else {
         return styles.defaultTime;
