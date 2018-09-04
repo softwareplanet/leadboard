@@ -4,37 +4,96 @@ body {
 
 .header {
   text-align: center;
+  padding: 20px;
   font: 400 14px/20px Open Sans, sans-serif;
 }
 
+.greetings{
+  color: #3d4145;
+  font-family: HelveticaNeue,Segoe UI,Arial;
+  font-size: 26px;
+  padding-bottom: 15px;
+}
+
+.info{
+  color: #3d4145;
+  font-family: HelveticaNeue-Light,HelveticaNeue,Arial;
+  padding-bottom: 20px;
+}
+
 .container {
+  max-width: 640px;
+  font-size: 18px;
   background-color: #fff;
   padding: 20px;
+  margin: 0 auto;
 }
 
 .currentDateWrapper {
   background-color: #f3f5f6;
-  color: #4ac465;
+  color: #222;
   padding: 20px;
+  margin-bottom: 2px;
 }
 
 .activitiesWrapper {
   background-color: #f3f5f6;
   padding: 20px;
 }
+.activitiesWrapper a{
+  text-decoration: none;
+}
 
 .activity {
   background-color: #fff;
   padding: 20px;
 }
+.activityTime
+{ 
+  color: #222;
+  background-color: #f9fafa;
+  font-size: 17px;
+  padding: 9px 15px;
+  display: inline-block;
+}
+.activityContent{
+  padding:20px;
+  background-color: #fff;
+}
+.activityIcon{
+  background-color: #e0e4e7;
+  border-radius: 100%;
+}
 
 .button {
-  text-align: center;
-  background-color: #4ac465;
-  font-family: HelveticaNeue-Light, HelveticaNeue, Segoe UI Semilight, Arial;
+    background-color: #4bc465;
+    border: 1px solid #4bc465;
+    border-radius: 3px;
+    color: #fff;
+    display: block;
+    font-family: HelveticaNeue-Light,HelveticaNeue,Segoe UI Semilight,Arial;
+    font-size:20px;
+    line-height: 45px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 300;
+    margin: 20px 0px;
 }
 
 .linkedTo {
   text-decoration: none;
   color: #727272;
+}
+
+.footer{
+  max-width: 640px;
+  padding: 60px 0px 20px 0px;
+  text-align: center;
+  margin: 0 auto;
+  font-size: 14px;
+  color: #3d4145;
+}
+.footer a{
+  color: #4bc465;
+  text-decoration: none;
 }
