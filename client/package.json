@@ -6,6 +6,7 @@
     "@material-ui/core": "^1.5.1",
     "@types/classnames": "^2.2.6",
     "@types/enzyme": "^3.1.13",
+    "@types/lodash": "^4.14.116",
     "@types/node": "^10.9.4",
     "@types/react": "^16.4.13",
     "@types/react-dom": "^16.0.7",
@@ -88,7 +89,6 @@
   "devDependencies": {
     "@types/chai": "^4.1.4",
     "@types/jest": "^23.3.1",
-    "@types/lodash": "^4.14.116",
     "@types/sinon": "^5.0.2",
     "chai": "^4.1.2",
     "enzyme": "^3.4.1",
