@@ -103,8 +103,14 @@ export const loadLead = leadId => dispatch => {
 
 // Update lead by id
 export const updateLead = lead => dispatch => {
+  let updatedLead = { ...lead };
+  if ("notes" in updatedLead) {
+    console.warn("You cannot update notes using updateLead() - use [create|update|delete]Note() instead");
+    delete updatedLead.notes;
+  }
+
   axios
-    .patch(`/api/lead/${lead._id}`, lead)
+    .patch(`/api/lead/${lead._id}`, updatedLead)
     .then(res => {
       dispatch({
         type: UPDATE_LEAD,
