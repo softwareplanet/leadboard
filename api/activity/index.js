@@ -1,6 +1,6 @@
 import { Router } from "express";
 import mongoose from "mongoose";
-import validateActivityInput from "../../validation/activity";
+import { validateActivityInput, validateActivityUpdate } from "../../validation/activity";
 import Activity from "../../models/activity";
 
 const router = new Router();
@@ -9,7 +9,13 @@ const router = new Router();
 // @desc    Update activity
 // @access  Private
 router.patch("/:activityId", (req, res) => {
-  Activity.findByIdAndUpdate(req.params.activityId, req.body, { new: true })
+  const { hasErrors, errors } = validateActivityUpdate(req.body, req.user.domain);
+  if (hasErrors) return res.status(400).json({ errors });
+
+  let updatedActivity = { ...req.body };
+  updatedActivity.lastEditor = req.user._id;
+  updatedActivity.updatedAt = Date.now();
+  Activity.findByIdAndUpdate(req.params.activityId, updatedActivity, { new: true })
     .then(activity => {
       res.json(activity);
     })
