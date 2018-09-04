@@ -17,7 +17,7 @@ export interface State {
 
 class SingleEditView extends React.Component<Props, State> {
 
-  public state = {
+  public state: State = {
     updatedValue: this.props.fieldValue,
   };
 

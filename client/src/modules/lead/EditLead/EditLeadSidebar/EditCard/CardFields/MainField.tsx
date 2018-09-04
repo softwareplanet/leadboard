@@ -16,7 +16,7 @@ export interface State {
 
 class MainField extends React.Component<Props, State> {
 
-  public state = {
+  public state: State = {
     isInEditMode: false,
   };
 
