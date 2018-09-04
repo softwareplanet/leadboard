@@ -1,8 +1,7 @@
 import React from "react";
-import styles from "./Navbar.css";
-import { configure, shallow, mount } from "enzyme";
+import { configure, shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { Navbar } from  "./Navbar";
+import { Navbar } from "./Navbar";
 
 configure({ adapter: new Adapter });
 
@@ -16,11 +15,11 @@ describe("<Navbar /> :", () => {
     userid: "5b6a9cca9a32282c3e8435c5",
     domainid: "5b6a9cca9a32282c3e8435c4",
     userName: "John Doe",
-    domainName: "Test domain"
+    domainName: "Test domain",
   };
 
   let location = {
-    pathname: "/home"
+    pathname: "/home",
   };
 
   it("should call method logoutUser user when Logout clicked", () => {
