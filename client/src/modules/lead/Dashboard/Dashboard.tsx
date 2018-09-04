@@ -1,12 +1,12 @@
-import * as React from "react";
-import * as styles from "./Dashboard.css";
-import * as fp from "lodash/fp";
+import * as React from 'react';
+import * as styles from './Dashboard.css';
+import * as fp from 'lodash/fp';
 
-import { connect } from "react-redux";
-import { loadLeadboard } from "../leadActions";
-import Lead from "./Lead/Lead";
-import Stage from "../../../models/Stage";
-import ILead from "../../../models/Lead";
+import { connect } from 'react-redux';
+import { loadLeadboard } from '../leadActions';
+import Lead from './Lead/Lead';
+import Stage from '../../../models/Stage';
+import ILead from '../../../models/Lead';
 
 interface Props {
   leads: any;
@@ -26,10 +26,11 @@ export class Dashboard extends React.Component<Props, State> {
   }
 
   componentWillReceiveProps(nextProps: Props) {
-    if (!this.state.leadboardLoaded) {
-      this.setState({ leadboardLoaded: true });
-      this.props.loadLeadboard();
-    }
+    this.loadLeads();
+  }
+
+  componentDidMount() {
+    this.loadLeads();
   }
 
   public render() {
@@ -46,7 +47,7 @@ export class Dashboard extends React.Component<Props, State> {
               <span className={styles.stageValue}>
                 {Array.isArray(leads) && leads.length > 0 ? (
                   <small className={styles.stageValueSmall}>
-                    {leads.length} {leads.length === 1 ? "lead" : "leads"}
+                    {leads.length} {leads.length === 1 ? 'lead' : 'leads'}
                   </small>
                 ) : null}
               </span>
@@ -62,7 +63,7 @@ export class Dashboard extends React.Component<Props, State> {
   }
 
   private isStagesEmpty = () => {
-    let stages = Object.values(this.props.leads.leads);
+    let stages = Object['values'](this.props.leads.leads);
     return fp.all(s => s.leads.length === 0, stages);
   };
 
@@ -71,7 +72,7 @@ export class Dashboard extends React.Component<Props, State> {
 
     if (this.isStageIsUndefined(stage)) return <div />;
 
-    leads = this.props.leads.leads["_" + stage].leads.map((lead: ILead) => {
+    leads = this.props.leads.leads['_' + stage].leads.map((lead: ILead) => {
       return <Lead key={lead._id} lead={lead} link={this.leadPath(lead)} />;
     });
     return leads;
@@ -90,8 +91,15 @@ export class Dashboard extends React.Component<Props, State> {
   };
 
   private isStageIsUndefined = (stage: string) => {
-    return typeof this.props.leads.leads["_" + stage] === "undefined";
+    return typeof this.props.leads.leads["_" + stage] === 'undefined';
   };
+
+  private loadLeads = () => {
+    if (!this.state.leadboardLoaded) {
+      this.props.loadLeadboard();
+      this.setState({ leadboardLoaded: true });
+    }
+  }
 }
 
 const mapStateToProps = (state: any) => ({
