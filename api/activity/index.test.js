@@ -3,12 +3,12 @@ import request from "supertest";
 import express from "../../express";
 import routes from "..";
 import {
-  dropTables,
-  createUserAndDomain,
   createActivity,
-  createLead,
   createFunnel,
+  createLead,
   createStage,
+  createUserAndDomain,
+  dropTables,
 } from "../../test/db-prepare";
 
 const app = () => express(routes);
@@ -89,6 +89,10 @@ describe("Activity", () => {
         type: "Type cannot be empty",
         subject: "Subject cannot be empty",
         duration: "Duration must be a number and cannot be empty",
+        assignedTo: "Assigned to must be a valid object id",
+        lead: "Lead to must be a valid object id",
+        organization: "Organization must be a valid object id",
+        createdBy: "Activity creator could not be changed",
       },
     });
   });
