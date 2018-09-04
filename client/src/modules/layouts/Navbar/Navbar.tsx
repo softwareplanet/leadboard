@@ -33,7 +33,6 @@ class Navbar extends React.Component<Props, object> {
       dealsIcon;
   };
 
-
   public render() {
     return (
       <header>
