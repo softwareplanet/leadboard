@@ -1,7 +1,6 @@
 {% extends "parts/_template.njk" %} 
 
 {% macro chooseIcon(type) %}
-
 {% if type==="Call" %}
 <img src='./images/call-activity.svg' />
 {% elif type === "Meeting" %}
@@ -17,7 +16,6 @@
 {% else %}
 <img src='./images/call-activity.svg' />
 {% endif %}
-
 {% endmacro %}
 
 {% macro create(activity, icons) %}
@@ -26,7 +24,7 @@
     <div class="activityContent">
       <div class="activityIcon">{{ chooseIcon(activity.type) }}</div>
       <div> <a href="#" style="text-decoration:none;  color: #3d4145;">{{ activity.subject }}</a><br>
-      <div class="linkedTo">{{ activity.assignedTo.name }} · {{ activity.organization.name }} · 
+      <div class="linkedTo">{{ activity.assignedTo.firstname }} {{activity.assignedTo.lastname}} · {{ activity.organization.name }} · 
         <a style="color: #727272;text-decoration:none;" href="{{ leadPath }}">{{ activity.lead.name }}</a>
         </div>
       </div>
@@ -36,20 +34,10 @@
 
 
 {% block main %}
-{% set activities = [{
-          "type"  : "Call",
-          "subject" : "Call Bob",
-          "date" : "12.12.2018",
-          "assignedTo" : {"name": "John Smith"},
-          "lead" : {"_id": "5b8cd9a7548c7300146d9d5d" , "name": "new computer"},
-          "organization" : {"name": "Red Dog Inc"}
-        }]
-    %}
-
 <div class="container">
-  <div class="greetings">Hello, {{ user.name }} <br></div>
+  <div class="greetings">Hello, {{ user.firstname }} <br></div>
   <div class="info"> Here are your current Leadboard <strong> activities:</strong></div>
-<div class="currentDateWrapper">this is date:{{ currentDate }}</div>
+<div class="currentDateWrapper">{{ currentDate }}</div>
 <div class="activitiesWrapper">
   {% for activity in activities %}
       {{ 
