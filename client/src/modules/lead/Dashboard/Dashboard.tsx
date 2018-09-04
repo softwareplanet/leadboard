@@ -18,18 +18,15 @@ interface State {
 }
 
 export class Dashboard extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      leadboardLoaded: false
-    };
-  }
+  public state: State = {
+    leadboardLoaded: false
+  };
 
-  componentWillReceiveProps(nextProps: Props) {
+  public componentWillReceiveProps(nextProps: Props) {
     this.loadLeads();
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     this.loadLeads();
   }
 
