@@ -1,7 +1,6 @@
-const nunjucks = require("nunjucks");
+import nunjucks from "nunjucks";
 
-console.log(
-  nunjucks.render(
-    "./index.njk"
-  )
-);
+export const renderTemplate = (testObject) => {
+  nunjucks.configure(__dirname);
+  return nunjucks.render("index.njk", testObject);
+};
