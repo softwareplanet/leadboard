@@ -22,4 +22,13 @@ const activitySchema = new mongoose.Schema({
   updatedAt: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model("Activity", activitySchema);
+const basicPopulates = [
+  { path: "assignedTo"},
+  { path: "lead"},
+];
+
+activitySchema.statics.populates = {
+  basic: basicPopulates,
+};
+
+export default mongoose.model("Activity", activitySchema);
