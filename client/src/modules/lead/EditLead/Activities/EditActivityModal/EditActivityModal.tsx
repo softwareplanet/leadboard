@@ -39,7 +39,7 @@ export default class EditActivityModal extends React.Component<Props, object> {
       >
         <header className={styles.header}>{this.props.activity.subject}</header>
         <div>
-          <AddActivity />
+          <AddActivity activity={this.props.activity} onCancel={this.props.closeModal}/>
         </div>
       </Modal>
     )

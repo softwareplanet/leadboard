@@ -52,7 +52,7 @@ export default class AddActivity extends Component {
   };
 
   onInputPick = (value, field) => {
-    this.setState({ [field]: value })
+    this.setState({ [field]: value }, () => console.log(this.state))
   };
 
   onDeleteClick = (e, field) => {
@@ -124,6 +124,19 @@ export default class AddActivity extends Component {
     return options;
   };
 
+  componentDidMount = () => {
+    if (this.props.activity){
+      this.setState({
+        ...this.state,
+        subject: this.props.activity.subject,
+        activeTab: this.props.activity.type,
+        date: moment(this.props.activity.date),
+        time: this.props.activity.hasStartTime ? moment(this.props.activity.date) : "" ,
+        duration: this.props.activity.duration
+      })
+    }
+  }
+
   render() {
     let activity = this.getActivity();
     return (
@@ -141,11 +154,13 @@ export default class AddActivity extends Component {
           />
           <input
             onChange={this.onSubjectChange}
+            defaultValue={this.props.activity ? this.props.activity.subject : ""}
             autoFocus
             className={style.typeInput}
             placeholder={this.state.activeTab}
             value={this.state.subject}
-            type="text" />
+            type="text" 
+          />
 
           <div className={style.dateInputs}>
             <label>
