@@ -89,6 +89,7 @@
   },
   "proxy": "http://localhost:5000",
   "devDependencies": {
+    "@types/chai": "^4.1.4",
     "@types/jest": "^23.3.1",
     "chai": "^4.1.2",
     "enzyme": "^3.4.1",
