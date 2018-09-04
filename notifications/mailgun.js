@@ -48,26 +48,20 @@ const mailCreator = (activities) => {
   let groupedEntries = groupBy(activities, activity => activity.assignedTo.email);
 
   groupedEntries.forEach(activities => {
-    let email = "";
+    let email = renderTemplate({activities: activities, user: user, currentDate: moment().format("dddd, MMM Do, YYYY").toUpperCase() });
     let user = "";
     activities.forEach(activity => {
-      if(!email) {
-        email = `Hi, ${activity.assignedTo.firstname} ` + "\n";
-      }
       if(!user) {
         user = activity.assignedTo;
       }
-
-      email += `${activity.subject}  ${activity.date} ` + "\n";
     });
 
 
 
-    console.log(renderTemplate({activities: activities, user: user, currentDate: moment().format("dddd MMMM YYYY").toUpperCase() }));
+    console.log(renderTemplate({activities: activities, user: user, currentDate: moment().format("dddd MMM Do YYYY").toUpperCase() }));
     mailing.push({
       user: user.email,
-      // email: email,
-      email: renderTemplate({ activities: activities, user: user, currentDate: moment().format("dddd MMMM YYYY").toUpperCase() }),
+      email: email,
     });
   });
 
@@ -75,6 +69,8 @@ const mailCreator = (activities) => {
 };
 
 const mailSender = (userEmail, subject, html) => {
+  console.log("EEEEEEMMMMMMAAAAAAIIIILLLLLLL")
+  console.log(userEmail)
   let mailgun = new Mailgun({
     apiKey: mailgun_api,
     domain: mailgun_domain,

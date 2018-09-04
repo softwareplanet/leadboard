@@ -18,13 +18,33 @@
 {% endif %}
 {% endmacro %}
 
-{% macro create(activity, icons) %}
+{% macro create(activity) %}
 {% set leadPath = "https://spg-leadboard.herokuapp.com/lead/" + activity.lead._id%}
-    <div class="activityTime">{{ activity.date }}</div>
-    <div class="activityContent">
-      <div class="activityIcon">{{ chooseIcon(activity.type) }}</div>
-      <div> <a href="#" style="text-decoration:none;  color: #3d4145;">{{ activity.subject }}</a><br>
-      <div class="linkedTo">{{ activity.assignedTo.firstname }} {{activity.assignedTo.lastname}} · {{ activity.organization.name }} · 
+    <div 
+    style="color: #222;
+           background-color: #f9fafa;
+           font-size: 17px;
+           padding: 9px 15px;
+           display: inline-block;">
+  {{ activity.date }}</div>
+    <div style="padding:20px; background-color: #fff;">
+    <div style="height:40px;
+         width:40px; 
+         background-color: #e0e4e7;
+         border-radius: 100%;
+         float: left;">
+  <img height="20px" width="20px" src="" style="margin: 10px" />
+  </div>
+      <div style="margin-left: 60px;
+                  font-size: 18px;
+                  font-family: HelveticaNeue,Segoe UI,Arial;
+                  padding: 0;">
+       <a href="#" style="text-decoration:none;  color: #3d4145;">
+    {{ activity.subject }}</a><br>
+      <div style="text-decoration: none;
+                  color: #727272; 
+                  font-size:16px;">
+  {{ activity.assignedTo.firstname }} {{activity.assignedTo.lastname}} · {{ activity.organization.name }} · 
         <a style="color: #727272;text-decoration:none;" href="{{ leadPath }}">{{ activity.lead.name }}</a>
         </div>
       </div>
@@ -32,13 +52,31 @@
   </div>
 {% endmacro %}
 
-
+<div style="background-color: #f3f5f6;">
 {% block main %}
-<div class="container">
-  <div class="greetings">Hello, {{ user.firstname }} <br></div>
-  <div class="info"> Here are your current Leadboard <strong> activities:</strong></div>
-<div class="currentDateWrapper">{{ currentDate }}</div>
-<div class="activitiesWrapper">
+<div style="max-width: 640px;
+            font-size: 18px;
+            background-color: #fff;
+            padding: 20px;
+            margin: 0 auto;">
+  <div style="color: #3d4145;
+              font-family: HelveticaNeue,Segoe UI,Arial;
+              font-size: 26px;
+              padding-bottom: 15px;">
+  Hello, {{ user.email }} <br></div>
+  <div 
+  style="color: #3d4145;
+         font-family: HelveticaNeue-Light,HelveticaNeue,Arial;
+         padding-bottom: 20px;">
+   Here are your current Leadboard <strong> activities:</strong></div>
+   <div style="background-color: #f3f5f6;
+               color: #222;
+               padding: 20px;
+               margin-bottom: 2px;">
+  {{ currentDate }}</div>
+<div style="background-color: #f3f5f6;
+            padding: 20px;">
+
   {% for activity in activities %}
       {{ 
         create(activity) 
@@ -46,5 +84,5 @@
     {% endfor %}
 {% include "_gotoButton.njk" %}
 </div>
-</div>
 {% endblock %}
+</div>
