@@ -52,7 +52,7 @@ export default class AddActivity extends Component {
   };
 
   onInputPick = (value, field) => {
-    this.setState({ [field]: value }, () => console.log(this.state))
+    this.setState({ [field]: value })
   };
 
   onDeleteClick = (e, field) => {
@@ -129,13 +129,17 @@ export default class AddActivity extends Component {
   };
 
   componentDidMount = () => {
-    if (this.props.activity){
+    if (this.props.activity) {
+      let date = moment(this.props.activity.date);
+      let dateStart = moment(date.startOf("day")._d);
+      let time = moment.duration(moment(date._i).diff(dateStart));
+      console.log(time)
       this.setState({
         ...this.state,
         subject: this.props.activity.subject,
         activeTab: this.props.activity.type,
-        date: moment(this.props.activity.date),
-        time: this.props.activity.hasStartTime ? moment(this.props.activity.date) : "" ,
+        date: date,
+        time: this.props.activity.hasStartTime ? moment().startOf("day").add(time.asMinutes(),"minutes") : "" ,
         duration: this.props.activity.duration
       })
     }
