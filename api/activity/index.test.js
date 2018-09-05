@@ -12,6 +12,7 @@ import {
   createUserAndDomain,
   dropTables,
 } from "../../test/db-prepare";
+import mongoose from "mongoose";
 
 const app = () => express(routes);
 
@@ -120,6 +121,26 @@ describe("Activity", () => {
         assignedTo: "Assigned user does not belong to your domain",
         organization: "Organization does not belong to your domain",
         participants: ["Participant #1 does not belong to your domain"],
+      },
+    });
+  });
+
+  it("should fail to update activity with not existing data", async () => {
+    const activity = await createActivity(app, cred.token, "Call", "Call Jack", Date.now(), 15);
+    const { status, body } = await request(app())
+      .patch(`/api/activity/${activity._id}`)
+      .set("Authorization", cred.token)
+      .send({
+        assignedTo: new mongoose.Types.ObjectId(),
+        organization: new mongoose.Types.ObjectId(),
+        participants: [new mongoose.Types.ObjectId()],
+      });
+    expect(status).toBe(400);
+    expect(body).toMatchObject({
+      errors: {
+        assignedTo: "User does not exist",
+        organization: "Organization does not exist",
+        participants: ["Participant #1 does not exist"],
       },
     });
   });
