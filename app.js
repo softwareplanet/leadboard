@@ -4,7 +4,6 @@ import express from "./express";
 import api from "./api";
 
 import { runNotificationService } from "./notifications/mailgun";
-import { renderTemplate} from "./notifications/emailTemplate";
 import "./notifications/emailTemplate/index"
 
 const app = express(api);

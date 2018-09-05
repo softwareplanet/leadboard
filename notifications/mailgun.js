@@ -1,7 +1,6 @@
 import Mailgun from "mailgun-js";
 import schedule from "node-schedule";
 import moment from "moment";
-import nunjucks from "nunjucks";
 import Activity from  "../models/activity";
 import { groupBy } from "./arrayUtils";
 import { renderTemplate } from "./emailTemplate";
@@ -11,33 +10,36 @@ const activitiesCheckStartHour = 9;
 const activitiesCheckEndHour = 18;
 const workWeekStartDay = 1;
 const workWeekEndDay = 5;
-const dailyMailingHour = 18;
-const dailyMailingMinute = 36;
+const dailyMailingHour = 3;
+const dailyMailingMinute = 0;
 
-let mailgun_api = process.env.MAILGUN_API_KEY;
-let mailgun_domain = process.env.MAILGUN_DOMAIN;
-let mailgun_from = process.env.MAILGUN_FROM;
+let mailgunAPI = process.env.MAILGUN_API_KEY;
+let mailgunDomain = process.env.MAILGUN_DOMAIN;
+let mailgunFrom = process.env.MAILGUN_FROM;
+let host = process.env.HOST || `http://localhost: ${ process.env.PORT || 3000 }`;
 
 const getActivitiesForToday = () => {
   console.log("Mail users");
-  let today = moment().startOf("day");
-  let tomorrow = moment(today).endOf("day");
+  let today = moment.utc().startOf("day");
+  let tomorrow = moment.utc(today).endOf("day");
   return Activity.find({
     date: {
       $gte: today.toDate(),
       $lt: tomorrow.toDate()
-    }
+    },
+    done: false,
   }).populate(Activity.populates.basic)
 };
 
-const getNextActivities = () => {
-  let currentTime = moment();
-  let endTime = moment(currentTime).add(activitiesInterval, "minutes");
+export const getNextActivities = () => {
+  let currentTime = moment.utc();
+  let endTime = moment.utc(currentTime).add(activitiesInterval, "minutes");
   return Activity.find({
     date: {
       $gte: currentTime.toDate(),
       $lt: endTime.toDate()
-    }
+    },
+    done: false,
   }).populate(Activity.populates.basic)
 };
 
@@ -45,10 +47,13 @@ const getNextActivities = () => {
 const mailCreator = (activities) => {
   let mailing = [];
 
+  if(activities.length === 0) {
+    return mailing;
+  }
+
   let groupedEntries = groupBy(activities, activity => activity.assignedTo.email);
 
   groupedEntries.forEach(activities => {
-    let email = renderTemplate({activities: activities, user: user, currentDate: moment().format("dddd, MMM Do, YYYY").toUpperCase() });
     let user = "";
     activities.forEach(activity => {
       if(!user) {
@@ -56,12 +61,14 @@ const mailCreator = (activities) => {
       }
     });
 
-
-
-    console.log(renderTemplate({activities: activities, user: user, currentDate: moment().format("dddd MMM Do YYYY").toUpperCase() }));
     mailing.push({
       user: user.email,
-      email: email,
+      email: renderTemplate({
+        activities: activities,
+        user: user,
+        currentDate: moment().format("dddd, MMM Do, YYYY").toUpperCase(),
+        host: host,
+      }),
     });
   });
 
@@ -69,15 +76,13 @@ const mailCreator = (activities) => {
 };
 
 const mailSender = (userEmail, subject, html) => {
-  console.log("EEEEEEMMMMMMAAAAAAIIIILLLLLLL")
-  console.log(userEmail)
   let mailgun = new Mailgun({
-    apiKey: mailgun_api,
-    domain: mailgun_domain,
+    apiKey: mailgunAPI,
+    domain: mailgunDomain,
   });
 
   let mailData = {
-    from: mailgun_from,
+    from: mailgunFrom,
     to: userEmail,
     subject: subject,
     html: html,
@@ -91,19 +96,20 @@ const dailyScheduler = job => {
   rule.dayOfWeek = [new schedule.Range(workWeekStartDay, workWeekEndDay)];
   rule.hour = dailyMailingHour;
   rule.minute = dailyMailingMinute;
+
   schedule.scheduleJob(rule, job);
 };
 
 export const setDailyMailing = () => {
   dailyScheduler(() => {
     getActivitiesForToday().then(activities => {
-      let mailing = mailCreator(activities);
-      mailing.forEach(email => {
+      let mails = mailCreator(activities);
+      mails.forEach(email => {
         mailSender(email.user,"Activity reminder", email.email)
           .then(res => console.log(res))
-          .catch(err => console.log("error: " + err))
+          .catch(err => console.error("error: " + err))
       })
-    })
+    }).catch(error => console.error("error: " + error))
   });
 };
 
@@ -111,10 +117,9 @@ export const duringDayScheduler = job => {
   let rule = new schedule.RecurrenceRule();
   rule.dayOfWeek = [new schedule.Range(workWeekStartDay, workWeekEndDay)];
   rule.hour = [new schedule.Range(activitiesCheckStartHour, activitiesCheckEndHour)];
-  rule.minute = [new schedule.Range(0, 60, 15)];
+  rule.minute = [new schedule.Range(0, 59, activitiesInterval)];
 
   schedule.scheduleJob(rule,job);
-
 };
 
 export const setDuringDayMailing = () => {
@@ -122,17 +127,23 @@ export const setDuringDayMailing = () => {
     console.log(moment());
     getNextActivities().then(activities => {
       if(activities.length !== 0) {
-        console.log(mailCreator(activities))
+        let mails = mailCreator(activities);
+        console.log(mails);
+        mails.forEach(email => {
+          mailSender(email.user,"Activity reminder", email.email)
+            .then(res => console.log(res))
+            .catch(err => console.error("error: " + err))
+        })
       } else {
         console.log("No activities")
       }
-    })
+    }).catch(error => console.error("error: " + error))
   })
 };
 
 
 export const runNotificationService = () => {
-  if(mailgun_api && mailgun_domain) {
+  if(mailgunAPI && mailgunDomain) {
     setDailyMailing();
     setDuringDayMailing();
     console.log("Notification service running")
