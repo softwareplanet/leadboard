@@ -10,14 +10,13 @@ const activitiesCheckStartHour = 9;
 const activitiesCheckEndHour = 18;
 const workWeekStartDay = 1;
 const workWeekEndDay = 5;
-const dailyMailingHour = 3;
-const dailyMailingMinute = 0;
+const dailyMailingHour = 15;
+const dailyMailingMinute = 50;
 
-let mailgunAPI = process.env.MAILGUN_API_KEY;
-let mailgunDomain = process.env.MAILGUN_DOMAIN;
-let mailgunFrom = process.env.MAILGUN_FROM;
+let mailgunAPI = process.env.MAILGUN_API_KEY || "917e9255defd727d5998e3050dffdcf0-c1fe131e-f2a52be1";
+let mailgunDomain = process.env.MAILGUN_DOMAIN || "sandbox61cca88a91e342549a80528c271fe147.mailgun.org";
+let mailgunFrom = process.env.MAILGUN_FROM || "postmaster@sandbox61cca88a91e342549a80528c271fe147.mailgun.org";
 let host = process.env.HOST || `http://localhost: ${ process.env.PORT || 3000 }`;
-
 
 const getActivitiesForToday = () => {
   console.log("Mail users");
