@@ -16,6 +16,7 @@ const dailyMailingMinute = 0;
 let mailgunAPI = process.env.MAILGUN_API_KEY;
 let mailgunDomain = process.env.MAILGUN_DOMAIN;
 let mailgunFrom = process.env.MAILGUN_FROM;
+let host = process.env.HOST || `http://localhost: ${ process.env.PORT || 3000 }`;
 
 
 const getActivitiesForToday = () => {
