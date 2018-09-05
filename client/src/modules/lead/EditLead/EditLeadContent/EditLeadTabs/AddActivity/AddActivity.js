@@ -182,8 +182,10 @@ export default class AddActivity extends Component {
                   showDaysInNextAndPreviousMonths={true}
                   enableSelectionDaysInNextAndPreviousMonths={true}
                   className={style.dateInput} />
-                <button onClick={(e) => this.onDeleteClick(e, "date")}
-                        className={style.inputButton}>
+                <button 
+                  onClick={(e) => this.onDeleteClick(e, "date")}
+                  className={style.inputButton}
+                >
                   <img className={style.inputImg} src={deleteIcon} alt="del" />
                 </button>
               </div>
@@ -191,12 +193,16 @@ export default class AddActivity extends Component {
             <label>
               <span className={style.dateInputSpan}>TIME</span>
               <div className={style.inputContainer}>
-                <CustomSelect className={style.dateInput}
-                              value={isBlank(this.state.time) ? "" : moment().startOf("day").add(this.state.time,"minutes").format("hh:mm A")}
-                              options={this.getTimeOptions()}
-                              onSelect={time => this.onInputPick(time, "time")} />
-                <button onClick={(e) => this.onDeleteClick(e, "time")}
-                        className={style.inputButton}>
+                <CustomSelect 
+                  className={style.dateInput}
+                  value={isBlank(this.state.time) ? "" : moment().startOf("day").add(this.state.time,"minutes").format("hh:mm A")}
+                  options={this.getTimeOptions()}
+                  onSelect={time => this.onInputPick(time, "time")} 
+                />
+                <button 
+                  onClick={(e) => this.onDeleteClick(e, "time")}
+                  className={style.inputButton}
+                >
                   <img className={style.inputImg} src={deleteIcon} alt="del" />
                 </button>
               </div>
@@ -204,12 +210,16 @@ export default class AddActivity extends Component {
             <label>
               <span className={style.dateInputSpan}>DURATION</span>
               <div className={style.inputContainer}>
-                <CustomSelect className={style.dateInput}
-                              value={isBlank(this.state.duration) ? "" : this.formatDurationValue()}
-                              options={this.getDurationOptions()}
-                              onSelect={duration => this.onInputPick(duration, "duration")} />
-                <button onClick={(e) => this.onDeleteClick(e, "duration")}
-                        className={style.inputButton}>
+                <CustomSelect 
+                  className={style.dateInput}
+                  value={isBlank(this.state.duration) ? "" : this.formatDurationValue()}
+                  options={this.getDurationOptions()}
+                  onSelect={duration => this.onInputPick(duration, "duration")} 
+                />
+                <button 
+                  onClick={(e) => this.onDeleteClick(e, "duration")}
+                  className={style.inputButton}
+                >
                   <img className={style.inputImg} src={deleteIcon} alt="del" />
                 </button>
               </div>
@@ -217,13 +227,17 @@ export default class AddActivity extends Component {
           </div>
         </div>
         <div className={style.footer}>
-          <button onClick={this.props.onCancel}
-                  className={style.cancelButton}>
+          <button 
+            onClick={this.props.onCancel}
+            className={style.cancelButton}
+          >
             <span>Cancel</span>
           </button>
-          <button id="saveActivityButton"
-                  onClick={() => this.props.onSave(activity)}
-                  className={style.buttonSave}>
+          <button
+            id="saveActivityButton"
+            onClick={() => this.props.onSave(activity)}
+            className={style.buttonSave}
+          >
             <span>Save</span>
           </button>
         </div>
