@@ -11,6 +11,7 @@
 
 .info {
     flex:3;
+    display: flex;
 }
 .linkInfo {
     font: 14px/18px "Open Sans",sans-serif;
@@ -43,4 +44,12 @@
     width: 16px;
     padding-bottom: 4px;
     margin-right: 8px;
+}
+
+.iconStatus {
+    padding: 8px;
+}
+
+.imgContainer {
+    margin: auto;
 }

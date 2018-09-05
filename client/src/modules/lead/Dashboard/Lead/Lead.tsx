@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import warningIcon from '../../../../assets/lead-activity/warning-icon.png';
 import profile from '../../../../img/profile.svg';
 import LeadModel from '../../../../models/Lead';
 import * as styles from './Lead.css';
@@ -24,6 +25,11 @@ export default class Lead extends React.Component<Props, object> {
             </strong>
             <small>{lead.contact ? lead.contact.name : lead.organization.name}</small>
           </Link>
+          <div className={styles.imgContainer}>
+            <a className={styles.iconStatus}>
+              <img src={warningIcon}/>
+            </a>
+          </div>
         </div>
       </div>
     );
