@@ -10,14 +10,13 @@ const activitiesCheckStartHour = 9;
 const activitiesCheckEndHour = 18;
 const workWeekStartDay = 1;
 const workWeekEndDay = 5;
-const dailyMailingHour = 3;
-const dailyMailingMinute = 0;
+const dailyMailingHour = 17;
+const dailyMailingMinute = 41;
 
 let mailgunAPI = process.env.MAILGUN_API_KEY;
 let mailgunDomain = process.env.MAILGUN_DOMAIN;
 let mailgunFrom = process.env.MAILGUN_FROM;
-let host = process.env.HOST || `http://localhost: ${ process.env.PORT || 3000 }`;
-
+let host = process.env.HOST;
 
 const getActivitiesForToday = () => {
   console.log("Mail users");
@@ -67,7 +66,7 @@ const mailCreator = (activities) => {
       email: renderTemplate({
         activities: activities,
         user: user,
-        currentDate: moment().format("dddd MMM Do YYYY").toUpperCase(),
+        currentDate: moment().format("dddd, MMM Do, YYYY").toUpperCase(),
         host: host,
       }),
     });
