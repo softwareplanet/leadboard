@@ -21,8 +21,8 @@ let host = process.env.HOST || `http://localhost: ${ process.env.PORT || 3000 }`
 
 const getActivitiesForToday = () => {
   console.log("Mail users");
-  let today = moment().startOf("day");
-  let tomorrow = moment(today).endOf("day");
+  let today = moment.utc().startOf("day");
+  let tomorrow = moment.utc(today).endOf("day");
   return Activity.find({
     date: {
       $gte: today.toDate(),
@@ -32,9 +32,9 @@ const getActivitiesForToday = () => {
   }).populate(Activity.populates.basic)
 };
 
-const getNextActivities = () => {
-  let currentTime = moment();
-  let endTime = moment(currentTime).add(activitiesInterval, "minutes");
+export const getNextActivities = () => {
+  let currentTime = moment.utc();
+  let endTime = moment.utc(currentTime).add(activitiesInterval, "minutes");
   return Activity.find({
     date: {
       $gte: currentTime.toDate(),
