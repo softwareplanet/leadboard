@@ -11,9 +11,9 @@ import deleteIcon from "../../../../../../assets/add-activity/delete.svg";
 import nextMonthIcon from "../../../../../../assets/add-activity/next-month.svg";
 import prevMonthIcon from "../../../../../../assets/add-activity/prev-month.svg";
 import ActivityButtons from "./buttons/ActivityButtons";
-import isBlank from "../../../../../../utils/isBlank"
+import isBlank from "../../../../../../utils/isBlank";
 import CustomSelect from "./buttons/CustomSelect";
-import DatePicker from 'react-pikaday-datepicker';
+import DatePicker from "react-pikaday-datepicker";
 import PropTypes from "prop-types";
 
 const timeIntervalMinutes = 15;
@@ -38,26 +38,25 @@ export default class AddActivity extends Component {
     date: "",
     time: "",
     duration: "",
-  }
+  };
 
-  onTypeButtonClick = (event, type) => {
-    event.preventDefault();
+  onTypeButtonClick = (type) => {
     this.setState({
       activeTab: type,
-    })
+    });
   };
 
   onSubjectChange = event => {
-    this.setState({ subject: event.target.value })
+    this.setState({ subject: event.target.value });
   };
 
   onInputPick = (value, field) => {
-    this.setState({ [field]: value })
+    this.setState({ [field]: value });
   };
 
   onDeleteClick = (e, field) => {
     e.preventDefault();
-    this.setState({ [field]: "" })
+    this.setState({ [field]: "" });
   };
 
   getActivityDateAndTime = () => {
@@ -66,11 +65,10 @@ export default class AddActivity extends Component {
       return { date: date._d };
     }
 
-    let time = moment.duration(this.state.time.diff(moment().startOf("day")));
-    date = date.add(Math.floor(time.asMinutes()), "minutes");
+    date = date.add(this.state.time, "minutes");
     return {
       hasStartTime: true,
-      date: date._d
+      date: date._d,
     };
   };
 
@@ -87,12 +85,16 @@ export default class AddActivity extends Component {
   };
 
   getActivity = () => {
-    return {
+    let activity = {
       type: this.state.activeTab,
       subject: isBlank(this.state.subject) ? this.state.activeTab : this.state.subject,
       ...this.getDuration(),
-      ...this.getActivityDateAndTime()
+      ...this.getActivityDateAndTime(),
+    };
+    if (this.props.activity) {
+      activity._id = this.props.activity._id;
     }
+    return activity;
   };
 
   getSelectedDate = () => {
@@ -104,24 +106,43 @@ export default class AddActivity extends Component {
     let options = [];
     let minutes = timeIntervalMinutes;
     let amountOfDurationOptions = optionsInHour * maxDurationTime;
-    
+
     for (let i = 0; i < amountOfDurationOptions; i++) {
       options.push({ value: minutes, text: time.format("HH:mm").toString() });
       minutes += timeIntervalMinutes;
-      time.add(timeIntervalMinutes, "minutes")
+      time.add(timeIntervalMinutes, "minutes");
     }
     return options;
   };
 
   getTimeOptions = () => {
     let time = moment().startOf("day");
+    let timeInMinutes = 0;
     let options = [];
     let amountOfTimeOptions = optionsInHour * hoursInDay;
     for (let i = 0; i < amountOfTimeOptions; i++) {
-      options.push({ value: moment(time), text: time.format("hh:mm A").toString() });
-      time.add(timeIntervalMinutes, "minutes")
+      options.push({ value: timeInMinutes, text: time.format("hh:mm A").toString() });
+      time.add(timeIntervalMinutes, "minutes");
+      timeInMinutes += timeIntervalMinutes;
     }
     return options;
+  };
+
+  componentDidMount = () => {
+    const { activity } = this.props;
+    if (activity) {
+      let date = moment(activity.date);
+      let dateStart = moment(date.startOf("day")._d);
+      let time = moment.duration(moment(date._i).diff(dateStart)).asMinutes();
+      this.setState({
+        ...this.state,
+        subject: activity.subject,
+        activeTab: activity.type,
+        date: date,
+        time: activity.hasStartTime ? time: "",
+        duration: activity.duration,
+      });
+    }
   };
 
   render() {
@@ -141,11 +162,13 @@ export default class AddActivity extends Component {
           />
           <input
             onChange={this.onSubjectChange}
+            defaultValue={this.props.activity ? this.props.activity.subject : ""}
             autoFocus
             className={style.typeInput}
             placeholder={this.state.activeTab}
             value={this.state.subject}
-            type="text" />
+            type="text"
+          />
 
           <div className={style.dateInputs}>
             <label>
@@ -159,8 +182,10 @@ export default class AddActivity extends Component {
                   showDaysInNextAndPreviousMonths={true}
                   enableSelectionDaysInNextAndPreviousMonths={true}
                   className={style.dateInput} />
-                <button onClick={(e) => this.onDeleteClick(e, "date")}
-                  className={style.inputButton}>
+                <button 
+                  onClick={(e) => this.onDeleteClick(e, "date")}
+                  className={style.inputButton}
+                >
                   <img className={style.inputImg} src={deleteIcon} alt="del" />
                 </button>
               </div>
@@ -168,12 +193,16 @@ export default class AddActivity extends Component {
             <label>
               <span className={style.dateInputSpan}>TIME</span>
               <div className={style.inputContainer}>
-                <CustomSelect className={style.dateInput}
-                  value={isBlank(this.state.time) ? "" : this.state.time.format("hh:mm A")}
+                <CustomSelect 
+                  className={style.dateInput}
+                  value={isBlank(this.state.time) ? "" : moment().startOf("day").add(this.state.time,"minutes").format("hh:mm A")}
                   options={this.getTimeOptions()}
-                  onSelect={time => this.onInputPick(time, "time")} />
-                <button onClick={(e) => this.onDeleteClick(e, "time")}
-                  className={style.inputButton}>
+                  onSelect={time => this.onInputPick(time, "time")} 
+                />
+                <button 
+                  onClick={(e) => this.onDeleteClick(e, "time")}
+                  className={style.inputButton}
+                >
                   <img className={style.inputImg} src={deleteIcon} alt="del" />
                 </button>
               </div>
@@ -181,12 +210,16 @@ export default class AddActivity extends Component {
             <label>
               <span className={style.dateInputSpan}>DURATION</span>
               <div className={style.inputContainer}>
-                <CustomSelect className={style.dateInput}
+                <CustomSelect 
+                  className={style.dateInput}
                   value={isBlank(this.state.duration) ? "" : this.formatDurationValue()}
                   options={this.getDurationOptions()}
-                  onSelect={duration => this.onInputPick(duration, "duration")} />
-                <button onClick={(e) => this.onDeleteClick(e, "duration")}
-                  className={style.inputButton}>
+                  onSelect={duration => this.onInputPick(duration, "duration")} 
+                />
+                <button 
+                  onClick={(e) => this.onDeleteClick(e, "duration")}
+                  className={style.inputButton}
+                >
                   <img className={style.inputImg} src={deleteIcon} alt="del" />
                 </button>
               </div>
@@ -194,13 +227,17 @@ export default class AddActivity extends Component {
           </div>
         </div>
         <div className={style.footer}>
-          <button onClick={this.props.onCancel}
-            className={style.cancelButton}>
+          <button 
+            onClick={this.props.onCancel}
+            className={style.cancelButton}
+          >
             <span>Cancel</span>
           </button>
-          <button id="saveActivityButton"
+          <button
+            id="saveActivityButton"
             onClick={() => this.props.onSave(activity)}
-            className={style.buttonSave}>
+            className={style.buttonSave}
+          >
             <span>Save</span>
           </button>
         </div>
@@ -211,5 +248,6 @@ export default class AddActivity extends Component {
 
 AddActivity.propTypes = {
   onCancel: PropTypes.func.isRequired,
-  onSave: PropTypes.func.isRequired
+  onSave: PropTypes.func.isRequired,
+  activity: PropTypes.object,
 };
