@@ -21,10 +21,9 @@ interface State {
 
 class Activity extends React.Component<Props, State> {
 
-  public componentWillMount() {
-    this.setState({
-      isPopoverOpen: false,
-    });
+  public state: State = {
+    isModalOpen: false,
+    isPopoverOpen: false,
   }
 
   public render() {
