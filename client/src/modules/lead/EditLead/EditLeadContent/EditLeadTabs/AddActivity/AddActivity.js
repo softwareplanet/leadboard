@@ -11,9 +11,9 @@ import deleteIcon from "../../../../../../assets/add-activity/delete.svg";
 import nextMonthIcon from "../../../../../../assets/add-activity/next-month.svg";
 import prevMonthIcon from "../../../../../../assets/add-activity/prev-month.svg";
 import ActivityButtons from "./buttons/ActivityButtons";
-import isBlank from "../../../../../../utils/isBlank"
+import isBlank from "../../../../../../utils/isBlank";
 import CustomSelect from "./buttons/CustomSelect";
-import DatePicker from 'react-pikaday-datepicker';
+import DatePicker from "react-pikaday-datepicker";
 import PropTypes from "prop-types";
 
 const timeIntervalMinutes = 15;
@@ -38,7 +38,7 @@ export default class AddActivity extends Component {
     date: "",
     time: "",
     duration: "",
-  }
+  };
 
   onTypeButtonClick = (event, type) => {
     event.preventDefault();
@@ -108,7 +108,7 @@ export default class AddActivity extends Component {
     let options = [];
     let minutes = timeIntervalMinutes;
     let amountOfDurationOptions = optionsInHour * maxDurationTime;
-    
+
     for (let i = 0; i < amountOfDurationOptions; i++) {
       options.push({ value: minutes, text: time.format("HH:mm").toString() });
       minutes += timeIntervalMinutes;
@@ -133,7 +133,6 @@ export default class AddActivity extends Component {
       let date = moment(this.props.activity.date);
       let dateStart = moment(date.startOf("day")._d);
       let time = moment.duration(moment(date._i).diff(dateStart));
-      console.log(time)
       this.setState({
         ...this.state,
         subject: this.props.activity.subject,
@@ -143,7 +142,7 @@ export default class AddActivity extends Component {
         duration: this.props.activity.duration
       })
     }
-  }
+  };
 
   render() {
     let activity = this.getActivity();
@@ -167,7 +166,7 @@ export default class AddActivity extends Component {
             className={style.typeInput}
             placeholder={this.state.activeTab}
             value={this.state.subject}
-            type="text" 
+            type="text"
           />
 
           <div className={style.dateInputs}>
