@@ -62,6 +62,7 @@
   </div>
 {% endmacro %}
 
+{% set tamplateHost = host %}
 <div style="background-color: #f3f5f6;">
 {% block main %}
 <div style="max-width: 640px;
@@ -91,5 +92,15 @@
     {% endfor %}
 {% include "_gotoButton.njk" %}
 </div>
+<div style="max-width: 640px;
+     padding: 60px 0px 20px 0px;
+     text-align: center;
+     margin: 0 auto;
+     font-size: 14px;
+     color: #3d4145;">
+  Copyright © 2018 
+  <a style="color: #4bc465;
+            text-decoration: none;" 
+     href="{{ tamplateHost }}">Leadboard</a> by Software Planet Group Ltd.</div>
 {% endblock %}
 </div>
