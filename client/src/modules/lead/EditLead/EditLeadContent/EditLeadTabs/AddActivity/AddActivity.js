@@ -233,5 +233,6 @@ export default class AddActivity extends Component {
 
 AddActivity.propTypes = {
   onCancel: PropTypes.func.isRequired,
-  onSave: PropTypes.func.isRequired
+  onSave: PropTypes.func.isRequired,
+  activity: PropTypes.object,
 };
