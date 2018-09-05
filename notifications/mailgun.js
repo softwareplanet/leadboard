@@ -26,7 +26,8 @@ const getActivitiesForToday = () => {
     date: {
       $gte: today.toDate(),
       $lt: tomorrow.toDate()
-    }
+    },
+    done: false,
   }).populate(Activity.populates.basic)
 };
 
@@ -37,7 +38,8 @@ const getNextActivities = () => {
     date: {
       $gte: currentTime.toDate(),
       $lt: endTime.toDate()
-    }
+    },
+    done: false,
   }).populate(Activity.populates.basic)
 };
 
@@ -64,7 +66,8 @@ const mailCreator = (activities) => {
       email: renderTemplate({
         activities: activities,
         user: user,
-        currentDate: moment().format("dddd MMM Do YYYY").toUpperCase()
+        currentDate: moment().format("dddd MMM Do YYYY").toUpperCase(),
+        host: host,
       }),
     });
   });
@@ -93,14 +96,15 @@ const dailyScheduler = job => {
   rule.dayOfWeek = [new schedule.Range(workWeekStartDay, workWeekEndDay)];
   rule.hour = dailyMailingHour;
   rule.minute = dailyMailingMinute;
+
   schedule.scheduleJob(rule, job);
 };
 
 export const setDailyMailing = () => {
   dailyScheduler(() => {
     getActivitiesForToday().then(activities => {
-      let mailing = mailCreator(activities);
-      mailing.forEach(email => {
+      let mails = mailCreator(activities);
+      mails.forEach(email => {
         mailSender(email.user,"Activity reminder", email.email)
           .then(res => console.log(res))
           .catch(err => console.log("error: " + err))
@@ -113,10 +117,9 @@ export const duringDayScheduler = job => {
   let rule = new schedule.RecurrenceRule();
   rule.dayOfWeek = [new schedule.Range(workWeekStartDay, workWeekEndDay)];
   rule.hour = [new schedule.Range(activitiesCheckStartHour, activitiesCheckEndHour)];
-  rule.minute = [new schedule.Range(0, 60, activitiesInterval)];
+  rule.minute = [new schedule.Range(0, 59, activitiesInterval)];
 
   schedule.scheduleJob(rule,job);
-
 };
 
 export const setDuringDayMailing = () => {
@@ -124,7 +127,13 @@ export const setDuringDayMailing = () => {
     console.log(moment());
     getNextActivities().then(activities => {
       if(activities.length !== 0) {
-        console.log(mailCreator(activities))
+        let mails = mailCreator(activities);
+        console.log(mails);
+        mails.forEach(email => {
+          mailSender(email.user,"Activity reminder", email.email)
+            .then(res => console.log(res))
+            .catch(err => console.log("error: " + err))
+        })
       } else {
         console.log("No activities")
       }
