@@ -70,10 +70,15 @@ describe("<AddActivity />", () => {
       type: "Meeting",
     };
 
+    let date = moment(activity.date);
+    let dateStart = moment(date.startOf("day")._d);
+    let time = moment.duration(moment(date._i).diff(dateStart)).asMinutes();
     const expectedState = {
       activeTab: activity.type,
       duration: activity.duration,
       subject: activity.subject,
+      date: date,
+      time: time,
     };
 
     const wrapper = shallow(<AddActivity onSave={onActivitySaveMock} onCancel={() => jest.fn()} activity={activity} />);

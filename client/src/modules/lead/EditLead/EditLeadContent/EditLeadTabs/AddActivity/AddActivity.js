@@ -134,7 +134,7 @@ export default class AddActivity extends Component {
     if (activity) {
       let date = moment(activity.date);
       let dateStart = moment(date.startOf("day")._d);
-      let time = moment.duration(moment(date._i).diff(dateStart));
+      let time = moment.duration(moment(date._i).diff(dateStart)).asMinutes();
       this.setState({
         ...this.state,
         subject: activity.subject,
