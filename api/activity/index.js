@@ -5,12 +5,21 @@ import Activity from "../../models/activity";
 
 const router = new Router();
 
+// @route   GET api/activity/firstInLeadPlan
+// @desc    Get activity
+// @access  Private
 router.get("/firstInLeadPlan", (req, res) => {
   Activity.aggregate([
     { $match: { domain: req.user.domain, done: false } },
     { $group: { _id: "$lead", date: { $min: "$date" } } },
   ])
-    .then(activities => {
+    .then(result => {
+      const activities = result.map(activity => {
+        return {
+          lead: activity._id,
+          date: activity.date,
+        }
+      });
       res.json(activities);
     })
     .catch(error => {

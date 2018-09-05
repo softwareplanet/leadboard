@@ -2,9 +2,21 @@ import axios from "axios";
 import {
   LOAD_LEAD_ACTIVITIES,
   CREATE_ACTIVITY,
-  UPDATE_ACTIVITY,
+  UPDATE_ACTIVITY, LOAD_FIRST_ACTIVITY_IN_LEAD_PLAN,
 } from "./types";
 import { GET_ERRORS } from "../../../../actionTypes";
+
+//load all activities by domain
+export const loadFirstActivityInLeadsPlan = () => dispatch => {
+  axios.
+    get(`/api/activity/firstInLeadPlan`)
+    .then(result => {
+      dispatch(loadFirstActivityAction(result.data))
+    })
+    .catch(error => {
+      dispatch(getErrorsAction(error.response.data.errors));
+    })
+};
 
 //load activities by lead Id
 export const loadLeadActivities = leadId => dispatch => {
@@ -72,4 +84,11 @@ export function createActivityAction(data) {
     payload: data,
 
   };
+}
+
+export function loadFirstActivityAction(data) {
+  return {
+    type: LOAD_FIRST_ACTIVITY_IN_LEAD_PLAN,
+    payload: data,
+  }
 }

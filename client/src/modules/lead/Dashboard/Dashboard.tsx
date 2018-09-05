@@ -5,12 +5,15 @@ import * as styles from './Dashboard.css';
 import { connect } from 'react-redux';
 import LeadModel from '../../../models/Lead';
 import Stage from '../../../models/Stage';
+import { loadFirstActivityInLeadsPlan } from '../EditLead/Activities/activityActions';
 import { loadLeadboard } from '../leadActions';
 import Lead from './Lead/Lead';
 
 interface Props {
   leads: any;
+  activities: any;
   loadLeadboard(): void;
+  loadFirstActivityInLeadsPlan(): void;
 }
 
 interface State {
@@ -23,11 +26,11 @@ export class Dashboard extends React.Component<Props, State> {
   };
 
   public componentWillReceiveProps(nextProps: Props) {
-    this.loadLeads();
+    this.loadItems();
   }
 
   public componentDidMount() {
-    this.loadLeads();
+    this.loadItems();
   }
 
   public render() {
@@ -69,6 +72,7 @@ export class Dashboard extends React.Component<Props, State> {
     if (this.isStageIsUndefined(stage)) { return <div />; }
 
     return this.props.leads.leads['_' + stage].leads.map((lead: LeadModel) => {
+
       return <Lead key={lead._id} lead={lead} link={this.leadPath(lead)} />;
     });
   };
@@ -89,19 +93,21 @@ export class Dashboard extends React.Component<Props, State> {
     return typeof this.props.leads.leads['_' + stage] === 'undefined';
   };
 
-  private loadLeads = () => {
+  private loadItems = () => {
     if (!this.state.leadboardLoaded) {
       this.props.loadLeadboard();
+      this.props.loadFirstActivityInLeadsPlan();
       this.setState({ leadboardLoaded: true });
     }
-  }
+  };
 }
 
 const mapStateToProps = (state: any) => ({
-  leads: state.leads
+  activities: state.activities.allActivities,
+  leads: state.leads,
 });
 
 export default connect(
   mapStateToProps,
-  { loadLeadboard }
+  { loadLeadboard, loadFirstActivityInLeadsPlan }
 )(Dashboard);
