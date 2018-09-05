@@ -5,6 +5,7 @@ import ActivityType from './types/ActivityType'
 import User from './User';
 
 export default interface Activity {
+  _id: string;
   type: ActivityType;
   subject: string;
   date: Date;

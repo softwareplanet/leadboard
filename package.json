@@ -21,6 +21,7 @@
     ]
   },
   "dependencies": {
+    "@types/react-router-dom": "^4.3.0",
     "@types/enzyme-adapter-react-16": "^1.0.3",
     "babel-core": "^6.21.0",
     "babel-plugin-transform-runtime": "^6.15.0",
