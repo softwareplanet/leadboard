@@ -1,28 +1,26 @@
-import React, { Component } from "react";
-import styles from "./CardField.css";
-import SingleEditView from "./EditView/SingleEditView/SingleEditView";
-import PropTypes from "prop-types";
+import * as React from 'react';
+import * as styles from './CardField.css';
+import SingleEditView from './EditView/SingleEditView/SingleEditView';
 
-class MainField extends Component {
+export interface Props {
+  title: string;
+  value: string;
+  icon?: string;
 
-  state = {
+  onUpdate(value: string): void;
+}
+
+export interface State {
+  isInEditMode: boolean;
+}
+
+class MainField extends React.Component<Props, State> {
+
+  public state: State = {
     isInEditMode: false,
   };
 
-  openEditMode = () => {
-    this.setState({ isInEditMode: true });
-  };
-
-  closeEditMode = () => {
-    this.setState({ isInEditMode: false });
-  };
-
-  handleNameUpdate = (name, value) => {
-    this.props.onUpdate(value);
-    this.closeEditMode();
-  };
-
-  render() {
+  public render() {
     const name = this.props.value;
     const { isInEditMode } = this.state;
     return (
@@ -50,25 +48,29 @@ class MainField extends Component {
           isInEditMode &&
           <div className={styles.fieldEditValue}>
             <SingleEditView
-              fieldName={"Name"}
+              fieldName={'Name'}
               fieldValue={name}
               onChange={this.handleNameUpdate}
               onCancel={this.closeEditMode} />
           </div>
         }
       </div>
-
-
     );
   }
-}
 
-MainField.propTypes = {
-  title: PropTypes.string,
-  value: PropTypes.string,
-  icon: PropTypes.string,
-  onUpdate: PropTypes.func,
-};
+  private openEditMode = () => {
+    this.setState({ isInEditMode: true });
+  };
+
+  private closeEditMode = () => {
+    this.setState({ isInEditMode: false });
+  };
+
+  private handleNameUpdate = (name: string, value: string) => {
+    this.props.onUpdate(value);
+    this.closeEditMode();
+  };
+}
 
 export default MainField;
 
