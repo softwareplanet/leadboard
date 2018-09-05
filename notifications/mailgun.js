@@ -108,9 +108,9 @@ export const setDailyMailing = () => {
       mails.forEach(email => {
         mailSender(email.user,"Activity reminder", email.email)
           .then(res => console.log(res))
-          .catch(err => console.log("error: " + err))
+          .catch(err => console.error("error: " + err))
       })
-    })
+    }).catch(error => console.error("error: " + error))
   });
 };
 
@@ -133,12 +133,12 @@ export const setDuringDayMailing = () => {
         mails.forEach(email => {
           mailSender(email.user,"Activity reminder", email.email)
             .then(res => console.log(res))
-            .catch(err => console.log("error: " + err))
+            .catch(err => console.error("error: " + err))
         })
       } else {
         console.log("No activities")
       }
-    })
+    }).catch(error => console.error("error: " + error))
   })
 };
 
