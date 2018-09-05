@@ -1,5 +1,8 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import activeIcon from '../../../../assets/lead-activity/active-icon.png';
+import overdueIcon from '../../../../assets/lead-activity/overdue-icon.png';
+import plannedIcon from '../../../../assets/lead-activity/planned-icon.png';
 import warningIcon from '../../../../assets/lead-activity/warning-icon.png';
 import profile from '../../../../img/profile.svg';
 import LeadModel from '../../../../models/Lead';
@@ -27,11 +30,27 @@ export default class Lead extends React.Component<Props, object> {
           </Link>
           <div className={styles.imgContainer}>
             <a className={styles.iconStatus}>
-              <img src={warningIcon}/>
+              <img src={this.getStatusIcon('Without')}/>
             </a>
           </div>
         </div>
       </div>
     );
   }
+
+  private getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'Without' :
+        return warningIcon;
+      case 'Overdue' :
+        return overdueIcon;
+      case 'Planned' :
+        return plannedIcon;
+      case 'Active' :
+        return activeIcon;
+      default :
+        return warningIcon;
+    }
+  };
+
 };
