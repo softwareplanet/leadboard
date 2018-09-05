@@ -181,12 +181,6 @@ ul {
   }
 }
 
-.dropDownToggle {
-  color: #b9babb;
-  background: none;
-  border: none;
-}
-
 .closedDropDown button:hover {
   color: white;
   border: none;
@@ -208,6 +202,12 @@ ul {
   padding: 11px 13px;
 }
 
+.dropDownToggle {
+  color: #b9babb;
+  background: none;
+  border: none;
+}
+
 .dropDownToggleOpen {
   color: black;
   border: none;
@@ -226,20 +226,18 @@ ul {
   box-shadow: 0 4px 6px grey;
 }
 
-.dropDownMenu button:hover {
+.dropDownMenu a{
+  font-size: 15px;
+  padding: 6px 80px 8px 0px;
+  text-decoration: none;
+  color: black;
+}
+
+.dropDownMenu a:hover {
   background: #317ae2;
   color: white;
 }
 
-.dropDownMenu button {
-  font-size: 15px;
-  padding: 6px 15px;
-}
-
 .linkText {
   font-size: 14px;
-}
-
-.dropDownWrapper {
-
 }

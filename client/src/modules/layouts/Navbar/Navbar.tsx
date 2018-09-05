@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, NavLink, RouteComponentProps, withRouter } from 'react-router-dom';
-import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
+import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
 import contactIcon from '../../../assets/contacts-icon.svg';
 import dealsIconActive from '../../../assets/deals-icon-active.svg';
 import dealsIcon from '../../../assets/deals-icon.svg';
@@ -10,6 +10,7 @@ import { logoutUser } from '../../auth/authActions';
 import * as styles from './Navbar.css';
 
 const leadsRoute = '/home';
+const peopleRoute = '/people';
 
 interface Props extends RouteComponentProps<any> {
   auth: any;
@@ -71,16 +72,14 @@ class Navbar extends React.Component<Props, State> {
                 data-toggle="dropdown"
                 aria-expanded={this.state.dropdownOpen}
               >
-                <span >
-                  <img className={styles.icon} src={contactIcon} alt="contacts" />
-                </span>
-                <span className={styles.linkText}>
-                  Contacts
-                </span>
-
+                <span><img className={styles.icon} src={contactIcon} alt="contacts" /></span>
+                <span className={styles.linkText}>Contacts</span>
               </DropdownToggle>
               <DropdownMenu className={styles.dropDownMenu}>
-                <DropdownItem onClick={this.toggle}>People</DropdownItem>
+                <NavLink onClick={this.toggle} to={peopleRoute}>
+                  <img className={styles.icon} src={contactIcon} alt="contacts" />
+                  People
+                </NavLink>
               </DropdownMenu>
             </Dropdown>
           </div>
