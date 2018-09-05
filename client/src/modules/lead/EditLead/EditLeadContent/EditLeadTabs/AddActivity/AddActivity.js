@@ -66,8 +66,7 @@ export default class AddActivity extends Component {
       return { date: date._d };
     }
 
-    let time = moment.duration(this.state.time.diff(moment().startOf("day")));
-    date = date.add(Math.floor(time.asMinutes()), "minutes");
+    date = date.add(this.state.time, "minutes");
     return {
       hasStartTime: true,
       date: date._d,
@@ -119,11 +118,13 @@ export default class AddActivity extends Component {
 
   getTimeOptions = () => {
     let time = moment().startOf("day");
+    let timeInMinutes = 0;
     let options = [];
     let amountOfTimeOptions = optionsInHour * hoursInDay;
     for (let i = 0; i < amountOfTimeOptions; i++) {
-      options.push({ value: moment(time), text: time.format("hh:mm A").toString() });
+      options.push({ value: timeInMinutes, text: time.format("hh:mm A").toString() });
       time.add(timeIntervalMinutes, "minutes");
+      timeInMinutes += timeIntervalMinutes;
     }
     return options;
   };
@@ -138,7 +139,7 @@ export default class AddActivity extends Component {
         subject: this.props.activity.subject,
         activeTab: this.props.activity.type,
         date: date,
-        time: this.props.activity.hasStartTime ? moment().startOf("day").add(time.asMinutes(), "minutes") : "",
+        time: this.props.activity.hasStartTime ? time: "",
         duration: this.props.activity.duration,
       });
     }
@@ -191,7 +192,7 @@ export default class AddActivity extends Component {
               <span className={style.dateInputSpan}>TIME</span>
               <div className={style.inputContainer}>
                 <CustomSelect className={style.dateInput}
-                              value={isBlank(this.state.time) ? "" : this.state.time.format("hh:mm A")}
+                              value={isBlank(this.state.time) ? "" : moment().startOf("day").add(this.state.time,"minutes").format("hh:mm A")}
                               options={this.getTimeOptions()}
                               onSelect={time => this.onInputPick(time, "time")} />
                 <button onClick={(e) => this.onDeleteClick(e, "time")}

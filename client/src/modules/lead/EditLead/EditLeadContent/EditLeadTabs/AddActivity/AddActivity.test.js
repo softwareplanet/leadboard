@@ -33,7 +33,7 @@ describe("<AddActivity />", () => {
       activeTab: "Meeting",
       subject: "Meeting test",
       date: moment().startOf("day").add(1, "day"),
-      time: moment().startOf("day").add(1, "hours"),
+      time: 60,
       duration: 60,
     };
 
