@@ -40,8 +40,7 @@ export default class AddActivity extends Component {
     duration: "",
   };
 
-  onTypeButtonClick = (event, type) => {
-    event.preventDefault();
+  onTypeButtonClick = (type) => {
     this.setState({
       activeTab: type,
     });
