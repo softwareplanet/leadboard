@@ -1,10 +1,12 @@
+import Domain from './Domain';
+
 export default interface User {
-  _id: string,
+  _id: string;
   firstname: string;
   lastname: string;
   email: string;
   password: string;
-  domain: string;
+  domain: Domain;
   timestamp: Date;
-  avatar:string;
+  avatar: string;
 }
