@@ -152,4 +152,23 @@ describe("Activity", () => {
       .send({ done: true });
     expect(body.done).toEqual(true);
   });
+
+  it("should update activity valid data", async () => {
+    const activity = await createActivity(app, cred.token, "Call", "Call Jack", Date.now(), 15);
+    const newOrganization = await createOrganization(app, cred.token, "Positive Software");
+    const newContact = await createContact(app, cred.token, newOrganization, "James");
+    const updates = {
+      type: "Meeting",
+      subject: "Meet with James",
+      duration: 120,
+      organization: newOrganization._id,
+      participants: [newContact._id],
+    };
+    const { status, body } = await request(app())
+      .patch(`/api/activity/${activity._id}`)
+      .set("Authorization", cred.token)
+      .send(updates);
+    expect(body).toMatchObject(updates);
+    expect(status).toBe(200);
+  });
 });
