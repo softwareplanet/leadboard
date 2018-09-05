@@ -1,12 +1,12 @@
+import * as fp from 'lodash/fp';
 import * as React from 'react';
 import * as styles from './Dashboard.css';
-import * as fp from 'lodash/fp';
 
 import { connect } from 'react-redux';
+import LeadModel from '../../../models/Lead';
+import Stage from '../../../models/Stage';
 import { loadLeadboard } from '../leadActions';
 import Lead from './Lead/Lead';
-import Stage from '../../../models/Stage';
-import ILead from '../../../models/Lead';
 
 interface Props {
   leads: any;
@@ -33,8 +33,8 @@ export class Dashboard extends React.Component<Props, State> {
   public render() {
     const { leads } = this.props;
     const noLeads = this.isStagesEmpty();
-    let stages = leads.stages.map((stage: Stage, index: number) => {
-      let leads = this.createLeadCards(stage._id);
+    const stages = leads.stages.map((stage: Stage, index: number) => {
+      const leadCards = this.createLeadCards(stage._id);
 
       return (
         <div className={styles.stage} key={stage._id}>
@@ -42,15 +42,15 @@ export class Dashboard extends React.Component<Props, State> {
             <div className={styles.stageContainer}>
               <span>{stage.name}</span>
               <span className={styles.stageValue}>
-                {Array.isArray(leads) && leads.length > 0 ? (
+                {Array.isArray(leadCards) && leadCards.length > 0 ? (
                   <small className={styles.stageValueSmall}>
-                    {leads.length} {leads.length === 1 ? 'lead' : 'leads'}
+                    {leadCards.length} {leadCards.length === 1 ? 'lead' : 'leads'}
                   </small>
                 ) : null}
               </span>
             </div>
           </div>
-          {leads}
+          { leadCards }
           <div className={styles.cardTerminator}>{noLeads ? this.createEmptyLeadCards(index) : null}</div>
         </div>
       );
@@ -60,27 +60,25 @@ export class Dashboard extends React.Component<Props, State> {
   }
 
   private isStagesEmpty = () => {
-    let stages = Object['values'](this.props.leads.leads);
+    const leads = this.props.leads.leads;
+    const stages = Object.keys(leads).map(value => leads[value]);
     return fp.all(s => s.leads.length === 0, stages);
   };
 
   private createLeadCards = (stage: string) => {
-    let leads;
+    if (this.isStageIsUndefined(stage)) { return <div />; }
 
-    if (this.isStageIsUndefined(stage)) return <div />;
-
-    leads = this.props.leads.leads['_' + stage].leads.map((lead: ILead) => {
+    return this.props.leads.leads['_' + stage].leads.map((lead: LeadModel) => {
       return <Lead key={lead._id} lead={lead} link={this.leadPath(lead)} />;
     });
-    return leads;
   };
 
-  private leadPath = (lead: ILead) => {
+  private leadPath = (lead: LeadModel) => {
     return `/lead/${lead._id}`;
   };
 
   private createEmptyLeadCards = (index: number) => {
-    let emptyLeads = [];
+    const emptyLeads = [];
     for (let i = 0; i < this.props.leads.stages.length - index; i++) {
       emptyLeads.push(<div key={i} className={styles.stagePlaceholder} />);
     }
@@ -88,7 +86,7 @@ export class Dashboard extends React.Component<Props, State> {
   };
 
   private isStageIsUndefined = (stage: string) => {
-    return typeof this.props.leads.leads["_" + stage] === 'undefined';
+    return typeof this.props.leads.leads['_' + stage] === 'undefined';
   };
 
   private loadLeads = () => {
