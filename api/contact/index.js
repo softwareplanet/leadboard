@@ -11,6 +11,7 @@ const router = new Router();
 router.get("/", (req, res) => {
   Contact.find({ domain: req.user.domain, name: {$exists: true} }, "name")
     .populate("organization", "_id name")
+    .populate("custom")
     .then(contacts => {
       res.json(contacts)
     })
