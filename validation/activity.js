@@ -48,7 +48,7 @@ export const validateActivityUpdate = async (data, domain) => {
           if (!existingContact) {
             participantsErrors.push(`Participant #${participantNumber} does not exist`);
           } else {
-            if (existingContact.domain.toString() !== domain.toString())
+            if (!existingContact.domain.equals(domain))
               participantsErrors.push(`Participant #${participantNumber} does not belong to your domain`);
           }
         }
@@ -65,7 +65,7 @@ export const validateActivityUpdate = async (data, domain) => {
       if (!organization) {
         errors.organization = "Organization does not exist";
       } else {
-        if (organization.domain.toString() !== domain.toString())
+        if (!organization.domain.equals(domain))
           errors.organization = "Organization does not belong to your domain";
       }
     }
@@ -79,7 +79,7 @@ export const validateActivityUpdate = async (data, domain) => {
       if (!assignedTo) {
         errors.assignedTo = "User does not exist";
       } else {
-        if (assignedTo.domain.toString() !== domain.toString())
+        if (!assignedTo.domain.equals(domain))
           errors.assignedTo = "Assigned user does not belong to your domain";
       }
     }
@@ -94,7 +94,7 @@ export const validateActivityUpdate = async (data, domain) => {
       if (!existingLead) {
         errors.lead = "Lead does not exist";
       } else {
-        if (existingLead.owner.domain.toString() !== domain.toString())
+        if (!existingLead.owner.domain.equals(domain))
           errors.lead = "Lead does not belong to your domain";
       }
     }
