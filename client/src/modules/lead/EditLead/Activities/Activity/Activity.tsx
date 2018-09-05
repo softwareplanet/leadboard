@@ -24,7 +24,7 @@ class Activity extends React.Component<Props, State> {
   public state: State = {
     isModalOpen: false,
     isPopoverOpen: false,
-  }
+  };
 
   public render() {
     const { date, hasStartTime, done, subject } = this.props.activity;
@@ -84,10 +84,8 @@ class Activity extends React.Component<Props, State> {
 
   private onSave = (activity: ActivityModel) => {
     store.dispatch(updateActivity(activity));
-    this.setState({
-      isModalOpen: false
-    })
-  }
+    this.closeModal();
+  };
 
   private onEditClick = () => {
     this.togglePopover();
