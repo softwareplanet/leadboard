@@ -2,9 +2,11 @@
   <dictionary name="intern">
     <words>
       <w>autocomplete</w>
+      <w>domainid</w>
       <w>dropdown</w>
       <w>leadboard</w>
       <w>sinon</w>
+      <w>userid</w>
     </words>
   </dictionary>
 </component>
