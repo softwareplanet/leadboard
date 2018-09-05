@@ -47,9 +47,19 @@
 }
 
 .iconStatus {
+    border-radius: 50%;
     padding: 8px;
+    cursor: pointer;
 }
 
 .imgContainer {
     margin: auto;
+}
+
+.iconStatus:hover {
+    background: #f7f7f7;
+}
+
+.iconStatus:active {
+    background: #e4e4e4;
 }
