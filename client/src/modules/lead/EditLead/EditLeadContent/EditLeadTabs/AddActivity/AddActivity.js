@@ -130,17 +130,18 @@ export default class AddActivity extends Component {
   };
 
   componentDidMount = () => {
-    if (this.props.activity) {
-      let date = moment(this.props.activity.date);
+    const { activity } = this.props;
+    if (activity) {
+      let date = moment(activity.date);
       let dateStart = moment(date.startOf("day")._d);
       let time = moment.duration(moment(date._i).diff(dateStart));
       this.setState({
         ...this.state,
-        subject: this.props.activity.subject,
-        activeTab: this.props.activity.type,
+        subject: activity.subject,
+        activeTab: activity.type,
         date: date,
-        time: this.props.activity.hasStartTime ? time: "",
-        duration: this.props.activity.duration,
+        time: activity.hasStartTime ? time: "",
+        duration: activity.duration,
       });
     }
   };
