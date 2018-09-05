@@ -57,6 +57,10 @@ export const validateLeadUpdate = (data, previousLead) => {
     errors.organization = "Specify contact or organization";
   }
 
+  if ("notes" in data) {
+    errors.notes = "You cannot update notes using this route. Use 'api/lead/:leadId/note/:id' instead";
+  }
+
   return {
     errors,
     hasErrors: !isEmpty(errors),

@@ -1,4 +1,4 @@
-import Funnel from "./Funnel";
+import Funnel from './Funnel';
 
 export default interface Stage {
    _id: string;
