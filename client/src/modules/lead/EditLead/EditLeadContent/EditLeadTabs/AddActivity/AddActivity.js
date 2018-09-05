@@ -44,20 +44,20 @@ export default class AddActivity extends Component {
     event.preventDefault();
     this.setState({
       activeTab: type,
-    })
+    });
   };
 
   onSubjectChange = event => {
-    this.setState({ subject: event.target.value })
+    this.setState({ subject: event.target.value });
   };
 
   onInputPick = (value, field) => {
-    this.setState({ [field]: value })
+    this.setState({ [field]: value });
   };
 
   onDeleteClick = (e, field) => {
     e.preventDefault();
-    this.setState({ [field]: "" })
+    this.setState({ [field]: "" });
   };
 
   getActivityDateAndTime = () => {
@@ -70,7 +70,7 @@ export default class AddActivity extends Component {
     date = date.add(Math.floor(time.asMinutes()), "minutes");
     return {
       hasStartTime: true,
-      date: date._d
+      date: date._d,
     };
   };
 
@@ -91,10 +91,10 @@ export default class AddActivity extends Component {
       type: this.state.activeTab,
       subject: isBlank(this.state.subject) ? this.state.activeTab : this.state.subject,
       ...this.getDuration(),
-      ...this.getActivityDateAndTime()
+      ...this.getActivityDateAndTime(),
     };
     if (this.props.activity) {
-      activity._id = this.props.activity._id
+      activity._id = this.props.activity._id;
     }
     return activity;
   };
@@ -112,7 +112,7 @@ export default class AddActivity extends Component {
     for (let i = 0; i < amountOfDurationOptions; i++) {
       options.push({ value: minutes, text: time.format("HH:mm").toString() });
       minutes += timeIntervalMinutes;
-      time.add(timeIntervalMinutes, "minutes")
+      time.add(timeIntervalMinutes, "minutes");
     }
     return options;
   };
@@ -123,7 +123,7 @@ export default class AddActivity extends Component {
     let amountOfTimeOptions = optionsInHour * hoursInDay;
     for (let i = 0; i < amountOfTimeOptions; i++) {
       options.push({ value: moment(time), text: time.format("hh:mm A").toString() });
-      time.add(timeIntervalMinutes, "minutes")
+      time.add(timeIntervalMinutes, "minutes");
     }
     return options;
   };
@@ -138,9 +138,9 @@ export default class AddActivity extends Component {
         subject: this.props.activity.subject,
         activeTab: this.props.activity.type,
         date: date,
-        time: this.props.activity.hasStartTime ? moment().startOf("day").add(time.asMinutes(),"minutes") : "" ,
-        duration: this.props.activity.duration
-      })
+        time: this.props.activity.hasStartTime ? moment().startOf("day").add(time.asMinutes(), "minutes") : "",
+        duration: this.props.activity.duration,
+      });
     }
   };
 
@@ -182,7 +182,7 @@ export default class AddActivity extends Component {
                   enableSelectionDaysInNextAndPreviousMonths={true}
                   className={style.dateInput} />
                 <button onClick={(e) => this.onDeleteClick(e, "date")}
-                  className={style.inputButton}>
+                        className={style.inputButton}>
                   <img className={style.inputImg} src={deleteIcon} alt="del" />
                 </button>
               </div>
@@ -191,11 +191,11 @@ export default class AddActivity extends Component {
               <span className={style.dateInputSpan}>TIME</span>
               <div className={style.inputContainer}>
                 <CustomSelect className={style.dateInput}
-                  value={isBlank(this.state.time) ? "" : this.state.time.format("hh:mm A")}
-                  options={this.getTimeOptions()}
-                  onSelect={time => this.onInputPick(time, "time")} />
+                              value={isBlank(this.state.time) ? "" : this.state.time.format("hh:mm A")}
+                              options={this.getTimeOptions()}
+                              onSelect={time => this.onInputPick(time, "time")} />
                 <button onClick={(e) => this.onDeleteClick(e, "time")}
-                  className={style.inputButton}>
+                        className={style.inputButton}>
                   <img className={style.inputImg} src={deleteIcon} alt="del" />
                 </button>
               </div>
@@ -204,11 +204,11 @@ export default class AddActivity extends Component {
               <span className={style.dateInputSpan}>DURATION</span>
               <div className={style.inputContainer}>
                 <CustomSelect className={style.dateInput}
-                  value={isBlank(this.state.duration) ? "" : this.formatDurationValue()}
-                  options={this.getDurationOptions()}
-                  onSelect={duration => this.onInputPick(duration, "duration")} />
+                              value={isBlank(this.state.duration) ? "" : this.formatDurationValue()}
+                              options={this.getDurationOptions()}
+                              onSelect={duration => this.onInputPick(duration, "duration")} />
                 <button onClick={(e) => this.onDeleteClick(e, "duration")}
-                  className={style.inputButton}>
+                        className={style.inputButton}>
                   <img className={style.inputImg} src={deleteIcon} alt="del" />
                 </button>
               </div>
@@ -217,12 +217,12 @@ export default class AddActivity extends Component {
         </div>
         <div className={style.footer}>
           <button onClick={this.props.onCancel}
-            className={style.cancelButton}>
+                  className={style.cancelButton}>
             <span>Cancel</span>
           </button>
           <button id="saveActivityButton"
-            onClick={() => this.props.onSave(activity)}
-            className={style.buttonSave}>
+                  onClick={() => this.props.onSave(activity)}
+                  className={style.buttonSave}>
             <span>Save</span>
           </button>
         </div>
