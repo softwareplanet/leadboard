@@ -11,6 +11,7 @@ import * as styles from './Lead.css';
 interface Props {
   lead: LeadModel,
   link: string,
+  activityStatus: string,
 }
 
 export default class Lead extends React.Component<Props, object> {
@@ -30,7 +31,7 @@ export default class Lead extends React.Component<Props, object> {
           </Link>
           <div className={styles.imgContainer}>
             <a className={styles.iconStatus}>
-              <img src={this.getStatusIcon('Without')}/>
+              <img src={this.getStatusIcon(this.props.activityStatus)}/>
             </a>
           </div>
         </div>
@@ -40,7 +41,7 @@ export default class Lead extends React.Component<Props, object> {
 
   private getStatusIcon = (status: string) => {
     switch (status) {
-      case 'Without' :
+      case 'NoActivity' :
         return warningIcon;
       case 'Overdue' :
         return overdueIcon;

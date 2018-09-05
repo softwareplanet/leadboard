@@ -131,7 +131,7 @@ export class Dashboard extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: any) => ({
-  activities: state.activities.allActivities,
+  activities: state.leads.activities,
   leads: state.leads,
 });
 

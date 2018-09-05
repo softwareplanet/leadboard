@@ -65,7 +65,7 @@ class EditLeadHistory extends React.Component {
 
 const mapStateToProps = state => {
   const notes = state.leads.editLead.lead.notes;
-  const activities = state.leads.editLead.activities.leadActivities;
+  const activities = state.leads.editLead.activities;
   return {
     notesCount: !isEmpty(notes) ? notes.length : "",
     plannedActivities: getPlannedActivities(activities),

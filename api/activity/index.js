@@ -13,7 +13,8 @@ router.get("/firstInLeadPlan", (req, res) => {
     { $match: { domain: req.user.domain, done: false } },
     { $group:
         {
-          _id: { lead: "$lead", hasStartTime: "$hasStartTime" },
+          _id: "$lead",
+          hasStartTime: { $first: "$hasStartTime" },
           date: { $min: "$date" }
         }
     }
@@ -21,9 +22,9 @@ router.get("/firstInLeadPlan", (req, res) => {
     .then(result => {
       const activities = result.map(activity => {
         return {
-          lead: activity._id.lead,
+          lead: activity._id,
           date: activity.date,
-          hasStartTime: activity._id.hasStartTime,
+          hasStartTime: activity.hasStartTime,
         }
       });
       res.json(activities);

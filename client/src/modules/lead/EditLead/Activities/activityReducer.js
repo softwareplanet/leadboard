@@ -2,34 +2,21 @@ import {
   CREATE_ACTIVITY,
   LOAD_LEAD_ACTIVITIES,
   UPDATE_ACTIVITY,
-  LOAD_FIRST_ACTIVITY_IN_LEAD_PLAN,
 } from "./types";
 
-const initialState = {
-  allActivities: [],
-  leadActivities: [],
-};
+const initialState = [];
 
 export default function (state = initialState, action) {
   switch (action.type) {
     case LOAD_LEAD_ACTIVITIES:
-      let activities = { ...state };
-      activities.leadActivities = action.payload;
-      return activities;
+      return action.payload;
     case CREATE_ACTIVITY:
-      let leadWithNewActivity = { ...state };
-      leadWithNewActivity.leadActivities.push(action.payload);
-      return leadWithNewActivity;
+      return [...state, action.payload];
     case UPDATE_ACTIVITY:
-      let leadWithUpdatedActivity = { ...state };
-      let leadActivities = leadWithUpdatedActivity.leadActivities;
-      let oldActivity = leadActivities.find(activity => activity._id === action.payload._id);
-      leadActivities.splice(leadActivities.indexOf(oldActivity), 1, action.payload);
-      return leadWithUpdatedActivity;
-    case LOAD_FIRST_ACTIVITY_IN_LEAD_PLAN:
-      let allActivities = { ...state };
-      allActivities.allActivities = action.payload;
-      return allActivities;
+      let newState = [...state];
+      let oldActivity = newState.find(activity => activity._id === action.payload._id);
+      newState.splice(newState.indexOf(oldActivity), 1, action.payload);
+      return newState;
     default:
       return state;
   }
