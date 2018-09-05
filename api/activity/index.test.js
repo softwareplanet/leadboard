@@ -3,13 +3,16 @@ import request from "supertest";
 import express from "../../express";
 import routes from "..";
 import {
-  dropTables,
-  createUserAndDomain,
   createActivity,
-  createLead,
+  createContact,
   createFunnel,
+  createLead,
+  createOrganization,
   createStage,
+  createUserAndDomain,
+  dropTables,
 } from "../../test/db-prepare";
+import mongoose from "mongoose";
 
 const app = () => express(routes);
 
@@ -68,12 +71,104 @@ describe("Activity", () => {
     });
   });
 
+  it("should fail to update activity with invalid data", async () => {
+    const activity = await createActivity(app, cred.token, "Call", "Call Jack", Date.now(), 15);
+    const { status, body } = await request(app())
+      .patch(`/api/activity/${activity._id}`)
+      .set("Authorization", cred.token)
+      .send({
+        type: "",
+        subject: "",
+        duration: "",
+        assignedTo: "",
+        lead: "",
+        participants: "",
+        organization: "",
+        createdBy: "",
+      });
+    expect(status).toBe(400);
+    expect(body).toMatchObject({
+      errors: {
+        type: "Type cannot be empty",
+        subject: "Subject cannot be empty",
+        duration: "Duration must be a number and cannot be empty",
+        assignedTo: "Assigned to must be a valid object id",
+        lead: "Lead to must be a valid object id",
+        participants: "Participants must be an array",
+        organization: "Organization must be a valid object id",
+        createdBy: "Activity creator could not be changed",
+      },
+    });
+  });
+
+  it("should fail to update activity with data from other domain", async () => {
+    const otherUser = await createUserAndDomain(app, "Domain", "ther@testmail.com");
+    const organization = await createOrganization(app, otherUser.token, "Software Company");
+    const contact = await createContact(app, otherUser.token, organization._id, "Jane Smith");
+
+    const activity = await createActivity(app, cred.token, "Call", "Call Jack", Date.now(), 15);
+    const { status, body } = await request(app())
+      .patch(`/api/activity/${activity._id}`)
+      .set("Authorization", cred.token)
+      .send({
+        assignedTo: otherUser.userId,
+        organization: organization._id,
+        participants: [contact._id],
+      });
+    expect(status).toBe(400);
+    expect(body).toMatchObject({
+      errors: {
+        assignedTo: "Assigned user does not belong to your domain",
+        organization: "Organization does not belong to your domain",
+        participants: ["Participant #1 does not belong to your domain"],
+      },
+    });
+  });
+
+  it("should fail to update activity with not existing data", async () => {
+    const activity = await createActivity(app, cred.token, "Call", "Call Jack", Date.now(), 15);
+    const { status, body } = await request(app())
+      .patch(`/api/activity/${activity._id}`)
+      .set("Authorization", cred.token)
+      .send({
+        assignedTo: new mongoose.Types.ObjectId(),
+        organization: new mongoose.Types.ObjectId(),
+        participants: [new mongoose.Types.ObjectId()],
+      });
+    expect(status).toBe(400);
+    expect(body).toMatchObject({
+      errors: {
+        assignedTo: "User does not exist",
+        organization: "Organization does not exist",
+        participants: ["Participant #1 does not exist"],
+      },
+    });
+  });
+
   it("should mark activity as done", async () => {
-    activity.done = true;
     const { body } = await request(app())
       .patch(`/api/activity/${activity._id}`)
       .set("Authorization", cred.token)
-      .send(activity);
+      .send({ done: true });
     expect(body.done).toEqual(true);
+  });
+
+  it("should update activity valid data", async () => {
+    const activity = await createActivity(app, cred.token, "Call", "Call Jack", Date.now(), 15);
+    const newOrganization = await createOrganization(app, cred.token, "Positive Software");
+    const newContact = await createContact(app, cred.token, newOrganization, "James");
+    const updates = {
+      type: "Meeting",
+      subject: "Meet with James",
+      duration: 120,
+      organization: newOrganization._id,
+      participants: [newContact._id],
+    };
+    const { status, body } = await request(app())
+      .patch(`/api/activity/${activity._id}`)
+      .set("Authorization", cred.token)
+      .send(updates);
+    expect(body).toMatchObject(updates);
+    expect(status).toBe(200);
   });
 });

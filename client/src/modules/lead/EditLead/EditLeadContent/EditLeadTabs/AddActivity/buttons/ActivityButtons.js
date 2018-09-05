@@ -10,7 +10,7 @@ const activityButtons = (props) => {
       <ButtonWithImg
         key={button.type}
         className={button.type === props.activeButton ? props.activeClassName : props.buttonsClassName}
-        onClick={e => props.onButtonClick(e, button.type)}
+        onClick={() => props.onButtonClick(button.type)}
         textClassName={props.textClassName}
         imgClassName={props.imgClassName}
         src={button.icon}
