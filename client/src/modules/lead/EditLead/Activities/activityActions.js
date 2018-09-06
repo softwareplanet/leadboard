@@ -57,7 +57,6 @@ export const deleteActivity = (activity) => dispatch => {
     });
 };
 
-
 export function loadLeadActivitiesAction(data) {
   return {
     type: LOAD_LEAD_ACTIVITIES,

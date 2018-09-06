@@ -102,7 +102,6 @@ class Activity extends React.Component<Props, State> {
     }
   };
 
-
   private closeModal = () => {
     this.setState({
       isModalOpen: false,
