@@ -21,6 +21,7 @@ describe('DASHBOARD component', () => {
           { _id: '3456465474h5j', name: 'Lead' },
           { _id: '3456465474h5', name: 'Lead2' },
           { _id: '3456465474j', name: 'Lead3' },
+          { _id: '3456465474hrt567', name: 'Lead4' }
         ],
       },
     },
@@ -32,7 +33,14 @@ describe('DASHBOARD component', () => {
     ],
   };
   const activities = [
-    { lead: '5b8fc932d19421617725d41b', date: '2018-09-02 00:00:00.000', hasStartTime: false },
+    { lead: '3456465474h5j', date: '2018-09-20 00:00:00.000', hasStartTime: false },
+    { lead: '3456465474h5j', date: '2018-09-19 00:00:00.000', hasStartTime: false },
+
+    { lead: '3456465474h5', date: new Date(), hasStartTime: false },
+    { lead: '3456465474h5', date: '2018-09-15 00:00:00.000', hasStartTime: false },
+
+    { lead: '3456465474j', date: '2018-09-02 00:00:00.000', hasStartTime: false },
+    { lead: '3456465474j', date: '2018-09-25 00:00:00.000', hasStartTime: false },
   ];
 
   let wrapper: any;
@@ -55,7 +63,23 @@ describe('DASHBOARD component', () => {
   });
 
   it('check if user have leads in stages it should been rendered Lead components', () => {
-    expect(wrapper.find(Lead)).toHaveLength(3);
+    expect(wrapper.find(Lead)).toHaveLength(4);
+  });
+
+  it('check if lead have planned activity', () => {
+    expect(wrapper.find(Lead).at(0).props().activityStatus).toEqual('Planned');
+  });
+
+  it('check if lead have active activity', () => {
+    expect(wrapper.find(Lead).at(1).props().activityStatus).toEqual('Active');
+  });
+
+  it('check if lead have overdue activity', () => {
+    expect(wrapper.find(Lead).at(2).props().activityStatus).toEqual('Overdue');
+  });
+
+  it('check if lead have no activities', () => {
+    expect(wrapper.find(Lead).at(3).props().activityStatus).toEqual('NoActivity');
   });
 
   it('check if user don\'t have lead component it should been rendered a funnel by invocation createEmptyLeadCards method', () => {
