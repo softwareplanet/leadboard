@@ -15,20 +15,21 @@ const peopleRoute = '/people';
 
 interface Props extends RouteComponentProps<any> {
   auth: any;
+
   logoutUser(history: any): void;
 }
 
 interface State {
-  dropdownOpen: boolean;
+  isDropdownOpen: boolean;
 }
 
 class Navbar extends React.Component<Props, State> {
-  public componentWillMount = () => {
-    this.setState({ dropdownOpen: false });
+  public state: State = {
+    isDropdownOpen: false,
   };
 
   public toggle = () => {
-    this.setState({ dropdownOpen: !this.state.dropdownOpen });
+    this.setState({ isDropdownOpen: !this.state.isDropdownOpen });
   };
 
   public renderUserAvatar = () => {
@@ -43,6 +44,7 @@ class Navbar extends React.Component<Props, State> {
 
   public getDealsIcon = () => {
     return this.props.location.pathname === leadsRoute ?
+
       dealsIconActive :
       dealsIcon;
   };
@@ -63,13 +65,16 @@ class Navbar extends React.Component<Props, State> {
             </div>
           </NavLink>
           <div className={this.props.location.pathname === '/people' ? styles.activeContacts : undefined}>
-            <Dropdown className={this.state.dropdownOpen ? styles.openedDropDown : styles.closedDropDown}
-                      isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+            <Dropdown
+              className={this.state.isDropdownOpen ? styles.openedDropDown : styles.closedDropDown}
+              isOpen={this.state.isDropdownOpen}
+              toggle={this.toggle}
+            >
               <DropdownToggle
                 className={styles.dropDownToggle}
                 onClick={this.toggle}
                 data-toggle="dropdown"
-                aria-expanded={this.state.dropdownOpen}
+                aria-expanded={this.state.isDropdownOpen}
               >
                 <span><ReactSVG className={styles.contactIcon} src={contactIcon} /></span>
                 <span className={styles.linkText}>Contacts</span>

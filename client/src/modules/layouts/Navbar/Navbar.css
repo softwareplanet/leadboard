@@ -216,11 +216,6 @@ ul {
   background: none;
 }
 
-.closeDropDownToggle:hover path {
-  color: white;
-  fill: white;
-}
-
 .closedDropDown {
   composes: closeDropDownToggle;
   composes: linkText;
@@ -238,7 +233,12 @@ ul {
 }
 
 .closedDropDown button:hover {
+  color: white;
   background: none;
+}
+
+.closedDropDown button:hover path {
+  fill: white;
 }
 
 .openedDropDown {
