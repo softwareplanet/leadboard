@@ -7,7 +7,7 @@ This file contains everything that must be fixed/changed/done. We didn't do that
 4. Change ":id" to ":\<model>Id" in all routes   
 5. DB migration?
 ## Client
-1. Define store as interface
+1. Define all initial reducers' states as interfaces
 2. Migrate actions and reducers to typescript
 3. Refactor EditLeadTabs
 4. Refactor styles (extract global)
