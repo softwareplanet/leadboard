@@ -87,4 +87,19 @@ describe('<EditLeadHeader />', () => {
     wrapper.find(`.${styles.buttonLost}`).simulate('click');
     expect(updateLead).toHaveBeenCalledTimes(2);
   });
+
+  it('should display badge if status is won or lost', () => {
+    updateLead = jest.fn();
+    loadLeadActivities = jest.fn();
+    const wrapper = shallow (
+      <EditLeadHeader 
+        match={match}
+        editLead={editLead} 
+        updateLead={updateLead}
+        loadLeadActivities={loadLeadActivities}
+      />
+    )
+    const closedLeadActions = wrapper.find(`.${styles.closedLeadActions}`);
+    expect(closedLeadActions).toHaveLength(1);
+  });
 });
