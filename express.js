@@ -5,7 +5,7 @@ import morgan from "morgan";
 import bodyParser from "body-parser";
 import passport from "passport";
 import { connectToMongoose } from "./mongoose";
-import path from "path"
+import path from "path";
 
 export default (routes) => {
   const app = express();
@@ -23,8 +23,8 @@ export default (routes) => {
 
   if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "/client/build")));
-    app.get('*', (req,res) =>{
-      res.sendFile(path.join(__dirname+'/client/build/index.html'));
+    app.get("*", (req, res) => {
+      res.sendFile(path.join(__dirname, "client/build/", "index.html"));
     });
     app.use(morgan("common"));
   } else {
