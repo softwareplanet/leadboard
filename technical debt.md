@@ -13,5 +13,3 @@ This file contains everything that must be fixed/changed/done. We didn't do that
 4. Refactor styles (extract global)
 5. Remove redundant requests sending on loading leads
 6. Snapshot testing
-
-
