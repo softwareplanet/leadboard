@@ -9,7 +9,7 @@ export default interface Lead {
   _id: string;
   stage: Stage;
   owner: User;
-  visibility: number;
+  visibility?: number;
   name: string;
   order: number;
   contact: Contact;

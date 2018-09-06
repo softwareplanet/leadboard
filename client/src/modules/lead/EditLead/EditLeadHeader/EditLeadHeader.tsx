@@ -1,7 +1,6 @@
 import { isEmpty }from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { RouteComponentProps } from 'react-router';
 import ownerIcon from '../../../../assets/user-icon.svg';
 import { IN_PROGRESS, LOST, WON } from '../../../../constants';
 import Lead from '../../../../models/Lead';
@@ -11,7 +10,8 @@ import * as styles from './EditLeadHeader.css';
 import EditLeadPopover from './EditLeadPopover/EditLeadPopover';
 import EditLeadStageProgress from './EditLeadStageProgress/EditLeadStageProgress';
 
-interface Props extends RouteComponentProps<{leadId: string}> {
+interface Props {
+  match: any;
   editLead: Lead;
   loadLeadActivities(leadId: string): void;
   updateLead(lead: Lead): void;

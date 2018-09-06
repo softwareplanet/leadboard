@@ -5,8 +5,8 @@ export default interface User {
   firstname: string;
   lastname: string;
   email: string;
-  password: string;
+  password?: string;
   domain: Domain;
   timestamp: Date;
-  avatar: string;
+  avatar?: string;
 }
