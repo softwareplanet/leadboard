@@ -34,14 +34,37 @@ class EditLeadHeader extends React.Component<Props, State> {
   public render() {
     const editLead = !isEmpty( this.props.editLead ) ? this.props.editLead : null;
     const statusStyle = (editLead && editLead.status === WON) ? styles.badge : styles.lostBadge;
-    const statusBadge = (
+    const closedLeadActions = (
       <div className={styles.closedLeadActions}>
         <div className={statusStyle}> 
           {editLead ? editLead.status.toUpperCase() : ''}
         </div>
-        <button className={styles.reopenButton}>Reopen</button>
+        <button 
+          className={styles.reopenButton}
+          onClick={() => this.handleStatusChange(IN_PROGRESS)} 
+        >
+          Reopen
+        </button>
       </div>
     );
+
+    const inProgressLeadActions = (
+      <div>
+        <button 
+          onClick={() => this.handleStatusChange(WON)} 
+          className={styles.button}
+        >
+          Won
+        </button>
+        <button 
+          onClick={() => this.handleStatusChange(LOST)} 
+          className={styles.buttonLost}
+        >
+          Lost
+        </button>
+      </div>
+    )
+
     return (
       <div className={styles.header}>
         <div className={styles.description}>
@@ -66,22 +89,8 @@ class EditLeadHeader extends React.Component<Props, State> {
               </div>
             </div>
 
-
-
             <div className={styles.leadActions}>
-              {editLead && editLead.status !== IN_PROGRESS ? statusBadge : ''}
-              <button 
-                onClick={() => this.handleStatusChange(WON)} 
-                className={styles.button}
-              >
-                Won
-              </button>
-              <button 
-                onClick={() => this.handleStatusChange(LOST)} 
-                className={styles.buttonLost}
-              >
-                Lost
-              </button>
+              {editLead && editLead.status !== IN_PROGRESS ? closedLeadActions : inProgressLeadActions}
             </div>
           </div>
         </div>
