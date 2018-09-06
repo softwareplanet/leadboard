@@ -13,17 +13,17 @@ import EditLeadStageProgress from './EditLeadStageProgress/EditLeadStageProgress
 interface Props {
   match: any;
   editLead: Lead;
-  loadLeadActivities(leadIs: number): void;
+  loadLeadActivities(leadId: string): void;
   updateLead(lead: Lead): void;
 }
 
 interface State {
-  popoverOpen: boolean;
+  isPopoverOpen: boolean;
 }
 
 class EditLeadHeader extends React.Component<Props, State> {
   public state: State = {
-    popoverOpen: false
+    isPopoverOpen: false
   };
 
   public componentDidMount() {
@@ -34,8 +34,11 @@ class EditLeadHeader extends React.Component<Props, State> {
   public render() {
     const editLead = !isEmpty( this.props.editLead ) ? this.props.editLead : null;
     const statusBadge = (
-      <div className={editLead && editLead.status === WON ? 
-        styles.badge : styles.lostBadge }
+      <div className={
+        (editLead && editLead.status === WON) 
+        ? styles.badge 
+        : styles.lostBadge 
+      }
       > 
         {editLead ? editLead.status.toUpperCase() : ''}
       </div>
@@ -47,10 +50,10 @@ class EditLeadHeader extends React.Component<Props, State> {
             {editLead ? editLead.name : null}
           </h4>
           <EditLeadPopover
-            onSave={this.onLeadNameSave}
-            onCancel={this.onPopoverCancel}
+            onSave={this.handleLeadNameSave}
+            onCancel={this.handlePopoverCancel}
             value={editLead ? editLead.name : null}
-            isOpen={this.state.popoverOpen}
+            isOpen={this.state.isPopoverOpen}
             target="edit-lead-header-name"
             toggle={this.togglePopover}
             title="Rename this lead:"
@@ -66,13 +69,13 @@ class EditLeadHeader extends React.Component<Props, State> {
             <div className={styles.leadActions}>
               {editLead && editLead.status !== IN_PROGRESS ? statusBadge : ''}
               <button 
-                onClick={() => this.statusChangeHandler(WON)} 
+                onClick={() => this.handleStatusChange(WON)} 
                 className={styles.button}
               >
                 Won
               </button>
               <button 
-                onClick={() => this.statusChangeHandler(LOST)} 
+                onClick={() => this.handleStatusChange(LOST)} 
                 className={styles.buttonLost}
               >
                 Lost
@@ -89,24 +92,24 @@ class EditLeadHeader extends React.Component<Props, State> {
 
   private togglePopover = () => {
     this.setState(prevState => {
-      return { popoverOpen: !prevState.popoverOpen };
+      return { isPopoverOpen: !prevState.isPopoverOpen };
     });
   };
 
-  private statusChangeHandler = (status: string) => {
+  private handleStatusChange = (status: string) => {
     const lead = this.props.editLead;
     lead.status = status;
     this.props.updateLead(lead);  
   };
 
-  private onLeadNameSave = (name: string) => {
+  private handleLeadNameSave = (name: string) => {
     const lead = this.props.editLead;
     lead.name = name;
     this.props.updateLead(lead);
     this.togglePopover();
   };
 
-  private onPopoverCancel = () => {
+  private handlePopoverCancel = () => {
     this.togglePopover();
   };
 }
