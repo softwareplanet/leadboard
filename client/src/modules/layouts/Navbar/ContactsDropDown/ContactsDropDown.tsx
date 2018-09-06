@@ -5,6 +5,7 @@ import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
 import contactIcon from '../../../../assets/contacts-icon.svg';
 import organizationIcon from '../../../../assets/organization-icon.svg';
 import * as styles from './ContactsDropDown.css';
+
 const peopleRoute = '/people';
 const organizationsRoute = '/organizations';
 
@@ -26,36 +27,37 @@ class ContactsDropDown extends React.Component<Props, State> {
 
   public render() {
     return (
-          <div className={this.props.location.pathname === '/people' ? styles.activeContacts : undefined}>
-            <Dropdown
-              className={this.state.isDropdownOpen ? styles.openedDropDown : styles.closedDropDown}
-              isOpen={this.state.isDropdownOpen}
-              toggle={this.toggle}
-            >
-              <DropdownToggle
-                className={styles.dropDownToggle}
-                onClick={this.toggle}
-                data-toggle="dropdown"
-                aria-expanded={this.state.isDropdownOpen}
-              >
-                <span><ReactSVG className={styles.contactIcon} src={contactIcon} /></span>
-                <span className={styles.linkText}>Contacts</span>
-              </DropdownToggle>
-              <DropdownMenu className={styles.dropDownMenu}>
-                <NavLink onClick={this.toggle} to={peopleRoute}>
-                  <div className={styles.menuItemDataWrapper}>
-                    <ReactSVG className={styles.peopleIcon} src={contactIcon} />People
-                  </div>
-                </NavLink>
-                <NavLink onClick={this.toggle} to={organizationsRoute}>
-                  <div className={styles.menuItemDataWrapper}>
-                    <ReactSVG className={styles.organizationIcon} src={organizationIcon} />Organizations
-                  </div>
-                </NavLink>
-              </DropdownMenu>
-            </Dropdown>
-          </div>
+      <div className={this.props.location.pathname === '/people' ? styles.activeContacts : undefined}>
+        <Dropdown
+          className={this.state.isDropdownOpen ? styles.openedDropDown : styles.closedDropDown}
+          isOpen={this.state.isDropdownOpen}
+          toggle={this.toggle}
+        >
+          <DropdownToggle
+            className={styles.dropDownToggle}
+            onClick={this.toggle}
+            data-toggle="dropdown"
+            aria-expanded={this.state.isDropdownOpen}
+          >
+            <span><ReactSVG className={styles.contactIcon} src={contactIcon} /></span>
+            <span className={styles.linkText}>Contacts</span>
+          </DropdownToggle>
+          <DropdownMenu className={styles.dropDownMenu}>
+            <NavLink onClick={this.toggle} to={peopleRoute}>
+              <div className={styles.menuItemDataWrapper}>
+                <ReactSVG className={styles.peopleIcon} src={contactIcon} />People
+              </div>
+            </NavLink>
+            <NavLink onClick={this.toggle} to={organizationsRoute}>
+              <div className={styles.menuItemDataWrapper}>
+                <ReactSVG className={styles.organizationIcon} src={organizationIcon} />Organizations
+              </div>
+            </NavLink>
+          </DropdownMenu>
+        </Dropdown>
+      </div>
     );
   }
 }
-export default  withRouter(ContactsDropDown);
+
+export default withRouter(ContactsDropDown);

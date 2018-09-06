@@ -42,7 +42,7 @@ class People extends React.Component<Props, object> {
         <NavBar />
         <p className={styles.peopleCounter}>{this.props.contacts.length} people</p>
         <Table
-          contacts={this.props.contacts}
+          data={this.props.contacts}
           columns={columns}
         />
       </div>

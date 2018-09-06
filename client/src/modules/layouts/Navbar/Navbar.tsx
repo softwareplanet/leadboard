@@ -12,6 +12,7 @@ const leadsRoute = '/home';
 
 interface Props extends RouteComponentProps<any> {
   auth: any;
+
   logoutUser(history: any): void;
 }
 
