@@ -1,1 +1,1 @@
-export const peopleCounter: string;
+export const organizationsCounter: string;

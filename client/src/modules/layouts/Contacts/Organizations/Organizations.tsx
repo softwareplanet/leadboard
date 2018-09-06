@@ -32,7 +32,7 @@ class Organizations extends React.Component<Props, object> {
     return (
       <div>
         <NavBar />
-        <p className={styles.peopleCounter}>{this.props.organizations.length} organization</p>
+        <p className={styles.organizationsCounter}>{this.props.organizations.length} organization</p>
         <Table
           data={this.props.organizations}
           columns={columns}
