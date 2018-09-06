@@ -181,63 +181,134 @@ ul {
   }
 }
 
-.closedDropDown button:hover {
-  color: white;
+.activeContacts {
+  background-color: #26292c;
+}
+
+.activeContacts path {
+  fill: white;
+}
+
+.contactIcon {
+  composes: icon;
+  float: left;
+  margin-right: 5px;
+}
+
+.peopleIcon {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 5px;
+}
+
+.linkText {
+  font-size: 14px;
+}
+
+.closeDropDownToggle {
+  font-size: 14px;
   border: none;
   background: none;
 }
 
-.openedDropDown button:hover {
-  color: black;
-  border: none;
-  background: white;
+.closeDropDownToggle:hover {
+  background: none;
 }
 
-.openedDropDown {
-  background: white;
-  border: none;
+.closeDropDownToggle:hover path {
+  color: white;
+  fill: white;
 }
 
-.openedDropDown button{
-  padding: 11px 13px;
+.closedDropDown {
+  composes: closeDropDownToggle;
+  composes: linkText;
+  padding: 5px 0px 3px 0px;
 }
 
-.dropDownToggle {
+.closedDropDown button {
   color: #b9babb;
   background: none;
   border: none;
 }
 
-.dropDownToggleOpen {
+.closedDropDown button:focus {
+  box-shadow: none;
+}
+
+.closedDropDown button:hover {
+  background: none;
+}
+
+.openedDropDown {
+  padding: 5px 0px 3px 0px;
+  font-size: 14px;
+  background: white;
   color: black;
+}
+
+.openedDropDown:active {
+  background: white;
+}
+
+.openedDropDown span {
+  color: black;
+}
+
+.openedDropDown path {
+  fill: black;
+}
+
+.openedDropDown:hover path {
+  fill: black;
+}
+
+.openedDropDown button {
   border: none;
   background: white;
 }
 
 .openedDropDown button:focus {
-  border: none;
+  font-size: 14px;
   box-shadow: none;
+  border: none;
+  color: white;
+  background: white;
+}
+
+.openedDropDown button:active {
+  font-size: 14px;
+  box-shadow: none;
+  border: none;
+  color: white;
+  background: white;
 }
 
 .dropDownMenu {
+  margin-left: -1px;
+  border-radius: 0px;
   border: none;
-  border-radius: 0;
-  margin: 0px;
-  box-shadow: 0 4px 6px grey;
+  box-shadow: 0px 2px 4px 2px #b9babb;
 }
 
-.dropDownMenu a{
-  font-size: 15px;
-  padding: 6px 80px 8px 0px;
+.dropDownMenu a {
   text-decoration: none;
   color: black;
 }
 
-.dropDownMenu a:hover {
+.menuItemDataWrapper {
+  height: 30px;
+  padding: 3px 0px 5px 10px;
+  font-size: 14px;
+}
+
+.menuItemDataWrapper:hover {
+  font-size: 14px;
   background: #317ae2;
   color: white;
 }
 
-.linkText {
-  font-size: 14px;
+.dropDownMenu div:hover path {
+  fill: white;
 }

@@ -8,6 +8,7 @@ import dealsIcon from '../../../assets/deals-icon.svg';
 import profileIcon from '../../../assets/header-profile.svg';
 import { logoutUser } from '../../auth/authActions';
 import * as styles from './Navbar.css';
+import ReactSVG from 'react-svg';
 
 const leadsRoute = '/home';
 const peopleRoute = '/people';
@@ -63,7 +64,7 @@ class Navbar extends React.Component<Props, State> {
                    src={this.getDealsIcon()} alt="leads" />Leads
             </div>
           </NavLink>
-          <div className={styles.dropDownWrapper}>
+          <div className={this.props.location.pathname === '/people' ? styles.activeContacts : undefined}>
             <Dropdown className={this.state.dropdownOpen ? styles.openedDropDown : styles.closedDropDown}
                       isOpen={this.state.dropdownOpen} toggle={this.toggle}>
               <DropdownToggle
@@ -72,13 +73,14 @@ class Navbar extends React.Component<Props, State> {
                 data-toggle="dropdown"
                 aria-expanded={this.state.dropdownOpen}
               >
-                <span><img className={styles.icon} src={contactIcon} alt="contacts" /></span>
+                <span><ReactSVG className={styles.contactIcon} src={contactIcon} /></span>
                 <span className={styles.linkText}>Contacts</span>
               </DropdownToggle>
               <DropdownMenu className={styles.dropDownMenu}>
                 <NavLink onClick={this.toggle} to={peopleRoute}>
-                  <img className={styles.icon} src={contactIcon} alt="contacts" />
-                  People
+                  <div className={styles.menuItemDataWrapper}>
+                    <ReactSVG className={styles.peopleIcon} src={contactIcon} />People
+                  </div>
                 </NavLink>
               </DropdownMenu>
             </Dropdown>

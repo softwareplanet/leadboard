@@ -19,4 +19,7 @@ export const closedDropDown: string;
 export const openedDropDown: string;
 export const dropDownMenu: string;
 export const linkText: string;
-export const dropDownWrapper: string;
+export const contactIcon: string;
+export const menuItemDataWrapper: string;
+export const activeContacts: string;
+export const peopleIcon: string;
