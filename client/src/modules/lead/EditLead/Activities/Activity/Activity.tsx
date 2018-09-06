@@ -57,6 +57,7 @@ class Activity extends React.Component<Props, State> {
                 <PopoverBody className={styles.popover}>
                   <ul className={styles.list}>
                     <li className={styles.listElement} onClick={this.onEditClick}>Edit</li>
+                    <li className={styles.listElement}>Delete</li>
                   </ul>
                 </PopoverBody>
               </Popover>
