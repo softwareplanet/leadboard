@@ -6,14 +6,14 @@ import { groupBy } from "./arrayUtils";
 import { renderTemplate } from "./emailTemplate";
 import path from "path";
 
-const defaultTimezone = "Etc/UTC";
-const activitiesInterval = 15;
-const activitiesCheckStartHour = 5;
-const activitiesCheckStartHour = 20;
-const workWeekStartDay = 1;
-const workWeekEndDay = 5;
-const dailyMailingHour = 2;
-const dailyMailingMinute = 0;
+const DEFAULT_TIMEZONE = "Etc/UTC";
+const ACTIVITIES_INTERVAL = 15;
+const ACTIVITIES_CHECK_START_HOUR = 5;
+const ACTIVITIES_CHECK_END_HOUR = 20;
+const WORK_WEEK_START_DAY = 1;
+const WORK_WEEK_END_DAY = 5;
+const DAILY_MAILING_HOUR = 2;
+const DAILY_MAILING_MINUTE = 0;
 
 
 let mailgunAPI = process.env.MAILGUN_API_KEY;
@@ -23,11 +23,11 @@ let host = process.env.HOST || `http://localhost:${process.env.PORT || 3000}`;
 
 export const getActivitiesForToday = () => {
   let today = moment.utc().startOf("day");
-  let tomorrow = moment.utc(today).endOf("day");
+  let endOfCurrentDay = moment.utc(today).endOf("day");
   return Activity.find({
     date: {
       $gte: today.toDate(),
-      $lt: tomorrow.toDate()
+      $lt: endOfCurrentDay.toDate()
     },
     done: false,
   }).populate(Activity.populates.basic)
@@ -35,7 +35,7 @@ export const getActivitiesForToday = () => {
 
 export const getNextActivities = () => {
   let currentTime = moment.utc();
-  let endTime = moment.utc(currentTime).add(activitiesInterval, "minutes");
+  let endTime = moment.utc(currentTime).add(ACTIVITIES_INTERVAL, "minutes");
   return Activity.find({
     date: {
       $gte: currentTime.toDate(),
@@ -117,16 +117,16 @@ const mailSender = (userEmail, subject, html, icons) => {
 };
 
 const dailyScheduler = job => {
-  moment.tz.setDefault(defaultTimezone);
+  moment.tz.setDefault(DEFAULT_TIMEZONE);
   let rule = new schedule.RecurrenceRule();
-  rule.dayOfWeek = [new schedule.Range(workWeekStartDay, workWeekEndDay)];
-  rule.hour = dailyMailingHour;
-  rule.minute = dailyMailingMinute;
+  rule.dayOfWeek = [new schedule.Range(WORK_WEEK_START_DAY, WORK_WEEK_END_DAY)];
+  rule.hour = DAILY_MAILING_HOUR;
+  rule.minute = DAILY_MAILING_MINUTE;
 
   schedule.scheduleJob(rule, job);
 };
 
-export const setDailyMailing = () => {
+export const addDailyMailing = () => {
   dailyScheduler(() => {
     console.log("Daily mailing");
     getActivitiesForToday().then(activities => {
@@ -141,16 +141,16 @@ export const setDailyMailing = () => {
 };
 
 export const duringDayScheduler = job => {
-  moment.tz.setDefault(defaultTimezone);
+  moment.tz.setDefault(DEFAULT_TIMEZONE);
   let rule = new schedule.RecurrenceRule();
-  rule.dayOfWeek = [new schedule.Range(workWeekStartDay, workWeekEndDay)];
-  rule.hour = [new schedule.Range(activitiesCheckStartHour, activitiesCheckEndHour)];
-  rule.minute = [new schedule.Range(0, 59, activitiesInterval)];
+  rule.dayOfWeek = [new schedule.Range(WORK_WEEK_START_DAY, WORK_WEEK_END_DAY)];
+  rule.hour = [new schedule.Range(ACTIVITIES_CHECK_START_HOUR, ACTIVITIES_CHECK_END_HOUR)];
+  rule.minute = [new schedule.Range(0, 59, ACTIVITIES_INTERVAL)];
 
   schedule.scheduleJob(rule, job);
 };
 
-export const setDuringDayMailing = () => {
+export const addDuringDayMailing = () => {
   duringDayScheduler(() => {
     console.log(`During day mailing: ${moment().utc().format("MMMM Do YYYY, h:mm:ss a")}`);
     getNextActivities().then(activities => {
@@ -170,9 +170,9 @@ export const setDuringDayMailing = () => {
 
 
 export const runNotificationService = () => {
-  if (mailgunAPI && mailgunDomain) {
-    setDailyMailing();
-    setDuringDayMailing();
+  if(mailgunAPI && mailgunDomain && mailgunFrom) {
+    addDailyMailing();
+    addDuringDayMailing();
     console.log("Notification service running")
   } else {
     console.log("Notification service disabled")
