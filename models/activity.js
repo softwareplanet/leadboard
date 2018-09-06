@@ -23,7 +23,7 @@ const activitySchema = new mongoose.Schema({
 });
 
 const basicPopulates = [
-  { path: "assignedTo"},
+  { path: "assignedTo", populate: {path: "domain"}},
   { path: "lead"},
 ];
 

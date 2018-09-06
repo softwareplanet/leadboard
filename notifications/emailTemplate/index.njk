@@ -1,106 +1,105 @@
 {% extends "parts/_template.njk" %} 
 
-{% macro chooseIcon(type) %}
-
-{% set callIcon = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABHNCSVQICAgIfAhkiAAABDxJREFUaIHtmMtvG1UUxr9zrx/k0djj8UMoUZqHncYlNBUKAQRULMoCiQVqd6ypuuiqi7Lh3+iiC9h0iQQSEo9F2QUJJS0ISmKTjGkgQCXsmbFjTCo1nntYNJUS12PPJONk49/S586n79O5Mz73An369OlzkpDXhdlsNgWEL7Okc5L5y42N4te9NOYV6WVRLnd2UcnQDSFpioiiIHpRT6aFbVaKvTbYja4Bcrn8RQd0RQoKt5RmY4n0XzWr8rBH3jzRMUAud3bRAV2RktpuNQbOjQyn7m5vVxq9sdcd4VbIZrMpR9AHbuYBQBIGIs/hGny8S0HjGgAIX5aEga4KRBOnZ/LvBOjJF64BSIjzXkUiTJeefKWOH9cAilH2rCIpChl9PxBHPnHfQqRW/QgRYWFydnbmyI584t4BiWXfakrGjuTmELgG2CwW/wDx716FFLiwubF2NxBXPujwFQLQ5DteRBSosbvTuBWII590DGAYxe8cVl1fZmZ8srW1VQ3Olnc6dwBQUuGLzkt46cH66r3AHPmkWwAYRnEJrB64LnB2vw3UkU+6BgDA7IjbDrNqV3SkXAzYky88jdO2XanGtVRICJptIzERP5VertXK/wVtzgteOgAA2CwVPncUG88KcITC6qofrSDx1IE9OKVra0x0gXDwbCCIdC2WGapWy/cD9tcVPwFgWdaOrqUqEPTMvieJaV1L/mvbpvsL3wN8BQAA2zb/HknqpyTEdGvNYcwnUol/qpb1ZzD2uuM7AADUTPO+rmXGIDC6/3chiADxkpZMlI8rxKECAIBtl3/Q9cwZEA6cA4gglKKFpO5tO03OvPByTNei25ZVO4yPQwcAoAYHIvdEKDwvSByYQoUggqDzWiwzXK2WVwFw68Pj4+Na8vnR65LoXSjxlp5MJ6KR0Hqj0dg9rgCo1+vNkeGhHxEKLQiiodY6SUzHE6m5+Ejm1/3/E1Nn5hZkJHpD4MkWFIKICBORyODrCS25ZduVilcPgRzGp6amYghFPpRCjrerK9BjRvOOdJwVyPBFgN5003IcZiLx1W8bq5+iTedaCew2YWxsbGBgKH4dxPkg9Fjx2nYINyuFQscrmyNtof3U6/WmbZW/17XMaOvX6TAQUTrSxKt6IrZm23bdbV1gAfZQtl1eGUnqw+3+J/xCggYJoddiKX2jZppWuzVBBwAA1EzzZ11LPmTBc61jh28IEQbmq6b5TbtyzwYwwyguC+V81G4A9ItoYs2t1pMOPMWyrJ2qVVmKxVOCCTOC3K8p3XAYj4gf37Rte6ddvacB9uCaXSnoWvoXIjUOIs3rg47DLBm3SqV11y4e+6VsLpe/wEK8Ry0jSCuOwyzBtw2j2PHIelK3yiKXy7+BEL0NponWosN4JBV/bBiFlW5CJ3Yt/pTJfP60cPAKWMwJQpqV+gnY/axUKnkeJ/r06dPn5Pgfhy1eX+l5dKYAAAAASUVORK5CYII=" %}
-{% if type == "Call" %}
-<img src="{{ callIcon }}" style="margin: 10px;" height="20px" width="20px" />
-{% elif type == "Meeting" %}
-<img src='./images/meeting-activity.svg' height="20px" width="20px" style="margin: 10px" />
-{% elif type == "Deadline" %}
-<img src='./images/deadline-activity.svg'height="20px" width="20px" style="margin: 10px" />
-{% elif type == "Task" %}
-<img src='./images/task-activity.svg' height="20px" width="20px" style="margin: 10px" />
-{% elif type == "Email" %}
-<img src='./images/email-activity.svg' height="20px" width="20px" style="margin: 10px" />
-{% elif type == "Lunch" %}
-<img src='./images/lunch-activity.svg' height="20px" width="20px" style="margin: 10px" />
-{% else %}
-<img src='./images/call-activity.svg' height="20px" width="20px" style="margin: 5px" />
-{% endif %}
+{% macro chooseIcon(type) %} 
+  {% if type == "Call" %}
+  <img src="cid:call.png" height="20px" width="20px" style="margin: 10px"/>
+  {% elif type == "Meeting" %}
+  <img src='cid:meeting.png' height="20px" width="20px" style="margin: 10px" /> 
+  {% elif type == "Deadline" %}
+  <img src='cid:deadline.png' height="20px" width="20px" style="margin: 10px"/>
+  {% elif type == "Task" %}
+  <img src='cid:task.png' height="20px" width="20px" style="margin: 10px"/>
+  {% elif type == "Email" %}
+  <img src='cid:email.png' height="20px" width="20px" style="margin: 10px"/> 
+  {% elif type == "Lunch" %}
+  <img src='cid:lunch.png' height="20px" width="20px" style="margin: 10px" /> 
+  {% else %}
+  <img src='cid:call.png' height="20px" width="20px" style="margin: 5px" /> 
+  {% endif %}
 {% endmacro %}
 
-{% macro create(activity) %}
-{% set leadPath = "https://spg-leadboard.herokuapp.com/lead/" + activity.lead._id %}
-{% set activityTime = activity.date %}
-<div style="background-color: #f3f5f6;
-            padding: 20px;">
-    <div 
-    style="color: #222;
-           background-color: #f9fafa;
-           font-size: 17px;
-           padding: 9px 15px;
-           display: inline-block;">
-  {%  if activity.hasStartTime %}
-  {{ activityTime }}
-  {% else %}
-  ALL DAY
-  {% endif %}
+{% macro create(activity) %} 
+  {% set leadPath = "https://spg-leadboard.herokuapp.com/lead/" + activity.lead._id %} 
+  {% set activityTime = activity.time %}
+  <div style="background-color: #f3f5f6;
+              padding: 20px;">
+  <div style="color: #222;
+                background-color: #f9fafa;
+                font-size: 17px;
+                padding: 9px 15px;
+                display: inline-block;">
+    {% if activity.hasStartTime %} 
+      {{ activityTime }} 
+    {% else %} 
+      ALL DAY 
+    {% endif %}
   </div>
-    <div style="padding:20px; background-color: #fff;">
+  <div style="padding:20px; background-color: #fff;">
     <div style="height:40px;
-         width:40px; 
-         background-color: #e0e4e7;
-         border-radius: 100%;
-         float: left;">
-  {{ chooseIcon(activity.type) }}
-  </div>
-      <div style="margin-left: 60px;
-                  font-size: 18px;
-                  font-family: HelveticaNeue,Segoe UI,Arial;
-                  padding: 0;">
-      <a href="#" style="text-decoration:none;  color: #3d4145;">
-    {{ activity.subject }}</a><br>
+                width:40px; 
+                background-color: #e0e4e7;
+                border-radius: 100%;
+                float: left;">
+      {{ chooseIcon(activity.type) }}
+    </div>
+    <div style="margin-left: 60px;
+                font-size: 18px;
+                font-family: HelveticaNeue,Segoe UI,Arial;
+                padding: 0;">
+      <a href="#" style="text-decoration:none; color: #3d4145;">
+        {{ activity.subject }}</a><br>
       <div style="text-decoration: none;
                   color: #727272; 
                   font-size:16px;">
-  {{ activity.assignedTo.firstname }} {{activity.assignedTo.lastname}} · {{ activity.organization.name }} · 
+        {{ activity.assignedTo.firstname }} 
+        {{ activity.assignedTo.lastname }} · 
+        {{ activity.organization.name }} ·
         <a style="color: #727272;text-decoration:none;" href="{{ leadPath }}">{{ activity.lead.name }}</a>
-        </div>
       </div>
     </div>
   </div>
-{% endmacro %}
+</div>
+{% endmacro %} 
 
 {% set tamplateHost = host %}
 <div style="background-color: #f3f5f6;">
-{% block main %}
-<div style="max-width: 640px;
+  {% block main %}
+  <div style="max-width: 640px;
             font-size: 18px;
             background-color: #fff;
             padding: 20px;
             margin: 0 auto;">
-  <div style="color: #3d4145;
+    <div style="color: #3d4145;
               font-family: HelveticaNeue,Segoe UI,Arial;
               font-size: 26px;
               padding-bottom: 15px;">
-  Hello, {{ user.firstname }} <br></div>
-  <div 
-  style="color: #3d4145;
+      Hello, {{ user.firstname }} <br></div>
+    <div style="color: #3d4145;
          font-family: HelveticaNeue-Light,HelveticaNeue,Arial;
          padding-bottom: 20px;">
-   Here are your current Leadboard <strong> activities:</strong></div>
-   <div style="background-color: #f3f5f6;
+      Here are your current Leadboard <strong> activities:</strong></div>
+    <div style="background-color: #f3f5f6;
                color: #222;
                padding: 20px;
                margin-bottom: 2px;">
-  {{ currentDate }}</div>
-  {% for activity in activities %}
-      {{ 
-        create(activity) 
-      }}
-    {% endfor %}
-{% include "_gotoButton.njk" %}
-</div>
-<div style="max-width: 640px;
+      {{ currentDate }}</div>
+    {% for activity in activities %} 
+      {{ create(activity) }} 
+    {% endfor %} 
+    {% include "_gotoButton.njk" %}
+  </div>
+  <div style="max-width: 640px;
      padding: 60px 0px 20px 0px;
      text-align: center;
      margin: 0 auto;
      font-size: 14px;
      color: #3d4145;">
-  Copyright © 2018 
-  <a style="color: #4bc465;
+    Copyright © 2018
+    <a style="color: #4bc465;
             text-decoration: none;" 
-     href="{{ tamplateHost }}">Leadboard</a> by Software Planet Group Ltd.</div>
-{% endblock %}
+            href="{{ tamplateHost }}">
+    Leadboard
+    </a> 
+    by Software Planet Group Ltd.</div>
+  {% endblock %}
 </div>
