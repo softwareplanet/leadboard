@@ -14,7 +14,6 @@ interface Props {
   match: any;
   editLead: Lead;
   loadLeadActivities(leadIs: number): void;
-  loadLead(leadId: number): void;
   updateLead(lead: Lead): void;
 }
 
@@ -30,7 +29,6 @@ class EditLeadHeader extends React.Component<Props, State> {
   public componentDidMount() {
     const leadId = this.props.match.params.leadId;
     this.props.loadLeadActivities(leadId);
-    this.props.loadLead(leadId);
   }
 
   public render() {
