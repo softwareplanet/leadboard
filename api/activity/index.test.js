@@ -171,4 +171,55 @@ describe("Activity", () => {
     expect(body).toMatchObject(updates);
     expect(status).toBe(200);
   });
+
+  it("should delete activity", async () => {
+    const activity = await createActivity(app, cred.token, "Call", "Call Jack", Date.now(), 15, lead._id);
+    const { status } = await request(app())
+      .delete(`/api/activity/${activity._id}`)
+      .set("Authorization", cred.token)
+      .send({});
+    expect(status).toEqual(204);
+  });
+
+  it("should fail to delete not existing activity", async () => {
+    const { body, status } = await request(app())
+      .delete(`/api/activity/${new mongoose.Types.ObjectId()}`)
+      .set("Authorization", cred.token)
+      .send({});
+    expect(status).toEqual(404);
+    expect(body).toMatchObject({
+      errors: {
+        message: "Activity with provided id is not found in your domain",
+      },
+    });
+  });
+
+  it("should fail to delete activity from other domain", async () => {
+    const otherUser = await createUserAndDomain(app, "Other company", "totallydifferent@example.com");
+
+    const { body, status } = await request(app())
+      .delete(`/api/activity/${activity._id}`)
+      .set("Authorization", otherUser.token)
+      .send({});
+    expect(status).toEqual(404);
+    expect(body).toMatchObject({
+      errors: {
+        message: "Activity with provided id is not found in your domain",
+      },
+    });
+  });
+
+  it("should return error when activity id is not valid", async () => {
+    const wrongId = "Some random string";
+    const { body, status } = await request(app())
+      .delete(`/api/activity/${wrongId}`)
+      .set("Authorization", cred.token)
+      .send({});
+    expect(status).toEqual(404);
+    expect(body).toMatchObject({
+      errors: {
+        message: "Provided activity's id is not valid",
+      },
+    });
+  });
 });
