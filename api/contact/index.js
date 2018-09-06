@@ -9,14 +9,14 @@ const router = new Router();
 // @desc Return all contacts that have name field
 // @access Private
 router.get("/", (req, res) => {
-  Contact.find({ domain: req.user.domain, name: {$exists: true} }, "name")
+  Contact.find({ domain: req.user.domain, name: { $exists: true } })
     .populate("organization", "_id name")
     .then(contacts => {
-      res.json(contacts)
+      res.json(contacts);
     })
     .catch(error => {
-      res.status(400).json({ errors: {message: error} })
-    })
+      res.status(400).json({ errors: { message: error } });
+    });
 });
 
 // @route   POST api/contact
