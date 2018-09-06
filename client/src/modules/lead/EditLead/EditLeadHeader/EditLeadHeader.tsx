@@ -35,8 +35,11 @@ class EditLeadHeader extends React.Component<Props, State> {
     const editLead = !isEmpty( this.props.editLead ) ? this.props.editLead : null;
     const statusStyle = (editLead && editLead.status === WON) ? styles.badge : styles.lostBadge;
     const statusBadge = (
-      <div className={statusStyle}> 
-        {editLead ? editLead.status.toUpperCase() : ''}
+      <div className={styles.closedLeadActions}>
+        <div className={statusStyle}> 
+          {editLead ? editLead.status.toUpperCase() : ''}
+        </div>
+        <button className={styles.reopenButton}>Reopen</button>
       </div>
     );
     return (
@@ -62,6 +65,9 @@ class EditLeadHeader extends React.Component<Props, State> {
                 <small className={styles.ownerRole}>Owner</small>
               </div>
             </div>
+
+
+
             <div className={styles.leadActions}>
               {editLead && editLead.status !== IN_PROGRESS ? statusBadge : ''}
               <button 
