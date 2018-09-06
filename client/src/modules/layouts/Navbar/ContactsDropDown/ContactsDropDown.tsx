@@ -2,10 +2,11 @@ import * as React from 'react';
 import { NavLink, RouteComponentProps, withRouter } from 'react-router-dom';
 import ReactSVG from 'react-svg';
 import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
-import contactIcon from '../../../assets/contacts-icon.svg';
-import * as styles from './Navbar.css';
-
+import contactIcon from '../../../../assets/contacts-icon.svg';
+import organizationIcon from '../../../../assets/organization-icon.svg';
+import * as styles from './ContactsDropDown.css';
 const peopleRoute = '/people';
+const organizationsRoute = '/organizations';
 
 interface Props extends RouteComponentProps<any> {
 }
@@ -44,6 +45,11 @@ class ContactsDropDown extends React.Component<Props, State> {
                 <NavLink onClick={this.toggle} to={peopleRoute}>
                   <div className={styles.menuItemDataWrapper}>
                     <ReactSVG className={styles.peopleIcon} src={contactIcon} />People
+                  </div>
+                </NavLink>
+                <NavLink onClick={this.toggle} to={organizationsRoute}>
+                  <div className={styles.menuItemDataWrapper}>
+                    <ReactSVG className={styles.organizationIcon} src={organizationIcon} />Organizations
                   </div>
                 </NavLink>
               </DropdownMenu>
