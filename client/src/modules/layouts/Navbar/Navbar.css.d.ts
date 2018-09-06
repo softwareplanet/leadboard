@@ -14,7 +14,6 @@ export const userInfo: string;
 export const userIcon: string;
 export const defaultImgContainer: string;
 export const dropDownToggle: string;
-export const dropDownToggleOpen: string;
 export const closedDropDown: string;
 export const openedDropDown: string;
 export const dropDownMenu: string;

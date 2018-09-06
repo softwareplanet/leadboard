@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, NavLink, RouteComponentProps, withRouter } from 'react-router-dom';
+import ReactSVG from 'react-svg';
 import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
 import contactIcon from '../../../assets/contacts-icon.svg';
 import dealsIconActive from '../../../assets/deals-icon-active.svg';
@@ -8,14 +9,12 @@ import dealsIcon from '../../../assets/deals-icon.svg';
 import profileIcon from '../../../assets/header-profile.svg';
 import { logoutUser } from '../../auth/authActions';
 import * as styles from './Navbar.css';
-import ReactSVG from 'react-svg';
 
 const leadsRoute = '/home';
 const peopleRoute = '/people';
 
 interface Props extends RouteComponentProps<any> {
   auth: any;
-
   logoutUser(history: any): void;
 }
 
@@ -24,7 +23,6 @@ interface State {
 }
 
 class Navbar extends React.Component<Props, State> {
-
   public componentWillMount = () => {
     this.setState({ dropdownOpen: false });
   };
@@ -68,7 +66,7 @@ class Navbar extends React.Component<Props, State> {
             <Dropdown className={this.state.dropdownOpen ? styles.openedDropDown : styles.closedDropDown}
                       isOpen={this.state.dropdownOpen} toggle={this.toggle}>
               <DropdownToggle
-                className={this.state.dropdownOpen ? styles.dropDownToggleOpen : styles.dropDownToggle}
+                className={styles.dropDownToggle}
                 onClick={this.toggle}
                 data-toggle="dropdown"
                 aria-expanded={this.state.dropdownOpen}
