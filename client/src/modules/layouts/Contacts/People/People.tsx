@@ -7,7 +7,8 @@ import Table from '../../../../modules/common/Table/Table';
 import * as styles from './People.css';
 
 interface Props {
-  contacts:Contact[];
+  contacts: Contact[];
+
   loadContacts(): object;
 }
 
