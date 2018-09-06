@@ -1,6 +1,7 @@
 import { isEmpty }from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { RouteComponentProps } from 'react-router';
 import ownerIcon from '../../../../assets/user-icon.svg';
 import { IN_PROGRESS, LOST, WON } from '../../../../constants';
 import Lead from '../../../../models/Lead';
@@ -10,8 +11,11 @@ import * as styles from './EditLeadHeader.css';
 import EditLeadPopover from './EditLeadPopover/EditLeadPopover';
 import EditLeadStageProgress from './EditLeadStageProgress/EditLeadStageProgress';
 
-interface Props {
-  match: any;
+interface MatchParams {
+  leadId: string;
+}
+
+interface Props extends RouteComponentProps<MatchParams> {
   editLead: Lead;
   loadLeadActivities(leadId: string): void;
   updateLead(lead: Lead): void;
@@ -33,12 +37,9 @@ class EditLeadHeader extends React.Component<Props, State> {
 
   public render() {
     const editLead = !isEmpty( this.props.editLead ) ? this.props.editLead : null;
+    const statusStyle = (editLead && editLead.status === WON) ? styles.badge : styles.lostBadge 
     const statusBadge = (
-      <div className={
-        (editLead && editLead.status === WON) 
-        ? styles.badge 
-        : styles.lostBadge 
-      }
+      <div className={statusStyle}
       > 
         {editLead ? editLead.status.toUpperCase() : ''}
       </div>
