@@ -72,7 +72,7 @@ describe("Activity", () => {
   });
 
   it("should fail to update activity with invalid data", async () => {
-    const activity = await createActivity(app, cred.token, "Call", "Call Jack", Date.now(), 15);
+    const activity = await createActivity(app, cred.token, "Call", "Call Jack", Date.now(), 15, lead._id);
     const { status, body } = await request(app())
       .patch(`/api/activity/${activity._id}`)
       .set("Authorization", cred.token)
@@ -106,7 +106,7 @@ describe("Activity", () => {
     const organization = await createOrganization(app, otherUser.token, "Software Company");
     const contact = await createContact(app, otherUser.token, organization._id, "Jane Smith");
 
-    const activity = await createActivity(app, cred.token, "Call", "Call Jack", Date.now(), 15);
+    const activity = await createActivity(app, cred.token, "Call", "Call Jack", Date.now(), 15, lead._id);
     const { status, body } = await request(app())
       .patch(`/api/activity/${activity._id}`)
       .set("Authorization", cred.token)
@@ -126,7 +126,7 @@ describe("Activity", () => {
   });
 
   it("should fail to update activity with not existing data", async () => {
-    const activity = await createActivity(app, cred.token, "Call", "Call Jack", Date.now(), 15);
+    const activity = await createActivity(app, cred.token, "Call", "Call Jack", Date.now(), 15, lead._id);
     const { status, body } = await request(app())
       .patch(`/api/activity/${activity._id}`)
       .set("Authorization", cred.token)
@@ -154,7 +154,7 @@ describe("Activity", () => {
   });
 
   it("should update activity valid data", async () => {
-    const activity = await createActivity(app, cred.token, "Call", "Call Jack", Date.now(), 15);
+    const activity = await createActivity(app, cred.token, "Call", "Call Jack", Date.now(), 15, lead._id);
     const newOrganization = await createOrganization(app, cred.token, "Positive Software");
     const newContact = await createContact(app, cred.token, newOrganization, "James");
     const updates = {
