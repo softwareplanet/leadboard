@@ -11,7 +11,7 @@ const activitiesCheckStartHour = 5;
 const activitiesCheckEndHour = 20;
 const workWeekStartDay = 1;
 const workWeekEndDay = 5;
-const dailyMailingHour = 9;
+const dailyMailingHour = 2;
 const dailyMailingMinute = 0;
 
 let mailgunAPI = process.env.MAILGUN_API_KEY;
@@ -69,8 +69,8 @@ const mailCreator = (activities) => {
     });
 
     mailing.push({
-      user: user.email,
-      email: renderTemplate({
+      address: user.email,
+      html: renderTemplate({
         activities: activities,
         user: user,
         currentDate: moment().tz(domainTimezone).format("dddd, MMM Do, YYYY").toUpperCase(),
@@ -114,9 +114,9 @@ export const setDailyMailing = () => {
     getActivitiesForToday().then(activities => {
       let mails = mailCreator(activities);
       mails.forEach(email => {
-        mailSender(email.user,"Activity reminder", email.email)
-          .then(res => console.log(`[${email.user}] massage: ${res.message} id: ${res.id}`))
-          .catch(err => console.error(`[${email.user}]error: ` + err))
+        mailSender(email.address,"Activity reminder", email.html)
+          .then(res => console.log(`[${email.address}] massage: ${res.message} id: ${res.id}`))
+          .catch(err => console.error(`[${email.address}]error: ` + err))
       })
     }).catch(error => console.error("error: " + error))
   });
@@ -139,9 +139,9 @@ export const setDuringDayMailing = () => {
       if(activities.length !== 0) {
         let mails = mailCreator(activities);
         mails.forEach(email => {
-          mailSender(email.user,"Activity reminder", email.email)
-            .then(res => console.log(`[${email.user}] massage: ${res.message} id: ${res.id}`))
-            .catch(err => console.error(`[${email.user}] error: ` + err))
+          mailSender(email.address,"Activity reminder", email.html)
+            .then(res => console.log(`[${email.address}] massage: ${res.message} id: ${res.id}`))
+            .catch(err => console.error(`[${email.address}] error: ` + err))
         })
       } else {
         console.log("No activities")
