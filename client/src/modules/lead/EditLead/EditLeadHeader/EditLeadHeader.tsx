@@ -11,11 +11,7 @@ import * as styles from './EditLeadHeader.css';
 import EditLeadPopover from './EditLeadPopover/EditLeadPopover';
 import EditLeadStageProgress from './EditLeadStageProgress/EditLeadStageProgress';
 
-interface MatchParams {
-  leadId: string;
-}
-
-interface Props extends RouteComponentProps<MatchParams> {
+interface Props extends RouteComponentProps<{leadId: string}> {
   editLead: Lead;
   loadLeadActivities(leadId: string): void;
   updateLead(lead: Lead): void;
@@ -37,10 +33,9 @@ class EditLeadHeader extends React.Component<Props, State> {
 
   public render() {
     const editLead = !isEmpty( this.props.editLead ) ? this.props.editLead : null;
-    const statusStyle = (editLead && editLead.status === WON) ? styles.badge : styles.lostBadge 
+    const statusStyle = (editLead && editLead.status === WON) ? styles.badge : styles.lostBadge;
     const statusBadge = (
-      <div className={statusStyle}
-      > 
+      <div className={statusStyle}> 
         {editLead ? editLead.status.toUpperCase() : ''}
       </div>
     );
