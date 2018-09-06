@@ -1,26 +1,38 @@
-{% extends "parts/_template.njk" %} {% macro chooseIcon(type) %} {% if type == "Call" %}
-<img src="http://leadboard.in6k.com/static/media/call-activity.69f18612.svg" height="20px" width="20px" style="margin: 10px"
-/> {% elif type == "Meeting" %}
-<img src='{{ host }}/static/media/meeting.e85144a1.svg' height="20px" width="20px" style="margin: 10px" /> {% elif type ==
-"Deadline" %}
-<img src='http://10.0.1.73:80/static/media/deadline-activity.193e36ae.svg' height="20px" width="20px" style="margin: 10px"
-/> {% elif type == "Task" %}
-<img src='https://static.pipedriveassets.com/lib/img/emails/icons/activity_task_48.png' height="20px" width="20px" style="margin: 10px"
-/> {% elif type == "Email" %}
-<img src='https://spg-leadboard.herokuapp.com/static/media/meeting.e85144a1.svg' height="20px" width="20px" style="margin: 10px"
-/> {% elif type == "Lunch" %}
-<img src='./images/lunch-activity.svg' height="20px" width="20px" style="margin: 10px" /> {% else %}
-<img src='./images/call-activity.svg' height="20px" width="20px" style="margin: 5px" /> {% endif %} {% endmacro %} {% macro
-create(activity) %} {% set leadPath = "https://spg-leadboard.herokuapp.com/lead/" + activity.lead._id %} {% set activityTime
-= activity.date %}
-<div style="background-color: #f3f5f6;
-            padding: 20px;">
+{% extends "parts/_template.njk" %} 
+
+{% macro chooseIcon(type) %} 
+  {% if type= = "Call" %}
+  <img src="http://leadboard.in6k.com/static/media/call-activity.69f18612.svg" height="20px" width="20px" style="margin: 10px"/>
+  {% elif type == "Meeting" %}
+  <img src='{{ host }}/static/media/meeting.e85144a1.svg' height="20px" width="20px" style="margin: 10px" /> 
+  {% elif type == "Deadline" %}
+  <img src='http://10.0.1.73:80/static/media/deadline-activity.193e36ae.svg' height="20px" width="20px" style="margin: 10px"/>
+  {% elif type == "Task" %}
+  <img src='https://static.pipedriveassets.com/lib/img/emails/icons/activity_task_48.png' height="20px" width="20px" style="margin: 10px"/>
+  {% elif type == "Email" %}
+  <img src='https://spg-leadboard.herokuapp.com/static/media/meeting.e85144a1.svg' height="20px" width="20px" style="margin: 10px"/> 
+  {% elif type == "Lunch" %}
+  <img src='./images/lunch-activity.svg' height="20px" width="20px" style="margin: 10px" /> 
+  {% else %}
+  <img src='./images/call-activity.svg' height="20px" width="20px" style="margin: 5px" /> 
+  {% endif %}
+{% endmacro %}
+
+{% macro create(activity) %} 
+  {% set leadPath = "https://spg-leadboard.herokuapp.com/lead/" + activity.lead._id %} 
+  {% set activityTime = activity.time %}
+  <div style="background-color: #f3f5f6;
+              padding: 20px;">
   <div style="color: #222;
                 background-color: #f9fafa;
                 font-size: 17px;
                 padding: 9px 15px;
                 display: inline-block;">
-    {% if activity.hasStartTime %} {{ activityTime }} {% else %} ALL DAY {% endif %}
+    {% if activity.hasStartTime %} 
+      {{ activityTime }} 
+    {% else %} 
+      ALL DAY 
+    {% endif %}
   </div>
   <div style="padding:20px; background-color: #fff;">
     <div style="height:40px;
@@ -39,13 +51,17 @@ create(activity) %} {% set leadPath = "https://spg-leadboard.herokuapp.com/lead/
       <div style="text-decoration: none;
                   color: #727272; 
                   font-size:16px;">
-        {{ activity.assignedTo.firstname }} {{activity.assignedTo.lastname}} · {{ activity.organization.name }} ·
+        {{ activity.assignedTo.firstname }} 
+        {{activity.assignedTo.lastname}} · 
+        {{ activity.organization.name }} ·
         <a style="color: #727272;text-decoration:none;" href="{{ leadPath }}">{{ activity.lead.name }}</a>
       </div>
     </div>
   </div>
 </div>
-{% endmacro %} {% set tamplateHost = host %}
+{% endmacro %} 
+
+{% set tamplateHost = host %}
 <div style="background-color: #f3f5f6;">
   {% block main %}
   <div style="max-width: 640px;
@@ -67,7 +83,10 @@ create(activity) %} {% set leadPath = "https://spg-leadboard.herokuapp.com/lead/
                padding: 20px;
                margin-bottom: 2px;">
       {{ currentDate }}</div>
-    {% for activity in activities %} {{ create(activity) }} {% endfor %} {% include "_gotoButton.njk" %}
+    {% for activity in activities %} 
+      {{ create(activity) }} 
+    {% endfor %} 
+    {% include "_gotoButton.njk" %}
   </div>
   <div style="max-width: 640px;
      padding: 60px 0px 20px 0px;
