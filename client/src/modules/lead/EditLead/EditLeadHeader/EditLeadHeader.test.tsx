@@ -4,8 +4,9 @@ import * as React from 'react';
 import Lead from '../../../../models/Lead';
 import { EditLeadHeader } from './EditLeadHeader';
 import * as styles from './EditLeadHeader.css';
+import { LOST, IN_PROGRESS } from '../../../../constants';
 
-const editLead: Lead = {
+let editLead: Lead = {
   _id: '5b9110616ec37621e6b17bc4',
   owner: {
     _id: '5b86a96eed17641891c5011c',
@@ -58,7 +59,7 @@ const editLead: Lead = {
     }],
   },
   notes: [],
-  status: 'InProgress',
+  status: IN_PROGRESS,
   timestamp: new Date('2018-09-06T11:32:49.547Z'),
   custom: []
 };
@@ -88,9 +89,10 @@ describe('<EditLeadHeader />', () => {
     expect(updateLead).toHaveBeenCalledTimes(2);
   });
 
-  it('should display badge if status is won or lost', () => {
+  it('should display closed lead actions if status is won or lost', () => {
     updateLead = jest.fn();
     loadLeadActivities = jest.fn();
+    editLead.status = LOST;
     const wrapper = shallow (
       <EditLeadHeader 
         match={match}
