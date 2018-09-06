@@ -63,7 +63,7 @@ class EditLeadHeader extends React.Component<Props, State> {
           Lost
         </button>
       </div>
-    )
+    );
 
     return (
       <div className={styles.header}>

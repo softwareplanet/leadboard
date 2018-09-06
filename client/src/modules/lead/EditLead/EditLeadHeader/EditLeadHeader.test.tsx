@@ -34,8 +34,7 @@ let editLead: Lead = {
       timestamp: new Date('2018-08-29T14:10:54.395Z')
     },
     timestamp: new Date('2018-09-06T11:32:49.518Z'),
-    custom: [
-      {
+    custom: [{
         name: 'Phone',
         value: '',
         _id: '5b9110616ec37621e6b17bc7'
@@ -44,8 +43,7 @@ let editLead: Lead = {
         name: 'Email',
         value: '',
         _id: '5b9110616ec37621e6b17bc6'
-      }
-    ]
+      }]
   },
   organization: {
     _id: '5b7ea6477adb5755f6bbc038',
@@ -70,7 +68,7 @@ describe('<EditLeadHeader />', () => {
     params: {
       leadId: '5b86aa21ed17641891c50127'
     },
-  }
+  };
   let loadLeadActivities;
 
   it('should call updateLead after won and lost buttons click', () => {
@@ -83,7 +81,7 @@ describe('<EditLeadHeader />', () => {
         updateLead={updateLead}
         loadLeadActivities={loadLeadActivities}
       />
-    )
+    );
     wrapper.find(`.${styles.button}`).simulate('click');
     wrapper.find(`.${styles.buttonLost}`).simulate('click');
     expect(updateLead).toHaveBeenCalledTimes(2);
@@ -100,7 +98,7 @@ describe('<EditLeadHeader />', () => {
         updateLead={updateLead}
         loadLeadActivities={loadLeadActivities}
       />
-    )
+    );
     const closedLeadActions = wrapper.find(`.${styles.closedLeadActions}`);
     expect(closedLeadActions).toHaveLength(1);
   });
