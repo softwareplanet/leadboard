@@ -65,7 +65,7 @@ const mailCreator = (activities) => {
         domainTimezone = user.domain.timezone;
       }
 
-      activity.time = moment(activity.date).tz(domainTimezone).format("HH:mm A");
+      activity.time = moment(activity.date).tz(domainTimezone).format("hh:mm A");
     });
 
     mailing.push({
