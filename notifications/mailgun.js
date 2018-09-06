@@ -6,24 +6,24 @@ import { groupBy } from "./arrayUtils";
 import { renderTemplate } from "./emailTemplate";
 import path from "path";
 
-const DEFAULT_TIMEZONE = "Etc/UTC";
+const DEFAULT_TIMEZONE = "Europe/Kiev";
 const ACTIVITIES_INTERVAL = 15;
-const ACTIVITIES_CHECK_START_HOUR = 5;
+const ACTIVITIES_CHECK_START_HOUR = 7;
 const ACTIVITIES_CHECK_END_HOUR = 20;
 const WORK_WEEK_START_DAY = 1;
 const WORK_WEEK_END_DAY = 5;
-const DAILY_MAILING_HOUR = 2;
+const DAILY_MAILING_HOUR = 7;
 const DAILY_MAILING_MINUTE = 0;
 
 
 let mailgunAPI = process.env.MAILGUN_API_KEY;
 let mailgunDomain = process.env.MAILGUN_DOMAIN;
-let mailgunFrom = process.env.MAILGUN_FROM;
+let mailgunFrom = `postmaster@${mailgunDomain}`;
 let host = process.env.HOST || `http://localhost:${process.env.PORT || 3000}`;
 
 export const getActivitiesForToday = () => {
-  let today = moment.utc().startOf("day");
-  let endOfCurrentDay = moment.utc(today).endOf("day");
+  let today = moment().startOf("day");
+  let endOfCurrentDay = moment().endOf("day");
   return Activity.find({
     date: {
       $gte: today.toDate(),
@@ -34,8 +34,8 @@ export const getActivitiesForToday = () => {
 };
 
 export const getNextActivities = () => {
-  let currentTime = moment.utc();
-  let endTime = moment.utc(currentTime).add(ACTIVITIES_INTERVAL, "minutes");
+  let currentTime = moment();
+  let endTime = moment().add(ACTIVITIES_INTERVAL, "minutes");
   return Activity.find({
     date: {
       $gte: currentTime.toDate(),
@@ -54,11 +54,11 @@ const chooseIcons = (activities) => {
     { type: "Meeting", icon: path.join(__dirname, "/emailTemplate/images/meeting.png") },
     { type: "Task", icon: path.join(__dirname, "/emailTemplate/images/task.png") },
   ];
-  let result = []
+  let result = [];
   icons.map(iconObj =>
-    activities.map(activity => { if (iconObj.type === activity.type) result.push(iconObj.icon) }))
+    activities.map(activity => { if (iconObj.type === activity.type) result.push(iconObj.icon) }));
   return [...new Set(result)];
-}
+};
 
 const mailCreator = (activities) => {
   let mailing = [];
@@ -81,7 +81,7 @@ const mailCreator = (activities) => {
         domainTimezone = user.domain.timezone;
       }
 
-      activity.time = moment(activity.date).tz(domainTimezone).format("hh:mm A");
+      activity.time = moment(activity.date).tz(DEFAULT_TIMEZONE).format("hh:mm A");
     });
 
     mailing.push({
@@ -170,7 +170,7 @@ export const addDuringDayMailing = () => {
 
 
 export const runNotificationService = () => {
-  if(mailgunAPI && mailgunDomain && mailgunFrom) {
+  if(mailgunAPI && mailgunDomain) {
     addDailyMailing();
     addDuringDayMailing();
     console.log("Notification service running")
