@@ -22,7 +22,7 @@ router.get("/:id", (req, res) => {
 // @desc    Return all organizations by domain
 // @access  Private
 router.get("/", (req, res) => {
-  Organization.find({domain: req.user.domain}, "_id name")
+  Organization.find({domain: req.user.domain})
     .then(organizations => {
       res.json(organizations);
     })
