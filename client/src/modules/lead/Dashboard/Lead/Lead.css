@@ -53,6 +53,7 @@
 }
 
 .imgContainer {
+    user-select: none;
     margin: auto;
 }
 

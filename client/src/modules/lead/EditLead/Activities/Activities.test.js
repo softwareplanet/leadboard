@@ -1,10 +1,9 @@
 import "jsdom-global/register";
 import React from "react";
 import { expect } from "chai";
-import { mount } from "enzyme";
+import { shallow } from "enzyme";
 import Activities from "./Activities";
 import styles from "./Activities.css";
-import Activity from "./Activity/Activity";
 
 describe("<Activity/>", () => {
   let activities;
@@ -46,33 +45,33 @@ describe("<Activity/>", () => {
   });
 
   it("should render Activities component", () => {
-    let wrapper = mount(<Activities done={false} activities={activities} />);
+    let wrapper = shallow(<Activities done={false} activities={activities} />);
     expect(wrapper.exists()).to.equal(true);
   });
 
   it("should render timeLine with pastTimeLineBar styles", () => {
-    let wrapper = mount(<Activities done={true} activities={activities} />);
+    let wrapper = shallow(<Activities done={true} activities={activities} />);
     expect(wrapper.find(`.${styles.pastTimeLineBar}`).exists()).to.equal(true);
   });
 
   it("should render timeLine with plannedTimeLineBar styles", () => {
-    let wrapper = mount(<Activities done={false} activities={activities} />);
+    let wrapper = shallow(<Activities done={false} activities={activities} />);
     expect(wrapper.find(`.${styles.plannedTimeLineBar}`).exists()).to.equal(true);
   });
 
   it("should render 2 Activity component", () => {
-    let wrapper = mount(<Activities done={false} activities={activities} />);
-    expect(wrapper.find(Activity)).to.have.length(2);
+    let wrapper = shallow(<Activities done={false} activities={activities} />);
+    expect(wrapper.find("InfoItemWrapper")).to.have.length(2);
   });
 
   it("should not render timeLineBar", () => {
-    let wrapper = mount(<Activities done={false} activities={[]} />);
+    let wrapper = shallow(<Activities done={false} activities={[]} />);
     expect(wrapper.find(`.${styles.plannedTimeLineBar}`).exists()).to.equal(false);
     expect(wrapper.find(`.${styles.pastTimeLineBar}`).exists()).to.equal(false);
   });
 
   it("should render noActivities message", () => {
-    let wrapper = mount(<Activities done={false} activities={[]} />);
+    let wrapper = shallow(<Activities done={false} activities={[]} />);
     expect(wrapper.find(`.${styles.noActivitiesMessage}`).exists()).to.equal(true);
   });
 });
