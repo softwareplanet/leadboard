@@ -15,7 +15,6 @@ const peopleRoute = '/people';
 
 interface Props extends RouteComponentProps<any> {
   auth: any;
-
   logoutUser(history: any): void;
 }
 
@@ -43,10 +42,7 @@ class Navbar extends React.Component<Props, State> {
   };
 
   public getDealsIcon = () => {
-    return this.props.location.pathname === leadsRoute ?
-
-      dealsIconActive :
-      dealsIcon;
+    return this.props.location.pathname === leadsRoute ? dealsIconActive : dealsIcon;
   };
 
   public render() {
