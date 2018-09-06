@@ -1,20 +1,20 @@
 {% extends "parts/_template.njk" %} 
 
 {% macro chooseIcon(type) %} 
-  {% if type= = "Call" %}
-  <img src="http://leadboard.in6k.com/static/media/call-activity.69f18612.svg" height="20px" width="20px" style="margin: 10px"/>
+  {% if type == "Call" %}
+  <img src="cid:call.png" height="20px" width="20px" style="margin: 10px"/>
   {% elif type == "Meeting" %}
-  <img src='{{ host }}/static/media/meeting.e85144a1.svg' height="20px" width="20px" style="margin: 10px" /> 
+  <img src='cid:meeting.png' height="20px" width="20px" style="margin: 10px" /> 
   {% elif type == "Deadline" %}
-  <img src='http://10.0.1.73:80/static/media/deadline-activity.193e36ae.svg' height="20px" width="20px" style="margin: 10px"/>
+  <img src='cid:deadline.png' height="20px" width="20px" style="margin: 10px"/>
   {% elif type == "Task" %}
-  <img src='https://static.pipedriveassets.com/lib/img/emails/icons/activity_task_48.png' height="20px" width="20px" style="margin: 10px"/>
+  <img src='cid:task.png' height="20px" width="20px" style="margin: 10px"/>
   {% elif type == "Email" %}
-  <img src='https://spg-leadboard.herokuapp.com/static/media/meeting.e85144a1.svg' height="20px" width="20px" style="margin: 10px"/> 
+  <img src='cid:email.png' height="20px" width="20px" style="margin: 10px"/> 
   {% elif type == "Lunch" %}
-  <img src='./images/lunch-activity.svg' height="20px" width="20px" style="margin: 10px" /> 
+  <img src='cid:lunch.png' height="20px" width="20px" style="margin: 10px" /> 
   {% else %}
-  <img src='./images/call-activity.svg' height="20px" width="20px" style="margin: 5px" /> 
+  <img src='cid:call.png' height="20px" width="20px" style="margin: 5px" /> 
   {% endif %}
 {% endmacro %}
 
@@ -52,7 +52,7 @@
                   color: #727272; 
                   font-size:16px;">
         {{ activity.assignedTo.firstname }} 
-        {{activity.assignedTo.lastname}} · 
+        {{ activity.assignedTo.lastname }} · 
         {{ activity.organization.name }} ·
         <a style="color: #727272;text-decoration:none;" href="{{ leadPath }}">{{ activity.lead.name }}</a>
       </div>
@@ -96,6 +96,10 @@
      color: #3d4145;">
     Copyright © 2018
     <a style="color: #4bc465;
-            text-decoration: none;" href="{{ tamplateHost }}">Leadboard</a> by Software Planet Group Ltd.</div>
+            text-decoration: none;" 
+            href="{{ tamplateHost }}">
+    Leadboard
+    </a> 
+    by Software Planet Group Ltd.</div>
   {% endblock %}
 </div>
