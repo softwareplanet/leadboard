@@ -9,7 +9,7 @@ import * as styles from './People.css';
 interface Props {
   contacts: Contact[];
 
-  loadContacts(): object;
+  loadContacts(): void;
 }
 
 const columns = [

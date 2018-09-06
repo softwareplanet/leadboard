@@ -4,7 +4,7 @@ import Contact from '../../../models/Contact';
 
 interface Props {
   contacts: Contact[];
-  columns:any[];
+  columns: any[];
 }
 
 class Table extends React.Component<Props, object> {
