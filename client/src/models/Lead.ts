@@ -3,7 +3,6 @@ import CustomField from './CustomField';
 import Note from './Note';
 import Organization from './Organization';
 import Stage from './Stage';
-import Status from './types/Status';
 import User from './User';
 
 export default interface Lead {
@@ -17,6 +16,6 @@ export default interface Lead {
   organization: Organization;
   custom: CustomField[];
   timestamp: Date;
-  status: Status;
+  status: string;
   notes: Note[];
 }
