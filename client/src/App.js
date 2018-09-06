@@ -13,7 +13,7 @@ import Footer from "./modules/layouts/Footer/Footer";
 import Login from "./modules/auth/Login/Login";
 import Registration from "./modules/auth/Registration/Registration";
 import People from "./modules/layouts/Contacts/People/People";
-
+import Organizations from "./modules/layouts/Contacts/Organizations/Organizations";
 import "./App.css";
 import { Switch } from "react-router-dom";
 import EditLead from "./modules/lead/EditLead/EditLead";
@@ -61,6 +61,13 @@ class App extends Component {
                 exact
                 path="/people"
                 component={People}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/organizations"
+                component={Organizations}
               />
             </Switch>
             <Switch>
