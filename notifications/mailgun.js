@@ -16,10 +16,10 @@ const DAILY_MAILING_HOUR = 7;
 const DAILY_MAILING_MINUTE = 0;
 
 
-let mailgunAPI = process.env.MAILGUN_API_KEY;
-let mailgunDomain = process.env.MAILGUN_DOMAIN;
-let mailgunFrom = `postmaster@${mailgunDomain}`;
-let host = process.env.HOST || `http://localhost:${process.env.PORT || 3000}`;
+const mailgunAPI = process.env.MAILGUN_API_KEY;
+const mailgunDomain = process.env.MAILGUN_DOMAIN;
+const mailgunFrom = `postmaster@${mailgunDomain}`;
+const baseURL = process.env.BASE_URL;
 
 export const getActivitiesForToday = () => {
   let today = moment().startOf("day");
@@ -81,7 +81,7 @@ const mailCreator = (activities) => {
         domainTimezone = user.domain.timezone;
       }
 
-      activity.time = moment(activity.date).tz(DEFAULT_TIMEZONE).format("hh:mm A");
+      activity.time = moment(activity.date).tz(domainTimezone).format("hh:mm A");
     });
 
     mailing.push({
@@ -90,7 +90,7 @@ const mailCreator = (activities) => {
         activities: activities,
         user: user,
         currentDate: moment().tz(domainTimezone).format("dddd, MMM Do, YYYY").toUpperCase(),
-        host: host,
+        host: baseURL,
       }),
       icons: chooseIcons(activities),
     });
@@ -170,12 +170,18 @@ export const addDuringDayMailing = () => {
 
 
 export const runNotificationService = () => {
-  if(mailgunAPI && mailgunDomain) {
+  if (mailgunAPI && mailgunDomain && baseURL && process.env.NODE_ENV === "production") {
     addDailyMailing();
     addDuringDayMailing();
-    console.log("Notification service running")
+    console.log("Notification service running");
+    return;
+  }
+
+  if (process.env.NODE_ENV === "production") {
+    throw new Error("Mailing service disabled. " +
+      "To fix this issue you should specify MAILGUN_API_KEY, MAILGUN_DOMAIN, BASE_URL as environment variables");
   } else {
-    console.log("Notification service disabled")
+    console.error("Mailing service disabled");
   }
 };
 
