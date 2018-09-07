@@ -29,6 +29,14 @@ const columns = [
     dataField: 'custom[1].value',
     text: 'Email',
   },
+  {
+    dataField:'openedLeads',
+    text:'Open leads'
+  },
+  {
+    dataField:'closedLeads',
+    text:'Closed leads',
+  }
 ];
 
 class People extends React.Component<Props, object> {

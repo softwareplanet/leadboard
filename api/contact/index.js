@@ -2,6 +2,7 @@ import { Router } from "express";
 import mongoose from "mongoose";
 import Contact from "../../models/contact";
 import { validateContactCreation, validateContactUpdate } from "../../validation/contact";
+import Organization from "../../models/organization";
 
 const router = new Router();
 
@@ -9,14 +10,62 @@ const router = new Router();
 // @desc Return all contacts that have name field
 // @access Private
 router.get("/", (req, res) => {
-  Contact.find({ domain: req.user.domain, name: { $exists: true } })
-    .populate("organization", "_id name")
-    .then(contacts => {
-      res.json(contacts);
-    })
-    .catch(error => {
-      res.status(400).json({ errors: { message: error } });
+  Contact.aggregate([
+    {
+      $lookup: {
+        from: "leads",
+        localField: "_id",
+        foreignField: "contact",
+        as: "leads",
+      },
+    },
+    {
+      $addFields: {
+        openedLeads: {
+          $filter: {
+            input: "$leads",
+            as: "lead",
+            cond: {
+              $eq: ["$$lead.status", "InProgress"],
+            },
+          },
+        },
+      },
+    },
+    {
+      $addFields: {
+        closedLeads: {
+          $filter: {
+            input: "$leads",
+            as: "lead",
+            cond: {
+              $gt: ["$$lead.status", "InProgress"],
+            },
+          },
+        },
+      },
+    },
+    {
+      $project: {
+        _id: 1,
+        name: 1,
+        organization: 1,
+        domain: 1,
+        timestamp: 1,
+        custom: 1,
+        openedLeads: { $size: "$openedLeads" },
+        closedLeads: { $size: "$closedLeads" },
+      },
+    },
+  ], (err, result) => {
+    Organization.populate(result, { path: "organization" }, (err, result) => {
+      if (err) {
+        res.status(400).json({ errors: { message: err } });
+      } else {
+        res.status(200).json(result);
+      }
     });
+  });
 });
 
 // @route   POST api/contact
