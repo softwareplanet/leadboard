@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, NavLink, RouteComponentProps, withRouter } from 'react-router-dom';
+import ReactSVG from 'react-svg';
+import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
+import contactIcon from '../../../assets/contacts-icon.svg';
 import dealsIconActive from '../../../assets/deals-icon-active.svg';
 import dealsIcon from '../../../assets/deals-icon.svg';
 import profileIcon from '../../../assets/header-profile.svg';
@@ -8,13 +11,26 @@ import { logoutUser } from '../../auth/authActions';
 import * as styles from './Navbar.css';
 
 const leadsRoute = '/home';
+const peopleRoute = '/people';
 
 interface Props extends RouteComponentProps<any> {
   auth: any;
   logoutUser(history: any): void;
 }
 
-class Navbar extends React.Component<Props, object> {
+interface State {
+  isDropdownOpen: boolean;
+}
+
+class Navbar extends React.Component<Props, State> {
+  public state: State = {
+    isDropdownOpen: false,
+  };
+
+  public toggle = () => {
+    this.setState({ isDropdownOpen: !this.state.isDropdownOpen });
+  };
+
   public renderUserAvatar = () => {
     return this.props.auth && this.props.auth.avatar ?
       <img className={styles.userImg} src={this.props.auth.avatar} alt="user" /> :
@@ -26,9 +42,7 @@ class Navbar extends React.Component<Props, object> {
   };
 
   public getDealsIcon = () => {
-    return this.props.location.pathname === leadsRoute ?
-      dealsIconActive :
-      dealsIcon;
+    return this.props.location.pathname === leadsRoute ? dealsIconActive : dealsIcon;
   };
 
   public render() {
@@ -46,6 +60,30 @@ class Navbar extends React.Component<Props, object> {
                    src={this.getDealsIcon()} alt="leads" />Leads
             </div>
           </NavLink>
+          <div className={this.props.location.pathname === '/people' ? styles.activeContacts : undefined}>
+            <Dropdown
+              className={this.state.isDropdownOpen ? styles.openedDropDown : styles.closedDropDown}
+              isOpen={this.state.isDropdownOpen}
+              toggle={this.toggle}
+            >
+              <DropdownToggle
+                className={styles.dropDownToggle}
+                onClick={this.toggle}
+                data-toggle="dropdown"
+                aria-expanded={this.state.isDropdownOpen}
+              >
+                <span><ReactSVG className={styles.contactIcon} src={contactIcon} /></span>
+                <span className={styles.linkText}>Contacts</span>
+              </DropdownToggle>
+              <DropdownMenu className={styles.dropDownMenu}>
+                <NavLink onClick={this.toggle} to={peopleRoute}>
+                  <div className={styles.menuItemDataWrapper}>
+                    <ReactSVG className={styles.peopleIcon} src={contactIcon} />People
+                  </div>
+                </NavLink>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
           <li className={styles.rightItem}>
             <div>
               {this.renderUserAvatar()}
@@ -67,7 +105,7 @@ class Navbar extends React.Component<Props, object> {
 }
 
 const mapStateToProps = (state: any) => ({
-  auth: state.auth
+  auth: state.auth,
 });
 
 export { Navbar };
