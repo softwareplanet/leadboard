@@ -34,8 +34,8 @@ const columns = [
     text: 'Closed leads',
   },
   {
-    dataField:'owner.email',
-    text:'Owner',
+    dataField: 'owner.email',
+    text: 'Owner',
   },
 ];
 
@@ -46,7 +46,7 @@ class Organizations extends React.Component<Props, object> {
 
   public render() {
     const oraganizationsCount = this.props.organizations.length;
-    if(oraganizationsCount >=1){
+    if (oraganizationsCount >= 1) {
       return (
         <div>
           <NavBar />
@@ -57,8 +57,8 @@ class Organizations extends React.Component<Props, object> {
           />
         </div>
       );
-    }else{
-      return(
+    } else {
+      return (
         <div>
           <NavBar />
           <div>
@@ -69,7 +69,7 @@ class Organizations extends React.Component<Props, object> {
           </div>
           <hr />
         </div>
-      )
+      );
     }
   }
 }

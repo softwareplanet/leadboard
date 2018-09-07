@@ -73,14 +73,14 @@ router.get("/", (req, res) => {
         domain: 1,
         timestamp: 1,
         custom: 1,
-        owner:1,
+        owner: 1,
         contacts: { $size: "$contacts" },
         openedLeads: { $size: "$openedLeads" },
         closedLeads: { $size: "$closedLeads" },
       },
     },
   ], (error, organizations) => {
-    User.populate(organizations,{path:"owner", select:"email"}, (error, organizations)=>{
+    User.populate(organizations, { path: "owner", select: "email" }, (error, organizations) => {
       if (error) {
         res.status(400).json({ errors: { message: error } });
       } else {
@@ -101,7 +101,7 @@ router.post("/", (req, res) => {
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
     domain: req.user.domain,
-    owner:req.user._id,
+    owner: req.user._id,
   });
 
   Organization.create(organization)
