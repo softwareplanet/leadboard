@@ -3,8 +3,13 @@ import styles from "./BulkEditView.css";
 import commonStyles from "../../../../../../../../styles/common.css";
 import EditFieldGroup from "../EditFieldGroup/EditFieldGroup";
 import PropTypes from "prop-types";
+import isBlank from "../../../../../../../../utils/isBlank";
 
 class BulkEditView extends Component {
+
+  state = {
+    name: "",
+  }
 
   componentDidMount() {
     this.setState({
@@ -27,7 +32,9 @@ class BulkEditView extends Component {
   };
 
   onSaveAllClicked = () => {
-    this.props.onChange(this.state);
+    if (this.isNameValid(this.state.name)) {
+      this.props.onChange(this.state);
+    }
   };
 
   getEditableFields() {
@@ -40,20 +47,28 @@ class BulkEditView extends Component {
     ];
   }
 
-  render() {
+  createFieldGroups() {
     const fields = this.getEditableFields().map(field => (
       <EditFieldGroup
         key={field.name}
         name={field.name}
         value={field.value}
+        isValid={field.name === "Name" ? this.isNameValid(this.state.name) : true}
         onChange={this.onChangeEditField}
       />
     ));
+    return fields;
+  }
 
+  isNameValid(name) {
+    return !isBlank(name);
+  }
+
+  render() {
     return (
       <div className={styles.editView}>
         <div>
-          {fields}
+          {this.createFieldGroups()}
         </div>
         <div className={styles.actions}>
           <button className={commonStyles.button}
