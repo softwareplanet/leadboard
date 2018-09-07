@@ -299,7 +299,7 @@ class AddLead extends React.Component {
 
   closeModalOnEsc = (e) => {
     if (e.keyCode === 27) {
-      if (e.target.tagName.toLowerCase() === "body" || e.target.tagName.toLowerCase() === "div") {
+      if (e.target.className !== "organization-input" && e.target.className !== "contact-input") {      
         this.closeModal();
       }
       else {
