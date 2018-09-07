@@ -1,6 +1,6 @@
 .popover {
   max-width: 100%;
-  box-shadow: 0 2px 8px 0 rgba(38,41,44,.12);
+  box-shadow: 0 2px 8px 0 rgba(38, 41, 44, .12);
 }
 
 .cardBody {
@@ -13,7 +13,7 @@
 }
 
 .filter {
-  font: 12px/16px "Open Sans",sans-serif;
+  font: 12px/16px "Open Sans", sans-serif;
   height: 32px;
   width: 100%;
   cursor: pointer;
@@ -44,11 +44,11 @@
   color: #747678;
 }
 
-.filterType:hover  {
+.filterType:hover {
   color: #000000;
 }
 
-.filterType:hover path{
+.filterType:hover path {
   fill: #000000;
 }
 
@@ -69,8 +69,8 @@
   width: 24px;
 }
 
-.filterIcon path{
-  fill:grey;
+.filterIcon path {
+  fill: grey;
 }
 
 .iconSpan {

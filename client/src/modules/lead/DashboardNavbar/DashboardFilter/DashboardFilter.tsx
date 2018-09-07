@@ -1,0 +1,86 @@
+import * as React from 'react';
+import { connect } from 'react-redux';
+import downArrowIcon from '../../../../assets/down-arrow.svg';
+import filterIcon from '../../../../assets/filter-icon.svg';
+import { IN_PROGRESS, LOST, WON } from '../../../../constants';
+import { loadLeadboard } from '../../leadActions';
+import * as styles from './DashboardFilter.css';
+import DashboardFilterPopover from './DashboardFilterPopover/DashboardFilterPopover';
+
+const filters = [
+  { text: 'Leads in progress', type: IN_PROGRESS, showCheckMark: false },
+  { text: 'All won leads', type: WON, showCheckMark: false },
+  { text: 'All lost leads', type: LOST, showCheckMark: false },
+];
+
+interface State {
+  isPopoverOpen: boolean;
+  filters: any[];
+}
+
+interface Props {
+  leads: any;
+
+  loadLeadboard(status: string): void;
+}
+
+class DashboardFilter extends React.Component<Props, State> {
+  public state = {
+    filters,
+    isPopoverOpen: false,
+  };
+
+  public componentDidMount() {
+    this.setState({
+      ...this.state,
+      filters: this.getFiltersWithShowedMark(IN_PROGRESS),
+    });
+  }
+
+  public render() {
+    return (
+      <div>
+        <button id="filter-button" className={styles.filterButton} onClick={this.togglePopover}>
+          <span className={styles.iconSpan}><img src={filterIcon} alt="Filter icon" /></span>
+          <span className={styles.filterSpan}>Filter</span>
+          <span className={styles.iconSpan}><img src={downArrowIcon} alt="Down arrow icon" /></span>
+        </button>
+        <DashboardFilterPopover
+          isOpen={this.state.isPopoverOpen}
+          toggle={this.togglePopover}
+          onFilterClick={this.onFilterClick}
+          filters={this.state.filters}
+        />
+      </div>
+    );
+  }
+
+  private togglePopover = () => {
+    this.setState(prevState => {
+      return { isPopoverOpen: !prevState.isPopoverOpen };
+    });
+  };
+
+  private getFiltersWithShowedMark = (status: string) => {
+    return filters.map(f => f.type === status ? ({ ...f, showCheckMark: true }) : f);
+  };
+
+  private onFilterClick = (status: string) => {
+    this.setState({
+      ...this.state,
+      filters: this.getFiltersWithShowedMark(status),
+    });
+    this.props.loadLeadboard(status);
+    this.togglePopover();
+  };
+
+}
+
+const mapStateToProps = (state: any) => ({
+  leads: state.leads,
+});
+
+export default connect(
+  mapStateToProps,
+  { loadLeadboard },
+)(DashboardFilter);

@@ -1,12 +1,21 @@
-import React, { Component } from "react";
-import { Popover, Card, CardHeader, CardBody, CardFooter } from "reactstrap";
-import styles from "./DashboardFilterPopover.css";
-import filterIcon from "../../../../../assets/filter-icon.svg";
-import checkMarkIcon from "../../../../../assets/checkMark.svg";
-import ReactSVG from "react-svg";
+import * as React from 'react';
+import ReactSVG from 'react-svg';
+import { Card, CardBody, CardFooter, CardHeader, Popover } from 'reactstrap';
+import checkMarkIcon from '../../../../../assets/checkMark.svg';
+import filterIcon from '../../../../../assets/filter-icon.svg';
+import * as styles from './DashboardFilterPopover.css';
 
-class DashboardFilterPopover extends Component {
-  render() {
+interface Props {
+  isOpen: boolean,
+  filters: any[]
+
+  toggle(): void,
+
+  onFilterClick(type: string): void,
+}
+
+class DashboardFilterPopover extends React.Component<Props, object> {
+  public render() {
     return (
       <Popover
         className={styles.popover}
