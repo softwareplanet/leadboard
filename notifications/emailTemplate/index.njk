@@ -61,9 +61,9 @@
                  padding: 9px 15px;
                  display: inline-block;">
     {% if activity.hasStartTime %} 
-       {{ activityTime }} 
-    {% else %} 
-          ALL DAY 
+      {{ activityTime }} 
+    {% else %}
+      ALL DAY 
     {% endif %}
   </div>
   <div style="{{ activityContent }}
@@ -79,11 +79,11 @@
         </div>
       <div style="{{ activityNames }}">
         {{ activity.assignedTo.firstname }} 
-        {{ activity.assignedTo.lastname }} · 
+        {{ activity.assignedTo.lastname }} ·
         {{ activity.organization.name }} ·
         <a style="{{ activityNames }}"
            href="{{ leadPath }}">
-          {{ activity.lead.name }}
+           {{ activity.lead.name }}
         </a>
       </div>
     </div>
@@ -112,10 +112,11 @@
                 margin-bottom: 2px;">
       {{ currentDate }}
     </div>
-    {% for activity in activities %} 
-      {{ create(activity) }} 
+    {% for activity in activities %}
+         {{ create(activity) }} 
     {% endfor %} 
     </div>
     {% include "_gotoButton.njk" %}
   </div>
   {% endblock %}
+  
