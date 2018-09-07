@@ -4,7 +4,6 @@ import {
   CREATE_ACTIVITY,
   UPDATE_ACTIVITY,
   LOAD_FIRST_ACTIVITY_IN_LEAD_PLAN,
-  UPDATE_ACTIVITY,
   DELETE_ACTIVITY,
 } from "./types";
 import { GET_ERRORS } from "../../../../actionTypes";
