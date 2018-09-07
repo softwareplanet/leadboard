@@ -48,14 +48,23 @@ class People extends React.Component<Props, object> {
     this.props.loadContacts();
   };
 
+  public getHeader = (count: number) => {
+    if (count > 1) {
+      return 'people';
+    } else {
+      return 'person';
+    }
+  };
+
   public render() {
-    const contactsLenght = this.props.contacts.length;
-    if (contactsLenght >= 1) {
+    const { contacts } = this.props;
+    const contactsCount = contacts.length;
+    if (contactsCount >= 1) {
       return (<div>
         <NavBar />
-        <p className={styles.peopleCounter}>{contactsLenght}{contactsLenght > 1 ? ' people' : ' person'}</p>
+        <p className={styles.peopleCounter}>{contactsCount} {this.getHeader(contactsCount)}</p>
         <Table
-          data={this.props.contacts}
+          data={contacts}
           columns={columns}
         />
       </div>);

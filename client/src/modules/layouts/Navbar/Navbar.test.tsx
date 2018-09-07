@@ -26,8 +26,15 @@ describe('<Navbar /> :', () => {
 
   it('should call method logoutUser user when Logout clicked', () => {
     logoutUser = jest.fn();
-    wrapper = shallow(<Navbar location={location} history={history} auth={auth} logoutUser={logoutUser}
-                              match={match} />);
+    wrapper = shallow(
+      <Navbar
+        location={location}
+        history={history}
+        auth={auth}
+        logoutUser={logoutUser}
+        match={match}
+      />,
+    );
     wrapper.find('#logout').simulate('click');
     expect(logoutUser).toHaveBeenCalledTimes(1);
   });
