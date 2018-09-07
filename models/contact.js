@@ -25,7 +25,7 @@ contactSchema.pre("save", function(next) {
 });
 
 const organizationPopulates = [{ path: "organization", select: "name" }];
-const ownerPopulates = [{ path: "owner", select: "email", }];
+const ownerPopulates = [{ path: "owner", select: "email" }];
 
 const fullPopulates = [
   ...organizationPopulates,
