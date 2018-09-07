@@ -8,15 +8,23 @@ import { loadLeadboard } from "../../leadActions";
 import { connect } from "react-redux";
 
 const filters = [
-  { text: "Leads in progress", type: IN_PROGRESS},
-  { text: "All won leads",  type: WON },
-  { text: "All lost leads", type: LOST },
+  { text: "Leads in progress", type: IN_PROGRESS, showCheckMark: false },
+  { text: "All won leads", type: WON, showCheckMark: false },
+  { text: "All lost leads", type: LOST, showCheckMark: false },
 ];
 
 class DashboardFilter extends Component {
   state = {
     isPopoverOpen: false,
+    filters,
   };
+
+  componentDidMount() {
+    this.setState({
+      ...this.state,
+      filters: this.getFiltersWithShowedMark(IN_PROGRESS),
+    })
+  }
 
   togglePopover = () => {
     this.setState(prevState => {
@@ -24,8 +32,16 @@ class DashboardFilter extends Component {
     });
   };
 
-  onFilterClick = (leadType) => {
-    this.props.loadLeadboard(leadType);
+  getFiltersWithShowedMark = (status) => {
+    return filters.map(f => f.type === status ? ({ ...f, showCheckMark: true }) : f);
+  };
+
+  onFilterClick = (status) => {
+    this.setState({
+      ...this.state,
+      filters: this.getFiltersWithShowedMark(status),
+    });
+    this.props.loadLeadboard(status);
     this.togglePopover();
   };
 
@@ -41,8 +57,9 @@ class DashboardFilter extends Component {
           isOpen={this.state.isPopoverOpen}
           target="filter-button"
           toggle={this.togglePopover}
+          showCheckMark={this.state.filter}
           onFilterClick={this.onFilterClick}
-          filters={filters}
+          filters={this.state.filters}
         />
       </div>
     );
@@ -50,10 +67,10 @@ class DashboardFilter extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  leads: state.leads
+  leads: state.leads,
 });
 
 export default connect(
   mapStateToProps,
-  { loadLeadboard }
-)(DashboardFilter)
+  { loadLeadboard },
+)(DashboardFilter);

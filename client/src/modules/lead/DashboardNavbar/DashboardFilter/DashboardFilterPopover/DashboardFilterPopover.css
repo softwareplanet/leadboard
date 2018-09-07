@@ -20,11 +20,16 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
 }
 
 .filter:hover {
   background-color: #317ae2;
   color: #fff;
+}
+
+.filter:hover path {
+  fill: #fff;
 }
 
 .filterName {
@@ -39,8 +44,12 @@
   color: #747678;
 }
 
-.filterType:hover {
+.filterType:hover  {
   color: #000000;
+}
+
+.filterType:hover path{
+  fill: #000000;
 }
 
 .bigIcon {
@@ -55,6 +64,21 @@
 }
 
 .filterIcon {
+  margin: auto;
   height: 24px;
   width: 24px;
+}
+
+.filterIcon path{
+  fill:grey;
+}
+
+.iconSpan {
+  width: 24px;
+  height: 24px;
+  margin-right: 16px;
+}
+
+.checkMarkIcon path {
+  fill: #317ae2;
 }
