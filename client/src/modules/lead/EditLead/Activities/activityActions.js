@@ -2,7 +2,10 @@ import axios from "axios";
 import {
   LOAD_LEAD_ACTIVITIES,
   CREATE_ACTIVITY,
-  UPDATE_ACTIVITY, LOAD_FIRST_ACTIVITY_IN_LEAD_PLAN,
+  UPDATE_ACTIVITY,
+  LOAD_FIRST_ACTIVITY_IN_LEAD_PLAN,
+  UPDATE_ACTIVITY,
+  DELETE_ACTIVITY,
 } from "./types";
 import { GET_ERRORS } from "../../../../actionTypes";
 
@@ -57,6 +60,18 @@ export const createActivity = (data) => dispatch => {
     });
 };
 
+// Delete activity by id
+export const deleteActivity = (activity) => dispatch => {
+  axios
+    .delete(`/api/activity/${activity._id}`)
+    .then(() => {
+      dispatch(deleteActivityAction(activity));
+    })
+    .catch(error => {
+      dispatch(getErrorsAction(error));
+    });
+};
+
 export function loadLeadActivitiesAction(data) {
   return {
     type: LOAD_LEAD_ACTIVITIES,
@@ -90,5 +105,12 @@ export function loadFirstActivityAction(data) {
   return {
     type: LOAD_FIRST_ACTIVITY_IN_LEAD_PLAN,
     payload: data,
-  }
+  };
+}
+
+export function deleteActivityAction(data) {
+  return {
+    type: DELETE_ACTIVITY,
+    payload: data,
+  };
 }

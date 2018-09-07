@@ -5,7 +5,7 @@ import doneMark from '../../../../../assets/done-mark.svg';
 import spreadButton from '../../../../../assets/spread-button.svg';
 import ActivityModel from '../../../../../models/Activity';
 import store from '../../../../../store.js';
-import { updateActivity } from '../activityActions';
+import { deleteActivity, updateActivity } from '../activityActions';
 import EditActivityModal from '../EditActivityModal/EditActivityModal';
 import * as styles from './Activity.css';
 import { dateFormatter } from './dateFormatter';
@@ -59,6 +59,7 @@ class Activity extends React.Component<Props, State> {
                 <PopoverBody className={styles.popover}>
                   <ul className={styles.list}>
                     <li className={styles.listElement} onClick={this.onEditClick}>Edit</li>
+                    <li className={styles.listElement} onClick={this.onDeleteClick}>Delete</li>
                   </ul>
                 </PopoverBody>
               </Popover>
@@ -96,6 +97,13 @@ class Activity extends React.Component<Props, State> {
     this.setState({
       isModalOpen: true,
     });
+  };
+
+  private onDeleteClick = () => {
+    this.togglePopover();
+    if (confirm('Are you sure?')) {
+      store.dispatch(deleteActivity(this.props.activity));
+    }
   };
 
   private closeModal = () => {
