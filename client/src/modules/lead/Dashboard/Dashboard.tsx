@@ -85,14 +85,11 @@ export class Dashboard extends React.Component<Props, State> {
     if (!isEmpty(leadWithActivities)) {
       const nearestDate = new Date(leadWithActivities.date);
       if (moment(now).isSame(nearestDate, 'day')) {
-        if (leadWithActivities.hasStartTime) {
-          if (moment(now).isAfter(nearestDate)) {
-            return 'Overdue';
-          } else {
-            return 'Active';
-          }
+        if (moment(now).isAfter(nearestDate)) {
+          return 'Overdue';
+        } else {
+          return 'Active';
         }
-        return 'Active';
       } else {
         if (moment(now).isAfter(nearestDate)) {
           return 'Overdue';

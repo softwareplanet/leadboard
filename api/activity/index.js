@@ -14,7 +14,6 @@ router.get("/firstInLeadPlan", (req, res) => {
     { $group:
         {
           _id: "$lead",
-          hasStartTime: { $first: "$hasStartTime" },
           date: { $min: "$date" }
         }
     }
@@ -24,7 +23,6 @@ router.get("/firstInLeadPlan", (req, res) => {
         return {
           lead: activity._id,
           date: activity.date,
-          hasStartTime: activity.hasStartTime,
         }
       });
       res.json(activities);

@@ -1,4 +1,5 @@
 import { noop } from 'lodash';
+import * as moment from 'moment';
 import * as React from 'react';
 import configureStore from 'redux-mock-store';
 
@@ -21,26 +22,26 @@ describe('DASHBOARD component', () => {
           { _id: '3456465474h5j', name: 'Lead' },
           { _id: '3456465474h5', name: 'Lead2' },
           { _id: '3456465474j', name: 'Lead3' },
-          { _id: '3456465474hrt567', name: 'Lead4' }
+          { _id: '3456465474hr2334', name: 'Lead4' },
+          { _id: '34564653424235t', name: 'Lead5' },
+          { _id: '2131342432424', name: 'Lead6' }
         ],
       },
     },
     stages: [
-      { _id: '5b6b123391e0774579ed6701', funnel: '5b6b0fbe91e0774579ed6700', name: 'Lead In', order: 1 },
-      { _id: '5b6b123391e0774579ed6702', funnel: '5b6b0fbe91e0774579ed6700', name: 'Lead In', order: 1 },
-      { _id: '5b6b123391e0774579ed6703', funnel: '5b6b0fbe91e0774579ed6700', name: 'Lead In', order: 1 },
-      { _id: '5b6b123391e0774579ed6704', funnel: '5b6b0fbe91e0774579ed6700', name: 'Lead In', order: 1 },
+      { _id: '5b6b123391e0774579ed6701', funnel: '5b6b0fbe91e0774579ed6700', name: 'Stage 1', order: 1 },
+      { _id: '5b6b123391e0774579ed6702', funnel: '5b6b0fbe91e0774579ed6700', name: 'Stage 2', order: 1 },
+      { _id: '5b6b123391e0774579ed6703', funnel: '5b6b0fbe91e0774579ed6700', name: 'Stage 3', order: 1 },
+      { _id: '5b6b123391e0774579ed6704', funnel: '5b6b0fbe91e0774579ed6700', name: 'Stage 4', order: 1 },
     ],
   };
+
   const activities = [
-    { lead: '3456465474h5j', date: '2018-09-20 00:00:00.000', hasStartTime: false },
-    { lead: '3456465474h5j', date: '2018-09-19 00:00:00.000', hasStartTime: false },
-
-    { lead: '3456465474h5', date: new Date(), hasStartTime: false },
-    { lead: '3456465474h5', date: '2018-09-15 00:00:00.000', hasStartTime: false },
-
-    { lead: '3456465474j', date: '2018-09-02 00:00:00.000', hasStartTime: false },
-    { lead: '3456465474j', date: '2018-09-25 00:00:00.000', hasStartTime: false },
+    { lead: '3456465474h5j', date: moment().add(2,'day') },
+    { lead: '3456465474h5', date: moment().endOf('day') },
+    { lead: '3456465474j', date: moment().subtract(2, 'day') },
+    { lead: '3456465474hr2334', date: moment().subtract(2,'hour') },
+    { lead: '34564653424235t', date: moment().add(2,'hour') }
   ];
 
   let wrapper: any;
@@ -63,7 +64,7 @@ describe('DASHBOARD component', () => {
   });
 
   it('check if user have leads in stages it should been rendered Lead components', () => {
-    expect(wrapper.find(Lead)).toHaveLength(4);
+    expect(wrapper.find(Lead)).toHaveLength(6);
   });
 
   it('check if lead have planned activity', () => {
@@ -78,8 +79,16 @@ describe('DASHBOARD component', () => {
     expect(wrapper.find(Lead).at(2).props().activityStatus).toEqual('Overdue');
   });
 
+  it('check if lead have overdue today activity with planed time', () => {
+    expect(wrapper.find(Lead).at(3).props().activityStatus).toEqual('Overdue');
+  });
+
+  it('check if lead have planed today activity with planed time', () => {
+    expect(wrapper.find(Lead).at(4).props().activityStatus).toEqual('Active');
+  });
+
   it('check if lead have no activities', () => {
-    expect(wrapper.find(Lead).at(3).props().activityStatus).toEqual('NoActivity');
+    expect(wrapper.find(Lead).at(5).props().activityStatus).toEqual('NoActivity');
   });
 
   it('check if user don\'t have lead component it should been rendered a funnel by invocation createEmptyLeadCards method', () => {
