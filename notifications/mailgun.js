@@ -15,7 +15,6 @@ const WORK_WEEK_END_DAY = 5;
 const DAILY_MAILING_HOUR = 7;
 const DAILY_MAILING_MINUTE = 0;
 
-
 const mailgunAPI = process.env.MAILGUN_API_KEY;
 const mailgunDomain = process.env.MAILGUN_DOMAIN;
 const mailgunFrom = `postmaster@${mailgunDomain}`;
@@ -27,7 +26,7 @@ export const getActivitiesForToday = () => {
   return Activity.find({
     date: {
       $gte: today.toDate(),
-      $lt: endOfCurrentDay.toDate()
+      $lte: endOfCurrentDay.toDate()
     },
     done: false,
   }).populate(Activity.populates.basic)
@@ -39,7 +38,7 @@ export const getNextActivities = () => {
   return Activity.find({
     date: {
       $gte: currentTime.toDate(),
-      $lt: endTime.toDate()
+      $lte: endTime.toDate()
     },
     done: false,
   }).populate(Activity.populates.basic)
@@ -170,7 +169,7 @@ export const addDuringDayMailing = () => {
 
 
 export const runNotificationService = () => {
-  if (mailgunAPI && mailgunDomain && baseURL && process.env.NODE_ENV === "production") {
+  if (mailgunAPI && mailgunDomain && baseURL) {
     addDailyMailing();
     addDuringDayMailing();
     console.log("Notification service running");
