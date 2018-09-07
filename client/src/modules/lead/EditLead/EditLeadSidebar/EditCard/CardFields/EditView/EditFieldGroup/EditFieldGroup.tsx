@@ -9,7 +9,6 @@ export interface Props {
   onChange(fieldName: string, fieldValue: string): void;
 }
 
-
 class EditFieldGroup extends React.Component<Props> {
 
   public render() {
@@ -31,8 +30,9 @@ class EditFieldGroup extends React.Component<Props> {
     );
   }
 
-  private onInputChange = (e: any) => {
-    this.props.onChange(e.target.name, e.target.value);
+  private onInputChange = (e: React.SyntheticEvent) => {
+    const target = e.target as HTMLInputElement;
+    this.props.onChange(target.name, target.value);
   };
 
 }
