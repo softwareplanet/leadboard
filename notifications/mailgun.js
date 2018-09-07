@@ -30,6 +30,7 @@ export const getActivitiesForToday = () => {
     },
     done: false,
   }).populate(Activity.populates.basic)
+    .sort({date: 1});
 };
 
 export const getNextActivities = () => {
@@ -42,6 +43,7 @@ export const getNextActivities = () => {
     },
     done: false,
   }).populate(Activity.populates.basic)
+    .sort({date: 1})
 };
 
 const chooseIcons = (activities) => {
