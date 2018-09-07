@@ -80,7 +80,7 @@ router.get("/", (req, res) => {
       },
     },
   ], (error, organizations) => {
-    User.populate(organizations, { path: "owner", select: "email" }, (error, organizations) => {
+    Organization.populate(organizations, Organization.populates.full, (error, organizations) => {
       if (error) {
         res.status(400).json({ errors: { message: error } });
       } else {

@@ -23,4 +23,14 @@ organizationSchema.pre("save", function(next) {
   next();
 });
 
+const ownerPopulates = [{ path: "owner", select: "email" }];
+
+const fullPopulates = [
+  ...ownerPopulates,
+];
+
+organizationSchema.statics.populates = {
+  full: fullPopulates,
+};
+
 export default mongoose.model(ORGANIZATION, organizationSchema);

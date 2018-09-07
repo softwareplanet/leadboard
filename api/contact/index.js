@@ -59,10 +59,7 @@ router.get("/", (req, res) => {
       },
     },
   ], (error, contacts) => {
-    Organization.populate(contacts, [{ path: "organization", select: "name" }, {
-      path: "owner",
-      select: "email",
-    }], (error, contacts) => {
+    Contact.populate(contacts, Contact.populates.full, (error, contacts) => {
       if (error) {
         res.status(400).json({ errors: { message: error } });
       } else {

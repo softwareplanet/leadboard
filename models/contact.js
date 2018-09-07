@@ -24,4 +24,16 @@ contactSchema.pre("save", function(next) {
   next();
 });
 
+const organizationPopulates = [{ path: "organization", select: "name" }];
+const ownerPopulates = [{ path: "owner", select: "email", }];
+
+const fullPopulates = [
+  ...organizationPopulates,
+  ...ownerPopulates,
+];
+
+contactSchema.statics.populates = {
+  full: fullPopulates,
+};
+
 export default mongoose.model(CONTACT, contactSchema);
