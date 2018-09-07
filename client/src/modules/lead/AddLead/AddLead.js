@@ -303,9 +303,9 @@ class AddLead extends React.Component {
         this.closeModal();
       }
       else {
-        if (isBlank(e.target.value)) {
-          e.target.blur();
-        } else { e.target.value = ""; }
+        isBlank(e.target.value)?
+         e.target.blur():
+         e.target.value = "";
       }
     }
   }
