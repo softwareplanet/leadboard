@@ -1,7 +1,7 @@
 import "jsdom-global/register";
 import React from "react";
 import { expect } from "chai";
-import { mount } from "enzyme";
+import { shallow } from "enzyme";
 import Activity from "./Activity";
 import styles from "./Activity.css";
 import moment from "moment";
@@ -29,42 +29,42 @@ describe("<Activity/>", () => {
   });
 
   it("should render Activity component", () => {
-    let wrapper = mount(<Activity activity={activity} />);
+    let wrapper = shallow(<Activity activity={activity} />);
     expect(wrapper.exists()).to.equal(true);
   });
 
   it("should render Activity date with styles.expiredTime", () => {
     activity.date = moment().add(-1, "days");
-    let wrapper = mount(<Activity activity={activity} />);
+    let wrapper = shallow(<Activity activity={activity} />);
     expect(wrapper.find(`.${styles.expiredTime}`).exists()).to.equal(true);
   });
 
   it("should render Activity  date with styles.default", () => {
     activity.date = moment().add(10, "days");
-    let wrapper = mount(<Activity activity={activity} />);
+    let wrapper = shallow(<Activity activity={activity} />);
     expect(wrapper.find(`.${styles.defaultTime}`).exists()).to.equal(true);
   });
 
   it("should render Activity date with styles.today", () => {
     activity.hasStartTime = false;
-    let wrapper = mount(<Activity activity={activity} />);
+    let wrapper = shallow(<Activity activity={activity} />);
     expect(wrapper.find(`.${styles.today}`).exists()).to.equal(true);
   });
 
   it("should render Activity date with styles.default", () => {
     activity.done = true;
-    let wrapper = mount(<Activity activity={activity} />);
+    let wrapper = shallow(<Activity activity={activity} />);
     expect(wrapper.find(`.${styles.defaultTime}`).exists()).to.equal(true);
   });
 
   it("should render Activity checkBox with styles.markedAsNotDone", () => {
-    let wrapper = mount(<Activity activity={activity} />);
+    let wrapper = shallow(<Activity activity={activity} />);
     expect(wrapper.find(`.${styles.markedAsNotDone}`).exists()).to.equal(true);
   });
 
   it("should render Activity checkBox with styles.markedAsDone", () => {
     activity.done = true;
-    let wrapper = mount(<Activity activity={activity} />);
+    let wrapper = shallow(<Activity activity={activity} />);
     expect(wrapper.find(`.${styles.markedAsDone}`).exists()).to.equal(true);
   });
 });

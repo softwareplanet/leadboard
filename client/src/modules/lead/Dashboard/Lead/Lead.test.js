@@ -27,10 +27,6 @@ describe("<Lead /> :", () => {
     wrapper = shallow(<Lead lead={lead} link={link} />);
   });
 
-  it("should render default avatar if domain owner avatar is absent", () => {
-    expect(wrapper.find("img").map((node) => node.prop("src")).some(prop => prop === profile)).toBeTruthy();
-  });
-
   it("should render organization name if contact person is absent", () => {
     let leadWithoutContact = { ...lead };
     delete leadWithoutContact.contact;

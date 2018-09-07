@@ -102,6 +102,7 @@ ul {
   height: 32px;
   margin-right: 10px;
 }
+
 .defaultImg {
   composes: userImg;
   background-color: #686a6c;
@@ -178,4 +179,136 @@ ul {
   .logoSmall {
     display: flex;
   }
+}
+
+.activeContacts {
+  background-color: #26292c;
+}
+
+.activeContacts path {
+  fill: white;
+}
+
+.contactIcon {
+  composes: icon;
+  float: left;
+  margin-right: 5px;
+}
+
+.peopleIcon {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 5px;
+}
+
+.linkText {
+  font-size: 14px;
+}
+
+.closeDropDownToggle {
+  font-size: 14px;
+  border: none;
+  background: none;
+}
+
+.closeDropDownToggle:hover {
+  background: none;
+}
+
+.closedDropDown {
+  composes: closeDropDownToggle;
+  composes: linkText;
+  padding: 5px 0px 3px 0px;
+}
+
+.closedDropDown button {
+  color: #b9babb;
+  background: none;
+  border: none;
+}
+
+.closedDropDown button:focus {
+  box-shadow: none;
+}
+
+.closedDropDown button:hover {
+  color: white;
+  background: none;
+}
+
+.closedDropDown button:hover path {
+  fill: white;
+}
+
+.openedDropDown {
+  padding: 5px 0px 3px 0px;
+  font-size: 14px;
+  background: white;
+  color: black;
+}
+
+.openedDropDown:active {
+  background: white;
+}
+
+.openedDropDown span {
+  color: black;
+}
+
+.openedDropDown path {
+  fill: black;
+}
+
+.openedDropDown:hover path {
+  fill: black;
+}
+
+.openedDropDown button {
+  border: none;
+  background: white;
+}
+
+.openedDropDown button:focus {
+  font-size: 14px;
+  box-shadow: none;
+  border: none;
+  color: white;
+  background: white;
+}
+
+.openedDropDown button:active {
+  font-size: 14px;
+  box-shadow: none;
+  border: none;
+  color: white;
+  background: white;
+}
+
+.dropDownMenu {
+  margin-left: -1px;
+  border-radius: 0px;
+  border: none;
+  box-shadow: 0px 2px 4px 2px #b9babb;
+}
+
+.dropDownMenu a {
+  text-decoration: none;
+  color: black;
+}
+
+.menuItemDataWrapper {
+  height: 30px;
+  padding: 3px 0px 5px 10px;
+  font-size: 14px;
+}
+
+.menuItemDataWrapper:hover {
+  font-size: 14px;
+  background: #317ae2;
+  color: white;
+}
+
+.dropDownMenu div:hover path {
+  fill: white;
 }
