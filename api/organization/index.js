@@ -1,6 +1,7 @@
 import { Router } from "express";
 import mongoose from "mongoose";
 import Organization from "../../models/organization";
+import User from "../../models/user";
 import { validateOrganizationCreation, validateOrganizationUpdate } from "../../validation/organization";
 
 const router = new Router;
@@ -22,13 +23,71 @@ router.get("/:id", (req, res) => {
 // @desc    Return all organizations by domain
 // @access  Private
 router.get("/", (req, res) => {
-  Organization.find({domain: req.user.domain})
-    .then(organizations => {
-      res.json(organizations);
-    })
-    .catch(error => {
-      res.status(400).json({ errors: { message: error } });
+  Organization.aggregate([
+    {
+      $lookup: {
+        from: "contacts",
+        localField: "_id",
+        foreignField: "organization",
+        as: "contacts",
+      },
+    },
+    {
+      $lookup: {
+        from: "leads",
+        localField: "_id",
+        foreignField: "organization",
+        as: "leads",
+      },
+    },
+    {
+      $addFields: {
+        openedLeads: {
+          $filter: {
+            input: "$leads",
+            as: "lead",
+            cond: {
+              $eq: ["$$lead.status", "InProgress"],
+            },
+          },
+        },
+      },
+    },
+    {
+      $addFields: {
+        closedLeads: {
+          $filter: {
+            input: "$leads",
+            as: "lead",
+            cond: {
+              $gt: ["$$lead.status", "InProgress"],
+            },
+          },
+        },
+      },
+    },
+    {
+      $project: {
+        _id: 1,
+        name: 1,
+        domain: 1,
+        timestamp: 1,
+        custom: 1,
+        owner:1,
+        contacts: { $size: "$contacts" },
+        openedLeads: { $size: "$openedLeads" },
+        closedLeads: { $size: "$closedLeads" },
+      },
+    },
+  ], (error, organizations) => {
+    User.populate(organizations,{path:"owner", select:"email"}, (error, organizations)=>{
+      if (error) {
+        res.status(400).json({ errors: { message: error } });
+      } else {
+        res.status(200).json(organizations);
+      }
     });
+  });
 });
 
 // @route   POST api/organization
@@ -42,6 +101,7 @@ router.post("/", (req, res) => {
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
     domain: req.user.domain,
+    owner:req.user._id,
   });
 
   Organization.create(organization)
