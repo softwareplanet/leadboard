@@ -299,7 +299,7 @@ class AddLead extends React.Component {
 
   closeModalOnEsc = (e) => {
     if (e.keyCode === 27) {
-      if (e.target.tagName.toLowerCase() === 'body' || e.target.tagName.toLowerCase() === 'div') {
+      if (e.target.tagName.toLowerCase() === "body" || e.target.tagName.toLowerCase() === "div") {
         this.closeModal();
       }
       else {
@@ -329,8 +329,10 @@ class AddLead extends React.Component {
           </button>
         </div>
 
-        <Modal isOpen={this.state.modalIsOpen}
-          style={customStyles}>
+        <Modal 
+          isOpen={this.state.modalIsOpen}
+          style={customStyles}
+        >
           <header className={styles.formHeader}>Add lead</header>
           <button type="button" onClick={this.closeModal} aria-label="Close" className={styles.closeBtn}>
             <span aria-hidden="true" className={classNames("close", styles.closeIcon)}>
