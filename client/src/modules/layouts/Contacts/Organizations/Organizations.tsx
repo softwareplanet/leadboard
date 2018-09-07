@@ -44,15 +44,24 @@ class Organizations extends React.Component<Props, object> {
     this.props.loadOrganizations();
   };
 
+  public getHeader = (count: number) => {
+    if (count > 1) {
+      return 'organizations';
+    } else {
+      return 'organization';
+    }
+  };
+
   public render() {
-    const oraganizationsCount = this.props.organizations.length;
-    if (oraganizationsCount >= 1) {
+    const { organizations } = this.props;
+    const organizationsCount = organizations.length;
+    if (organizationsCount >= 1) {
       return (
         <div>
           <NavBar />
-          <p className={styles.organizationsCounter}>{this.props.organizations.length} organization</p>
+          <p className={styles.organizationsCounter}>{organizationsCount} {this.getHeader(organizationsCount)} </p>
           <Table
-            data={this.props.organizations}
+            data={organizations}
             columns={columns}
           />
         </div>
