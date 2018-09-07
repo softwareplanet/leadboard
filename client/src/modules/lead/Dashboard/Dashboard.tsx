@@ -9,11 +9,12 @@ import LeadModel from '../../../models/Lead';
 import Stage from '../../../models/Stage';
 import { loadFirstActivityInLeadsPlan } from '../EditLead/Activities/activityActions';
 import { loadLeadboard } from '../leadActions';
+import { Active, NoActivity, Overdue, Planned } from './activityStatuses';
 import Lead from './Lead/Lead';
 
 interface Props {
   leads: any;
-  activities: any;
+  nearestActivities: any;
   loadLeadboard(): void;
   loadFirstActivityInLeadsPlan(): void;
 }
@@ -80,25 +81,25 @@ export class Dashboard extends React.Component<Props, State> {
   };
 
   private getLeadActivityStatus = (lead: LeadModel) => {
-    const leadWithActivities = fp.find(a => a.lead === lead._id, this.props.activities);
+    const leadWithActivities = fp.find(a => a.lead === lead._id, this.props.nearestActivities);
     const now = new Date();
     if (!isEmpty(leadWithActivities)) {
       const nearestDate = new Date(leadWithActivities.date);
       if (moment(now).isSame(nearestDate, 'day')) {
         if (moment(now).isAfter(nearestDate)) {
-          return 'Overdue';
+          return Overdue;
         } else {
-          return 'Active';
+          return Active;
         }
       } else {
         if (moment(now).isAfter(nearestDate)) {
-          return 'Overdue';
+          return Overdue;
         } else {
-          return 'Planned';
+          return Planned;
         }
       }
     } else {
-      return 'NoActivity';
+      return NoActivity;
     }
   };
 
@@ -128,7 +129,7 @@ export class Dashboard extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: any) => ({
-  activities: state.leads.activities,
+  nearestActivities: state.leads.activities,
   leads: state.leads,
 });
 

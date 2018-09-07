@@ -50,7 +50,7 @@ describe('DASHBOARD component', () => {
       loadLeadboard={noop}
       loadFirstActivityInLeadsPlan={noop}
       leads={leads}
-      activities={activities}
+      nearestActivities={activities}
     />);
   });
 
@@ -97,7 +97,7 @@ describe('DASHBOARD component', () => {
       loadLeadboard={noop}
       loadFirstActivityInLeadsPlan={noop}
       leads={leads}
-      activities={activities}
+      nearestActivities={activities}
     />);
     const stages = leads.stages.length;
     const expectedCountOfPlaceholders = ((stages + 1) / 2) * stages;

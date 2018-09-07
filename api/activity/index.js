@@ -11,11 +11,10 @@ const router = new Router();
 router.get("/firstInLeadPlan", (req, res) => {
   Activity.aggregate([
     { $match: { domain: req.user.domain, done: false } },
-    { $group:
-        {
-          _id: "$lead",
-          date: { $min: "$date" }
-        }
+    {
+      $group: {
+        _id: "$lead", date: { $min: "$date" }
+      }
     }
   ])
     .then(result => {
@@ -23,7 +22,7 @@ router.get("/firstInLeadPlan", (req, res) => {
         return {
           lead: activity._id,
           date: activity.date,
-        }
+        };
       });
       res.json(activities);
     })
