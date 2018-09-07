@@ -11,7 +11,7 @@ const router = new Router();
 // @access Private
 router.get("/", (req, res) => {
   contactAggregation(req.user.domain).then(contacts => {
-      res.json(contacts);
+      res.status(200).json(contacts);
     },
   ).catch(error => {
     res.status(400).json({ errors: { message: error } });

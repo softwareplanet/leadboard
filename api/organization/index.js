@@ -4,6 +4,7 @@ import Organization from "../../models/organization";
 import User from "../../models/user";
 import { validateOrganizationCreation, validateOrganizationUpdate } from "../../validation/organization";
 import { organizationAggregation } from "./organizationAggregation";
+import { contactAggregation } from "../contact/contactAggregation";
 
 const router = new Router;
 
@@ -24,9 +25,10 @@ router.get("/:id", (req, res) => {
 // @desc    Return all organizations by domain
 // @access  Private
 router.get("/", (req, res) => {
-  organizationAggregation(req.user._id).then(organizations => {
-    res.json(organizations);
-  }).catch(error => {
+  organizationAggregation(req.user.domain).then(organizations => {
+      res.status(200).json(organizations);
+    },
+  ).catch(error => {
     res.status(400).json({ errors: { message: error } });
   });
 });
