@@ -12,6 +12,9 @@ const router = new Router();
 router.get("/", (req, res) => {
   Contact.aggregate([
     {
+      $match: {domain: req.user.domain}
+    },
+    {
       $lookup: {
         from: "leads",
         localField: "_id",

@@ -25,6 +25,9 @@ router.get("/:id", (req, res) => {
 router.get("/", (req, res) => {
   Organization.aggregate([
     {
+      $match: {domain: req.user.domain}
+    },
+    {
       $lookup: {
         from: "contacts",
         localField: "_id",
