@@ -2,7 +2,7 @@ import React from "react";
 import { configure, shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import Lead from "./Lead";
-import { NoActivity} from "../activityStatuses";
+import { NOACTIVITY} from "../activityStatuses";
 
 configure({ adapter: new Adapter });
 
@@ -23,13 +23,13 @@ describe("<Lead /> :", () => {
   let link = `/funnel/5b6bd8112e46b819428f9b52/lead/5b6c598084412364d01a73b4`;
 
   beforeEach(() => {
-    wrapper = shallow(<Lead lead={lead} link={link} activityStatus={NoActivity} />);
+    wrapper = shallow(<Lead lead={lead} link={link} activityStatus={NOACTIVITY} />);
   });
 
   it("should render organization name if contact person is absent", () => {
     let leadWithoutContact = { ...lead };
     delete leadWithoutContact.contact;
-    wrapper = shallow(<Lead link={link} lead={leadWithoutContact} activityStatus={NoActivity} />);
+    wrapper = shallow(<Lead link={link} lead={leadWithoutContact} activityStatus={NOACTIVITY} />);
     expect(wrapper.find("small").text()).toEqual(leadWithoutContact.organization.name);
   });
 

@@ -6,7 +6,7 @@ import plannedIcon from '../../../../assets/lead-activity/planned-icon.png';
 import warningIcon from '../../../../assets/lead-activity/warning-icon.png';
 import profile from '../../../../img/profile.svg';
 import LeadModel from '../../../../models/Lead';
-import { Active, NoActivity, Overdue, Planned } from '../activityStatuses';
+import { ACTIVE, NOACTIVITY, OVERDUE, PLANNED } from '../activityStatuses';
 import * as styles from './Lead.css';
 
 interface Props {
@@ -42,13 +42,13 @@ export default class Lead extends React.Component<Props, object> {
 
   private getStatusIcon = (status: string) => {
     switch (status) {
-      case NoActivity :
+      case NOACTIVITY :
         return warningIcon;
-      case Overdue :
+      case OVERDUE :
         return overdueIcon;
-      case Planned :
+      case PLANNED :
         return plannedIcon;
-      case Active :
+      case ACTIVE :
         return activeIcon;
       default :
         return warningIcon;

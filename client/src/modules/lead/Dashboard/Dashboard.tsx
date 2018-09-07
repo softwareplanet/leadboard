@@ -9,7 +9,7 @@ import LeadModel from '../../../models/Lead';
 import Stage from '../../../models/Stage';
 import { loadFirstActivityInLeadsPlan } from '../EditLead/Activities/activityActions';
 import { loadLeadboard } from '../leadActions';
-import { Active, NoActivity, Overdue, Planned } from './activityStatuses';
+import { ACTIVE, NOACTIVITY, OVERDUE, PLANNED } from './activityStatuses';
 import Lead from './Lead/Lead';
 
 interface Props {
@@ -87,19 +87,19 @@ export class Dashboard extends React.Component<Props, State> {
       const nearestDate = new Date(leadWithActivities.date);
       if (moment(now).isSame(nearestDate, 'day')) {
         if (moment(now).isAfter(nearestDate)) {
-          return Overdue;
+          return OVERDUE;
         } else {
-          return Active;
+          return ACTIVE;
         }
       } else {
         if (moment(now).isAfter(nearestDate)) {
-          return Overdue;
+          return OVERDUE;
         } else {
-          return Planned;
+          return PLANNED;
         }
       }
     } else {
-      return NoActivity;
+      return NOACTIVITY;
     }
   };
 

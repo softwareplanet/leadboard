@@ -1,5 +1,5 @@
-export const Active = 'Active';
-export const Planned = 'Planned';
-export const Overdue = 'Overdue';
-export const NoActivity = 'NoActivity';
+export const ACTIVE = 'Active';
+export const PLANNED = 'Planned';
+export const OVERDUE = 'Overdue';
+export const NOACTIVITY = 'NoActivity';
 

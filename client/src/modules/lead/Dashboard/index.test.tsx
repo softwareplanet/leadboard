@@ -5,6 +5,7 @@ import configureStore from 'redux-mock-store';
 
 import { shallow } from 'enzyme';
 import { Provider } from 'react-redux';
+import { ACTIVE, NOACTIVITY, OVERDUE, PLANNED } from './activityStatuses';
 import ConnectedDashboard from './Dashboard';
 import { Dashboard } from './Dashboard';
 import * as styles from './Dashboard.css';
@@ -68,27 +69,27 @@ describe('DASHBOARD component', () => {
   });
 
   it('check if lead have planned activity', () => {
-    expect(wrapper.find(Lead).at(0).props().activityStatus).toEqual('Planned');
+    expect(wrapper.find(Lead).at(0).props().activityStatus).toEqual(PLANNED);
   });
 
   it('check if lead have active activity', () => {
-    expect(wrapper.find(Lead).at(1).props().activityStatus).toEqual('Active');
+    expect(wrapper.find(Lead).at(1).props().activityStatus).toEqual(ACTIVE);
   });
 
   it('check if lead have overdue activity', () => {
-    expect(wrapper.find(Lead).at(2).props().activityStatus).toEqual('Overdue');
+    expect(wrapper.find(Lead).at(2).props().activityStatus).toEqual(OVERDUE);
   });
 
   it('check if lead have overdue today activity with planed time', () => {
-    expect(wrapper.find(Lead).at(3).props().activityStatus).toEqual('Overdue');
+    expect(wrapper.find(Lead).at(3).props().activityStatus).toEqual(OVERDUE);
   });
 
   it('check if lead have planed today activity with planed time', () => {
-    expect(wrapper.find(Lead).at(4).props().activityStatus).toEqual('Active');
+    expect(wrapper.find(Lead).at(4).props().activityStatus).toEqual(ACTIVE);
   });
 
   it('check if lead have no activities', () => {
-    expect(wrapper.find(Lead).at(5).props().activityStatus).toEqual('NoActivity');
+    expect(wrapper.find(Lead).at(5).props().activityStatus).toEqual(NOACTIVITY);
   });
 
   it('check if user don\'t have lead component it should been rendered a funnel by invocation createEmptyLeadCards method', () => {
