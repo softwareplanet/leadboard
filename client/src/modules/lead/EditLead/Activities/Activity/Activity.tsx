@@ -34,8 +34,10 @@ class Activity extends React.Component<Props, State> {
           <div className={styles.activityHeader}>
             <div className={styles.activityMainInfo}>
               <div className={styles.mark} onClick={this.changeStatus}>
-                <img alt="status" src={doneMark}
-                     className={done ? styles.markedAsDone : styles.markedAsNotDone}
+                <img 
+                  alt="status" 
+                  src={doneMark}
+                  className={done ? styles.markedAsDone : styles.markedAsNotDone}
                 />
               </div>
               <span className={styles.activityWrapper}>{subject}</span>
@@ -67,8 +69,10 @@ class Activity extends React.Component<Props, State> {
         <div className={styles.wrapper}>
           <div className={styles.activityDetails}>
             <span
-              className={this.checkTime(date, hasStartTime, this.props.activity.done)}>
-                        {dateFormatter(date, hasStartTime)}</span>
+              className={this.checkTime(date, hasStartTime, this.props.activity.done)}
+            >
+              {dateFormatter(date, hasStartTime)}
+            </span>
             <span className={styles.separator} />
           </div>
           <div className={styles.relatedItems} />

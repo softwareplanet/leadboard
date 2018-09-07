@@ -12,3 +12,5 @@ export const buttonLost: string;
 export const badge: string;
 export const lostBadge: string;
 export const leadActions: string;
+export const reopenButton: string;
+export const closedLeadActions: string;
