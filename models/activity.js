@@ -6,6 +6,7 @@ const activitySchema = new mongoose.Schema({
     enum: ["Call", "Meeting", "Task", "Deadline", "Email", "Lunch"],
     default: "Call"
   },
+  domain: { type: mongoose.Schema.Types.ObjectId, required: true },
   subject: { type: String, default: "Call" },
   date: { type: Date, default: Date.now },
   hasStartTime: {type: Boolean, default:false},

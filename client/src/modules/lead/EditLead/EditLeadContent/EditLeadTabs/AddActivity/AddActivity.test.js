@@ -22,7 +22,7 @@ describe("<AddActivity />", () => {
   it("it should return activity with default values if nothing picked", () => {
     wrapper.find("#saveActivityButton").simulate("click");
     expect(onActivitySaveMock.mock.calls[0][0])
-      .toMatchObject({ type: "Call", subject: "Call", date: moment().startOf("day")._d });
+      .toMatchObject({ type: "Call", subject: "Call", date: moment().endOf("day")._d });
   });
 
   it("it should return activity with correct values due to picked", () => {
@@ -32,7 +32,7 @@ describe("<AddActivity />", () => {
     let state = {
       activeTab: "Meeting",
       subject: "Meeting test",
-      date: moment().startOf("day").add(1, "day"),
+      date: moment().startOf("day"),
       time: 60,
       duration: 60,
     };
@@ -96,14 +96,16 @@ describe("<AddActivity />", () => {
 
     const newDate = new Date();
     wrapper.instance().onInputPick(newDate, "date");
-    wrapper.instance().onInputPick(moment(newDate).add(60, "minutes")._d, "time");
-
+    wrapper.instance().onInputPick(60, "time");
     wrapper.find("#saveActivityButton").simulate("click");
     expect(onActivitySaveMock.mock.calls[0][0])
       .toMatchObject({
+        _id: activity._id,
+        hasStartTime: activity.hasStartTime,
+        duration: activity.duration,
         type: newType,
         subject: newSubject,
-        date: newDate,
+        date: moment(newDate).startOf("day").add(60, "minutes")._d,
       });
   });
 });
