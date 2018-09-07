@@ -14,6 +14,10 @@ interface Props {
 
 const columns = [
   {
+    dataField: 'custom[1].value',
+    text: 'Email',
+  },
+  {
     dataField: 'name',
     text: 'Name',
   },
@@ -26,17 +30,17 @@ const columns = [
     text: 'Phone',
   },
   {
-    dataField: 'custom[1].value',
-    text: 'Email',
+    dataField: 'openedLeads',
+    text: 'Open leads',
   },
   {
-    dataField:'openedLeads',
-    text:'Open leads'
+    dataField: 'closedLeads',
+    text: 'Closed leads',
   },
   {
-    dataField:'closedLeads',
-    text:'Closed leads',
-  }
+    dataField: 'owner.email',
+    text: 'Owner',
+  },
 ];
 
 class People extends React.Component<Props, object> {
@@ -45,14 +49,27 @@ class People extends React.Component<Props, object> {
   };
 
   public render() {
-    return (
-      <div>
+    const contactsLenght = this.props.contacts.length;
+    if (contactsLenght >= 1) {
+      return (<div>
         <NavBar />
-        <p className={styles.peopleCounter}>{this.props.contacts.length} people</p>
+        <p className={styles.peopleCounter}>{contactsLenght}{contactsLenght > 1 ? ' people' : ' person'}</p>
         <Table
           data={this.props.contacts}
           columns={columns}
         />
+      </div>);
+    }
+    return (
+      <div>
+        <NavBar />
+        <div>
+          <hr />
+          <div className={styles.warningMessage}>
+            <p>No people added yet</p>
+          </div>
+        </div>
+        <hr />
       </div>
     );
   }

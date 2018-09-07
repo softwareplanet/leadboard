@@ -3,3 +3,9 @@
   margin-top: 5px;
   text-align: center;
 }
+
+.warningMessage {
+  padding: 80px 0px 80px 0px;
+  text-align: center;
+  font: 400 24px/32px "Open Sans", sans-serif;
+}
