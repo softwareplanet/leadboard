@@ -40,7 +40,7 @@ class Activity extends React.Component<Props, State> {
                   className={done ? styles.markedAsDone : styles.markedAsNotDone}
                 />
               </div>
-              <span className={styles.activityWrapper}>{subject}</span>
+              <span onClick={this.onEditClick} className={styles.activityWrapper}>{subject}</span>
             </div>
             <div>
               <img
@@ -93,7 +93,9 @@ class Activity extends React.Component<Props, State> {
   };
 
   private onEditClick = () => {
-    this.togglePopover();
+    if (this.state.isPopoverOpen) {
+      this.togglePopover();
+    }
     this.setState({
       isModalOpen: true,
     });
