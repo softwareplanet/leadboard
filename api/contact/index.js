@@ -51,18 +51,19 @@ router.get("/", (req, res) => {
         name: 1,
         organization: 1,
         domain: 1,
+        owner: 1,
         timestamp: 1,
         custom: 1,
         openedLeads: { $size: "$openedLeads" },
         closedLeads: { $size: "$closedLeads" },
       },
     },
-  ], (err, result) => {
-    Organization.populate(result, { path: "organization" }, (err, result) => {
-      if (err) {
-        res.status(400).json({ errors: { message: err } });
+  ], (error, contacts) => {
+    Organization.populate(contacts, [{ path: "organization", select:"name" },{ path:"owner", select:"email" }], (error, contacts) => {
+      if (error) {
+        res.status(400).json({ errors: { message: error } });
       } else {
-        res.status(200).json(result);
+        res.status(200).json(contacts);
       }
     });
   });
@@ -81,6 +82,7 @@ router.post("/", function(req, res) {
     domain: req.user.domain,
     organization: req.body.organization,
     custom: req.body.custom ? req.body.custom : [],
+    owner: req.user._id,
   });
   Contact.create(contact)
     .then(contact => {
