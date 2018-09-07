@@ -2,7 +2,7 @@ import { Router } from "express";
 import mongoose from "mongoose";
 import Contact from "../../models/contact";
 import { validateContactCreation, validateContactUpdate } from "../../validation/contact";
-import Organization from "../../models/organization";
+import { contactAggregation } from "./contactAggregation";
 
 const router = new Router();
 
@@ -10,65 +10,11 @@ const router = new Router();
 // @desc Return all contacts that have name field
 // @access Private
 router.get("/", (req, res) => {
-  Contact.aggregate([
-    {
-      $match: {domain: req.user.domain}
+  contactAggregation(req.user.domain).then(contacts => {
+      res.json(contacts);
     },
-    {
-      $lookup: {
-        from: "leads",
-        localField: "_id",
-        foreignField: "contact",
-        as: "leads",
-      },
-    },
-    {
-      $addFields: {
-        openedLeads: {
-          $filter: {
-            input: "$leads",
-            as: "lead",
-            cond: {
-              $eq: ["$$lead.status", "InProgress"],
-            },
-          },
-        },
-      },
-    },
-    {
-      $addFields: {
-        closedLeads: {
-          $filter: {
-            input: "$leads",
-            as: "lead",
-            cond: {
-              $gt: ["$$lead.status", "InProgress"],
-            },
-          },
-        },
-      },
-    },
-    {
-      $project: {
-        _id: 1,
-        name: 1,
-        organization: 1,
-        domain: 1,
-        owner: 1,
-        timestamp: 1,
-        custom: 1,
-        openedLeads: { $size: "$openedLeads" },
-        closedLeads: { $size: "$closedLeads" },
-      },
-    },
-  ], (error, contacts) => {
-    Contact.populate(contacts, Contact.populates.full, (error, contacts) => {
-      if (error) {
-        res.status(400).json({ errors: { message: error } });
-      } else {
-        res.status(200).json(contacts);
-      }
-    });
+  ).catch(error => {
+    res.status(400).json({ errors: { message: error } });
   });
 });
 
