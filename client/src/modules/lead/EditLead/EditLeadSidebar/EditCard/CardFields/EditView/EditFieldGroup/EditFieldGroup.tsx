@@ -9,7 +9,6 @@ export interface Props {
   onChange(fieldName: string, fieldValue: string): void;
 }
 
-
 class EditFieldGroup extends React.Component<Props> {
 
   public render() {
