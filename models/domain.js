@@ -1,9 +1,10 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
+import { DOMAIN } from "./refs";
 
 const domainSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
-  name: {type: String, required: [true, 'Company name is required']},
-  timestamp: {type: Date, default: Date.now}
+  name: { type: String, required: [true, "Company name is required"] },
+  timestamp: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model('Domain', domainSchema);
+export default mongoose.model(DOMAIN, domainSchema);

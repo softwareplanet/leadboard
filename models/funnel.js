@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+import { FUNNEL } from "./refs";
 
 const funnelSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
@@ -7,4 +8,4 @@ const funnelSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model("Funnel", funnelSchema);
+export default mongoose.model(FUNNEL, funnelSchema);

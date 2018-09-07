@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { ORGANIZATION } from "./refs";
 
 // Organization
 const organizationSchema = new mongoose.Schema({
@@ -21,6 +22,4 @@ organizationSchema.pre("save", function (next) {
   next();
 });
 
-const Organization = mongoose.model("Organization", organizationSchema);
-
-module.exports = Organization;
+export default mongoose.model(ORGANIZATION, organizationSchema);
