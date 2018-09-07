@@ -1,10 +1,8 @@
 import { Router } from "express";
 import mongoose from "mongoose";
 import Organization from "../../models/organization";
-import User from "../../models/user";
 import { validateOrganizationCreation, validateOrganizationUpdate } from "../../validation/organization";
 import { organizationAggregation } from "./organizationAggregation";
-import { contactAggregation } from "../contact/contactAggregation";
 
 const router = new Router;
 

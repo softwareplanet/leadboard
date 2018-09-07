@@ -25,9 +25,18 @@ class ContactsDropDown extends React.Component<Props, State> {
     this.setState({ isDropdownOpen: !this.state.isDropdownOpen });
   };
 
+  public isActive = () =>{
+    const { location }= this.props;
+    if(location.pathname === '/people' || location.pathname === '/organizations'){
+      return styles.activeContacts
+    } else {
+      return undefined;
+    }
+  };
+
   public render() {
     return (
-      <div className={this.props.location.pathname === '/people' ? styles.activeContacts : undefined}>
+      <div className={this.isActive()}>
         <Dropdown
           className={this.state.isDropdownOpen ? styles.openedDropDown : styles.closedDropDown}
           isOpen={this.state.isDropdownOpen}
