@@ -309,6 +309,7 @@ class AddLead extends React.Component {
       }
     }
   }
+  
   componentDidMount() {
     document.addEventListener("keydown", this.closeModalOnEsc, false);
   }
@@ -328,7 +329,6 @@ class AddLead extends React.Component {
             Add lead
           </button>
         </div>
-
         <Modal 
           isOpen={this.state.modalIsOpen}
           style={customStyles}
