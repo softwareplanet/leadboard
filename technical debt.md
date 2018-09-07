@@ -6,6 +6,8 @@ This file contains everything that must be fixed/changed/done. We didn't do that
 - Add delete note tests
 - Change ":id" to ":\<model>Id" in all routes   
 - DB migration?
+- Add routes on get '/' (organization,contact) without aggregation.
+- Create const for lead status conditions
 ## Client
 - Define all initial reducers' states as interfaces
 - Migrate actions and reducers to typescript
