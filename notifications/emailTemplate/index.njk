@@ -11,6 +11,16 @@
 {% set simpleTextColor = "color: #3d4145;" %}
 {% set commonFont = "font-family: HelveticaNeue,Segoe UI,Arial;" %}
 {% set borderRadius = "border-radius: 5px;" %}
+{% set main =  layoutWidth + fontBig + commonFont + borderRadius +
+               bcWhite + simpleTextColor + commonPadding + marginAuto %}
+{{ layoutWidth }}
+              {{ fontBig }}
+              {{ commonFont }}
+              {{ borderRadius }}
+              {{ bcWhite }}
+              {{ simpleTextColor }}
+              {{ commonPadding }}
+              {{ marginAuto }}
 {% set activityNames = "text-decoration: none;
                         color: #727272; 
                         font-size:16px;" %}
@@ -72,7 +82,9 @@
         {{ activity.assignedTo.lastname }} · 
         {{ activity.organization.name }} ·
         <a style="{{ activityNames }}"
-           href="{{ leadPath }}">{{ activity.lead.name }}</a>
+           href="{{ leadPath }}">
+          {{ activity.lead.name }}
+        </a>
       </div>
     </div>
   </div>
@@ -80,30 +92,26 @@
 {% endmacro %} 
 
   {% block main %}
-  <div style="{{ layoutWidth }}
-              {{ fontBig }}
-              {{ commonFont }}
-              {{ borderRadius }}
-              line-height: 24px;
-              {{ bcWhite }}
-              {{ simpleTextColor }}
-              {{ commonPadding }}
-              {{ marginAuto }}">
+  <div style=" line-height: 24px;
+            {{ main }}">
     <div style="font-size: 26px;
              {{ simpleTextColor }}
                 padding-bottom: 15px;">
-      Hello, {{ user.firstname }} <br></div>
+      Hello, {{ user.firstname }}
+    </div>
     <div style="font-family: HelveticaNeue-Light,HelveticaNeue,Arial;
              {{ simpleTextColor }}
                 padding-bottom: 20px;">
-      Here are your {{ toggle }} Leadboard <strong> activities:</strong></div>
+      Here are your {{ toggle }} Leadboard <strong> activities:</strong>
+    </div>
     <div style="{{ bodyColor }}
                 {{ borderRadius }}">
     <div style="padding: 9px 18px 9px 18px;
              {{ dateTimeTextColor }}
                 border-bottom: 2px solid #fff;
                 margin-bottom: 2px;">
-      {{ currentDate }}</div>
+      {{ currentDate }}
+    </div>
     {% for activity in activities %} 
       {{ create(activity) }} 
     {% endfor %} 
