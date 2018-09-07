@@ -9,12 +9,7 @@ const router = new Router();
 // @desc    Return all funnels by domain
 // @access  Private
 router.get("/", function(req, res) {
-  const domain = req.query.domain || req.body.domain;
-  if (!domain) {
-    return res.status(400).json({ errors: { domain: "Domain cannot be empty" } });
-  }
-
-  Funnel.find({ domain: domain })
+  Funnel.find({ domain: req.user.domain })
     .then(funnels => {
       res.status(200).json(funnels);
     })
