@@ -1,16 +1,22 @@
 import * as fp from 'lodash/fp';
+import * as moment from 'moment';
 import * as React from 'react';
 import * as styles from './Dashboard.css';
 
+import { isEmpty } from 'lodash';
 import { connect } from 'react-redux';
 import LeadModel from '../../../models/Lead';
 import Stage from '../../../models/Stage';
+import { loadFirstActivityInLeadsPlan } from '../EditLead/Activities/activityActions';
 import { loadLeadboard } from '../leadActions';
+import { ACTIVE, NOACTIVITY, OVERDUE, PLANNED } from './activityStatuses';
 import Lead from './Lead/Lead';
 
 interface Props {
   leads: any;
+  nearestActivities: any;
   loadLeadboard(): void;
+  loadFirstActivityInLeadsPlan(): void;
 }
 
 interface State {
@@ -19,15 +25,15 @@ interface State {
 
 export class Dashboard extends React.Component<Props, State> {
   public state: State = {
-    leadboardLoaded: false
+    leadboardLoaded: false,
   };
 
   public componentWillReceiveProps(nextProps: Props) {
-    this.loadLeads();
+    this.loadItems();
   }
 
   public componentDidMount() {
-    this.loadLeads();
+    this.loadItems();
   }
 
   public render() {
@@ -66,11 +72,35 @@ export class Dashboard extends React.Component<Props, State> {
   };
 
   private createLeadCards = (stage: string) => {
-    if (this.isStageIsUndefined(stage)) { return <div />; }
+    if (this.isStageIsUndefined(stage)) {return <div />;}
 
     return this.props.leads.leads['_' + stage].leads.map((lead: LeadModel) => {
-      return <Lead key={lead._id} lead={lead} link={this.leadPath(lead)} />;
+      const status = this.getLeadActivityStatus(lead);
+      return <Lead key={lead._id} lead={lead} link={this.leadPath(lead)} activityStatus={status} />;
     });
+  };
+
+  private getLeadActivityStatus = (lead: LeadModel) => {
+    const leadWithActivities = fp.find(a => a.lead === lead._id, this.props.nearestActivities);
+    const now = new Date();
+    if (!isEmpty(leadWithActivities)) {
+      const nearestDate = new Date(leadWithActivities.date);
+      if (moment(now).isSame(nearestDate, 'day')) {
+        if (moment(now).isAfter(nearestDate)) {
+          return OVERDUE;
+        } else {
+          return ACTIVE;
+        }
+      } else {
+        if (moment(now).isAfter(nearestDate)) {
+          return OVERDUE;
+        } else {
+          return PLANNED;
+        }
+      }
+    } else {
+      return NOACTIVITY;
+    }
   };
 
   private leadPath = (lead: LeadModel) => {
@@ -89,19 +119,21 @@ export class Dashboard extends React.Component<Props, State> {
     return typeof this.props.leads.leads['_' + stage] === 'undefined';
   };
 
-  private loadLeads = () => {
+  private loadItems = () => {
     if (!this.state.leadboardLoaded) {
       this.props.loadLeadboard();
+      this.props.loadFirstActivityInLeadsPlan();
       this.setState({ leadboardLoaded: true });
     }
-  }
+  };
 }
 
 const mapStateToProps = (state: any) => ({
-  leads: state.leads
+  nearestActivities: state.leads.activities,
+  leads: state.leads,
 });
 
 export default connect(
   mapStateToProps,
-  { loadLeadboard }
+  { loadLeadboard, loadFirstActivityInLeadsPlan },
 )(Dashboard);
