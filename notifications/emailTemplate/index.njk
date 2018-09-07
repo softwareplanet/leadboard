@@ -1,105 +1,113 @@
+{% set bodyColor = "background-color: #f3f5f6;" %}
+{% set centerText = "text-align: center;" %}
+{% set commonPadding = "padding: 20px;" %}
+{% set layoutWidth = "max-width: 640px;" %}
+{% set marginAuto = "margin: 0 auto;" %}
+{% set bcWhite= "background-color: #fff;" %}
+{% set dateTimeTextColor = "color: #222;" %}
+{% set activityContent = bcWhite + commonPadding %}
+{% set icon = "margin: 10px; height: 20px; width: 20px;" %}
+{% set fontBig = "font-size: 18px;" %}
+{% set simpleTextColor = "color: #3d4145;" %}
+{% set commonFont = "font-family: HelveticaNeue,Segoe UI,Arial;" %}
+{% set borderRadius = "border-radius: 5px;" %}
+{% set activityNames = "text-decoration: none;
+                        color: #727272; 
+                        font-size:16px;" %}
+{% set iconWrapper = "height:40px;
+                      width:40px; 
+                      background-color: #e0e4e7;
+                      border-radius: 100%;
+                      float: left;" %}
 {% extends "parts/_template.njk" %} 
 
 {% macro chooseIcon(type) %} 
   {% if type == "Call" %}
-  <img src="cid:call.png" height="20px" width="20px" style="margin: 10px"/>
+  <img src="cid:call.png" style="{{ icon }}" />
   {% elif type == "Meeting" %}
-  <img src='cid:meeting.png' height="20px" width="20px" style="margin: 10px" /> 
+  <img src='cid:meeting.png' style="{{ icon }}" /> 
   {% elif type == "Deadline" %}
-  <img src='cid:deadline.png' height="20px" width="20px" style="margin: 10px"/>
+  <img src='cid:deadline.png' style="{{ icon }}" />
   {% elif type == "Task" %}
-  <img src='cid:task.png' height="20px" width="20px" style="margin: 10px"/>
+  <img src='cid:task.png' style="{{ icon }}" />
   {% elif type == "Email" %}
-  <img src='cid:email.png' height="20px" width="20px" style="margin: 10px"/> 
+  <img src='cid:email.png' style="{{ icon }}" /> 
   {% elif type == "Lunch" %}
-  <img src='cid:lunch.png' height="20px" width="20px" style="margin: 10px" /> 
+  <img src='cid:lunch.png' style="{{ icon }}" /> 
   {% else %}
-  <img src='cid:call.png' height="20px" width="20px" style="margin: 5px" /> 
+  <img src='cid:call.png' style="{{ icon }}" /> 
   {% endif %}
 {% endmacro %}
 
 {% macro create(activity) %} 
-  {% set leadPath = "https://spg-leadboard.herokuapp.com/lead/" + activity.lead._id %} 
+  {% set leadPath = host + "/lead/" + activity.lead._id %} 
   {% set activityTime = activity.time %}
-  <div style="background-color: #f3f5f6;
-              padding: 20px;">
-  <div style="color: #222;
-                background-color: #f9fafa;
-                font-size: 17px;
-                padding: 9px 15px;
-                display: inline-block;">
+  <div style="{{ commonPadding }}">
+  <div style="{{ dateTimeTextColor }}
+                 background-color: #f9fafa;
+                 font-size: 17px;
+                 border-top-right-radius: 4px;
+                 border-top-left-radius: 4px;
+                 padding: 9px 15px;
+                 display: inline-block;">
     {% if activity.hasStartTime %} 
-      {{ activityTime }} 
+       {{ activityTime }} 
     {% else %} 
-      ALL DAY 
+          ALL DAY 
     {% endif %}
   </div>
-  <div style="padding:20px; background-color: #fff;">
-    <div style="height:40px;
-                width:40px; 
-                background-color: #e0e4e7;
-                border-radius: 100%;
-                float: left;">
+  <div style="{{ activityContent }}
+                 border-top-right-radius: 4px;
+                 border-bottom-right-radius: 4px;
+                 border-bottom-left-radius: 4px;">
+    <div style="{{ iconWrapper }}">
       {{ chooseIcon(activity.type) }}
     </div>
-    <div style="margin-left: 60px;
-                font-size: 18px;
-                font-family: HelveticaNeue,Segoe UI,Arial;
-                padding: 0;">
-      <a href="#" style="text-decoration:none; color: #3d4145;">
-        {{ activity.subject }}</a><br>
-      <div style="text-decoration: none;
-                  color: #727272; 
-                  font-size:16px;">
+    <div style="margin-left: 60px; {{fontBig}}">
+        <div style="{{ simpleTextColor }}"> 
+          {{ activity.subject }}
+        </div>
+      <div style="{{ activityNames }}">
         {{ activity.assignedTo.firstname }} 
         {{ activity.assignedTo.lastname }} · 
         {{ activity.organization.name }} ·
-        <a style="color: #727272;text-decoration:none;" href="{{ leadPath }}">{{ activity.lead.name }}</a>
+        <a style="{{ activityNames }}"
+           href="{{ leadPath }}">{{ activity.lead.name }}</a>
       </div>
     </div>
   </div>
 </div>
 {% endmacro %} 
 
-{% set tamplateHost = host %}
-<div style="background-color: #f3f5f6;">
   {% block main %}
-  <div style="max-width: 640px;
-            font-size: 18px;
-            background-color: #fff;
-            padding: 20px;
-            margin: 0 auto;">
-    <div style="color: #3d4145;
-              font-family: HelveticaNeue,Segoe UI,Arial;
-              font-size: 26px;
-              padding-bottom: 15px;">
+  <div style="{{ layoutWidth }}
+              {{ fontBig }}
+              {{ commonFont }}
+              {{ borderRadius }}
+              line-height: 24px;
+              {{ bcWhite }}
+              {{ simpleTextColor }}
+              {{ commonPadding }}
+              {{ marginAuto }}">
+    <div style="font-size: 26px;
+             {{ simpleTextColor }}
+                padding-bottom: 15px;">
       Hello, {{ user.firstname }} <br></div>
-    <div style="color: #3d4145;
-         font-family: HelveticaNeue-Light,HelveticaNeue,Arial;
-         padding-bottom: 20px;">
-      Here are your current Leadboard <strong> activities:</strong></div>
-    <div style="background-color: #f3f5f6;
-               color: #222;
-               padding: 20px;
-               margin-bottom: 2px;">
+    <div style="font-family: HelveticaNeue-Light,HelveticaNeue,Arial;
+             {{ simpleTextColor }}
+                padding-bottom: 20px;">
+      Here are your {{ toggle }} Leadboard <strong> activities:</strong></div>
+    <div style="{{ bodyColor }}
+                {{ borderRadius }}">
+    <div style="padding: 9px 18px 9px 18px;
+             {{ dateTimeTextColor }}
+                border-bottom: 2px solid #fff;
+                margin-bottom: 2px;">
       {{ currentDate }}</div>
     {% for activity in activities %} 
       {{ create(activity) }} 
     {% endfor %} 
+    </div>
     {% include "_gotoButton.njk" %}
   </div>
-  <div style="max-width: 640px;
-     padding: 60px 0px 20px 0px;
-     text-align: center;
-     margin: 0 auto;
-     font-size: 14px;
-     color: #3d4145;">
-    Copyright © 2018
-    <a style="color: #4bc465;
-            text-decoration: none;" 
-            href="{{ tamplateHost }}">
-    Leadboard
-    </a> 
-    by Software Planet Group Ltd.</div>
   {% endblock %}
-</div>

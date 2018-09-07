@@ -59,7 +59,7 @@ const chooseIcons = (activities) => {
   return [...new Set(result)];
 };
 
-const mailCreator = (activities) => {
+const mailCreator = (activities, selector) => {
   let mailing = [];
 
   if (activities.length === 0) {
@@ -90,6 +90,7 @@ const mailCreator = (activities) => {
         user: user,
         currentDate: moment().tz(domainTimezone).format("dddd, MMM Do, YYYY").toUpperCase(),
         host: baseURL,
+        toggle: selector,
       }),
       icons: chooseIcons(activities),
     });
@@ -126,12 +127,13 @@ const dailyScheduler = job => {
 };
 
 export const addDailyMailing = () => {
+  const distinction = "current";
   dailyScheduler(() => {
     console.log("Daily mailing");
     getActivitiesForToday().then(activities => {
-      let mails = mailCreator(activities);
+      let mails = mailCreator(activities, distinction);
       mails.forEach(email => {
-        mailSender(email.address, "Activity reminder", email.html, email.icons)
+        mailSender(email.address, "Activities for today", email.html, email.icons)
           .then(res => console.log(`[${email.address}] massage: ${res.message} id: ${res.id}`))
           .catch(err => console.error(`[${email.address}]error: ` + err))
       })
@@ -150,13 +152,14 @@ export const duringDayScheduler = job => {
 };
 
 export const addDuringDayMailing = () => {
+  const distinction = "following";
   duringDayScheduler(() => {
     console.log(`During day mailing: ${moment().utc().format("MMMM Do YYYY, h:mm:ss a")}`);
     getNextActivities().then(activities => {
       if (activities.length !== 0) {
-        let mails = mailCreator(activities);
+        let mails = mailCreator(activities, distinction);
         mails.forEach(email => {
-          mailSender(email.address, "Activity reminder", email.html, email.icons)
+          mailSender(email.address, "Following activities", email.html, email.icons)
             .then(res => console.log(`[${email.address}] massage: ${res.message} id: ${res.id}`))
             .catch(err => console.error(`[${email.address}] error: ` + err))
         })

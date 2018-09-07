@@ -4,14 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link href="styles.css" rel="stylesheet">
   <title>Leadboard activities notification</title>
 </head>
-<body style="background-color: #f3f5f6;">
+{% set bodyColor = "background-color: #f3f5f6;" %}
+<body style="{{ bodyColor }}">
   <main>
 {% include "parts/_header.njk" %}
 {% block main %}
 {% endblock %}
+{% include "parts/_footer.njk" %}
 </main>
 </body>
 </html>
