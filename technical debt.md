@@ -13,9 +13,6 @@ This file contains everything that must be fixed/changed/done. We didn't do that
 - Refactor styles (extract global)
 - Remove redundant requests sending on loading leads
 - Snapshot testing
-<<<<<<< HEAD
 - Add tests for the lead card component on dashboard (client must see correct status icons)
-=======
 - Use `connect()` instead of `dispatch()` directly from store in Activity.tsx
 - Add tests for delete activity
->>>>>>> f4cead398d9042eef73b9d710f23271023d75299
