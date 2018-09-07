@@ -3,19 +3,12 @@ import ReactAutocomplete from "react-autocomplete";
 import { trim } from "lodash";
 
 class OrganizationAutocomplete extends React.Component {
-  state = {
-    isOpen: false,
-  }
 
   input = React.createRef();
 
   inputFocus = () => {
     this.input.current.focus();
   };
-
-  closeOnEsc = (isOpen) => {
-    this.setState({ isOpen });
-  }
 
   clearFunction = (e) => {
     if (e.keyCode === 27) {
@@ -28,17 +21,17 @@ class OrganizationAutocomplete extends React.Component {
   componentDidMount() {
     document.addEventListener("keydown", this.clearFunction, false);
   }
+
   inputBlur = () => {
     this.input.current.blur();
   };
 
   render() {
     const styles = this.props.styles;
-    let open = this.state.isOpen && (this.props.value.length > 1 && this.props.open);
+    let open = this.props.value.length > 1 && this.props.open;
     return (
       <ReactAutocomplete
         open={open}
-        onMenuVisibilityChange={(isOpen) => this.closeOnEsc(isOpen)}
         items={this.props.items}
         shouldItemRender={(item, value) => item.name.toLowerCase().indexOf(trim(value).toLowerCase()) > -1}
         getItemValue={item => item.name}
