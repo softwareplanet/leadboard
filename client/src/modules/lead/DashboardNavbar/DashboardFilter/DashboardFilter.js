@@ -3,11 +3,14 @@ import styles from "./DashboardFilter.css";
 import filterIcon from "../../../../assets/filter-icon.svg";
 import downArrowIcon from "../../../../assets/down-arrow.svg";
 import DashboardFilterPopover from "./DashboardFilterPopover/DashboardFilterPopover";
+import { IN_PROGRESS, LOST, WON } from "../../../../constants";
+import { loadLeadboard } from "../../leadActions";
+import { connect } from "react-redux";
 
 const filters = [
-  { text: "All leads" },
-  { text: "All won leads" },
-  { text: "All lost leads" },
+  { text: "Leads in progress", type: IN_PROGRESS},
+  { text: "All won leads",  type: WON },
+  { text: "All lost leads", type: LOST },
 ];
 
 class DashboardFilter extends Component {
@@ -21,8 +24,9 @@ class DashboardFilter extends Component {
     });
   };
 
-  onFilterClick = () => {
-    alert("Clicked");
+  onFilterClick = (leadType) => {
+    this.props.loadLeadboard(leadType);
+    this.togglePopover();
   };
 
   render() {
@@ -45,4 +49,11 @@ class DashboardFilter extends Component {
   }
 }
 
-export default DashboardFilter;
+const mapStateToProps = (state) => ({
+  leads: state.leads
+});
+
+export default connect(
+  mapStateToProps,
+  { loadLeadboard }
+)(DashboardFilter)

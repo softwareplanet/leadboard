@@ -47,7 +47,7 @@ if (process.env.NODE_ENV !== "production") {
 // @desc    Find sorted leads by domain and stage IDs
 // @access  Private
 router.get("/", (req, res) => {
-  Lead.find({ stage: req.query.stage, status: IN_PROGRESS })
+  Lead.find({ stage: req.query.stage, status: req.query.status })
     .populate(Lead.populates.basic)
     .sort({ order: "asc" })
     .then(leads => {
