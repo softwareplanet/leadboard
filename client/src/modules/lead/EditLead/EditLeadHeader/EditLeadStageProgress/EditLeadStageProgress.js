@@ -13,12 +13,6 @@ class EditLeadStageProgress extends Component {
     this.props.updateLead(lead);
   };
 
-  componentWillMount() {
-    if (!this.props.editLead) {
-      this.props.loadLead(this.props.id)
-    }
-  }
-
   render() {
     if (!isEmpty(this.props.editLead)) {
       let stages = this.props.stages.map((stage, index) => {

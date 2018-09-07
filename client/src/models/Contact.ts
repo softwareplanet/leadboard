@@ -5,7 +5,7 @@ import Organization from './Organization';
 export default interface Contact {
   _id: string;
   name: string;
-  organization: Organization;
+  organization?: Organization;
   custom: CustomField[];
   domain: Domain;
   timestamp: Date;

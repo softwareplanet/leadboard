@@ -159,7 +159,7 @@ describe("Activity", () => {
       .set("Authorization", cred.token)
       .send({});
     expect(body.length).toEqual(1);
-    expect(body[0]).toEqual({date: activity.date, hasStartTime: false, lead: lead._id.toString()});
+    expect(body[0]).toEqual({date: activity.date, lead: lead._id.toString()});
   });
 
   it("should update activity valid data", async () => {
