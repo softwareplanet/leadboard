@@ -19,7 +19,7 @@ class ContactAutocomplete extends React.Component {
 
   clearFunction = (e) => {
     if (e.keyCode === 27) {
-      if (e.target.className === 'contact-input') {
+      if (e.target.className === "contact-input") {
         this.props.onEsc();
       }
     }

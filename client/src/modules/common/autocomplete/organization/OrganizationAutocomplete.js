@@ -19,7 +19,7 @@ class OrganizationAutocomplete extends React.Component {
 
   clearFunction = (e) => {
     if (e.keyCode === 27) {
-      if (e.target.className === 'organization-input') {
+      if (e.target.className === "organization-input") {
         this.props.onEsc();
       }
     }
