@@ -64,9 +64,9 @@
       {{ chooseIcon(activity.type) }}
     </div>
     <div style="margin-left: 60px; {{fontBig}}">
-      <a href="#" style="text-decoration: none; 
-                      {{ simpleTextColor }}">
-        {{ activity.subject }}</a><br>
+        <div style="{{ simpleTextColor }}"> 
+          {{ activity.subject }}
+        </div>
       <div style="{{ activityNames }}">
         {{ activity.assignedTo.firstname }} 
         {{ activity.assignedTo.lastname }} · 
@@ -86,15 +86,15 @@
               {{ borderRadius }}
               line-height: 24px;
               {{ bcWhite }}
+              {{ simpleTextColor }}
               {{ commonPadding }}
               {{ marginAuto }}">
-    <div style="{{ simpleTextColor }}              
+    <div style="              
               font-size: 26px;
               padding-bottom: 15px;">
       Hello, {{ user.firstname }} <br></div>
-    <div style="{{ simpleTextColor }}
-         font-family: HelveticaNeue-Light,HelveticaNeue,Arial;
-         padding-bottom: 20px;">
+    <div style="font-family: HelveticaNeue-Light,HelveticaNeue,Arial;
+                padding-bottom: 20px;">
       Here are your current Leadboard <strong> activities:</strong></div>
     <div style="{{ bodyColor }}
                 {{ borderRadius }}">
