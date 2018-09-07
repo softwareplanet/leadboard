@@ -179,11 +179,11 @@ export const runNotificationService = () => {
     return;
   }
 
-  console.warn("Mailing service not configured");
+  console.warn("Mailing service not configured.\n" + 
+  "To fix this issue you should specify MAILGUN_API_KEY, MAILGUN_DOMAIN, BASE_URL as environment variables.");
 
   if (process.env.NODE_ENV === "production") {
-    throw new Error("Mailing configuration is required in production environment. " +
-      "To fix this issue you should specify MAILGUN_API_KEY, MAILGUN_DOMAIN, BASE_URL as environment variables");
+    throw new Error("Mailing configuration is required in production environment.");
   } 
   
 };
