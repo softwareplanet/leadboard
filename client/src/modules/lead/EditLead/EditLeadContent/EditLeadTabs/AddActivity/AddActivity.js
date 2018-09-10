@@ -15,7 +15,6 @@ import isBlank from "../../../../../../utils/isBlank";
 import CustomSelect from "./buttons/CustomSelect";
 import DatePicker from "react-pikaday-datepicker";
 import PropTypes from "prop-types";
-import { isEmpty } from "lodash";
 
 const timeIntervalMinutes = 15;
 const minutesInHour = 60;
@@ -63,7 +62,7 @@ export default class AddActivity extends Component {
   getActivityDateAndTime = () => {
     let date = this.state.date ? moment(this.state.date).endOf("day") : moment().endOf("day");
 
-    if (!this.state.time && !isEmpty(this.state.time)) {
+    if (!this.state.time && this.state.time !== 0) {
       return { date: date._d };
     }
 
