@@ -4,17 +4,20 @@ import BulkEditView from './CardFields/EditView/BulkEditView/BulkEditView';
 import MainField from './CardFields/MainField';
 import EditButton from './EditButton/EditButton';
 import * as styles from './EditCard.css';
+import Organization from '../../../../../models/Organization';
+import Contact from '../../../../../models/Contact';
+import CustomField from '../../../../../models/CustomField';
 
 interface State {
   isInEditMode: boolean,
 }
 
 interface Props {
-  model: any,
+  model: Contact | Organization,
   title: string,
   icon: any,
 
-  onUpdate(model: any): void,
+  onUpdate(model: Contact | Organization): void,
 }
 
 class EditCard extends React.Component<Props, State> {
@@ -77,7 +80,7 @@ class EditCard extends React.Component<Props, State> {
   private handleCustomFieldUpdate = (name: string, value: any) => {
     const updatedModel = { ...this.props.model };
     updatedModel.custom = [...this.props.model.custom];
-    updatedModel.custom.find((customField: any) => customField.name === name).value = value;
+    updatedModel.custom.find((customField: CustomField) => customField.name === name)!.value = value;
     this.updateModel(updatedModel);
   };
 }

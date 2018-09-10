@@ -1,9 +1,11 @@
 import * as React from 'react';
+import Contact from '../../../../../../../../models/Contact';
+import CustomField from '../../../../../../../../models/CustomField';
+import Organization from '../../../../../../../../models/Organization';
 import * as commonStyles from '../../../../../../../../styles/common.css';
 import isBlank from '../../../../../../../../utils/isBlank';
 import EditFieldGroup from '../EditFieldGroup/EditFieldGroup';
 import * as styles from './BulkEditView.css';
-import CustomField from '../../../../../../../../models/CustomField';
 
 interface State {
   name: string,
@@ -11,9 +13,9 @@ interface State {
 }
 
 interface Props {
-  model: any,
+  model: Contact | Organization,
 
-  onChange(model: any): void,
+  onChange(state: State): void,
 
   onCancel(): void,
 }
@@ -26,7 +28,8 @@ class BulkEditView extends React.Component<Props, State> {
 
   public componentDidMount() {
     this.setState({
-      ...this.props.model,
+      custom: this.props.model.custom,
+      name: this.props.model.name,
     });
   }
 
