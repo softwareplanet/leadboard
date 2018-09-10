@@ -4,11 +4,11 @@ import editIcon from '../../../../../../assets/edit-icon.svg';
 import * as styles from './EditButton.css';
 
 interface Props {
-  style: string;
+  style?: string;
   onClick(): void;
 }
 
-class EditButton extends React.Component<Props> {
+class EditButton extends React.Component<Props, object> {
 
   public render() {
     return (
