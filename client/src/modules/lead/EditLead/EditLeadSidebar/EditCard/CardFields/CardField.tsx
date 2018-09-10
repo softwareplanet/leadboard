@@ -1,34 +1,36 @@
-import React, { Component } from "react";
-import styles from "./CardField.css";
-import SingleEditView from "./EditView/SingleEditView/SingleEditView";
-import PropTypes from "prop-types";
-import isBlank from "../../../../../../utils/isBlank";
-import EditButton from "../EditButton/EditButton";
+import * as React from 'react';
+import * as styles from './CardField.css';
 
-class CardField extends Component {
+import CustomField from '../../../../../../models/CustomField';
+import isBlank from '../../../../../../utils/isBlank';
+import EditButton from '../EditButton/EditButton';
+import SingleEditView from './EditView/SingleEditView/SingleEditView';
 
-  state = {
+interface Props {
+  field: CustomField;
+  onUpdate(): void;
+}
+
+interface State {
+  isInEditMode: boolean,
+}
+
+export default class CardField extends React.Component<Props, State> {
+
+  public state = {
     isInEditMode: false,
   };
 
-  openEditMode = () => {
-    this.setState({ isInEditMode: true });
-  };
-
-  closeEditMode = () => {
-    this.setState({ isInEditMode: false });
-  };
-
-  render() {
+  public render() {
     const { name, value } = this.props.field;
     const { isInEditMode } = this.state;
 
-    let valueAdd = (
+    const valueAdd = (
       <span className={styles.addValue} onClick={this.openEditMode}>
           + Add value
       </span>
     );
-    let valueShow = (
+    const valueShow = (
       <div id="fieldValue" className={styles.customFieldValueWrap}>
         <span className={styles.customFieldValue}>
           {value}
@@ -60,11 +62,13 @@ class CardField extends Component {
       </div>
     );
   }
+
+  private openEditMode = () => {
+    this.setState({ isInEditMode: true });
+  };
+
+  private closeEditMode = () => {
+    this.setState({ isInEditMode: false });
+  };
+
 }
-
-CardField.propTypes = {
-  field: PropTypes.object,
-  onUpdate: PropTypes.func,
-};
-
-export default CardField;
