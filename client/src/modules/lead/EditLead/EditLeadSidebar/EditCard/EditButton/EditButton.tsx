@@ -5,6 +5,7 @@ import * as styles from './EditButton.css';
 
 interface Props {
   style?: string;
+
   onClick(): void;
 }
 

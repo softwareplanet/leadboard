@@ -14,6 +14,7 @@ interface Props {
   model: any,
 
   onChange(model: any): void,
+
   onCancel(): void,
 }
 

@@ -8,6 +8,7 @@ import SingleEditView from './EditView/SingleEditView/SingleEditView';
 
 interface Props {
   field: CustomField;
+
   onUpdate(name: string, value: any): void;
 }
 
