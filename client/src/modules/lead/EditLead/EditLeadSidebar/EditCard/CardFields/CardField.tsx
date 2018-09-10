@@ -17,7 +17,7 @@ interface State {
 
 export default class CardField extends React.Component<Props, State> {
 
-  public state = {
+  public state: State = {
     isInEditMode: false,
   };
 
