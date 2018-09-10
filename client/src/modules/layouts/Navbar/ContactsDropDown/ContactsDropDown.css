@@ -9,6 +9,10 @@
   color: #b9babb;
 }
 
+.dropDown button:hover {
+  cursor: pointer;
+}
+
 .dropDown button::after {
   display: none;
 }
