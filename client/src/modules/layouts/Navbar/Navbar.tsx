@@ -6,6 +6,7 @@ import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
 import contactIcon from '../../../assets/contacts-icon.svg';
 import dealsIconActive from '../../../assets/deals-icon-active.svg';
 import dealsIcon from '../../../assets/deals-icon.svg';
+import dropMenuIcon from '../../../assets/drop-menu-icon.svg';
 import profileIcon from '../../../assets/header-profile.svg';
 import { logoutUser } from '../../auth/authActions';
 import * as styles from './Navbar.css';
@@ -57,7 +58,7 @@ class Navbar extends React.Component<Props, State> {
             to={leadsRoute}>
             <div>
               <img className={styles.icon}
-                   src={this.getDealsIcon()} alt="leads" />Leads
+                src={this.getDealsIcon()} alt="leads" />Leads
             </div>
           </NavLink>
           <div className={this.props.location.pathname === '/people' ? styles.activeContacts : undefined}>
@@ -91,13 +92,17 @@ class Navbar extends React.Component<Props, State> {
                 <span>{this.props.auth.userName}</span>
                 <small>{this.props.auth.domainName}</small>
               </div>
+              <div className={styles.dropDownIcon}>
+                <ReactSVG src={dropMenuIcon} />
+              </div>
             </div>
           </li>
-          <li id="logout" onClick={this.onLogout} className={styles.item}>
+
+          {/* <li id="logout" onClick={this.onLogout} className={styles.item}>
             <div>
               Logout
             </div>
-          </li>
+          </li> */}
         </ul>
       </header>
     );

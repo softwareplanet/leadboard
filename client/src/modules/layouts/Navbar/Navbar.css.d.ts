@@ -22,3 +22,4 @@ export const contactIcon: string;
 export const menuItemDataWrapper: string;
 export const activeContacts: string;
 export const peopleIcon: string;
+export const dropDownIcon: string;

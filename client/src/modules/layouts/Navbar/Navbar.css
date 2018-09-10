@@ -22,7 +22,7 @@ ul {
 .logo {
   font-size: 25px;
   color: white;
-  padding: 0 20px 0 10px;
+  margin: 0 20px 0 10px;
 }
 
 .logo a {
@@ -53,10 +53,6 @@ ul {
   color: #b9babb;
 }
 
-.item:hover {
-  cursor: default;
-}
-
 .item div {
   display: flex;
   align-items: center;
@@ -71,12 +67,25 @@ ul {
 .rightItem {
   composes: item;
   margin-left: auto;
-  padding: 4px;
+  padding: 8px 14px 8px 12px;
+}
+
+.rightItem:hover small {
+  color: #fff;
 }
 
 .rightItem div:hover {
   color: #b9babb;
-  cursor: default;
+  cursor: pointer;
+}
+
+.dropDownIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.dropDownIcon svg {
+  width: 100%;
 }
 
 .active {
@@ -100,7 +109,6 @@ ul {
   border-radius: 50%;
   width: 32px;
   height: 32px;
-  margin-right: 10px;
 }
 
 .defaultImg {
@@ -133,6 +141,7 @@ ul {
 
 .userInfo {
   display: flex;
+  margin: 0 8px;
   flex-direction: column;
   justify-content: center;
 }
