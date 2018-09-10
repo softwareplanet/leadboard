@@ -1,0 +1,103 @@
+.activeContacts path {
+  fill: white;
+}
+
+.dropDown button {
+  padding: 12px;
+  background: none;
+  border: none;
+  color: #b9babb;
+}
+
+.dropDown button::after {
+  display: none;
+}
+
+.dropDown button:focus {
+  background: white;
+  color: black;
+  outline: none;
+}
+
+.dropDown button:focus path {
+  fill: black;
+}
+
+.dropDown :hover path {
+  fill: white;
+}
+
+.dropDown :hover {
+  color: white;
+}
+
+.dropDownMenu path {
+  fill: black;
+}
+
+.dropDownMenu {
+  box-shadow: 0 4px 8px rgba(38, 41, 44, 0.1);
+  margin-left: 1px;
+  border-radius: 0;
+  border: none;
+  color: black;
+}
+
+.dropDownMenu:hover path {
+  fill: black;
+}
+
+.dropDownItem path {
+  fill: black;
+}
+
+.dropDownItem {
+  padding: 6px 15px 6px 15px;
+  color: black;
+  display: block;
+}
+
+.dropDownItem:hover path {
+  fill: white;
+}
+
+.dropDownItem:hover {
+  text-decoration: none;
+  color: white;
+  background-color: #317ae2;
+}
+
+.activeContacts {
+  background-color: #26292c;
+  color: white;
+}
+
+.activeContacts button {
+  color: white;
+}
+
+.contactIcon {
+  float: left;
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.peopleIcon {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 5px;
+}
+
+.linkText {
+  font-size: 14px;
+}
+
+.organizationIcon {
+  float: left;
+  margin-right: 5px;
+  margin-left: 2px;
+  width: 15px;
+  height: 15px;
+}

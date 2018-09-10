@@ -6,10 +6,11 @@ import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
 import contactIcon from '../../../assets/contacts-icon.svg';
 import dealsIconActive from '../../../assets/deals-icon-active.svg';
 import dealsIcon from '../../../assets/deals-icon.svg';
-import dropMenuIcon from '../../../assets/drop-menu-icon.svg';
+// import dropMenuIcon from '../../../assets/drop-menu-icon.svg';
 import profileIcon from '../../../assets/header-profile.svg';
 import { logoutUser } from '../../auth/authActions';
 import * as styles from './Navbar.css';
+import UserDropDown from './UserDropDown/UserDropDown'
 
 const leadsRoute = '/home';
 const peopleRoute = '/people';
@@ -85,19 +86,11 @@ class Navbar extends React.Component<Props, State> {
               </DropdownMenu>
             </Dropdown>
           </div>
+          
+          
           <li className={styles.rightItem}>
-            <div>
-              {this.renderUserAvatar()}
-              <div className={styles.userInfo}>
-                <span>{this.props.auth.userName}</span>
-                <small>{this.props.auth.domainName}</small>
-              </div>
-              <div className={styles.dropDownIcon}>
-                <ReactSVG src={dropMenuIcon} />
-              </div>
-            </div>
+            <UserDropDown renderAvatar={this.renderUserAvatar}/>
           </li>
-
           {/* <li id="logout" onClick={this.onLogout} className={styles.item}>
             <div>
               Logout
