@@ -171,7 +171,7 @@ router.patch("/:leadId", leadMembersMiddlewares, async (req, res) => {
       let { errors, hasErrors } = validateExisting(existingOrganization, "Organization", req.user.domain);
       if (hasErrors) return res.status(400).json({ errors });
     } else {
-      organization = await createOrganization(organization, req.user.domain);
+      organization = await createOrganization(organization, req.user.domain, req.user._id);
     }
     updates.organization = (typeof organization === "object" ? organization._id : organization);
   }
@@ -183,7 +183,7 @@ router.patch("/:leadId", leadMembersMiddlewares, async (req, res) => {
       let { errors, hasErrors } = validateExisting(existingContact, "Contact", req.user.domain);
       if (hasErrors) return res.status(400).json({ errors });
     } else {
-      contact = await createContact(contact, updates.organization, req.user.domain);
+      contact = await createContact(contact, updates.organization, req.user.domain, req.user._id);
     }
     updates.contact = (typeof contact === "object" ? contact._id : contact);
   }
