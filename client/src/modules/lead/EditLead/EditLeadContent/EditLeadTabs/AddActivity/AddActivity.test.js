@@ -22,7 +22,7 @@ describe("<AddActivity />", () => {
   it("it should return activity with default values if nothing picked", () => {
     wrapper.find("#saveActivityButton").simulate("click");
     expect(onActivitySaveMock.mock.calls[0][0])
-      .toMatchObject({ type: "Call", subject: "Call", date: moment().endOf("day")._d });
+      .toMatchObject({ type: "Call", subject: "Call", date: moment().startOf("day")._d });
   });
 
   it("it should return activity with correct values due to picked", () => {
