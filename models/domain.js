@@ -10,7 +10,6 @@ const domainSchema = new mongoose.Schema({
       lead: [{
         key: { type: String, required: [true] },
         name: { type: String, required: [true] },
-        label: String,
         type: { type: String, required: [true] },
         isAlwaysVisible: { type: Boolean, required: [true, true] },
         isShownInAddDialog: { type: Boolean, required: [true, false] },
@@ -19,7 +18,6 @@ const domainSchema = new mongoose.Schema({
       contact: [{
         key: { type: String, required: [true] },
         name: { type: String, required: [true] },
-        label: String,
         type: { type: String, required: [true] },
         isAlwaysVisible: { type: Boolean, required: [true, true] },
         isShownInAddDialog: { type: Boolean, required: [true, false] },
@@ -28,7 +26,6 @@ const domainSchema = new mongoose.Schema({
       organization: [{
         key: { type: String, required: [true] },
         name: { type: String, required: [true] },
-        label: String,
         type: { type: String, required: [true] },
         isAlwaysVisible: { type: Boolean, required: [true, true] },
         isShownInAddDialog: { type: Boolean, required: [true, false] },
@@ -38,5 +35,52 @@ const domainSchema = new mongoose.Schema({
     timezone: { type: String, default: "Etc/UTC" },
   },
 });
+
+domainSchema.pre("save", function(next) {
+  let domain = this;
+
+  if (domain.settings) {
+    return next();
+  } else {
+    domain.settings = {
+      customFields: createDefaultCustomFields(),
+    };
+  }
+
+});
+
+const createDefaultCustomFields = () => {
+  return {
+    lead: [],
+    contact: [
+      {
+        key: "phone",
+        name: "Phone",
+        type: "string",
+        isAlwaysVisible: true,
+        isShownInAddDialog: false,
+        isDefault: true,
+      },
+      {
+        key: "email",
+        name: "Email",
+        type: "string",
+        isAlwaysVisible: true,
+        isShownInAddDialog: false,
+        isDefault: true,
+      },
+    ],
+    organization: [
+      {
+        key: "address",
+        name: "Address",
+        type: "string",
+        isAlwaysVisible: true,
+        isShownInAddDialog: false,
+        isDefault: true,
+      },
+    ],
+  };
+};
 
 export default mongoose.model(DOMAIN, domainSchema);
