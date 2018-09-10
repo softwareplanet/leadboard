@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as styles from './CardField.css';
-
 import CustomField from '../../../../../../models/CustomField';
 import isBlank from '../../../../../../utils/isBlank';
 import EditButton from '../EditButton/EditButton';

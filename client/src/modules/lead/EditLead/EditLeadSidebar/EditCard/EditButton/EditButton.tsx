@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import editIcon from '../../../../../../assets/edit-icon.svg';
 import * as styles from './EditButton.css';
 
