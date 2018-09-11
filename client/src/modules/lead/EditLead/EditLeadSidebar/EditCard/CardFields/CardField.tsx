@@ -22,7 +22,7 @@ export default class CardField extends React.Component<Props, State> {
   };
 
   public render() {
-    const { name, value } = this.props.field;
+    const { name, value, key } = this.props.field;
     const { isInEditMode } = this.state;
 
     const valueAdd = (
@@ -56,6 +56,7 @@ export default class CardField extends React.Component<Props, State> {
           <SingleEditView
             fieldName={name}
             fieldValue={value}
+            fieldKey={key}
             onChange={this.props.onUpdate}
             onCancel={this.closeEditMode} />
         }

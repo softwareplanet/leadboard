@@ -50,24 +50,30 @@ class EditLeadSidebar extends React.Component<Props> {
 
     if (this.props.editLead) {
       const { contact, organization } = this.props.editLead;
-      const contactCard =
-        <EditCard
-          model={contact}
-          title={'Person'}
-          icon={personIcon}
-          onUpdate={this.props.updateContact}
-          settings={settings}
-          customFields={makeCustomFieldData('Contact', contact, settings)}
-        />;
-      const organizationCard =
-        <EditCard
-          model={organization}
-          title={'Organization'}
-          icon={organizationIcon}
-          onUpdate={this.props.updateOrganization}
-          settings={settings}
-          customFields={makeCustomFieldData('Organization', contact, settings)}
-        />;
+      let contactCard;
+      if (contact) {
+        contactCard =
+          <EditCard
+            model={contact}
+            title={'Person'}
+            icon={personIcon}
+            onUpdate={this.props.updateContact}
+            settings={settings}
+            customFields={makeCustomFieldData('Contact', contact, settings)}
+          />;
+      }
+      let organizationCard;
+      if (organization) {
+        organizationCard =
+          <EditCard
+            model={organization}
+            title={'Organization'}
+            icon={organizationIcon}
+            onUpdate={this.props.updateOrganization}
+            settings={settings}
+            customFields={makeCustomFieldData('Organization', organization, settings)}
+          />;
+      }
       const emptyOrganizationCard = (
         <EmptyCard
           id="organization-card"

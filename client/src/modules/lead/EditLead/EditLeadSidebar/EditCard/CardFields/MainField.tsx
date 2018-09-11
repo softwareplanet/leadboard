@@ -60,6 +60,7 @@ class MainField extends React.Component<Props, State> {
               onChange={this.handleNameUpdate}
               onCancel={this.closeEditMode}
               isValid={MainField.isNameValid}
+              fieldKey={'name'}
             />
           </div>
         }
