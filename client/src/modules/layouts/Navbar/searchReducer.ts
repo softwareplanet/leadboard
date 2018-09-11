@@ -1,7 +1,7 @@
 import {LOAD_SEARCH_RESULT} from './types';
 
 const initialState = {
-
+  leads: [],
   loading: false,
 };
 

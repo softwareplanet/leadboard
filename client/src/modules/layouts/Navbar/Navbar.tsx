@@ -10,7 +10,7 @@ import profileIcon from '../../../assets/header-profile.svg';
 import { logoutUser } from '../../auth/authActions';
 import * as styles from './Navbar.css';
 import Search from './Search/Search';
-import { loadLeads } from './searchActions';
+import { loadSearchResult } from './searchActions';
 
 const leadsRoute = '/home';
 const peopleRoute = '/people';
@@ -49,7 +49,7 @@ class Navbar extends React.Component<Props, State> {
   };
 
   public render() {
-    this.props.loadLeads('Tes');
+    this.props.loadLeads('Ter');
     return (
       <header>
         <ul className={styles.menu} role="navigation">
@@ -114,4 +114,4 @@ const mapStateToProps = (state: any) => ({
 });
 
 export { Navbar };
-export default connect(mapStateToProps, { logoutUser, loadLeads })(withRouter(Navbar));
+export default connect(mapStateToProps, { logoutUser, loadLeads: loadSearchResult })(withRouter(Navbar));

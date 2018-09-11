@@ -5,7 +5,7 @@ import Lead from "../../models/lead";
 const router = new Router();
 
 // @route   GET api/search
-// @desc    Find search result by domain and regex
+// @desc    Search result by domain and regex
 // @access  Private
 
 router.get("/",async (req, res) => {
@@ -64,7 +64,6 @@ const loadLeads = (domain, part) => {
         status: 1,
         contactName: "$contacts.name",
         organizationName: "$organizations.name",
-        type: "lead",
       }
     }
   ])
