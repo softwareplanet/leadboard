@@ -58,21 +58,6 @@ router.get("/", (req, res) => {
     });
 });
 
-// @route   GET api/lead
-// @desc    Find leads by domain
-// @access  Private
-router.get("/", (req, res) => {
-  Lead.find({ domain: req.query.domain }, '_id name status organization contact')
-    .populate(Lead.populates.basic)
-    .sort({ order: "asc" })
-    .then(leads => {
-      res.json(leads);
-    })
-    .catch(error => {
-      res.status(400).json({ errors: { message: error } });
-    });
-});
-
 // @route   POST api/lead
 // @desc    Create lead
 // @access  Private

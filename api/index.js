@@ -8,6 +8,7 @@ import lead from "./lead";
 import organization from "./organization";
 import contact from "./contact";
 import activity from "./activity";
+import search from "./search";
 
 const router = new Router();
 const authenticate = passport.authenticate("jwt", { session: false });
@@ -20,5 +21,6 @@ router.use("/api/lead", authenticate, lead);
 router.use("/api/organization", authenticate, organization);
 router.use("/api/contact", authenticate, contact);
 router.use("/api/activity", authenticate, activity);
+router.use("/api/search", authenticate, search);
 
 export default router;
