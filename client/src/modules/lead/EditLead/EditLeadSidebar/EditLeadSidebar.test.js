@@ -1,7 +1,7 @@
 import "jsdom-global/register";
 import React from "react";
 import { expect } from "chai";
-import { mount } from "enzyme";
+import { shallow } from "enzyme";
 import { EditLeadSidebar } from "./EditLeadSidebar";
 import configureStore from "redux-mock-store";
 import noop from "lodash";
@@ -70,7 +70,7 @@ describe("<EditLeadSidebar/>", () => {
 
   beforeEach(() => {
     store = mockStore(initialState);
-    wrapper = mount(<EditLeadSidebar
+    wrapper = shallow(<EditLeadSidebar
       loadLead={noop}
       editLead={editLead}
       loadContacts={noop}
@@ -96,7 +96,7 @@ describe("<EditLeadSidebar/>", () => {
       ...editLead,
       contact: null,
     };
-    wrapper = mount(<EditLeadSidebar
+    wrapper = shallow(<EditLeadSidebar
       loadLead={noop}
       editLead={editLead}
       loadContacts={noop}
@@ -112,7 +112,7 @@ describe("<EditLeadSidebar/>", () => {
       organization: null,
     };
 
-    wrapper = mount(<EditLeadSidebar
+    wrapper = shallow(<EditLeadSidebar
       loadLead={noop}
       editLead={editLead}
       loadContacts={noop}
