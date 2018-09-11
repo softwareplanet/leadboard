@@ -1,0 +1,31 @@
+.settingsIcon {
+  height: 16px;
+  width: 16px;
+}
+
+.settingsButton {
+  composes: buttonSmall from "../../../../../../styles/common.css";
+  padding: 0 4px;
+}
+
+.list {
+  width: 100%;
+  overflow-x: hidden;
+  list-style: none;
+
+}
+
+.listElement {
+  font-size: 14px;
+  padding: 6px 16px;
+  line-height: 20px;
+}
+
+.listElement:hover {
+  background-color: #317ae2;
+  color: #fff;
+}
+
+.popover {
+  padding: 4px 0;
+}
