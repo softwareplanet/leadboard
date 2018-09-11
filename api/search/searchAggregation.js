@@ -47,8 +47,8 @@ export const loadLeads = (domain, part) => {
         _id: 1,
         name: 1,
         status: 1,
-        contactName: "$contacts.name",
-        organizationName: "$organizations.name",
+        contact: "$contacts.name",
+        organization: "$organizations.name",
       }
     }
   ])

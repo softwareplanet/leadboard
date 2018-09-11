@@ -50,6 +50,10 @@ class Navbar extends React.Component<Props, State> {
   };
 
   public render() {
+    if(this.props.search.leads.length === 0) {
+      this.props.loadSearchResult('Tes');
+    }
+
     return (
       <header>
         <ul className={styles.menu} role="navigation">
