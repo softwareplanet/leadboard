@@ -1,0 +1,65 @@
+.item {
+  margin: 8px 16px;
+  padding: 14px 16px;
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+}
+
+.fieldName {
+  display: flex;
+}
+
+.icon {
+  position: relative;
+  margin-right: 8px;
+  color: #b9babb;
+  vertical-align: top;
+  font-size: 12px;
+}
+
+.title {
+  color: #26292c;
+  font: 400 14px/20px "Open Sans", sans-serif;
+  font-weight: 600;
+  display: inline-block;
+  word-break: break-word;
+  width: calc(100% - 48px);
+}
+
+.actions {
+
+}
+
+.properties li {
+  padding: 0;
+  display: block;
+  margin-top: 8px;
+  color: #747678;
+  font: 400 14px/20px "Open Sans",sans-serif;
+}
+
+.editButton {
+  display: none;
+  background: #fff;
+  border: 0;
+  border-radius: 3px;
+  cursor: pointer;
+  margin: 0;
+  position: relative;
+  box-sizing: border-box;
+  user-select: none;
+  box-shadow: inset 0 0 0 1px #cbcccd, 0 1px 2px rgba(38,41,44,.08);
+
+}
+
+.editButton> span {
+  padding: 3px;
+  font: 600 12px/16px Open Sans,sans-serif;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.item {
+
+}
