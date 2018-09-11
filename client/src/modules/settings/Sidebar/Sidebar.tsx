@@ -28,10 +28,10 @@ export default class Sidebar extends React.Component<Props, object> {
   private getSettingsItems = () => {
     return (
       <ul>
-        { this.settingsMenu.map((item, index) => 
+        { this.settingsMenu.map(item => 
           ( 
             <li 
-              key={index}
+              key={item.value}
               className={this.props.param === item.param ? styles.itemActive : styles.item}
               onClick={() => this.props.history.push(`/settings/${item.param}`)}
             >
