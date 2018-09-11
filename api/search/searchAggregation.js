@@ -36,9 +36,9 @@ export const loadLeads = (domain, part) => {
     {
       $match: {
         $or: [
-          { "organizations.name": { $regex: `^${part}` } },
-          { "contacts.name": { $regex: `^${part}` } },
-          { name: { $regex: `^${part}` } },
+          { "organizations.name": { $regex: `(?:^|\\W)${part}(?:|\\W)`, $options: "i" } },
+          { "contacts.name": { $regex: `(?:^|\\W)${part}(?:|\\W)`, $options: "i" } },
+          { name: { $regex: `(?:^|\\W)${part}(?:|\\W)`, $options: "i" } },
         ],
       },
     },

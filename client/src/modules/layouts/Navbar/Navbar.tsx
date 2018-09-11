@@ -17,8 +17,9 @@ const peopleRoute = '/people';
 
 interface Props extends RouteComponentProps<any> {
   auth: any;
+  search: any;
   logoutUser(history: any): void;
-  loadLeads(part:string): void;
+  loadSearchResult(part:string): void;
 }
 
 interface State {
@@ -49,7 +50,6 @@ class Navbar extends React.Component<Props, State> {
   };
 
   public render() {
-    this.props.loadLeads('Ter');
     return (
       <header>
         <ul className={styles.menu} role="navigation">
@@ -111,7 +111,8 @@ class Navbar extends React.Component<Props, State> {
 
 const mapStateToProps = (state: any) => ({
   auth: state.auth,
+  search: state.search,
 });
 
 export { Navbar };
-export default connect(mapStateToProps, { logoutUser, loadLeads: loadSearchResult })(withRouter(Navbar));
+export default connect(mapStateToProps, { logoutUser, loadSearchResult })(withRouter(Navbar));

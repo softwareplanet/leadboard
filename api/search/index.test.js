@@ -26,7 +26,7 @@ beforeEach(async done => {
   stageId = await createStage(app, cred.token, funnelId, "Stage", 2, cred.userId);
   lead = await createLead(app, cred.token, cred.userId, stageId, 2, "Matching lead", defaultContactName);
   contactLead = await createLead(app, cred.token, cred.userId, stageId, 2, "Lead A", matchingContactName);
-  await createLead(app, cred.token, cred.userId, stageId, 1, "Non matching name", "Non matching contact");
+  await createLead(app, cred.token, cred.userId, stageId, 1, "Non valid name", "Non valid contact");
   done();
 });
 
