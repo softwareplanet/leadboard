@@ -39,14 +39,12 @@ const domainSchema = new mongoose.Schema({
 domainSchema.pre("save", function(next) {
   let domain = this;
 
-  if (domain.settings) {
-    return next();
-  } else {
+  if (domain.isNew) {
     domain.settings = {
       customFields: createDefaultCustomFields(),
     };
   }
-
+  next();
 });
 
 const createDefaultCustomFields = () => {
