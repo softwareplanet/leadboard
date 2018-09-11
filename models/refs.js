@@ -5,4 +5,3 @@ export const STAGE = "Stage";
 export const ORGANIZATION = "Organization";
 export const LEAD = "Lead";
 export const CONTACT = "Contact";
-export const CUSTOM_FIELDS = "CustomFields";
