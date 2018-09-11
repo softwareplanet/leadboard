@@ -171,7 +171,6 @@ describe("Contact", () => {
     };
 
     expect(status).toEqual(200);
-    console.log(body);
     expect(body).toMatchObject(expectedDomain);
   });
 });
