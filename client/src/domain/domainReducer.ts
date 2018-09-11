@@ -1,3 +1,4 @@
+import Domain from '../models/Domain';
 import { LOAD_SETTINGS } from './types';
 
 interface Action {
@@ -5,11 +6,21 @@ interface Action {
   payload: any;
 }
 
-export default function(initialState = [], action: Action) {
+const initialState: Domain = {
+  _id: '',
+  name: '',
+  settings: {
+    customFields: [],
+    timezone: '',
+  },
+  timestamp: new Date(),
+};
+
+export default function(state = initialState, action: Action) {
   switch (action.type) {
     case LOAD_SETTINGS:
       return action.payload;
     default:
-      return initialState;
+      return state;
   }
 }
