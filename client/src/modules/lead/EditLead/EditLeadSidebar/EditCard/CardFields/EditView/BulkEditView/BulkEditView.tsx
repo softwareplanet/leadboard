@@ -33,55 +33,6 @@ class BulkEditView extends React.Component<Props, State> {
     });
   }
 
-  public onChangeEditField = (name: string, value: any) => {
-    if (name === 'Name') {
-      this.setState({ name: value });
-    } else {
-      const updatedCustom = [...this.state.custom];
-      const customField = updatedCustom.find(custom => custom.name === name);
-      if (customField) {
-        const customFieldIndex = updatedCustom.indexOf(customField);
-        const updatedCustomField = { ...customField };
-        updatedCustomField.value = value;
-        updatedCustom.splice(customFieldIndex, 1, updatedCustomField);
-        this.setState({ custom: updatedCustom });
-      }
-    }
-  };
-
-  public onSaveAllClicked = () => {
-    if (this.isNameValid(this.state.name)) {
-      this.props.onChange(this.state);
-    }
-  };
-
-  public getEditableFields() {
-    return [
-      {
-        name: 'Name',
-        value: this.props.model.name,
-      },
-      ...this.props.model.custom,
-    ];
-  }
-
-  public createFieldGroups() {
-    const fields = this.getEditableFields().map(field => (
-      <EditFieldGroup
-        key={field.name}
-        name={field.name}
-        value={field.value}
-        isValid={field.name === 'Name' ? this.isNameValid(this.state.name) : true}
-        onChange={this.onChangeEditField}
-      />
-    ));
-    return fields;
-  }
-
-  public isNameValid(name: string) {
-    return !isBlank(name);
-  }
-
   public render() {
     return (
       <div className={styles.editView}>
@@ -100,6 +51,55 @@ class BulkEditView extends React.Component<Props, State> {
         </div>
       </div>
     );
+  }
+
+  private onChangeEditField = (name: string, value: any) => {
+    if (name === 'Name') {
+      this.setState({ name: value });
+    } else {
+      const updatedCustom = [...this.state.custom];
+      const customField = updatedCustom.find(custom => custom.name === name);
+      if (customField) {
+        const customFieldIndex = updatedCustom.indexOf(customField);
+        const updatedCustomField = { ...customField };
+        updatedCustomField.value = value;
+        updatedCustom.splice(customFieldIndex, 1, updatedCustomField);
+        this.setState({ custom: updatedCustom });
+      }
+    }
+  };
+
+  private onSaveAllClicked = () => {
+    if (this.isNameValid(this.state.name)) {
+      this.props.onChange(this.state);
+    }
+  };
+
+  private getEditableFields() {
+    return [
+      {
+        name: 'Name',
+        value: this.props.model.name,
+      },
+      ...this.props.model.custom,
+    ];
+  }
+
+  private createFieldGroups() {
+    const fields = this.getEditableFields().map(field => (
+      <EditFieldGroup
+        key={field.name}
+        name={field.name}
+        value={field.value}
+        isValid={field.name === 'Name' ? this.isNameValid(this.state.name) : true}
+        onChange={this.onChangeEditField}
+      />
+    ));
+    return fields;
+  }
+
+  private isNameValid(name: string) {
+    return !isBlank(name);
   }
 }
 
