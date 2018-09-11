@@ -1,5 +1,5 @@
 import Contact from './Contact';
-import CustomField from './CustomField';
+import CustomField from './customFields/CustomField';
 import Note from './Note';
 import Organization from './Organization';
 import Stage from './Stage';
