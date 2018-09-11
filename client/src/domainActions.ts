@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
-import { LOAD_SETTINGS } from './modules/lead/Dashboard/types';
+import { LOAD_SETTINGS } from './types';
 
 export const loadDomain = (domainId: string) => (dispatch: Dispatch) => {
   axios
