@@ -31,7 +31,7 @@ class EditCard extends React.Component<Props, State> {
 
   public render() {
     const { isInEditMode } = this.state;
-    const customFieldsMode = this.state.isInCustomizeFieldsMode
+    const { isInCustomizeFieldsMode } = this.state;
     const fields = this.props.model.custom.map((field: any, index: number) =>
       <CardField key={index}
                  field={field}
@@ -42,14 +42,14 @@ class EditCard extends React.Component<Props, State> {
           <span className={styles.titleName}>
             {this.props.title}
             </span>
-          {(!isInEditMode && !customFieldsMode) &&
+          {(!isInEditMode && !isInCustomizeFieldsMode) &&
           <div>
             <EditButton onClick={this.openEditMode} />
             <SettingsButton id={this.props.model._id} showCustomize={this.openCustomizeFieldsMode} />
           </div>
           }
         </div>
-        {(!isInEditMode && !customFieldsMode)&&
+        {(!isInEditMode && !isInCustomizeFieldsMode) &&
         <div>
           <MainField title={this.props.title}
                      value={this.props.model.name}
