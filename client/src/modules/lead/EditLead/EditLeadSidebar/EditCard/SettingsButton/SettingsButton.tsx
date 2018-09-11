@@ -8,8 +8,6 @@ interface State {
 }
 
 interface Props {
-  id: string,
-
   showCustomize(): void,
 }
 
@@ -21,21 +19,21 @@ class SettingsButton extends React.Component<Props, State> {
 
   public render() {
     return (
-      <button id={`id${this.props.id}`} className={styles.settingsButton} onClick={this.togglePopover}>
-        <img className={styles.settingsIcon} src={settingsIcon} alt="Settings icon" />
-        <Popover
-          placement="bottom-start"
-          isOpen={this.state.showPopover}
-          toggle={this.togglePopover}
-          target={`id${this.props.id}`}
-        >
-          <PopoverBody className={styles.popover}>
-            <ul className={styles.list}>
-              <li className={styles.listElement} onClick={this.props.showCustomize}>Customize fields</li>
-            </ul>
-          </PopoverBody>
-        </Popover>
-      </button>
+        <button id="settingsButton" className={styles.settingsButton} onClick={this.togglePopover}>
+          <img className={styles.settingsIcon} src={settingsIcon} alt="Settings icon" />
+          <Popover
+            placement="bottom-start"
+            isOpen={this.state.showPopover}
+            toggle={this.togglePopover}
+            target="settingsButton"
+          >
+            <PopoverBody className={styles.popover}>
+              <ul className={styles.list}>
+                <li className={styles.listElement} onClick={this.props.showCustomize}>Customize fields</li>
+              </ul>
+            </PopoverBody>
+          </Popover>
+        </button>
     );
   }
 

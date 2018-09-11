@@ -4,7 +4,6 @@ import CustomField from '../../../../../models/CustomField';
 import Organization from '../../../../../models/Organization';
 import CardField from './CardFields/CardField';
 import BulkEditView from './CardFields/EditView/BulkEditView/BulkEditView';
-import EditCustomField from './CardFields/EditView/EditCustomField/EditCustomField';
 import MainField from './CardFields/MainField';
 import EditButton from './EditButton/EditButton';
 import * as styles from './EditCard.css';
@@ -45,7 +44,7 @@ class EditCard extends React.Component<Props, State> {
           {(!isInEditMode && !isInCustomizeFieldsMode) &&
           <div>
             <EditButton onClick={this.openEditMode} />
-            <SettingsButton id={this.props.model._id} showCustomize={this.openCustomizeFieldsMode} />
+              <SettingsButton showCustomize={this.openCustomizeFieldsMode} />
           </div>
           }
         </div>
@@ -63,9 +62,6 @@ class EditCard extends React.Component<Props, State> {
           <BulkEditView model={this.props.model}
                         onCancel={this.closeEditMode}
                         onChange={this.updateModel} />
-        }
-        {
-          <EditCustomField/>
         }
       </div>
     );
