@@ -10,7 +10,7 @@ const router = new Router();
 router.get("/", (req, res) => {
   Lead.aggregate([
     {
-      $match: { owner: req.user._id }
+      $match: { domain: req.user.domain }
     },
     {
       $lookup: {

@@ -67,6 +67,7 @@ router.post("/", async (req, res) => {
 
   let newLead = {
     _id: new mongoose.Types.ObjectId(),
+    domain: req.body.domain || req.user.domain,
     owner: req.body.owner ? req.body.owner : req.user._id,
     stage: req.body.stage,
     name: req.body.name,
