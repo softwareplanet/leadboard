@@ -42,13 +42,13 @@ describe("Search", () => {
         _id: lead._id,
         name: lead.name,
         status: lead.status,
-        contactName: defaultContactName,
+        contact: defaultContactName,
       },
       {
         _id: contactLead._id,
         name: contactLead.name,
         status: contactLead.status,
-        contactName: matchingContactName,
+        contact: matchingContactName,
       },
     ]);
   });
