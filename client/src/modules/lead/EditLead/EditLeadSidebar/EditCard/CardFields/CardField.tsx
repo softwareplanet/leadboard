@@ -1,8 +1,8 @@
 import * as React from 'react';
-import * as styles from './CardField.css';
 import CustomFieldData from '../../../../../../models/customFields/CustomFieldData';
 import isBlank from '../../../../../../utils/isBlank';
 import EditButton from '../EditButton/EditButton';
+import * as styles from './CardField.css';
 import SingleEditView from './EditView/SingleEditView/SingleEditView';
 
 interface Props {
