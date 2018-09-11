@@ -1,30 +1,23 @@
-.search {
-}
-
-.search .searchInput:hover {
+.searchInput:hover {
   background-color: #b9babb;
 }
 
-.search .searchInput:focus {
+.searchInput:focus {
   opacity: 1;
   background-color: #ffffff;
 }
 
-.search .searchInput:focus ~ .searchIcon {
-  z-index: 10;
-}
-
-.search .searchInput::placeholder {
+.searchInput::placeholder {
   color: #26292c;
   opacity: 1;
   font: 400 14px/20px "Open Sans", sans-serif;
 }
 
-.search .searchInput:focus::placeholder {
+.searchInput:focus::placeholder {
   color: #cbcccd;
 }
 
-.search .searchInput {
+.searchInput {
   border-radius: 4px;
   box-sizing: border-box;
   box-shadow: none;
@@ -66,4 +59,88 @@
   display: block;
   position: relative;
   padding: 8px;
+}
+
+.suggestion {
+  display: flex;
+  flex-direction: row;
+  padding: 4px 4px 4px 38px;
+  color: #26292c;
+  text-decoration: none;
+}
+
+.suggestion strong {
+  display: block;
+  padding: 3px 0 0 0;
+  font: 400 14px/20px "Open Sans", sans-serif;
+  font-weight: 600;
+}
+
+.suggestion small {
+  display: block;
+  font: 400 12px/16px "Open Sans", sans-serif;
+  padding: 2px 0;
+}
+
+.suggestion:hover {
+  background-color: #317ae2;
+  color: #fff
+}
+
+.suggestion:hover path {
+  fill: #ffffff;
+}
+
+.leadIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.leadIcon path {
+  fill: #000000;
+}
+
+.suggestionsTypes {
+  margin-bottom: 8px;
+  border-bottom: 1px solid #b9babb;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  background-color: #f7f7f7;
+}
+
+.suggestionsType {
+  padding: 0;
+  display: flex;
+  float: left;
+  height: 40px;
+  width: 48px;
+}
+
+.suggestionsType a {
+  position: relative;
+  height: 30px;
+  width: 48px;
+  font: 400 16px/24px "Open Sans", sans-serif;
+  color: rgba(38, 41, 44, 0.64);
+  padding-top: 10px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.leadTypeIcon {
+  height: 20px;
+  width: 20px;
+}
+
+.leadTypeIcon path {
+  fill: #404346;
+}
+
+.noResults {
+  font: 400 14px/20px "Open Sans", sans-serif;
+  padding: 10px;
+  cursor: auto;
 }
