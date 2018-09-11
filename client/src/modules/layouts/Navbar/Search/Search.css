@@ -1,3 +1,4 @@
+
 .searchInput:hover {
   background-color: #b9babb;
 }
@@ -64,14 +65,13 @@
 .suggestion {
   display: flex;
   flex-direction: row;
-  padding: 4px 4px 4px 38px;
   color: #26292c;
+  padding: 4px 4px 4px 10px;
   text-decoration: none;
 }
 
 .suggestion strong {
   display: block;
-  padding: 3px 0 0 0;
   font: 400 14px/20px "Open Sans", sans-serif;
   font-weight: 600;
 }
@@ -85,10 +85,6 @@
 .suggestion:hover {
   background-color: #317ae2;
   color: #fff
-}
-
-.suggestion:hover path {
-  fill: #ffffff;
 }
 
 .leadIcon {
@@ -143,4 +139,16 @@
   font: 400 14px/20px "Open Sans", sans-serif;
   padding: 10px;
   cursor: auto;
+}
+
+.searchResult {
+  padding-top: 8px;
+}
+
+.searchResult a {
+  text-decoration: none;
+}
+
+.suggestionInfo {
+  padding-left: 10px;
 }

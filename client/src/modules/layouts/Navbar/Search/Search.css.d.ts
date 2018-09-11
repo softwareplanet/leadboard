@@ -10,3 +10,4 @@ export const suggestionsType: string;
 export const leadTypeIcon: string;
 export const searchResult: string;
 export const noResults: string;
+export const suggestionInfo: string;

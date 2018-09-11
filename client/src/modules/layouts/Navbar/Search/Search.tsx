@@ -1,18 +1,13 @@
-import { createStyles, withStyles } from '@material-ui/core/styles';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import ReactSVG from 'react-svg';
 import leadIcon from '../../../../assets/lead-icon.svg';
 import searchIcon from '../../../../assets/search-icon.svg';
 import * as styles from './Search.css';
 
-const tabsStyles = createStyles({
-  root: {
-    height: 40,
-    width: 48,
-  },
-});
+const leads: any = [];
 
 class Search extends React.Component {
   public state = {
@@ -34,11 +29,28 @@ class Search extends React.Component {
             <Tab label="All" />
             <Tab icon={<ReactSVG className={styles.leadTypeIcon} src={leadIcon} />} />
           </Tabs>
-          <div>
-            <ul className={styles.searchResult}>
-              <li className={styles.noResults}>No results for 'qwd'</li>
-            </ul>
-          </div>
+          <ul className={styles.searchResult}>
+            {
+              leads.length ? (
+                leads.map((lead: any) => {
+                  return (
+                    <Link to={`/${lead._id}`} className={styles.suggestion} key={lead._id}>
+                      <ReactSVG src={leadIcon} className={styles.leadIcon} />
+                      <div className={styles.suggestionInfo}>
+                        <strong>{lead.name}</strong>
+                        {
+                          this.createLeadSuggestionInfo(lead).length ?
+                            <small>{this.createLeadSuggestionInfo(lead)}</small> : null
+                        }
+                      </div>
+                    </Link>
+                  );
+                })
+              ) : (
+                <li className={styles.noResults}>No results for 'qwd'</li>
+              )
+            }
+          </ul>
         </div>
       </div>
     );
@@ -47,13 +59,24 @@ class Search extends React.Component {
   private handleChange = (e: any, tabValue: number) => {
     this.setState({ tabValue });
   };
+
+  private createLeadSuggestionInfo = (lead: any) => {
+    let info = '';
+    if (lead.organization.length) {
+      if (lead.contact.length) {
+        info = `${lead.organization}, ${lead.contact}`;
+      } else {
+        info = `${lead.organization}`;
+      }
+    } else {
+      if (lead.contact.length) {
+        info = `${lead.contact}`;
+      } else {
+        info = '';
+      }
+    }
+    return info;
+  };
 }
 
-export default withStyles(tabsStyles)(Search);
-
-/*
- <ul className={styles.suggestionsTypes}>
-            <li><a href="#">All</a></li>
-            <li><ReactSVG src={leadIcon} className={styles.leadTypeIcon} /></li>
-          </ul>
-*/
+export default Search;
