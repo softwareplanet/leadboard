@@ -1,4 +1,4 @@
-import CustomFieldSetting from './CustomFieldSetting';
+import CustomFieldSetting from './customFields/CustomFieldSetting';
 
 export default interface DomainSettings {
   customFields: CustomFieldSetting[],
