@@ -46,7 +46,7 @@ router.post("/:domainId/settings/customFields", domainMembersMiddlewares, (req, 
   if (hasErrors) return res.status(400).json({ errors });
 
   Domain.findByIdAndUpdate(req.params.domainId,
-    { $push: { settings: { customFields: req.body } } },
+    { $push: { "settings.customFields": req.body } },
     { new: true })
     .then(domain => res.json(domain))
     .catch(error => res.status(400).json({ errors: { message: error } }));
@@ -60,8 +60,9 @@ router.patch("/:domainId/settings/customFields/:customFieldId", domainMembersMid
   const { hasErrors, errors } = validateCustomFieldUpdate(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 
-  Domain.findByIdAndUpdate(req.params.domainId,
-    { $set: { settings: { customFields: req.body } } },
+  Domain.findOneAndUpdate(
+    { _id: req.params.domainId, "settings.customFields._id": req.params.customFieldId },
+    { $set: { "settings.customFields.$": req.body } },
     { new: true })
     .then(domain => res.json(domain))
     .catch(error => res.status(400).json({ errors: { message: error } }));
@@ -73,7 +74,7 @@ router.patch("/:domainId/settings/customFields/:customFieldId", domainMembersMid
 // @access  Private
 router.delete("/:domainId/settings/customFields/:customFieldId", domainMembersMiddlewares, (req, res) => {
   Domain.findByIdAndUpdate(req.params.domainId,
-    { $pull: { settings: { customFields: req.body } } },
+    { $pull: { "settings.customFields": { _id: req.params.customFieldId } } },
     { new: true })
     .then(domain => res.json(domain))
     .catch(error => res.status(400).json({ errors: { message: error } }));
