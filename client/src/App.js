@@ -73,7 +73,12 @@ class App extends Component {
                 component={EditLead}
               />
             </Switch>
-            <Route path="/settings/:menuItem" component={Settings} />
+            <Switch>
+              <PrivateRoute 
+                path="/settings/:menuItem" 
+                component={Settings} 
+              />
+            </Switch>
             <Route exact path="/" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Login />} />
             <Route exact path="/register" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Registration />} />  
             <Footer/>

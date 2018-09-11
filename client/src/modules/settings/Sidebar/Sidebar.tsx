@@ -1,6 +1,6 @@
 import * as React from 'react'
+import { CUSTOMIZE_FIELDS, PIPELINES } from '../settingsRoutes';
 import * as styles from './Sidebar.css'
-import { PIPELINES, CUSTOMIZE_FIELDS } from '../settingsRoutes';
 
 interface Props {
   param: string;
