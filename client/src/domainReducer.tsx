@@ -1,4 +1,4 @@
-import { LOAD_SETTINGS } from './types';
+import { LOAD_SETTINGS } from './modules/lead/Dashboard/types';
 
 interface Action {
   type: string,
@@ -8,7 +8,7 @@ interface Action {
 export default function(initialState = [], action: Action) {
   switch (action.type) {
     case LOAD_SETTINGS:
-      return [action.payload];
+      return action.payload;
     default:
       return initialState;
   }
