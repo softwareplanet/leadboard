@@ -1,46 +1,27 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { Link, NavLink, RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, NavLink, withRouter } from 'react-router-dom';
 import ReactSVG from 'react-svg';
 import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
 import contactIcon from '../../../assets/contacts-icon.svg';
 import dealsIconActive from '../../../assets/deals-icon-active.svg';
 import dealsIcon from '../../../assets/deals-icon.svg';
-// import dropMenuIcon from '../../../assets/drop-menu-icon.svg';
-import profileIcon from '../../../assets/header-profile.svg';
-import { logoutUser } from '../../auth/authActions';
 import * as styles from './Navbar.css';
 import UserDropDown from './UserDropDown/UserDropDown'
 
 const leadsRoute = '/home';
 const peopleRoute = '/people';
 
-interface Props extends RouteComponentProps<any> {
-  auth: any;
-  logoutUser(history: any): void;
-}
-
 interface State {
   isDropdownOpen: boolean;
 }
 
-class Navbar extends React.Component<Props, State> {
+class Navbar extends React.Component<any, State> {
   public state: State = {
     isDropdownOpen: false,
   };
 
   public toggle = () => {
     this.setState({ isDropdownOpen: !this.state.isDropdownOpen });
-  };
-
-  public renderUserAvatar = () => {
-    return this.props.auth && this.props.auth.avatar ?
-      <img className={styles.userImg} src={this.props.auth.avatar} alt="user" /> :
-      <img className={styles.defaultImg} src={profileIcon} alt="user" />;
-  };
-
-  public onLogout = () => {
-    this.props.logoutUser(this.props.history);
   };
 
   public getDealsIcon = () => {
@@ -88,9 +69,9 @@ class Navbar extends React.Component<Props, State> {
           </div>
           
           
-          <li className={styles.rightItem}>
-            <UserDropDown renderAvatar={this.renderUserAvatar}/>
-          </li>
+          <div className={styles.rightItem}>
+            <UserDropDown />
+          </div>
           {/* <li id="logout" onClick={this.onLogout} className={styles.item}>
             <div>
               Logout
@@ -102,9 +83,5 @@ class Navbar extends React.Component<Props, State> {
   }
 }
 
-const mapStateToProps = (state: any) => ({
-  auth: state.auth,
-});
-
 export { Navbar };
-export default connect(mapStateToProps, { logoutUser })(withRouter(Navbar));
+export default withRouter(Navbar);

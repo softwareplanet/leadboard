@@ -44,12 +44,7 @@ ul {
   margin: 0;
 }
 
-.itemWithLink {
-  padding: 12px 13px;
-}
-
 .item {
-  composes: itemWithLink;
   color: #b9babb;
 }
 
@@ -67,25 +62,10 @@ ul {
 .rightItem {
   composes: item;
   margin-left: auto;
-  padding: 8px 14px 8px 12px;
-}
-
-.rightItem:hover small {
-  color: #fff;
 }
 
 .rightItem div:hover {
-  color: #b9babb;
   cursor: pointer;
-}
-
-.dropDownIcon {
-  width: 24px;
-  height: 24px;
-}
-
-.dropDownIcon svg {
-  width: 100%;
 }
 
 .active {
@@ -103,17 +83,6 @@ ul {
 .icon image {
   width: 24px;
   height: 24px;
-}
-
-.userImg {
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-}
-
-.defaultImg {
-  composes: userImg;
-  background-color: #686a6c;
 }
 
 .link {
@@ -139,27 +108,7 @@ ul {
   text-decoration: none;
 }
 
-.userInfo {
-  display: flex;
-  margin: 0 8px;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.userInfo small {
-  align-self: flex-start;
-  font-size: 10px;
-  height: 16px;
-}
-
-.userInfo span {
-  color: #fff;
-  align-self: flex-start;
-  font-size: 14px;
-  height: 16px;
-}
-
-@media only screen and (max-width: 590px) {
+/* @media only screen and (max-width: 590px) {
   .userInfo span, small {
     display: none;
   }
@@ -188,7 +137,7 @@ ul {
   .logoSmall {
     display: flex;
   }
-}
+} */
 
 .activeContacts {
   background-color: #26292c;

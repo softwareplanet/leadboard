@@ -1,7 +1,11 @@
-export const contactIcon: string;
-export const activeContacts: string;
-export const peopleIcon: string;
-export const organizationIcon: string;
+export const userImg: string;
+export const defaultImg: string;
+export const dropDownIcon: string;
+export const userInfo: string;
 export const dropDown: string;
-export const dropDownItem: string;
-export const dropDownMenu: string;
+export const userDropDown: string;
+export const userDropDownMenu: string;
+export const userDropDownItem: string;
+export const logoutIcon: string;
+export const active: string;
+

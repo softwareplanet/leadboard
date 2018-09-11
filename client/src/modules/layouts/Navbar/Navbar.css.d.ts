@@ -6,11 +6,8 @@ export const item: string;
 export const rightItem: string;
 export const active: string;
 export const icon: string;
-export const userImg: string;
-export const defaultImg: string;
 export const link: string;
 export const currentLink: string;
-export const userInfo: string;
 export const userIcon: string;
 export const defaultImgContainer: string;
 export const dropDownToggle: string;
@@ -22,4 +19,4 @@ export const contactIcon: string;
 export const menuItemDataWrapper: string;
 export const activeContacts: string;
 export const peopleIcon: string;
-export const dropDownIcon: string;
+
