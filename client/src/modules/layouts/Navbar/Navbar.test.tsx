@@ -7,7 +7,6 @@ configure({ adapter: new ReactSixteenAdapter });
 describe('<Navbar /> :', () => {
   let wrapper;
   let logoutUser;
-  let loadSearchResult;
   let location:any = {};
   const history:any = {};
   const match:any = {};
@@ -20,16 +19,13 @@ describe('<Navbar /> :', () => {
     userid: '5b6a9cca9a32282c3e8435c5'
   };
 
-  const search = {};
-
   location = {
     pathname: '/home',
   };
 
   it('should call method logoutUser user when Logout clicked', () => {
     logoutUser = jest.fn();
-    loadSearchResult = jest.fn();
-    wrapper = shallow(<Navbar loadSearchResult={loadSearchResult} location={location} history={history} auth={auth} search={search} logoutUser={logoutUser}  match={match}/>);
+    wrapper = shallow(<Navbar location={location} history={history} auth={auth} logoutUser={logoutUser}  match={match}/>);
     wrapper.find('#logout').simulate('click');
     expect(logoutUser).toHaveBeenCalledTimes(1);
   });

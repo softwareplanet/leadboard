@@ -1,20 +1,30 @@
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ReactSVG from 'react-svg';
 import leadIcon from '../../../../assets/lead-icon.svg';
 import searchIcon from '../../../../assets/search-icon.svg';
+import { loadSearchResult } from '../searchActions';
 import * as styles from './Search.css';
 
-const leads: any = [];
+// const leads: any = [];
+interface Props {
+  search: any;
+  loadSearchResult(part: string): void;
+}
 
-class Search extends React.Component {
+class Search extends React.Component<Props, object> {
   public state = {
     tabValue: 0,
   };
 
+
   public render() {
+    if(this.props.search.leads.length === 0) {
+      this.props.loadSearchResult('con')
+    }
     return (
       <div>
         <div className={styles.searchWrapper}>
@@ -31,10 +41,11 @@ class Search extends React.Component {
           </Tabs>
           <ul className={styles.searchResult}>
             {
-              leads.length ? (
-                leads.map((lead: any) => {
+
+              this.props.search.leads.length ? (
+                this.props.search.leads.map((lead: any) => {
                   return (
-                    <Link to={`/${lead._id}`} className={styles.suggestion} key={lead._id}>
+                    <Link to={`../lead/${lead._id}`} className={styles.suggestion} key={lead._id}>
                       <ReactSVG src={leadIcon} className={styles.leadIcon} />
                       <div className={styles.suggestionInfo}>
                         <strong>{lead.name}</strong>
@@ -62,14 +73,14 @@ class Search extends React.Component {
 
   private createLeadSuggestionInfo = (lead: any) => {
     let info = '';
-    if (lead.organization.length) {
-      if (lead.contact.length) {
+    if (lead.organization && lead.organization.length) {
+      if (lead.contact && lead.contact.length) {
         info = `${lead.organization}, ${lead.contact}`;
       } else {
         info = `${lead.organization}`;
       }
     } else {
-      if (lead.contact.length) {
+      if (lead.contact && lead.contact.length) {
         info = `${lead.contact}`;
       } else {
         info = '';
@@ -79,4 +90,8 @@ class Search extends React.Component {
   };
 }
 
-export default Search;
+const mapStateToProps = (state: any) => ({
+  search: state.search,
+});
+
+export default connect(mapStateToProps, { loadSearchResult })(Search);

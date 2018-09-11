@@ -10,16 +10,13 @@ import profileIcon from '../../../assets/header-profile.svg';
 import { logoutUser } from '../../auth/authActions';
 import * as styles from './Navbar.css';
 import Search from './Search/Search';
-import { loadSearchResult } from './searchActions';
 
 const leadsRoute = '/home';
 const peopleRoute = '/people';
 
 interface Props extends RouteComponentProps<any> {
   auth: any;
-  search: any;
   logoutUser(history: any): void;
-  loadSearchResult(part:string): void;
 }
 
 interface State {
@@ -111,8 +108,7 @@ class Navbar extends React.Component<Props, State> {
 
 const mapStateToProps = (state: any) => ({
   auth: state.auth,
-  search: state.search,
 });
 
 export { Navbar };
-export default connect(mapStateToProps, { logoutUser, loadSearchResult })(withRouter(Navbar));
+export default connect(mapStateToProps, { logoutUser })(withRouter(Navbar));
