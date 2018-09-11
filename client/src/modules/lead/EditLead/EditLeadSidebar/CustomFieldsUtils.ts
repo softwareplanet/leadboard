@@ -10,6 +10,10 @@ export function getCustomFieldSettings(modelType: string, settings: DomainSettin
   );
 }
 
+export function getFilteredFieldsByModel(model: string, settings: DomainSettings) {
+  return settings.customFields.filter((customField: CustomFieldSetting) => model === customField.model);
+}
+
 export function makeCustomFieldData(modelType: string, model: Contact | Organization, settings: DomainSettings): CustomFieldData[] {
   const result: CustomFieldData[] = [];
   const customFieldSettings = getCustomFieldSettings(modelType, settings);
