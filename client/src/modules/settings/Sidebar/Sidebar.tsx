@@ -7,7 +7,7 @@ interface Props {
   history: any;
 }
 
-export default class Sidebar extends React.Component<Props, object> {
+export default class Sidebar extends React.Component<Props> {
   private settingsMenu = [{
     value: 'Pipelines',
     param: PIPELINES,
@@ -32,7 +32,7 @@ export default class Sidebar extends React.Component<Props, object> {
           ( 
             <li 
               key={item.value}
-              className={this.props.param === item.param ? styles.itemActive : styles.item}
+              className={this.props.param === item.param ? styles.activeItem : styles.item}
               onClick={() => this.props.history.push(`/settings/${item.param}`)}
             >
               { item.value }

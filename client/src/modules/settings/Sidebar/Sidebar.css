@@ -22,7 +22,7 @@
   color: #317ae2;
 }
 
-.itemActive {
+.activeItem {
   composes: abstractItem;
   color: #404346;
   background: #f7f7f7;
