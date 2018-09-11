@@ -82,4 +82,3 @@ class MainField extends React.Component<Props, State> {
 }
 
 export default MainField;
-
