@@ -1,17 +1,28 @@
 import { shallow } from 'enzyme';
 import 'jsdom-global/register';
 import * as React from 'react';
+import { IN_PROGRESS, LOST } from '../../../../constants';
+import Domain from '../../../../models/Domain';
 import Lead from '../../../../models/Lead';
 import { EditLeadHeader } from './EditLeadHeader';
 import * as styles from './EditLeadHeader.css';
-import { LOST, IN_PROGRESS } from '../../../../constants';
 
-let editLead: Lead = {
+const domain: Domain = {
+  _id: '5b86a96eed17641891c5011b',
+  name: 'interLink',
+  timestamp: new Date('2018-08-29T14:10:54.395Z'),
+  settings: {
+    customFields: [],
+    timezone: 'UTC',
+  },
+};
+
+const editLead: Lead = {
   _id: '5b9110616ec37621e6b17bc4',
   owner: {
     _id: '5b86a96eed17641891c5011c',
     email: 'olegsamardak98@gmail.com',
-    domain: '5b86a96eed17641891c5011b',
+    domain: domain,
     timestamp: new Date('2018-08-29T14:10:54.392Z'),
     lastname: 'Smith',
     firstname: 'John',
@@ -28,11 +39,7 @@ let editLead: Lead = {
   contact: {
     _id: '5b9110616ec37621e6b17bc5',
     name: 'Sarah',
-    domain: {
-      _id: '5b86a96eed17641891c5011b',
-      name: 'interLink',
-      timestamp: new Date('2018-08-29T14:10:54.395Z'),
-    },
+    domain: domain,
     timestamp: new Date('2018-09-06T11:32:49.518Z'),
     custom: [{
       key: 'Phone',
