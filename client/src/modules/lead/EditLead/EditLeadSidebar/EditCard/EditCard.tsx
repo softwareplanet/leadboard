@@ -114,7 +114,12 @@ class EditCard extends React.Component<Props, State> {
   private handleCustomFieldUpdate = (key: string, value: any) => {
     const updatedModel = { ...this.props.model };
     updatedModel.custom = [...this.props.model.custom];
-    updatedModel.custom.find((customField: CustomField) => customField.key === key)!.value = value;
+    const customField = updatedModel.custom.find((field: CustomField) => field.key === key);
+    if (customField) {
+      customField.value = value;
+    } else {
+      updatedModel.custom.push({ key, value });
+    }
     this.updateModel(updatedModel);
   };
 }

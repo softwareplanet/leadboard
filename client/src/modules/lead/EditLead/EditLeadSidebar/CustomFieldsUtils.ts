@@ -20,6 +20,7 @@ export function makeCustomFieldData(modelType: string, model: Contact | Organiza
 
   customFieldSettings.map((fieldSetting: CustomFieldSetting) => {
     const customFieldData: CustomFieldData = {
+      key: fieldSetting._id,
       model: modelType,
       name: fieldSetting.name,
       value: '',

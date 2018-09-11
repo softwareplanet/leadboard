@@ -83,6 +83,7 @@ class BulkEditView extends React.Component<Props, State> {
         isDefault: true,
         name: 'Name',
         model: '',
+        key: '',
         type: 'string',
         value: this.props.model.name,
       },

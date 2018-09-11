@@ -14,21 +14,27 @@ describe('<SingleEditView/>', () => {
   let wrapper;
 
   it('renders without crashing', () => {
-    wrapper = shallow(<SingleEditView
-      fieldName={'Name'}
-      fieldValue={contact.organization.name}
-      onCancel={noop}
-      onChange={noop} />);
+    wrapper = shallow(
+      <SingleEditView
+        fieldName={'Name'}
+        fieldValue={contact.organization.name}
+        onCancel={noop}
+        onChange={noop}
+        fieldKey={''}
+      />);
     expect(wrapper.length).toBe(1);
   });
 
   it('reacts on cancel properly', () => {
     const spy = jest.fn();
-    wrapper = shallow(<SingleEditView
-      fieldName={'Name'}
-      fieldValue={contact.organization.name}
-      onCancel={spy}
-      onChange={noop} />);
+    wrapper = shallow(
+      <SingleEditView
+        fieldName={'Name'}
+        fieldValue={contact.organization.name}
+        onCancel={spy}
+        onChange={noop}
+        fieldKey={''}
+      />);
     const buttonCancel = wrapper.find('.cancelButton');
     buttonCancel.simulate('click');
     expect(spy).toHaveBeenCalledTimes(1);
@@ -37,10 +43,12 @@ describe('<SingleEditView/>', () => {
   it('handles input change and save properly', () => {
     const spy = jest.fn();
     wrapper = shallow(<SingleEditView
-      fieldName={'Name'}
-      fieldValue={contact.organization.name}
-      onChange={spy}
-      onCancel={noop} />,
+        fieldName={'Name'}
+        fieldValue={contact.organization.name}
+        onChange={spy}
+        onCancel={noop}
+        fieldKey={''}
+      />,
     );
     const inputGroup = wrapper.find('EditFieldGroup');
     inputGroup.simulate('change');
