@@ -12,7 +12,7 @@ import Stage from "../../models/stage";
 
 const router = new Router();
 
-// @route   GET api/register
+// @route   POST api/register
 // @desc    Register a new user
 // @access  Public
 router.post("/register", function(req, res) {
@@ -27,19 +27,19 @@ router.post("/register", function(req, res) {
     lastname: req.body.lastname,
     email: req.body.email,
     password: req.body.password,
-    domain: domainId
+    domain: domainId,
   });
 
   const domain = new Domain({
     _id: domainId,
-    name: req.body.company
+    name: req.body.company,
   });
 
   let funnelId = new mongoose.Types.ObjectId();
   const funnel = new Funnel({
     _id: funnelId,
     name: "Default Lead Funnel",
-    domain: domainId
+    domain: domainId,
   });
 
   let stages = [];
@@ -65,7 +65,7 @@ router.post("/register", function(req, res) {
     .catch(err => {
       let errors = {};
 
-      if (typeof err.code !== "undefines" && err.code == 11000) {
+      if (err.code && err.code === 11000) {
         errors.email = "User with this Email is already exists";
       } else {
         errors.email = "It was a problem to save this data to database";
@@ -80,7 +80,7 @@ function createStage(funnel, name, order) {
     _id: stageId,
     name: name,
     funnel: funnel,
-    order: order
+    order: order,
   });
 }
 
@@ -113,7 +113,7 @@ router.post("/login", function(req, res) {
                   userId: user._id.toString(),
                   domainId: user.domain._id.toString(),
                   domainName: user.domain.name.toString(),
-                  userName: `${user.firstname.toString()} ${user.lastname.toString()}`
+                  userName: `${user.firstname.toString()} ${user.lastname.toString()}`,
                 });
               });
           } else {
