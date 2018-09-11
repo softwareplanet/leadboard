@@ -15,16 +15,16 @@ class EditCustomFieldsView extends React.Component<Props, object> {
     return (
       <div>
         {this.props.customFields.map(customField => {
-          if (this.props.model === customField.model) {
-            <EditCustomField customSettings={customField} />;
-          }
+           return (<EditCustomField customSettings={customField} />);
         })}
-        <button
-          onClick={() => this.props.closeEditCustomFieldsMode}
-          className={styles.button}
-        >
-          Done
-        </button>
+        <div className={styles.buttonWrapper}>
+          <button
+            onClick={this.props.closeEditCustomFieldsMode}
+            className={styles.button}
+          >
+            Done
+          </button>
+        </div>
       </div>
     );
   }
