@@ -14,14 +14,14 @@ let editLead: Lead = {
     domain: '5b86a96eed17641891c5011b',
     timestamp: new Date('2018-08-29T14:10:54.392Z'),
     lastname: 'Smith',
-    firstname: 'John'
+    firstname: 'John',
   },
   stage: {
     _id: '5b86a96eed17641891c50120',
     name: 'Decision',
     funnel: '5b86a96eed17641891c5011d',
     order: 3,
-    timestamp: new Date('2018-08-29T14:10:54.395Z')
+    timestamp: new Date('2018-08-29T14:10:54.395Z'),
   },
   name: 'Sarah lead',
   order: 1,
@@ -31,19 +31,19 @@ let editLead: Lead = {
     domain: {
       _id: '5b86a96eed17641891c5011b',
       name: 'interLink',
-      timestamp: new Date('2018-08-29T14:10:54.395Z')
+      timestamp: new Date('2018-08-29T14:10:54.395Z'),
     },
     timestamp: new Date('2018-09-06T11:32:49.518Z'),
     custom: [{
-        name: 'Phone',
-        value: '',
-        _id: '5b9110616ec37621e6b17bc7'
-      },
+      key: 'Phone',
+      value: '',
+      _id: '5b9110616ec37621e6b17bc7',
+    },
       {
-        name: 'Email',
+        key: 'Email',
         value: '',
-        _id: '5b9110616ec37621e6b17bc6'
-      }]
+        _id: '5b9110616ec37621e6b17bc6',
+      }],
   },
   organization: {
     _id: '5b7ea6477adb5755f6bbc038',
@@ -51,22 +51,22 @@ let editLead: Lead = {
     name: 'Microsoft ',
     timestamp: new Date('2018-08-23T12:19:19.758Z'),
     custom: [{
-      name:'Address',
-      value:'',
-      _id:'5b7ea6477adb5755f6bbc039'
+      key: 'Address',
+      value: '',
+      _id: '5b7ea6477adb5755f6bbc039',
     }],
   },
   notes: [],
   status: IN_PROGRESS,
   timestamp: new Date('2018-09-06T11:32:49.547Z'),
-  custom: []
+  custom: [],
 };
 
 describe('<EditLeadHeader />', () => {
   let updateLead;
   const match = {
     params: {
-      leadId: '5b86aa21ed17641891c50127'
+      leadId: '5b86aa21ed17641891c50127',
     },
   };
   let loadLeadActivities;
@@ -74,13 +74,13 @@ describe('<EditLeadHeader />', () => {
   it('should call updateLead after won and lost buttons click', () => {
     updateLead = jest.fn();
     loadLeadActivities = jest.fn();
-    const wrapper = shallow (
-      <EditLeadHeader 
+    const wrapper = shallow(
+      <EditLeadHeader
         match={match}
-        editLead={editLead} 
+        editLead={editLead}
         updateLead={updateLead}
         loadLeadActivities={loadLeadActivities}
-      />
+      />,
     );
     wrapper.find(`.${styles.button}`).simulate('click');
     wrapper.find(`.${styles.buttonLost}`).simulate('click');
@@ -91,13 +91,13 @@ describe('<EditLeadHeader />', () => {
     updateLead = jest.fn();
     loadLeadActivities = jest.fn();
     editLead.status = LOST;
-    const wrapper = shallow (
-      <EditLeadHeader 
+    const wrapper = shallow(
+      <EditLeadHeader
         match={match}
-        editLead={editLead} 
+        editLead={editLead}
         updateLead={updateLead}
         loadLeadActivities={loadLeadActivities}
-      />
+      />,
     );
     const closedLeadActions = wrapper.find(`.${styles.closedLeadActions}`);
     expect(closedLeadActions).toHaveLength(1);
