@@ -9,6 +9,7 @@ import dealsIcon from '../../../assets/deals-icon.svg';
 import profileIcon from '../../../assets/header-profile.svg';
 import { logoutUser } from '../../auth/authActions';
 import * as styles from './Navbar.css';
+import Search from './Search/Search';
 
 const leadsRoute = '/home';
 const peopleRoute = '/people';
@@ -51,6 +52,7 @@ class Navbar extends React.Component<Props, State> {
         <ul className={styles.menu} role="navigation">
           <li className={styles.logo}><Link to={leadsRoute}>Leadboard</Link></li>
           <li className={styles.logoSmall}><Link to={leadsRoute}><h1>L</h1></Link></li>
+          <Search />
           <NavLink
             className={styles.link}
             activeClassName={styles.currentLink}
