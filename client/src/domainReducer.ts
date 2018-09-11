@@ -1,4 +1,4 @@
-import { LOAD_SETTINGS } from './modules/lead/Dashboard/types';
+import { LOAD_SETTINGS } from './types';
 
 interface Action {
   type: string,
