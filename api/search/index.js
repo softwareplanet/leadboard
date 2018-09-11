@@ -5,12 +5,20 @@ import Lead from "../../models/lead";
 const router = new Router();
 
 // @route   GET api/search
-// @desc    Find leads by user and regex
+// @desc    Find search result by domain and regex
 // @access  Private
-router.get("/", (req, res) => {
-  Lead.aggregate([
+
+router.get("/",async (req, res) => {
+  let leads = await loadLeads(req.user.domain, req.query.part);
+  res.json({
+    leads,
+  });
+});
+
+const loadLeads = (domain, part) => {
+  return Lead.aggregate([
     {
-      $match: { domain: req.user.domain }
+      $match: { domain: domain }
     },
     {
       $lookup: {
@@ -43,9 +51,9 @@ router.get("/", (req, res) => {
     {
       $match: {
         $or: [
-          { "organizations.name": { $regex: `^${req.query.part}` } },
-          { "contacts.name": { $regex: `^${req.query.part}` } },
-          { name: { $regex: `^${req.query.part}` } },
+          { "organizations.name": { $regex: `^${part}` } },
+          { "contacts.name": { $regex: `^${part}` } },
+          { name: { $regex: `^${part}` } },
         ],
       },
     },
@@ -55,18 +63,14 @@ router.get("/", (req, res) => {
         name: 1,
         status: 1,
         contactName: "$contacts.name",
-        organizationName: "$organizations.name"
+        organizationName: "$organizations.name",
+        type: "lead",
       }
     }
   ])
     .sort({ order: "asc" })
-    .then(leads => {
-      console.log(leads);
-      res.json(leads);
-    })
-    .catch(error => {
-      res.status(400).json({ errors: { message: error } });
-    });
-});
+    .then(leads => Promise.resolve(leads))
+    .catch(error => Promise.reject(error))
+};
 
 export default router;
