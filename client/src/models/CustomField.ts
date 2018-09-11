@@ -1,5 +1,5 @@
 export default interface CustomField {
   _id?: string,
-  name: string;
+  key: string;
   value: string;
 }
