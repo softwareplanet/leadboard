@@ -6,32 +6,20 @@ const domainSchema = new mongoose.Schema({
   name: { type: String, required: [true, "Company name is required"] },
   timestamp: { type: Date, default: Date.now },
   settings: {
-    customFields: {
-      lead: [{
-        key: { type: String, required: [true] },
+    customFields: [
+      {
+        model: {
+          type: String,
+          enum: ["Contact", "Lead", "Organization"],
+          required: true,
+        },
         name: { type: String, required: [true] },
         type: { type: String, required: [true] },
         isAlwaysVisible: { type: Boolean, required: [true, true] },
         isShownInAddDialog: { type: Boolean, required: [true, false] },
         isDefault: { type: Boolean, required: [true, false] },
-      }],
-      contact: [{
-        key: { type: String, required: [true] },
-        name: { type: String, required: [true] },
-        type: { type: String, required: [true] },
-        isAlwaysVisible: { type: Boolean, required: [true, true] },
-        isShownInAddDialog: { type: Boolean, required: [true, false] },
-        isDefault: { type: Boolean, required: [true, false] },
-      }],
-      organization: [{
-        key: { type: String, required: [true] },
-        name: { type: String, required: [true] },
-        type: { type: String, required: [true] },
-        isAlwaysVisible: { type: Boolean, required: [true, true] },
-        isShownInAddDialog: { type: Boolean, required: [true, false] },
-        isDefault: { type: Boolean, required: [true, false] },
-      }],
-    },
+      },
+    ],
     timezone: { type: String, default: "Etc/UTC" },
   },
 });
@@ -48,37 +36,32 @@ domainSchema.pre("save", function(next) {
 });
 
 const createDefaultCustomFields = () => {
-  return {
-    lead: [],
-    contact: [
-      {
-        key: "phone",
-        name: "Phone",
-        type: "string",
-        isAlwaysVisible: true,
-        isShownInAddDialog: false,
-        isDefault: true,
-      },
-      {
-        key: "email",
-        name: "Email",
-        type: "string",
-        isAlwaysVisible: true,
-        isShownInAddDialog: false,
-        isDefault: true,
-      },
-    ],
-    organization: [
-      {
-        key: "address",
-        name: "Address",
-        type: "string",
-        isAlwaysVisible: true,
-        isShownInAddDialog: false,
-        isDefault: true,
-      },
-    ],
-  };
+  return [
+    {
+      model: "Contact",
+      name: "Phone",
+      type: "string",
+      isAlwaysVisible: true,
+      isShownInAddDialog: false,
+      isDefault: true,
+    },
+    {
+      model: "Contact",
+      name: "Email",
+      type: "string",
+      isAlwaysVisible: true,
+      isShownInAddDialog: false,
+      isDefault: true,
+    },
+    {
+      model: "Organization",
+      name: "Address",
+      type: "string",
+      isAlwaysVisible: true,
+      isShownInAddDialog: false,
+      isDefault: true,
+    },
+  ];
 };
 
 export default mongoose.model(DOMAIN, domainSchema);
