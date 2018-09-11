@@ -1,12 +1,12 @@
 import * as React from 'react';
 import * as styles from './CardField.css';
-import CustomField from '../../../../../../models/CustomField';
+import CustomFieldData from '../../../../../../models/customFields/CustomFieldData';
 import isBlank from '../../../../../../utils/isBlank';
 import EditButton from '../EditButton/EditButton';
 import SingleEditView from './EditView/SingleEditView/SingleEditView';
 
 interface Props {
-  field: CustomField;
+  field: CustomFieldData;
 
   onUpdate(name: string, value: any): void;
 }

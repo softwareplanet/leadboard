@@ -1,6 +1,6 @@
 import * as React from 'react';
 import EditCustomField from '../CustomFieldView/CustomFieldView';
-import CustomFieldSetting from '../../../../../../../../models/CustomFieldSetting';
+import CustomFieldSetting from '../../../../../../../../models/customFields/CustomFieldSetting';
 import * as styles from './CustomFields.css';
 
 interface Props {

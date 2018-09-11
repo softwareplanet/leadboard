@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Contact from '../../../../../../../../models/Contact';
-import CustomField from '../../../../../../../../models/CustomField';
+import CustomFieldData from '../../../../../../../../models/customFields/CustomFieldData';
 import Organization from '../../../../../../../../models/Organization';
 import * as commonStyles from '../../../../../../../../styles/common.css';
 import isBlank from '../../../../../../../../utils/isBlank';
@@ -9,7 +9,7 @@ import * as styles from './BulkEditView.css';
 
 interface State {
   name: string,
-  custom?: CustomField[],
+  custom?: CustomFieldData[],
 }
 
 interface Props {
