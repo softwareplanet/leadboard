@@ -17,6 +17,7 @@ import People from "./modules/layouts/Contacts/People/People";
 import "./App.css";
 import { Switch } from "react-router-dom";
 import EditLead from "./modules/lead/EditLead/EditLead";
+import Settings from "./modules/settings/Settings";
 
 setAuthInterceptor();
 // restore redux/storage on page reload
@@ -68,6 +69,13 @@ class App extends Component {
                 exact
                 path="/lead/:leadId"
                 component={EditLead}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/settings"
+                component={Settings}
               />
             </Switch>
             <Route exact path="/" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Login />} />
