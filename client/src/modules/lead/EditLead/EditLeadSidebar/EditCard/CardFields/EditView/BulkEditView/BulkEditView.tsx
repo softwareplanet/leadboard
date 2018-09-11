@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Contact from '../../../../../../../../models/Contact';
 import CustomFieldData from '../../../../../../../../models/customFields/CustomFieldData';
-import DomainSettings from '../../../../../../../../models/DomainSettings';
 import Organization from '../../../../../../../../models/Organization';
 import * as commonStyles from '../../../../../../../../styles/common.css';
 import isBlank from '../../../../../../../../utils/isBlank';
@@ -15,7 +14,6 @@ interface State {
 
 interface Props {
   model: Contact | Organization,
-  settings: DomainSettings
 
   onChange(state: State): void,
 

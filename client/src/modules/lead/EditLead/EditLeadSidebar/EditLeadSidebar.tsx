@@ -16,7 +16,7 @@ import Organization from '../../../../models/Organization';
 import ContactAutocomplete from '../../../common/autocomplete/contact/ContactAutocomplete';
 import OrganizationAutocomplete from '../../../common/autocomplete/organization/OrganizationAutocomplete';
 import { autocompleteStyles } from '../../../common/autocomplete/styles/autocomplete-styles';
-import { makeCustomFieldData } from './CustomFieldsUtils';
+import { getFilteredFieldsByModel, makeCustomFieldData } from './CustomFieldsUtils';
 import * as editCardStyles from './EditCard/EditCard.css';
 import EmptyCard from './EditCard/EmptyCard/EmptyCard';
 
@@ -56,7 +56,7 @@ class EditLeadSidebar extends React.Component<Props> {
           title={'Person'}
           icon={personIcon}
           onUpdate={this.props.updateContact}
-          settings={settings}
+          settings={getFilteredFieldsByModel('Contact', settings)}
           customFields={makeCustomFieldData('Contact', contact, settings)}
         />;
       const organizationCard =
@@ -65,7 +65,7 @@ class EditLeadSidebar extends React.Component<Props> {
           title={'Organization'}
           icon={organizationIcon}
           onUpdate={this.props.updateOrganization}
-          settings={settings}
+          settings={getFilteredFieldsByModel('Organization', settings)}
           customFields={makeCustomFieldData('Organization', contact, settings)}
         />;
       const emptyOrganizationCard = (

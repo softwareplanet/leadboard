@@ -2,7 +2,6 @@ import * as React from 'react';
 import Contact from '../../../../../models/Contact';
 import CustomField from '../../../../../models/customFields/CustomField';
 import CustomFieldData from '../../../../../models/customFields/CustomFieldData';
-import DomainSettings from '../../../../../models/DomainSettings';
 import Organization from '../../../../../models/Organization';
 import CardField from './CardFields/CardField';
 import BulkEditView from './CardFields/EditView/BulkEditView/BulkEditView';
@@ -10,6 +9,8 @@ import MainField from './CardFields/MainField';
 import EditButton from './EditButton/EditButton';
 import * as styles from './EditCard.css';
 import SettingsButton from './SettingsButton/SettingsButton';
+import CustomFields from './CardFields/EditView/EditCustomFieldsView/CustomFields';
+import CustomFieldSetting from '../../../../../models/customFields/CustomFieldSetting';
 
 interface State {
   isInEditMode: boolean,
@@ -18,7 +19,7 @@ interface State {
 
 interface Props {
   model: Contact | Organization,
-  settings: DomainSettings,
+  settings: CustomFieldSetting[],
   title: string,
   icon: any,
   customFields: CustomFieldData[],
@@ -49,7 +50,7 @@ class EditCard extends React.Component<Props, State> {
           {(!isInEditMode && !isInCustomizeFieldsMode) &&
           <div>
             <EditButton onClick={this.openEditMode} />
-            <SettingsButton showCustomize={this.openCustomizeFieldsMode} />
+            <SettingsButton id={this.props.model._id} showCustomize={this.openCustomizeFieldsMode} />
           </div>
           }
         </div>
@@ -70,8 +71,13 @@ class EditCard extends React.Component<Props, State> {
             model={this.props.model}
             onCancel={this.closeEditMode}
             onChange={this.updateModel}
-            settings={this.props.settings}
           />
+        }
+        {
+          isInCustomizeFieldsMode && <CustomFields
+            model={this.props.model.name}
+            customFields={this.props.settings}
+            closeEditCustomFieldsMode={this.closeCustomizeFieldsMode} />
         }
       </div>
     );
@@ -80,6 +86,10 @@ class EditCard extends React.Component<Props, State> {
 
   private openCustomizeFieldsMode = () => {
     this.setState({ isInCustomizeFieldsMode: true });
+  };
+
+  private closeCustomizeFieldsMode = () => {
+    this.setState({ isInCustomizeFieldsMode: false });
   };
 
   private openEditMode = () => {
