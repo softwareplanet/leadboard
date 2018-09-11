@@ -14,9 +14,17 @@ A̲
 Something
             </div>
             <div className={styles.actions}>
-
+              <button className={styles.editButton}>
+                <span>
+                  Edit
+                </span>
+              </button>
             </div>
           </div>
+          <ul className={styles.properties}>
+            <li>Always visible on sidebar</li>
+            <li>Appears in "Add new person" dialogue</li>
+          </ul>
         </div>
       </div>
     )
