@@ -21,6 +21,6 @@ router.use("/api/lead", authenticate, lead);
 router.use("/api/organization", authenticate, organization);
 router.use("/api/contact", authenticate, contact);
 router.use("/api/activity", authenticate, activity);
-router.use("/api/search", authenticate, search);
+router.use("/api/searchResults", authenticate, search);
 
 export default router;

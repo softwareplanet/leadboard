@@ -4,7 +4,7 @@ import Lead from "../../models/lead";
 
 const router = new Router();
 
-// @route   GET api/search
+// @route   GET api/searchResults
 // @desc    Search result by domain and regex
 // @access  Private
 

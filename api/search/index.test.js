@@ -33,7 +33,7 @@ beforeEach(async done => {
 describe("Search", () => {
   it("should find 2 leads", async () => {
     const { status, body } = await request(app())
-      .get("/api/search")
+      .get("/api/searchResults")
       .set("Authorization", cred.token)
       .query(`part=${lead.name.substring(0,3)}`);
     expect(status).toBe(200);
