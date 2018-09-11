@@ -1,34 +1,59 @@
-import {
-  DataSearch,
-  ReactiveBase,
-} from '@appbaseio/reactivesearch';
+import { createStyles, withStyles } from '@material-ui/core/styles';
+import Tab from '@material-ui/core/Tab';
+import Tabs from '@material-ui/core/Tabs';
 import * as React from 'react';
 import ReactSVG from 'react-svg';
+import leadIcon from '../../../../assets/lead-icon.svg';
 import searchIcon from '../../../../assets/search-icon.svg';
 import * as styles from './Search.css';
 
+const tabsStyles = createStyles({
+  root: {
+    height: 40,
+    width: 48,
+  },
+});
+
 class Search extends React.Component {
+  public state = {
+    tabValue: 0,
+  };
+
   public render() {
     return (
-      <div className={styles.searchWrapper}>
-        <ReactiveBase
-          app="good-books-ds"
-          credentials="nY6NNTZZ6:27b76b9f-18ea-456c-bc5e-3a5263ebc63d"
-        >
+      <div>
+        <div className={styles.searchWrapper}>
           <ReactSVG className={styles.searchIcon} src={searchIcon} />
-          <DataSearch
-            componentId={'search'}
-            placeholder={'Search'}
-            dataField={['original_title', 'original_title.search']}
-            debounce={100}
-            showIcon={false}
-            className={styles.search}
-            innerClass={{ input: styles.searchInput }}
-          />
-        </ReactiveBase>
+          <input type="text" placeholder="Search" className={styles.searchInput} />
+        </div>
+        <div className={styles.suggestionsList}>
+          <Tabs
+            value={this.state.tabValue}
+            onChange={this.handleChange}
+          >
+            <Tab label="All" />
+            <Tab icon={<ReactSVG className={styles.leadTypeIcon} src={leadIcon} />} />
+          </Tabs>
+          <div>
+            <ul className={styles.searchResult}>
+              <li className={styles.noResults}>No results for 'qwd'</li>
+            </ul>
+          </div>
+        </div>
       </div>
     );
   }
+
+  private handleChange = (e: any, tabValue: number) => {
+    this.setState({ tabValue });
+  };
 }
 
-export default Search;
+export default withStyles(tabsStyles)(Search);
+
+/*
+ <ul className={styles.suggestionsTypes}>
+            <li><a href="#">All</a></li>
+            <li><ReactSVG src={leadIcon} className={styles.leadTypeIcon} /></li>
+          </ul>
+*/
