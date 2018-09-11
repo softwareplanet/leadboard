@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Contact from '../../../../../../../../models/Contact';
 import CustomFieldData from '../../../../../../../../models/customFields/CustomFieldData';
+import DomainSettings from '../../../../../../../../models/DomainSettings';
 import Organization from '../../../../../../../../models/Organization';
 import * as commonStyles from '../../../../../../../../styles/common.css';
 import isBlank from '../../../../../../../../utils/isBlank';
@@ -9,11 +10,12 @@ import * as styles from './BulkEditView.css';
 
 interface State {
   name: string,
-  custom?: CustomFieldData[],
+  custom: CustomFieldData[],
 }
 
 interface Props {
   model: Contact | Organization,
+  settings: DomainSettings
 
   onChange(state: State): void,
 
@@ -23,12 +25,12 @@ interface Props {
 class BulkEditView extends React.Component<Props, State> {
 
   public state: State = {
+    custom: [],
     name: '',
   };
 
   public componentDidMount() {
     this.setState({
-      custom: this.props.model.custom,
       name: this.props.model.name,
     });
   }
@@ -75,18 +77,22 @@ class BulkEditView extends React.Component<Props, State> {
     }
   };
 
-  private getEditableFields() {
+  private getEditableFields(): CustomFieldData[] {
     return [
       {
+        isAlwaysShownInAddDialog: true,
+        isAlwaysVisible: true,
+        isDefault: true,
         name: 'Name',
+        model: '',
+        type: 'string',
         value: this.props.model.name,
       },
-      ...this.props.model.custom,
     ];
   }
 
   private createFieldGroups() {
-    const fields = this.getEditableFields().map(field => (
+    return this.getEditableFields().map(field => (
       <EditFieldGroup
         key={field.name}
         name={field.name}
@@ -95,7 +101,6 @@ class BulkEditView extends React.Component<Props, State> {
         onChange={this.onChangeEditField}
       />
     ));
-    return fields;
   }
 
   private isNameValid(name: string) {
