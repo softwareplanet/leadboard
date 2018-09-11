@@ -38,6 +38,16 @@ const validateDomain = (req, res, next) => {
 
 const domainMembersMiddlewares = [validateDomain];
 
+// @route   GET api/domain/:domainId
+// @desc    Get domain by id
+// @access  Private
+router.get("/:domainId", domainMembersMiddlewares, (req, res) => {
+
+  Domain.findById(req.params.domainId)
+    .then(domain => res.json(domain))
+    .catch(error => res.status(400).json({ errors: { message: error } }));
+});
+
 // @route   POST api/domain/:domainId/settings/customFields
 // @desc    Add custom field
 // @access  Private
@@ -51,7 +61,6 @@ router.post("/:domainId/settings/customFields", domainMembersMiddlewares, (req, 
     .then(domain => res.json(domain))
     .catch(error => res.status(400).json({ errors: { message: error } }));
 });
-
 
 // @route   PATCH api/domain/:domainId/settings/customFields/:customFieldId
 // @desc    Update custom field
@@ -68,7 +77,6 @@ router.patch("/:domainId/settings/customFields/:customFieldId", domainMembersMid
     .catch(error => res.status(400).json({ errors: { message: error } }));
 });
 
-
 // @route   DELETE api/domain/:domainId/settings/customFields/:customFieldId
 // @desc    Delete custom field
 // @access  Private
@@ -80,7 +88,9 @@ router.delete("/:domainId/settings/customFields/:customFieldId", domainMembersMi
     .catch(error => res.status(400).json({ errors: { message: error } }));
 });
 
-
+// @route   PATCH api/domain/:domainId/settings
+// @desc    Update settings without custom fields
+// @access  Private
 router.patch("/:domainId/settings", domainMembersMiddlewares, (req, res) => {
   const { hasErrors, errors } = validateDomainSettingsUpdate(req.body);
   if (hasErrors) return res.status(400).json({ errors });

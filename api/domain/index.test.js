@@ -158,4 +158,20 @@ describe("Contact", () => {
     expect(status).toBe(200);
     expect(body.settings.customFields).not.toContain(customField);
   });
+
+  it("should get domain by id", async () => {
+    const domainId = cred.domainId;
+    const { status, body } = await request(app())
+      .get(`/api/domain/${domainId}`)
+      .set("Authorization", cred.token)
+      .send();
+
+    const expectedDomain = {
+      _id: domainId,
+    };
+
+    expect(status).toEqual(200);
+    console.log(body);
+    expect(body).toMatchObject(expectedDomain);
+  });
 });
