@@ -7,6 +7,7 @@ import * as styles from './EditCard.css';
 import Organization from '../../../../../models/Organization';
 import Contact from '../../../../../models/Contact';
 import CustomField from '../../../../../models/CustomField';
+import EditCustomField from "./CardFields/EditView/EditCustomField/EditCustomField";
 
 interface State {
   isInEditMode: boolean,
@@ -53,6 +54,9 @@ class EditCard extends React.Component<Props, State> {
           <BulkEditView model={this.props.model}
                         onCancel={this.closeEditMode}
                         onChange={this.updateModel} />
+        }
+        {
+          <EditCustomField/>
         }
       </div>
     );

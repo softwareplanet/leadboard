@@ -1,0 +1,31 @@
+.item {
+  margin: 8px 16px;
+  padding: 14px 16px;
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+}
+
+.fieldName {
+
+}
+
+.icon {
+  position: relative;
+  margin-right: 8px;color: #b9babb;
+  vertical-align: top;
+  font-size: 12px;
+}
+
+.title {
+  color: #26292c;
+  font: 400 14px/20px "Open Sans",sans-serif;
+  font-weight: 600;
+  display: inline-block;
+  word-break: break-word;
+  width: calc(100% - 48px);
+}
+
+.actions {
+
+}
