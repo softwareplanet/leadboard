@@ -1,15 +1,21 @@
 import * as React from 'react'
 import * as styles from './Sidebar.css'
+import { PIPELINES, CUSTOMIZE_FIELDS } from '../settingsRoutes';
 
-interface State {
-  activeIndex: number
+interface Props {
+  param: string;
+  history: any;
 }
 
-export default class Sidebar extends React.Component<object, State> {
-  public state: State = {
-    activeIndex: 0,
-  }
-  private settingsElements = ['Pipelines', 'Customize fields'];
+export default class Sidebar extends React.Component<Props, object> {
+  private settingsMenu = [{
+    value: 'Pipelines',
+    param: PIPELINES,
+  }, 
+  {
+    value: 'Customize fields',
+    param: CUSTOMIZE_FIELDS,
+  }];
 
   public render() {
     return (
@@ -19,23 +25,17 @@ export default class Sidebar extends React.Component<object, State> {
     )
   }
 
-  private select = (index: number) => {
-    this.setState({
-      activeIndex: index,
-    })
-  }
-
   private getSettingsItems = () => {
     return (
       <ul>
-        { this.settingsElements.map((item, index) => 
+        { this.settingsMenu.map((item, index) => 
           ( 
             <li 
               key={index}
-              className={this.state.activeIndex === index ? styles.itemActive : styles.item}
-              onClick={() => this.select(index)}
+              className={this.props.param === item.param ? styles.itemActive : styles.item}
+              onClick={() => this.props.history.push(`/settings/${item.param}`)}
             >
-              { item }
+              { item.value }
             </li>
           )
         ) }

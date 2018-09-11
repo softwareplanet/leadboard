@@ -18,6 +18,8 @@ import "./App.css";
 import { Switch } from "react-router-dom";
 import EditLead from "./modules/lead/EditLead/EditLead";
 import Settings from "./modules/settings/Settings";
+import Pipelines from "./modules/settings/Pipelines/Pipelines";
+import CustomizeFields from "./modules/settings/CustomizeFields/CustomizeFields";
 
 setAuthInterceptor();
 // restore redux/storage on page reload
@@ -71,13 +73,7 @@ class App extends Component {
                 component={EditLead}
               />
             </Switch>
-            <Switch>
-              <PrivateRoute
-                exact
-                path="/settings"
-                component={Settings}
-              />
-            </Switch>
+            <Route path="/settings/:menuItem" component={Settings} />
             <Route exact path="/" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Login />} />
             <Route exact path="/register" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Registration />} />  
             <Footer/>
