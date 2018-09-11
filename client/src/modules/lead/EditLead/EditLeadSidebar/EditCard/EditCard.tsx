@@ -1,15 +1,17 @@
 import * as React from 'react';
+import Contact from '../../../../../models/Contact';
+import CustomField from '../../../../../models/CustomField';
+import Organization from '../../../../../models/Organization';
 import CardField from './CardFields/CardField';
 import BulkEditView from './CardFields/EditView/BulkEditView/BulkEditView';
 import MainField from './CardFields/MainField';
 import EditButton from './EditButton/EditButton';
 import * as styles from './EditCard.css';
-import Organization from '../../../../../models/Organization';
-import Contact from '../../../../../models/Contact';
-import CustomField from '../../../../../models/CustomField';
+import SettingsButton from './SettingsButton/SettingsButton';
 
 interface State {
   isInEditMode: boolean,
+  isInCustomizeFieldsMode: boolean,
 }
 
 interface Props {
@@ -22,11 +24,13 @@ interface Props {
 
 class EditCard extends React.Component<Props, State> {
   public state: State = {
+    isInCustomizeFieldsMode: false,
     isInEditMode: false,
   };
 
   public render() {
-    const isInEditMode = this.state.isInEditMode;
+    const { isInEditMode } = this.state;
+    const customFieldsMode = this.state.isInCustomizeFieldsMode
     const fields = this.props.model.custom.map((field: any, index: number) =>
       <CardField key={index}
                  field={field}
@@ -37,9 +41,14 @@ class EditCard extends React.Component<Props, State> {
           <span className={styles.titleName}>
             {this.props.title}
             </span>
-          {!isInEditMode && <EditButton onClick={this.openEditMode} />}
+          {(!isInEditMode && !customFieldsMode) &&
+          <div>
+            <EditButton onClick={this.openEditMode} />
+            <SettingsButton id={this.props.model._id} showCustomize={this.openCustomizeFieldsMode} />
+          </div>
+          }
         </div>
-        {!isInEditMode &&
+        {(!isInEditMode && !customFieldsMode)&&
         <div>
           <MainField title={this.props.title}
                      value={this.props.model.name}
@@ -57,6 +66,10 @@ class EditCard extends React.Component<Props, State> {
       </div>
     );
   }
+
+  private openCustomizeFieldsMode = () => {
+    this.setState({ isInCustomizeFieldsMode: true });
+  };
 
   private openEditMode = () => {
     this.setState({ isInEditMode: true });
