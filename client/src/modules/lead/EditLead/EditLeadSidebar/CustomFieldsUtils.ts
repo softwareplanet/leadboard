@@ -24,7 +24,10 @@ export function makeCustomFieldData(modelType: string, model: Contact | Organiza
       isAlwaysShownInAddDialog: fieldSetting.isAlwaysShownInAddDialog,
       isDefault: fieldSetting.isDefault,
     };
-    customFieldData.value = model.custom.find(custom => custom.key === fieldSetting._id)!.value;
+    const customField = model.custom.find(custom => custom.key === fieldSetting._id);
+    if (customField) {
+      customFieldData.value = customField.value;
+    }
     if (customFieldData.isAlwaysVisible) {
       result.push(customFieldData);
     }

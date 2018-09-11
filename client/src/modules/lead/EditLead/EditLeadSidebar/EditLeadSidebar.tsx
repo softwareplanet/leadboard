@@ -16,6 +16,7 @@ import Organization from '../../../../models/Organization';
 import ContactAutocomplete from '../../../common/autocomplete/contact/ContactAutocomplete';
 import OrganizationAutocomplete from '../../../common/autocomplete/organization/OrganizationAutocomplete';
 import { autocompleteStyles } from '../../../common/autocomplete/styles/autocomplete-styles';
+import { makeCustomFieldData } from './CustomFieldsUtils';
 import * as editCardStyles from './EditCard/EditCard.css';
 import EmptyCard from './EditCard/EmptyCard/EmptyCard';
 
@@ -55,14 +56,18 @@ class EditLeadSidebar extends React.Component<Props> {
           title={'Person'}
           icon={personIcon}
           onUpdate={this.props.updateContact}
-          settings={settings} />;
+          settings={settings}
+          customFields={makeCustomFieldData('Contact', contact, settings)}
+        />;
       const organizationCard =
         <EditCard
           model={organization}
           title={'Organization'}
           icon={organizationIcon}
           onUpdate={this.props.updateOrganization}
-          settings={settings} />;
+          settings={settings}
+          customFields={makeCustomFieldData('Organization', contact, settings)}
+        />;
       const emptyOrganizationCard = (
         <EmptyCard
           id="organization-card"

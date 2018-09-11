@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Contact from '../../../../../models/Contact';
 import CustomField from '../../../../../models/customFields/CustomField';
+import CustomFieldData from '../../../../../models/customFields/CustomFieldData';
 import DomainSettings from '../../../../../models/DomainSettings';
 import Organization from '../../../../../models/Organization';
 import CardField from './CardFields/CardField';
@@ -20,6 +21,7 @@ interface Props {
   settings: DomainSettings,
   title: string,
   icon: any,
+  customFields: CustomFieldData[],
 
   onUpdate(model: Contact | Organization): void,
 }
@@ -34,7 +36,7 @@ class EditCard extends React.Component<Props, State> {
   public render() {
     const { isInEditMode } = this.state;
     const { isInCustomizeFieldsMode } = this.state;
-    const fields = this.props.model.custom.map((field: any, index: number) =>
+    const fields = this.props.customFields.map((field: CustomFieldData, index: number) =>
       <CardField key={index}
                  field={field}
                  onUpdate={this.handleCustomFieldUpdate} />);
