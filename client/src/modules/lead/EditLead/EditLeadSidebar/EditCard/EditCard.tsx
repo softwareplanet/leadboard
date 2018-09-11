@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Contact from '../../../../../models/Contact';
-import CustomField from '../../../../../models/CustomField';
+import CustomField from '../../../../../models/customFields/CustomField';
+import DomainSettings from '../../../../../models/DomainSettings';
 import Organization from '../../../../../models/Organization';
 import CardField from './CardFields/CardField';
 import BulkEditView from './CardFields/EditView/BulkEditView/BulkEditView';
@@ -16,6 +17,7 @@ interface State {
 
 interface Props {
   model: Contact | Organization,
+  settings: DomainSettings,
   title: string,
   icon: any,
 
@@ -23,6 +25,7 @@ interface Props {
 }
 
 class EditCard extends React.Component<Props, State> {
+
   public state: State = {
     isInCustomizeFieldsMode: false,
     isInEditMode: false,
@@ -44,28 +47,34 @@ class EditCard extends React.Component<Props, State> {
           {(!isInEditMode && !isInCustomizeFieldsMode) &&
           <div>
             <EditButton onClick={this.openEditMode} />
-              <SettingsButton showCustomize={this.openCustomizeFieldsMode} />
+            <SettingsButton showCustomize={this.openCustomizeFieldsMode} />
           </div>
           }
         </div>
         {(!isInEditMode && !isInCustomizeFieldsMode) &&
         <div>
-          <MainField title={this.props.title}
-                     value={this.props.model.name}
-                     icon={this.props.icon}
-                     onUpdate={this.handleMainFieldUpdate} />
+          <MainField
+            title={this.props.title}
+            value={this.props.model.name}
+            icon={this.props.icon}
+            onUpdate={this.handleMainFieldUpdate}
+          />
           {fields}
         </div>
         }
         {
           isInEditMode &&
-          <BulkEditView model={this.props.model}
-                        onCancel={this.closeEditMode}
-                        onChange={this.updateModel} />
+          <BulkEditView
+            model={this.props.model}
+            onCancel={this.closeEditMode}
+            onChange={this.updateModel}
+            settings={this.props.settings}
+          />
         }
       </div>
     );
   }
+
 
   private openCustomizeFieldsMode = () => {
     this.setState({ isInCustomizeFieldsMode: true });
@@ -90,10 +99,10 @@ class EditCard extends React.Component<Props, State> {
     this.updateModel(updatedModel);
   };
 
-  private handleCustomFieldUpdate = (name: string, value: any) => {
+  private handleCustomFieldUpdate = (key: string, value: any) => {
     const updatedModel = { ...this.props.model };
     updatedModel.custom = [...this.props.model.custom];
-    updatedModel.custom.find((customField: CustomField) => customField.name === name)!.value = value;
+    updatedModel.custom.find((customField: CustomField) => customField.key === key)!.value = value;
     this.updateModel(updatedModel);
   };
 }
