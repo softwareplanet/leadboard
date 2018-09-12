@@ -5,9 +5,9 @@ import { LOAD_DOMAIN } from './types';
 export const loadDomain = (domainId: string) => (dispatch: Dispatch) => {
   axios
     .get(`/api/domain/${domainId}`).then(result => {
-    dispatch({
-      payload: result.data,
-      type: LOAD_DOMAIN,
+      dispatch({
+        payload: result.data,
+        type: LOAD_DOMAIN,
     });
   });
 };

@@ -25,7 +25,7 @@ beforeEach(() => {
 
 describe('<EditFieldGroup />', () => {
   it('should renders without crashing', () => {
-    expect(fieldGroupWrapper.find('input').hasClass(styles.input)).toBeTruthy();
+    expect(fieldGroupWrapper.exists()).toEqual(true);
   });
 
   it('should renders props', () => {
