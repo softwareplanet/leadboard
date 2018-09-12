@@ -15,3 +15,4 @@ export const highlightedPart: string;
 export const itemBadge: string;
 export const itemWonBadge: string;
 export const itemLostBadge: string;
+export const highlightedSearchWrapper: string;

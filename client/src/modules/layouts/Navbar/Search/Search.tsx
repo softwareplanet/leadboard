@@ -22,10 +22,10 @@ class Search extends React.Component<Props, object> {
 
   public render() {
     return (
-      <div className={styles.searchWrapper}>
+      <div className={this.state.isDropdownOpen ? styles.highlightedSearchWrapper : styles.searchWrapper}>
         <ReactSVG className={styles.searchIcon} src={searchIcon} />
         <SearchInput
-          items={[]}
+          items={[{ _id: '1', name: 'Bob lead lead' }, { _id: '2', name: 'Bobik leadik leadik' }]}
           open={this.state.isDropdownOpen}
           onBlur={this.onBlur}
           onChange={this.onChange}
