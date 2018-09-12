@@ -18,8 +18,6 @@ import "./App.css";
 import { Switch } from "react-router-dom";
 import EditLead from "./modules/lead/EditLead/EditLead";
 import Settings from "./modules/settings/Settings";
-import Pipelines from "./modules/settings/Pipelines/Pipelines";
-import CustomizeFields from "./modules/settings/CustomizeFields/CustomizeFields";
 
 setAuthInterceptor();
 // restore redux/storage on page reload
