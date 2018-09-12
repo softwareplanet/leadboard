@@ -51,7 +51,9 @@ router.get("/:domainId", domainMembersMiddlewares, (req, res) => {
 // @access  Private
 router.post("/:domainId/settings/customFields", domainMembersMiddlewares, (req, res) => {
   const { hasErrors, errors } = validateCustomFieldCreation(req.body);
-  if (hasErrors) return res.status(400).json({ errors });
+  if (hasErrors) {
+    return res.status(400).json({ errors });
+  }
 
   Domain.findByIdAndUpdate(req.params.domainId,
     { $push: { "settings.customFields": req.body } },

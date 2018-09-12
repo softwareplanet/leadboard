@@ -1,9 +1,7 @@
 import express from "../../express";
 import routes from "..";
 import { createUserAndDomain, dropTables } from "../../test/db-prepare";
-import Domain from "../../models/domain";
 import request from "supertest";
-import mongoose from "mongoose";
 
 const app = () => express(routes);
 
@@ -16,7 +14,10 @@ beforeEach(async done => {
 
 describe("Contact", () => {
   it("should create a new domain with default settings", async () => {
-    const domain = await Domain.findById(cred.domainId);
+    const { status, body } = await request(app())
+      .get(`/api/domain/${cred.domainId}`)
+      .set("Authorization", cred.token)
+      .send();
 
     const expectedSettings = {
       customFields: [
@@ -47,7 +48,8 @@ describe("Contact", () => {
       ],
     };
 
-    expect(domain.settings.customFields).toHaveLength(expectedSettings.customFields.length);
+    expect(status).toBe(200);
+    expect(body.settings).toMatchObject(expectedSettings);
   });
 
   it("should fail to update domain's settings with incorrect custom fields' settings", async () => {
@@ -85,7 +87,25 @@ describe("Contact", () => {
 
   it("should add new custom field to settings", async () => {
     const newCustomField = {
-      _id: new mongoose.Types.ObjectId().toString(),
+      model: "Organization",
+      name: "Phone number",
+      type: "string",
+      isAlwaysVisible: true,
+      isShownInAddDialog: false,
+      isDefault: false,
+    };
+
+    const { status, body } = await request(app())
+      .post(`/api/domain/${cred.domainId}/settings/customFields`)
+      .set("Authorization", cred.token)
+      .send(newCustomField);
+
+    expect(status).toBe(200);
+    expect(body.settings.customFields[3]).toMatchObject(newCustomField);
+  });
+
+  it("should fail to add new custom field with property default", async () => {
+    const newCustomField = {
       model: "Organization",
       name: "Phone number",
       type: "string",
@@ -99,25 +119,27 @@ describe("Contact", () => {
       .set("Authorization", cred.token)
       .send(newCustomField);
 
-    expect(status).toBe(200);
-    expect(body.settings.customFields[3]).toMatchObject(newCustomField);
+    expect(status).toBe(400);
+    expect(body).toMatchObject({
+      errors: {
+        isDefault: "You cannot add custom fields with property default",
+      },
+    });
   });
 
   it("should change custom field in settings", async () => {
-    const customField = {
-      _id: new mongoose.Types.ObjectId().toString(),
-      model: "Organization",
-      name: "Phone number",
-      type: "string",
-      isAlwaysVisible: true,
-      isShownInAddDialog: false,
-      isDefault: true,
-    };
-
-    await request(app())
+    const customFieldResponse = await request(app())
       .post(`/api/domain/${cred.domainId}/settings/customFields`)
       .set("Authorization", cred.token)
-      .send(customField);
+      .send({
+        model: "Organization",
+        name: "Phone number",
+        type: "string",
+        isAlwaysVisible: true,
+        isShownInAddDialog: false,
+        isDefault: false,
+      });
+    const createdCustomFieldId = customFieldResponse.body.settings.customFields[3]._id;
 
     const customFieldUpdate = {
       name: "Main phone number",
@@ -126,7 +148,7 @@ describe("Contact", () => {
     };
 
     const { status, body } = await request(app())
-      .patch(`/api/domain/${cred.domainId}/settings/customFields/${customField._id}`)
+      .patch(`/api/domain/${cred.domainId}/settings/customFields/${createdCustomFieldId}`)
       .set("Authorization", cred.token)
       .send(customFieldUpdate);
 
@@ -136,27 +158,31 @@ describe("Contact", () => {
 
   it("should delete custom field in settings", async () => {
     const customField = {
-      _id: new mongoose.Types.ObjectId().toString(),
       model: "Organization",
       name: "Phone number",
       type: "string",
       isAlwaysVisible: true,
       isShownInAddDialog: false,
-      isDefault: true,
+      isDefault: false,
     };
 
-    await request(app())
+    const customFieldResponse = await request(app())
       .post(`/api/domain/${cred.domainId}/settings/customFields`)
       .set("Authorization", cred.token)
       .send(customField);
 
+    const createdCustomFieldId = customFieldResponse.body.settings.customFields[3]._id;
+    expect(customFieldResponse.body.settings.customFields.map(customField => customField._id))
+      .toContain(createdCustomFieldId);
+
     const { status, body } = await request(app())
-      .delete(`/api/domain/${cred.domainId}/settings/customFields/${customField._id}`)
+      .delete(`/api/domain/${cred.domainId}/settings/customFields/${createdCustomFieldId}`)
       .set("Authorization", cred.token)
       .send();
 
     expect(status).toBe(200);
-    expect(body.settings.customFields).not.toContain(customField);
+    expect(body.settings.customFields.map(customField => customField._id))
+      .not.toContain(createdCustomFieldId);
   });
 
   it("should get domain by id", async () => {

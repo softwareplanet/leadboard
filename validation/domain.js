@@ -23,6 +23,10 @@ export const validateDomainSettingsUpdate = (data) => {
 export const validateCustomFieldCreation = (data) => {
   let errors = {};
 
+  if (data.isDefault) {
+    errors.isDefault = "You cannot add custom fields with property default";
+  }
+
   return {
     errors,
     hasErrors: !isEmpty(errors),
@@ -31,6 +35,10 @@ export const validateCustomFieldCreation = (data) => {
 
 export const validateCustomFieldUpdate = (data) => {
   let errors = {};
+
+  if (data.isDefault) {
+    errors.isDefault = "You cannot add custom fields with property default";
+  }
 
   return {
     errors,
