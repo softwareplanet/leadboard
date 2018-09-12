@@ -2,12 +2,12 @@ import * as React from 'react';
 import CustomFieldSetting from '../../../../../../../../models/customFields/CustomFieldSetting';
 import * as styles from './CustomFieldView.css';
 
-interface Props{
+interface Props {
   customSettings: CustomFieldSetting,
 }
 
 class CustomFieldView extends React.Component<Props> {
-  public render(){
+  public render() {
     return (
       <div>
         <div className={styles.item}>
@@ -26,11 +26,12 @@ class CustomFieldView extends React.Component<Props> {
           </div>
           <ul className={styles.properties}>
             {this.props.customSettings.isAlwaysVisible ? <li>Always visible on sidebar</li> : null}
-            {this.props.customSettings.isAlwaysShownInAddDialog ? <li>Appears in "Add new {this.props.customSettings.model}" dialogue</li> : null}
+            {this.props.customSettings.isAlwaysShownInAddDialog ?
+              <li>Appears in "Add new {this.props.customSettings.model}" dialogue</li> : null}
           </ul>
         </div>
       </div>
-    )
+    );
   }
 }
 
