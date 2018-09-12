@@ -1,12 +1,12 @@
 import * as React from 'react';
 import Contact from '../../../../../../../../models/Contact';
+import CustomField from '../../../../../../../../models/customFields/CustomField';
 import CustomFieldData from '../../../../../../../../models/customFields/CustomFieldData';
 import Organization from '../../../../../../../../models/Organization';
 import * as commonStyles from '../../../../../../../../styles/common.css';
 import isBlank from '../../../../../../../../utils/isBlank';
 import EditFieldGroup from '../EditFieldGroup/EditFieldGroup';
 import * as styles from './BulkEditView.css';
-import CustomField from '../../../../../../../../models/customFields/CustomField';
 
 interface State {
   _id: string,
@@ -88,9 +88,9 @@ class BulkEditView extends React.Component<Props, State> {
         isAlwaysShownInAddDialog: true,
         isAlwaysVisible: true,
         isDefault: true,
-        name: 'Name',
-        model: '',
         key: 'Name',
+        model: '',
+        name: 'Name',
         type: 'string',
         value: this.props.model.name,
       },
