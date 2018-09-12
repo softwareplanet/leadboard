@@ -6,7 +6,7 @@ import CardField from './CardField';
 
 describe('<CardField/>', () => {
   let field: CustomFieldData;
-  let wrapper;
+  let wrapper : any;
 
   beforeEach(() => {
     field = {
