@@ -35,8 +35,7 @@ class EditCard extends React.Component<Props, State> {
   };
 
   public render() {
-    const { isInEditMode } = this.state;
-    const { isInCustomizeFieldsMode } = this.state;
+    const { isInEditMode, isInCustomizeFieldsMode } = this.state;
     const fields = this.props.customFields.map((field: CustomFieldData, index: number) =>
       <CardField key={index}
                  field={field}
