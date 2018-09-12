@@ -11,10 +11,31 @@ interface Props {
 }
 
 class CustomFieldEditView extends React.Component<Props, object> {
-  public render() {
+  public render(){
     return (
-      <div className={styles.cancelButton}>
-        Hi
+      <div className={styles.editFieldContainer}>
+        <div className={styles.editFieldWrapper}>
+          <span className={styles.editFieldLabel}>Field name</span>
+          <div className={styles.editNameWrap}>
+            <span className={styles.nameInputWrap}>
+              <input
+                type="text"
+                className={styles.nameInput}
+                maxLength={64}
+              />
+            </span>
+          </div>
+          <div className={styles.visibilityOptions}>
+            <label className={styles.checkboxLabel}>
+              <input type="checkbox" value={1} checked={true} />
+              <span>Always visible on sidebar</span>
+            </label>
+            <label className={styles.checkboxLabel}>
+              <input type="checkbox" />
+              <span>Appears in "Add new " dialogue</span>
+            </label>
+          </div>
+        </div>
       </div>
     );
   }
