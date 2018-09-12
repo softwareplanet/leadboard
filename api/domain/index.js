@@ -15,6 +15,7 @@ const validateDomain = (req, res, next) => {
       .then(domain => {
         if (domain !== null) {
           if (domain._id.equals(req.user.domain)) {
+            req.domain = domain;
             next();
           } else {
             return res.status(403).json({
@@ -42,9 +43,7 @@ const domainMembersMiddlewares = [validateDomain];
 // @desc    Get domain by id
 // @access  Private
 router.get("/:domainId", domainMembersMiddlewares, (req, res) => {
-  Domain.findById(req.params.domainId)
-    .then(domain => res.json(domain))
-    .catch(error => res.status(400).json({ errors: { message: error } }));
+  res.json(req.domain);
 });
 
 // @route   POST api/domain/:domainId/settings/customFields
