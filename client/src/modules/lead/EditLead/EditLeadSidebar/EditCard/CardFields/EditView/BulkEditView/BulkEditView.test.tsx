@@ -1,4 +1,4 @@
-import { shallow } from 'enzyme/build/index';
+import { shallow } from 'enzyme';
 import 'jsdom-global/register';
 import { noop } from 'lodash';
 import * as React from 'react';
@@ -30,7 +30,7 @@ describe('<BulkEditView/>', () => {
       value: organization.custom[0].value,
     },
   ];
-  let wrapper;
+  let wrapper : any;
 
   it('renders without crashing', () => {
     wrapper = shallow(<
@@ -50,7 +50,7 @@ describe('<BulkEditView/>', () => {
       model={organization}
       onCancel={spy}
       customFields={[]}
-      onChange={}
+      onChange={noop}
     />);
     const buttonCancel = wrapper.find('.button');
     buttonCancel.simulate('click');
