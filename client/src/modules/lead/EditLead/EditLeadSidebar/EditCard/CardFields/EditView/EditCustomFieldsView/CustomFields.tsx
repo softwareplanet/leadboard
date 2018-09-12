@@ -1,10 +1,9 @@
 import * as React from 'react';
-import EditCustomField from '../CustomFieldView/CustomFieldView';
 import CustomFieldSetting from '../../../../../../../../models/customFields/CustomFieldSetting';
+import EditCustomField from '../CustomFieldView/CustomFieldView';
 import * as styles from './CustomFields.css';
 
 interface Props {
-  model: string,
   customFields: CustomFieldSetting[],
 
   closeEditCustomFieldsMode(): void,
@@ -15,7 +14,7 @@ class EditCustomFieldsView extends React.Component<Props, object> {
     return (
       <div>
         {this.props.customFields.map(customField => {
-           return (<EditCustomField customSettings={customField} />);
+           return (<EditCustomField key={customField._id} customSettings={customField} />);
         })}
         <div className={styles.buttonWrapper}>
           <button
