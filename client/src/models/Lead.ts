@@ -12,8 +12,8 @@ export default interface Lead {
   visibility?: number;
   name: string;
   order: number;
-  contact: Contact;
-  organization: Organization;
+  contact?: Contact;
+  organization?: Organization;
   custom: CustomField[];
   timestamp: Date;
   status: string;
