@@ -19,7 +19,7 @@ interface State {
 
 interface Props {
   model: Contact | Organization,
-  settings: CustomFieldSetting[],
+  customFieldSetting: CustomFieldSetting[],
   title: string,
   icon: any,
   customFields: CustomFieldData[],
@@ -75,9 +75,11 @@ class EditCard extends React.Component<Props, State> {
           />
         }
         {
-          isInCustomizeFieldsMode && <CustomFields
-            customFields={this.props.settings}
-            closeEditCustomFieldsMode={this.closeCustomizeFieldsMode} />
+          isInCustomizeFieldsMode &&
+          <CustomFields
+            customFields={this.props.customFieldSetting}
+            closeEditCustomFieldsMode={this.closeCustomizeFieldsMode}
+          />
         }
       </div>
     );
