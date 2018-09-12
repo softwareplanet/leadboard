@@ -37,9 +37,12 @@ class EditCard extends React.Component<Props, State> {
   public render() {
     const { isInEditMode, isInCustomizeFieldsMode } = this.state;
     const fields = this.props.customFields.map((field: CustomFieldData, index: number) =>
-      <CardField key={index}
-                 field={field}
-                 onUpdate={this.handleCustomFieldUpdate} />);
+      <CardField
+        key={index}
+        field={field}
+        onUpdate={this.handleCustomFieldUpdate}
+      />
+    );
     return (
       <div className={styles.container}>
         <div className={styles.title}>
