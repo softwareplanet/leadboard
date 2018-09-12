@@ -19,3 +19,19 @@
 .buttonWrapper{
   text-align: right;
 }
+
+.addNewField{
+  color: #317ae2;
+  font-weight: 600;
+  cursor: pointer;
+  font: 600 14px/20px "Open Sans",sans-serif;
+  margin-left: 16px;
+}
+
+.addNewField:hover{
+  text-decoration: underline;
+}
+
+.newFieldContainer{
+  padding-bottom: 8px;
+}

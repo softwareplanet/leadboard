@@ -1,6 +1,7 @@
 import * as React from 'react';
 import CustomFieldSetting from '../../../../../../../../models/customFields/CustomFieldSetting';
 import * as styles from './CustomFieldView.css';
+import * as classNames from 'classnames';
 
 interface Props {
   customSettings: CustomFieldSetting;
@@ -10,7 +11,7 @@ class CustomFieldView extends React.Component<Props> {
   public render() {
     return (
       <div>
-        <div className={styles.item}>
+        <div className={classNames(styles.item, {[styles.editable]: this.checkDefault()})}>
           <div className={styles.fieldName}>
             <span className={styles.icon}>A̲</span>
             <div className={styles.title}>
@@ -32,6 +33,10 @@ class CustomFieldView extends React.Component<Props> {
         </div>
       </div>
     );
+  }
+
+  private checkDefault = () => {
+    return this.props.customSettings.isDefault;
   }
 }
 
