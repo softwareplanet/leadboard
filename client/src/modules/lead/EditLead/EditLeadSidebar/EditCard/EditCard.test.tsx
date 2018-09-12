@@ -48,17 +48,7 @@ describe('<EditCard/>', () => {
     timestamp: new Date(),
   };
 
-  const customFieldSettings: CustomFieldSetting[] = [
-    {
-      _id: '5b97d3573485d2406c818ba0',
-      isAlwaysShownInAddDialog: true,
-      isAlwaysVisible: true,
-      isDefault: true,
-      model: 'Contact',
-      name: 'contact',
-      type: 'string',
-    },
-  ];
+  const customFieldSettings: CustomFieldSetting[] = [];
 
   const customFields: CustomFieldData[] = [
     {
