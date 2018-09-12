@@ -1,13 +1,9 @@
 import * as React from 'react'
 import { CUSTOMIZE_FIELDS, PIPELINES } from '../settingsRoutes';
 import * as styles from './Sidebar.css'
+import { NavLink } from 'react-router-dom';
 
-interface Props {
-  param: string;
-  history: any;
-}
-
-export default class Sidebar extends React.Component<Props> {
+export default class Sidebar extends React.Component {
   private settingsMenu = [{
     value: 'Pipelines',
     param: PIPELINES,
@@ -26,20 +22,17 @@ export default class Sidebar extends React.Component<Props> {
   }
 
   private getSettingsItems = () => {
-    return (
-      <ul>
-        { this.settingsMenu.map(item => 
-          ( 
-            <li 
-              key={item.value}
-              className={this.props.param === item.param ? styles.activeItem : styles.item}
-              onClick={() => this.props.history.push(`/settings/${item.param}`)}
-            >
-              { item.value }
-            </li>
-          )
-        ) }
-      </ul>
-    )
+    return this.settingsMenu.map(item => 
+      ( 
+        <NavLink 
+          key={item.value}
+          activeClassName={styles.activeItem}
+          className={styles.item}
+          to={`/settings/${item.param}`}
+        >
+          { item.value }
+        </NavLink>
+      )
+    ) 
   }
 }

@@ -74,9 +74,9 @@ class App extends Component {
               />
             </Switch>
             <Switch>
-              <PrivateRoute 
-                path="/settings/:menuItem" 
-                component={Settings} 
+              <PrivateRoute
+                path="/settings"
+                component={Settings}
               />
             </Switch>
             <Route exact path="/" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Login />} />

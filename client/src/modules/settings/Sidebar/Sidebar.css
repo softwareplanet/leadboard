@@ -3,27 +3,26 @@
   background-color: #ffffff;
   border: 1px solid #e5e5e5;
   border-radius: 0 3px 3px 0;
+  display: flex;
+  flex-direction: column;
 }
 
-.abstractItem {
+.item {
   border-bottom: 1px solid #e5e5e5;
   margin: 0;
   padding: 5px 10px;
   font-size: 14px;
   cursor: pointer;
-}
-
-.abstractItem:hover {
-  background-color: #f7f7f7;
-}
-
-.item {
-  composes: abstractItem;
   color: #317ae2;
 }
 
+.item:hover {
+  background-color: #f7f7f7;
+  text-decoration: none;
+}
+
 .activeItem {
-  composes: abstractItem;
+  composes: item;
   color: #404346;
   background: #f7f7f7;
 }
