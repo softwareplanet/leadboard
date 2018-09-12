@@ -33,6 +33,7 @@ class SingleEditView extends React.Component<Props, State> {
           value={this.props.fieldValue}
           isValid={isValid ? isValid(this.state.updatedValue) : undefined}
           onChange={this.onChangeEditField}
+          fieldKey={this.props.fieldKey}
         />
         <div className={styles.actions}>
           <button

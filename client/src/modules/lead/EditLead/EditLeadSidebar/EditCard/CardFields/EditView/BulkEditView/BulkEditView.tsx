@@ -6,14 +6,17 @@ import * as commonStyles from '../../../../../../../../styles/common.css';
 import isBlank from '../../../../../../../../utils/isBlank';
 import EditFieldGroup from '../EditFieldGroup/EditFieldGroup';
 import * as styles from './BulkEditView.css';
+import CustomField from '../../../../../../../../models/customFields/CustomField';
 
 interface State {
+  _id: string,
   name: string,
-  custom: CustomFieldData[],
+  custom: CustomField[],
 }
 
 interface Props {
   model: Contact | Organization,
+  customFields: CustomFieldData[],
 
   onChange(state: State): void,
 
@@ -23,12 +26,15 @@ interface Props {
 class BulkEditView extends React.Component<Props, State> {
 
   public state: State = {
+    _id: '',
     custom: [],
     name: '',
   };
 
   public componentDidMount() {
     this.setState({
+      _id: this.props.model._id,
+      custom: this.props.model.custom,
       name: this.props.model.name,
     });
   }
@@ -53,12 +59,12 @@ class BulkEditView extends React.Component<Props, State> {
     );
   }
 
-  private onChangeEditField = (name: string, value: any) => {
-    if (name === 'Name') {
+  private onChangeEditField = (key: string, value: any) => {
+    if (key === 'Name') {
       this.setState({ name: value });
     } else {
       const updatedCustom = [...this.state.custom];
-      const customField = updatedCustom.find(custom => custom.name === name);
+      const customField = updatedCustom.find(custom => custom.key === key);
       if (customField) {
         const customFieldIndex = updatedCustom.indexOf(customField);
         const updatedCustomField = { ...customField };
@@ -71,29 +77,33 @@ class BulkEditView extends React.Component<Props, State> {
 
   private onSaveAllClicked = () => {
     if (this.isNameValid(this.state.name)) {
+
       this.props.onChange(this.state);
     }
   };
 
   private getEditableFields(): CustomFieldData[] {
-    return [
+    let result = [
       {
         isAlwaysShownInAddDialog: true,
         isAlwaysVisible: true,
         isDefault: true,
         name: 'Name',
         model: '',
-        key: '',
+        key: 'Name',
         type: 'string',
         value: this.props.model.name,
       },
     ];
+    result = result.concat(this.props.customFields);
+    return result;
   }
 
   private createFieldGroups() {
     return this.getEditableFields().map(field => (
       <EditFieldGroup
-        key={field.name}
+        key={field.key}
+        fieldKey={field.key}
         name={field.name}
         value={field.value}
         isValid={field.name === 'Name' ? this.isNameValid(this.state.name) : true}

@@ -2,15 +2,15 @@ import * as React from 'react';
 import Contact from '../../../../../models/Contact';
 import CustomField from '../../../../../models/customFields/CustomField';
 import CustomFieldData from '../../../../../models/customFields/CustomFieldData';
+import CustomFieldSetting from '../../../../../models/customFields/CustomFieldSetting';
 import Organization from '../../../../../models/Organization';
 import CardField from './CardFields/CardField';
 import BulkEditView from './CardFields/EditView/BulkEditView/BulkEditView';
+import CustomFields from './CardFields/EditView/EditCustomFieldsView/CustomFields';
 import MainField from './CardFields/MainField';
 import EditButton from './EditButton/EditButton';
 import * as styles from './EditCard.css';
 import SettingsButton from './SettingsButton/SettingsButton';
-import CustomFields from './CardFields/EditView/EditCustomFieldsView/CustomFields';
-import CustomFieldSetting from '../../../../../models/customFields/CustomFieldSetting';
 
 interface State {
   isInEditMode: boolean,
@@ -71,6 +71,7 @@ class EditCard extends React.Component<Props, State> {
             model={this.props.model}
             onCancel={this.closeEditMode}
             onChange={this.updateModel}
+            customFields={this.props.customFields}
           />
         }
         {
