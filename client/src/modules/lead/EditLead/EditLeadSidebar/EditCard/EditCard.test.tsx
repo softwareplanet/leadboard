@@ -3,7 +3,6 @@ import * as React from 'react';
 import someIcon from '../../../../../assets/call-activity.svg';
 import Contact from '../../../../../models/Contact';
 import CustomFieldData from '../../../../../models/customFields/CustomFieldData';
-import CustomFieldSetting from '../../../../../models/customFields/CustomFieldSetting';
 import Domain from '../../../../../models/Domain';
 import Organization from '../../../../../models/Organization';
 import CardField from './CardFields/CardField';
@@ -25,13 +24,15 @@ describe('<EditCard/>', () => {
     _id: '5b97d3573485d2406c815ba0',
     custom: [
       {
-        key: '5b97d2573485d2406c815ba0', value: '+380974040018',
+        key: '5b97d2573485d2406c815ba0',
+        value: '+380974040018',
       },
       {
-        key: '5b97d3173485d2406c815ba0', value: 'yarik335@gmail.com',
+        key: '5b97d3173485d2406c815ba0',
+        value: 'yarik335@gmail.com',
       },
     ],
-    domain: domain,
+    domain,
     name: 'Bob',
     timestamp: new Date(),
   };
@@ -40,15 +41,14 @@ describe('<EditCard/>', () => {
     _id: '5b17d2573485d2406c815ba0',
     custom: [
       {
-        key: 'Address', value: 'Saint street',
+        key: 'Address',
+        value: 'Saint street',
       },
     ],
     domain: '5b97d2273485d2406c815ba0',
     name: 'RedDog inc',
     timestamp: new Date(),
   };
-
-  const customFieldSettings: CustomFieldSetting[] = [];
 
   const customFields: CustomFieldData[] = [
     {
@@ -75,10 +75,9 @@ describe('<EditCard/>', () => {
 
   let wrapper: any;
   beforeEach(() => {
-
     wrapper = shallow(<EditCard
       model={contact}
-      customFieldSetting={customFieldSettings}
+      customFieldSetting={[]}
       onUpdate={jest.fn()}
       title={'Person'}
       icon={someIcon}
@@ -100,7 +99,7 @@ describe('<EditCard/>', () => {
   it('render correct quantity for CardFields component for Organization', () => {
     wrapper = shallow(<EditCard
       model={organization}
-      customFieldSetting={customFieldSettings}
+      customFieldSetting={[]}
       onUpdate={jest.fn()}
       title={'Person'}
       icon={someIcon}
