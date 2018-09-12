@@ -104,7 +104,7 @@ describe("Contact", () => {
     expect(body.settings.customFields[3]).toMatchObject(newCustomField);
   });
 
-  it("should fail to add new custom field with propperty default", async () => {
+  it("should fail to add new custom field with property default", async () => {
     const newCustomField = {
       model: "Organization",
       name: "Phone number",
