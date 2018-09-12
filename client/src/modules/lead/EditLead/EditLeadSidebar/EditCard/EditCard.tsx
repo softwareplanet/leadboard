@@ -18,13 +18,13 @@ interface State {
 }
 
 interface Props {
-  model: Contact | Organization,
-  customFieldSetting: CustomFieldSetting[],
-  title: string,
-  icon: any,
-  customFields: CustomFieldData[],
+  model: Contact | Organization;
+  customFieldSetting: CustomFieldSetting[];
+  title: string;
+  icon: any;
+  customFields: CustomFieldData[];
 
-  onUpdate(model: Contact | Organization): void,
+  onUpdate(model: Contact | Organization): void;
 }
 
 class EditCard extends React.Component<Props, State> {

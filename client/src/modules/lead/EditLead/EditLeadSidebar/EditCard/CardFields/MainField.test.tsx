@@ -48,6 +48,5 @@ describe('<MainField/>', () => {
     nameEditView.simulate('change', 'Name', 'Microsoft');
     expect(wrapper.find('SingleEditView').exists()).toBe(false);
   });
-
 });
 

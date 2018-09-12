@@ -3,7 +3,7 @@ import CustomFieldSetting from '../../../../../../../../models/customFields/Cust
 import * as styles from './CustomFieldView.css';
 
 interface Props {
-  customSettings: CustomFieldSetting,
+  customSettings: CustomFieldSetting;
 }
 
 class CustomFieldView extends React.Component<Props> {

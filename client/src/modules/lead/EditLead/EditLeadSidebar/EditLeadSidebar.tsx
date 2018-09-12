@@ -21,22 +21,22 @@ import * as editCardStyles from './EditCard/EditCard.css';
 import EmptyCard from './EditCard/EmptyCard/EmptyCard';
 
 interface Props {
-  settings: DomainSettings,
-  editLead: Lead,
-  contacts: Contact[],
-  organizations: Organization[],
+  settings: DomainSettings;
+  editLead: Lead;
+  contacts: Contact[];
+  organizations: Organization[];
 
-  loadLead(): void,
+  loadLead(): void;
 
-  updateOrganization(organization: Organization): void,
+  updateOrganization(organization: Organization): void;
 
-  updateContact(contact: Contact): void,
+  updateContact(contact: Contact): void;
 
-  loadOrganizations(): void,
+  loadOrganizations(): void;
 
-  loadContacts(): void,
+  loadContacts(): void;
 
-  updateLead(lead: Lead): void,
+  updateLead(lead: Lead): void;
 }
 
 class EditLeadSidebar extends React.Component<Props> {

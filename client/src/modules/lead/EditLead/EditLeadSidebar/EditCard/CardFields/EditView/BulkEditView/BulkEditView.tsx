@@ -9,18 +9,18 @@ import EditFieldGroup from '../EditFieldGroup/EditFieldGroup';
 import * as styles from './BulkEditView.css';
 
 interface State {
-  _id: string,
-  name: string,
-  custom: CustomField[],
+  _id: string;
+  name: string;
+  custom: CustomField[];
 }
 
 interface Props {
-  model: Contact | Organization,
-  customFields: CustomFieldData[],
+  model: Contact | Organization;
+  customFields: CustomFieldData[];
 
-  onChange(state: State): void,
+  onChange(state: State): void;
 
-  onCancel(): void,
+  onCancel(): void;
 }
 
 class BulkEditView extends React.Component<Props, State> {

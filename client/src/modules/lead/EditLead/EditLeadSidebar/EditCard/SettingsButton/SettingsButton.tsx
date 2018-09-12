@@ -8,9 +8,9 @@ interface State {
 }
 
 interface Props {
-  id: string,
+  id: string;
 
-  showCustomize(): void,
+  showCustomize(): void;
 }
 
 class SettingsButton extends React.Component<Props, State> {
