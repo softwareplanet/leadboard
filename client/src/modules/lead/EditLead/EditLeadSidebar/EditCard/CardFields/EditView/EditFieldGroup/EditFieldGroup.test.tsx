@@ -2,7 +2,6 @@ import { shallow } from 'enzyme';
 import 'jsdom-global/register';
 import * as React from 'react';
 import EditFieldGroup from './EditFieldGroup';
-import * as styles from './EditFieldGroup.css';
 
 const customField = {
   fieldKey: '5b86a96eed17641891c5011b',
