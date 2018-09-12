@@ -42,7 +42,6 @@ const domainMembersMiddlewares = [validateDomain];
 // @desc    Get domain by id
 // @access  Private
 router.get("/:domainId", domainMembersMiddlewares, (req, res) => {
-
   Domain.findById(req.params.domainId)
     .then(domain => res.json(domain))
     .catch(error => res.status(400).json({ errors: { message: error } }));
