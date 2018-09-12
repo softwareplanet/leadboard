@@ -16,7 +16,6 @@ interface Props {
 class Search extends React.Component<Props, object> {
   public state = {
     isDropdownOpen: false,
-    tabValue: 0,
     value: '',
   };
 

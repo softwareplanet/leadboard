@@ -4,14 +4,15 @@ import leadIcon from "../../../../assets/lead-icon.svg";
 import ReactSVG from "react-svg";
 import { trim } from "lodash";
 import * as styles from "./Search.css";
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
+import SearchTabs from './SearchTabs'
+
+const ALL = 'All';
 
 class SearchInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tabValue: 0,
+      tabValue: ALL,
     }
   }
 
@@ -88,33 +89,27 @@ class SearchInput extends React.Component {
     this.setState({ tabValue });
   };
 
+  renderItemsByType = () => {
+    let items = this.props.items;
+    let tabValue = this.state.tabValue;
+    return tabValue === ALL? items : items.filter(item => item.type === tabValue);
+  };
+
   render() {
     return (
       <ReactAutocomplete
         open={this.props.value.length > 1 && trim(this.props.value).length > 0 && this.props.open}
-        items={this.props.items}
+        items={this.renderItemsByType()}
         getItemValue={item => item.name}
         renderMenu={(items) =>
           items.length !== 0 ? (
             <div className={styles.suggestionsList}>
-              <Tabs
-                value={this.state.tabValue}
-                onChange={this.handleChange}
-                classes={{ scroller: styles.tabsRoot, flexContainer: styles.tabsContainer , indicator: styles.tabsIndicator }}
-              >
-                <Tab
-                  classes={{ root: styles.tab, label: styles.tabLabel, labelContainer: styles.labelContainer }}
-                  label="All"
-                />
-                <Tab
-                  classes={ { root: styles.tab } }
-                  icon={<ReactSVG className={styles.leadTypeIcon} src={leadIcon} />}
-                />
-              </Tabs>
+              <SearchTabs value={this.state.tabValue} onChange={this.handleChange} />
               <ul className={styles.searchResult} children={items} />
             </div>
           ) : (
             <div className={styles.suggestionsList}>
+              <SearchTabs value={this.state.tabValue} onChange={this.handleChange} />
               <ul>
                 <li className={styles.noResults}>No results for "{this.props.value}"</li>
               </ul>
