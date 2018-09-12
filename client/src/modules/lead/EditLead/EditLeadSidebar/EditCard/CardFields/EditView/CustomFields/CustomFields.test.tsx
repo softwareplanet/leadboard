@@ -4,7 +4,7 @@ import CustomFieldView from '../CustomFieldView/CustomFieldView';
 import CustomFields from './CustomFields';
 import * as styles from './CustomFields.css';
 
-describe('<CastomFields />', () => {
+describe('<CustomFields />', () => {
   const customs = [
     {
       _id: '5b97d3573485d2406c818ba0',
