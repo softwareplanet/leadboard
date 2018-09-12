@@ -28,7 +28,7 @@ export default class Lead extends React.Component<Props, object> {
                          src={lead.owner && lead.owner.avatar ? lead.owner.avatar : profile}/>
               {lead.name}
             </strong>
-            <small>{lead.contact ? lead.contact.name : lead.organization.name}</small>
+            <small>{this.getContactOrOrganizationName(lead)}</small>
           </Link>
           <div className={styles.imgContainer}>
             <a className={styles.iconStatus}>
@@ -38,6 +38,15 @@ export default class Lead extends React.Component<Props, object> {
         </div>
       </div>
     );
+  }
+
+  private getContactOrOrganizationName(lead : LeadModel): string {
+    if(lead.contact) {
+      return lead.contact.name;
+    } else if(lead.organization) {
+      return lead.organization.name;
+    }
+    return '';
   }
 
   private getStatusIcon = (status: string) => {
