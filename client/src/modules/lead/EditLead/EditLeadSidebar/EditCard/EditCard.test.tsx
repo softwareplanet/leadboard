@@ -9,7 +9,7 @@ import CardField from './CardFields/CardField';
 import MainField from './CardFields/MainField';
 import EditCard from './EditCard';
 
-describe('<EditCard/>', () => {
+describe('<EditCard />', () => {
   const domain: Domain = {
     _id: '5b86a96eed17641891c5011b',
     name: 'interLink',
@@ -75,13 +75,17 @@ describe('<EditCard/>', () => {
 
   let wrapper: any;
   beforeEach(() => {
-    wrapper = shallow(<EditCard
-      model={contact}
-      customFieldSetting={[]}
-      onUpdate={jest.fn()}
-      title={'Person'}
-      icon={someIcon}
-      customFields={customFields} />);
+    wrapper = shallow
+    (
+      <EditCard
+        model={contact}
+        customFieldSetting={[]}
+        onUpdate={jest.fn()}
+        title={'Person'}
+        icon={someIcon}
+        customFields={customFields}
+      />,
+    );
   });
 
   it('render EditCard component', () => {
@@ -97,13 +101,17 @@ describe('<EditCard/>', () => {
   });
 
   it('render correct quantity for CardFields component for Organization', () => {
-    wrapper = shallow(<EditCard
-      model={organization}
-      customFieldSetting={[]}
-      onUpdate={jest.fn()}
-      title={'Person'}
-      icon={someIcon}
-      customFields={customFields} />);
+    wrapper = shallow
+    (
+      <EditCard
+        model={organization}
+        customFieldSetting={[]}
+        onUpdate={jest.fn()}
+        title={'Person'}
+        icon={someIcon}
+        customFields={customFields}
+      />,
+    );
     wrapper.update();
     expect(wrapper.find(CardField).length).toEqual(2);
   });
