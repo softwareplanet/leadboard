@@ -25,7 +25,7 @@ class Search extends React.Component<Props, object> {
       <div className={styles.searchWrapper}>
         <ReactSVG className={styles.searchIcon} src={searchIcon} />
         <SearchInput
-          items={[]}
+          items={this.props.search.result}
           open={this.state.isDropdownOpen}
           onBlur={this.onBlur}
           onChange={this.onChange}
@@ -55,6 +55,7 @@ class Search extends React.Component<Props, object> {
 
   private onChange = (event: any) => {
     const { value } = event.target;
+    this.props.loadSearchResult(value);
     this.setState({
       isDropdownOpen: !isBlank(value),
       value,

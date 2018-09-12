@@ -11,7 +11,7 @@ router.get("/",async (req, res) => {
   try {
     let leads = await loadLeads(req.user.domain, req.query.part);
     res.json({
-      leads,
+      result: [ ...leads ],
     });
   } catch (error) {
     res.status(404).json({ errors: { message: error } });

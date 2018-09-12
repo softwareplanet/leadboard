@@ -4,10 +4,15 @@ import leadIcon from "../../../../assets/lead-icon.svg";
 import ReactSVG from "react-svg";
 import { trim } from "lodash";
 import * as styles from "./Search.css";
+import Tab from '@material-ui/core/Tab';
+import Tabs from '@material-ui/core/Tabs';
 
 class SearchInput extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      tabValue: 0,
+    }
   }
 
   getIndexOfCoincidenceValueInString = (string) => {
@@ -79,16 +84,33 @@ class SearchInput extends React.Component {
     }
   };
 
+  handleChange = (e, tabValue) => {
+    this.setState({ tabValue });
+  };
+
   render() {
     return (
       <ReactAutocomplete
         open={this.props.value.length > 1 && trim(this.props.value).length > 0 && this.props.open}
         items={this.props.items}
-        shouldItemRender={(item, value) => item.name.toLowerCase().indexOf(trim(value).toLowerCase()) > -1}
         getItemValue={item => item.name}
         renderMenu={(items) =>
           items.length !== 0 ? (
             <div className={styles.suggestionsList}>
+              <Tabs
+                value={this.state.tabValue}
+                onChange={this.handleChange}
+                classes={{ scroller: styles.tabsRoot, flexContainer: styles.tabsContainer , indicator: styles.tabsIndicator }}
+              >
+                <Tab
+                  classes={{ root: styles.tab, label: styles.tabLabel, labelContainer: styles.labelContainer }}
+                  label="All"
+                />
+                <Tab
+                  classes={ { root: styles.tab } }
+                  icon={<ReactSVG className={styles.leadTypeIcon} src={leadIcon} />}
+                />
+              </Tabs>
               <ul className={styles.searchResult} children={items} />
             </div>
           ) : (

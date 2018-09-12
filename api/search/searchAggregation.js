@@ -1,4 +1,5 @@
 import Lead from "../../models/lead";
+const LEAD = "Lead";
 
 export const loadLeads = (domain, part) => {
   return Lead.aggregate([
@@ -36,9 +37,9 @@ export const loadLeads = (domain, part) => {
     {
       $match: {
         $or: [
-          { "organizations.name": { $regex: `(?:^|\\W)${part}(?:|\\W)`, $options: "i" } },
-          { "contacts.name": { $regex: `(?:^|\\W)${part}(?:|\\W)`, $options: "i" } },
-          { name: { $regex: `(?:^|\\W)${part}(?:|\\W)`, $options: "i" } },
+          { "organizations.name": { $regex: `(?:|\\W)${part}(?:|\\W)`, $options: "i" } },
+          { "contacts.name": { $regex: `(?:|\\W)${part}(?:|\\W)`, $options: "i" } },
+          { name: { $regex: `(?:|\\W)${part}(?:|\\W)`, $options: "i" } },
         ],
       },
     },
@@ -49,6 +50,7 @@ export const loadLeads = (domain, part) => {
         status: 1,
         contact: "$contacts.name",
         organization: "$organizations.name",
+        type: LEAD,
       }
     }
   ])
