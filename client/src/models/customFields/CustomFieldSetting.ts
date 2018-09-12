@@ -1,5 +1,5 @@
 export default interface CustomFieldSetting {
-  _id: string,
+  _id: string;
   model: string;
   name: string;
   type: string;

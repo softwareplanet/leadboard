@@ -88,6 +88,7 @@ describe('<EditLeadSidebar/>', () => {
       timestamp: new Date('2018-08-23T12:19:19.758Z'),
       },
   ];
+
   const contacts : Contact[] = [
     {
       _id: '5b7eb55995019343c59b0c8c',
@@ -122,6 +123,7 @@ describe('<EditLeadSidebar/>', () => {
       timestamp: new Date('2018-09-06T11:32:49.518Z'),
     },
   ];
+
   const settings : DomainSettings = {
     customFields: [
       {

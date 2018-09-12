@@ -20,5 +20,4 @@ describe('<CustomFieldView/>', () => {
     wrapper = shallow(<CustomFieldView customSettings={settings}/>);
     expect(wrapper.length).toBe(1);
   });
-  
 });

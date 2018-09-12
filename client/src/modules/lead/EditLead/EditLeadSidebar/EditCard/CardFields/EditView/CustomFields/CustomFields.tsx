@@ -4,9 +4,9 @@ import EditCustomField from '../CustomFieldView/CustomFieldView';
 import * as styles from './CustomFields.css';
 
 interface Props {
-  customFields: CustomFieldSetting[],
+  customFields: CustomFieldSetting[];
 
-  closeEditCustomFieldsMode(): void,
+  closeEditCustomFieldsMode(): void;
 }
 
 class EditCustomFieldsView extends React.Component<Props, object> {

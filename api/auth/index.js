@@ -65,7 +65,8 @@ router.post("/register", function(req, res) {
     .catch(err => {
       let errors = {};
 
-      if (err.code && err.code === 11000) {
+      const MONGO_UNIQUE_CONSTRAINT_VIOLATION_CODE = 11000;
+      if (err.code && err.code === MONGO_UNIQUE_CONSTRAINT_VIOLATION_CODE) {
         errors.email = "User with this Email is already exists";
       } else {
         errors.email = "It was a problem to save this data to database";

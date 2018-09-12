@@ -2,7 +2,7 @@ import Domain from '../models/Domain';
 import { LOAD_DOMAIN } from './types';
 
 interface Action {
-  type: string,
+  type: string;
   payload: any;
 }
 
