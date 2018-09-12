@@ -1,7 +1,7 @@
-import * as React from 'react'
-import { CUSTOMIZE_FIELDS, PIPELINES } from '../settingsRoutes';
-import * as styles from './Sidebar.css'
+import * as React from 'react';
 import { NavLink } from 'react-router-dom';
+import { CUSTOMIZE_FIELDS, PIPELINES } from '../settingsRoutes';
+import * as styles from './Sidebar.css';
 
 export default class Sidebar extends React.Component {
   private settingsMenu = [{
