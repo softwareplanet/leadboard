@@ -68,22 +68,20 @@ class EditCard extends React.Component<Props, State> {
         {
           isInEditMode &&
           <BulkEditView
+            customFields={this.props.customFields}
             model={this.props.model}
             onCancel={this.closeEditMode}
             onChange={this.updateModel}
-            customFields={this.props.customFields}
           />
         }
         {
           isInCustomizeFieldsMode && <CustomFields
-            model={this.props.model.name}
             customFields={this.props.settings}
             closeEditCustomFieldsMode={this.closeCustomizeFieldsMode} />
         }
       </div>
     );
   }
-
 
   private openCustomizeFieldsMode = () => {
     this.setState({ isInCustomizeFieldsMode: true });
