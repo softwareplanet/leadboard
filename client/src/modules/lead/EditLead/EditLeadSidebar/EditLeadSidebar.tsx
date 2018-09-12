@@ -16,7 +16,7 @@ import Organization from '../../../../models/Organization';
 import ContactAutocomplete from '../../../common/autocomplete/contact/ContactAutocomplete';
 import OrganizationAutocomplete from '../../../common/autocomplete/organization/OrganizationAutocomplete';
 import { autocompleteStyles } from '../../../common/autocomplete/styles/autocomplete-styles';
-import { getFilteredFieldsByModel, makeCustomFieldData } from './CustomFieldsUtils';
+import { getFilteredFieldsByModel, makeCustomFieldData } from './CustomFieldsService';
 import * as editCardStyles from './EditCard/EditCard.css';
 import EmptyCard from './EditCard/EmptyCard/EmptyCard';
 
