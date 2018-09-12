@@ -6,7 +6,7 @@ import CustomFieldSetting from '../../../../../models/customFields/CustomFieldSe
 import Organization from '../../../../../models/Organization';
 import CardField from './CardFields/CardField';
 import BulkEditView from './CardFields/EditView/BulkEditView/BulkEditView';
-import CustomFields from './CardFields/EditView/EditCustomFieldsView/CustomFields';
+import CustomFields from './CardFields/EditView/CustomFields/CustomFields';
 import MainField from './CardFields/MainField';
 import EditButton from './EditButton/EditButton';
 import * as styles from './EditCard.css';

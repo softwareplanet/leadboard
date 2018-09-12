@@ -48,17 +48,7 @@ describe('<EditCard/>', () => {
     timestamp: new Date(),
   };
 
-  const customFieldSettings: CustomFieldSetting[] = [
-    {
-      _id: '5b97d3573485d2406c818ba0',
-      isAlwaysShownInAddDialog: true,
-      isAlwaysVisible: true,
-      isDefault: true,
-      model: 'Contact',
-      name: 'contact',
-      type: 'string',
-    },
-  ];
+  const customFieldSettings: CustomFieldSetting[] = [];
 
   const customFields: CustomFieldData[] = [
     {
@@ -83,9 +73,9 @@ describe('<EditCard/>', () => {
     },
   ];
 
-  let wrapper;
+  let wrapper: any;
+  beforeEach(() => {
 
-  it('render EditCard component', () => {
     wrapper = shallow(<EditCard
       model={contact}
       customFieldSetting={customFieldSettings}
@@ -93,29 +83,17 @@ describe('<EditCard/>', () => {
       title={'Person'}
       icon={someIcon}
       customFields={customFields} />);
+  });
+
+  it('render EditCard component', () => {
     expect(wrapper.exists()).toEqual(true);
   });
 
   it('render MainField component', () => {
-    wrapper = shallow(<EditCard
-      model={contact}
-      customFieldSetting={customFieldSettings}
-      onUpdate={jest.fn()}
-      title={'Person'}
-      icon={someIcon}
-      customFields={customFields} />);
     expect(wrapper.find(MainField).exists()).toEqual(true);
   });
 
   it('render correct quantity for CardFields component for Contact', () => {
-    wrapper = shallow(<EditCard
-      model={contact}
-      customFieldSetting={customFieldSettings}
-      onUpdate={jest.fn()}
-      title={'Person'}
-      icon={someIcon}
-      customFields={customFields} />);
-    wrapper.update();
     expect(wrapper.find(CardField).length).toEqual(2);
   });
 

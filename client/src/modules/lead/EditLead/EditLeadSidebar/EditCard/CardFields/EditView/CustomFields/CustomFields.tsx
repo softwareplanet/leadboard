@@ -14,7 +14,11 @@ class EditCustomFieldsView extends React.Component<Props, object> {
     return (
       <div>
         {this.props.customFields.map(customField => {
-           return (<EditCustomField key={customField._id} customSettings={customField} />);
+          return (
+            <EditCustomField
+              key={customField._id}
+              customSettings={customField}
+            />);
         })}
         <div className={styles.buttonWrapper}>
           <button
