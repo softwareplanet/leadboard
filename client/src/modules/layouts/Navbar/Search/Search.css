@@ -207,3 +207,55 @@
   composes: itemBadge;
   background-color: #2cbf55;
 }
+
+.tabsRoot {
+  background-color: #2cbf55;
+  height: 40px;
+  overflow: hidden;
+}
+
+.tabsContainer {
+  height: 41px;
+  overflow: hidden;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #b9bbbc;
+}
+
+span.tabsIndicator {
+  background-color: #3279e2;
+}
+
+span.tabLabel {
+  font-weight: bold;
+  font-size: 14px;
+  text-transform: none;
+}
+
+span.labelContainer {
+  padding: 0 0;
+  min-width: 48px;
+}
+
+button.tab {
+  min-height: 40px;
+  min-width: 48px;
+  outline: none;
+  opacity: 0.7;
+}
+
+button.tab:hover {
+  opacity: 1;
+  border-bottom: 2px solid #3279e2;
+  padding-top: 2px;
+}
+
+.tooltip {
+  background: black !important;
+  position: absolute;
+  bottom: -20px;
+  left: -22px;
+}
+
+.popper {
+  font: 400 16px/24px "Open Sans", sans-serif;
+}

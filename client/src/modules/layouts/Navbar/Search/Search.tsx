@@ -16,7 +16,6 @@ interface Props {
 class Search extends React.Component<Props, object> {
   public state = {
     isDropdownOpen: false,
-    tabValue: 0,
     value: '',
   };
 
@@ -25,7 +24,7 @@ class Search extends React.Component<Props, object> {
       <div className={this.state.isDropdownOpen ? styles.highlightedSearchWrapper : styles.searchWrapper}>
         <ReactSVG className={styles.searchIcon} src={searchIcon} />
         <SearchInput
-          items={[{ _id: '1', name: 'Bob lead lead' }, { _id: '2', name: 'Bobik leadik leadik' }]}
+          items={this.props.search.result}
           open={this.state.isDropdownOpen}
           onBlur={this.onBlur}
           onChange={this.onChange}
@@ -55,6 +54,7 @@ class Search extends React.Component<Props, object> {
 
   private onChange = (event: any) => {
     const { value } = event.target;
+    this.props.loadSearchResult(value);
     this.setState({
       isDropdownOpen: !isBlank(value),
       value,
