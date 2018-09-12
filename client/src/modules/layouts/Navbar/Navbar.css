@@ -117,9 +117,9 @@ ul {
     display: flex;
   }
 }
-  .defaultImgContainer {
-    margin-right: 0;
-  }
+
+.activeContacts {
+  background-color: #26292c;
 }
 
 .activeContacts path {
