@@ -3,12 +3,12 @@ import * as React from 'react';
 import someIcon from '../../../../../assets/call-activity.svg';
 import Contact from '../../../../../models/Contact';
 import CustomFieldData from '../../../../../models/customFields/CustomFieldData';
+import CustomFieldSetting from '../../../../../models/customFields/CustomFieldSetting';
 import Domain from '../../../../../models/Domain';
 import Organization from '../../../../../models/Organization';
 import CardField from './CardFields/CardField';
 import MainField from './CardFields/MainField';
 import EditCard from './EditCard';
-import CustomFieldSetting from '../../../../../models/customFields/CustomFieldSetting';
 
 describe('<EditCard/>', () => {
   const domain: Domain = {
