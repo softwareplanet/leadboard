@@ -14,7 +14,6 @@ const peopleRoute = '/people';
 interface State {
   isDropdownOpen: boolean;
 }
-
 class Navbar extends React.Component<any, State> {
   public state: State = {
     isDropdownOpen: false,
@@ -66,17 +65,10 @@ class Navbar extends React.Component<any, State> {
                 </NavLink>
               </DropdownMenu>
             </Dropdown>
-          </div>
-          
-          
-          <div className={styles.rightItem}>
+          </div>  
+          <li className={styles.rightItem}>
             <UserDropDown />
-          </div>
-          {/* <li id="logout" onClick={this.onLogout} className={styles.item}>
-            <div>
-              Logout
-            </div>
-          </li> */}
+          </li>
         </ul>
       </header>
     );

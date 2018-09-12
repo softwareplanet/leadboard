@@ -13,8 +13,6 @@ import Footer from "./modules/layouts/Footer/Footer";
 import Login from "./modules/auth/Login/Login";
 import Registration from "./modules/auth/Registration/Registration";
 import People from "./modules/layouts/Contacts/People/People";
-import myComp from './myComponent.js';
-import styles from './myComponent.css';
 
 import "./App.css";
 import { Switch } from "react-router-dom";
@@ -74,7 +72,6 @@ class App extends Component {
             </Switch>
             <Route exact path="/" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Login />} />
             <Route exact path="/register" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Registration />} />  
-            <Route exact path="/test" component={myComp} />  
             <Footer/>
           </div>
         </Router>

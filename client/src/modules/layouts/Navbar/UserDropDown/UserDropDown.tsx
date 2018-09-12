@@ -16,14 +16,18 @@ interface Props extends RouteComponentProps<any> {
 }
 
 class UserDropDown extends React.Component<Props, object> {
-  public check = () => {
-    console.log('hello there')
-   }
 
   public renderUserAvatar = () => {
     return this.props.auth && this.props.auth.avatar ?
-      <img className={styles.userImg} src={this.props.auth.avatar} alt="user" /> :
-      <img className={styles.defaultImg} src={profileIcon} alt="user" />;
+      <img
+        className={styles.userImg}
+        src={this.props.auth.avatar}
+        alt="user"
+      /> :
+      <img className={styles.defaultImg}
+        src={profileIcon}
+        alt="user"
+      />;
   };
 
   public onLogout = () => {
@@ -33,8 +37,7 @@ class UserDropDown extends React.Component<Props, object> {
   public render() {
     return (
       <div className={styles.userDropDown}>
-        <button 
-          onChange={this.check}
+        <button
           className="dropdown-toggle"
           type="button"
           id="dropdownMenuButton"
@@ -49,18 +52,22 @@ class UserDropDown extends React.Component<Props, object> {
             <ReactSVG src={dropMenuIcon} />
           </div>
         </button>
-        <span className={classNames('dropdown-menu dropdown-menu-right',
-          styles.userDropDownMenu)}
-          aria-labelledby="dropdownUserButton">
-          {/* <span className="userDropDownMenuSeparator"> </span> */}
-          <div className={'dropdown-divider'}></div>
-          <span onClick={this.onLogout} className={styles.userDropDownItem}>
+        <ul
+          className={classNames('dropdown-menu dropdown-menu-right', styles.userDropDownMenu)}
+          aria-labelledby="dropdownUserButton"
+        >
+          <li className={'dropdown-divider'} />
+          <li
+            onClick={this.onLogout}
+            id="logout"
+            className={styles.userDropDownItem}
+          >
             <div className={styles.logoutIcon}>
               <ReactSVG src={logoutIcon} />
-            </div><span>Log out</span>
-          </span>
-        </span>
-
+            </div>
+            <span>Log out</span>
+          </li>
+        </ul>
       </div>
     );
   }
@@ -70,5 +77,5 @@ const mapStateToProps = (state: any) => ({
   auth: state.auth,
 });
 
+export { UserDropDown };
 export default connect(mapStateToProps, { logoutUser })(withRouter(UserDropDown));
-
