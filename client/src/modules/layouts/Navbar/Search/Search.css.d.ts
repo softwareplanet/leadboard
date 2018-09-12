@@ -11,3 +11,7 @@ export const leadTypeIcon: string;
 export const searchResult: string;
 export const noResults: string;
 export const suggestionInfo: string;
+export const highlightedPart: string;
+export const itemBadge: string;
+export const itemWonBadge: string;
+export const itemLostBadge: string;
