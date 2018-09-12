@@ -113,3 +113,22 @@
   color: white;
   background-color: #317ae2;
 }
+
+@media only screen and (max-width: 590px) {
+  .userInfo span, small {
+    display: none;
+  }
+
+  .userImg {
+    padding: 0;
+    margin-right: 0;
+  }
+
+  .userIcon {
+    padding: 0;
+  }
+
+  .userInfo {
+    padding: 0;
+  }
+}

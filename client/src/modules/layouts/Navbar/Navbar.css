@@ -108,28 +108,7 @@ ul {
   text-decoration: none;
 }
 
-/* @media only screen and (max-width: 590px) {
-  .userInfo span, small {
-    display: none;
-  }
-
-  .userImg {
-    padding: 0;
-    margin-right: 0;
-  }
-
-  .userIcon {
-    padding: 0;
-  }
-
-  .userInfo {
-    padding: 0;
-  }
-
-  .defaultImgContainer {
-    margin-right: 0;
-  }
-
+@media only screen and (max-width: 590px) {
   .logo {
     display: none;
   }
@@ -137,10 +116,10 @@ ul {
   .logoSmall {
     display: flex;
   }
-} */
-
-.activeContacts {
-  background-color: #26292c;
+}
+  .defaultImgContainer {
+    margin-right: 0;
+  }
 }
 
 .activeContacts path {
