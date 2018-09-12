@@ -1,5 +1,5 @@
 import Domain from '../models/Domain';
-import { LOAD_SETTINGS } from './types';
+import { LOAD_DOMAIN } from './types';
 
 interface Action {
   type: string,
@@ -18,7 +18,7 @@ const initialState: Domain = {
 
 export default function(state = initialState, action: Action) {
   switch (action.type) {
-    case LOAD_SETTINGS:
+    case LOAD_DOMAIN:
       return action.payload;
     default:
       return state;
