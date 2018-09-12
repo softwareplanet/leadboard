@@ -4,7 +4,7 @@ import CustomFieldView from '../CustomFieldView/CustomFieldView';
 import CustomFields from './CustomFields';
 import * as styles from './CustomFields.css';
 
-describe('<CastomFields/>', () => {
+describe('<CastomFields />', () => {
   const customs = [
     {
       _id: '5b97d3573485d2406c818ba0',
@@ -29,7 +29,13 @@ describe('<CastomFields/>', () => {
   let wrapper: any;
   const callback = jest.fn();
   beforeEach(() => {
-    wrapper = shallow(<CustomFields customFields={customs} closeEditCustomFieldsMode={callback} />);
+    wrapper = shallow
+    (
+      <CustomFields
+        customFields={customs}
+        closeEditCustomFieldsMode={callback}
+      />,
+    );
   });
 
   it('should render CustomFields component', () => {

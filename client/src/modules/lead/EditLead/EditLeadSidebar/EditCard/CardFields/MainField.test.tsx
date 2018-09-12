@@ -4,7 +4,7 @@ import { noop } from 'lodash';
 import * as React from 'react';
 import MainField from './MainField';
 
-describe('<MainField/>', () => {
+describe('<MainField />', () => {
   const contact = {
     name: 'Bob',
     organization: {
@@ -15,7 +15,7 @@ describe('<MainField/>', () => {
   const title = 'Title';
   let wrapper;
 
-  it('render MainField component', () => {
+  it('should render MainField component', () => {
     wrapper = shallow(<MainField value={contact.name} onUpdate={noop} title={title} />);
     expect(wrapper.exists()).toBe(true);
   });
