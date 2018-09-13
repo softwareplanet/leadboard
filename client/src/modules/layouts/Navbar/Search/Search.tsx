@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import ReactSVG from 'react-svg';
 import searchIcon from '../../../../assets/search-icon.svg';
+import SearchItemModel from '../../../../models/search/SearchItem';
 import isBlank from '../../../../utils/isBlank';
 import { loadSearchResult } from '../searchActions';
 import * as styles from './Search.css';
@@ -10,11 +11,17 @@ import SearchSpinner from './Spinner/SearchSpinner';
 
 interface Props {
   search: any;
+
   loadSearchResult(query: string): void;
 }
 
-class Search extends React.Component<Props, object> {
-  public state = {
+interface State {
+  isDropdownOpen: boolean;
+  value: string;
+}
+
+class Search extends React.Component<Props, State> {
+  public state: State = {
     isDropdownOpen: false,
     value: '',
   };
@@ -24,8 +31,8 @@ class Search extends React.Component<Props, object> {
     return (
       <div
         className={state.isDropdownOpen && state.value.length > 1 ? styles.highlightedSearchWrapper : styles.searchWrapper}>
-        {this.props.search.loading?
-          <SearchSpinner className={styles.searchSpinner}/>
+        {this.props.search.loading ?
+          <SearchSpinner className={styles.searchSpinner} />
           : <ReactSVG className={styles.searchIcon} src={searchIcon} />}
         <SearchInput
           items={this.props.search.result}
@@ -40,7 +47,7 @@ class Search extends React.Component<Props, object> {
     );
   }
 
-  private onSelect = (value: string, item: any) => {
+  private onSelect = (value: string, item: SearchItemModel) => {
     window.location.replace(`../lead/${item._id}`);
   };
 
@@ -56,8 +63,9 @@ class Search extends React.Component<Props, object> {
     });
   };
 
-  private onChange = (event: any) => {
-    const { value } = event.target;
+  private onChange = (event: React.SyntheticEvent) => {
+    const target = event.target as HTMLInputElement;
+    const { value } = target;
     if (value.length > 1) {
       this.props.loadSearchResult(value);
     }

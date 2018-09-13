@@ -1,0 +1,145 @@
+import { trim } from 'lodash';
+import * as React from 'react';
+import * as ReactAutocomplete from 'react-autocomplete';
+import Highlighter from 'react-highlight-words';
+import ReactSVG from 'react-svg';
+import leadIcon from '../../../../../assets/lead-icon.svg';
+import SearchItemModel from '../../../../../models/search/SearchItem';
+import * as styles from '../Search.css';
+import SearchTabs from './SearchTabs';
+
+interface Props {
+  items: [];
+  open: boolean;
+  value: string;
+
+  onBlur(): void;
+
+  onChange(event: any): void;
+
+  onFocus(): void;
+
+  onSelect(value: string, item: any): void;
+}
+
+interface State {
+  tabValue: string;
+}
+
+const ALL = 'All';
+
+class SearchInput extends React.Component<Props, State> {
+  public state: State = {
+    tabValue: ALL,
+  };
+
+  public render() {
+    return (
+      <ReactAutocomplete
+        open={this.props.value.length > 1 && trim(this.props.value).length > 0 && this.props.open}
+        items={this.renderItemsByType()}
+        getItemValue={(item: SearchItemModel) => item.name}
+        renderMenu={(items: []) =>
+          items.length !== 0 ? (
+            <div className={styles.suggestionsList}>
+              <SearchTabs value={this.state.tabValue} onChange={this.handleChange} />
+              <ul className={styles.searchResult} children={items} />
+            </div>
+          ) : (
+            <div className={styles.suggestionsList}>
+              <SearchTabs value={this.state.tabValue} onChange={this.handleChange} />
+              <ul>
+                <li className={styles.noResults}>No results for "{this.props.value}"</li>
+              </ul>
+            </div>
+          )
+        }
+        renderItem={(item: SearchItemModel, highlighted: boolean) => {
+          return (
+            <li className={highlighted ? styles.highlightedSuggestion : styles.suggestion}
+                key={item._id}>
+              <ReactSVG src={leadIcon} className={styles.leadIcon} />
+              <div className={styles.suggestionInfo}>
+                <Highlighter
+                  highlightClassName={styles.highlightName}
+                  unhighlightClassName={styles.withoutHighlightName}
+                  searchWords={this.props.value.split(' ')}
+                  autoEscape={true}
+                  textToHighlight={item.name}
+                />
+                {this.renderItemInfo(item)}
+              </div>
+              {this.renderItemStatus(item.status ? item.status : '')}
+            </li>
+          );
+        }}
+        inputProps={{
+          className: styles.searchInput,
+          onBlur: this.props.onBlur,
+          onFocus: this.props.onFocus,
+          placeholder: 'Search',
+        }}
+        value={this.props.value}
+        onChange={this.props.onChange}
+        onSelect={this.props.onSelect}
+      />
+    );
+  }
+
+  private renderItemInfo = (item: SearchItemModel) => {
+    return (
+      <small>
+        <Highlighter
+          highlightClassName={styles.highlightInfo}
+          unhighlightClassName={styles.withoutHighlightInfo}
+          searchWords={this.props.value.split(' ')}
+          autoEscape={true}
+          textToHighlight={this.createLeadSuggestionInfo(item)}
+        />
+      </small>
+    );
+  };
+
+  private createLeadSuggestionInfo = (item: SearchItemModel) => {
+    let info;
+    if (item.organization && item.organization.length) {
+      if (item.contact && item.contact.length) {
+        info = `${item.organization}, ${item.contact}`;
+      } else {
+        info = item.organization;
+      }
+    } else {
+      if (item.contact && item.contact.length) {
+        info = item.contact;
+      } else {
+        info = '';
+      }
+    }
+    return info;
+  };
+
+  private renderItemStatus = (status: string) => {
+    switch (status) {
+      case 'InProgress':
+        return null;
+      case 'Won':
+        return <span className={styles.itemWonBadge}>{status.toLowerCase()}</span>;
+      case 'Lost':
+        return <span className={styles.itemLostBadge}>{status.toLowerCase()}</span>;
+      default:
+        return null;
+    }
+  };
+
+  private handleChange = (event: React.SyntheticEvent, tabValue: string) => {
+    this.setState({ tabValue });
+  };
+
+  private renderItemsByType = () => {
+    const items = this.props.items;
+    const tabValue = this.state.tabValue;
+    return tabValue === ALL ? items : items.filter((item: SearchItemModel) => item.type === tabValue);
+  };
+}
+
+export default SearchInput;
