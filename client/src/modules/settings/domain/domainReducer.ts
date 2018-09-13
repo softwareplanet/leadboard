@@ -1,4 +1,4 @@
-import Domain from '../models/Domain';
+import Domain from '../../../models/Domain';
 import { LOAD_DOMAIN } from './types';
 
 interface Action {
