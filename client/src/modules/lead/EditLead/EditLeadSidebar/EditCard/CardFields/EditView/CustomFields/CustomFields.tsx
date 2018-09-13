@@ -8,6 +8,8 @@ interface Props {
   customFields: CustomFieldSetting[];
 
   closeEditCustomFieldsMode(): void;
+
+  deleteCustomField(id: string): void;
 }
 
 interface State {
@@ -22,26 +24,27 @@ class CustomFields extends React.Component<Props, State> {
   };
 
   public saveEditing = () => {
-    console.log('Save custom field Action')
+    console.log('Save custom field Action');
   };
 
   public cancelEditing = () => {
-    console.log('Cancel editing field Action')
+    console.log('Cancel editing field Action');
   };
 
   public triggerNewField = () => {
     this.setState((prevState) =>
-      ({ isAddNew: !prevState.isAddNew })
+      ({ isAddNew: !prevState.isAddNew }),
     );
   };
 
-  public render(){
+  public render() {
     return (
       <div>
         <div>
           {this.props.customFields.map(customField => {
             return (
               <CustomFieldCard
+                deleteCustomField={this.props.deleteCustomField}
                 key={customField._id}
                 customSettings={customField}
               />);
@@ -70,8 +73,8 @@ class CustomFields extends React.Component<Props, State> {
         <span onClick={this.triggerNewField} className={styles.addNewField}>
           + Add a new field
     </span>
-      </div>)
-  }
+      </div>);
+  };
 }
 
 export default CustomFields;

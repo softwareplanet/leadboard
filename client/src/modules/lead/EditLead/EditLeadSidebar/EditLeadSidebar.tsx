@@ -5,12 +5,13 @@ import personIcon from '../../../../img/personIcon.svg';
 import { loadContacts } from '../../../common/autocomplete/contact/contactActions';
 import { loadOrganizations } from '../../../common/autocomplete/organization/organizationActions';
 import { loadLead, updateContact, updateLead, updateOrganization } from '../../leadActions';
+import { deleteCustomField } from '../../../settings/domain/domainActions';
 import EditCard from './EditCard/EditCard';
 import * as styles from './EditLeadSidebar.css';
 
 import classNames from 'classnames';
 import Contact from '../../../../models/Contact';
-import DomainSettings from '../../../../models/DomainSettings';
+import Domain from '../../../../models/Domain';
 import Lead from '../../../../models/Lead';
 import Organization from '../../../../models/Organization';
 import ContactAutocomplete from '../../../common/autocomplete/contact/ContactAutocomplete';
@@ -21,7 +22,7 @@ import * as editCardStyles from './EditCard/EditCard.css';
 import EmptyCard from './EmptyCard/EmptyCard';
 
 interface Props {
-  settings: DomainSettings;
+  domain: Domain;
   editLead: Lead;
   contacts: Contact[];
   organizations: Organization[];
@@ -37,6 +38,8 @@ interface Props {
   loadContacts(): void;
 
   updateLead(lead: Lead): void;
+
+  deleteCustomField(customFieldId: string, domainId: string): void;
 }
 
 class EditLeadSidebar extends React.Component<Props> {
@@ -46,7 +49,7 @@ class EditLeadSidebar extends React.Component<Props> {
   }
 
   public render() {
-    const { settings } = this.props;
+    const { settings } = this.props.domain;
 
     if (this.props.editLead) {
       const { contact, organization } = this.props.editLead;
@@ -54,6 +57,7 @@ class EditLeadSidebar extends React.Component<Props> {
       if (contact) {
         contactCard =
           <EditCard
+            deleteCustomField={this.deleteCustomField}
             model={contact}
             title={'Person'}
             icon={personIcon}
@@ -66,6 +70,7 @@ class EditLeadSidebar extends React.Component<Props> {
       if (organization) {
         organizationCard =
           <EditCard
+            deleteCustomField={this.deleteCustomField}
             model={organization}
             title={'Organization'}
             icon={organizationIcon}
@@ -111,18 +116,30 @@ class EditLeadSidebar extends React.Component<Props> {
       return <div className={styles.sidebar} />;
     }
   }
+
+  private deleteCustomField = (customFieldId: string) => {
+    this.props.deleteCustomField(customFieldId, this.props.domain._id);
+  };
 }
 
 const mapStateToProps = (state: any) => ({
   contacts: state.contacts,
+  domain: state.domain,
   editLead: state.leads.editLead.lead,
   organizations: state.organizations,
-  settings: state.domain.settings,
 });
 
 export { EditLeadSidebar };
 
 export default connect(
   mapStateToProps,
-  { loadLead, updateOrganization, updateContact, loadOrganizations, loadContacts, updateLead },
+  {
+    deleteCustomField,
+    loadContacts,
+    loadLead,
+    loadOrganizations,
+    updateContact,
+    updateLead,
+    updateOrganization,
+  },
 )(EditLeadSidebar);
