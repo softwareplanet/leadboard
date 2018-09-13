@@ -151,7 +151,7 @@ describe('<EditLeadSidebar />', () => {
         updateOrganization={noop}
         contacts={contacts}
         organizations={organizations}
-        domain={domain}
+        settings={settings}
         deleteCustomField={jest.fn()}
       />,
     );
@@ -184,7 +184,7 @@ describe('<EditLeadSidebar />', () => {
         updateOrganization={noop}
         contacts={contacts}
         organizations={organizations}
-        domain={domain}
+        settings={settings}
         deleteCustomField={jest.fn()}
       />,
     );
@@ -208,7 +208,7 @@ describe('<EditLeadSidebar />', () => {
         updateOrganization={noop}
         contacts={contacts}
         organizations={organizations}
-        domain={domain}
+        settings={settings}
         deleteCustomField={jest.fn()}
       />,
     );

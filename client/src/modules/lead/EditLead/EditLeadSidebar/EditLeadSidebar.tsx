@@ -4,14 +4,14 @@ import organizationIcon from '../../../../img/organizationIcon.svg';
 import personIcon from '../../../../img/personIcon.svg';
 import { loadContacts } from '../../../common/autocomplete/contact/contactActions';
 import { loadOrganizations } from '../../../common/autocomplete/organization/organizationActions';
-import { loadLead, updateContact, updateLead, updateOrganization } from '../../leadActions';
 import { deleteCustomField } from '../../../settings/domain/domainActions';
+import { loadLead, updateContact, updateLead, updateOrganization } from '../../leadActions';
 import EditCard from './EditCard/EditCard';
 import * as styles from './EditLeadSidebar.css';
 
 import classNames from 'classnames';
 import Contact from '../../../../models/Contact';
-import Domain from '../../../../models/Domain';
+import DomainSettings from '../../../../models/DomainSettings';
 import Lead from '../../../../models/Lead';
 import Organization from '../../../../models/Organization';
 import ContactAutocomplete from '../../../common/autocomplete/contact/ContactAutocomplete';
@@ -22,7 +22,7 @@ import * as editCardStyles from './EditCard/EditCard.css';
 import EmptyCard from './EmptyCard/EmptyCard';
 
 interface Props {
-  domain: Domain;
+  settings: DomainSettings;
   editLead: Lead;
   contacts: Contact[];
   organizations: Organization[];
@@ -39,7 +39,7 @@ interface Props {
 
   updateLead(lead: Lead): void;
 
-  deleteCustomField(customFieldId: string, domainId: string): void;
+  deleteCustomField(id: string): void;
 }
 
 class EditLeadSidebar extends React.Component<Props> {
@@ -49,7 +49,7 @@ class EditLeadSidebar extends React.Component<Props> {
   }
 
   public render() {
-    const { settings } = this.props.domain;
+    const { settings } = this.props;
 
     if (this.props.editLead) {
       const { contact, organization } = this.props.editLead;
@@ -118,15 +118,15 @@ class EditLeadSidebar extends React.Component<Props> {
   }
 
   private deleteCustomField = (customFieldId: string) => {
-    this.props.deleteCustomField(customFieldId, this.props.domain._id);
+    this.props.deleteCustomField(customFieldId);
   };
 }
 
 const mapStateToProps = (state: any) => ({
   contacts: state.contacts,
-  domain: state.domain,
   editLead: state.leads.editLead.lead,
   organizations: state.organizations,
+  settings: state.domain.settings,
 });
 
 export { EditLeadSidebar };

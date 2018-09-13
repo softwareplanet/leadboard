@@ -4,9 +4,9 @@ import { GET_ERRORS } from '../../../actionTypes';
 import Domain from '../../../models/Domain';
 import { LOAD_DOMAIN } from './types';
 
-export const loadDomain = (domainId: string) => (dispatch: Dispatch) => {
+export const loadDomain = () => (dispatch: Dispatch, getState:any) => {
   axios
-    .get(`/api/domain/${domainId}`).then(result => {
+    .get(`/api/domain/${getState().auth.domainid}`).then(result => {
     dispatch(loadDomainAction(result.data));
   }).catch(errors => {
     dispatch(getErrorsAction(errors));
@@ -14,10 +14,9 @@ export const loadDomain = (domainId: string) => (dispatch: Dispatch) => {
 };
 
 
-export const deleteCustomField = (customFieldId: string, domainId: string) => (dispatch: Dispatch) => {
-  alert(customFieldId);
+export const deleteCustomField = (customFieldId: string) => (dispatch: Dispatch,getState:any) => {
   axios
-    .delete(`/api/domain/${domainId}/settings/customFields/${customFieldId}`).then(result => {
+    .delete(`/api/domain/${getState().auth.domainid}/settings/customFields/${customFieldId}`).then(result => {
     dispatch(loadDomainAction(result.data));
   }).catch(errors => {
     dispatch(getErrorsAction(errors));
