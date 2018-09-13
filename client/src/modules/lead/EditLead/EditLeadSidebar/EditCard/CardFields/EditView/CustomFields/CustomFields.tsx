@@ -1,6 +1,6 @@
 import * as React from 'react';
 import CustomFieldSetting from '../../../../../../../../models/customFields/CustomFieldSetting';
-import CustomFieldCard from '../CustomFieldView/CustomFieldCard';
+import CustomFieldCard from '../CustomFieldCard/CustomFieldCard';
 import * as styles from './CustomFields.css';
 
 interface Props {

@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import * as React from 'react';
-import CustomFieldCard from '../CustomFieldView/CustomFieldCard';
+import CustomFieldCard from '../CustomFieldCard/CustomFieldCard';
 import CustomFields from './CustomFields';
 import * as styles from './CustomFields.css';
 
