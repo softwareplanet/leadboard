@@ -14,3 +14,12 @@
   font-family: "Open Sans",sans-serif;
   color: #26292c;
 }
+
+.edit {
+  composes: buttonSmall from "../../../../styles/common.css";
+  padding: 1px 7px;
+}
+
+.heading {
+  display: flex;
+}
