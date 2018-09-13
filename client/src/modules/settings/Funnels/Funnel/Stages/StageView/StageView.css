@@ -6,7 +6,18 @@
 .content {
   background: transparent url("../../../../../../assets/stage-settings/stage-arrow.png") right center no-repeat;
   padding: 10px 46px 12px 10px;
-  width: 142px;
+  width: auto;
   border-radius: 4px;
+
 }
 
+.stageName {
+  text-decoration: none;
+  font-size: 1.2em;
+  line-height: 1.2em;
+  cursor: pointer;
+}
+
+.stageName span {
+  color: #317ae2;
+}

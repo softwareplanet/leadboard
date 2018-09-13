@@ -12,12 +12,11 @@ export default class StageView extends React.Component<Props> {
     return (
       <div className={styles.container}>
         <div className={styles.content}>
-          <a>
-            {this.props.stage.name}
+          <a className={styles.stageName}>
+            <span>
+              {this.props.stage.name}
+            </span>
           </a>
-          <small>
-
-          </small>
         </div>
     </div>
   )

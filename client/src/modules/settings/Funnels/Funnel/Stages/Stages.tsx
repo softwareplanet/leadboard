@@ -21,15 +21,17 @@ class Stages extends React.Component<Props> {
   public render() {
     return (
       <div className={styles.content}>
-        <div className={styles.stagesList}>
+        <ul className={styles.stagesList}>
           {this.props.stages.map(stage => {
             return (
-              <StageView
-                key={stage._id}
-                stage={stage}/>
+              <li>
+                <StageView
+                  key={stage._id}
+                  stage={stage}/>
+              </li>
             )
           })}
-        </div>
+        </ul>
       </div>
     )
   }
