@@ -61,13 +61,13 @@ class SearchInput extends React.Component<Props, State> {
               <ReactSVG src={leadIcon} className={styles.leadIcon} />
               <div className={styles.suggestionInfo}>
                 <Highlighter
-                  highlightClassName={styles.highlightName}
+                  highlightClassName={highlighted ? styles.highlightedWrapperName : styles.highlightName}
                   unhighlightClassName={styles.withoutHighlightName}
                   searchWords={this.props.value.split(' ')}
                   autoEscape={true}
                   textToHighlight={item.name}
                 />
-                {this.renderItemInfo(item)}
+                {this.renderItemInfo(item, highlighted)}
               </div>
               {this.renderItemStatus(item.status ? item.status : '')}
             </li>
@@ -86,11 +86,11 @@ class SearchInput extends React.Component<Props, State> {
     );
   }
 
-  private renderItemInfo = (item: SearchItemModel) => {
+  private renderItemInfo = (item: SearchItemModel, highlighted: boolean) => {
     return (
       <small>
         <Highlighter
-          highlightClassName={styles.highlightInfo}
+          highlightClassName={highlighted ? styles.highlightedWrapperInfo : styles.highlightInfo}
           unhighlightClassName={styles.withoutHighlightInfo}
           searchWords={this.props.value.split(' ')}
           autoEscape={true}

@@ -25,3 +25,5 @@ export const highlightInfo: string;
 export const withoutHighlightInfo: string;
 export const searchSpinner: string;
 export const highlightedSuggestion: string;
+export const highlightedWrapperName: string;
+export const highlightedWrapperInfo: string;
