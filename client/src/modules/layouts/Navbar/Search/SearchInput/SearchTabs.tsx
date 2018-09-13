@@ -2,7 +2,7 @@ import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import * as React from 'react';
 import ReactSVG from 'react-svg';
-import ReactTooltip from 'react-tooltip';
+import * as ReactTooltip from 'react-tooltip';
 import leadIcon from '../../../../../assets/lead-icon.svg';
 import * as styles from '../Search.css';
 
