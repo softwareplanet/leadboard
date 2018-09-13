@@ -32,6 +32,7 @@ describe('<CustomFields />', () => {
     wrapper = shallow
     (
       <CustomFields
+        deleteCustomField={jest.fn()}
         customFields={customs}
         closeEditCustomFieldsMode={callback}
       />,

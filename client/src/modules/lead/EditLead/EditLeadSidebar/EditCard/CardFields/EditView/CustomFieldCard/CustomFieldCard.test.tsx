@@ -14,10 +14,24 @@ describe('<CustomFieldCard />', () => {
     type: 'string',
   };
 
-  let wrapper;
+  let wrapper: any;
+  const onDelete = jest.fn();
+  beforeEach(() => {
+    wrapper = shallow
+    (
+      <CustomFieldCard customSettings={settings} deleteCustomField={onDelete} />,
+    );
+  });
 
   it('renders without crashing', () => {
-    wrapper = shallow(<CustomFieldCard customSettings={settings} />);
     expect(wrapper.length).toBe(1);
+  });
+
+  window.confirm = jest.fn(() => true);
+  it('should call deleteCustomField method on click delete button', () => {
+    const button = wrapper.find('.deleteButton');
+    // console.log(button.html());
+    button.simulate('click');
+    expect(onDelete).toHaveBeenCalled();
   });
 });
