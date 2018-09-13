@@ -38,7 +38,7 @@ router.post("/register", function(req, res) {
   let funnelId = new mongoose.Types.ObjectId();
   const funnel = new Funnel({
     _id: funnelId,
-    name: "Default Lead Funnel",
+    name: "Funnel",
     domain: domainId
   });
 
