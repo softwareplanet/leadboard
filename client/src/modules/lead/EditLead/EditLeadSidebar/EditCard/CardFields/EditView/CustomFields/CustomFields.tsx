@@ -13,14 +13,12 @@ interface Props {
 
 
 interface State {
-  isAddNew: boolean;
   isEdit: boolean;
 }
 
 
 class CustomFields extends React.Component<Props, State> {
   public state: State = {
-    isAddNew: false,
     isEdit: false,
   };
 
@@ -34,14 +32,14 @@ class CustomFields extends React.Component<Props, State> {
 
   public triggerNewField = () => {
     this.setState((prevState) =>
-      ({ isAddNew: !prevState.isAddNew })
+      ({ isEdit: !prevState.isEdit })
     );
   }
   
   public render() {
     return (
-      <div>
-        <div>
+      <div className={styles.customFieldsContainer}>
+        <div className={styles.customfieldsWrapper}>
           {this.props.customFields.map(customField => {
             return (
               <CustomFieldCard
@@ -49,7 +47,7 @@ class CustomFields extends React.Component<Props, State> {
                 customSettings={customField}
               />);
           })}
-          {this.renderAddNew(this.state.isAddNew)}
+          {this.renderAddNew(this.state.isEdit)}
         </div>
         <div className={styles.buttonWrapper}>
           <button

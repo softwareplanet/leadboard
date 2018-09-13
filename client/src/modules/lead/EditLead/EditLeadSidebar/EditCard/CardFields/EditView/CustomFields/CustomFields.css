@@ -1,6 +1,16 @@
+
+.customFieldsContainer{
+  background-color: #f7f7f7;
+  padding-top: 1px;
+  outline: 1px solid #e5e5e5;
+}
+
+.customfieldsWrapper{
+  margin-bottom: 16px;
+}
+
 .button {
-  composes: button from "../../../../../../../../styles/common.css";
-  composes: buttonGreen from "../../../../../../../../styles/common.css";
+  composes: button buttonGreen from "../../../../../../../../styles/common.css";
   background-color: #2cbf55;
   font: 600 14px/20px Open Sans, sans-serif;
   margin-bottom: 8px;

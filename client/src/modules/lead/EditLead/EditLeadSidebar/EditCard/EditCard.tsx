@@ -79,7 +79,7 @@ class EditCard extends React.Component<Props, State> {
         {
           isInCustomizeFieldsMode &&
           <CustomFields
-            title={'Person'}
+            title={this.props.title}
             customFields={this.props.customFieldsSettings}
             closeEditCustomFieldsMode={this.closeCustomizeFieldsMode}
           />
