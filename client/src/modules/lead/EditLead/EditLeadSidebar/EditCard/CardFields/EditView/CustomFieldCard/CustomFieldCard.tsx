@@ -12,7 +12,10 @@ interface Props {
 
 class CustomFieldCard extends React.Component<Props> {
   private onCustomFieldDelete = () => {
-    if (window.confirm('You will delete the field from everywhere in your Pipedrive as well as delete data stored within this field. Are you sure you want to delete?')) {
+    if (window.confirm('You will delete the field from everywhere' +
+      ' in your Pipedrive as well as delete data stored' +
+      ' within this field. Are you sure you want to delete?')
+    ) {
       this.props.deleteCustomField(this.props.customSettings._id);
     }
   };
@@ -20,7 +23,7 @@ class CustomFieldCard extends React.Component<Props> {
   public render() {
     return (
       <div>
-        <div className={classNames(styles.item, { [styles.editable]: this.checkDefault() })}>
+        <div className={classNames(styles.item, { [styles.editable]: !this.checkDefault() })}>
           <div className={styles.fieldName}>
             <span className={styles.icon}>A̲</span>
             <div className={styles.title}>

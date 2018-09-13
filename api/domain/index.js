@@ -88,8 +88,7 @@ router.delete("/:domainId/settings/customFields/:customFieldId", domainMembersMi
       res.status(403).json({ errors: { message: "Can't delete default field" } });
     } else {
       Domain.findByIdAndUpdate(req.params.domainId,
-        { $pull: { "settings.customFields": { _id: req.params.customFieldId } } },
-        { new: true })
+        { $pull: { "settings.customFields": { _id: req.params.customFieldId } } }, { new: true })
         .then(domain => res.json(domain));
     }
   } catch (error) {

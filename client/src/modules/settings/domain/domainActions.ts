@@ -13,7 +13,6 @@ export const loadDomain = () => (dispatch: Dispatch, getState:any) => {
   });
 };
 
-
 export const deleteCustomField = (customFieldId: string) => (dispatch: Dispatch,getState:any) => {
   axios
     .delete(`/api/domain/${getState().auth.domainid}/settings/customFields/${customFieldId}`).then(result => {
