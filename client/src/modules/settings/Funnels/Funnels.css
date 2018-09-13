@@ -10,3 +10,9 @@
   letter-spacing: normal;
   color: #26292c;
 }
+
+.content {
+  display: flex;
+  flex-direction: column;
+  margin-right: 15px;
+}

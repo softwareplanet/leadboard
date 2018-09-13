@@ -13,7 +13,7 @@ interface Props {
 class Funnels extends React.Component<Props> {
   public render() {
     return (
-      <div>
+      <div className={styles.content}>
         <h1 className={styles.heading}>Customize sales stages</h1>
         <Funnel funnel={this.props.selectedFunnel}/>
       </div>
