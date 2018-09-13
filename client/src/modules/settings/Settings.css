@@ -2,3 +2,8 @@
   display: flex;
   margin-top: 10px;
 }
+
+.settingsContent {
+  margin-left: 10px;
+  width: 100%;
+}

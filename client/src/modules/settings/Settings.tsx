@@ -11,14 +11,16 @@ export default class Settings extends React.Component {
     return (
       <div className={styles.settings}>
         <Sidebar />
-        <Route 
-          path="/settings/pipelines" 
-          component={Funnels} 
-        />
-        <Route 
-          path="/settings/customize-fields" 
-          component={CustomizeFields} 
-        />
+        <div className={styles.settingsContent}>
+          <Route 
+            path="/settings/pipelines" 
+            component={Funnels} 
+          />
+          <Route 
+            path="/settings/customize-fields" 
+            component={CustomizeFields} 
+          />
+        </div>
       </div>
     )
   }
