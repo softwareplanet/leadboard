@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
 import CustomFieldSetting from '../../models/customFields/CustomFieldSetting';
-import { ADD_CUSTOM_FIELD } from './customFieldsActionsTypes';
+import { LOAD_DOMAIN } from './domain/types';
 
 export const addCustomFieldToDomain = 
   (domainId: string, customField: CustomFieldSetting) => 
@@ -11,7 +11,20 @@ export const addCustomFieldToDomain =
       .then(result => {
         dispatch({
           payload: result.data,
-          type: ADD_CUSTOM_FIELD,
+          type: LOAD_DOMAIN,
+        });
+    });
+};
+
+export const editCustomFieldInDomain = 
+  (domainId: string, customField: CustomFieldSetting) => 
+  (dispatch: Dispatch) => {
+    axios
+      .patch(`/api/${domainId}/settings/customFields/${customField._id}`, customField)
+      .then(result => {
+        dispatch({
+          payload: result.data,
+          type: LOAD_DOMAIN,
         });
     });
 };
