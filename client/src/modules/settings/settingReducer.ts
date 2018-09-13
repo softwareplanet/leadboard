@@ -1,6 +1,6 @@
-import { LOAD_FUNNEL, LOAD_FUNNELS, LOAD_STAGES, EDIT_FUNNEL, EDIT_STAGE } from './types';
 import Funnel from '../../models/Funnel';
 import Stage from '../../models/Stage';
+import { EDIT_STAGE, LOAD_FUNNEL, LOAD_FUNNELS, LOAD_STAGES } from './types';
 
 interface Action {
  type: string;

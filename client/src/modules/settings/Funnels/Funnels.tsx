@@ -1,10 +1,21 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import Funnel from './Funnel/Funnel';
+import Stage from '../../../models/Stage';
 
-class Funnels extends React.Component {
+interface Props {
+  funnels: Funnel[];
+  selectedFunnel: Funnel;
+  stages: Stage[];
+}
+
+class Funnels extends React.Component<Props> {
   public render() {
     return (
-      <div>Customize sales stages</div>
+      <div>
+        <h1>Customize sales stages</h1>
+        <Funnel funnel={this.props.selectedFunnel}/>
+      </div>
     )
   }
 }
