@@ -4,19 +4,13 @@ import CustomFieldSetting from '../../../../models/customFields/CustomFieldSetti
 import DomainSettings from '../../../../models/DomainSettings';
 import Organization from '../../../../models/Organization';
 
-export function getCustomFieldSettings(modelType: string, settings: DomainSettings): CustomFieldSetting[] {
-  return settings.customFields.filter(
-    (field: CustomFieldSetting) => field.model === modelType,
-  );
-}
-
-export function getFilteredFieldsByModel(model: string, settings: DomainSettings) {
+export function getCustomFieldSettingsByModel(model: string, settings: DomainSettings): CustomFieldSetting[] {
   return settings.customFields.filter((customField: CustomFieldSetting) => model === customField.model);
 }
 
 export function makeCustomFieldData(modelType: string, model: Contact | Organization, settings: DomainSettings): CustomFieldData[] {
   const result: CustomFieldData[] = [];
-  const customFieldSettings = getCustomFieldSettings(modelType, settings);
+  const customFieldSettings = getCustomFieldSettingsByModel(modelType, settings);
 
   customFieldSettings.map((fieldSetting: CustomFieldSetting) => {
     const customFieldData: CustomFieldData = {
