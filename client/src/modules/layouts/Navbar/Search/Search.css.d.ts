@@ -15,6 +15,7 @@ export const highlightedPart: string;
 export const itemBadge: string;
 export const itemWonBadge: string;
 export const itemLostBadge: string;
+export const highlightedSearchWrapper: string;
 export const tabsContainer: string;
 export const tabsRoot: string;
 export const tabsIndicator: string;
