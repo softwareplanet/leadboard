@@ -5,6 +5,7 @@ import * as styles from './SingleEditView.css';
 export interface Props {
   fieldName: string;
   fieldValue: string;
+  fieldKey: string;
 
   isValid?(value: string): boolean;
 
@@ -32,6 +33,7 @@ class SingleEditView extends React.Component<Props, State> {
           value={this.props.fieldValue}
           isValid={isValid ? isValid(this.state.updatedValue) : undefined}
           onChange={this.onChangeEditField}
+          fieldKey={this.props.fieldKey}
         />
         <div className={styles.actions}>
           <button
@@ -55,7 +57,7 @@ class SingleEditView extends React.Component<Props, State> {
 
   private onSaveClicked = () => {
     if (!this.props.isValid || this.props.isValid(this.state.updatedValue)) {
-      this.props.onChange(this.props.fieldName, this.state.updatedValue);
+      this.props.onChange(this.props.fieldKey, this.state.updatedValue);
       // Calling cancel to close edit mode on parent
       this.props.onCancel();
     }

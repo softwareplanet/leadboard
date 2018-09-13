@@ -29,7 +29,7 @@ export const getActivitiesForToday = () => {
       $lte: endOfCurrentDay.toDate()
     },
     done: false,
-  }).populate(Activity.populates.basic)
+  }).populate(Activity.populates.mailing)
     .sort({date: 1});
 };
 
@@ -42,7 +42,7 @@ export const getNextActivities = () => {
       $lte: endTime.toDate()
     },
     done: false,
-  }).populate(Activity.populates.basic)
+  }).populate(Activity.populates.mailing)
     .sort({date: 1})
 };
 
@@ -79,7 +79,7 @@ const mailCreator = (activities, selector) => {
       }
 
       if (!domainTimezone) {
-        domainTimezone = user.domain.timezone;
+        domainTimezone = user.domain.settings.timezone;
       }
 
       activity.time = moment(activity.date).tz(domainTimezone).format("hh:mm A");
