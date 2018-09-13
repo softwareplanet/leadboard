@@ -1,12 +1,12 @@
 import * as React from 'react';
 import CustomFieldSetting from '../../../../../../../../models/customFields/CustomFieldSetting';
-import * as styles from './CustomFieldView.css';
+import * as styles from './CustomFieldCard.css';
 
 interface Props {
   customSettings: CustomFieldSetting;
 }
 
-class CustomFieldView extends React.Component<Props> {
+class CustomFieldCard extends React.Component<Props> {
   public render() {
     return (
       <div>
@@ -35,4 +35,4 @@ class CustomFieldView extends React.Component<Props> {
   }
 }
 
-export default CustomFieldView;
+export default CustomFieldCard;
