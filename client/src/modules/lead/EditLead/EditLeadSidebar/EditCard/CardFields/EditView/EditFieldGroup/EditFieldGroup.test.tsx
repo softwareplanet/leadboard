@@ -37,7 +37,6 @@ describe('<EditFieldGroup />', () => {
     const newValue = 'Gogolya st.';
     input.simulate('change', {
       target: {
-        id: `input${customField.fieldKey}`,
         value: newValue,
       },
     });

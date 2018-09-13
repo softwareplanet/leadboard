@@ -21,9 +21,8 @@ class EditFieldGroup extends React.Component<Props> {
         </div>
         <div className={styles.inputWrapper}>
           <input
-            id={`input${this.props.fieldKey}`}
             type="text"
-            name={this.props.name}
+            name={this.props.fieldKey}
             className={isValid ? styles.input : styles.inputInvalid}
             defaultValue={this.props.value}
             onChange={this.onInputChange} />
@@ -34,7 +33,7 @@ class EditFieldGroup extends React.Component<Props> {
 
   private onInputChange = (e: React.SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
-    this.props.onChange(target.id.slice(5), target.value);
+    this.props.onChange(target.name, target.value);
   };
 }
 
