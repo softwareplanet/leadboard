@@ -24,6 +24,10 @@ interface Props {
   icon: any;
   customFields: CustomFieldData[];
 
+  addCustomFieldToDomain(customField: CustomFieldSetting): void;
+
+  editCustomFieldInDomain(customField: CustomFieldSetting): void;
+
   onUpdate(model: Contact | Organization): void;
 }
 

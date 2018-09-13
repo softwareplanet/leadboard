@@ -4,11 +4,13 @@ import { noop } from 'lodash';
 import * as React from 'react';
 import { IN_PROGRESS } from '../../../../constants';
 import Contact from '../../../../models/Contact';
+import CustomFieldSetting from '../../../../models/customFields/CustomFieldSetting';
 import Domain from '../../../../models/Domain';
 import DomainSettings from '../../../../models/DomainSettings';
 import Lead from '../../../../models/Lead';
 import Organization from '../../../../models/Organization';
 import { EditLeadSidebar } from './EditLeadSidebar';
+
 
 describe('<EditLeadSidebar />', () => {
 
@@ -125,18 +127,19 @@ describe('<EditLeadSidebar />', () => {
       timestamp: new Date('2018-09-06T11:32:49.518Z'),
     },
   ];
+  const customField: CustomFieldSetting = {
+    _id: '5b97a9bb8ef7eb47231396ad',
+    isAlwaysShownInAddDialog: false,
+    isAlwaysVisible: true,
+    isDefault: true,
+    model: 'Contact',
+    name: 'Phone',
+    type: 'string',
+  }
 
   const settings: DomainSettings = {
     customFields: [
-      {
-        _id: '5b97a9bb8ef7eb47231396ad',
-        isAlwaysShownInAddDialog: false,
-        isAlwaysVisible: true,
-        isDefault: true,
-        model: 'Contact',
-        name: 'Phone',
-        type: 'string',
-      },
+      customField,
     ],
     timezone: 'Etc/UTC',
   };
@@ -146,6 +149,8 @@ describe('<EditLeadSidebar />', () => {
     wrapper = shallow
       (
       <EditLeadSidebar
+        addCustomFieldToDomain={noop}
+        editCustomFieldInDomain={noop}
         loadLead={noop}
         editLead={editLead}
         loadContacts={noop}
@@ -178,6 +183,8 @@ describe('<EditLeadSidebar />', () => {
     wrapper = shallow
       (
       <EditLeadSidebar
+        addCustomFieldToDomain={noop}
+        editCustomFieldInDomain={noop}
         loadLead={noop}
         editLead={editLead}
         loadContacts={noop}
@@ -201,6 +208,8 @@ describe('<EditLeadSidebar />', () => {
     wrapper = shallow
       (
       <EditLeadSidebar
+        addCustomFieldToDomain={noop}
+        editCustomFieldInDomain={noop}
         loadLead={noop}
         editLead={editLead}
         loadContacts={noop}

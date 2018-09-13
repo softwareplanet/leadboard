@@ -4,10 +4,10 @@ import CustomFieldSetting from '../../models/customFields/CustomFieldSetting';
 import { LOAD_DOMAIN } from './domain/types';
 
 export const addCustomFieldToDomain = 
-  (domainId: string, customField: CustomFieldSetting) => 
-  (dispatch: Dispatch) => {
+  (customField: CustomFieldSetting) => 
+  (dispatch: Dispatch, getState: any) => {
     axios
-      .post(`/api/${domainId}/settings/customFields`, customField)
+      .post(`/api/${getState().domainReducer._id}/settings/customFields`, customField)
       .then(result => {
         dispatch({
           payload: result.data,
@@ -17,10 +17,10 @@ export const addCustomFieldToDomain =
 };
 
 export const editCustomFieldInDomain = 
-  (domainId: string, customField: CustomFieldSetting) => 
-  (dispatch: Dispatch) => {
+  (customField: CustomFieldSetting) => 
+  (dispatch: Dispatch, getState: any) => {
     axios
-      .patch(`/api/${domainId}/settings/customFields/${customField._id}`, customField)
+      .patch(`/api/${getState().domainReducer._id}/settings/customFields/${customField._id}`, customField)
       .then(result => {
         dispatch({
           payload: result.data,

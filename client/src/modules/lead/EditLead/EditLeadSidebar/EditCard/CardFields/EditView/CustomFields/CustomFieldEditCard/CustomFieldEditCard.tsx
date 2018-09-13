@@ -46,4 +46,12 @@ class CustomFieldEditCard extends React.Component<Props, object> {
   }
 }
 
+export { CustomFieldEditCard };
+
+// export default connect(
+//   null,
+//   { editCustomFieldInDomain, addCustomFieldToDomain },
+// )(CustomFieldEditCard);
+
+
 export default CustomFieldEditCard;

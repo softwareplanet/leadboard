@@ -1,4 +1,5 @@
 import { shallow } from 'enzyme';
+import { noop } from 'lodash';
 import * as React from 'react';
 import someIcon from '../../../../../assets/call-activity.svg';
 import Contact from '../../../../../models/Contact';
@@ -78,6 +79,8 @@ describe('<EditCard />', () => {
     wrapper = shallow
       (
       <EditCard
+        addCustomFieldToDomain={noop}
+        editCustomFieldInDomain={noop}
         model={contact}
         customFieldsSettings={[]}
         onUpdate={jest.fn()}
@@ -104,6 +107,8 @@ describe('<EditCard />', () => {
     wrapper = shallow
       (
       <EditCard
+        addCustomFieldToDomain={noop}
+        editCustomFieldInDomain={noop}
         model={organization}
         customFieldsSettings={[]}
         onUpdate={jest.fn()}
