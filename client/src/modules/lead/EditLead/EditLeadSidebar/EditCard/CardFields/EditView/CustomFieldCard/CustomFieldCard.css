@@ -75,8 +75,7 @@
 
 .title {
   color: #26292c;
-  font: 14px/20px "Open Sans", sans-serif;
-  font-weight: 600;
+  font: 600 14px/20px "Open Sans", sans-serif;
   display: inline-block;
   word-break: break-word;
   width: calc(100% - 48px);

@@ -1,17 +1,8 @@
 .button {
-  background: #2cbf55;
-  border: 0;
-  color: #fff;
-  border-radius: 3px;
-  cursor: pointer;
-  height: 32px;
-  min-width: 62px;
-  outline: none;
-  box-sizing: border-box;
-  text-decoration: none;
+  composes: button from "../../../../../../../../styles/common.css";
+  composes: buttonGreen from "../../../../../../../../styles/common.css";
+  background-color: #2cbf55;
   font: 600 14px/20px Open Sans, sans-serif;
-  padding: 4px 8px;
-  vertical-align: top;
   margin-bottom: 8px;
   margin-right: 17px;
 }

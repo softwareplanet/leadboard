@@ -19,7 +19,7 @@ interface State {
 
 interface Props {
   model: Contact | Organization;
-  customFieldSetting: CustomFieldSetting[];
+  customFieldsSettings: CustomFieldSetting[];
   title: string;
   icon: any;
   customFields: CustomFieldData[];
@@ -37,9 +37,12 @@ class EditCard extends React.Component<Props, State> {
   public render() {
     const { isInEditMode, isInCustomizeFieldsMode } = this.state;
     const fields = this.props.customFields.map((field: CustomFieldData, index: number) =>
-      <CardField key={index}
-                 field={field}
-                 onUpdate={this.handleCustomFieldUpdate} />);
+      <CardField
+        key={index}
+        field={field}
+        onUpdate={this.handleCustomFieldUpdate}
+      />
+    );
     return (
       <div className={styles.container}>
         <div className={styles.title}>
@@ -76,7 +79,7 @@ class EditCard extends React.Component<Props, State> {
         {
           isInCustomizeFieldsMode &&
           <CustomFields
-            customFields={this.props.customFieldSetting}
+            customFields={this.props.customFieldsSettings}
             closeEditCustomFieldsMode={this.closeCustomizeFieldsMode}
           />
         }
