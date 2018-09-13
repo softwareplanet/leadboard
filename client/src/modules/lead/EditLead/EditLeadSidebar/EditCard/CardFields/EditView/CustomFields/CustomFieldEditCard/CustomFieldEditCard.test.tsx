@@ -34,7 +34,7 @@ describe('<CustomFieldEditCard />', () => {
   it('should render CustomFieldEditCard component', () => {
     expect(wrapper.exists()).toEqual(true);
   });
-  
+
   it('should exec saveEdit ', () => {
     const button = wrapper.find(`${styles.saveButton}`);
     button.simulate('click');

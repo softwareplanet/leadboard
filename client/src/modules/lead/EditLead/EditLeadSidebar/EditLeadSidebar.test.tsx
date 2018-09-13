@@ -99,11 +99,11 @@ describe('<EditLeadSidebar />', () => {
         key: 'Phone',
         value: '',
       },
-        {
-          _id: '5b9110616ec37621e6b17bc6',
-          key: 'Email',
-          value: '',
-        }],
+      {
+        _id: '5b9110616ec37621e6b17bc6',
+        key: 'Email',
+        value: '',
+      }],
       domain,
       name: 'Bob',
       timestamp: new Date('2018-09-06T11:32:49.518Z'),
@@ -115,11 +115,11 @@ describe('<EditLeadSidebar />', () => {
         key: 'Phone',
         value: '',
       },
-        {
-          _id: '5b9110616ec37621e6b17bc6',
-          key: 'Email',
-          value: '',
-        }],
+      {
+        _id: '5b9110616ec37621e6b17bc6',
+        key: 'Email',
+        value: '',
+      }],
       domain,
       name: 'Mike',
       timestamp: new Date('2018-09-06T11:32:49.518Z'),
@@ -144,7 +144,7 @@ describe('<EditLeadSidebar />', () => {
   let wrapper: any;
   beforeEach(() => {
     wrapper = shallow
-    (
+      (
       <EditLeadSidebar
         loadLead={noop}
         editLead={editLead}
@@ -157,7 +157,7 @@ describe('<EditLeadSidebar />', () => {
         organizations={organizations}
         settings={settings}
       />,
-    );
+      );
   });
 
 
@@ -176,7 +176,7 @@ describe('<EditLeadSidebar />', () => {
       contact: undefined,
     };
     wrapper = shallow
-    (
+      (
       <EditLeadSidebar
         loadLead={noop}
         editLead={editLead}
@@ -189,7 +189,7 @@ describe('<EditLeadSidebar />', () => {
         organizations={organizations}
         settings={settings}
       />,
-    );
+      );
     expect(wrapper.find('EmptyCard')).toHaveLength(1);
 
     editLead = {
@@ -199,7 +199,7 @@ describe('<EditLeadSidebar />', () => {
     };
 
     wrapper = shallow
-    (
+      (
       <EditLeadSidebar
         loadLead={noop}
         editLead={editLead}
@@ -212,7 +212,7 @@ describe('<EditLeadSidebar />', () => {
         organizations={organizations}
         settings={settings}
       />,
-    );
+      );
     expect(wrapper.find('EmptyCard')).toHaveLength(2);
   });
 });

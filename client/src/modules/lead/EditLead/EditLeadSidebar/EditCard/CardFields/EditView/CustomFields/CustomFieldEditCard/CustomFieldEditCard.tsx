@@ -38,7 +38,7 @@ class CustomFieldEditCard extends React.Component<Props, object> {
           </div>
         </div>
         <div className={styles.actionButtons}>
-          <button className={styles.cancelButton}>Cancel</button>
+          <button className={styles.cancelButton} onClick={this.props.cancelEdit}>Cancel</button>
           <button className={styles.saveButton}>Save</button>
         </div>
       </div>

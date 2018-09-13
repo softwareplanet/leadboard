@@ -26,16 +26,12 @@ class CustomFields extends React.Component<Props, State> {
     console.log('Save custom field Action')
   }
 
-  public cancelEditing = () => {
-    console.log('Cancel editing field Action')
-  }
-
   public triggerNewField = () => {
     this.setState((prevState) =>
       ({ isEdit: !prevState.isEdit })
     );
   }
-  
+
   public render() {
     return (
       <div className={styles.customFieldsContainer}>
@@ -66,7 +62,7 @@ class CustomFields extends React.Component<Props, State> {
       (<CustomFieldEditCard
         title={this.props.title}
         saveEdit={this.saveEditing}
-        cancelEdit={this.cancelEditing}
+        cancelEdit={this.triggerNewField}
       />) :
       (<div className={styles.newFieldContainer}>
         <span onClick={this.triggerNewField} className={styles.addNewField}>

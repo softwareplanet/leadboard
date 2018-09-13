@@ -1,11 +1,10 @@
-
-.customFieldsContainer{
+.customFieldsContainer {
   background-color: #f7f7f7;
   padding-top: 1px;
   outline: 1px solid #e5e5e5;
 }
 
-.customfieldsWrapper{
+.customfieldsWrapper {
   margin-bottom: 16px;
 }
 
@@ -17,27 +16,27 @@
   margin-right: 17px;
 }
 
-.button:active{
+.button:active {
   background: #25a047;
-  box-shadow: 0 0 0 rgba(38,41,44,0), inset 0 1px 2px rgba(38,41,44,.16);
+  box-shadow: 0 0 0 rgba(38, 41, 44, 0), inset 0 1px 2px rgba(38, 41, 44, .16);
 }
 
-.buttonWrapper{
+.buttonWrapper {
   text-align: right;
 }
 
-.addNewField{
+.addNewField {
   color: #317ae2;
   font-weight: 600;
   cursor: pointer;
-  font: 600 14px/20px "Open Sans",sans-serif;
+  font: 600 14px/20px "Open Sans", sans-serif;
   margin-left: 16px;
 }
 
-.addNewField:hover{
+.addNewField:hover {
   text-decoration: underline;
 }
 
-.newFieldContainer{
+.newFieldContainer {
   padding-bottom: 8px;
 }

@@ -48,24 +48,24 @@ class EditCard extends React.Component<Props, State> {
         <div className={styles.title}>
           <span className={styles.titleName}>
             {this.props.title}
-            </span>
+          </span>
           {(!isInEditMode && !isInCustomizeFieldsMode) &&
-          <div>
-            <EditButton onClick={this.openEditMode} />
-            <SettingsButton id={this.props.model._id} showCustomize={this.openCustomizeFieldsMode} />
-          </div>
+            <div>
+              <EditButton onClick={this.openEditMode} />
+              <SettingsButton id={this.props.model._id} showCustomize={this.openCustomizeFieldsMode} />
+            </div>
           }
         </div>
         {(!isInEditMode && !isInCustomizeFieldsMode) &&
-        <div>
-          <MainField
-            title={this.props.title}
-            value={this.props.model.name}
-            icon={this.props.icon}
-            onUpdate={this.handleMainFieldUpdate}
-          />
-          {fields}
-        </div>
+          <div>
+            <MainField
+              title={this.props.title}
+              value={this.props.model.name}
+              icon={this.props.icon}
+              onUpdate={this.handleMainFieldUpdate}
+            />
+            {fields}
+          </div>
         }
         {
           isInEditMode &&
