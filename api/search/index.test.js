@@ -9,10 +9,10 @@ import {
   dropTables,
 } from "../../test/db-prepare";
 
+const LEAD_TYPE = "Lead";
 const app = () => express(routes);
-const matchingContactName = "Matching contact";
-const defaultContactName = "Test contact";
-const leadType = "Lead";
+const MATCHING_CONTACT_NAME = "Matching contact";
+const DEFAULT_CONTACT_NAME = "Test contact";
 
 let cred;
 let lead;
@@ -23,8 +23,8 @@ beforeEach(async done => {
   cred = await createUserAndDomain(app);
   let funnelId = await createFunnel(app, cred.token, cred.domainId, "Funnel");
   stageId = await createStage(app, cred.token, funnelId, "Stage", 2, cred.userId);
-  lead = await createLead(app, cred.token, cred.userId, stageId, 2, "Matching lead", defaultContactName);
-  contactLead = await createLead(app, cred.token, cred.userId, stageId, 2, "Lead A", matchingContactName);
+  lead = await createLead(app, cred.token, cred.userId, stageId, 2, "Matching lead", DEFAULT_CONTACT_NAME);
+  contactLead = await createLead(app, cred.token, cred.userId, stageId, 2, "Lead A", MATCHING_CONTACT_NAME);
   await createLead(app, cred.token, cred.userId, stageId, 1, "Non valid name", "Non valid contact");
   done();
 });
@@ -41,15 +41,15 @@ describe("Search", () => {
         _id: lead._id,
         name: lead.name,
         status: lead.status,
-        contact: defaultContactName,
-        type: leadType,
+        contact: DEFAULT_CONTACT_NAME,
+        type: LEAD_TYPE,
       },
       {
         _id: contactLead._id,
         name: contactLead.name,
         status: contactLead.status,
-        contact: matchingContactName,
-        type: leadType,
+        contact: MATCHING_CONTACT_NAME,
+        type: LEAD_TYPE,
       },
     ]);
   });

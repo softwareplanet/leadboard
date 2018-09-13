@@ -10,7 +10,6 @@ interface Action {
   payload: any;
 }
 
-
 export default function(state = initialState, action: Action) {
   switch (action.type) {
     case LOAD_SEARCH_RESULT:

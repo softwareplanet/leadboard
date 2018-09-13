@@ -10,6 +10,7 @@ import SearchInput from './SearchInput/SearchInput';
 import SearchSpinner from './Spinner/SearchSpinner';
 
 interface Props {
+  history: any;
   search: any;
 
   loadSearchResult(query: string): void;
@@ -48,7 +49,8 @@ class Search extends React.Component<Props, State> {
   }
 
   private onSelect = (value: string, item: SearchItemModel) => {
-    window.location.replace(`../lead/${item._id}`);
+    this.props.history.replace(`../lead/${item._id}`);
+    this.setState({ isDropdownOpen: false, value: '' });
   };
 
   private onFocus = () => {
