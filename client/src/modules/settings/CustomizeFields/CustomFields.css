@@ -59,6 +59,10 @@
   margin-left: -1px;
 }
 
+.tab:focus {
+  outline: none;
+}
+
 .tabActive {
   composes: tab;
   color: #26292c;

@@ -1,15 +1,46 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
+import CustomFieldSetting from '../../../models/customFields/CustomFieldSetting';
+import DomainSettings from '../../../models/DomainSettings';
+import { getCustomFieldSettingsByModel } from '../../lead/EditLead/EditLeadSidebar/CustomFieldsService';
 import * as styles from './CustomFields.css';
 
 const MODEL_NAMES = ['Lead', 'Organization', 'Contact'];
 
-export default class CustomizeFields extends React.Component {
+interface State {
+  selectedTabIndex: number;
+}
+
+interface Props {
+  settings: DomainSettings;
+}
+
+class CustomizeFields extends React.Component<Props, State> {
 
   private static getTabName(modelName: string): string {
     return modelName + 's';
   }
 
+  private static getFieldType(customField: CustomFieldSetting): string {
+    switch (customField.type) {
+      case 'string':
+        return 'Text';
+      default:
+        return this.capitalizeFirstLetter(customField.type);
+    }
+  }
+
+  private static capitalizeFirstLetter(str: string): string {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  public state: State = {
+    selectedTabIndex: 0,
+  };
+
   public render() {
+    const rows = this.createRows();
+
     return (
       <div className={styles.container}>
         <div className={styles.heading}>
@@ -43,16 +74,7 @@ export default class CustomizeFields extends React.Component {
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td className={styles.fieldName}>Name</td>
-              <td className={styles.fieldType}>Text</td>
-              <td className={styles.showFieldInDetailedView}>Yes</td>
-            </tr>
-            <tr>
-              <td className={styles.fieldName}>Name</td>
-              <td className={styles.fieldType}>Text</td>
-              <td className={styles.showFieldInDetailedView}>Yes</td>
-            </tr>
+            {rows}
             </tbody>
           </table>
         </div>
@@ -60,9 +82,55 @@ export default class CustomizeFields extends React.Component {
     )
   }
 
-  private createTabs(modelNames: string[]) {
-    return modelNames.map(modelName => (
-      <button className={styles.tab}>{CustomizeFields.getTabName(modelName)}</button>
-    ));
+  private convertBoolToYesNo(bool: boolean): string {
+    return bool ? 'Yes' : 'No';
   }
+
+  private createTabs = (modelNames: string[]) => {
+    return modelNames.map((modelName: string, index: number) => (
+      <button
+        key={`tab${modelName}`}
+        className={this.state.selectedTabIndex === index ? styles.tabActive : styles.tab}
+        onClick={this.handleTabClick.bind(this, modelName)}
+      >
+        {CustomizeFields.getTabName(modelName)}
+      </button>
+    ));
+  };
+
+  private createRows = () => {
+    const customFieldsSettings = getCustomFieldSettingsByModel(
+      MODEL_NAMES[this.state.selectedTabIndex],
+      this.props.settings,
+    );
+    return customFieldsSettings.map((customField: CustomFieldSetting) => (
+      <tr key={customField._id}>
+        <td className={styles.fieldName}>
+          {customField.name}
+        </td>
+        <td className={styles.fieldType}>
+          {CustomizeFields.getFieldType(customField)}
+        </td>
+        <td
+          className={styles.showFieldInDetailedView}>
+          {this.convertBoolToYesNo(customField.isAlwaysVisible)}
+        </td>
+      </tr>
+    ));
+  };
+
+  private handleTabClick = (modelName: string): void => {
+    this.setState({
+      selectedTabIndex: MODEL_NAMES.indexOf(modelName),
+    });
+  };
+
 }
+
+const mapStateToProps = (state: any) => ({
+  settings: state.domain.settings,
+});
+
+export { CustomizeFields };
+
+export default connect(mapStateToProps, {})(CustomizeFields);
