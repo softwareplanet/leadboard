@@ -1,5 +1,5 @@
 import Contact from './Contact';
-import CustomField from './CustomField';
+import CustomField from './customFields/CustomField';
 import Note from './Note';
 import Organization from './Organization';
 import Stage from './Stage';
@@ -12,8 +12,8 @@ export default interface Lead {
   visibility?: number;
   name: string;
   order: number;
-  contact: Contact;
-  organization: Organization;
+  contact?: Contact;
+  organization?: Organization;
   custom: CustomField[];
   timestamp: Date;
   status: string;

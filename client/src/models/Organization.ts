@@ -1,4 +1,4 @@
-import CustomField from './CustomField';
+import CustomField from './customFields/CustomField';
 
 export default interface Organization {
   _id: string;

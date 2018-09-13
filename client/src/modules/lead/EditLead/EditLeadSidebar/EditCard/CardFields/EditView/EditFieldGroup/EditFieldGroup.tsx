@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as styles from './EditFieldGroup.css';
 
 export interface Props {
+  fieldKey: string;
   name: string;
   isValid?: boolean;
   value: string;
@@ -21,7 +22,7 @@ class EditFieldGroup extends React.Component<Props> {
         <div className={styles.inputWrapper}>
           <input
             type="text"
-            name={this.props.name}
+            name={this.props.fieldKey}
             className={isValid ? styles.input : styles.inputInvalid}
             defaultValue={this.props.value}
             onChange={this.onInputChange} />
@@ -34,7 +35,6 @@ class EditFieldGroup extends React.Component<Props> {
     const target = e.target as HTMLInputElement;
     this.props.onChange(target.name, target.value);
   };
-
 }
 
 export default EditFieldGroup;

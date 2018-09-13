@@ -1,0 +1,12 @@
+.button {
+  composes: button from "../../../../../../../../styles/common.css";
+  composes: buttonGreen from "../../../../../../../../styles/common.css";
+  background-color: #2cbf55;
+  font: 600 14px/20px Open Sans, sans-serif;
+  margin-bottom: 8px;
+  margin-right: 17px;
+}
+
+.buttonWrapper{
+  text-align: right;
+}
