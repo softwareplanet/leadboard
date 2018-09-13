@@ -6,3 +6,11 @@
   border: 1px solid #b9babb;
   border-radius: 3px;
 }
+
+.name {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 600;
+  font-family: "Open Sans",sans-serif;
+  color: #26292c;
+}

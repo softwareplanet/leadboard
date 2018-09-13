@@ -12,7 +12,7 @@ export default class Funnel extends React.Component<Props> {
   public render() {
     return (
       <div className={styles.funnel}>
-        {this.props.funnel ? this.props.funnel.name : ''}
+        <div className={styles.name}>{this.props.funnel ? this.props.funnel.name : ''}</div>
         <Stages />
       </div>
     )
