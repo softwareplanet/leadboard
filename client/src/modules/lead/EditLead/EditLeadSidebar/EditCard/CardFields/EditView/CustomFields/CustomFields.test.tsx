@@ -1,4 +1,5 @@
 import { shallow } from 'enzyme';
+import { noop } from 'lodash';
 import * as React from 'react';
 import CustomFieldCard from '../CustomFieldCard/CustomFieldCard';
 import CustomFields from './CustomFields';
@@ -32,6 +33,8 @@ describe('<CustomFields />', () => {
     wrapper = shallow
     (
       <CustomFields
+        addCustomFieldToDomain={noop}
+        editCustomFieldInDomain={noop}
         title={'Person'}
         customFields={customs}
         closeEditCustomFieldsMode={callback}

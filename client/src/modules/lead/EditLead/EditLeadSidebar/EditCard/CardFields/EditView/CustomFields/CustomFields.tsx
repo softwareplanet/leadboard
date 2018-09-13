@@ -8,6 +8,10 @@ interface Props {
   customFields: CustomFieldSetting[];
   title: string;
 
+  addCustomFieldToDomain(customField: CustomFieldSetting): void;
+
+  editCustomFieldInDomain(customField: CustomFieldSetting): void;
+
   closeEditCustomFieldsMode(): void;
 }
 
@@ -61,6 +65,7 @@ class CustomFields extends React.Component<Props, State> {
     return trigger ?
       (<CustomFieldEditCard
         title={this.props.title}
+        onSave={this.props.addCustomFieldToDomain}
         saveEdit={this.saveEditing}
         cancelEdit={this.triggerNewField}
       />) :

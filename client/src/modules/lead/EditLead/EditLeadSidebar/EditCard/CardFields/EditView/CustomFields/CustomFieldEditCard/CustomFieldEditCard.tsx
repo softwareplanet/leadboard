@@ -7,11 +7,22 @@ interface Props {
   field?: CustomFieldSetting;
   title: string;
 
+  onSave(customField: CustomFieldSetting): void;
+
   cancelEdit(): void;
   saveEdit(): void;
 }
 
-class CustomFieldEditCard extends React.Component<Props, object> {
+interface State {
+  field: CustomFieldSetting;
+}
+
+class CustomFieldEditCard extends React.Component<Props, State> {
+
+  public Save = () => {
+    this.props.onSave(this.state.field)
+  }
+
   public render() {
     return (
       <div className={styles.editFieldContainer}>
@@ -39,7 +50,7 @@ class CustomFieldEditCard extends React.Component<Props, object> {
         </div>
         <div className={styles.actionButtons}>
           <button className={styles.cancelButton} onClick={this.props.cancelEdit}>Cancel</button>
-          <button className={styles.saveButton}>Save</button>
+          <button className={styles.saveButton} onClick={this.Save}>Save</button>
         </div>
       </div>
     );
@@ -47,11 +58,5 @@ class CustomFieldEditCard extends React.Component<Props, object> {
 }
 
 export { CustomFieldEditCard };
-
-// export default connect(
-//   null,
-//   { editCustomFieldInDomain, addCustomFieldToDomain },
-// )(CustomFieldEditCard);
-
 
 export default CustomFieldEditCard;

@@ -1,4 +1,5 @@
 import { shallow } from 'enzyme';
+import { noop } from 'lodash';
 import * as React from 'react';
 import CustomFieldEditCard from './CustomFieldEditCard';
 import * as styles from './CustomFieldEditCard.css';
@@ -28,7 +29,14 @@ describe('<CustomFieldEditCard />', () => {
   let wrapper: any;
   const callback = jest.fn();
   beforeEach(() => {
-    wrapper = shallow(<CustomFieldEditCard title={'Person'} field={customs[1]} saveEdit={callback} cancelEdit={callback} />);
+    wrapper = shallow(
+      <CustomFieldEditCard
+        onSave={noop}
+        title={'Person'}
+        field={customs[1]}
+        saveEdit={callback}
+        cancelEdit={callback}
+      />);
   });
 
   it('should render CustomFieldEditCard component', () => {
