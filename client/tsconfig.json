@@ -18,6 +18,7 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "allowSyntheticDefaultImports": true
+    "downlevelIteration": true
   },
   "exclude": [
     "node_modules",

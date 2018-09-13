@@ -6,6 +6,7 @@ import { GET_ERRORS, CLEAR_STORE } from "./actionTypes";
 import contactReducer from "./modules/common/autocomplete/contact/contactReducer";
 import organizationReducer from "./modules/common/autocomplete/organization/organizationReducer";
 import searchReducer from "./modules/layouts/Navbar/searchReducer";
+import domainReducer from "./modules/settings/domain/domainReducer";
 
 const initialState = {};
 
@@ -25,6 +26,7 @@ const appReducer = combineReducers({
   contacts: contactReducer,
   organizations: organizationReducer,
   search: searchReducer,
+  domain: domainReducer,
 });
 
 export default function rootReducer(state, action) {
