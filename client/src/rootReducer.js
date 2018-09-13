@@ -28,11 +28,8 @@ const appReducer = combineReducers({
   errors: errorReducer,
   contacts: contactReducer,
   organizations: organizationReducer,
-<<<<<<< HEAD
   settings: settingReducer,
-=======
   domain: domainReducer,
->>>>>>> 9bc1faafbbd7cf9f042a3c27c9b4cfd963fbe8c1
 });
 
 export default function rootReducer(state, action) {
