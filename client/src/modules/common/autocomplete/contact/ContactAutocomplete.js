@@ -1,8 +1,8 @@
-import React from "react";
+import React, { Component } from "react";
 import ReactAutocomplete from "react-autocomplete";
 import { trim } from "lodash";
 
-class ContactAutocomplete extends React.Component {
+class ContactAutocomplete extends Component {
   input = React.createRef();
 
   inputFocus = () => {

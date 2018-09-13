@@ -1,4 +1,4 @@
-import CustomField from './CustomField';
+import CustomField from './customFields/CustomField';
 import Domain from './Domain';
 import Organization from './Organization';
 

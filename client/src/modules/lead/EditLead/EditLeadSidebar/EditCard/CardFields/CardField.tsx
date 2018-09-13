@@ -1,12 +1,12 @@
 import * as React from 'react';
-import * as styles from './CardField.css';
-import CustomField from '../../../../../../models/CustomField';
+import CustomFieldData from '../../../../../../models/customFields/CustomFieldData';
 import isBlank from '../../../../../../utils/isBlank';
 import EditButton from '../EditButton/EditButton';
+import * as styles from './CardField.css';
 import SingleEditView from './EditView/SingleEditView/SingleEditView';
 
 interface Props {
-  field: CustomField;
+  field: CustomFieldData;
 
   onUpdate(name: string, value: any): void;
 }
@@ -22,7 +22,7 @@ export default class CardField extends React.Component<Props, State> {
   };
 
   public render() {
-    const { name, value } = this.props.field;
+    const { name, value, key } = this.props.field;
     const { isInEditMode } = this.state;
 
     const valueAdd = (
@@ -56,6 +56,7 @@ export default class CardField extends React.Component<Props, State> {
           <SingleEditView
             fieldName={name}
             fieldValue={value}
+            fieldKey={key}
             onChange={this.props.onUpdate}
             onCancel={this.closeEditMode} />
         }
@@ -70,5 +71,4 @@ export default class CardField extends React.Component<Props, State> {
   private closeEditMode = () => {
     this.setState({ isInEditMode: false });
   };
-
 }
