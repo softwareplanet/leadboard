@@ -2,10 +2,8 @@ import request from "supertest";
 import express from "../../express";
 import routes from "..";
 import {
-  createContact,
   createFunnel,
   createLead,
-  createOrganization,
   createStage,
   createUserAndDomain,
   dropTables,
@@ -14,6 +12,7 @@ import {
 const app = () => express(routes);
 const matchingContactName = "Matching contact";
 const defaultContactName = "Test contact";
+const leadType = "Lead";
 
 let cred;
 let lead;
@@ -35,20 +34,22 @@ describe("Search", () => {
     const { status, body } = await request(app())
       .get("/api/searchResults")
       .set("Authorization", cred.token)
-      .query(`part=${lead.name.substring(0,3)}`);
+      .query(`query=${lead.name.substring(0,3)}`);
     expect(status).toBe(200);
-    expect(body.leads).toMatchObject([
+    expect(body.result).toMatchObject([
       {
         _id: lead._id,
         name: lead.name,
         status: lead.status,
         contact: defaultContactName,
+        type: leadType,
       },
       {
         _id: contactLead._id,
         name: contactLead.name,
         status: contactLead.status,
         contact: matchingContactName,
+        type: leadType,
       },
     ]);
   });

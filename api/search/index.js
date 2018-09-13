@@ -1,5 +1,4 @@
 import { Router } from "express";
-import mongoose from "mongoose";
 import { loadLeads } from "./searchAggregation";
 const router = new Router();
 
@@ -9,7 +8,7 @@ const router = new Router();
 
 router.get("/",async (req, res) => {
   try {
-    let leads = await loadLeads(req.user.domain, req.query.part);
+    let leads = await loadLeads(req.user.domain, req.query.query);
     res.json({
       result: [ ...leads ],
     });

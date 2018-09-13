@@ -10,8 +10,7 @@ import SearchSpinner from './Spinner/SearchSpinner';
 
 interface Props {
   search: any;
-
-  loadSearchResult(part: string): void;
+  loadSearchResult(query: string): void;
 }
 
 class Search extends React.Component<Props, object> {
