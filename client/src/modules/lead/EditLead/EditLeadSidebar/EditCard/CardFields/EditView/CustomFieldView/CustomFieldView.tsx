@@ -11,7 +11,7 @@ class CustomFieldView extends React.Component<Props> {
   public render() {
     return (
       <div>
-        <div className={classNames(styles.item, {[styles.editable]: this.checkDefault()})}>
+        <div className={classNames(styles.item, {[styles.editable]: !this.checkDefault()})}>
           <div className={styles.fieldName}>
             <span className={styles.icon}>A̲</span>
             <div className={styles.title}>
