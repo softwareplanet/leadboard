@@ -1,5 +1,4 @@
 import Lead from "../../models/lead";
-
 const LEAD = "Lead";
 
 export const loadLeads = (domain, part) => {

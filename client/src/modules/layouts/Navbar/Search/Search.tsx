@@ -5,8 +5,8 @@ import searchIcon from '../../../../assets/search-icon.svg';
 import isBlank from '../../../../utils/isBlank';
 import { loadSearchResult } from '../searchActions';
 import * as styles from './Search.css';
-import SearchSpinner from './Spinner/SearchSpinner';
 import SearchInput from './SearchInput/SearchInput';
+import SearchSpinner from './Spinner/SearchSpinner';
 
 interface Props {
   search: any;
