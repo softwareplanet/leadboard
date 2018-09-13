@@ -8,6 +8,7 @@ import * as styles from './CustomFields.css';
 
 interface Props {
   customFields: CustomFieldSetting[];
+  title: string;
 
   closeEditCustomFieldsMode(): void;
 }
@@ -65,6 +66,7 @@ class EditCustomFieldsView extends React.Component<Props, State> {
   private renderAddNew = (trigger: boolean) => {
     return trigger ?
       (<CustomFieldEditView
+        title={this.props.title}
         saveEdit={this.saveEditing}
         cancelEdit={this.cancelEditing}
       />) :

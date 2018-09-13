@@ -1,4 +1,4 @@
-import { shallow } from 'enzyme';
+import { shallow } from 'enzyme/build/index';
 import 'jsdom-global/register';
 import { noop } from 'lodash';
 import * as React from 'react';
@@ -30,7 +30,7 @@ describe('<BulkEditView/>', () => {
       value: organization.custom[0].value,
     },
   ];
-  let wrapper : any;
+  let wrapper;
 
   it('renders without crashing', () => {
     wrapper = shallow(<
