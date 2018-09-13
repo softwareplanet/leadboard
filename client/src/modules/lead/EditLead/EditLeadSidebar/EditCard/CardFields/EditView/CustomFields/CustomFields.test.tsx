@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import * as React from 'react';
-import CustomFieldView from '../CustomFieldView/CustomFieldView';
+import CustomFieldCard from '../CustomFieldView/CustomFieldCard';
 import CustomFields from './CustomFields';
 import * as styles from './CustomFields.css';
 
@@ -43,7 +43,7 @@ describe('<CustomFields />', () => {
   });
 
   it('should render all props elements', () => {
-    expect(wrapper.find(CustomFieldView).length).toEqual(2);
+    expect(wrapper.find(CustomFieldCard).length).toEqual(2);
   });
 
   it('should exec closeEditCustomFieldsMode', () => {

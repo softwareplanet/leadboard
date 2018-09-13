@@ -1,6 +1,6 @@
 import * as React from 'react';
 import CustomFieldSetting from '../../../../../../../../models/customFields/CustomFieldSetting';
-import EditCustomField from '../CustomFieldView/CustomFieldView';
+import CustomFieldCard from '../CustomFieldView/CustomFieldCard';
 import * as styles from './CustomFields.css';
 
 interface Props {
@@ -9,13 +9,13 @@ interface Props {
   closeEditCustomFieldsMode(): void;
 }
 
-class EditCustomFieldsView extends React.Component<Props, object> {
+class CustomFields extends React.Component<Props, object> {
   public render() {
     return (
       <div>
         {this.props.customFields.map(customField => {
           return (
-            <EditCustomField
+            <CustomFieldCard
               key={customField._id}
               customSettings={customField}
             />);
@@ -33,4 +33,4 @@ class EditCustomFieldsView extends React.Component<Props, object> {
   }
 }
 
-export default EditCustomFieldsView;
+export default CustomFields;
