@@ -37,8 +37,7 @@ export default function(state = initialState, action: Action) {
     }
     case EDIT_STAGE: {
       const stages = {...state.stages};
-      const editedStages = stages
-        .map((stage: Stage) => stage = (stage._id === action.payload._id) ? action.payload: stage);
+      const editedStages = stages.map((stage: Stage) => stage = (stage._id === action.payload._id) ? action.payload: stage);
       return {
         ...state,
         funnels: editedStages,

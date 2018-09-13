@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
-import { LOAD_FUNNELS, LOAD_FUNNEL, LOAD_STAGES, EDIT_STAGE } from './types';
+import { EDIT_STAGE, LOAD_FUNNEL, LOAD_FUNNELS, LOAD_STAGES } from './types';
 
 
 export const loadFunnels = (domainId: string) => (dispatch: Dispatch) => {
@@ -27,7 +27,7 @@ export const loadFunnel = (funnelId: string) => (dispatch: Dispatch) => {
 
  export const loadStages = (funnelId: string) => (dispatch: Dispatch) => {
   axios
-    .get(`/api/stages?funnelId=${funnelId}`)
+    .get(`/api/stage?funnel=${funnelId}`)
     .then(result => {
       dispatch({
         payload: result.data,

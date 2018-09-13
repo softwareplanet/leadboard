@@ -1,11 +1,12 @@
 .container {
+  display: block;
+  padding-right: 5px;
+}
+
+.content {
   background: transparent url("../../../../../../assets/stage-settings/stage-arrow.png") right center no-repeat;
   padding: 10px 46px 12px 10px;
   width: 142px;
   border-radius: 4px;
-}
-
-.content {
-
 }
 
