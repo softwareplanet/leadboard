@@ -23,3 +23,7 @@ export const tabLabel: string;
 export const labelContainer: string;
 export const tooltip: string;
 export const popper: string;
+export const highlightName: string;
+export const withoutHighlightName: string;
+export const highlightInfo: string;
+export const withoutHighlightInfo: string;

@@ -253,3 +253,21 @@ button.tab:hover {
 .popper {
   font: 400 16px/24px "Open Sans", sans-serif;
 }
+
+.withoutHighlightName {
+  font: 600 14px/20px "Open Sans", sans-serif;
+  font-weight: bold;
+}
+.highlightName {
+  composes: withoutHighlightName;
+  background-color: #fff570;
+  padding: 0;
+}
+.withoutHighlightInfo {
+  font: 400 12px/16px "Open Sans", sans-serif;
+}
+.highlightInfo {
+  composes: withoutHighlightInfo;
+  background-color: #fff570;
+  padding: 0;
+}

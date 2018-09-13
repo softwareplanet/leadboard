@@ -4,7 +4,8 @@ import leadIcon from "../../../../assets/lead-icon.svg";
 import ReactSVG from "react-svg";
 import { trim } from "lodash";
 import * as styles from "./Search.css";
-import SearchTabs from './SearchTabs'
+import SearchTabs from './SearchTabs';
+import Highlighter from "react-highlight-words";
 
 const ALL = 'All';
 
@@ -16,42 +17,18 @@ class SearchInput extends React.Component {
     }
   }
 
-  getIndexOfCoincidenceValueInString = (string) => {
-    let regexp = new RegExp(trim(this.props.value), "i");
-    return string.match(regexp);
-  };
-
-  getPartsOfHighlightingString = (strings) => {
-    const value = trim(this.props.value);
-    return strings.map(string => {
-      if (this.getIndexOfCoincidenceValueInString(string) !== null) {
-        let index = this.getIndexOfCoincidenceValueInString(string).index;
-        let stringBeforeHighlightedPart = string.slice(0, index);
-        let highlightedPart = string.slice(index, index + value.length);
-        let stringAfterHighlightedPart = string.slice(index + value.length);
-        return (
-          <span>{stringBeforeHighlightedPart}
-            <span className={styles.highlightedPart}>
-              {highlightedPart}
-            </span>
-            {stringAfterHighlightedPart + " "}
-          </span>
-        );
-      }
-      return string + " ";
-    });
-  };
-
-  renderItemName = (name) => {
-    const splitedName = name.split(" ");
-    const parts = this.getPartsOfHighlightingString(splitedName);
-    return (
-      <strong>{parts}</strong>
-    );
-  };
-
   renderItemInfo = (item) => {
-    return <small>{this.createLeadSuggestionInfo(item)}</small>;
+    return(
+      <small>
+        <Highlighter
+          highlightClassName={styles.highlightInfo}
+          unhighlightClassName={styles.withoutHighlightInfo}
+          searchWords={this.props.value.split(' ')}
+          autoEscape={true}
+          textToHighlight={this.createLeadSuggestionInfo(item)}
+        />
+      </small>
+    )
   };
 
   createLeadSuggestionInfo = (item) => {
@@ -122,7 +99,13 @@ class SearchInput extends React.Component {
                 key={item._id}>
               <ReactSVG src={leadIcon} className={styles.leadIcon} />
               <div className={styles.suggestionInfo}>
-                {this.renderItemName(item.name)}
+                <Highlighter
+                  highlightClassName={styles.highlightName}
+                  unhighlightClassName={styles.withoutHighlightName}
+                  searchWords={this.props.value.split(' ')}
+                  autoEscape={true}
+                  textToHighlight={item.name}
+                />
                 {this.renderItemInfo(item)}
               </div>
               {this.renderItemStatus(item.status)}
