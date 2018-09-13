@@ -255,3 +255,16 @@ button.tab:hover {
   background-color: #fff570;
   padding: 0;
 }
+
+.highlightedWrapperName {
+  background-color: transparent;
+  color: #ffffff;
+  padding: 0;
+  composes: withoutHighlightName;
+}
+
+.highlightedWrapperInfo {
+  background-color: transparent;
+  padding: 0;
+  color: #ffffff;
+}
