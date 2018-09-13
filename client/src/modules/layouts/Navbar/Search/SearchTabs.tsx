@@ -3,11 +3,13 @@ import Tabs from '@material-ui/core/Tabs';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import ReactSVG from 'react-svg';
+import ReactTooltip from 'react-tooltip';
 import leadIcon from '../../../../assets/lead-icon.svg';
 import * as styles from './Search.css';
 
 const ALL = 'All';
 const LEAD = 'Lead';
+const LEAD_TOOLTIP_ID = 'lead-tooltip-id';
 
 interface Props extends RouteComponentProps<any> {
   value: string;
@@ -31,7 +33,21 @@ export default class SearchTabs extends React.Component<Props> {
         <Tab
           value={LEAD}
           classes={ { root: styles.tab } }
-          icon={<ReactSVG className={styles.leadTypeIcon} src={leadIcon} />}
+          icon={
+            <div>
+              <ReactSVG data-tip=""
+                        data-for={LEAD_TOOLTIP_ID}
+                        className={styles.leadTypeIcon}
+                        src={leadIcon} />
+              <ReactTooltip
+                id={LEAD_TOOLTIP_ID}
+                place="top"
+                effect="solid"
+              >
+                {LEAD}
+              </ReactTooltip>
+            </div>
+          }
         />
       </Tabs>
     )
