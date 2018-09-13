@@ -6,6 +6,7 @@ import isBlank from '../../../../utils/isBlank';
 import { loadSearchResult } from '../searchActions';
 import * as styles from './Search.css';
 import SearchInput from './SearchInput';
+import SearchSpinner from './Spinner/SearchSpinner';
 
 interface Props {
   search: any;
@@ -22,7 +23,9 @@ class Search extends React.Component<Props, object> {
   public render() {
     return (
       <div className={this.state.isDropdownOpen ? styles.highlightedSearchWrapper : styles.searchWrapper}>
-        <ReactSVG className={styles.searchIcon} src={searchIcon} />
+        {this.props.search.loading?
+          <SearchSpinner className={styles.searchSpinner}/>
+          : <ReactSVG className={styles.searchIcon} src={searchIcon} />}
         <SearchInput
           items={this.props.search.result}
           open={this.state.isDropdownOpen}

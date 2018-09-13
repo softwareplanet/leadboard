@@ -1,7 +1,6 @@
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
 import ReactSVG from 'react-svg';
 import ReactTooltip from 'react-tooltip';
 import leadIcon from '../../../../assets/lead-icon.svg';
@@ -11,7 +10,7 @@ const ALL = 'All';
 const LEAD = 'Lead';
 const LEAD_TOOLTIP_ID = 'lead-tooltip-id';
 
-interface Props extends RouteComponentProps<any> {
+interface Props {
   value: string;
   onChange(e: any, tabValue: string): void;
 }

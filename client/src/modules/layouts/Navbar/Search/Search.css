@@ -41,6 +41,12 @@
   height: 24px;
 }
 
+.searchSpinner {
+  composes: searchIcon;
+  top: 17px;
+  left: 15px;
+}
+
 .suggestionsList {
   top: 48px;
   display: block;

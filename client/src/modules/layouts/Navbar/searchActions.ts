@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
 import { GET_ERRORS } from '../../../actionTypes';
-import { LOAD_SEARCH_RESULT } from './types';
+import { LOAD_SEARCH_RESULT, START_SEARCH_LOADING } from './types';
 
 export const loadSearchResult = (part:string) => (dispatch:Dispatch) => {
+  dispatch({ type: START_SEARCH_LOADING });
+  // setTimeout(2000);
   axios.get('/api/searchResults', {
     params: {
       part,
