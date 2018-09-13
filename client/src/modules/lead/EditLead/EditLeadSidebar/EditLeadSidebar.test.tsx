@@ -10,7 +10,7 @@ import Lead from '../../../../models/Lead';
 import Organization from '../../../../models/Organization';
 import { EditLeadSidebar } from './EditLeadSidebar';
 
-describe('<EditLeadSidebar/>', () => {
+describe('<EditLeadSidebar />', () => {
 
   const domain: Domain = {
     _id: '5b86a96eed17641891c5011b',
@@ -22,11 +22,11 @@ describe('<EditLeadSidebar/>', () => {
     timestamp: new Date('2018-08-29T14:10:54.395Z'),
   };
 
-  let editLead : Lead = {
+  let editLead: Lead = {
     _id: '5b9110616ec37621e6b17bc4',
     contact: {
       _id: '5b9110616ec37621e6b17bc5',
-      custom:[],
+      custom: [],
       domain,
       name: 'Sarah',
       timestamp: new Date('2018-09-06T11:32:49.518Z'),
@@ -66,8 +66,9 @@ describe('<EditLeadSidebar/>', () => {
     timestamp: new Date('2018-09-06T11:32:49.547Z'),
   };
 
-  const organizations : Organization[] = [
-    { _id: '5b7c0c6e42b4cb4a2c72492d',
+  const organizations: Organization[] = [
+    {
+      _id: '5b7c0c6e42b4cb4a2c72492d',
       custom: [{
         _id: '5b7ea6477adb5755f6bbc039',
         key: 'Address',
@@ -76,8 +77,9 @@ describe('<EditLeadSidebar/>', () => {
       domain: '5b6ab060f60c0524980fa23b',
       name: 'Company 1',
       timestamp: new Date('2018-08-23T12:19:19.758Z'),
-      },
-    { _id: '5b7c0cc542b4cb4a2c724933',
+    },
+    {
+      _id: '5b7c0cc542b4cb4a2c724933',
       custom: [{
         _id: '5b7ea6477adb5755f6bbc039',
         key: 'Address',
@@ -86,10 +88,10 @@ describe('<EditLeadSidebar/>', () => {
       domain: '5b6ab060f60c0524980fa23b',
       name: 'Company 2',
       timestamp: new Date('2018-08-23T12:19:19.758Z'),
-      },
+    },
   ];
 
-  const contacts : Contact[] = [
+  const contacts: Contact[] = [
     {
       _id: '5b7eb55995019343c59b0c8c',
       custom: [{
@@ -124,35 +126,38 @@ describe('<EditLeadSidebar/>', () => {
     },
   ];
 
-  const settings : DomainSettings = {
+  const settings: DomainSettings = {
     customFields: [
       {
         _id: '5b97a9bb8ef7eb47231396ad',
         isAlwaysShownInAddDialog: false,
-        isAlwaysVisible:true,
+        isAlwaysVisible: true,
         isDefault: true,
         model: 'Contact',
         name: 'Phone',
         type: 'string',
-      }
+      },
     ],
-    timezone : 'Etc/UTC',
+    timezone: 'Etc/UTC',
   };
 
-  let wrapper : any;
+  let wrapper: any;
   beforeEach(() => {
-    wrapper = shallow(<EditLeadSidebar
-      loadLead={noop}
-      editLead={editLead}
-      loadContacts={noop}
-      loadOrganizations={noop}
-      updateContact={noop}
-      updateLead={noop}
-      updateOrganization={noop}
-      contacts={contacts}
-      organizations={organizations}
-      settings={settings}
-    />);
+    wrapper = shallow
+    (
+      <EditLeadSidebar
+        loadLead={noop}
+        editLead={editLead}
+        loadContacts={noop}
+        loadOrganizations={noop}
+        updateContact={noop}
+        updateLead={noop}
+        updateOrganization={noop}
+        contacts={contacts}
+        organizations={organizations}
+        settings={settings}
+      />,
+    );
   });
 
 
@@ -170,18 +175,21 @@ describe('<EditLeadSidebar/>', () => {
       ...editLead,
       contact: undefined,
     };
-    wrapper = shallow(<EditLeadSidebar
-      loadLead={noop}
-      editLead={editLead}
-      loadContacts={noop}
-      loadOrganizations={noop}
-      updateContact={noop}
-      updateLead={noop}
-      updateOrganization={noop}
-      contacts={contacts}
-      organizations={organizations}
-      settings={settings}
-    />);
+    wrapper = shallow
+    (
+      <EditLeadSidebar
+        loadLead={noop}
+        editLead={editLead}
+        loadContacts={noop}
+        loadOrganizations={noop}
+        updateContact={noop}
+        updateLead={noop}
+        updateOrganization={noop}
+        contacts={contacts}
+        organizations={organizations}
+        settings={settings}
+      />,
+    );
     expect(wrapper.find('EmptyCard')).toHaveLength(1);
 
     editLead = {
@@ -190,18 +198,21 @@ describe('<EditLeadSidebar/>', () => {
       organization: undefined,
     };
 
-    wrapper = shallow(<EditLeadSidebar
-      loadLead={noop}
-      editLead={editLead}
-      loadContacts={noop}
-      loadOrganizations={noop}
-      updateContact={noop}
-      updateLead={noop}
-      updateOrganization={noop}
-      contacts={contacts}
-      organizations={organizations}
-      settings={settings}
-    />);
+    wrapper = shallow
+    (
+      <EditLeadSidebar
+        loadLead={noop}
+        editLead={editLead}
+        loadContacts={noop}
+        loadOrganizations={noop}
+        updateContact={noop}
+        updateLead={noop}
+        updateOrganization={noop}
+        contacts={contacts}
+        organizations={organizations}
+        settings={settings}
+      />,
+    );
     expect(wrapper.find('EmptyCard')).toHaveLength(2);
   });
 });

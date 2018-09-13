@@ -1,4 +1,4 @@
-import { shallow } from 'enzyme/build/index';
+import { shallow } from 'enzyme';
 import 'jsdom-global/register';
 import { noop } from 'lodash';
 import * as React from 'react';
@@ -6,7 +6,7 @@ import CustomFieldData from '../../../../../../../../models/customFields/CustomF
 import Organization from '../../../../../../../../models/Organization';
 import BulkEditView from './BulkEditView';
 
-describe('<BulkEditView/>', () => {
+describe('<BulkEditView />', () => {
 
   const organization: Organization = {
     _id: '5b97a9aeb35f5710b39e3953',
@@ -30,40 +30,48 @@ describe('<BulkEditView/>', () => {
       value: organization.custom[0].value,
     },
   ];
-  let wrapper;
+  let wrapper: any;
 
-  it('renders without crashing', () => {
-    wrapper = shallow(<
-      BulkEditView
-      model={organization}
-      onCancel={noop}
-      customFields={[]}
-      onChange={noop}
-    />);
+  it('should renders without crashing', () => {
+    wrapper = shallow
+    (
+      <BulkEditView
+        model={organization}
+        onCancel={noop}
+        customFields={[]}
+        onChange={noop}
+      />,
+    );
     expect(wrapper.length).toBe(1);
     expect(wrapper.state().custom[0]).toMatchObject(organization.custom[0]);
   });
 
-  it('reacts on cancel properly', () => {
+  it('should reacts on cancel properly', () => {
     const spy = jest.fn();
-    wrapper = shallow(<BulkEditView
-      model={organization}
-      onCancel={spy}
-      customFields={[]}
-      onChange={noop}
-    />);
+    wrapper = shallow
+    (
+      <BulkEditView
+        model={organization}
+        onCancel={spy}
+        customFields={[]}
+        onChange={noop}
+      />,
+    );
     const buttonCancel = wrapper.find('.button');
     buttonCancel.simulate('click');
     expect(spy).toHaveBeenCalledTimes(1);
   });
 
-  it('handles input change and save', () => {
+  it('should handles input change and save', () => {
     const spy = jest.fn();
-    wrapper = shallow(<BulkEditView
-      model={organization}
-      onChange={spy}
-      onCancel={noop}
-      customFields={customFields} />,
+    wrapper = shallow
+    (
+      <BulkEditView
+        model={organization}
+        onChange={spy}
+        onCancel={noop}
+        customFields={customFields}
+      />,
     );
     const inputGroup = wrapper.find({ name: customFields[0].name });
     const newAddress = 'Shevchenka st. 123';

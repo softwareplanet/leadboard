@@ -4,7 +4,7 @@ import settingsIcon from '../../../../../../assets/settings-icon.svg';
 import * as styles from './SettingsButton.css';
 
 interface State {
-  showPopover: boolean,
+  showPopover: boolean;
 }
 
 interface Props {

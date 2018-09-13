@@ -1,6 +1,6 @@
 import * as React from 'react';
 import CustomFieldSetting from '../../../../../../../../../models/customFields/CustomFieldSetting';
-import * as styles from './CustomFieldEditView.css';
+import * as styles from './CustomFieldEditCard.css';
 
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
   saveEdit(): void;
 }
 
-class CustomFieldEditView extends React.Component<Props, object> {
+class CustomFieldEditCard extends React.Component<Props, object> {
   public render(){
     return (
       <div className={styles.editFieldContainer}>
@@ -38,7 +38,7 @@ class CustomFieldEditView extends React.Component<Props, object> {
           </div>
           <div className={styles.actionButtons}>
           <button>Cancel</button>
-          <button>Save</button>
+          <button className={styles.saveButton}>Save</button>
           </div>
         </div>
       </div>
@@ -46,4 +46,4 @@ class CustomFieldEditView extends React.Component<Props, object> {
   }
 }
 
-export default CustomFieldEditView;
+export default CustomFieldEditCard;

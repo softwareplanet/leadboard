@@ -36,7 +36,6 @@ class EditFieldGroup extends React.Component<Props> {
     const target = e.target as HTMLInputElement;
     this.props.onChange(target.id.slice(5), target.value);
   };
-
 }
 
 export default EditFieldGroup;

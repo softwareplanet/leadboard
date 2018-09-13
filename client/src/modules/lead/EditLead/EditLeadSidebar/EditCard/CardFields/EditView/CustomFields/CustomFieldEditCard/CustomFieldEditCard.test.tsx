@@ -1,9 +1,9 @@
 import { shallow } from 'enzyme';
 import * as React from 'react';
-import CustomFieldEditView from './CustomFieldEditView';
-import * as styles from './CustomFieldEditView.css';
+import CustomFieldEditCard from './CustomFieldEditCard';
+import * as styles from './CustomFieldEditCard.css';
 
-describe('<CustomFieldEditView />', () => {
+describe('<CustomFieldEditCard />', () => {
   const customs = [
     {
       _id: '5b97d3573485d2406c818ba0',
@@ -28,10 +28,10 @@ describe('<CustomFieldEditView />', () => {
   let wrapper: any;
   const callback = jest.fn();
   beforeEach(() => {
-    wrapper = shallow(<CustomFieldEditView field={customs[1]} saveEdit={callback} cancelEdit={callback} />);
+    wrapper = shallow(<CustomFieldEditCard title={'Person'} field={customs[1]} saveEdit={callback} cancelEdit={callback} />);
   });
 
-  it('should render CustomFieldEditView component', () => {
+  it('should render CustomFieldEditCard component', () => {
     expect(wrapper.exists()).toEqual(true);
   });
   

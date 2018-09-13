@@ -1,10 +1,10 @@
 import { shallow } from 'enzyme';
 import * as React from 'react';
-import CustomFieldView from '../CustomFieldView/CustomFieldView';
+import CustomFieldCard from '../CustomFieldCard/CustomFieldCard';
 import CustomFields from './CustomFields';
 import * as styles from './CustomFields.css';
 
-describe('<CastomFields/>', () => {
+describe('<CustomFields />', () => {
   const customs = [
     {
       _id: '5b97d3573485d2406c818ba0',
@@ -29,7 +29,14 @@ describe('<CastomFields/>', () => {
   let wrapper: any;
   const callback = jest.fn();
   beforeEach(() => {
-    wrapper = shallow(<CustomFields customFields={customs} closeEditCustomFieldsMode={callback} />);
+    wrapper = shallow
+    (
+      <CustomFields
+        title={'Person'}
+        customFields={customs}
+        closeEditCustomFieldsMode={callback}
+      />,
+    );
   });
 
   it('should render CustomFields component', () => {
@@ -37,7 +44,7 @@ describe('<CastomFields/>', () => {
   });
 
   it('should render all props elements', () => {
-    expect(wrapper.find(CustomFieldView).length).toEqual(2);
+    expect(wrapper.find(CustomFieldCard).length).toEqual(2);
   });
 
   it('should exec closeEditCustomFieldsMode', () => {

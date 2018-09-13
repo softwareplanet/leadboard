@@ -2,7 +2,7 @@ import axios from "axios";
 import setAuthToken from "../../utils/setAuthToken";
 import { SET_LOGIN_DATA, LOGOUT_USER } from "./types";
 import { GET_ERRORS, CLEAR_STORE } from "../../actionTypes";
-import { loadDomain } from "../../modules/settings/domain/domainActions";
+import { loadDomain } from "../settings/domain/domainActions";
 
 // Register user
 export const registerUser = (user, history) => dispatch => {

@@ -1,10 +1,8 @@
 import * as React from 'react';
 import CustomFieldSetting from '../../../../../../../../models/customFields/CustomFieldSetting';
-import CustomFieldEditView from '../CustomFieldView/CustomFieldEditView/CustomFieldEditView';
-// import * as commonStyles from '../../../../../../../../styles/common.css';
-// import * as classNames from 'classnames';
-import EditCustomField from '../CustomFieldView/CustomFieldView';
+import CustomFieldCard from '../CustomFieldCard/CustomFieldCard';
 import * as styles from './CustomFields.css';
+import CustomFieldEditCard from './CustomFieldEditCard/CustomFieldEditCard';
 
 interface Props {
   customFields: CustomFieldSetting[];
@@ -13,12 +11,14 @@ interface Props {
   closeEditCustomFieldsMode(): void;
 }
 
+
 interface State {
   isAddNew: boolean;
   isEdit: boolean;
 }
 
-class EditCustomFieldsView extends React.Component<Props, State> {
+
+class CustomFields extends React.Component<Props, State> {
   public state: State = {
     isAddNew: false,
     isEdit: false,
@@ -37,14 +37,14 @@ class EditCustomFieldsView extends React.Component<Props, State> {
       ({ isAddNew: !prevState.isAddNew })
     );
   }
-
-  public render(){
+  
+  public render() {
     return (
       <div>
         <div>
           {this.props.customFields.map(customField => {
             return (
-              <EditCustomField
+              <CustomFieldCard
                 key={customField._id}
                 customSettings={customField}
               />);
@@ -65,7 +65,7 @@ class EditCustomFieldsView extends React.Component<Props, State> {
 
   private renderAddNew = (trigger: boolean) => {
     return trigger ?
-      (<CustomFieldEditView
+      (<CustomFieldEditCard
         title={this.props.title}
         saveEdit={this.saveEditing}
         cancelEdit={this.cancelEditing}
@@ -78,4 +78,4 @@ class EditCustomFieldsView extends React.Component<Props, State> {
   }
 }
 
-export default EditCustomFieldsView;
+export default CustomFields;
