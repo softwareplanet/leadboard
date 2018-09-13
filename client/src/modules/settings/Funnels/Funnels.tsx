@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-class Pipelines extends React.Component {
+class Funnels extends React.Component {
   public render() {
     return (
-      <div>Pipelines</div>
+      <div>Customize sales stages</div>
     )
   }
 }
@@ -15,4 +15,4 @@ const mapStateToProps = (state: any) => ({
   stages: state.stages,
 });
 
-export default connect(mapStateToProps)(Pipelines)
+export default connect(mapStateToProps)(Funnels)
