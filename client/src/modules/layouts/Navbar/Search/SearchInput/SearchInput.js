@@ -1,34 +1,34 @@
 import React from "react";
 import ReactAutocomplete from "react-autocomplete";
-import leadIcon from "../../../../assets/lead-icon.svg";
+import leadIcon from "../../../../../assets/lead-icon.svg";
 import ReactSVG from "react-svg";
 import { trim } from "lodash";
-import * as styles from "./Search.css";
-import SearchTabs from './SearchTabs';
+import * as styles from "../Search.css";
+import SearchTabs from "./SearchTabs";
 import Highlighter from "react-highlight-words";
 
-const ALL = 'All';
+const ALL = "All";
 
 class SearchInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       tabValue: ALL,
-    }
+    };
   }
 
   renderItemInfo = (item) => {
-    return(
+    return (
       <small>
         <Highlighter
           highlightClassName={styles.highlightInfo}
           unhighlightClassName={styles.withoutHighlightInfo}
-          searchWords={this.props.value.split(' ')}
+          searchWords={this.props.value.split(" ")}
           autoEscape={true}
           textToHighlight={this.createLeadSuggestionInfo(item)}
         />
       </small>
-    )
+    );
   };
 
   createLeadSuggestionInfo = (item) => {
@@ -69,7 +69,7 @@ class SearchInput extends React.Component {
   renderItemsByType = () => {
     let items = this.props.items;
     let tabValue = this.state.tabValue;
-    return tabValue === ALL? items : items.filter(item => item.type === tabValue);
+    return tabValue === ALL ? items : items.filter(item => item.type === tabValue);
   };
 
   render() {
@@ -102,7 +102,7 @@ class SearchInput extends React.Component {
                 <Highlighter
                   highlightClassName={styles.highlightName}
                   unhighlightClassName={styles.withoutHighlightName}
-                  searchWords={this.props.value.split(' ')}
+                  searchWords={this.props.value.split(" ")}
                   autoEscape={true}
                   textToHighlight={item.name}
                 />

@@ -66,6 +66,10 @@
   background-color: #f7f7f7;
 }
 
+.highlightedSearchWrapper .searchInput {
+  box-shadow: 0 0 0 1px #b9babb;
+}
+
 .suggestion {
   position: relative;
   display: flex;
@@ -98,36 +102,6 @@
 
 .leadIcon path {
   fill: #000000;
-}
-
-.suggestionsTypes {
-  margin-bottom: 8px;
-  border-bottom: 1px solid #b9babb;
-  height: 40px;
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  align-items: center;
-  background-color: #f7f7f7;
-}
-
-.suggestionsType {
-  padding: 0;
-  display: flex;
-  float: left;
-  height: 40px;
-  width: 48px;
-}
-
-.suggestionsType a {
-  position: relative;
-  height: 30px;
-  width: 48px;
-  font: 400 16px/24px "Open Sans", sans-serif;
-  color: rgba(38, 41, 44, 0.64);
-  padding-top: 10px;
-  text-align: center;
-  text-decoration: none;
 }
 
 .leadTypeIcon {
@@ -250,28 +224,26 @@ button.tab:hover {
 }
 
 .tooltip {
-  background: black !important;
-  position: absolute;
-  bottom: -20px;
-  left: -22px;
-}
-
-.popper {
-  font: 400 16px/24px "Open Sans", sans-serif;
+  padding: 4px 7px 4px 7px;
+  font: 400 12px/16px Open Sans, sans-serif;
+  opacity: 1;
 }
 
 .withoutHighlightName {
   font: 600 14px/20px "Open Sans", sans-serif;
   font-weight: bold;
 }
+
 .highlightName {
   composes: withoutHighlightName;
   background-color: #fff570;
   padding: 0;
 }
+
 .withoutHighlightInfo {
   font: 400 12px/16px "Open Sans", sans-serif;
 }
+
 .highlightInfo {
   composes: withoutHighlightInfo;
   background-color: #fff570;
