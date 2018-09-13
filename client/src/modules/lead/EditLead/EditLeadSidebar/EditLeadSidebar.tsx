@@ -58,7 +58,7 @@ class EditLeadSidebar extends React.Component<Props> {
             title={'Person'}
             icon={personIcon}
             onUpdate={this.props.updateContact}
-            customFieldSetting={getFilteredFieldsByModel('Contact', settings)}
+            customFieldsSettings={getFilteredFieldsByModel('Contact', settings)}
             customFields={makeCustomFieldData('Contact', contact, settings)}
           />;
       }
@@ -70,7 +70,7 @@ class EditLeadSidebar extends React.Component<Props> {
             title={'Organization'}
             icon={organizationIcon}
             onUpdate={this.props.updateOrganization}
-            customFieldSetting={getFilteredFieldsByModel('Organization', settings)}
+            customFieldsSettings={getFilteredFieldsByModel('Organization', settings)}
             customFields={makeCustomFieldData('Organization', organization, settings)}
           />;
       }

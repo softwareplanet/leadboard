@@ -79,7 +79,7 @@ describe('<EditCard />', () => {
     (
       <EditCard
         model={contact}
-        customFieldSetting={[]}
+        customFieldsSettings={[]}
         onUpdate={jest.fn()}
         title={'Person'}
         icon={someIcon}
@@ -105,7 +105,7 @@ describe('<EditCard />', () => {
     (
       <EditCard
         model={organization}
-        customFieldSetting={[]}
+        customFieldsSettings={[]}
         onUpdate={jest.fn()}
         title={'Person'}
         icon={someIcon}
