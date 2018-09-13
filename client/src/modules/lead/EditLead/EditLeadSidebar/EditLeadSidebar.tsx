@@ -18,7 +18,7 @@ import OrganizationAutocomplete from '../../../common/autocomplete/organization/
 import { autocompleteStyles } from '../../../common/autocomplete/styles/autocomplete-styles';
 import { getCustomFieldSettingsByModel, makeCustomFieldData } from './CustomFieldsService';
 import * as editCardStyles from './EditCard/EditCard.css';
-import EmptyCard from './EditCard/EmptyCard/EmptyCard';
+import EmptyCard from './EmptyCard/EmptyCard';
 
 interface Props {
   settings: DomainSettings;

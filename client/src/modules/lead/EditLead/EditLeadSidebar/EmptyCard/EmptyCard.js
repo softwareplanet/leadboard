@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import styles from "../EditCard.css";
+import styles from "../EditCard/EditCard.css";
 import Modal from "react-modal";
 import classNames from "classnames";
-import indefiniteArticle from "../../../../../../utils/indefiniteArticle";
-import { autocompleteStyles } from "../../../../../common/autocomplete/styles/autocomplete-styles";
-import isBlank from "../../../../../../utils/isBlank";
+import indefiniteArticle from "../../../../../utils/indefiniteArticle";
+import { autocompleteStyles } from "../../../../common/autocomplete/styles/autocomplete-styles";
+import isBlank from "../../../../../utils/isBlank";
 import { trim } from "lodash";
 
 const customStyles = {
