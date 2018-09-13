@@ -22,16 +22,16 @@ describe('<CardField />', () => {
     wrapper = shallow(<CardField field={field} onUpdate={noop} />);
   });
 
-  it('should renders CardField component', () => {
+  it('should render CardField component', () => {
     expect(wrapper.exists()).toBeTruthy();
   });
 
-  it('should renders correct props', () => {
+  it('should render correct props', () => {
     expect(wrapper.find('span.customFieldLabel').text()).toBe(field.name);
     expect(wrapper.find('span.customFieldValue').text()).toBe(field.value);
   });
 
-  it('should renders add value link if value is empty', () => {
+  it('should render add value link if value is empty', () => {
     field.value = '';
     wrapper = shallow(<CardField field={field} onUpdate={noop} />);
     expect(wrapper.find('span.addValue').length).toBe(1);
