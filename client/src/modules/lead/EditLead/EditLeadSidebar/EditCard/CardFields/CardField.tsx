@@ -71,5 +71,4 @@ export default class CardField extends React.Component<Props, State> {
   private closeEditMode = () => {
     this.setState({ isInEditMode: false });
   };
-
 }

@@ -49,4 +49,3 @@ describe('<MainField />', () => {
     expect(wrapper.find('SingleEditView').exists()).toBe(false);
   });
 });
-
