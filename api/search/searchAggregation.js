@@ -11,12 +11,12 @@ export const loadLeads = (domain, part) => {
         from: "contacts",
         localField: "contact",
         foreignField: "_id",
-        as: "contacts"
+        as: "contact"
       }
     },
     {
       $unwind: {
-        path: "$contacts",
+        path: "$contact",
         preserveNullAndEmptyArrays: true,
       }
     },
@@ -25,20 +25,34 @@ export const loadLeads = (domain, part) => {
         from: "organizations",
         localField: "organization",
         foreignField: "_id",
-        as: "organizations"
+        as: "organization"
       }
     },
     {
       $unwind: {
-        path: "$organizations",
+        path: "$organization",
+        preserveNullAndEmptyArrays: true,
+      }
+    },
+    {
+      $lookup: {
+        from: "stages",
+        localField: "stage",
+        foreignField: "_id",
+        as: "stage"
+      }
+    },
+    {
+      $unwind: {
+        path: "$stage",
         preserveNullAndEmptyArrays: true,
       }
     },
     {
       $match: {
         $or: [
-          { "organizations.name": { $regex: `(?:|\\W)${part}(?:|\\W)`, $options: "i" } },
-          { "contacts.name": { $regex: `(?:|\\W)${part}(?:|\\W)`, $options: "i" } },
+          { "organization.name": { $regex: `(?:|\\W)${part}(?:|\\W)`, $options: "i" } },
+          { "contact.name": { $regex: `(?:|\\W)${part}(?:|\\W)`, $options: "i" } },
           { name: { $regex: `(?:|\\W)${part}(?:|\\W)`, $options: "i" } },
         ],
       },
@@ -48,8 +62,9 @@ export const loadLeads = (domain, part) => {
         _id: 1,
         name: 1,
         status: 1,
-        contact: "$contacts.name",
-        organization: "$organizations.name",
+        contact: "$contact.name",
+        organization: "$organization.name",
+        stage: "$stage.name",
         type: LEAD,
       }
     }

@@ -5,6 +5,7 @@ import Highlighter from 'react-highlight-words';
 import ReactSVG from 'react-svg';
 import leadIcon from '../../../../../assets/lead-icon.svg';
 import SearchItemModel from '../../../../../models/search/SearchItem';
+import isBlank from '../../../../../utils/isBlank';
 import * as styles from '../Search.css';
 import SearchTabs from './SearchTabs';
 
@@ -39,40 +40,8 @@ class SearchInput extends React.Component<Props, State> {
         open={this.props.value.length > 1 && trim(this.props.value).length > 0 && this.props.open}
         items={this.renderItemsByType()}
         getItemValue={(item: SearchItemModel) => item.name}
-        renderMenu={(items: []) =>
-          items.length !== 0 ? (
-            <div className={styles.suggestionsList}>
-              <SearchTabs value={this.state.tabValue} onChange={this.handleChange} />
-              <ul className={styles.searchResult} children={items} />
-            </div>
-          ) : (
-            <div className={styles.suggestionsList}>
-              <SearchTabs value={this.state.tabValue} onChange={this.handleChange} />
-              <ul>
-                <li className={styles.noResults}>No results for "{this.props.value}"</li>
-              </ul>
-            </div>
-          )
-        }
-        renderItem={(item: SearchItemModel, highlighted: boolean) => {
-          return (
-            <li className={highlighted ? styles.highlightedSuggestion : styles.suggestion}
-                key={item._id}>
-              <ReactSVG src={leadIcon} className={styles.leadIcon} />
-              <div className={styles.suggestionInfo}>
-                <Highlighter
-                  highlightClassName={highlighted ? styles.highlightedWrapperName : styles.highlightName}
-                  unhighlightClassName={styles.withoutHighlightName}
-                  searchWords={this.props.value.split(' ')}
-                  autoEscape={true}
-                  textToHighlight={item.name}
-                />
-                {this.renderItemInfo(item, highlighted)}
-              </div>
-              {this.renderItemStatus(item.status ? item.status : '')}
-            </li>
-          );
-        }}
+        renderMenu={this.renderMenu}
+        renderItem={this.renderItem}
         inputProps={{
           className: styles.searchInput,
           onBlur: this.props.onBlur,
@@ -85,6 +54,44 @@ class SearchInput extends React.Component<Props, State> {
       />
     );
   }
+
+  private renderMenu = (items: []) => {
+    return (
+      items.length !== 0 ? (
+        <div className={styles.suggestionsList}>
+          <SearchTabs value={this.state.tabValue} onChange={this.handleChange} />
+          <ul className={styles.searchResult} children={items} />
+        </div>
+      ) : (
+        <div className={styles.suggestionsList}>
+          <SearchTabs value={this.state.tabValue} onChange={this.handleChange} />
+          <ul>
+            <li className={styles.noResults}>No results for "{this.props.value}"</li>
+          </ul>
+        </div>
+      )
+    );
+  };
+
+  private renderItem = (item: SearchItemModel, highlighted: boolean) => {
+    return (
+      <li className={highlighted ? styles.highlightedSuggestion : styles.suggestion}
+          key={item._id}>
+        <ReactSVG src={leadIcon} className={styles.leadIcon} />
+        <div className={styles.suggestionInfo}>
+          <Highlighter
+            highlightClassName={highlighted ? styles.highlightedWrapperName : styles.highlightName}
+            unhighlightClassName={styles.withoutHighlightName}
+            searchWords={this.props.value.split(' ')}
+            autoEscape={true}
+            textToHighlight={item.name}
+          />
+          {this.renderItemInfo(item, highlighted)}
+        </div>
+        {this.renderItemStatus(item.status ? item.status : '')}
+      </li>
+    );
+  };
 
   private renderItemInfo = (item: SearchItemModel, highlighted: boolean) => {
     return (
@@ -101,20 +108,19 @@ class SearchInput extends React.Component<Props, State> {
   };
 
   private createLeadSuggestionInfo = (item: SearchItemModel) => {
-    let info;
-    if (item.organization && item.organization.length) {
-      if (item.contact && item.contact.length) {
-        info = `${item.organization}, ${item.contact}`;
-      } else {
-        info = item.organization;
-      }
-    } else {
-      if (item.contact && item.contact.length) {
-        info = item.contact;
-      } else {
-        info = '';
-      }
+    let info = '';
+    if (item.contact && item.contact.length) {
+      info = `${item.contact}`;
     }
+
+    if (item.organization && item.organization.length) {
+      info += isBlank(info) ? `${item.organization}` : `, ${item.organization}`;
+    }
+
+    if (item.stage && item.stage.length) {
+      info += `, ${item.stage}`;
+    }
+
     return info;
   };
 
