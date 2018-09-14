@@ -11,3 +11,34 @@
   flex-direction: column;
   margin-right: 15px;
 }
+
+.content div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.addPipelineButton {
+  background: #2cbf55;
+  color: #fff;
+  border: 1px solid #2cbf55;
+  border-radius: 3px;
+  cursor: pointer;
+  outline: none;
+}
+
+.addPipelineButton:focus {
+  outline: none;
+}
+
+.addPipelineButton:hover {
+  background: #3dc463;
+  border: 1px solid #3dc463;
+}
+
+.addPipelineButton span {
+  font-size: 12px;
+  font-weight: bold;
+  font-family: 'Open Sans', sans-serif;
+}
