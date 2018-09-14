@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import FunnelModel from '../../../models/Funnel';
 import { loadFunnels } from '../settingActions';
+import AddPipelineModal from './AddPipelineModal/AddPipelineModal';
 import Funnel from './Funnel/Funnel';
 import * as styles from './Funnels.css'
 
@@ -13,12 +14,26 @@ interface Props {
   loadFunnels(): void;
 }
 
-class Funnels extends React.Component<Props> {
+interface State {
+  isModalOpen: boolean;
+}
+
+class Funnels extends React.Component<Props, State> {
+  public state: State = {
+    isModalOpen: false,
+  };
 
   public render() {
     return (
       <div className={styles.content}>
-        <h1 className={styles.heading}>Customize sales stages</h1>
+        <div>
+          <h1 className={styles.heading}>Customize sales stages</h1>
+          <button className={styles.addPipelineButton} onClick={this.onClick}><span>Add new pipeline</span></button>
+          <AddPipelineModal
+            isModalOpen={this.state.isModalOpen}
+            onCancelClick={this.onCancelClick}
+          />
+        </div>
         <Funnel funnel={this.props.funnels[0]}/>
       </div>
     )
@@ -29,6 +44,14 @@ class Funnels extends React.Component<Props> {
       this.props.loadFunnels();
     }
   }
+
+  private onClick = () => {
+    this.setState({ isModalOpen: true });
+  };
+
+  private onCancelClick = () => {
+    this.setState({ isModalOpen: false });
+  };
 }
 
 const mapStateToProps = (state: any) => ({

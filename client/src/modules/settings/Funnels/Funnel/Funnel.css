@@ -8,7 +8,7 @@
 }
 
 .name {
-  font: 600 18px/24px "Open Sans",sans-serif;;
+  font: 600 18px/24px "Open Sans", sans-serif;;
   color: #26292c;
 }
 
@@ -26,7 +26,7 @@
   height: 40px;
   padding: 8px;
   position: relative;
-  font: 600 18px/24px "Open Sans",sans-serif;;
+  font: 600 18px/24px "Open Sans", sans-serif;;
   text-shadow: 0px 1px 0px #fff;
   color: #333;
 }
@@ -52,7 +52,7 @@
 .modalContent {
   margin: 5px;
   border-top: 1px solid #ccc;
-  font-family: "Open Sans",sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 .modalButtons {
@@ -75,3 +75,64 @@
   box-shadow: none;
   background-color: #ffffff;
 }
+
+.modalContent form {
+  padding: 5px;
+}
+
+.formInput {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 8px 5px;
+  overflow: hidden;
+}
+
+.formControl {
+  padding: 20px 0 0 197px;
+}
+
+.formControl span {
+  text-decoration: none;
+  color: #317ae2;
+  cursor: pointer;
+  margin-left: 12px;
+}
+
+.formControl button {
+  border-radius: 3px;
+  background: #2cbf55;
+  border: 1px solid #2cbf55;
+  padding: 5px 15px;
+  color: #ffffff;
+  font-weight: bold;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.formControl button:hover {
+  background: #3dc463;
+  border: 1px solid #3dc463;
+}
+
+.formInput label {
+  width: 100%;
+  text-align: right;
+  margin-right: 10px;
+}
+
+.formInput input {
+  border: 1px #747678 solid;
+  padding: 3px;
+  border-radius: 2px;
+  font-family: "Open Sans", sans-serif;
+  width: 100%;
+  height: 32px;
+  font-size: 90%;
+}
+
+.formInput input:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+  border: 1px solid #e84646;
+}
+
