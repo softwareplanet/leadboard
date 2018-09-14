@@ -2,6 +2,7 @@ import axios from "axios";
 import setAuthToken from "../../utils/setAuthToken";
 import { SET_LOGIN_DATA, LOGOUT_USER } from "./types";
 import { GET_ERRORS, CLEAR_STORE } from "../../actionTypes";
+import { loadDomain } from "../settings/domain/domainActions";
 
 // Register user
 export const registerUser = (user, history) => dispatch => {
@@ -49,6 +50,7 @@ export const loginUserById = id => dispatch => {
         domainName: result.data.domain.name
       };
       dispatch(setLoginData(loginData));
+      dispatch(loadDomain(loginData.domainId));
     })
     .catch(error => console.log(error));
 };
