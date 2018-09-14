@@ -6,6 +6,7 @@ This file contains everything that must be fixed/changed/done. We didn't do that
 - Add delete note tests
 - Change ":id" to ":\<model>Id" in all routes   
 - DB migration?
+- Add searchResults endpoint tests for empty, 1 symbol, 10 words and non match query 
 ## Client
 - Define all initial reducers' states as interfaces
 - Migrate actions and reducers to typescript

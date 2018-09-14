@@ -1,20 +1,29 @@
 import * as React from 'react';
-import { Link, NavLink, withRouter } from 'react-router-dom';
+import { Link, NavLink, RouteComponentProps, withRouter } from 'react-router-dom';
 import ReactSVG from 'react-svg';
 import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
+import { logoutUser } from '../../auth/authActions';
 import contactIcon from '../../../assets/contacts-icon.svg';
 import dealsIconActive from '../../../assets/deals-icon-active.svg';
 import dealsIcon from '../../../assets/deals-icon.svg';
 import * as styles from './Navbar.css';
 import UserDropDown from './UserDropDown/UserDropDown'
+import Search from './Search/Search';
+import { connect } from 'react-redux';
 
 const leadsRoute = '/home';
 const peopleRoute = '/people';
 
+interface Props extends RouteComponentProps<any> {
+  auth: any;
+
+  logoutUser(history: any): void;
+}
+
 interface State {
   isDropdownOpen: boolean;
 }
-class Navbar extends React.Component<any, State> {
+class Navbar extends React.Component<Props, State> {
   public state: State = {
     isDropdownOpen: false,
   };
@@ -33,6 +42,7 @@ class Navbar extends React.Component<any, State> {
         <ul className={styles.menu} role="navigation">
           <li className={styles.logo}><Link to={leadsRoute}>Leadboard</Link></li>
           <li className={styles.logoSmall}><Link to={leadsRoute}><h1>L</h1></Link></li>
+          <Search history={this.props.history} />
           <NavLink
             className={styles.link}
             activeClassName={styles.currentLink}
@@ -75,5 +85,9 @@ class Navbar extends React.Component<any, State> {
   }
 }
 
+const mapStateToProps = (state: any) => ({
+  auth: state.auth,
+});
+
 export { Navbar };
-export default withRouter(Navbar);
+export default connect(mapStateToProps, { logoutUser })(withRouter(Navbar));
