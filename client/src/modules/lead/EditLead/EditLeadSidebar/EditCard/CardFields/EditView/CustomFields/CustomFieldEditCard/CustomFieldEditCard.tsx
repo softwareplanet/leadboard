@@ -29,7 +29,6 @@ class CustomFieldEditCard extends React.Component<Props, State> {
   
   public Save = () => {
     let fieldToSave = {
-      _id: '5b97d3573485d2406c818ba0',
       name: this.state.name,
       model: this.props.title,
       type: 'string',
@@ -41,9 +40,8 @@ class CustomFieldEditCard extends React.Component<Props, State> {
     this.props.onSave(fieldToSave)
   }
 
-  public nameHandler = () => {
-    // this.props.onSave(this.state.innerField)
-    console.log(this.props.field)
+  public nameHandler = (e: React.FormEvent<HTMLInputElement>) => {
+    this.setState({name: e.currentTarget.value})
   }
   public isAlwaysShownInAddDialogHandler = () => {
     this.setState({
@@ -67,13 +65,15 @@ class CustomFieldEditCard extends React.Component<Props, State> {
                 type="text"
                 className={styles.nameInput}
                 maxLength={64}
+                value={this.props.field ? this.props.field.name :
+                  this.state.name}
                 onChange={this.nameHandler}
               />
             </span>
           </div>
           <div className={styles.visibilityOptions}>
             <label className={styles.checkboxLabel}>
-              <input type="checkbox" checked={this.props.field ?       this.props.field.isAlwaysVisible :
+              <input type="checkbox" checked={this.props.field ? this.props.field.isAlwaysVisible :
               this.state.isAlwaysVisible}
               onChange={this.isAlwaysVisibleHandler} 
               />
@@ -85,7 +85,7 @@ class CustomFieldEditCard extends React.Component<Props, State> {
                 checked={this.props.field ? this.props.field.isAlwaysShownInAddDialog:   this.state.isAlwaysShownInAddDialog}
                 onChange={this.isAlwaysShownInAddDialogHandler} 
               />
-              <span>Appears in "Add new {this.props.title.toLowerCase}" dialogue</span>
+              <span>Appears in "Add new {this.props.title.toLowerCase()}" dialogue</span>
             </label>
           </div>
         </div>
