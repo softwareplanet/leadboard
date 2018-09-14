@@ -5,6 +5,7 @@ import FunnelModel from '../../../../models/Funnel';
 import { updateFunnel } from '../../settingActions';
 import * as styles from './Funnel.css';
 import Stages from './Stages/Stages';
+import isBlank from '../../../../utils/isBlank';
 
 interface Props {
   funnel?: FunnelModel;
@@ -63,7 +64,13 @@ class Funnel extends React.Component<Props, State> {
                     onChange={this.onNameChange}
                   />
                   <div className={styles.modalButtons}>
-                    <button onClick={this.save} className={styles.save}>Save</button>
+                    <button 
+                      disabled={isBlank(this.state.name)} 
+                      onClick={this.save} 
+                      className={styles.save}
+                    >
+                      Save
+                    </button>
                     <button onClick={this.cancel} className={styles.cancel}>Cancel</button>  
                   </div>
                 </div>

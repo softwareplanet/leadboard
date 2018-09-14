@@ -28,7 +28,6 @@
   background: -webkit-linear-gradient(top, #F6F6F6 0, #e0e0e0 40px);
   height: 40px;
   padding: 8px;
-  margin: -5px -5px 5px -5px;
   line-height: 24px;
   position: relative;
   font-weight: 600;
@@ -68,6 +67,10 @@
 
 .save {
   composes: button buttonGreen from "../../../../styles/common.css";
+}
+
+.save:disabled {
+  opacity: 0.5;
 }
 
 .cancel {
