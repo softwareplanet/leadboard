@@ -5,6 +5,8 @@ import leadReducersAggregator from "./modules/lead/leadRootReducer";
 import { GET_ERRORS, CLEAR_STORE } from "./actionTypes";
 import contactReducer from "./modules/common/autocomplete/contact/contactReducer";
 import organizationReducer from "./modules/common/autocomplete/organization/organizationReducer";
+import settingReducer from "./modules/settings/settingReducer";
+import searchReducer from "./modules/layouts/Navbar/searchReducer";
 import domainReducer from "./modules/settings/domain/domainReducer";
 
 const initialState = {};
@@ -24,6 +26,8 @@ const appReducer = combineReducers({
   errors: errorReducer,
   contacts: contactReducer,
   organizations: organizationReducer,
+  settings: settingReducer,
+  search: searchReducer,
   domain: domainReducer,
 });
 

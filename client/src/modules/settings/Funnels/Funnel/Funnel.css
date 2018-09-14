@@ -1,0 +1,77 @@
+.funnel {
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid #b9babb;
+  border-radius: 3px;
+}
+
+.name {
+  font: 600 18px/24px "Open Sans",sans-serif;;
+  color: #26292c;
+}
+
+.edit {
+  composes: buttonSmall from "../../../../styles/common.css";
+  padding: 1px 7px;
+}
+
+.heading {
+  display: flex;
+}
+
+.modalHeader {
+  background: -webkit-linear-gradient(top, #F6F6F6 0, #e0e0e0 40px);
+  height: 40px;
+  padding: 8px;
+  position: relative;
+  font: 600 18px/24px "Open Sans",sans-serif;;
+  text-shadow: 0px 1px 0px #fff;
+  color: #333;
+}
+
+.nameInputContainer {
+  margin-top: 15px;
+  margin-left: auto;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.input {
+  padding: 3px;
+  border: 1px #747678 solid;
+  border-radius: 2px;
+  font-size: 13px;
+}
+
+.inputContainer {
+  margin: 0 10px;
+}
+
+.modalContent {
+  margin: 5px;
+  border-top: 1px solid #ccc;
+  font-family: "Open Sans",sans-serif;
+}
+
+.modalButtons {
+  margin-top: 40px;
+}
+
+.save {
+  composes: button buttonGreen from "../../../../styles/common.css";
+}
+
+.save:disabled {
+  opacity: 0.5;
+}
+
+.cancel {
+  composes: button from "../../../../styles/common.css";
+  border: none;
+  text-decoration: none;
+  color: #317ae2;
+  box-shadow: none;
+  background-color: #ffffff;
+}
