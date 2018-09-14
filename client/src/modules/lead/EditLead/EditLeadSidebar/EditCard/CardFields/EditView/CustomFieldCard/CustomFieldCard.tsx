@@ -31,28 +31,30 @@ class CustomFieldCard extends React.Component<Props, State> {
   }
 
   private renderCard = () => {
-    return (<div>
-      <div className={classNames(styles.item, { [styles.editable]: !this.checkDefault() })}>
-        <div className={styles.fieldName}>
-          <span className={styles.icon}>A̲</span>
-          <div className={styles.title}>
-            {this.props.customSettings.name}
-          </div>
-          <div className={styles.actions}>
-            <button className={styles.editButton} onClick={this.editModeHandler}>
-              <span>
-                Edit
+    return (
+      <div>
+        <div className={classNames(styles.item, { [styles.editable]: !this.checkDefault() })}>
+          <div className={styles.fieldName}>
+            <span className={styles.icon}>A̲</span>
+            <div className={styles.title}>
+              {this.props.customSettings.name}
+            </div>
+            <div className={styles.actions}>
+              <button className={styles.editButton} onClick={this.editModeHandler}>
+                <span>
+                  Edit
               </span>
-            </button>
+              </button>
+            </div>
           </div>
+          <ul className={styles.properties}>
+            {this.props.customSettings.isAlwaysVisible ? <li>Always visible on sidebar</li> : null}
+            {this.props.customSettings.isShownInAddDialog ?
+              <li>Appears in "Add new {this.props.addDialogTitle.toLowerCase()}" dialogue</li> : null}
+          </ul>
         </div>
-        <ul className={styles.properties}>
-          {this.props.customSettings.isAlwaysVisible ? <li>Always visible on sidebar</li> : null}
-          {this.props.customSettings.isShownInAddDialog ?
-            <li>Appears in "Add new {this.props.addDialogTitle.toLowerCase()}" dialogue</li> : null}
-        </ul>
       </div>
-    </div>);
+    );
   }
 
   private renderEditCard = () => {

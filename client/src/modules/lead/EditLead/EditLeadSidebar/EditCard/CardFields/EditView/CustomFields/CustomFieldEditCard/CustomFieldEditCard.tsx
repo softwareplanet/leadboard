@@ -3,14 +3,13 @@ import CustomFieldSetting from '../../../../../../../../../models/customFields/C
 import isBlank from '../../../../../../../../../utils/isBlank';
 import * as styles from './CustomFieldEditCard.css';
 
-
 interface Props {
   field?: CustomFieldSetting;
   addDialogTitle: string;
   model: string;
 
   onSave(customField: CustomFieldSetting): void;
-
+  
   onCancel(): void;
 }
 
@@ -87,13 +86,13 @@ class CustomFieldEditCard extends React.Component<Props, State> {
             <label className={styles.checkboxLabel}>
               Always visible on sidebar
               <input type="checkbox" checked={this.state.isAlwaysVisible}
-              onChange={this.visiblityHandler} 
+                onChange={this.visiblityHandler}
               />
               <span className={styles.checkMark} />
             </label>
             <label className={styles.checkboxLabel}>
               Appears in "Add new {this.props.addDialogTitle.toLowerCase()}" dialogue
-              <input 
+              <input
                 type="checkbox"
                 checked={this.state.isShownInAddDialog}
                 onChange={this.addDialogHandler}

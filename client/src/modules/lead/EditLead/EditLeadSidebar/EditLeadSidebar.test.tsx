@@ -4,16 +4,13 @@ import { noop } from 'lodash';
 import * as React from 'react';
 import { IN_PROGRESS } from '../../../../constants';
 import Contact from '../../../../models/Contact';
-import CustomFieldSetting from '../../../../models/customFields/CustomFieldSetting';
 import Domain from '../../../../models/Domain';
 import DomainSettings from '../../../../models/DomainSettings';
 import Lead from '../../../../models/Lead';
 import Organization from '../../../../models/Organization';
 import { EditLeadSidebar } from './EditLeadSidebar';
 
-
 describe('<EditLeadSidebar />', () => {
-
   const domain: Domain = {
     _id: '5b86a96eed17641891c5011b',
     name: 'interLink',
@@ -101,11 +98,11 @@ describe('<EditLeadSidebar />', () => {
         key: 'Phone',
         value: '',
       },
-      {
-        _id: '5b9110616ec37621e6b17bc6',
-        key: 'Email',
-        value: '',
-      }],
+        {
+          _id: '5b9110616ec37621e6b17bc6',
+          key: 'Email',
+          value: '',
+        }],
       domain,
       name: 'Bob',
       timestamp: new Date('2018-09-06T11:32:49.518Z'),
@@ -117,29 +114,28 @@ describe('<EditLeadSidebar />', () => {
         key: 'Phone',
         value: '',
       },
-      {
-        _id: '5b9110616ec37621e6b17bc6',
-        key: 'Email',
-        value: '',
-      }],
+        {
+          _id: '5b9110616ec37621e6b17bc6',
+          key: 'Email',
+          value: '',
+        }],
       domain,
       name: 'Mike',
       timestamp: new Date('2018-09-06T11:32:49.518Z'),
     },
   ];
-  const customField: CustomFieldSetting = {
-    _id: '5b97a9bb8ef7eb47231396ad',
-    isShownInAddDialog: false,
-    isAlwaysVisible: true,
-    isDefault: true,
-    model: 'Contact',
-    name: 'Phone',
-    type: 'string',
-  }
 
   const settings: DomainSettings = {
     customFields: [
-      customField,
+      {
+        _id: '5b97a9bb8ef7eb47231396ad',
+        isAlwaysVisible: true,
+        isDefault: true,
+        isShownInAddDialog: false,
+        model: 'Contact',
+        name: 'Phone',
+        type: 'string',
+      },
     ],
     timezone: 'Etc/UTC',
   };
@@ -147,7 +143,7 @@ describe('<EditLeadSidebar />', () => {
   let wrapper: any;
   beforeEach(() => {
     wrapper = shallow
-      (
+    (
       <EditLeadSidebar
         addCustomFieldToDomain={noop}
         editCustomFieldInDomain={noop}
@@ -162,7 +158,7 @@ describe('<EditLeadSidebar />', () => {
         organizations={organizations}
         settings={settings}
       />,
-      );
+    );
   });
 
 
@@ -181,7 +177,7 @@ describe('<EditLeadSidebar />', () => {
       contact: undefined,
     };
     wrapper = shallow
-      (
+    (
       <EditLeadSidebar
         addCustomFieldToDomain={noop}
         editCustomFieldInDomain={noop}
@@ -196,7 +192,7 @@ describe('<EditLeadSidebar />', () => {
         organizations={organizations}
         settings={settings}
       />,
-      );
+    );
     expect(wrapper.find('EmptyCard')).toHaveLength(1);
 
     editLead = {
@@ -206,7 +202,7 @@ describe('<EditLeadSidebar />', () => {
     };
 
     wrapper = shallow
-      (
+    (
       <EditLeadSidebar
         addCustomFieldToDomain={noop}
         editCustomFieldInDomain={noop}
@@ -221,7 +217,7 @@ describe('<EditLeadSidebar />', () => {
         organizations={organizations}
         settings={settings}
       />,
-      );
+    );
     expect(wrapper.find('EmptyCard')).toHaveLength(2);
   });
 });

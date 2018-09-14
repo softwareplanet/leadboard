@@ -87,12 +87,12 @@
   cursor: pointer;
 }
 
-.checkboxLabel input:checked ~ .checkMark {
+.checkboxLabel input:checked~.checkMark {
   background-color: #377be2;
   border: 2px solid #377be2;
 }
 
-.checkboxLabel input:checked ~ .checkMark:after {
+.checkboxLabel input:checked~.checkMark:after {
   display: block;
 }
 
@@ -173,7 +173,7 @@
   outline: none;
 }
 
-.invalidName{
+.invalidName {
   composes: nameInput;
   border: 1px solid red;
 }

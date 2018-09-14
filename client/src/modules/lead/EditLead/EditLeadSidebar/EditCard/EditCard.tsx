@@ -27,7 +27,7 @@ interface Props {
   addCustomFieldToDomain(customField: CustomFieldSetting): void;
 
   editCustomFieldInDomain(customField: CustomFieldSetting): void;
-
+  
   onUpdate(model: Contact | Organization): void;
 }
 

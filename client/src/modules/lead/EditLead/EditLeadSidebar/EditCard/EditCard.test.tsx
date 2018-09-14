@@ -76,8 +76,7 @@ describe('<EditCard />', () => {
 
   let wrapper: any;
   beforeEach(() => {
-    wrapper = shallow
-      (
+    wrapper = shallow(
       <EditCard
         addCustomFieldToDomain={noop}
         editCustomFieldInDomain={noop}
@@ -88,7 +87,7 @@ describe('<EditCard />', () => {
         icon={someIcon}
         customFields={customFields}
       />,
-      );
+    );
   });
 
   it('render EditCard component', () => {
@@ -104,8 +103,7 @@ describe('<EditCard />', () => {
   });
 
   it('render correct quantity for CardFields component for Organization', () => {
-    wrapper = shallow
-      (
+    wrapper = shallow(
       <EditCard
         addCustomFieldToDomain={noop}
         editCustomFieldInDomain={noop}
@@ -116,7 +114,7 @@ describe('<EditCard />', () => {
         icon={someIcon}
         customFields={customFields}
       />,
-      );
+    );
     wrapper.update();
     expect(wrapper.find(CardField).length).toEqual(2);
   });

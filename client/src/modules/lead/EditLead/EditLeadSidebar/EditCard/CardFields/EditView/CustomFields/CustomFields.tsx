@@ -11,7 +11,7 @@ interface Props {
   addCustomFieldToDomain(customField: CustomFieldSetting): void;
 
   editCustomFieldInDomain(customField: CustomFieldSetting): void;
-
+  
   closeEditCustomFieldsMode(): void;
 }
 
@@ -19,7 +19,6 @@ interface Props {
 interface State {
   isAddNew: boolean;
 }
-
 
 class CustomFields extends React.Component<Props, State> {
   public state: State = {

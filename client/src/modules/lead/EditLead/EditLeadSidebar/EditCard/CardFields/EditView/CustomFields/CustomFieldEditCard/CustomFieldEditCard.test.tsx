@@ -3,26 +3,15 @@ import 'jsdom-global/register';
 import * as React from 'react';
 import CustomFieldEditCard from './CustomFieldEditCard';
 
-
 describe('<CustomFieldEditCard />', () => {
-  const customs = [
-    {
-      isAlwaysVisible: true,
-      isDefault: true,
-      isShownInAddDialog: false,
-      model: 'Organization',
-      name: 'Address',
-      type: 'string',
-    },
-    {
-      isAlwaysVisible: true,
-      isDefault: true,
-      isShownInAddDialog: false,
-      model: 'Contact',
-      name: 'Address',
-      type: 'string',
-    },
-  ];
+  const customField = {
+    isAlwaysVisible: true,
+    isDefault: true,
+    isShownInAddDialog: false,
+    model: 'Organization',
+    name: 'Address',
+    type: 'string',
+  };
 
   let wrapper: any;
   const callback = jest.fn();
@@ -31,7 +20,7 @@ describe('<CustomFieldEditCard />', () => {
       <CustomFieldEditCard
         model={'Contact'}
         addDialogTitle={'Person'}
-        field={customs[0]}
+        field={customField}
         onSave={callback}
         onCancel={callback}
       />);
@@ -46,11 +35,11 @@ describe('<CustomFieldEditCard />', () => {
       <CustomFieldEditCard
         model={'Contact'}
         addDialogTitle={'Person'}
-        field={customs[0]}
+        field={customField}
         onSave={callback}
         onCancel={callback}
       />);
-      
+
     const button = wrapper.find(`#saveButton`);
     button.simulate('click');
     expect(callback).toHaveBeenCalled();
