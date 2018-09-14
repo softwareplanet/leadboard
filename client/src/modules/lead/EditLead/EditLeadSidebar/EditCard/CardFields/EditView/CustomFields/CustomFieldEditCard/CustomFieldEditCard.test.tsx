@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme';
-import { noop } from 'lodash';
 import * as React from 'react';
 import CustomFieldEditCard from './CustomFieldEditCard';
 import * as styles from './CustomFieldEditCard.css';
@@ -7,8 +6,7 @@ import * as styles from './CustomFieldEditCard.css';
 describe('<CustomFieldEditCard />', () => {
   const customs = [
     {
-      _id: '5b97d3573485d2406c818ba0',
-      isAlwaysShownInAddDialog: false,
+      isShownInAddDialog: false,
       isAlwaysVisible: true,
       isDefault: true,
       model: 'Organization',
@@ -16,8 +14,7 @@ describe('<CustomFieldEditCard />', () => {
       type: 'string',
     },
     {
-      _id: '5b97d3573485d2406c818ba0',
-      isAlwaysShownInAddDialog: false,
+      isShownInAddDialog: false,
       isAlwaysVisible: true,
       isDefault: true,
       model: 'Contact',
@@ -31,12 +28,11 @@ describe('<CustomFieldEditCard />', () => {
   beforeEach(() => {
     wrapper = shallow(
       <CustomFieldEditCard
-        onSave={noop}
-        title={'Person'}
-        editMode={''}
-        field={customs[1]}
-        saveEdit={callback}
-        cancelEdit={callback}
+        model={'Contact'}
+        addDialogTitle={'Person'}
+        field={customs[0]}
+        onSave={callback}
+        onCancel={callback}
       />);
   });
 

@@ -129,7 +129,7 @@ describe('<EditLeadSidebar />', () => {
   ];
   const customField: CustomFieldSetting = {
     _id: '5b97a9bb8ef7eb47231396ad',
-    isAlwaysShownInAddDialog: false,
+    isShownInAddDialog: false,
     isAlwaysVisible: true,
     isDefault: true,
     model: 'Contact',

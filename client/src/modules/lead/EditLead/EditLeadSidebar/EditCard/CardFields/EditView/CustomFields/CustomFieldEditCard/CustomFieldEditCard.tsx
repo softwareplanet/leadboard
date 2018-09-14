@@ -1,54 +1,66 @@
 import * as React from 'react';
 import CustomFieldSetting from '../../../../../../../../../models/customFields/CustomFieldSetting';
+import isBlank from '../../../../../../../../../utils/isBlank';
 import * as styles from './CustomFieldEditCard.css';
 
 
 interface Props {
   field?: CustomFieldSetting;
-  title: string;
-  editMode: string;
+  addDialogTitle: string;
+  model: string;
 
   onSave(customField: CustomFieldSetting): void;
 
-  cancelEdit(): void;
-  saveEdit(): void;
+  onCancel(): void;
 }
 
 interface State {
   name: string;
-  isAlwaysShownInAddDialog: boolean;
+  isShownInAddDialog: boolean;
   isAlwaysVisible: boolean;
 }
 
 class CustomFieldEditCard extends React.Component<Props, State> {
   public state: State = {
-    name: '',
-    isAlwaysShownInAddDialog: false,
-    isAlwaysVisible: true,
-    };
-  
-  public Save = () => {
-    let fieldToSave = {
-      name: this.state.name,
-      model: this.props.title,
-      type: 'string',
-      isDefault: false,
-      isAlwaysShownInAddDialog: this.state.isAlwaysShownInAddDialog,
+    isAlwaysVisible: this.props.field ? this.props.field.isAlwaysVisible : true,
+    isShownInAddDialog: this.props.field ? this.props.field.isShownInAddDialog : false,
+    name: this.props.field ? this.props.field.name : '',
+  };
+
+  private nameInputRef: React.RefObject<HTMLInputElement> = React.createRef();
+
+  public saveHandler = () => {
+    const fieldToSave: CustomFieldSetting = {
+      _id: this.props.field ? this.props.field!._id : undefined,
       isAlwaysVisible: this.state.isAlwaysVisible,
+      isDefault: false,
+      isShownInAddDialog: this.state.isShownInAddDialog,
+      model: this.props.model,
+      name: this.state.name,
+      type: 'string',
     }
 
-    this.props.onSave(fieldToSave)
+    if (isBlank(this.nameInputRef.current!.value)) {
+      this.nameInputRef.current!.className = styles.invalidName;
+    }
+    else {
+      this.props.onSave(fieldToSave);
+      this.props.onCancel();
+    }
   }
 
   public nameHandler = (e: React.FormEvent<HTMLInputElement>) => {
-    this.setState({name: e.currentTarget.value})
+    this.setState({ name: e.currentTarget.value })
+    this.nameInputRef.current!.className = styles.nameInput;
   }
-  public isAlwaysShownInAddDialogHandler = () => {
+
+  public addDialogHandler = () => {
     this.setState({
-      isAlwaysShownInAddDialog: !this.state.isAlwaysShownInAddDialog,
+      isShownInAddDialog: !this.state.isShownInAddDialog,
     })
   }
-  public isAlwaysVisibleHandler = () => {
+
+  public visiblityHandler = () => {
     this.setState({
       isAlwaysVisible: !this.state.isAlwaysVisible,
     })
@@ -65,43 +77,42 @@ class CustomFieldEditCard extends React.Component<Props, State> {
                 type="text"
                 className={styles.nameInput}
                 maxLength={64}
-                value={this.props.field ? this.props.field.name :
-                  this.state.name}
+                value={this.state.name}
                 onChange={this.nameHandler}
+                ref={this.nameInputRef}
               />
             </span>
           </div>
           <div className={styles.visibilityOptions}>
             <label className={styles.checkboxLabel}>
-              <input type="checkbox" checked={this.props.field ? this.props.field.isAlwaysVisible :
-              this.state.isAlwaysVisible}
-              onChange={this.isAlwaysVisibleHandler} 
+              <input type="checkbox" checked={this.state.isAlwaysVisible}
+                onChange={this.visiblityHandler}
               />
               <span>Always visible on sidebar</span>
             </label>
             <label className={styles.checkboxLabel}>
-              <input 
+              <input
                 type="checkbox"
-                checked={this.props.field ? this.props.field.isAlwaysShownInAddDialog:   this.state.isAlwaysShownInAddDialog}
-                onChange={this.isAlwaysShownInAddDialogHandler} 
+                checked={this.state.isShownInAddDialog}
+                onChange={this.addDialogHandler}
               />
-              <span>Appears in "Add new {this.props.title.toLowerCase()}" dialogue</span>
+              <span>Appears in "Add new {this.props.addDialogTitle.toLowerCase()}" dialogue</span>
             </label>
           </div>
         </div>
         <div className={styles.actionButtons}>
-          <button 
+          <button
             className={styles.cancelButton}
-            onClick={this.props.cancelEdit}
+            onClick={this.props.onCancel}
           >
-          Cancel
+            Cancel
           </button>
-          <button 
+          <button
             className={styles.saveButton}
-            onClick={this.Save}
-            >
+            onClick={this.saveHandler}
+          >
             Save
-            </button>
+          </button>
         </div>
       </div>
     );

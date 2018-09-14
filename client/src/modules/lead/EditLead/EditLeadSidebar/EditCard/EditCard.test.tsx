@@ -53,7 +53,7 @@ describe('<EditCard />', () => {
 
   const customFields: CustomFieldData[] = [
     {
-      isAlwaysShownInAddDialog: false,
+      isShownInAddDialog: false,
       isAlwaysVisible: true,
       isDefault: true,
       key: '5b97d3573485d2406c818ba0',
@@ -63,7 +63,7 @@ describe('<EditCard />', () => {
       value: '',
     },
     {
-      isAlwaysShownInAddDialog: false,
+      isShownInAddDialog: false,
       isAlwaysVisible: true,
       isDefault: true,
       key: '5b97d3573485d2406c818ba0',

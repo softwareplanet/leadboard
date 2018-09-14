@@ -17,22 +17,18 @@ interface Props {
 
 
 interface State {
-  isEdit: boolean;
+  isAddNew: boolean;
 }
 
 
 class CustomFields extends React.Component<Props, State> {
   public state: State = {
-    isEdit: false,
+    isAddNew: false,
   };
 
-  public saveEditing = () => {
-    console.log('Save custom field Action')
-  }
-
-  public triggerNewField = () => {
+  public triggerNewFieldCard = () => {
     this.setState((prevState) =>
-      ({ isEdit: !prevState.isEdit })
+      ({ isAddNew: !prevState.isAddNew })
     );
   }
 
@@ -44,10 +40,12 @@ class CustomFields extends React.Component<Props, State> {
             return (
               <CustomFieldCard
                 key={customField._id}
+                addDialogTitle={this.props.title}
                 customSettings={customField}
+                editCustomFieldInDomain={this.props.editCustomFieldInDomain}
               />);
           })}
-          {this.renderAddNew(this.state.isEdit)}
+          {this.renderAddNew(this.state.isAddNew)}
         </div>
         <div className={styles.buttonWrapper}>
           <button
@@ -64,16 +62,15 @@ class CustomFields extends React.Component<Props, State> {
   private renderAddNew = (trigger: boolean) => {
     return trigger ?
       (<CustomFieldEditCard
-        title={this.props.title}
-        editMode={'add'}
+        model={this.props.customFields[0].model}
+        addDialogTitle={this.props.title}
         onSave={this.props.addCustomFieldToDomain}
-        saveEdit={this.saveEditing}
-        cancelEdit={this.triggerNewField}
+        onCancel={this.triggerNewFieldCard}
       />) :
       (<div className={styles.newFieldContainer}>
-        <span onClick={this.triggerNewField} className={styles.addNewField}>
+        <span onClick={this.triggerNewFieldCard} className={styles.addNewField}>
           + Add a new field
-    </span>
+        </span>
       </div>)
   }
 }

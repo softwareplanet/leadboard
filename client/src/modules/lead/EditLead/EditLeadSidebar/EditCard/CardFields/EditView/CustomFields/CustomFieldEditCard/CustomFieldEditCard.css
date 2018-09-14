@@ -122,3 +122,8 @@
 .saveButton:focus {
   outline: none;
 }
+
+.invalidName{
+  composes: nameInput;
+  border: 1px solid red;
+}

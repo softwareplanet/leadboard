@@ -9,7 +9,7 @@ describe('<CustomFields />', () => {
   const customs = [
     {
       _id: '5b97d3573485d2406c818ba0',
-      isAlwaysShownInAddDialog: false,
+      isShownInAddDialog: false,
       isAlwaysVisible: true,
       isDefault: true,
       model: 'Organization',
@@ -18,7 +18,7 @@ describe('<CustomFields />', () => {
     },
     {
       _id: '5b97d3573485d2406c818ba0',
-      isAlwaysShownInAddDialog: false,
+      isShownInAddDialog: false,
       isAlwaysVisible: true,
       isDefault: true,
       model: 'Contact',

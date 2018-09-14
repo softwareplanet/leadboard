@@ -27,6 +27,10 @@ export const validateCustomFieldCreation = (data) => {
     errors.isDefault = "You cannot add custom fields with property default";
   }
 
+  if (isEmpty(data.name)) {
+    errors.name = "You cannot add custom fields with empty name";
+  }
+
   return {
     errors,
     hasErrors: !isEmpty(errors),
@@ -38,6 +42,10 @@ export const validateCustomFieldUpdate = (data) => {
 
   if (data.isDefault) {
     errors.isDefault = "You cannot add custom fields with property default";
+  }
+
+  if (isEmpty(data.name)) {
+    errors.name = "You cannot update custom fields with empty name";
   }
 
   return {

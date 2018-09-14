@@ -1,38 +1,69 @@
+import * as classNames from 'classnames';
 import * as React from 'react';
 import CustomFieldSetting from '../../../../../../../../models/customFields/CustomFieldSetting';
+import CustomFieldEditCard from '../CustomFields/CustomFieldEditCard/CustomFieldEditCard';
 import * as styles from './CustomFieldCard.css';
-import * as classNames from 'classnames';
 
 interface Props {
   customSettings: CustomFieldSetting;
+  addDialogTitle: string;
+
+  editCustomFieldInDomain(customField: CustomFieldSetting): void;
 }
 
-class CustomFieldCard extends React.Component<Props> {
+interface State {
+  editMode: boolean;
+}
+
+class CustomFieldCard extends React.Component<Props, State> {
+  public state: State = {
+    editMode: false,
+  };
+
+  public editModeHandler = () => {
+    this.setState((prevState) => ({
+      editMode: !prevState.editMode
+    }));
+  }
+
   public render() {
-    return (
-      <div>
-        <div className={classNames(styles.item, {[styles.editable]: !this.checkDefault()})}>
-          <div className={styles.fieldName}>
-            <span className={styles.icon}>A̲</span>
-            <div className={styles.title}>
-              {this.props.customSettings.name}
-            </div>
-            <div className={styles.actions}>
-              <button className={styles.editButton}>
-                <span>
-                  Edit
-                </span>
-              </button>
-            </div>
+    return !this.state.editMode ? this.renderCard() : this.renderEditCard()
+  }
+
+  private renderCard = () => {
+    return (<div>
+      <div className={classNames(styles.item, { [styles.editable]: !this.checkDefault() })}>
+        <div className={styles.fieldName}>
+          <span className={styles.icon}>A̲</span>
+          <div className={styles.title}>
+            {this.props.customSettings.name}
           </div>
-          <ul className={styles.properties}>
-            {this.props.customSettings.isAlwaysVisible ? <li>Always visible on sidebar</li> : null}
-            {this.props.customSettings.isAlwaysShownInAddDialog ?
-              <li>Appears in "Add new {this.props.customSettings.model}" dialogue</li> : null}
-          </ul>
+          <div className={styles.actions}>
+            <button className={styles.editButton} onClick={this.editModeHandler}>
+              <span>
+                Edit
+              </span>
+            </button>
+          </div>
         </div>
+        <ul className={styles.properties}>
+          {this.props.customSettings.isAlwaysVisible ? <li>Always visible on sidebar</li> : null}
+          {this.props.customSettings.isShownInAddDialog ?
+            <li>Appears in "Add new {this.props.addDialogTitle.toLowerCase()}" dialogue</li> : null}
+        </ul>
       </div>
-    );
+    </div>);
+  }
+
+  private renderEditCard = () => {
+    return (
+      <CustomFieldEditCard
+        field={this.props.customSettings}
+        model={this.props.customSettings.model}
+        addDialogTitle={this.props.addDialogTitle}
+        onSave={this.props.editCustomFieldInDomain}
+        onCancel={this.editModeHandler}
+      />);
   }
 
   private checkDefault = () => {

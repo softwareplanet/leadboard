@@ -7,7 +7,7 @@ export const addCustomFieldToDomain =
   (customField: CustomFieldSetting) => 
   (dispatch: Dispatch, getState:any ) => {
     axios
-      .post(`/api/${getState().auth.domainid}/settings/customFields`, customField)
+      .post(`/api/domain/${getState().auth.domainid}/settings/customFields`, customField)
       .then(result => {
         dispatch({
           payload: result.data,
@@ -20,7 +20,7 @@ export const editCustomFieldInDomain =
   (customField: CustomFieldSetting) => 
   (dispatch: Dispatch, getState: any) => {
     axios
-      .patch(`/api/${getState().auth.domainid}/settings/customFields/${customField._id}`, customField)
+      .patch(`/api/domain/${getState().auth.domainid}/settings/customFields/${customField._id}`, customField)
       .then(result => {
         dispatch({
           payload: result.data,
