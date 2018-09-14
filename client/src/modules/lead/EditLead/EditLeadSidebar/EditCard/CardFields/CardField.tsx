@@ -1,34 +1,36 @@
-import React, { Component } from "react";
-import styles from "./CardField.css";
-import SingleEditView from "./EditView/SingleEditView/SingleEditView";
-import PropTypes from "prop-types";
-import isBlank from "../../../../../../utils/isBlank";
-import EditButton from "../EditButton/EditButton";
+import * as React from 'react';
+import CustomFieldData from '../../../../../../models/customFields/CustomFieldData';
+import isBlank from '../../../../../../utils/isBlank';
+import EditButton from '../EditButton/EditButton';
+import * as styles from './CardField.css';
+import SingleEditView from './EditView/SingleEditView/SingleEditView';
 
-class CardField extends Component {
+interface Props {
+  field: CustomFieldData;
 
-  state = {
+  onUpdate(name: string, value: any): void;
+}
+
+interface State {
+  isInEditMode: boolean,
+}
+
+export default class CardField extends React.Component<Props, State> {
+
+  public state: State = {
     isInEditMode: false,
   };
 
-  openEditMode = () => {
-    this.setState({ isInEditMode: true });
-  };
-
-  closeEditMode = () => {
-    this.setState({ isInEditMode: false });
-  };
-
-  render() {
-    const { name, value } = this.props.field;
+  public render() {
+    const { name, value, key } = this.props.field;
     const { isInEditMode } = this.state;
 
-    let valueAdd = (
+    const valueAdd = (
       <span className={styles.addValue} onClick={this.openEditMode}>
           + Add value
       </span>
     );
-    let valueShow = (
+    const valueShow = (
       <div id="fieldValue" className={styles.customFieldValueWrap}>
         <span className={styles.customFieldValue}>
           {value}
@@ -54,17 +56,19 @@ class CardField extends Component {
           <SingleEditView
             fieldName={name}
             fieldValue={value}
+            fieldKey={key}
             onChange={this.props.onUpdate}
             onCancel={this.closeEditMode} />
         }
       </div>
     );
   }
+
+  private openEditMode = () => {
+    this.setState({ isInEditMode: true });
+  };
+
+  private closeEditMode = () => {
+    this.setState({ isInEditMode: false });
+  };
 }
-
-CardField.propTypes = {
-  field: PropTypes.object,
-  onUpdate: PropTypes.func,
-};
-
-export default CardField;

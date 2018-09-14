@@ -24,7 +24,7 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    document.title = "Log In";
+    document.title = "Leadboard - Log In";
   }
 
   componentWillUnmount() {

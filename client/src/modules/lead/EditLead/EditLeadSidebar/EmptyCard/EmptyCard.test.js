@@ -4,8 +4,8 @@ import { EmptyCard } from "./EmptyCard";
 import { expect } from "chai";
 import { mount } from "enzyme";
 import Modal from "react-modal";
-import OrganizationAutocomplete from "../../../../../common/autocomplete/organization/OrganizationAutocomplete";
-import styles from "../EditCard.css";
+import OrganizationAutocomplete from "../../../../common/autocomplete/organization/OrganizationAutocomplete";
+import styles from "../EditCard/EditCard.css";
 
 describe("<EmptyCard />", () => {
   let wrapper;
