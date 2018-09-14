@@ -2,59 +2,43 @@ import Lead from "../../models/lead";
 
 const LEAD = "Lead";
 
-export const loadLeads = (domain, part) => {
+const lookupOne = model => {
+  return [
+    {
+      $lookup: {
+        from: `${model}s`,
+        localField: model,
+        foreignField: "_id",
+        as: model,
+      },
+    },
+    {
+      $unwind: {
+        path: `$${model}`,
+        preserveNullAndEmptyArrays: true,
+      },
+    },
+  ];
+};
+
+const regexMatcher = query => {
+  return { $regex: `(?:|\\W)${query}(?:|\\W)`, $options: "i" };
+};
+
+export const loadLeads = (domain, query) => {
   return Lead.aggregate([
     {
       $match: { domain: domain },
     },
-    {
-      $lookup: {
-        from: "contacts",
-        localField: "contact",
-        foreignField: "_id",
-        as: "contact",
-      },
-    },
-    {
-      $unwind: {
-        path: "$contact",
-        preserveNullAndEmptyArrays: true,
-      },
-    },
-    {
-      $lookup: {
-        from: "organizations",
-        localField: "organization",
-        foreignField: "_id",
-        as: "organization",
-      },
-    },
-    {
-      $unwind: {
-        path: "$organization",
-        preserveNullAndEmptyArrays: true,
-      },
-    },
-    {
-      $lookup: {
-        from: "stages",
-        localField: "stage",
-        foreignField: "_id",
-        as: "stage",
-      },
-    },
-    {
-      $unwind: {
-        path: "$stage",
-        preserveNullAndEmptyArrays: true,
-      },
-    },
+    ...lookupOne('contact'),
+    ...lookupOne('organization'),
+    ...lookupOne('stage'),
     {
       $match: {
         $or: [
-          { "organization.name": { $regex: `(?:|\\W)${part}(?:|\\W)`, $options: "i" } },
-          { "contact.name": { $regex: `(?:|\\W)${part}(?:|\\W)`, $options: "i" } },
-          { name: { $regex: `(?:|\\W)${part}(?:|\\W)`, $options: "i" } },
+          { "organization.name": regexMatcher(query) },
+          { "contact.name": regexMatcher(query) },
+          { name: regexMatcher(query) },
         ],
       },
     },
