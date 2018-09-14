@@ -1,11 +1,8 @@
+import Action from '../../models/Action';
 import Funnel from '../../models/Funnel';
 import Stage from '../../models/Stage';
 import { EDIT_STAGE, LOAD_FUNNELS, LOAD_STAGES, SET_FUNNEL } from './types';
 
-interface Action {
- type: string;
- payload: any;
-}
 
 const initialState = {
   funnels: [],
