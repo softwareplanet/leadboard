@@ -5,7 +5,7 @@ interface Props {
   className: string;
 }
 
-export default class SearchTabs extends React.Component<Props> {
+export default class SearchSpinner extends React.Component<Props> {
 
   public render() {
     return (
