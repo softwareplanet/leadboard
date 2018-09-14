@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as styles from './UserDropDown.css';
 import { connect } from 'react-redux';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import ReactSVG from 'react-svg';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 import dropMenuIcon from '../../../../assets/drop-menu-icon.svg';
@@ -19,6 +19,8 @@ interface Props extends RouteComponentProps<any> {
 interface State {
   isDropdownOpen: boolean;
 }
+
+const settingsRoute = '/settings/funnels';
 
 class UserDropDown extends React.Component<Props, State> {
   public state: State = {
@@ -75,6 +77,12 @@ class UserDropDown extends React.Component<Props, State> {
               </div>
               <span>Log out</span>
             </DropdownItem>
+            <Link to={settingsRoute}>
+              <DropdownItem className={styles.userDropDownItem} id="settings">
+                <ReactSVG src={settingsIcon} className={styles.menuItemIcon} />
+                <span>Settings</span>
+              </DropdownItem>
+            </Link>
           </DropdownMenu>
         </Dropdown>
       </div>
