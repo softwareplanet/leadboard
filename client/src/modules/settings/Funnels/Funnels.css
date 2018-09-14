@@ -97,3 +97,8 @@
   composes: tabBadge;
   background: #3f4346;
 }
+
+.tab:hover .tabBadgeActive {
+  background: #3f4346;
+}
+

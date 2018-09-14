@@ -17,7 +17,7 @@ const initialState: InitialState = {
 export default function(state = initialState, action: Action) {
   switch (action.type) {
     case SET_FUNNEL: {
-      const { funnels } = { ...state };
+      const funnels = [ ...state.funnels ];
       const editedFunnels = funnels
         .map((funnel: Funnel) => funnel = (funnel._id === action.payload._id) ? action.payload : funnel);
       return {
@@ -38,7 +38,7 @@ export default function(state = initialState, action: Action) {
         stages: action.payload,
       };
     case EDIT_STAGE: {
-      const { stages } = { ...state };
+      const stages =  [ ...state.stages ] ;
       const editedStages = stages
         .map((stage: Stage) => stage = (stage._id === action.payload._id) ? action.payload : stage);
       return {
@@ -47,7 +47,7 @@ export default function(state = initialState, action: Action) {
       };
     }
     case ADD_FUNNEL: {
-      const { funnels } = { ...state };
+      const funnels = [ ...state.funnels ];
       funnels.push(action.payload);
       return {
         ...state,
