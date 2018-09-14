@@ -13,7 +13,7 @@ export default class Funnel extends React.Component<Props> {
 
     return (
       <div className={styles.funnel}>
-        <Stages funnelId={'5b97a9bb8ef7eb47231396a6'}/>
+        <Stages />
       </div>
     )
   }

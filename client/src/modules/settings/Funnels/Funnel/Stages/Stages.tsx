@@ -4,10 +4,11 @@ import Stage from '../../../../../models/Stage';
 import { loadStages } from '../../../settingActions';
 import * as styles from './Stages.css'
 import StageView from './StageView/StageView';
+import Funnel from '../../../../../models/Funnel';
 
 interface Props {
-  funnelId: string;
   stages: Stage[];
+  selectedFunnel: Funnel;
 
   loadStages(funnelId: string): void;
 }
@@ -15,7 +16,7 @@ interface Props {
 class Stages extends React.Component<Props> {
 
   public componentDidMount() {
-    this.props.loadStages(this.props.funnelId);
+    this.props.loadStages(this.props.selectedFunnel._id);
   }
 
   public render() {
@@ -38,7 +39,8 @@ class Stages extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: any) => ({
-  stages: state.funnelSettings.stages,
+  stages: state.settings.stages,
+  selectedFunnel: state.settings.selectedFunnel,
 });
 
 export default connect(mapStateToProps, {loadStages})(Stages)

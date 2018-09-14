@@ -26,7 +26,7 @@ const appReducer = combineReducers({
   contacts: contactReducer,
   organizations: organizationReducer,
   domain: domainReducer,
-  funnelSettings: settingReducer,
+  settings: settingReducer,
 });
 
 export default function rootReducer(state, action) {
