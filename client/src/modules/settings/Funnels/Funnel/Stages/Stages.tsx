@@ -36,6 +36,8 @@ class Stages extends React.Component<Props> {
   }
 }
 
+
+
 const mapStateToProps = (state: any) => ({
   selectedFunnel: state.settings.selectedFunnel,
   stages: state.settings.stages,

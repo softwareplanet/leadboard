@@ -71,6 +71,14 @@ export default class AddStageModal extends React.Component<Props, State> {
     )
   }
 
+  public componentDidMount() {
+    if (this.props.name) {
+      this.setState({
+        name: this.props.name,
+      })
+    }
+  }
+
   private onNameChange = (e: any) => {
     this.setState({
       ...this.state,
