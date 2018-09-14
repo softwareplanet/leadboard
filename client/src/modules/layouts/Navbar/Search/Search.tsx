@@ -49,7 +49,7 @@ class Search extends React.Component<Props, State> {
   }
 
   private onSelect = (value: string, item: SearchItemModel) => {
-    this.props.history.replace(`../lead/${item._id}`);
+    this.props.history.push(`../lead/${item._id}`);
     this.setState({ isDropdownOpen: false, value: '' });
   };
 
