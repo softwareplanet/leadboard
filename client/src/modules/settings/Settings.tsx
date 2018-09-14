@@ -13,7 +13,7 @@ export default class Settings extends React.Component {
         <Sidebar />
         <div className={styles.settingsContent}>
           <Route 
-            path="/settings/pipelines" 
+            path="/settings/funnels" 
             component={Funnels} 
           />
           <Route 

@@ -2,8 +2,24 @@ import { Router } from "express";
 import mongoose from "mongoose";
 import Funnel from "../../models/funnel";
 import validateFunnelInput from "../../validation/funnel";
+import { isValidModelId } from "../../validation/validationUtils";
 
 const router = new Router();
+
+const validateFunnelDomain = (req, res, next) => {
+  if (isValidModelId(req.params.funnelId)) {
+    Funnel.findById(req.params.funnelId)
+      .then(funnel => {
+        if (funnel !== null && funnel.domain.equals(req.user.domain)) {
+          next();
+        } else {
+          return res.status(404).json({ errors: { message: "Funnel with provided id is not found in your domain" } });
+        }
+      });
+  } else {
+    return res.status(404).json({ errors: { message: "Provided funnel's id is not valid" } });
+  }
+};
 
 // @route   GET api/funnel
 // @desc    Return all funnels by domain
@@ -33,6 +49,19 @@ router.post("/", function(req, res) {
   Funnel.create(funnel)
     .then(funnel => {
       res.json(funnel._id);
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
+});
+
+// @route   PATCH api/funnel/:funnelId
+// @desc    update funnel
+// @access  Private
+router.patch("/:funnelId", validateFunnelDomain, function(req, res) {
+  Funnel.findByIdAndUpdate(req.params.funnelId, { $set: req.body}, { new: true })
+    .then(funnel => {
+      res.json(funnel);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });

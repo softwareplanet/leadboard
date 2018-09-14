@@ -1,11 +1,10 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
-import { EDIT_STAGE, LOAD_FUNNEL, LOAD_FUNNELS, LOAD_STAGES } from './types';
+import { EDIT_STAGE, LOAD_FUNNELS, LOAD_STAGES, SET_FUNNEL } from './types';
 
-
-export const loadFunnels = (domainId: string) => (dispatch: Dispatch) => {
+export const loadFunnels = () => (dispatch: Dispatch) => {
  axios
-   .get(`/api/funnels?domainId=${domainId}`)
+   .get(`/api/funnel`)
    .then(result => {
      dispatch({
        payload: result.data,
@@ -13,17 +12,6 @@ export const loadFunnels = (domainId: string) => (dispatch: Dispatch) => {
    });
  });
 };
-
-export const loadFunnel = (funnelId: string) => (dispatch: Dispatch) => {
-  axios
-    .get(`/api/funnels/${funnelId}`)
-    .then(result => {
-      dispatch({
-        payload: result.data,
-        type: LOAD_FUNNEL,
-    });
-  });
- };
 
  export const loadStages = (funnelId: string) => (dispatch: Dispatch) => {
   axios
@@ -36,20 +24,20 @@ export const loadFunnel = (funnelId: string) => (dispatch: Dispatch) => {
   });
  };
 
- export const updateFunnel = (funnelId: string) => (dispatch: Dispatch) => {
+ export const updateFunnel = (funnelId: string, funnel: any) => (dispatch: Dispatch) => {
   axios
-    .patch(`/api/funnels/${funnelId}`)
+    .patch(`/api/funnel/${funnelId}`, funnel)
     .then(result => {
       dispatch({
         payload: result.data,
-        type: LOAD_FUNNEL,
+        type: SET_FUNNEL,
     });
   });
  };
 
- export const updateStage = (stageId: string) => (dispatch: Dispatch) => {
+ export const updateStage = (stageId: string, stage: any) => (dispatch: Dispatch) => {
   axios
-    .patch(`/api/stages/${stageId}`)
+    .patch(`/api/stage/${stageId}`, stage)
     .then(result => {
       dispatch({
         payload: result.data,
