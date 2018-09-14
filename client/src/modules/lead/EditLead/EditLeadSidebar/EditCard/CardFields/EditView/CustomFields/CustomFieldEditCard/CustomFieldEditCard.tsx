@@ -85,18 +85,20 @@ class CustomFieldEditCard extends React.Component<Props, State> {
           </div>
           <div className={styles.visibilityOptions}>
             <label className={styles.checkboxLabel}>
+              Always visible on sidebar
               <input type="checkbox" checked={this.state.isAlwaysVisible}
-                onChange={this.visiblityHandler}
+              onChange={this.visiblityHandler} 
               />
-              <span>Always visible on sidebar</span>
+              <span className={styles.checkMark} />
             </label>
             <label className={styles.checkboxLabel}>
-              <input
+              Appears in "Add new {this.props.addDialogTitle.toLowerCase()}" dialogue
+              <input 
                 type="checkbox"
                 checked={this.state.isShownInAddDialog}
                 onChange={this.addDialogHandler}
               />
-              <span>Appears in "Add new {this.props.addDialogTitle.toLowerCase()}" dialogue</span>
+              <span className={styles.checkMark} />
             </label>
           </div>
         </div>
@@ -104,12 +106,14 @@ class CustomFieldEditCard extends React.Component<Props, State> {
           <button
             className={styles.cancelButton}
             onClick={this.props.onCancel}
+            id={'cancelButton'}
           >
             Cancel
           </button>
           <button
             className={styles.saveButton}
             onClick={this.saveHandler}
+            id={'saveButton'}
           >
             Save
           </button>

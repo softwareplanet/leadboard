@@ -1,22 +1,23 @@
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
+import 'jsdom-global/register';
 import * as React from 'react';
 import CustomFieldEditCard from './CustomFieldEditCard';
-import * as styles from './CustomFieldEditCard.css';
+
 
 describe('<CustomFieldEditCard />', () => {
   const customs = [
     {
-      isShownInAddDialog: false,
       isAlwaysVisible: true,
       isDefault: true,
+      isShownInAddDialog: false,
       model: 'Organization',
       name: 'Address',
       type: 'string',
     },
     {
-      isShownInAddDialog: false,
       isAlwaysVisible: true,
       isDefault: true,
+      isShownInAddDialog: false,
       model: 'Contact',
       name: 'Address',
       type: 'string',
@@ -41,13 +42,21 @@ describe('<CustomFieldEditCard />', () => {
   });
 
   it('should exec saveEdit ', () => {
-    const button = wrapper.find(`${styles.saveButton}`);
+    wrapper = mount(
+      <CustomFieldEditCard
+        model={'Contact'}
+        addDialogTitle={'Person'}
+        field={customs[0]}
+        onSave={callback}
+        onCancel={callback}
+      />);
+    const button = wrapper.find(`#saveButton`);
     button.simulate('click');
     expect(callback).toHaveBeenCalled();
   });
 
   it('should exec cancelEdit', () => {
-    const button = wrapper.find(`${styles.cancelButton}`);
+    const button = wrapper.find(`#cancelButton`);
     button.simulate('click');
     expect(callback).toHaveBeenCalled();
   });
