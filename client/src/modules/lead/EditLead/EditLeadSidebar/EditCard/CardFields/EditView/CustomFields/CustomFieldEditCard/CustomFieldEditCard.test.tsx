@@ -16,14 +16,16 @@ describe('<CustomFieldEditCard />', () => {
   let wrapper: any;
   const callback = jest.fn();
   beforeEach(() => {
-    wrapper = shallow(
+    wrapper = shallow
+    (
       <CustomFieldEditCard
         model={'Contact'}
         addDialogTitle={'Person'}
         field={customField}
         onSave={callback}
         onCancel={callback}
-      />);
+      />
+    );
   });
 
   it('should render CustomFieldEditCard component', () => {
@@ -31,14 +33,16 @@ describe('<CustomFieldEditCard />', () => {
   });
 
   it('should exec saveEdit ', () => {
-    wrapper = mount(
+    wrapper = mount
+    (
       <CustomFieldEditCard
         model={'Contact'}
         addDialogTitle={'Person'}
         field={customField}
         onSave={callback}
         onCancel={callback}
-      />);
+      />
+    );
     const button = wrapper.find('.saveButton');
     button.simulate('click');
     expect(callback).toHaveBeenCalled();

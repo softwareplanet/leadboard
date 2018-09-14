@@ -49,8 +49,6 @@ class CustomFieldCard extends React.Component<Props, State> {
           </div>
           <ul className={styles.properties}>
             {this.props.customSettings.isAlwaysVisible ? <li>Always visible on sidebar</li> : null}
-            {this.props.customSettings.isShownInAddDialog ?
-              <li>Appears in "Add new {this.props.addDialogTitle.toLowerCase()}" dialogue</li> : null}
           </ul>
         </div>
       </div>

@@ -9,7 +9,7 @@ interface Props {
   model: string;
 
   onSave(customField: CustomFieldSetting): void;
-  
+
   onCancel(): void;
 }
 
@@ -87,15 +87,6 @@ class CustomFieldEditCard extends React.Component<Props, State> {
               Always visible on sidebar
               <input type="checkbox" checked={this.state.isAlwaysVisible}
                 onChange={this.visiblityHandler}
-              />
-              <span className={styles.checkMark} />
-            </label>
-            <label className={styles.checkboxLabel}>
-              Appears in "Add new {this.props.addDialogTitle.toLowerCase()}" dialogue
-              <input
-                type="checkbox"
-                checked={this.state.isShownInAddDialog}
-                onChange={this.addDialogHandler}
               />
               <span className={styles.checkMark} />
             </label>

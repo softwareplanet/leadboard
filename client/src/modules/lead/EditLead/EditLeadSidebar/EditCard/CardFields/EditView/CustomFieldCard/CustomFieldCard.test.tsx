@@ -18,12 +18,14 @@ describe('<CustomFieldCard />', () => {
   let wrapper;
 
   it('renders without crashing', () => {
-    wrapper = shallow(
+    wrapper = shallow
+    (
       <CustomFieldCard
         customSettings={settings}
         addDialogTitle={'Person'}
         editCustomFieldInDomain={noop}
-      />);
+      />
+    );
     expect(wrapper.length).toBe(1);
   });
 });
