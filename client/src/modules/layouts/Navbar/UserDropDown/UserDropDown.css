@@ -18,7 +18,7 @@
   width: 100%;
 }
 
-.logoutIcon {
+.menuItemIcon {
   composes: dropDownIcon;
   margin-right: 16px;
 }
@@ -41,7 +41,7 @@
   height: 16px;
 }
 
-.userDropDown button {
+.closedUserDropDown {
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
@@ -49,51 +49,15 @@
   text-decoration: none;
   background: none;
   cursor: pointer;
-  padding: 8px 14px 8px 12px;
   color: #b9babb;
 }
 
-.userDropDown button:hover small {
+.closedUserDropDown :hover span {
+  color: #b9babb
+}
+
+.closedUserDropDown :hover .domainName {
   color: #fff;
-}
-
-.userDropDown button span {
-  color: #fff;
-}
-
-.userDropDown button:focus {
-  background: white;
-  color: #404346;
-  outline: none;
-}
-
-.userDropDown button:focus span {
-  background: white;
-  color: #404346;
-  outline: none;
-}
-
-.userDropDown button:focus small {
-  background: white;
-  color: #404346;
-  outline: none;
-}
-
-.userDropDown:active {
-  opacity: 0.6;
-}
-
-.userDropDown button::after {
-  display: none;
-}
-
-.userDropDownMenu {
-  box-shadow: 0 4px 8px rgba(38, 41, 44, 0.1);
-  border-radius: 0;
-  padding: 10px 0 10px;
-  border: none;
-  margin: 0;
-  width: 293px;
 }
 
 .userDropDownItem {
@@ -109,6 +73,7 @@
 }
 
 .userDropDownItem:hover {
+  cursor: pointer;
   text-decoration: none;
   color: white;
   background-color: #317ae2;
@@ -131,4 +96,22 @@
   .userInfo {
     padding: 0;
   }
+}
+
+.userDropDownMenu {
+  box-shadow: 0 4px 8px rgba(38, 41, 44, 0.1);
+  border-radius: 0;
+  padding: 10px 0 10px;
+  border: none;
+  margin: 0;
+  color: black;
+}
+
+.dropDownToggle {
+  padding: 8px 14px 8px 12px;
+}
+
+.openedUserDropDown {
+  background-color: white;
+  color: #404346;
 }

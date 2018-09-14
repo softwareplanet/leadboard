@@ -55,13 +55,13 @@ ul {
 }
 
 .item div:hover {
-  color: white;
   cursor: pointer;
 }
 
 .rightItem {
   composes: item;
   margin-left: auto;
+  padding: 0px;
 }
 
 .rightItem div:hover {
