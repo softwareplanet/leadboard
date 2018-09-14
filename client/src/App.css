@@ -20,6 +20,12 @@ li {
   cursor: pointer;
 }
 
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 /* LOGIN FORM */
 :global(#login-container) {
   display: flex;

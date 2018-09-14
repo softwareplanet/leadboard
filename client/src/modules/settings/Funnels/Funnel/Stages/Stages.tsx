@@ -15,9 +15,13 @@ interface Props {
 
 class Stages extends React.Component<Props> {
 
-  public componentDidMount() {
-    this.props.loadStages('5b9a3676d7c72c478f2fa42e');
+  public componentWillReceiveProps(nextProps: Props) {
+    if (nextProps.selectedFunnel._id !== this.props.selectedFunnel._id){
+      this.props.loadStages(nextProps.selectedFunnel._id);
+    }
   }
+
+  
 
   public render() {
     return (

@@ -44,11 +44,11 @@ router.post("/", function(req, res) {
   const funnel = new Funnel({
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
-    domain: req.body.domain
+    domain: req.user.domain,
   });
   Funnel.create(funnel)
     .then(funnel => {
-      res.json(funnel._id);
+      res.json(funnel);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });
