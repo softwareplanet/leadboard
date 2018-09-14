@@ -19,6 +19,16 @@
 
 .heading {
   display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.mainHeading {
+  display: flex;
+}
+
+.addButton {
+  composes: buttonSmall buttonGreen from "../../../../styles/common.css";
 }
 
 .modalHeader {

@@ -47,8 +47,11 @@ class Funnel extends React.Component<Props, State> {
       <div className={styles.funnel}>
         <div>
           <div className={styles.heading}>
-            <div className={styles.name}>{this.props.funnel ? this.props.funnel.name : ''}</div>
-            <div onClick={this.openModal} className={styles.edit}>Edit</div>
+            <div className={styles.mainHeading}>
+              <div className={styles.name}>{this.props.funnel ? this.props.funnel.name : ''}</div>
+              <div onClick={this.openModal} className={styles.edit}>Edit</div>
+            </div>
+            <button className={styles.addButton}>Add new stage</button>
           </div>
           <Modal 
             isOpen={this.state.isModalOpen}

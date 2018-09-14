@@ -10,3 +10,5 @@ export const inputContainer: string;
 export const modalButtons: string;
 export const save: string;
 export const cancel: string;
+export const mainHeading: string;
+export const addButton: string;
