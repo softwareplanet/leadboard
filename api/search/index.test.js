@@ -34,7 +34,7 @@ describe("Search", () => {
     const { status, body } = await request(app())
       .get("/api/searchResults")
       .set("Authorization", cred.token)
-      .query(`query=${lead.name.substring(0,3)}`);
+      .query(`query=${lead.name.substring(0, 3)}`);
     expect(status).toBe(200);
     expect(body.result).toMatchObject([
       {

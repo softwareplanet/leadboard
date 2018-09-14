@@ -82,4 +82,6 @@ const mapStateToProps = (state: any) => ({
   search: state.search,
 });
 
+export { Search };
+
 export default connect(mapStateToProps, { loadSearchResult })(Search);

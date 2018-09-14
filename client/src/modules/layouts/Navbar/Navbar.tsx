@@ -16,6 +16,7 @@ const peopleRoute = '/people';
 
 interface Props extends RouteComponentProps<any> {
   auth: any;
+
   logoutUser(history: any): void;
 }
 

@@ -37,7 +37,7 @@ class SearchInput extends React.Component<Props, State> {
   public render() {
     return (
       <ReactAutocomplete
-        open={this.props.value.length > 1 && trim(this.props.value).length > 0 && this.props.open}
+        open={trim(this.props.value).length > 1 && this.props.open}
         items={this.renderItemsByType()}
         getItemValue={(item: SearchItemModel) => item.name}
         renderMenu={this.renderMenu}
@@ -51,6 +51,7 @@ class SearchInput extends React.Component<Props, State> {
         value={this.props.value}
         onChange={this.props.onChange}
         onSelect={this.props.onSelect}
+        autoHighlight={false}
       />
     );
   }
@@ -109,15 +110,15 @@ class SearchInput extends React.Component<Props, State> {
 
   private createLeadSuggestionInfo = (item: SearchItemModel) => {
     let info = '';
-    if (item.contact && item.contact.length) {
+    if (item.contact && !isBlank(item.contact)) {
       info = `${item.contact}`;
     }
 
-    if (item.organization && item.organization.length) {
+    if (item.organization && !isBlank(item.organization)) {
       info += isBlank(info) ? `${item.organization}` : `, ${item.organization}`;
     }
 
-    if (item.stage && item.stage.length) {
+    if (item.stage && !isBlank(item.stage)) {
       info += `, ${item.stage}`;
     }
 

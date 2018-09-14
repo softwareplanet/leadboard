@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as styles from './SearchSpinner.css';
 
 interface Props {
-  className:string;
+  className: string;
 }
 
 export default class SearchTabs extends React.Component<Props> {
@@ -11,7 +11,7 @@ export default class SearchTabs extends React.Component<Props> {
     return (
       <div {...this.props}>
         <div className={styles.container}>
-          <div className={styles.loader}/>
+          <div className={styles.loader} />
         </div>
       </div>
     );
