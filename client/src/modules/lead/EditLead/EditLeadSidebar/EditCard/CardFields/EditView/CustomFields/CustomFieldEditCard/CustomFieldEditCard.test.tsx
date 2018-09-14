@@ -39,14 +39,13 @@ describe('<CustomFieldEditCard />', () => {
         onSave={callback}
         onCancel={callback}
       />);
-
-    const button = wrapper.find(`#saveButton`);
+    const button = wrapper.find('.saveButton');
     button.simulate('click');
     expect(callback).toHaveBeenCalled();
   });
 
   it('should exec cancelEdit', () => {
-    const button = wrapper.find(`#cancelButton`);
+    const button = wrapper.find('.cancelButton');
     button.simulate('click');
     expect(callback).toHaveBeenCalled();
   });

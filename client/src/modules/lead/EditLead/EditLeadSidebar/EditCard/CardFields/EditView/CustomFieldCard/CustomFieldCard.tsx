@@ -22,7 +22,7 @@ class CustomFieldCard extends React.Component<Props, State> {
 
   public editModeHandler = () => {
     this.setState(prevState => {
-      return {editMode: !prevState.editMode} 
+      return { editMode: !prevState.editMode } 
     });
   }
 

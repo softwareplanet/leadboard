@@ -56,7 +56,6 @@
 
 .editButton>span {
   padding: 0 4px;
-  font: 600 12px/16px Open Sans, sans-serif;
   white-space: nowrap;
   text-overflow: ellipsis;
 }

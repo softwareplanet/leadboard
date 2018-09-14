@@ -76,7 +76,8 @@ describe('<EditCard />', () => {
 
   let wrapper: any;
   beforeEach(() => {
-    wrapper = shallow(
+    wrapper = shallow
+    (
       <EditCard
         addCustomFieldToDomain={noop}
         editCustomFieldInDomain={noop}
@@ -103,7 +104,8 @@ describe('<EditCard />', () => {
   });
 
   it('render correct quantity for CardFields component for Organization', () => {
-    wrapper = shallow(
+    wrapper = shallow
+    (
       <EditCard
         addCustomFieldToDomain={noop}
         editCustomFieldInDomain={noop}
