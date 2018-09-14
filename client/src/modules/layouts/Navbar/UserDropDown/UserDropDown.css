@@ -101,11 +101,10 @@
 .userDropDownMenu {
   box-shadow: 0 4px 8px rgba(38, 41, 44, 0.1);
   border-radius: 0;
-  padding: 10px 0 10px;
   border: none;
-  margin: 0;
   color: black;
-
+  min-width:250px;
+  margin-top: -1px;
 }
 
 .dropDownToggle {

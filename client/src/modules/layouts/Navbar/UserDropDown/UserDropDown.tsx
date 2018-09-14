@@ -34,9 +34,10 @@ class UserDropDown extends React.Component<Props, State> {
         src={this.props.auth.avatar}
         alt="user"
       /> :
-      <img className={styles.defaultImg}
-           src={profileIcon}
-           alt="user"
+      <img
+        className={styles.defaultImg}
+        src={profileIcon}
+        alt="user"
       />;
   };
 
