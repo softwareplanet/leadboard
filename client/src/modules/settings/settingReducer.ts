@@ -1,6 +1,6 @@
 import Funnel from '../../models/Funnel';
 import Stage from '../../models/Stage';
-import { EDIT_STAGE, LOAD_FUNNEL, LOAD_FUNNELS, LOAD_STAGES } from './types';
+import { EDIT_STAGE, LOAD_FUNNELS, LOAD_STAGES, SET_FUNNEL } from './types';
 
 interface Action {
  type: string;
@@ -15,7 +15,7 @@ const initialState = {
 
 export default function(state = initialState, action: Action) {
   switch (action.type) {
-    case LOAD_FUNNEL: {
+    case SET_FUNNEL: {
       const { funnels } = {...state};
       const editedFunnels = funnels
         .map((funnel: Funnel) => funnel = (funnel._id === action.payload._id) ? action.payload: funnel);

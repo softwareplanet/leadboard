@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import FunnelModel from '../../../models/Funnel';
-import Stage from '../../../models/Stage';
 import { loadFunnels } from '../settingActions';
 import Funnel from './Funnel/Funnel';
 import * as styles from './Funnels.css'
@@ -9,7 +8,6 @@ import * as styles from './Funnels.css'
 interface Props {
   funnels: FunnelModel[];
   selectedFunnel: FunnelModel;
-  stages: Stage[];
   domainId: string;
 
   loadFunnels(): void;
@@ -37,7 +35,6 @@ const mapStateToProps = (state: any) => ({
   domainId: state.auth.domainid,
   funnels: state.settings.funnels,
   selectedFunnel: state.settings.selectedFunnel,
-  stages: state.settings.stages,
 });
 
 export default connect(mapStateToProps, { loadFunnels })(Funnels)

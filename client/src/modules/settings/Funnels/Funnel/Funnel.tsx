@@ -114,7 +114,6 @@ class Funnel extends React.Component<Props, State> {
     this.setState({
       ...this.state,
       isModalOpen: false,
-      name: '',
     })
   }
 }

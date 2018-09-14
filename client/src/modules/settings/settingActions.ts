@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
-import { LOAD_FUNNELS, LOAD_FUNNEL, LOAD_STAGES, EDIT_STAGE } from './types';
+import { EDIT_STAGE, LOAD_FUNNELS, LOAD_STAGES, SET_FUNNEL } from './types';
 
 export const loadFunnels = () => (dispatch: Dispatch) => {
  axios
@@ -12,17 +12,6 @@ export const loadFunnels = () => (dispatch: Dispatch) => {
    });
  });
 };
-
-export const loadFunnel = (funnelId: string) => (dispatch: Dispatch) => {
-  axios
-    .get(`/api/funnel/${funnelId}`)
-    .then(result => {
-      dispatch({
-        payload: result.data,
-        type: LOAD_FUNNEL,
-    });
-  });
- };
 
  export const loadStages = (funnelId: string) => (dispatch: Dispatch) => {
   axios
@@ -41,7 +30,7 @@ export const loadFunnel = (funnelId: string) => (dispatch: Dispatch) => {
     .then(result => {
       dispatch({
         payload: result.data,
-        type: LOAD_FUNNEL,
+        type: SET_FUNNEL,
     });
   });
  };

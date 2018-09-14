@@ -39,7 +39,7 @@ router.post("/register", function(req, res) {
   const funnel = new Funnel({
     _id: funnelId,
     name: "Funnel",
-    domain: domainId
+    domain: domainId,
   });
 
   let stages = [];

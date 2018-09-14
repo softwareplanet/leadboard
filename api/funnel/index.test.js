@@ -13,7 +13,6 @@ beforeEach(async done => {
   await dropTables();
   cred = await createUserAndDomain(app);
   funnel = await createFunnel(app, cred.token, cred.domainId, "New funnel");
-
   done();
 });
 
@@ -38,7 +37,6 @@ describe("Funnel", function() {
   });
 
   it("should update funnel", async () => {
-    console.log(funnel);
     const { status, body } = await request(app())
       .patch(`/api/funnel/${funnel}`)
       .set("Authorization", cred.token)
