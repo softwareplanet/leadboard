@@ -14,7 +14,7 @@ interface Props {
 
 const columns = [
   {
-    dataField: 'custom[1].value',
+    dataField: 'custom[0].value',
     text: 'Email',
   },
   {
@@ -26,7 +26,7 @@ const columns = [
     text: 'Organization',
   },
   {
-    dataField: 'custom[0].value',
+    dataField: 'custom[1].value',
     text: 'Phone',
   },
   {
