@@ -2,10 +2,10 @@ import * as React from 'react';
 import * as Modal from 'react-modal';
 import { connect } from 'react-redux';
 import FunnelModel from '../../../../models/Funnel';
+import isBlank from '../../../../utils/isBlank';
 import { updateFunnel } from '../../settingActions';
 import * as styles from './Funnel.css';
 import Stages from './Stages/Stages';
-import isBlank from '../../../../utils/isBlank';
 
 interface Props {
   funnel?: FunnelModel;
@@ -21,8 +21,8 @@ interface State {
 const customStyles = {
   content: {
     top: 100,
-    left: '50%',
     right: 'auto',
+    left: '50%',
     bottom: 'auto',
     transform: 'translate(-50%, 0)',
     margin: '0',
@@ -120,5 +120,7 @@ class Funnel extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: any) => ({})
+
+export { Funnel }
 
 export default connect(mapStateToProps, { updateFunnel })(Funnel)
