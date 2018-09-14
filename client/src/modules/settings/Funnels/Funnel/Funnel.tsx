@@ -1,14 +1,19 @@
 import * as React from 'react';
 import * as Modal from 'react-modal';
+import { connect } from 'react-redux';
 import FunnelModel from '../../../../models/Funnel';
+import { updateFunnel } from '../../settingActions';
 import * as styles from './Funnel.css';
 import Stages from './Stages/Stages';
 
 interface Props {
   funnel?: FunnelModel;
+
+  updateFunnel(funnelId: string, funnel: any): void;
 }
 
 interface State {
+  name: string;
   isModalOpen: boolean;
 }
 
@@ -29,9 +34,10 @@ const customStyles = {
   },
 };
 
-export default class Funnel extends React.Component<Props, State> {
+class Funnel extends React.Component<Props, State> {
   public state: State = {
     isModalOpen: false,
+    name: '',
   }
 
   public render() {
@@ -40,7 +46,7 @@ export default class Funnel extends React.Component<Props, State> {
         <div>
           <div className={styles.heading}>
             <div className={styles.name}>{this.props.funnel ? this.props.funnel.name : ''}</div>
-            <div onClick={() => this.openModal()} className={styles.edit}>Edit</div>
+            <div onClick={this.openModal} className={styles.edit}>Edit</div>
           </div>
           <Modal 
             isOpen={this.state.isModalOpen}
@@ -53,11 +59,13 @@ export default class Funnel extends React.Component<Props, State> {
                 <div className={styles.inputContainer}>
                   <input 
                     className={styles.input} 
-                    type="text" defaultValue={this.props.funnel ? this.props.funnel.name : ''}
+                    type="text" 
+                    value={this.state.name}
+                    onChange={this.onNameChange}
                   />
                   <div className={styles.modalButtons}>
-                    <button className={styles.save}>Save</button>
-                    <button className={styles.cancel}>Cancel</button>  
+                    <button onClick={this.save} className={styles.save}>Save</button>
+                    <button onClick={this.closeModal} className={styles.cancel}>Cancel</button>  
                   </div>
                 </div>
                 <div>Title of the funnel</div>
@@ -70,9 +78,40 @@ export default class Funnel extends React.Component<Props, State> {
     )
   }
 
+  public componentWillReceiveProps(nextProps: Props) {
+    if (nextProps.funnel) {
+      this.setState({
+        name: nextProps.funnel.name
+      })
+    }
+  }
+
   private openModal = () => {
     this.setState({
       isModalOpen: true,
     })
   }
+
+  private closeModal = () => {
+    this.setState({
+      isModalOpen: false,
+    })
+  }
+
+  private onNameChange = (e: any) => {
+    this.setState({
+      ...this.state,
+      name: e.target.value,
+    })
+  }
+  private save = () => {
+    if(this.props.funnel){
+      this.props.updateFunnel(this.props.funnel._id, {name: this.state.name})
+      this.closeModal();
+    }
+  }
 }
+
+const mapStateToProps = (state: any) => ({})
+
+export default connect(mapStateToProps, { updateFunnel })(Funnel)
