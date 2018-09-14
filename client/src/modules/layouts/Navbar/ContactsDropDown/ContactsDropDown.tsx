@@ -21,19 +21,6 @@ class ContactsDropDown extends React.Component<Props, State> {
     isDropdownOpen: false,
   };
 
-  public isActive = () => {
-    const { location } = this.props;
-    if (location.pathname === '/people' || location.pathname === '/organizations') {
-      return styles.activeContacts;
-    } else {
-      return styles.notActiveContacts;
-    }
-  };
-
-  public toggle = () => {
-    this.setState({ isDropdownOpen: !this.state.isDropdownOpen });
-  };
-
   public render() {
     return (
       <div className={this.isActive()}>
@@ -69,6 +56,19 @@ class ContactsDropDown extends React.Component<Props, State> {
       </div>
     );
   }
+
+  private isActive = () => {
+    const { location } = this.props;
+    if (location.pathname === '/people' || location.pathname === '/organizations') {
+      return styles.activeContacts;
+    } else {
+      return styles.notActiveContacts;
+    }
+  };
+
+  private toggle = () => {
+    this.setState({ isDropdownOpen: !this.state.isDropdownOpen });
+  };
 }
 
 export default withRouter(ContactsDropDown);
