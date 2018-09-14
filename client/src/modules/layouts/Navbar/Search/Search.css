@@ -1,0 +1,270 @@
+.searchInput:hover {
+  background-color: #b9babb;
+}
+
+.searchInput:focus {
+  opacity: 1;
+  background-color: #ffffff;
+}
+
+.searchInput::placeholder {
+  color: #26292c;
+  opacity: 1;
+  font: 400 14px/20px "Open Sans", sans-serif;
+}
+
+.searchInput:focus::placeholder {
+  color: #cbcccd;
+}
+
+.searchInput {
+  border-radius: 4px;
+  box-sizing: border-box;
+  box-shadow: none;
+  border: medium none;
+  padding: 8px 4px 8px 32px;
+  width: 160px;
+  height: 32px;
+  font: 400 14px/20px "Open Sans", sans-serif;
+  opacity: 0.5;
+  background-color: #747678;
+  outline: none;
+  color: black;
+}
+
+.searchIcon {
+  position: absolute;
+  z-index: 0;
+  top: 13px;
+  left: 13px;
+  width: 24px;
+  height: 24px;
+}
+
+.searchSpinner {
+  composes: searchIcon;
+  top: 17px;
+  left: 15px;
+}
+
+.suggestionsList {
+  top: 48px;
+  display: block;
+  position: absolute;
+  left: 0;
+  width: 352px;
+  background: #fff;
+  padding: 0 0 8px 0;
+  margin: 0;
+  z-index: 4000;
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15), 0px 3px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 0 4px 4px 4px;
+}
+
+.searchWrapper {
+  display: block;
+  position: relative;
+  padding: 8px;
+}
+
+.highlightedSearchWrapper {
+  composes: searchWrapper;
+  background-color: #f7f7f7;
+}
+
+.highlightedSearchWrapper .searchInput {
+  box-shadow: 0 0 0 1px #b9babb;
+}
+
+.suggestion {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  color: #26292c;
+  padding: 4px 4px 4px 10px;
+  text-decoration: none;
+}
+
+.suggestion strong {
+  display: block;
+  font: 400 14px/20px "Open Sans", sans-serif;
+  font-weight: 600;
+}
+
+.suggestion strong span .highlightedPart, .suggestion small span .highlightedPart {
+  background-color: #fff570;
+}
+
+.suggestion small {
+  display: block;
+  font: 400 12px/16px "Open Sans", sans-serif;
+  padding: 2px 0;
+}
+
+.leadIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.leadIcon path {
+  fill: #000000;
+}
+
+.leadTypeIcon {
+  height: 20px;
+  width: 20px;
+}
+
+.leadTypeIcon path {
+  fill: #404346;
+}
+
+.noResults {
+  font: 400 14px/20px "Open Sans", sans-serif;
+  padding: 10px;
+  cursor: auto;
+}
+
+.searchResult {
+  padding-top: 8px;
+}
+
+.searchResult a {
+  text-decoration: none;
+}
+
+.suggestionInfo {
+  padding-left: 10px;
+}
+
+.highlightedSuggestion {
+  composes: suggestion;
+  background-color: #317ae2;
+  color: #fff;
+}
+
+.highlightedSuggestion strong {
+  display: block;
+  font: 400 14px/20px "Open Sans", sans-serif;
+  font-weight: 600;
+  color: #fff;
+}
+
+.highlightedSuggestion small {
+  display: block;
+  font: 400 12px/16px "Open Sans", sans-serif;
+  padding: 2px 0;
+  color: #fff;
+}
+
+.highlightedSuggestion strong span .highlightedPart {
+  background-color: transparent;
+}
+
+.itemBadge {
+  position: absolute;
+  font: 600 10px/14px "Open Sans", sans-serif;
+  min-width: 10px;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 1px 1px #747678;
+  border-radius: 8px;
+  height: 16px;
+  padding: 0 4px;
+  text-transform: none;
+  right: 6px;
+  top: 50%;
+  margin-top: -8px;
+  background: padding-box #e5e5e5;
+}
+
+.itemLostBadge {
+  composes: itemBadge;
+  background-color: #e84646;
+}
+
+.itemWonBadge {
+  composes: itemBadge;
+  background-color: #2cbf55;
+}
+
+.tabsRoot {
+  background-color: #2cbf55;
+  height: 40px;
+  overflow: hidden;
+}
+
+.tabsContainer {
+  height: 41px;
+  overflow: hidden;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #b9bbbc;
+}
+
+span.tabsIndicator {
+  background-color: #3279e2;
+}
+
+span.tabLabel {
+  font-weight: bold;
+  font-size: 14px;
+  text-transform: none;
+}
+
+span.labelContainer {
+  padding: 0 0;
+  min-width: 48px;
+}
+
+button.tab {
+  min-height: 40px;
+  min-width: 48px;
+  outline: none;
+  opacity: 0.7;
+}
+
+button.tab:hover {
+  opacity: 1;
+  border-bottom: 2px solid #3279e2;
+  padding-top: 2px;
+}
+
+.tooltip {
+  padding: 4px 7px 4px 7px;
+  font: 400 12px/16px Open Sans, sans-serif;
+  opacity: 1;
+}
+
+.withoutHighlightName {
+  font: 600 14px/20px "Open Sans", sans-serif;
+  font-weight: bold;
+}
+
+.highlightName {
+  composes: withoutHighlightName;
+  background-color: #fff570;
+  padding: 0;
+}
+
+.withoutHighlightInfo {
+  font: 400 12px/16px "Open Sans", sans-serif;
+}
+
+.highlightInfo {
+  composes: withoutHighlightInfo;
+  background-color: #fff570;
+  padding: 0;
+}
+
+.highlightedWrapperName {
+  background-color: transparent;
+  color: #ffffff;
+  padding: 0;
+  composes: withoutHighlightName;
+}
+
+.highlightedWrapperInfo {
+  background-color: transparent;
+  padding: 0;
+  color: #ffffff;
+}
