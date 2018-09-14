@@ -50,6 +50,7 @@ describe('<CustomFieldEditCard />', () => {
         onSave={callback}
         onCancel={callback}
       />);
+      
     const button = wrapper.find(`#saveButton`);
     button.simulate('click');
     expect(callback).toHaveBeenCalled();
