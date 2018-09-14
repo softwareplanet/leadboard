@@ -1,27 +1,28 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
 import { Link, NavLink, RouteComponentProps, withRouter } from 'react-router-dom';
 import ReactSVG from 'react-svg';
 import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
+import { logoutUser } from '../../auth/authActions';
 import contactIcon from '../../../assets/contacts-icon.svg';
 import dealsIconActive from '../../../assets/deals-icon-active.svg';
 import dealsIcon from '../../../assets/deals-icon.svg';
-import profileIcon from '../../../assets/header-profile.svg';
-import { logoutUser } from '../../auth/authActions';
 import * as styles from './Navbar.css';
+import UserDropDown from './UserDropDown/UserDropDown'
+import Search from './Search/Search';
+import { connect } from 'react-redux';
 
 const leadsRoute = '/home';
 const peopleRoute = '/people';
 
 interface Props extends RouteComponentProps<any> {
   auth: any;
+
   logoutUser(history: any): void;
 }
 
 interface State {
   isDropdownOpen: boolean;
 }
-
 class Navbar extends React.Component<Props, State> {
   public state: State = {
     isDropdownOpen: false,
@@ -29,16 +30,6 @@ class Navbar extends React.Component<Props, State> {
 
   public toggle = () => {
     this.setState({ isDropdownOpen: !this.state.isDropdownOpen });
-  };
-
-  public renderUserAvatar = () => {
-    return this.props.auth && this.props.auth.avatar ?
-      <img className={styles.userImg} src={this.props.auth.avatar} alt="user" /> :
-      <img className={styles.defaultImg} src={profileIcon} alt="user" />;
-  };
-
-  public onLogout = () => {
-    this.props.logoutUser(this.props.history);
   };
 
   public getDealsIcon = () => {
@@ -51,13 +42,14 @@ class Navbar extends React.Component<Props, State> {
         <ul className={styles.menu} role="navigation">
           <li className={styles.logo}><Link to={leadsRoute}>Leadboard</Link></li>
           <li className={styles.logoSmall}><Link to={leadsRoute}><h1>L</h1></Link></li>
+          <Search history={this.props.history} />
           <NavLink
             className={styles.link}
             activeClassName={styles.currentLink}
             to={leadsRoute}>
             <div>
               <img className={styles.icon}
-                   src={this.getDealsIcon()} alt="leads" />Leads
+                src={this.getDealsIcon()} alt="leads" />Leads
             </div>
           </NavLink>
           <div className={this.props.location.pathname === '/people' ? styles.activeContacts : undefined}>
@@ -83,20 +75,9 @@ class Navbar extends React.Component<Props, State> {
                 </NavLink>
               </DropdownMenu>
             </Dropdown>
-          </div>
+          </div>  
           <li className={styles.rightItem}>
-            <div>
-              {this.renderUserAvatar()}
-              <div className={styles.userInfo}>
-                <span>{this.props.auth.userName}</span>
-                <small>{this.props.auth.domainName}</small>
-              </div>
-            </div>
-          </li>
-          <li id="logout" onClick={this.onLogout} className={styles.item}>
-            <div>
-              Logout
-            </div>
+            <UserDropDown />
           </li>
         </ul>
       </header>
