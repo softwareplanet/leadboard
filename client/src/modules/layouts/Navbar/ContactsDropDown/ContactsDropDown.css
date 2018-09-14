@@ -2,81 +2,12 @@
   fill: white;
 }
 
-.dropDown button {
-  padding: 12px;
-  background: none;
-  border: none;
+.notActiveContacts {
   color: #b9babb;
-}
-
-.dropDown button:hover {
-  cursor: pointer;
-}
-
-.dropDown button::after {
-  display: none;
-}
-
-.dropDown button:focus {
-  background: white;
-  color: black;
-  outline: none;
-}
-
-.dropDown button:focus path {
-  fill: black;
-}
-
-.dropDown :hover path {
-  fill: white;
-}
-
-.dropDown :hover {
-  color: white;
-}
-
-.dropDownMenu path {
-  fill: black;
-}
-
-.dropDownMenu {
-  box-shadow: 0 4px 8px rgba(38, 41, 44, 0.1);
-  margin-left: 1px;
-  border-radius: 0;
-  border: none;
-  color: black;
-}
-
-.dropDownMenu:hover path {
-  fill: black;
-}
-
-.dropDownItem path {
-  fill: black;
-}
-
-.dropDownItem {
-  padding: 6px 15px 6px 15px;
-  color: black;
-  display: block;
-}
-
-.dropDownItem:hover path {
-  fill: white;
-}
-
-.dropDownItem:hover {
-  text-decoration: none;
-  color: white;
-  background-color: #317ae2;
 }
 
 .activeContacts {
   background-color: #26292c;
-  color: white;
-}
-
-.activeContacts button {
   color: white;
 }
 
@@ -100,8 +31,67 @@
 
 .organizationIcon {
   float: left;
-  margin-right: 5px;
-  margin-left: 2px;
   width: 15px;
   height: 15px;
+  margin-right: 5px;
+}
+
+.dropDownMenu {
+  border-radius: 0px;
+  border: none;
+  box-shadow: 0px 2px 4px 2px #b9babb;
+}
+
+.dropDownMenu a {
+  text-decoration: none;
+  color: black;
+}
+
+.menuItemDataWrapper {
+  height: 30px;
+  padding: 3px 0px 5px 10px;
+  font-size: 14px;
+}
+
+.menuItemDataWrapper:hover {
+  cursor: pointer;
+  font-size: 14px;
+  background: #317ae2;
+  color: white;
+}
+
+.dropDownMenu div:hover path {
+  fill: white;
+}
+
+.closedDropDown {
+  color: inherit;
+}
+
+.dropDownToggle {
+  color: inherit;
+  padding: 14px 12px;
+}
+
+.closedDropDown :hover {
+  cursor: pointer;
+  color: white;
+}
+
+.closedDropDown :hover path {
+  fill: white;
+}
+
+.openedDropDown {
+  background-color: white;
+  color: black;
+}
+
+.openedDropDown:hover {
+  cursor: pointer;
+  color: black;
+}
+
+.openedDropDown path {
+  fill: black;
 }
