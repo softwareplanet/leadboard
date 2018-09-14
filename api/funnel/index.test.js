@@ -8,23 +8,24 @@ import { dropTables, createUserAndDomain, createFunnel } from "../../test/db-pre
 const app = () => express(routes);
 
 var cred;
+let funnel;
 beforeEach(async done => {
   await dropTables();
   cred = await createUserAndDomain(app);
-  await createFunnel(app, cred.token, cred.domainId, "New funnel");
+  funnel = await createFunnel(app, cred.token, cred.domainId, "New funnel");
 
   done();
 });
 
 describe("Funnel", function() {
   it("should create a new funnel", async () => {
-      const { status, body } = await request(app())
-        .post("/api/funnel")
-        .set("Authorization", cred.token)
-        .send({ domain: cred.domainId, name: "Sales Funnel" });
-      expect(status).toBe(200);
-      expect(typeof body).toBe("string");
-    }
+    const { status, body } = await request(app())
+      .post("/api/funnel")
+      .set("Authorization", cred.token)
+      .send({ domain: cred.domainId, name: "Sales Funnel" });
+    expect(status).toBe(200);
+    expect(typeof body).toBe("string");
+  }
   );
 
   it("should retrieve all domain' funnels", async () => {
@@ -34,5 +35,15 @@ describe("Funnel", function() {
       .send({ domain: cred.domainId });
     expect(status).toBe(200);
     expect(Object.keys(body).length).toBe(2);
+  });
+
+  it("should update funnel", async () => {
+    console.log(funnel);
+    const { status, body } = await request(app())
+      .patch(`/api/funnel/${funnel}`)
+      .set("Authorization", cred.token)
+      .send({ name: "New funnel name" });
+    expect(status).toBe(200);
+    expect(body).toMatchObject({ name: "New funnel name" });
   });
 });
