@@ -16,13 +16,13 @@ const initialState = {
 export default function(state = initialState, action: Action) {
   switch (action.type) {
     case LOAD_FUNNEL: {
-      const funnels = {...state.funnels};
+      const { funnels } = {...state};
       const editedFunnels = funnels
         .map((funnel: Funnel) => funnel = (funnel._id === action.payload._id) ? action.payload: funnel);
       return {
         ...state,
-        selectedFunnel: action.payload,
         funnels: editedFunnels,
+        selectedFunnel: action.payload,
       }
     }
     case LOAD_FUNNELS:
@@ -36,7 +36,7 @@ export default function(state = initialState, action: Action) {
        stages: action.payload,
     }
     case EDIT_STAGE: {
-      const stages = {...state.stages};
+      const { stages } = {...state};
       const editedStages = stages
         .map((stage: Stage) => stage = (stage._id === action.payload._id) ? action.payload: stage);
       return {
