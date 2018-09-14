@@ -4,12 +4,14 @@ import organizationIcon from '../../../../img/organizationIcon.svg';
 import personIcon from '../../../../img/personIcon.svg';
 import { loadContacts } from '../../../common/autocomplete/contact/contactActions';
 import { loadOrganizations } from '../../../common/autocomplete/organization/organizationActions';
+import { addCustomFieldToDomain, editCustomFieldInDomain } from '../../../settings/customFieldsActions';
 import { loadLead, updateContact, updateLead, updateOrganization } from '../../leadActions';
 import EditCard from './EditCard/EditCard';
 import * as styles from './EditLeadSidebar.css';
 
 import classNames from 'classnames';
 import Contact from '../../../../models/Contact';
+import CustomFieldSetting from '../../../../models/customFields/CustomFieldSetting';
 import DomainSettings from '../../../../models/DomainSettings';
 import Lead from '../../../../models/Lead';
 import Organization from '../../../../models/Organization';
@@ -34,6 +36,10 @@ interface Props {
 
   loadOrganizations(): void;
 
+  addCustomFieldToDomain(customField: CustomFieldSetting): void;
+
+  editCustomFieldInDomain(customField: CustomFieldSetting): void;
+
   loadContacts(): void;
 
   updateLead(lead: Lead): void;
@@ -56,6 +62,9 @@ class EditLeadSidebar extends React.Component<Props> {
           <EditCard
             model={contact}
             title={'Person'}
+            modelType={'Contact'}
+            addCustomFieldToDomain={this.props.addCustomFieldToDomain}
+            editCustomFieldInDomain={this.props.editCustomFieldInDomain}
             icon={personIcon}
             onUpdate={this.props.updateContact}
             customFieldsSettings={getCustomFieldSettingsByModel('Contact', settings)}
@@ -67,9 +76,12 @@ class EditLeadSidebar extends React.Component<Props> {
         organizationCard =
           <EditCard
             model={organization}
+            modelType={'Organization'}
             title={'Organization'}
             icon={organizationIcon}
             onUpdate={this.props.updateOrganization}
+            addCustomFieldToDomain={this.props.addCustomFieldToDomain}
+            editCustomFieldInDomain={this.props.editCustomFieldInDomain}
             customFieldsSettings={getCustomFieldSettingsByModel('Organization', settings)}
             customFields={makeCustomFieldData('Organization', organization, settings)}
           />;
@@ -124,5 +136,5 @@ export { EditLeadSidebar };
 
 export default connect(
   mapStateToProps,
-  { loadLead, updateOrganization, updateContact, loadOrganizations, loadContacts, updateLead },
+  { addCustomFieldToDomain, editCustomFieldInDomain, loadLead, updateOrganization, updateContact, loadOrganizations, loadContacts, updateLead },
 )(EditLeadSidebar);

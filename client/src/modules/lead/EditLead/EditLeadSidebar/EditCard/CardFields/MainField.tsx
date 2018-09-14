@@ -34,13 +34,13 @@ class MainField extends React.Component<Props, State> {
           !isInEditMode &&
           <div className={styles.fieldValue}>
             <div className={styles.mainFieldValueWrapper}>
-          <span className={styles.badge}>
-            <img className={styles.icon} src={this.props.icon} alt="Icon" />
-          </span>
-              <h3>
-              <span className={styles.mainValue}>
-                {name}
+              <span className={styles.badge}>
+                <img className={styles.icon} src={this.props.icon} alt="Icon" />
               </span>
+              <h3>
+                <span className={styles.mainValue}>
+                  {name}
+                </span>
               </h3>
               <button
                 className={styles.buttonRename}

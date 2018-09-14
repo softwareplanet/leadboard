@@ -113,7 +113,7 @@
   position: relative;
   box-sizing: border-box;
   text-decoration: none;
-  font: 600 14px/20px Open Sans,sans-serif;
+  font: 600 14px/20px Open Sans, sans-serif;
   color: #26292c;
   transition: background .12s ease-in-out;
   user-select: none;
@@ -131,7 +131,7 @@
 .enableButton {
   composes: button;
   background: #2cbf55;
-  box-shadow: 0 1px 2px rgba(38,41,44,.08);
+  box-shadow: 0 1px 2px rgba(38, 41, 44, .08);
   cursor: pointer;
 }
 
@@ -143,7 +143,7 @@
 .cancelButton {
   composes: button;
   background: #fff;
-  box-shadow: inset 0 0 0 1px #cbcccd, 0 1px 2px rgba(38,41,44,.08);
+  box-shadow: inset 0 0 0 1px #cbcccd, 0 1px 2px rgba(38, 41, 44, .08);
   margin-right: 10px;
   cursor: pointer;
 }
@@ -171,7 +171,7 @@
 }
 
 .modalContent {
-  font: 400 14px/20px Open Sans,sans-serif;
+  font: 400 14px/20px Open Sans, sans-serif;
   background-color: #fff;
   min-width: 320px;
   min-height: 72px;
@@ -192,11 +192,11 @@
   padding: 0 0 10px 0;
   line-height: 20px;
   font-size: 14px;
-  color: rgba(38,41,44,0.64);
+  color: rgba(38, 41, 44, 0.64);
 }
 
 .additionMessage {
-  font: 400 12px/16px "Open Sans",sans-serif;
+  font: 400 12px/16px "Open Sans", sans-serif;
   color: #747678;
 }
 
@@ -222,7 +222,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(38,41,44,.32);
+  background: rgba(38, 41, 44, .32);
   z-index: 100;
 }
 
