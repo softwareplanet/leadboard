@@ -1,12 +1,12 @@
 import * as React from 'react'
 import * as Modal from 'react-modal';
-import * as styles from './AddStageModal.css'
 import isBlank from '../../../../../utils/isBlank';
+import * as styles from './AddStageModal.css'
 
 interface Props {
   isModalOpen: boolean;
 
-  onSave(): void;
+  onSave(name: string): void;
 
   onCancel(): void;
 }
@@ -33,7 +33,10 @@ const customStyles = {
 };
 
 export default class AddStageModal extends React.Component<Props, State> {
-
+  public state: State = {
+    name: '',
+  }
+  
   public render() {
     return (
       <Modal 
@@ -53,7 +56,7 @@ export default class AddStageModal extends React.Component<Props, State> {
               <div className={styles.modalButtons}>
                 <button 
                   disabled={isBlank(this.state.name)} 
-                  onClick={this.props.onSave} 
+                  onClick={() => this.props.onSave(this.state.name)} 
                   className={styles.save}
                 >
                   Save

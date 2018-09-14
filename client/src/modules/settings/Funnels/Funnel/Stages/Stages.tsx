@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import Funnel from '../../../../../models/Funnel';
 import Stage from '../../../../../models/Stage';
 import { loadStages } from '../../../settingActions';
 import * as styles from './Stages.css'
 import StageView from './StageView/StageView';
-import Funnel from '../../../../../models/Funnel';
 
 interface Props {
   stages: Stage[];
@@ -25,10 +25,8 @@ class Stages extends React.Component<Props> {
         <ul className={styles.stagesList}>
           {this.props.stages.map(stage => {
             return (
-              <li>
-                <StageView
-                  key={stage._id}
-                  stage={stage}/>
+              <li key={stage._id}>
+                <StageView stage={stage} />
               </li>
             )
           })}
@@ -39,8 +37,8 @@ class Stages extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: any) => ({
-  stages: state.settings.stages,
   selectedFunnel: state.settings.selectedFunnel,
+  stages: state.settings.stages,
 });
 
-export default connect(mapStateToProps, {loadStages})(Stages)
+export default connect(mapStateToProps, { loadStages })(Stages)

@@ -1,10 +1,15 @@
 import Action from '../../models/Action';
 import Funnel from '../../models/Funnel';
 import Stage from '../../models/Stage';
-import { EDIT_STAGE, LOAD_FUNNELS, LOAD_STAGES, SET_FUNNEL, ADD_STAGE } from './types';
+import { ADD_STAGE, EDIT_STAGE, LOAD_FUNNELS, LOAD_STAGES, SET_FUNNEL } from './types';
 
+interface InitialState {
+  funnels: any[],
+  selectedFunnel: any,
+  stages: any[];
+}
 
-const initialState = {
+const initialState: InitialState = {
   funnels: [],
   selectedFunnel: {},
   stages: [],
@@ -13,7 +18,7 @@ const initialState = {
 export default function(state = initialState, action: Action) {
   switch (action.type) {
     case SET_FUNNEL: {
-      const { funnels } = {...state};
+      const funnels = [ ...state.funnels ];
       const editedFunnels = funnels
         .map((funnel: Funnel) => funnel = (funnel._id === action.payload._id) ? action.payload: funnel);
       return {
@@ -33,7 +38,7 @@ export default function(state = initialState, action: Action) {
        stages: action.payload,
     }
     case EDIT_STAGE: {
-      const { stages } = {...state};
+      const stages = [ ...state.stages ];
       const editedStages = stages
         .map((stage: Stage) => stage = (stage._id === action.payload._id) ? action.payload: stage);
       return {
@@ -41,14 +46,14 @@ export default function(state = initialState, action: Action) {
         stages: editedStages,
       }
     }
-    // case ADD_STAGE: {
-    //   const { stages } = {...state};
-    //   stages.push(action.payload ? action.payload : undefined);
-    //   return {
-    //     ...state,
-    //     stages: editedStages,
-    //   }
-    // }
+    case ADD_STAGE: {
+      const stages = [ ...state.stages ];
+      stages.push(action.payload);
+      return {
+        ...state,
+        stages,
+      }
+    }
     default:
       return state;
   }

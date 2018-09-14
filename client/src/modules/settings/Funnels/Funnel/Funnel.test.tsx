@@ -13,7 +13,8 @@ const funnel: FunnelModel = {
 describe('<Funnel />', () => {
   it('should send correct data on save', () => {
     const updateFunnel = jest.fn();
-    let wrapper = shallow(<Funnel updateFunnel={updateFunnel} funnel={funnel}/>)
+    const createStage = jest.fn();
+    let wrapper = shallow(<Funnel createStage={createStage} updateFunnel={updateFunnel} funnel={funnel}/>)
     wrapper.find(`.${styles.edit}`).simulate('click');
     wrapper.find(`.${styles.input}`).simulate('change', { target: { value: 'New funnel' } });
     wrapper.find(`.${styles.save}`).simulate('click');
@@ -22,7 +23,8 @@ describe('<Funnel />', () => {
 
   test('button disable prop if input is empty', () => {
     const updateFunnel = jest.fn();
-    let wrapper = shallow(<Funnel updateFunnel={updateFunnel} funnel={funnel}/>)
+    const createStage = jest.fn();
+    let wrapper = shallow(<Funnel updateFunnel={updateFunnel}createStage={createStage}  funnel={funnel}/>)
     wrapper.find(`.${styles.edit}`).simulate('click');
     wrapper.find(`.${styles.input}`).simulate('change', { target: { value: '' } });
     expect(wrapper.find(`.${styles.save}`).props().disabled).toBe(true);

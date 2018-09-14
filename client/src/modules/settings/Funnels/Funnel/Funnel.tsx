@@ -3,15 +3,18 @@ import * as Modal from 'react-modal';
 import { connect } from 'react-redux';
 import FunnelModel from '../../../../models/Funnel';
 import isBlank from '../../../../utils/isBlank';
-import { updateFunnel } from '../../settingActions';
+import { updateFunnel, createStage } from '../../settingActions';
 import * as styles from './Funnel.css';
 import Stages from './Stages/Stages';
-// import AddStageModal from './AddStageModal/AddStageModal';
+import AddStageModal from './AddStageModal/AddStageModal';
+import Stage from '../../../../models/Stage';
 
 interface Props {
   funnel?: FunnelModel;
-
+  stages?: Stage[];
   updateFunnel(funnelId: string, funnel: any): void;
+
+  createStage (stage: any): void;
 }
 
 interface State {
@@ -38,10 +41,11 @@ const customStyles = {
 };
 
 class Funnel extends React.Component<Props, State> {
-  // public state: State = {
-  //   isEditNameModalOpen: false,
-  //   name: '',
-  // }
+  public state: State = {
+    isEditNameModalOpen: false,
+    isAddStageModalOpen: false,
+    name: '',
+  }
 
   public render() {
 
@@ -84,7 +88,11 @@ class Funnel extends React.Component<Props, State> {
               </div>
             </div>
           </Modal>
-          {/* <AddStageModal /> */}
+          <AddStageModal 
+            isModalOpen={this.state.isAddStageModalOpen} 
+            onSave={this.onAddNewStageSave} 
+            onCancel={this.onAddNewStageCancel}
+          />
         </div> 
         <Stages />
       </div>
@@ -115,7 +123,7 @@ class Funnel extends React.Component<Props, State> {
 
   private onEditNameSave = () => {
     if(this.props.funnel){
-      this.props.updateFunnel(this.props.funnel._id, {name: this.state.name})
+      this.props.updateFunnel(this.props.funnel._id, { name: this.state.name })
       this.setState({
         ...this.state,
         isEditNameModalOpen: false,
@@ -130,13 +138,31 @@ class Funnel extends React.Component<Props, State> {
     })
   }
 
-  // private onAddNewStageSave = () => {
+  private onAddNewStageSave = (name: string) => {
+    let stage: any = {
+      funnel: this.props.funnel ? this.props.funnel._id : null,
+      name,
+      order: this.props.stages ? this.props.stages.length+1 : null,
+    }
+    this.props.createStage(stage);
+    this.setState({
+      ...this.state,
+      isAddStageModalOpen: false,
+    })
+  }
 
-  // }
+  private onAddNewStageCancel = () => {
+    this.setState({
+      ...this.state,
+      isAddStageModalOpen: false,
+    })
+  }
 }
 
-const mapStateToProps = (state: any) => ({})
+const mapStateToProps = (state: any) => ({
+  stages: state.settings.stages,
+})
 
 export { Funnel }
 
-export default connect(mapStateToProps, { updateFunnel })(Funnel)
+export default connect(mapStateToProps, { updateFunnel, createStage })(Funnel)

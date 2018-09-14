@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
-import { EDIT_STAGE, LOAD_FUNNELS, LOAD_STAGES, SET_FUNNEL } from './types';
+import { EDIT_STAGE, LOAD_FUNNELS, LOAD_STAGES, SET_FUNNEL, ADD_STAGE } from './types';
 import Stage from '../../models/Stage';
 
 export const loadFunnels = () => (dispatch: Dispatch) => {
@@ -49,11 +49,11 @@ export const loadFunnels = () => (dispatch: Dispatch) => {
 
  export const createStage = (stage: Stage) => (dispatch: Dispatch) => {
   axios
-    .post(`/api/stage/`, stage)
+    .post(`/api/stage`, stage)
     .then(result => {
       dispatch({
         payload: result.data,
-        type: EDIT_STAGE,
+        type: ADD_STAGE,
     });
   });
  };

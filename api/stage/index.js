@@ -38,7 +38,7 @@ router.post("/", function(req, res) {
 
   Stage.create(stage)
     .then(stage => {
-      res.status(200).json(stage._id);
+      res.status(200).json(stage);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });
