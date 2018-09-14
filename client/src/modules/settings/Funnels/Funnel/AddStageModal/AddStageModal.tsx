@@ -1,13 +1,19 @@
 import * as React from 'react'
 import * as Modal from 'react-modal';
-// import * as styles from ''
+import * as styles from './AddStageModal.css'
 import isBlank from '../../../../../utils/isBlank';
 
 interface Props {
   isModalOpen: boolean;
+
+  onSave(): void;
+
+  onCancel(): void;
 }
 
-
+interface State {
+  name: string;
+}
 
 const customStyles = {
   content: {
@@ -26,8 +32,7 @@ const customStyles = {
   },
 };
 
-export default class AddStageModal extends React.Component<Props> {
-
+export default class AddStageModal extends React.Component<Props, State> {
 
   public render() {
     return (
@@ -47,19 +52,26 @@ export default class AddStageModal extends React.Component<Props> {
               />
               <div className={styles.modalButtons}>
                 <button 
-                  disabled={isBlankk(this.state.name)} 
-                  onClick={this.save} 
+                  disabled={isBlank(this.state.name)} 
+                  onClick={this.props.onSave} 
                   className={styles.save}
                 >
                   Save
                 </button>
-                <button onClick={this.cancel} className={styles.cancel}>Cancel</button>  
+                <button onClick={this.props.onCancel} className={styles.cancel}>Cancel</button>  
               </div>
             </div>
-            <div>Title of the funnel</div>
+            <div>Stage name</div>
           </div>
         </div>
       </Modal>
     )
+  }
+
+  private onNameChange = (e: any) => {
+    this.setState({
+      ...this.state,
+      name: e.target.value,
+    })
   }
 }
