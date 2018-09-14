@@ -22,7 +22,6 @@ describe('<CustomFieldCard />', () => {
     (
       <CustomFieldCard
         customSettings={settings}
-        addDialogTitle={'Person'}
         editCustomFieldInDomain={noop}
       />
     );

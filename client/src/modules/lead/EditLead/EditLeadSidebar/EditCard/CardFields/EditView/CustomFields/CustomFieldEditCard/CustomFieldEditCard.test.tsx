@@ -20,7 +20,6 @@ describe('<CustomFieldEditCard />', () => {
     (
       <CustomFieldEditCard
         model={'Contact'}
-        addDialogTitle={'Person'}
         field={customField}
         onSave={callback}
         onCancel={callback}
@@ -37,7 +36,6 @@ describe('<CustomFieldEditCard />', () => {
     (
       <CustomFieldEditCard
         model={'Contact'}
-        addDialogTitle={'Person'}
         field={customField}
         onSave={callback}
         onCancel={callback}

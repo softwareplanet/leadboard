@@ -5,8 +5,8 @@ import * as styles from './CustomFields.css';
 import CustomFieldEditCard from './CustomFieldEditCard/CustomFieldEditCard';
 
 interface Props {
+  modelType:string;
   customFields: CustomFieldSetting[];
-  title: string;
 
   addCustomFieldToDomain(customField: CustomFieldSetting): void;
 
@@ -38,7 +38,6 @@ class CustomFields extends React.Component<Props, State> {
           {this.props.customFields.map(customField => (
             <CustomFieldCard
               key={customField._id}
-              addDialogTitle={this.props.title}
               customSettings={customField}
               editCustomFieldInDomain={this.props.editCustomFieldInDomain}
             />
@@ -60,8 +59,7 @@ class CustomFields extends React.Component<Props, State> {
   private renderAddNew = (trigger: boolean) => {
     return trigger ?
       <CustomFieldEditCard
-        model={this.props.customFields[0].model}
-        addDialogTitle={this.props.title}
+        model={this.props.modelType}
         onSave={this.props.addCustomFieldToDomain}
         onCancel={this.triggerNewFieldCard}
       /> :

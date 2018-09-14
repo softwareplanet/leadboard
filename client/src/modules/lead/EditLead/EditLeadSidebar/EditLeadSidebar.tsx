@@ -62,6 +62,7 @@ class EditLeadSidebar extends React.Component<Props> {
           <EditCard
             model={contact}
             title={'Person'}
+            modelType={'Contact'}
             addCustomFieldToDomain={this.props.addCustomFieldToDomain}
             editCustomFieldInDomain={this.props.editCustomFieldInDomain}
             icon={personIcon}
@@ -75,6 +76,7 @@ class EditLeadSidebar extends React.Component<Props> {
         organizationCard =
           <EditCard
             model={organization}
+            modelType={'Organization'}
             title={'Organization'}
             icon={organizationIcon}
             onUpdate={this.props.updateOrganization}

@@ -21,6 +21,7 @@ interface Props {
   model: Contact | Organization;
   customFieldsSettings: CustomFieldSetting[];
   title: string;
+  modelType: string;
   icon: any;
   customFields: CustomFieldData[];
 
@@ -83,9 +84,9 @@ class EditCard extends React.Component<Props, State> {
         {
           isInCustomizeFieldsMode &&
           <CustomFields
+            modelType={this.props.modelType}
             addCustomFieldToDomain={this.props.addCustomFieldToDomain}
             editCustomFieldInDomain={this.props.editCustomFieldInDomain}
-            title={this.props.title}
             customFields={this.props.customFieldsSettings}
             closeEditCustomFieldsMode={this.closeCustomizeFieldsMode}
           />

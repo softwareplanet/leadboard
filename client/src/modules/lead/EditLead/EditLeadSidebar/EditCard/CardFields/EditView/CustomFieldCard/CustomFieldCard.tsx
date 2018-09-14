@@ -6,7 +6,6 @@ import * as styles from './CustomFieldCard.css';
 
 interface Props {
   customSettings: CustomFieldSetting;
-  addDialogTitle: string;
 
   editCustomFieldInDomain(customField: CustomFieldSetting): void;
 }
@@ -60,7 +59,6 @@ class CustomFieldCard extends React.Component<Props, State> {
       <CustomFieldEditCard
         field={this.props.customSettings}
         model={this.props.customSettings.model}
-        addDialogTitle={this.props.addDialogTitle}
         onSave={this.props.editCustomFieldInDomain}
         onCancel={this.editModeHandler}
       />);

@@ -5,7 +5,6 @@ import * as styles from './CustomFieldEditCard.css';
 
 interface Props {
   field?: CustomFieldSetting;
-  addDialogTitle: string;
   model: string;
 
   onSave(customField: CustomFieldSetting): void;

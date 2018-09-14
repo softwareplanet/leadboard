@@ -12,7 +12,7 @@ describe('<CustomFields />', () => {
       isShownInAddDialog: false,
       isAlwaysVisible: true,
       isDefault: true,
-      model: 'Organization',
+      model: 'Contact',
       name: 'Address',
       type: 'string',
     },
@@ -34,8 +34,8 @@ describe('<CustomFields />', () => {
     (
       <CustomFields
         addCustomFieldToDomain={noop}
+        modelType={"Contact"}
         editCustomFieldInDomain={noop}
-        title={'Person'}
         customFields={customs}
         closeEditCustomFieldsMode={callback}
       />,
