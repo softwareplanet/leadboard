@@ -73,11 +73,12 @@ class CustomFieldEditCard extends React.Component<Props, State> {
           </div>
           <div className={styles.visibilityOptions}>
             <label className={styles.checkboxLabel}>
+              Always visible on sidebar
               <input type="checkbox" checked={this.props.field ? this.props.field.isAlwaysVisible :
               this.state.isAlwaysVisible}
               onChange={this.isAlwaysVisibleHandler} 
               />
-              <span>Always visible on sidebar</span>
+              <span className={styles.checkMark} />
             </label>
             <label className={styles.checkboxLabel}>
               Appears in "Add new {this.props.title.toLowerCase()}" dialogue
@@ -86,7 +87,7 @@ class CustomFieldEditCard extends React.Component<Props, State> {
                 checked={this.props.field ? this.props.field.isAlwaysShownInAddDialog:   this.state.isAlwaysShownInAddDialog}
                 onChange={this.isAlwaysShownInAddDialogHandler} 
               />
-              <span className={styles.checkMark}></span>
+              <span className={styles.checkMark} />
             </label>
           </div>
         </div>
