@@ -33,6 +33,7 @@ describe('<CustomFieldEditCard />', () => {
       <CustomFieldEditCard
         onSave={noop}
         title={'Person'}
+        editMode={''}
         field={customs[1]}
         saveEdit={callback}
         cancelEdit={callback}

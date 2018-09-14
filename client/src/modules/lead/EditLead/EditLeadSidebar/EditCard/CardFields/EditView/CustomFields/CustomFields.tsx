@@ -65,6 +65,7 @@ class CustomFields extends React.Component<Props, State> {
     return trigger ?
       (<CustomFieldEditCard
         title={this.props.title}
+        editMode={'add'}
         onSave={this.props.addCustomFieldToDomain}
         saveEdit={this.saveEditing}
         cancelEdit={this.triggerNewField}

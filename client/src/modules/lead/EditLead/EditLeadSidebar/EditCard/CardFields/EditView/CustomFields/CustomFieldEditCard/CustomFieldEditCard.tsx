@@ -6,6 +6,7 @@ import * as styles from './CustomFieldEditCard.css';
 interface Props {
   field?: CustomFieldSetting;
   title: string;
+  editMode: string;
 
   onSave(customField: CustomFieldSetting): void;
 
@@ -14,13 +15,45 @@ interface Props {
 }
 
 interface State {
-  field: CustomFieldSetting;
+  name: string;
+  isAlwaysShownInAddDialog: boolean;
+  isAlwaysVisible: boolean;
 }
 
 class CustomFieldEditCard extends React.Component<Props, State> {
-
+  public state: State = {
+    name: '',
+    isAlwaysShownInAddDialog: false,
+    isAlwaysVisible: true,
+    };
+  
   public Save = () => {
-    this.props.onSave(this.state.field)
+    let fieldToSave = {
+      _id: '5b97d3573485d2406c818ba0',
+      name: this.state.name,
+      model: this.props.title,
+      type: 'string',
+      isDefault: false,
+      isAlwaysShownInAddDialog: this.state.isAlwaysShownInAddDialog,
+      isAlwaysVisible: this.state.isAlwaysVisible,
+    }
+
+    this.props.onSave(fieldToSave)
+  }
+
+  public nameHandler = () => {
+    // this.props.onSave(this.state.innerField)
+    console.log(this.props.field)
+  }
+  public isAlwaysShownInAddDialogHandler = () => {
+    this.setState({
+      isAlwaysShownInAddDialog: !this.state.isAlwaysShownInAddDialog,
+    })
+  }
+  public isAlwaysVisibleHandler = () => {
+    this.setState({
+      isAlwaysVisible: !this.state.isAlwaysVisible,
+    })
   }
 
   public render() {
@@ -34,23 +67,41 @@ class CustomFieldEditCard extends React.Component<Props, State> {
                 type="text"
                 className={styles.nameInput}
                 maxLength={64}
+                onChange={this.nameHandler}
               />
             </span>
           </div>
           <div className={styles.visibilityOptions}>
             <label className={styles.checkboxLabel}>
-              <input type="checkbox" checked={this.props.field ? this.props.field.isAlwaysVisible : true} />
+              <input type="checkbox" checked={this.props.field ?       this.props.field.isAlwaysVisible :
+              this.state.isAlwaysVisible}
+              onChange={this.isAlwaysVisibleHandler} 
+              />
               <span>Always visible on sidebar</span>
             </label>
             <label className={styles.checkboxLabel}>
-              <input type="checkbox" checked={this.props.field ? this.props.field.isAlwaysShownInAddDialog : false} />
+              <input 
+                type="checkbox"
+                checked={this.props.field ? this.props.field.isAlwaysShownInAddDialog:   this.state.isAlwaysShownInAddDialog}
+                onChange={this.isAlwaysShownInAddDialogHandler} 
+              />
               <span>Appears in "Add new {this.props.title.toLowerCase}" dialogue</span>
             </label>
           </div>
         </div>
         <div className={styles.actionButtons}>
-          <button className={styles.cancelButton} onClick={this.props.cancelEdit}>Cancel</button>
-          <button className={styles.saveButton} onClick={this.Save}>Save</button>
+          <button 
+            className={styles.cancelButton}
+            onClick={this.props.cancelEdit}
+          >
+          Cancel
+          </button>
+          <button 
+            className={styles.saveButton}
+            onClick={this.Save}
+            >
+            Save
+            </button>
         </div>
       </div>
     );
