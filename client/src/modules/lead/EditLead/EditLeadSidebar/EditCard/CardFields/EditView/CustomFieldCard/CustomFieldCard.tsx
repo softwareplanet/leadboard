@@ -21,9 +21,9 @@ class CustomFieldCard extends React.Component<Props, State> {
   };
 
   public editModeHandler = () => {
-    this.setState((prevState) => ({
-      editMode: !prevState.editMode
-    }));
+    this.setState(prevState => {
+      return {editMode: !prevState.editMode} 
+    });
   }
 
   public render() {
@@ -33,7 +33,7 @@ class CustomFieldCard extends React.Component<Props, State> {
   private renderCard = () => {
     return (
       <div>
-        <div className={classNames(styles.item, { [styles.editable]: !this.checkDefault() })}>
+        <div className={classNames(styles.item, { [styles.editable]: this.isEditable() })}>
           <div className={styles.fieldName}>
             <span className={styles.icon}>A̲</span>
             <div className={styles.title}>
@@ -68,8 +68,8 @@ class CustomFieldCard extends React.Component<Props, State> {
       />);
   }
 
-  private checkDefault = () => {
-    return this.props.customSettings.isDefault;
+  private isEditable() {
+    return !this.props.customSettings.isDefault;
   }
 }
 
