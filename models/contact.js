@@ -1,6 +1,6 @@
 
 import mongoose from "mongoose";
-import { CONTACT, DOMAIN, ORGANIZATION } from "./refs";
+import { CONTACT, DOMAIN, ORGANIZATION, USER } from "./refs";
 
 // Person
 const contactSchema = new mongoose.Schema({
@@ -9,7 +9,20 @@ const contactSchema = new mongoose.Schema({
   organization: { type: mongoose.Schema.Types.ObjectId, ref: ORGANIZATION },
   custom: [{ key: mongoose.Schema.Types.ObjectId, value: "string" }],
   domain: { type: mongoose.Schema.Types.ObjectId, required: true, ref: DOMAIN },
+  owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: USER },
   timestamp: { type: Date, default: Date.now },
 });
+
+const organizationPopulates = [{ path: "organization", select: "name" }];
+const ownerPopulates = [{ path: "owner", select: "email", }];
+
+const fullPopulates = [
+  ...organizationPopulates,
+  ...ownerPopulates,
+];
+
+contactSchema.statics.populates = {
+  full: fullPopulates,
+};
 
 export default mongoose.model(CONTACT, contactSchema);
