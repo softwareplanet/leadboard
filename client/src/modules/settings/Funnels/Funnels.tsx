@@ -19,7 +19,7 @@ class Funnels extends React.Component<Props> {
     return (
       <div className={styles.content}>
         <h1 className={styles.heading}>Customize sales stages</h1>
-        <Funnel funnel={this.props.funnels ? this.props.funnels[0] : undefined}/>
+        <Funnel funnel={this.props.funnels[0]}/>
       </div>
     )
   }

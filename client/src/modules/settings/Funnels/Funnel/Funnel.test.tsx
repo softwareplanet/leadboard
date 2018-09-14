@@ -17,10 +17,10 @@ describe('<Funnel />', () => {
     wrapper.find(`.${styles.edit}`).simulate('click');
     wrapper.find(`.${styles.input}`).simulate('change', { target: { value: 'New funnel' } });
     wrapper.find(`.${styles.save}`).simulate('click');
-    expect(updateFunnel).toHaveBeenCalledWith('5b9a3676d7c72c478f2fa42e', {name: 'New funnel'});
+    expect(updateFunnel).toHaveBeenCalledWith('5b9a3676d7c72c478f2fa42e', { name: 'New funnel' });
   });
 
-  it('should not call action if input is empty', () => {
+  test('button disable prop if input is empty', () => {
     const updateFunnel = jest.fn();
     let wrapper = shallow(<Funnel updateFunnel={updateFunnel} funnel={funnel}/>)
     wrapper.find(`.${styles.edit}`).simulate('click');
