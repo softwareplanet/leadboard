@@ -68,14 +68,58 @@
 }
 
 .checkboxLabel {
-  font: 400 14px/20px Open Sans, sans-serif;
-  color: #26292c;
-  cursor: default;
-  margin-left: 8px;
+  font: 400 14px/20px Open Sans, sans-serif !important;
+  /*cursor: default;*/
+  /*margin-left: 8px;*/
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.checkboxLabel input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
 }
 
 .checkboxLabel span {
   margin-left: 8px;
+}
+
+.checkboxLabel input:checked ~ .checkMark {
+  background-color: #377be2;
+  border: 2px solid #377be2;
+}
+
+.checkboxLabel input:checked ~ .checkMark:after {
+  display: block;
+}
+
+.checkMark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 16px;
+  width: 16px;
+  border-radius: 2px;
+  border: 2px solid #b9bbbc;
+}
+
+.checkMark:hover {
+  border: 2px solid #377be2;
+}
+
+.checkMark:after {
+  content: "";
+  position: absolute;
+  display: none;
 }
 
 .actionButtons {

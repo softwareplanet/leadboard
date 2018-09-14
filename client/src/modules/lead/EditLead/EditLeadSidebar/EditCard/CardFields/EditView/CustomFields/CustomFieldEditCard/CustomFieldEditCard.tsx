@@ -80,12 +80,13 @@ class CustomFieldEditCard extends React.Component<Props, State> {
               <span>Always visible on sidebar</span>
             </label>
             <label className={styles.checkboxLabel}>
+              Appears in "Add new {this.props.title.toLowerCase()}" dialogue
               <input 
                 type="checkbox"
                 checked={this.props.field ? this.props.field.isAlwaysShownInAddDialog:   this.state.isAlwaysShownInAddDialog}
                 onChange={this.isAlwaysShownInAddDialogHandler} 
               />
-              <span>Appears in "Add new {this.props.title.toLowerCase()}" dialogue</span>
+              <span className={styles.checkMark}></span>
             </label>
           </div>
         </div>
