@@ -26,6 +26,7 @@ export default function(state = initialState, action: Action) {
      return {
        ...state,
        funnels: action.payload,
+       selectedFunnel: action.payload[0]
     }
     case LOAD_STAGES:
      return {

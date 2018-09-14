@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
+import FunnelModel from '../../models/Funnel';
 import { EDIT_STAGE, LOAD_FUNNELS, LOAD_STAGES, SET_FUNNEL } from './types';
 
 export const loadFunnels = () => (dispatch: Dispatch) => {
@@ -45,3 +46,10 @@ export const loadFunnels = () => (dispatch: Dispatch) => {
     });
   });
  };
+
+export const selectFunnel = (funnel: FunnelModel) => (dispatch: Dispatch) => {
+  dispatch({
+    payload: funnel,
+    type: SET_FUNNEL
+  })
+};

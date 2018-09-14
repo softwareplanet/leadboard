@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import FunnelModel from '../../../models/Funnel';
-import { loadFunnels } from '../settingActions';
+import { loadFunnels, selectFunnel } from '../settingActions';
 import AddPipelineModal from './AddPipelineModal/AddPipelineModal';
 import Funnel from './Funnel/Funnel';
 import * as styles from './Funnels.css'
@@ -12,6 +12,7 @@ interface Props {
   domainId: string;
 
   loadFunnels(): void;
+  selectFunnel(funnel: FunnelModel): void;
 }
 
 interface State {
@@ -34,7 +35,10 @@ class Funnels extends React.Component<Props, State> {
             onCancelClick={this.onCancelClick}
           />
         </div>
-        <Funnel funnel={this.props.funnels[0]}/>
+        <div className={styles.tabs}>
+          {this.createTabs(this.props.funnels)}
+        </div>
+        <Funnel funnel={this.props.selectedFunnel}/>
       </div>
     )
   }
@@ -52,6 +56,20 @@ class Funnels extends React.Component<Props, State> {
   private onCancelClick = () => {
     this.setState({ isModalOpen: false });
   };
+
+
+  private createTabs = (funnels: FunnelModel[]) => {
+    return funnels.map((funnel: FunnelModel) => (
+      <button
+        key={`${funnel.name}`}
+        className={this.props.selectedFunnel._id === funnel._id ? styles.tabActive : styles.tab}
+        onClick={this.props.selectFunnel.bind(this, funnel) }
+      >
+        {funnel.name}
+        <span className={this.props.selectedFunnel._id === funnel._id ? styles.tabBadgeActive : styles.tabBadge}>1</span>
+      </button>
+    ));
+  };
 }
 
 const mapStateToProps = (state: any) => ({
@@ -60,4 +78,4 @@ const mapStateToProps = (state: any) => ({
   selectedFunnel: state.settings.selectedFunnel,
 });
 
-export default connect(mapStateToProps, { loadFunnels })(Funnels)
+export default connect(mapStateToProps, { loadFunnels, selectFunnel })(Funnels)
