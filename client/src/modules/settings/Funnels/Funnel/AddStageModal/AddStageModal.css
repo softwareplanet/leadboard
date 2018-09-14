@@ -37,7 +37,7 @@
 }
 
 .save {
-  composes: button buttonGreen from "../../../../styles/common.css";
+  composes: button buttonGreen from "../../../../../styles/common.css";
 }
 
 .save:disabled {
@@ -45,7 +45,7 @@
 }
 
 .cancel {
-  composes: button from "../../../../styles/common.css";
+  composes: button from "../../../../../styles/common.css";
   border: none;
   text-decoration: none;
   color: #317ae2;

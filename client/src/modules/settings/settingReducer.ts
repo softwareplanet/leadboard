@@ -1,6 +1,6 @@
 import Funnel from '../../models/Funnel';
 import Stage from '../../models/Stage';
-import { EDIT_STAGE, LOAD_FUNNELS, LOAD_STAGES, SET_FUNNEL } from './types';
+import { EDIT_STAGE, LOAD_FUNNELS, LOAD_STAGES, SET_FUNNEL, ADD_STAGE } from './types';
 
 interface Action {
  type: string;
@@ -41,9 +41,17 @@ export default function(state = initialState, action: Action) {
         .map((stage: Stage) => stage = (stage._id === action.payload._id) ? action.payload: stage);
       return {
         ...state,
-        funnels: editedStages,
+        stages: editedStages,
       }
     }
+    // case ADD_STAGE: {
+    //   const { stages } = {...state};
+    //   stages.push(action.payload ? action.payload : undefined);
+    //   return {
+    //     ...state,
+    //     stages: editedStages,
+    //   }
+    // }
     default:
       return state;
   }

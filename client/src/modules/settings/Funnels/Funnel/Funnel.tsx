@@ -6,6 +6,7 @@ import isBlank from '../../../../utils/isBlank';
 import { updateFunnel } from '../../settingActions';
 import * as styles from './Funnel.css';
 import Stages from './Stages/Stages';
+// import AddStageModal from './AddStageModal/AddStageModal';
 
 interface Props {
   funnel?: FunnelModel;
@@ -15,7 +16,8 @@ interface Props {
 
 interface State {
   name: string;
-  isModalOpen: boolean;
+  isEditNameModalOpen: boolean;
+  isAddStageModalOpen: boolean;
 }
 
 const customStyles = {
@@ -36,10 +38,10 @@ const customStyles = {
 };
 
 class Funnel extends React.Component<Props, State> {
-  public state: State = {
-    isModalOpen: false,
-    name: '',
-  }
+  // public state: State = {
+  //   isEditNameModalOpen: false,
+  //   name: '',
+  // }
 
   public render() {
 
@@ -49,12 +51,12 @@ class Funnel extends React.Component<Props, State> {
           <div className={styles.heading}>
             <div className={styles.mainHeading}>
               <div className={styles.name}>{this.props.funnel ? this.props.funnel.name : ''}</div>
-              <div onClick={this.openModal} className={styles.edit}>Edit</div>
+              <div onClick={this.openEditNameModal} className={styles.edit}>Edit</div>
             </div>
-            <button className={styles.addButton}>Add new stage</button>
+            <button onClick={this.openAddStageModal} className={styles.addButton}>Add new stage</button>
           </div>
           <Modal 
-            isOpen={this.state.isModalOpen}
+            isOpen={this.state.isEditNameModalOpen}
             style={customStyles}
           >
             <h1 className={styles.modalHeader}>Edit</h1>
@@ -70,31 +72,38 @@ class Funnel extends React.Component<Props, State> {
                   <div className={styles.modalButtons}>
                     <button 
                       disabled={isBlank(this.state.name)} 
-                      onClick={this.save} 
+                      onClick={this.onEditNameSave} 
                       className={styles.save}
                     >
                       Save
                     </button>
-                    <button onClick={this.cancel} className={styles.cancel}>Cancel</button>  
+                    <button onClick={this.onEditNameCancel} className={styles.cancel}>Cancel</button>  
                   </div>
                 </div>
                 <div>Title of the funnel</div>
               </div>
             </div>
           </Modal>
+          {/* <AddStageModal /> */}
         </div> 
         <Stages />
       </div>
     )
   }
 
-  private openModal = () => {
+  private openEditNameModal = () => {
     if (this.props.funnel) {
       this.setState({
-        isModalOpen: true,
+        isEditNameModalOpen: true,
         name: this.props.funnel.name,
       })
     }
+  }
+
+  private openAddStageModal = () => {
+    this.setState({
+      isAddStageModalOpen: true,
+    })
   }
 
   private onNameChange = (e: any) => {
@@ -104,22 +113,26 @@ class Funnel extends React.Component<Props, State> {
     })
   }
 
-  private save = () => {
+  private onEditNameSave = () => {
     if(this.props.funnel){
       this.props.updateFunnel(this.props.funnel._id, {name: this.state.name})
       this.setState({
         ...this.state,
-        isModalOpen: false,
+        isEditNameModalOpen: false,
       })
     }
   }
 
-  private cancel = () => {
+  private onEditNameCancel = () => {
     this.setState({
       ...this.state,
-      isModalOpen: false,
+      isEditNameModalOpen: false,
     })
   }
+
+  // private onAddNewStageSave = () => {
+
+  // }
 }
 
 const mapStateToProps = (state: any) => ({})
