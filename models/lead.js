@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
-import { LEAD, USER, STAGE, ORGANIZATION, CONTACT } from "./refs";
+import { LEAD, USER, STAGE, ORGANIZATION, CONTACT, DOMAIN } from "./refs";
 
 const leadSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
+  domain: {type: mongoose.Schema.Types.ObjectId, ref: DOMAIN},
   stage: { type: mongoose.Schema.Types.ObjectId, ref: STAGE },
   owner: { type: mongoose.Schema.Types.ObjectId, ref: USER },
   visibility: Number,
