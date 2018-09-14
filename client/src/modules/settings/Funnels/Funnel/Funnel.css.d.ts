@@ -12,4 +12,7 @@ export const save: string;
 export const cancel: string;
 export const formInput: string;
 export const formControl: string;
-
+export const validInput: string;
+export const notValidInput: string;
+export const enabledSaveButton: string;
+export const disabledSaveButton: string;

@@ -99,17 +99,29 @@
   margin-left: 12px;
 }
 
-.formControl button {
+.saveButton {
   border-radius: 3px;
-  background: #2cbf55;
-  border: 1px solid #2cbf55;
   padding: 5px 15px;
   color: #ffffff;
   font-weight: bold;
   font-family: 'Open Sans', sans-serif;
+  cursor: pointer;
+  background: #2cbf55;
+  border: 1px solid #2cbf55;
 }
 
-.formControl button:hover {
+.disabledSaveButton {
+  composes: saveButton;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.enabledSaveButton {
+  composes: saveButton;
+  opacity: 1;
+}
+
+.enabledSaveButton:hover {
   background: #3dc463;
   border: 1px solid #3dc463;
 }
@@ -120,8 +132,7 @@
   margin-right: 10px;
 }
 
-.formInput input {
-  border: 1px #747678 solid;
+.input {
   padding: 3px;
   border-radius: 2px;
   font-family: "Open Sans", sans-serif;
@@ -130,9 +141,21 @@
   font-size: 90%;
 }
 
-.formInput input:focus {
-  outline: none;
+.notValidInput {
+  composes: input;
   box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
   border: 1px solid #e84646;
+  outline: none;
+}
+
+.validInput {
+  composes: input;
+  border: 1px #747678 solid;
+}
+
+.validInput:focus {
+  box-shadow: 0 0 6px rgba(0, 145, 245, 0.7);
+  border: 1px solid #317ae2;
+  outline: none;
 }
 

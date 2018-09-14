@@ -1,11 +1,20 @@
 import * as React from 'react';
 import * as Modal from 'react-modal';
+import isBlank from '../../../../utils/isBlank';
 import * as styles from '../Funnel/Funnel.css';
 
 interface Props {
   isModalOpen: boolean;
+  isInputEmpty: boolean;
+  inputValue: string;
 
   onCancelClick(): void;
+
+  onInputBlur(): void;
+
+  onInputChange(event: any): any;
+
+  onSaveButtonClick(event: any): void;
 }
 
 const customStyles = {
@@ -37,10 +46,19 @@ class AddPipelineModal extends React.Component<Props, object> {
           <form>
             <div className={styles.formInput}>
               <label htmlFor="pipeline-name">Title of the pipeline</label>
-              <input type="text" id="pipeline-name" />
+              <input type="text"
+                     className={this.props.isInputEmpty ? styles.notValidInput : styles.validInput}
+                     id="pipeline-name"
+                     onChange={this.props.onInputChange}
+                     onBlur={this.props.onInputBlur} />
             </div>
             <div className={styles.formControl}>
-              <button>Save</button>
+              <button
+                className={isBlank(this.props.inputValue) ? styles.disabledSaveButton : styles.enabledSaveButton}
+                disabled={isBlank(this.props.inputValue)}
+                onClick={this.props.onSaveButtonClick}
+              >Save
+              </button>
               <span onClick={this.props.onCancelClick}>Cancel</span>
             </div>
           </form>
