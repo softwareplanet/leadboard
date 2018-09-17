@@ -42,3 +42,8 @@
   border: 1px solid #317ae2;
   outline-width: 0;
 }
+
+.inputInvalid {
+  composes: input;
+  border-color: #e84646;;
+}

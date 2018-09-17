@@ -22,7 +22,7 @@ ul {
 .logo {
   font-size: 25px;
   color: white;
-  padding: 0 20px 0 10px;
+  margin: 0 20px 0 10px;
 }
 
 .logo a {
@@ -44,17 +44,8 @@ ul {
   margin: 0;
 }
 
-.itemWithLink {
-  padding: 12px 13px;
-}
-
 .item {
-  composes: itemWithLink;
   color: #b9babb;
-}
-
-.item:hover {
-  cursor: default;
 }
 
 .item div {
@@ -64,19 +55,17 @@ ul {
 }
 
 .item div:hover {
-  color: white;
   cursor: pointer;
 }
 
 .rightItem {
   composes: item;
   margin-left: auto;
-  padding: 4px;
+  padding: 0px;
 }
 
 .rightItem div:hover {
-  color: #b9babb;
-  cursor: default;
+  cursor: pointer;
 }
 
 .active {
@@ -94,18 +83,6 @@ ul {
 .icon image {
   width: 24px;
   height: 24px;
-}
-
-.userImg {
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  margin-right: 10px;
-}
-
-.defaultImg {
-  composes: userImg;
-  background-color: #686a6c;
 }
 
 .link {
@@ -131,47 +108,7 @@ ul {
   text-decoration: none;
 }
 
-.userInfo {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.userInfo small {
-  align-self: flex-start;
-  font-size: 10px;
-  height: 16px;
-}
-
-.userInfo span {
-  color: #fff;
-  align-self: flex-start;
-  font-size: 14px;
-  height: 16px;
-}
-
 @media only screen and (max-width: 590px) {
-  .userInfo span, small {
-    display: none;
-  }
-
-  .userImg {
-    padding: 0;
-    margin-right: 0;
-  }
-
-  .userIcon {
-    padding: 0;
-  }
-
-  .userInfo {
-    padding: 0;
-  }
-
-  .defaultImgContainer {
-    margin-right: 0;
-  }
-
   .logo {
     display: none;
   }

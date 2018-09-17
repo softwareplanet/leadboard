@@ -25,8 +25,8 @@ beforeEach(async done => {
   let funnelId = await createFunnel(app, cred.token, cred.domainId, "Funnel");
   let stageId = await createStage(app, cred.token, funnelId, "Stage", 2, cred.userId);
   lead = await createLead(app, cred.token, cred.userId, stageId, 2, "Lead A");
-  activity = await createActivity(app, cred.token, "Call", "First test call", new Date(), 30, lead._id);
-  await createActivity(app, cred.token, "Call", "Second test call", new Date(), 30, lead._id);
+  activity = await createActivity(app, cred.token, "Call", "First test call", new Date(2017, 0, 3), 30, lead._id);
+  await createActivity(app, cred.token, "Call", "Second test call", new Date(2018, 0, 1), 30, lead._id);
   done();
 });
 
@@ -72,7 +72,7 @@ describe("Activity", () => {
   });
 
   it("should fail to update activity with invalid data", async () => {
-    const activity = await createActivity(app, cred.token, "Call", "Call Jack", Date.now(), 15);
+    const activity = await createActivity(app, cred.token, "Call", "Call Jack", Date.now(), 15, lead._id);
     const { status, body } = await request(app())
       .patch(`/api/activity/${activity._id}`)
       .set("Authorization", cred.token)
@@ -106,7 +106,7 @@ describe("Activity", () => {
     const organization = await createOrganization(app, otherUser.token, "Software Company");
     const contact = await createContact(app, otherUser.token, organization._id, "Jane Smith");
 
-    const activity = await createActivity(app, cred.token, "Call", "Call Jack", Date.now(), 15);
+    const activity = await createActivity(app, cred.token, "Call", "Call Jack", Date.now(), 15, lead._id);
     const { status, body } = await request(app())
       .patch(`/api/activity/${activity._id}`)
       .set("Authorization", cred.token)
@@ -126,7 +126,7 @@ describe("Activity", () => {
   });
 
   it("should fail to update activity with not existing data", async () => {
-    const activity = await createActivity(app, cred.token, "Call", "Call Jack", Date.now(), 15);
+    const activity = await createActivity(app, cred.token, "Call", "Call Jack", Date.now(), 15, lead._id);
     const { status, body } = await request(app())
       .patch(`/api/activity/${activity._id}`)
       .set("Authorization", cred.token)
@@ -153,8 +153,17 @@ describe("Activity", () => {
     expect(body.done).toEqual(true);
   });
 
+  it("should return first activity in lead plan", async () => {
+    const { body } = await request(app())
+      .get(`/api/activity/firstInLeadPlan`)
+      .set("Authorization", cred.token)
+      .send({});
+    expect(body.length).toEqual(1);
+    expect(body[0]).toMatchObject({date: activity.date, lead: lead._id.toString()});
+  });
+
   it("should update activity valid data", async () => {
-    const activity = await createActivity(app, cred.token, "Call", "Call Jack", Date.now(), 15);
+    const activity = await createActivity(app, cred.token, "Call", "Call Jack", Date.now(), 15, lead._id);
     const newOrganization = await createOrganization(app, cred.token, "Positive Software");
     const newContact = await createContact(app, cred.token, newOrganization, "James");
     const updates = {
@@ -170,5 +179,56 @@ describe("Activity", () => {
       .send(updates);
     expect(body).toMatchObject(updates);
     expect(status).toBe(200);
+  });
+
+  it("should delete activity", async () => {
+    const activity = await createActivity(app, cred.token, "Call", "Call Jack", Date.now(), 15, lead._id);
+    const { status } = await request(app())
+      .delete(`/api/activity/${activity._id}`)
+      .set("Authorization", cred.token)
+      .send({});
+    expect(status).toEqual(204);
+  });
+
+  it("should fail to delete not existing activity", async () => {
+    const { body, status } = await request(app())
+      .delete(`/api/activity/${new mongoose.Types.ObjectId()}`)
+      .set("Authorization", cred.token)
+      .send({});
+    expect(status).toEqual(404);
+    expect(body).toMatchObject({
+      errors: {
+        message: "Activity with provided id is not found in your domain",
+      },
+    });
+  });
+
+  it("should fail to delete activity from other domain", async () => {
+    const otherUser = await createUserAndDomain(app, "Other company", "totallydifferent@example.com");
+
+    const { body, status } = await request(app())
+      .delete(`/api/activity/${activity._id}`)
+      .set("Authorization", otherUser.token)
+      .send({});
+    expect(status).toEqual(404);
+    expect(body).toMatchObject({
+      errors: {
+        message: "Activity with provided id is not found in your domain",
+      },
+    });
+  });
+
+  it("should return error when activity id is not valid", async () => {
+    const wrongId = "Some random string";
+    const { body, status } = await request(app())
+      .delete(`/api/activity/${wrongId}`)
+      .set("Authorization", cred.token)
+      .send({});
+    expect(status).toEqual(404);
+    expect(body).toMatchObject({
+      errors: {
+        message: "Provided activity's id is not valid",
+      },
+    });
   });
 });

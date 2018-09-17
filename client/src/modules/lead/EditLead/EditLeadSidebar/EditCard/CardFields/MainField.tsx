@@ -1,4 +1,5 @@
 import * as React from 'react';
+import isBlank from '../../../../../../utils/isBlank';
 import * as styles from './CardField.css';
 import SingleEditView from './EditView/SingleEditView/SingleEditView';
 
@@ -16,6 +17,10 @@ export interface State {
 
 class MainField extends React.Component<Props, State> {
 
+  private static isNameValid(name: string): boolean {
+    return !isBlank(name);
+  }
+
   public state: State = {
     isInEditMode: false,
   };
@@ -29,16 +34,18 @@ class MainField extends React.Component<Props, State> {
           !isInEditMode &&
           <div className={styles.fieldValue}>
             <div className={styles.mainFieldValueWrapper}>
-          <span className={styles.badge}>
-            <img className={styles.icon} src={this.props.icon} alt="Icon" />
-          </span>
-              <h3>
-              <span className={styles.mainValue}>
-                {name}
+              <span className={styles.badge}>
+                <img className={styles.icon} src={this.props.icon} alt="Icon" />
               </span>
+              <h3>
+                <span className={styles.mainValue}>
+                  {name}
+                </span>
               </h3>
-              <button className={styles.buttonRename}
-                      onClick={this.openEditMode}>
+              <button
+                className={styles.buttonRename}
+                onClick={this.openEditMode}
+              >
                 Rename
               </button>
             </div>
@@ -51,7 +58,10 @@ class MainField extends React.Component<Props, State> {
               fieldName={'Name'}
               fieldValue={name}
               onChange={this.handleNameUpdate}
-              onCancel={this.closeEditMode} />
+              onCancel={this.closeEditMode}
+              isValid={MainField.isNameValid}
+              fieldKey={'name'}
+            />
           </div>
         }
       </div>
@@ -73,4 +83,3 @@ class MainField extends React.Component<Props, State> {
 }
 
 export default MainField;
-

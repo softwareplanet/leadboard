@@ -1,0 +1,13 @@
+.heading {
+  float: left;
+  margin: 0 20px 0 0;
+  padding: 0;
+  font-size: 24px;
+  color: #26292c;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  margin-right: 15px;
+}
