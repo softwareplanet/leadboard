@@ -10,6 +10,20 @@ const router = new Router();
 // @desc Return all contacts that have name field
 // @access Private
 router.get("/", (req, res) => {
+  Contact.find({domain: req.user.domain}, "_id name organization")
+    .populate( "organization" )
+    .then(contacts => {
+      res.status(200).json(contacts);
+    },
+  ).catch(error => {
+    res.status(400).json({ errors: { message: error } });
+  });
+});
+
+// @route GET api/contact/aggregated/
+// @desc Return all aggregated contacts that have name field
+// @access Private
+router.get("/aggregated/", (req, res) => {
   contactAggregation(req.user.domain).then(contacts => {
       res.status(200).json(contacts);
     },
