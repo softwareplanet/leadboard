@@ -2,7 +2,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import Funnel from '../../../../../models/Funnel';
 import Stage from '../../../../../models/Stage';
-import { loadStages } from '../../../settingActions';
+import { loadStages, updateStage } from '../../../settingActions';
+import AddStageModal from '../AddStageModal/AddStageModal';
 import * as styles from './Stages.css'
 import StageView from './StageView/StageView';
 
@@ -11,9 +12,20 @@ interface Props {
   selectedFunnel: Funnel;
 
   loadStages(funnelId: string): void;
+
+  updateStage(stageIs: string, name: string): void;
 }
 
-class Stages extends React.Component<Props> {
+interface State {
+  isModalOpen: boolean;
+  clickedStage: any;
+}
+
+class Stages extends React.Component<Props, State> {
+  public state: State = {
+    clickedStage: undefined,
+    isModalOpen: false,
+  }
 
   public componentWillReceiveProps(nextProps: Props) {
     if (nextProps.selectedFunnel._id !== this.props.selectedFunnel._id){
@@ -21,30 +33,54 @@ class Stages extends React.Component<Props> {
     }
   }
 
-  
-
   public render() {
     return (
       <div className={styles.content}>
         <ul className={styles.stagesList}>
           {this.props.stages.map(stage => {
             return (
-              <li key={stage._id}>
-                <StageView stage={stage} />
-              </li>
+              <div key={stage._id}>
+                <li onClick={() => this.openModal(stage)}>
+                  <StageView stage={stage} />
+                </li>
+              </div>
             )
           })}
         </ul>
+        <AddStageModal 
+          isModalOpen={this.state.isModalOpen} 
+          onCancel={this.onEditStageCancel} 
+          onSave={this.onEditStageSave} 
+          stage={this.state.clickedStage}
+        />
       </div>
     )
   }
+
+  private onEditStageSave = (name: string, id: string) => {
+    this.props.updateStage(id, name);
+    this.setState({
+      isModalOpen: false,
+    })
+  }
+
+  private onEditStageCancel = () => {
+    this.setState({
+      isModalOpen: false,
+    })
+  }
+
+  private openModal = (stage: any) => {
+    this.setState({
+      clickedStage: stage,
+      isModalOpen: true,
+    })
+  }
 }
-
-
 
 const mapStateToProps = (state: any) => ({
   selectedFunnel: state.settings.selectedFunnel,
   stages: state.settings.stages,
 });
 
-export default connect(mapStateToProps, { loadStages })(Stages)
+export default connect(mapStateToProps, { loadStages, updateStage })(Stages)

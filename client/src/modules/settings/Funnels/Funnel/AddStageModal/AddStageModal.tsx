@@ -1,12 +1,14 @@
 import * as React from 'react'
 import * as Modal from 'react-modal';
+import Stage from '../../../../../models/Stage';
 import isBlank from '../../../../../utils/isBlank';
 import * as styles from './AddStageModal.css'
 
 interface Props {
   isModalOpen: boolean;
+  stage?: Stage;
 
-  onSave(name: string): void;
+  onSave(name: string, id?: string): void;
 
   onCancel(): void;
 }
@@ -43,7 +45,7 @@ export default class AddStageModal extends React.Component<Props, State> {
         isOpen={this.props.isModalOpen}
         style={customStyles}
       >
-        <h1 className={styles.modalHeader}>Edit</h1>
+        <h1 className={styles.modalHeader}>Add stage</h1>
         <div className={styles.modalContent}>
           <div className={styles.nameInputContainer}>
             <div className={styles.inputContainer}>
@@ -56,7 +58,7 @@ export default class AddStageModal extends React.Component<Props, State> {
               <div className={styles.modalButtons}>
                 <button 
                   disabled={isBlank(this.state.name)} 
-                  onClick={() => this.props.onSave(this.state.name)} 
+                  onClick={this.onSave} 
                   className={styles.save}
                 >
                   Save
@@ -69,6 +71,18 @@ export default class AddStageModal extends React.Component<Props, State> {
         </div>
       </Modal>
     )
+  }
+
+  public componentWillReceiveProps(nextProps: Props) {
+    if (nextProps.stage) {
+      this.setState({
+        name: nextProps.stage.name,
+      })
+    }
+  }
+
+  private onSave = () => {
+    this.props.onSave(this.state.name, this.props.stage ? this.props.stage._id : undefined);
   }
 
   private onNameChange = (e: any) => {

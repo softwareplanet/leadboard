@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
-import { EDIT_STAGE, LOAD_FUNNELS, LOAD_STAGES, SET_FUNNEL, ADD_STAGE, ADD_FUNNEL } from './types';
-import Stage from '../../models/Stage';
 import FunnelModel from '../../models/Funnel';
+import Stage from '../../models/Stage';
+import { ADD_FUNNEL, ADD_STAGE, EDIT_STAGE, LOAD_FUNNELS, LOAD_STAGES, SET_FUNNEL } from './types';
 
 
 export const loadFunnels = () => (dispatch: Dispatch) => {
@@ -38,9 +38,9 @@ export const updateFunnel = (funnelId: string, funnel: any) => (dispatch: Dispat
     });
 };
 
-export const updateStage = (stageId: string, stage: any) => (dispatch: Dispatch) => {
+export const updateStage = (stageId: string, name: string) => (dispatch: Dispatch) => {
   axios
-    .patch(`/api/stage/${stageId}`, stage)
+    .patch(`/api/stage/${stageId}`, { name })
     .then(result => {
       dispatch({
         payload: result.data,
@@ -70,9 +70,11 @@ export const createFunnel = (name: string) => (dispatch: Dispatch) => {
     });
   });
  };
+
 export const selectFunnel = (funnel: FunnelModel) => (dispatch: Dispatch) => {
   dispatch({
     payload: funnel,
     type: SET_FUNNEL
   })
 };
+
