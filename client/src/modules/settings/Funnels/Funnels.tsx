@@ -106,4 +106,6 @@ const mapStateToProps = (state: any) => ({
   selectedFunnel: state.settings.selectedFunnel,
 });
 
+export { Funnels };
+
 export default connect(mapStateToProps, { loadFunnels, selectFunnel, createFunnel })(Funnels)
