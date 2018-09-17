@@ -34,7 +34,7 @@ describe('<CustomFields />', () => {
     (
       <CustomFields
         addCustomFieldToDomain={noop}
-        modelType={"Contact"}
+        modelType="Contact"
         editCustomFieldInDomain={noop}
         customFields={customs}
         closeEditCustomFieldsMode={callback}
