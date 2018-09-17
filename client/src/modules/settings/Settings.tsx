@@ -5,6 +5,7 @@ import CustomizeFields from './CustomizeFields/CustomizeFields';
 import Funnels from './Funnels/Funnels';
 import * as styles from './Settings.css';
 import Sidebar from './Sidebar/Sidebar';
+import { PIPELINES, CUSTOMIZE_FIELDS } from './settingsRoutes';
 
 
 export default class Settings extends React.Component {
@@ -17,11 +18,11 @@ export default class Settings extends React.Component {
           <Sidebar />
           <div className={styles.settingsContent}>
             <Route
-              path="/settings/funnels"
+              path={`/settings/${PIPELINES}`}
               component={Funnels}
             />
             <Route
-              path="/settings/customize-fields"
+              path={`/settings/${CUSTOMIZE_FIELDS}`}
               component={CustomizeFields}
             />
           </div>
