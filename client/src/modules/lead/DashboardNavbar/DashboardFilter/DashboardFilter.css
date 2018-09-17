@@ -6,6 +6,7 @@
   margin: 0;
   min-height: 32px;
   min-width: 32px;
+  max-width: 150px;
   display: inline-flex;
   justify-content: center;
   text-align: center;
@@ -38,5 +39,8 @@
 }
 
 .filterSpan {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
   padding: 0 8px;
 }
