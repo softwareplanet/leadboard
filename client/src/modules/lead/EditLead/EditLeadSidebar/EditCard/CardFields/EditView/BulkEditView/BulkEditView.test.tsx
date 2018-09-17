@@ -20,7 +20,7 @@ describe('<BulkEditView />', () => {
 
   const customFields: CustomFieldData[] = [
     {
-      isAlwaysShownInAddDialog: true,
+      isShownInAddDialog: true,
       isAlwaysVisible: true,
       isDefault: true,
       key: organization.custom[0].key,

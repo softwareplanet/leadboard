@@ -4,6 +4,6 @@ export default interface CustomFieldSetting {
   name: string;
   type: string;
   isAlwaysVisible: boolean;
-  isAlwaysShownInAddDialog: boolean;
+  isShownInAddDialog: boolean;
   isDefault: boolean;
 }
