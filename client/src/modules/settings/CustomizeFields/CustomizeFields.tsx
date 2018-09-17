@@ -4,6 +4,7 @@ import CustomFieldSetting from '../../../models/customFields/CustomFieldSetting'
 import DomainSettings from '../../../models/DomainSettings';
 import AddCustomField from '../../customFields/AddCustomField/AddCustomField';
 import { getCustomFieldSettingsByModel } from '../../lead/EditLead/EditLeadSidebar/CustomFieldsService';
+import { addCustomFieldToDomain } from '../customFieldsActions';
 import * as styles from './CustomFields.css';
 
 const MODEL_NAMES = ['Lead', 'Organization', 'Contact'];
@@ -14,6 +15,8 @@ interface State {
 
 interface Props {
   settings: DomainSettings;
+
+  addCustomFieldToDomain(customField: CustomFieldSetting): void
 }
 
 class CustomizeFields extends React.Component<Props, State> {
@@ -59,7 +62,10 @@ class CustomizeFields extends React.Component<Props, State> {
             </li>
           </ul>
           <div className={styles.actions}>
-            <AddCustomField modelName={MODEL_NAMES[this.state.selectedTabIndex]} />
+            <AddCustomField
+              modelName={MODEL_NAMES[this.state.selectedTabIndex]}
+              addCustomField={this.props.addCustomFieldToDomain}
+            />
           </div>
           <div className={styles.tabs}>
             {this.createTabs(MODEL_NAMES)}
@@ -134,4 +140,8 @@ const mapStateToProps = (state: any) => ({
 
 export { CustomizeFields };
 
-export default connect(mapStateToProps, {})(CustomizeFields);
+export default connect(
+  mapStateToProps,
+  {
+    addCustomFieldToDomain,
+  })(CustomizeFields);

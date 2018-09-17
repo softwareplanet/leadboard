@@ -9,7 +9,7 @@ import * as styles from './AddCustomField.css';
 interface Props {
   modelName: string;
 
-  addCustomField(modelName: string, customField: CustomFieldSetting): void
+  addCustomField(customField: CustomFieldSetting): void
 }
 
 interface State {
@@ -32,19 +32,21 @@ const modalStyles = {
     transform: 'translate(-50%, 0)',
     margin: '0',
     padding: '0',
-    width: '350px',
+    width: '590px',
 
   },
 };
 
+const defaultState: State = {
+  isModalShown: false,
+  isValidationShown: false,
+  newFieldName: '',
+  newFieldType: 'string',
+};
+
 class AddCustomField extends React.Component<Props, State> {
 
-  public state: State = {
-    isModalShown: false,
-    isValidationShown: false,
-    newFieldName: '',
-    newFieldType: 'string',
-  };
+  public state: State = defaultState;
 
   public render() {
     return (
@@ -62,7 +64,7 @@ class AddCustomField extends React.Component<Props, State> {
           style={modalStyles}
         >
           <div className={styles.modalHeading}>
-            <h2 className={styles.modalHeader}>{`Add a field for ${this.props.modelName}s`}</h2>
+            <h2 className={styles.modalHeader}>{`Add a field for ${this.props.modelName.toLowerCase()}s`}</h2>
             <button onClick={this.hideModal}>X</button>
           </div>
           <div className={styles.modalBody}>
@@ -84,7 +86,7 @@ class AddCustomField extends React.Component<Props, State> {
               <button className={styles.buttonSave} onClick={this.saveCustomField}>
                 Save
               </button>
-              <button className={styles.buttonCancel}>Cancel</button>
+              <button className={styles.buttonCancel} onClick={this.hideModal}>Cancel</button>
             </div>
           </div>
         </Modal>
@@ -109,22 +111,31 @@ class AddCustomField extends React.Component<Props, State> {
   };
 
   private hideModal = (): void => {
+    this.setState(defaultState);
+  };
+
+  private showValidation = (): void => {
     this.setState({
-      isModalShown: false,
+      isValidationShown: true,
     });
   };
 
   private saveCustomField = (): void => {
-    const newCustomField: CustomFieldSetting = {
-      isAlwaysShownInAddDialog: false,
-      isAlwaysVisible: false,
-      isDefault: false,
-      model: this.props.modelName.toLowerCase(),
-      name: this.state.newFieldName,
-      type: this.state.newFieldType,
-    };
-    this.props.addCustomField(this.props.modelName, newCustomField);
-  };
+    if (this.isNameValid()) {
+      const { newFieldName, newFieldType } = this.state;
+      const newCustomField: CustomFieldSetting = {
+        isAlwaysVisible: false,
+        isDefault: false,
+        isShownInAddDialog: false,
+        model: this.props.modelName.toLowerCase(),
+        name: newFieldName,
+        type: newFieldType,
+      };
+      this.props.addCustomField(newCustomField);
+    } else {
+      this.showValidation();
+    }
+  }
 }
 
 export default AddCustomField;
