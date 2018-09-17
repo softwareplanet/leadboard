@@ -39,11 +39,9 @@ class Stages extends React.Component<Props, State> {
         <ul className={styles.stagesList}>
           {this.props.stages.map(stage => {
             return (
-              <div key={stage._id}>
-                <li onClick={() => this.openModal(stage)}>
-                  <StageView stage={stage} />
-                </li>
-              </div>
+              <li onClick={() => this.openModal(stage)} key={stage._id}>
+                <StageView stage={stage} />
+              </li>
             )
           })}
         </ul>

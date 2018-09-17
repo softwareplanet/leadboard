@@ -12,6 +12,6 @@
 }
 
 .stagesList li {
-  flex: auto;
+  flex-grow: 1;
   cursor: default;
 }
