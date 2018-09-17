@@ -10,7 +10,12 @@ class Table extends React.Component<Props, object> {
   public render() {
     return (
       <div>
-        <BootstrapTable keyField="_id" data={this.props.data} columns={this.props.columns} hover={true} />
+        <BootstrapTable
+          keyField="_id"
+          data={this.props.data}
+          columns={this.props.columns}
+          hover={true}
+        />
       </div>
     );
   }

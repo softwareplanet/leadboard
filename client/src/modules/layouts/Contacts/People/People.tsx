@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import NavBar from '../../Navbar/Navbar';
-import { loadContacts } from '../../../common/autocomplete/contact/contactActions';
 import Contact from '../../../../models/Contact';
+import * as columnStyles from '../../../../modules/common/Table/ColumnStyles';
 import Table from '../../../../modules/common/Table/Table';
+import { loadContacts } from '../../../common/autocomplete/contact/contactActions';
+import NavBar from '../../Navbar/Navbar';
 import * as styles from './People.css';
 
 interface Props {
@@ -15,30 +16,44 @@ interface Props {
 const columns = [
   {
     dataField: 'custom[0].value',
+    headerStyle: columnStyles.basicHeaderStyle,
+    style: columnStyles.basicColumnStyle,
     text: 'Email',
   },
   {
     dataField: 'name',
+    headerStyle: columnStyles.basicHeaderStyle,
+    style: columnStyles.basicColumnStyle,
     text: 'Name',
   },
   {
     dataField: 'organization.name',
+    headerStyle: columnStyles.basicHeaderStyle,
+    style: columnStyles.basicColumnStyle,
     text: 'Organization',
   },
   {
     dataField: 'custom[1].value',
+    headerStyle: columnStyles.basicHeaderStyle,
+    style: columnStyles.basicColumnStyle,
     text: 'Phone',
   },
   {
     dataField: 'openedLeads',
+    headerStyle: columnStyles.rightAliginHeaderStyle,
+    style: columnStyles.rightAlignColumnStyle,
     text: 'Open leads',
   },
   {
     dataField: 'closedLeads',
+    headerStyle: columnStyles.rightAliginHeaderStyle,
+    style: columnStyles.rightAlignColumnStyle,
     text: 'Closed leads',
   },
   {
     dataField: 'owner.email',
+    headerStyle: columnStyles.basicHeaderStyle,
+    style: columnStyles.basicColumnStyle,
     text: 'Owner',
   },
 ];
