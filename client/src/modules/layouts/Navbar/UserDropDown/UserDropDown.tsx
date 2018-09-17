@@ -1,14 +1,15 @@
 import * as React from 'react';
-import * as styles from './UserDropDown.css';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import ReactSVG from 'react-svg';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 import dropMenuIcon from '../../../../assets/drop-menu-icon.svg';
 import profileIcon from '../../../../assets/header-profile.svg';
-import settingsIcon from '../../../../assets/settings-icon.svg';
 import logoutIcon from '../../../../assets/logout-icon.svg';
+import settingsIcon from '../../../../assets/settings-icon.svg';
 import { logoutUser } from '../../../auth/authActions';
+import { PIPELINES } from '../../../settings/settingsRoutes';
+import * as styles from './UserDropDown.css';
 
 interface Props extends RouteComponentProps<any> {
   auth: any;
@@ -20,7 +21,7 @@ interface State {
   isDropdownOpen: boolean;
 }
 
-const settingsRoute = '/settings/funnels';
+const settingsRoute = `/settings/${PIPELINES}`;
 
 class UserDropDown extends React.Component<Props, State> {
   public state: State = {
