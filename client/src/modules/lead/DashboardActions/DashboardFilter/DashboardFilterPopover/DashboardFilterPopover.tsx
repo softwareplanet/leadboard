@@ -23,7 +23,8 @@ class DashboardFilterPopover extends React.Component<Props, object> {
         placement="bottom-end"
         target="filter-button"
         isOpen={this.props.isOpen}
-        toggle={this.props.toggle}>
+        toggle={this.props.toggle}
+        >
         <Card className={styles.card}>
           <CardHeader className={styles.cardHeader}>
             <ul className={styles.filterTypesList}>

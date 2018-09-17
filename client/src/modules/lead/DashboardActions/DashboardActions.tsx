@@ -1,7 +1,7 @@
 import * as React from 'react';
 import AddLead from '../AddLead/AddLead';
-import DashboardFilter from '../DashboardNavbar/DashboardFilter/DashboardFilter';
-import * as styles from './DashboardNavbar.css';
+import DashboardFilter from '../DashboardActions/DashboardFilter/DashboardFilter';
+import * as styles from './DashboardActions.css';
 
 class DashboardNavbar extends React.Component {
   public render() {

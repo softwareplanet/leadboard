@@ -18,6 +18,8 @@ let cred;
 let lead;
 let stageId;
 const UPDATED_NOTE = "Updated note";
+const IN_PROGRESS = "InProgress";
+
 beforeEach(async done => {
   await dropTables();
   cred = await createUserAndDomain(app);
@@ -206,7 +208,7 @@ describe("Lead", () => {
       .set("Authorization", cred.token)
       .query({
         stage: stageId,
-        status: "InProgress",
+        status: IN_PROGRESS,
       });
     expect(status).toBe(200);
     expect(Object.keys(body).length).toBe(2);

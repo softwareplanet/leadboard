@@ -11,8 +11,6 @@ import Activity from "../../models/activity";
 
 const router = new Router();
 
-const IN_PROGRESS = "InProgress";
-
 const assertLeadIdParam = (req, res, next) => {
   if (req.params.id) {
     return res.status(500).json({

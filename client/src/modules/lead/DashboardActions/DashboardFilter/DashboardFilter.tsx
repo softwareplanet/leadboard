@@ -62,12 +62,12 @@ class DashboardFilter extends React.Component<Props, State> {
   };
 
   private getFiltersWithShowedMark = (status: string) => {
-    return filters.map(f => f.type === status ? ({ ...f, showCheckMark: true }) : f);
+    return filters.map(filter => filter.type === status ? ({ ...filter, showCheckMark: true }) : filter);
   };
 
   private getCurrentFilterText = () => {
-    const currentFilter = this.state.filters.find(f =>
-      f.showCheckMark === true
+    const currentFilter = this.state.filters.find(filter =>
+      filter.showCheckMark === true
     )
     return currentFilter ? currentFilter.text : this.state.filters[0].text;
   }

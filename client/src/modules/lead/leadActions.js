@@ -18,7 +18,7 @@ export const loadLeadboard = (status = IN_PROGRESS) => dispatch => {
     .get("/api/funnel")
     .then(result => {
       dispatch(loadLeadboardAction(result.data));
-      if (typeof result.data[0]._id === "string") {
+      if (result.data.length > 0) {
         dispatch(loadStages(result.data[0]._id, status));
       }
     })
