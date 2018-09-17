@@ -3,11 +3,11 @@
   box-shadow: 0 2px 8px 0 rgba(38, 41, 44, .12);
 }
 
-.card{
+.card {
   border: none;
 }
 
-.cardHeader{
+.cardHeader {
   composes: componentsBackgroundColor from "../../../../../styles/common.css";
 }
 
@@ -45,7 +45,7 @@
   font-size: 14px;
 }
 
-.currentFilter{
+.currentFilter {
   font-weight: 600;
 }
 
