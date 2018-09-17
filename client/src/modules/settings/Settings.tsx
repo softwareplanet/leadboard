@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Route } from 'react-router-dom';
 import Navbar from '../layouts/Navbar/Navbar';
 import CustomizeFields from './CustomizeFields/CustomizeFields';
-import Pipelines from './Pipelines/Pipelines';
+import Funnels from './Funnels/Funnels';
 import * as styles from './Settings.css';
 import Sidebar from './Sidebar/Sidebar';
 
@@ -12,11 +12,11 @@ export default class Settings extends React.Component {
     return (
       <div className={styles.settingsWrapper}>
         <Navbar />
-        <div className={styles.settings}>
+        <div className={styles.settingsContent}>
           <Sidebar />
           <Route
             path="/settings/pipelines"
-            component={Pipelines}
+            component={Funnels}
           />
           <Route
             path="/settings/customize-fields"
