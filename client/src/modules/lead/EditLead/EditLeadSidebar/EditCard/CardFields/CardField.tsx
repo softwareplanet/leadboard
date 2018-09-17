@@ -27,7 +27,7 @@ export default class CardField extends React.Component<Props, State> {
 
     const valueAdd = (
       <span className={styles.addValue} onClick={this.openEditMode}>
-          + Add value
+        + Add value
       </span>
     );
     const valueShow = (

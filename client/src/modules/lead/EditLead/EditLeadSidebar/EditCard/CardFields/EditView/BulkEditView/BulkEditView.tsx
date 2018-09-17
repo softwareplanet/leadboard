@@ -85,7 +85,7 @@ class BulkEditView extends React.Component<Props, State> {
   private getEditableFields(): CustomFieldData[] {
     let result = [
       {
-        isAlwaysShownInAddDialog: true,
+        isShownInAddDialog: true,
         isAlwaysVisible: true,
         isDefault: true,
         key: 'Name',
