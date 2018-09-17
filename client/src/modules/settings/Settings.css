@@ -3,12 +3,9 @@
   flex-direction: column;
 }
 
-.settings {
+.settingsContent {
   display: flex;
   flex-direction: row;
-}
-
-.settingsContent {
   margin-left: 10px;
   width: 100%;
 }

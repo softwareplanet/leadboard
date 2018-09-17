@@ -39,7 +39,7 @@ class Funnel extends React.Component<Props, State> {
   public state: State = {
     isModalOpen: false,
     name: '',
-  }
+  };
 
   public render() {
     return (
@@ -49,7 +49,7 @@ class Funnel extends React.Component<Props, State> {
             <div className={styles.name}>{this.props.funnel ? this.props.funnel.name : ''}</div>
             <div onClick={this.openModal} className={styles.edit}>Edit</div>
           </div>
-          <Modal 
+          <Modal
             isOpen={this.state.isModalOpen}
             style={customStyles}
           >
@@ -57,31 +57,31 @@ class Funnel extends React.Component<Props, State> {
             <div className={styles.modalContent}>
               <div className={styles.nameInputContainer}>
                 <div className={styles.inputContainer}>
-                  <input 
-                    className={styles.input} 
-                    type="text" 
+                  <input
+                    className={styles.input}
+                    type="text"
                     value={this.state.name}
                     onChange={this.onNameChange}
                   />
                   <div className={styles.modalButtons}>
-                    <button 
-                      disabled={isBlank(this.state.name)} 
-                      onClick={this.save} 
+                    <button
+                      disabled={isBlank(this.state.name)}
+                      onClick={this.save}
                       className={styles.save}
                     >
                       Save
                     </button>
-                    <button onClick={this.cancel} className={styles.cancel}>Cancel</button>  
+                    <button onClick={this.cancel} className={styles.cancel}>Cancel</button>
                   </div>
                 </div>
                 <div>Title of the funnel</div>
               </div>
             </div>
           </Modal>
-        </div> 
+        </div>
         <Stages />
       </div>
-    )
+    );
   }
 
   private openModal = () => {
@@ -89,37 +89,37 @@ class Funnel extends React.Component<Props, State> {
       this.setState({
         isModalOpen: true,
         name: this.props.funnel.name,
-      })
+      });
     }
-  }
+  };
 
   private onNameChange = (e: any) => {
     this.setState({
       ...this.state,
       name: e.target.value,
-    })
-  }
+    });
+  };
 
   private save = () => {
-    if(this.props.funnel){
-      this.props.updateFunnel(this.props.funnel._id, {name: this.state.name})
+    if (this.props.funnel) {
+      this.props.updateFunnel(this.props.funnel._id, { name: this.state.name });
       this.setState({
         ...this.state,
         isModalOpen: false,
-      })
+      });
     }
-  }
+  };
 
   private cancel = () => {
     this.setState({
       ...this.state,
       isModalOpen: false,
-    })
-  }
+    });
+  };
 }
 
-const mapStateToProps = (state: any) => ({})
+const mapStateToProps = (state: any) => ({});
 
-export { Funnel }
+export { Funnel };
 
-export default connect(mapStateToProps, { updateFunnel })(Funnel)
+export default connect(mapStateToProps, { updateFunnel })(Funnel);

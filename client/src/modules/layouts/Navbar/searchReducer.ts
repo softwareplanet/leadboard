@@ -1,4 +1,4 @@
-import Action from '../../../models/Action'
+import Action from '../../../models/Action';
 import { LOAD_SEARCH_RESULT, START_SEARCH_LOADING } from './types';
 
 const initialState = {

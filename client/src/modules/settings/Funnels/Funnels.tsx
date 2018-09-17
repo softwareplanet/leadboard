@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import FunnelModel from '../../../models/Funnel';
 import { loadFunnels } from '../settingActions';
 import Funnel from './Funnel/Funnel';
-import * as styles from './Funnels.css'
+import * as styles from './Funnels.css';
 
 interface Props {
   funnels: FunnelModel[];
@@ -19,9 +19,9 @@ class Funnels extends React.Component<Props> {
     return (
       <div className={styles.content}>
         <h1 className={styles.heading}>Customize sales stages</h1>
-        <Funnel funnel={this.props.funnels[0]}/>
+        <Funnel funnel={this.props.funnels[0]} />
       </div>
-    )
+    );
   }
 
   public componentWillReceiveProps(nextProps: Props) {
@@ -37,4 +37,4 @@ const mapStateToProps = (state: any) => ({
   selectedFunnel: state.settings.selectedFunnel,
 });
 
-export default connect(mapStateToProps, { loadFunnels })(Funnels)
+export default connect(mapStateToProps, { loadFunnels })(Funnels);
