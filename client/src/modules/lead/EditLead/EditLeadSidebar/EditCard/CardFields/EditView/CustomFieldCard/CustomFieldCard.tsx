@@ -25,12 +25,12 @@ class CustomFieldCard extends React.Component<Props, State> {
 
   public editModeHandler = () => {
     this.setState(prevState => {
-      return { editMode: !prevState.editMode } 
+      return { editMode: !prevState.editMode };
     });
   };
 
   public render() {
-    return !this.state.editMode ? this.renderCard() : this.renderEditCard()
+    return !this.state.editMode ? this.renderCard() : this.renderEditCard();
   }
 
   private onCustomFieldDelete = () => {

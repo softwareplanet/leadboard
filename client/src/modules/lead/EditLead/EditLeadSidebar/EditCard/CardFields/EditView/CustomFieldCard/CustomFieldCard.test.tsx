@@ -34,7 +34,7 @@ describe('<CustomFieldCard />', () => {
         deleteCustomField={onDelete}
         customSettings={settings}
         editCustomFieldInDomain={noop}
-      />
+      />,
     );
     expect(wrapper.length).toBe(1);
   });

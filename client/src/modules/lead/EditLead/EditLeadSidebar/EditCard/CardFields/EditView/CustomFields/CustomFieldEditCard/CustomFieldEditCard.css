@@ -66,7 +66,7 @@
 }
 
 .checkboxLabel {
-  font:  14px/22px Open Sans, sans-serif !important;
+  font: 14px/22px Open Sans, sans-serif !important;
   display: block;
   position: relative;
   padding-left: 25px;
@@ -81,12 +81,12 @@
   cursor: pointer;
 }
 
-.checkboxLabel input:checked~.checkMark {
+.checkboxLabel input:checked ~ .checkMark {
   background-color: #377be2;
   border: 2px solid #377be2;
 }
 
-.checkboxLabel input:checked~.checkMark:after {
+.checkboxLabel input:checked ~ .checkMark:after {
   display: block;
 }
 

@@ -23,7 +23,7 @@ describe('<CustomFieldEditCard />', () => {
         field={customField}
         onSave={callback}
         onCancel={callback}
-      />
+      />,
     );
   });
 
@@ -39,7 +39,7 @@ describe('<CustomFieldEditCard />', () => {
         field={customField}
         onSave={callback}
         onCancel={callback}
-      />
+      />,
     );
     const button = wrapper.find('.saveButton');
     button.simulate('click');

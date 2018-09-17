@@ -55,13 +55,13 @@ class CustomFieldEditCard extends React.Component<Props, State> {
   public addDialogHandler = () => {
     this.setState({
       isShownInAddDialog: !this.state.isShownInAddDialog,
-    })
+    });
   };
 
   public visiblityHandler = () => {
     this.setState({
       isAlwaysVisible: !this.state.isAlwaysVisible,
-    })
+    });
   };
 
   public render() {
@@ -85,7 +85,7 @@ class CustomFieldEditCard extends React.Component<Props, State> {
             <label className={styles.checkboxLabel}>
               Always visible on sidebar
               <input type="checkbox" checked={this.state.isAlwaysVisible}
-                onChange={this.visiblityHandler}
+                     onChange={this.visiblityHandler}
               />
               <span className={styles.checkMark} />
             </label>
