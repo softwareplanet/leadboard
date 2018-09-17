@@ -1,4 +1,5 @@
 import { shallow } from 'enzyme';
+import { noop } from 'lodash';
 import * as React from 'react';
 import CustomFieldCard from '../CustomFieldCard/CustomFieldCard';
 import CustomFields from './CustomFields';
@@ -8,18 +9,18 @@ describe('<CustomFields />', () => {
   const customs = [
     {
       _id: '5b97d3573485d2406c818ba0',
-      isAlwaysShownInAddDialog: false,
       isAlwaysVisible: true,
       isDefault: true,
-      model: 'Organization',
+      isShownInAddDialog: false,
+      model: 'Contact',
       name: 'Address',
       type: 'string',
     },
     {
       _id: '5b97d3573485d2406c818ba0',
-      isAlwaysShownInAddDialog: false,
       isAlwaysVisible: true,
       isDefault: true,
+      isShownInAddDialog: false,
       model: 'Contact',
       name: 'Address',
       type: 'string',
@@ -33,6 +34,9 @@ describe('<CustomFields />', () => {
     (
       <CustomFields
         deleteCustomField={jest.fn()}
+        addCustomFieldToDomain={noop}
+        modelType="Contact"
+        editCustomFieldInDomain={noop}
         customFields={customs}
         closeEditCustomFieldsMode={callback}
       />,

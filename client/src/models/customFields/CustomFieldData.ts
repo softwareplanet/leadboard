@@ -5,6 +5,6 @@ export default interface CustomFieldData {
   value: string;
   type: string;
   isAlwaysVisible: boolean;
-  isAlwaysShownInAddDialog: boolean;
+  isShownInAddDialog: boolean;
   isDefault: boolean;
 }

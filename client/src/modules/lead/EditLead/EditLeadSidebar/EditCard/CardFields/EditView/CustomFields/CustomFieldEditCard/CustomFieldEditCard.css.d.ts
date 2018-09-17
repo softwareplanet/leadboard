@@ -7,5 +7,7 @@ export const nameInputWrap: string;
 export const nameInput: string;
 export const editFieldLabel: string;
 export const visibilityOptions: string;
-export const fieldTypeWrap: string;
 export const checkboxLabel: string;
+export const actionButtons: string;
+export const invalidName: string;
+export const checkMark: string;

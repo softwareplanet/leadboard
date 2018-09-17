@@ -21,9 +21,14 @@ interface Props {
   model: Contact | Organization;
   customFieldsSettings: CustomFieldSetting[];
   title: string;
+  modelType: string;
   icon: any;
   customFields: CustomFieldData[];
 
+  addCustomFieldToDomain(customField: CustomFieldSetting): void;
+
+  editCustomFieldInDomain(customField: CustomFieldSetting): void;
+  
   onUpdate(model: Contact | Organization): void;
 
   deleteCustomField(csid: string): void;
@@ -50,24 +55,24 @@ class EditCard extends React.Component<Props, State> {
         <div className={styles.title}>
           <span className={styles.titleName}>
             {this.props.title}
-            </span>
+          </span>
           {(!isInEditMode && !isInCustomizeFieldsMode) &&
-          <div>
-            <EditButton onClick={this.openEditMode} />
-            <SettingsButton id={this.props.model._id} showCustomize={this.openCustomizeFieldsMode} />
-          </div>
+            <div>
+              <EditButton onClick={this.openEditMode} />
+              <SettingsButton id={this.props.model._id} showCustomize={this.openCustomizeFieldsMode} />
+            </div>
           }
         </div>
         {(!isInEditMode && !isInCustomizeFieldsMode) &&
-        <div>
-          <MainField
-            title={this.props.title}
-            value={this.props.model.name}
-            icon={this.props.icon}
-            onUpdate={this.handleMainFieldUpdate}
-          />
-          {fields}
-        </div>
+          <div>
+            <MainField
+              title={this.props.title}
+              value={this.props.model.name}
+              icon={this.props.icon}
+              onUpdate={this.handleMainFieldUpdate}
+            />
+            {fields}
+          </div>
         }
         {
           isInEditMode &&
@@ -82,6 +87,9 @@ class EditCard extends React.Component<Props, State> {
           isInCustomizeFieldsMode &&
           <CustomFields
             deleteCustomField={this.props.deleteCustomField}
+            modelType={this.props.modelType}
+            addCustomFieldToDomain={this.props.addCustomFieldToDomain}
+            editCustomFieldInDomain={this.props.editCustomFieldInDomain}
             customFields={this.props.customFieldsSettings}
             closeEditCustomFieldsMode={this.closeCustomizeFieldsMode}
           />

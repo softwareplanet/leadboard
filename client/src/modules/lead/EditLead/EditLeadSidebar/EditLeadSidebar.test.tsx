@@ -15,9 +15,9 @@ describe('<EditLeadSidebar />', () => {
     customFields: [
       {
         _id: '5b97a9bb8ef7eb47231396ad',
-        isAlwaysShownInAddDialog: false,
         isAlwaysVisible: true,
         isDefault: true,
+        isShownInAddDialog: false,
         model: 'Contact',
         name: 'Phone',
         type: 'string',
@@ -142,6 +142,8 @@ describe('<EditLeadSidebar />', () => {
     wrapper = shallow
     (
       <EditLeadSidebar
+        addCustomFieldToDomain={noop}
+        editCustomFieldInDomain={noop}
         loadLead={noop}
         editLead={editLead}
         loadContacts={noop}
@@ -175,6 +177,8 @@ describe('<EditLeadSidebar />', () => {
     wrapper = shallow
     (
       <EditLeadSidebar
+        addCustomFieldToDomain={noop}
+        editCustomFieldInDomain={noop}
         loadLead={noop}
         editLead={editLead}
         loadContacts={noop}
@@ -199,6 +203,8 @@ describe('<EditLeadSidebar />', () => {
     wrapper = shallow
     (
       <EditLeadSidebar
+        addCustomFieldToDomain={noop}
+        editCustomFieldInDomain={noop}
         loadLead={noop}
         editLead={editLead}
         loadContacts={noop}

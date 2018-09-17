@@ -1,4 +1,5 @@
 import { shallow } from 'enzyme';
+import { noop } from 'lodash';
 import * as React from 'react';
 import someIcon from '../../../../../assets/call-activity.svg';
 import Contact from '../../../../../models/Contact';
@@ -52,9 +53,9 @@ describe('<EditCard />', () => {
 
   const customFields: CustomFieldData[] = [
     {
-      isAlwaysShownInAddDialog: false,
       isAlwaysVisible: true,
       isDefault: true,
+      isShownInAddDialog: false,
       key: '5b97d3573485d2406c818ba0',
       model: 'Organization',
       name: 'Address',
@@ -62,9 +63,9 @@ describe('<EditCard />', () => {
       value: '',
     },
     {
-      isAlwaysShownInAddDialog: false,
       isAlwaysVisible: true,
       isDefault: true,
+      isShownInAddDialog: false,
       key: '5b97d3573485d2406c818ba0',
       model: 'Contact',
       name: 'Address',
@@ -78,10 +79,13 @@ describe('<EditCard />', () => {
     wrapper = shallow
     (
       <EditCard
+        addCustomFieldToDomain={noop}
+        editCustomFieldInDomain={noop}
         model={contact}
+        modelType="Contact"
         customFieldsSettings={[]}
         onUpdate={jest.fn()}
-        title={'Person'}
+        title="Person"
         icon={someIcon}
         customFields={customFields}
         deleteCustomField={jest.fn()}
@@ -105,10 +109,13 @@ describe('<EditCard />', () => {
     wrapper = shallow
     (
       <EditCard
+        addCustomFieldToDomain={noop}
+        editCustomFieldInDomain={noop}
         model={organization}
+        modelType="Organization"
         customFieldsSettings={[]}
         onUpdate={jest.fn()}
-        title={'Person'}
+        title="Person"
         icon={someIcon}
         customFields={customFields}
         deleteCustomField={jest.fn()}

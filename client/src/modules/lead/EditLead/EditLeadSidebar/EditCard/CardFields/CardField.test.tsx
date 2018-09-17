@@ -10,9 +10,9 @@ describe('<CardField />', () => {
 
   beforeEach(() => {
     field = {
-      isAlwaysShownInAddDialog: false,
       isAlwaysVisible: false,
       isDefault: false,
+      isShownInAddDialog: false,
       key: '5b97a9aeb35f5710b39e3951',
       model: 'Contact',
       name: 'Phone',

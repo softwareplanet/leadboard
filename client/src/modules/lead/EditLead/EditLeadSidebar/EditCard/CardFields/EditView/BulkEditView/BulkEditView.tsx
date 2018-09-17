@@ -25,6 +25,10 @@ interface Props {
 
 class BulkEditView extends React.Component<Props, State> {
 
+  private static isNameValid(name: string) {
+    return !isBlank(name);
+  }
+
   public state: State = {
     _id: '',
     custom: [],
@@ -76,7 +80,7 @@ class BulkEditView extends React.Component<Props, State> {
   };
 
   private onSaveAllClicked = () => {
-    if (this.isNameValid(this.state.name)) {
+    if (BulkEditView.isNameValid(this.state.name)) {
 
       this.props.onChange(this.state);
     }
@@ -85,9 +89,9 @@ class BulkEditView extends React.Component<Props, State> {
   private getEditableFields(): CustomFieldData[] {
     let result = [
       {
-        isAlwaysShownInAddDialog: true,
         isAlwaysVisible: true,
         isDefault: true,
+        isShownInAddDialog: true,
         key: 'Name',
         model: '',
         name: 'Name',
@@ -106,14 +110,10 @@ class BulkEditView extends React.Component<Props, State> {
         fieldKey={field.key}
         name={field.name}
         value={field.value}
-        isValid={field.name === 'Name' ? this.isNameValid(this.state.name) : true}
+        isValid={field.name === 'Name' ? BulkEditView.isNameValid(this.state.name) : true}
         onChange={this.onChangeEditField}
       />
     ));
-  }
-
-  private isNameValid(name: string) {
-    return !isBlank(name);
   }
 }
 
