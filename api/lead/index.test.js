@@ -206,6 +206,7 @@ describe("Lead", () => {
       .set("Authorization", cred.token)
       .query({
         stage: stageId,
+        status: "InProgress",
       });
     expect(status).toBe(200);
     expect(Object.keys(body).length).toBe(2);
