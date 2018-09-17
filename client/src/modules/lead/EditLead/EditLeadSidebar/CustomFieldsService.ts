@@ -17,7 +17,7 @@ export function makeCustomFieldData(modelType: string, model: Contact | Organiza
       isAlwaysShownInAddDialog: fieldSetting.isAlwaysShownInAddDialog,
       isAlwaysVisible: fieldSetting.isAlwaysVisible,
       isDefault: fieldSetting.isDefault,
-      key: fieldSetting._id,
+      key: fieldSetting._id ? fieldSetting._id : '',
       model: modelType,
       name: fieldSetting.name,
       type: fieldSetting.type,
