@@ -55,7 +55,7 @@ class AddCustomField extends React.Component<Props, State> {
           className={styles.addButton}
           onClick={this.showModal}
         >
-          {`Add ${this.props.modelName} field`}
+          {`Add ${this.props.modelName.toLowerCase()} field`}
         </button>
         <Modal
           isOpen={this.state.isModalShown}
@@ -127,7 +127,7 @@ class AddCustomField extends React.Component<Props, State> {
         isAlwaysVisible: false,
         isDefault: false,
         isShownInAddDialog: false,
-        model: this.props.modelName.toLowerCase(),
+        model: this.props.modelName,
         name: newFieldName,
         type: newFieldType,
       };
