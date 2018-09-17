@@ -5,6 +5,7 @@ import isBlank from '../../../utils/isBlank';
 import EditFieldGroup
   from '../../lead/EditLead/EditLeadSidebar/EditCard/CardFields/EditView/EditFieldGroup/EditFieldGroup';
 import * as styles from './AddCustomField.css';
+import classnames from 'classnames';
 
 interface Props {
   modelName: string;
@@ -64,15 +65,10 @@ class AddCustomField extends React.Component<Props, State> {
           style={modalStyles}
         >
           <div className={styles.modalHeading}>
-            <h2 className={styles.modalHeader}>{`Add a field for ${this.props.modelName.toLowerCase()}s`}</h2>
-            <button onClick={this.hideModal}>X</button>
+            <div className={styles.modalHeader}>{`Add a field for ${this.props.modelName.toLowerCase()}s`}</div>
+            <button className={styles.closeModal} onClick={this.hideModal}>x</button>
           </div>
           <div className={styles.modalBody}>
-            <div className={styles.typeSelector}>
-              <h1 className={styles.typeSelectorHeader}>
-                What type of field do you want to add?
-              </h1>
-            </div>
             <div className={styles.nameInputGroupContainer}>
               <EditFieldGroup
                 fieldKey={'fieldName'}
@@ -83,11 +79,19 @@ class AddCustomField extends React.Component<Props, State> {
               />
             </div>
             <div className={styles.actions}>
-              <button className={styles.buttonSave} onClick={this.saveCustomField}>
+              <button
+                className={classnames(styles.buttonSave, { [styles.disabled]: !this.isNameValid() })}
+                onClick={this.saveCustomField}
+              >
                 Save
               </button>
               <button className={styles.buttonCancel} onClick={this.hideModal}>Cancel</button>
             </div>
+          </div>
+          <div className={styles.modalFooter}>
+            <small>
+              Please bear in mind that customized fields are shared with all users throughout your company.
+            </small>
           </div>
         </Modal>
       </div>
