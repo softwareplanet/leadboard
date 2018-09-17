@@ -81,4 +81,6 @@ const mapStateToProps = (state: any) => ({
   stages: state.settings.stages,
 });
 
+export { Stages };
+
 export default connect(mapStateToProps, { loadStages, updateStage })(Stages)
