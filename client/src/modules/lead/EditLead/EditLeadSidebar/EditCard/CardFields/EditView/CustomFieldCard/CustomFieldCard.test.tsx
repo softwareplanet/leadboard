@@ -23,7 +23,8 @@ describe('<CustomFieldCard />', () => {
       <CustomFieldCard
         customSettings={settings}
         editCustomFieldInDomain={noop}
-        deleteCustomField={onDelete} />,
+        deleteCustomField={onDelete}
+      />,
     );
   });
 
@@ -42,7 +43,6 @@ describe('<CustomFieldCard />', () => {
   window.confirm = jest.fn(() => true);
   it('should call deleteCustomField method on click delete button', () => {
     const button = wrapper.find('.deleteButton');
-    // console.log(button.html());
     button.simulate('click');
     expect(onDelete).toHaveBeenCalled();
   });

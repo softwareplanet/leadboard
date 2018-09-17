@@ -84,8 +84,10 @@ class CustomFieldEditCard extends React.Component<Props, State> {
           <div className={styles.visibilityOptions}>
             <label className={styles.checkboxLabel}>
               Always visible on sidebar
-              <input type="checkbox" checked={this.state.isAlwaysVisible}
-                     onChange={this.visiblityHandler}
+              <input
+                type="checkbox"
+                checked={this.state.isAlwaysVisible}
+                onChange={this.visiblityHandler}
               />
               <span className={styles.checkMark} />
             </label>
