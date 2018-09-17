@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import CustomFieldSetting from '../../../models/customFields/CustomFieldSetting';
 import DomainSettings from '../../../models/DomainSettings';
+import AddCustomField from '../../customFields/AddCustomField/AddCustomField';
 import { getCustomFieldSettingsByModel } from '../../lead/EditLead/EditLeadSidebar/CustomFieldsService';
 import * as styles from './CustomFields.css';
 
@@ -58,7 +59,7 @@ class CustomizeFields extends React.Component<Props, State> {
             </li>
           </ul>
           <div className={styles.actions}>
-            <button className={styles.addButton}>Add people field</button>
+            <AddCustomField buttonSign={`Add ${MODEL_NAMES[this.state.selectedTabIndex].toLowerCase()} field`} />
           </div>
           <div className={styles.tabs}>
             {this.createTabs(MODEL_NAMES)}

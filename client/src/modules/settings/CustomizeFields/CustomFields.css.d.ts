@@ -3,7 +3,6 @@ export const heading: string;
 export const header: string;
 export const featuresList: string;
 export const feature: string;
-export const addButton: string;
 export const customFieldsTableWrapper: string;
 export const tableRow: string;
 export const fieldName: string;

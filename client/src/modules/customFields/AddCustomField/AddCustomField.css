@@ -1,0 +1,4 @@
+.addButton {
+  composes: buttonSmall buttonGreen from "../../../styles/common.css";
+  margin-left: 9px;
+}

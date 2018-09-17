@@ -34,11 +34,6 @@
   padding: 16px;
 }
 
-.addButton {
-  composes: buttonSmall buttonGreen from "../../../styles/common.css";
-  margin-left: 9px;
-}
-
 .tabs {
   height: 32px;
   padding: 5px 10px 0 10px;
