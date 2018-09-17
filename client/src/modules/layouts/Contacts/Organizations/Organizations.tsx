@@ -5,6 +5,7 @@ import Table from '../../../../modules/common/Table/Table';
 import { loadOrganizations } from '../../../common/autocomplete/organization/organizationActions';
 import NavBar from '../../Navbar/Navbar';
 import * as styles from './Organizations.css';
+import * as columnStyles from '../../../common/Table/ColumnStyles';
 
 interface Props {
   organizations: Organization[];
@@ -15,26 +16,38 @@ interface Props {
 const columns = [
   {
     dataField: 'name',
+    headerStyle: columnStyles.basicHeaderStyle,
+    style: columnStyles.basicColumnStyle,
     text: 'Name',
   },
   {
     dataField: 'custom[0].value',
+    headerStyle: columnStyles.basicHeaderStyle,
+    style: columnStyles.basicColumnStyle,
     text: 'Address',
   },
   {
     dataField: 'contacts',
+    headerStyle: columnStyles.rightAliginHeaderStyle,
+    style: columnStyles.rightAlignColumnStyle,
     text: 'People',
   },
   {
     dataField: 'openedLeads',
+    headerStyle: columnStyles.rightAliginHeaderStyle,
+    style: columnStyles.rightAlignColumnStyle,
     text: 'Open leads',
   },
   {
     dataField: 'closedLeads',
+    headerStyle: columnStyles.rightAliginHeaderStyle,
+    style: columnStyles.rightAlignColumnStyle,
     text: 'Closed leads',
   },
   {
     dataField: 'owner.email',
+    headerStyle: columnStyles.basicHeaderStyle,
+    style: columnStyles.basicColumnStyle,
     text: 'Owner',
   },
 ];
