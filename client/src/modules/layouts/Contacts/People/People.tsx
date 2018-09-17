@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import Contact from '../../../../models/Contact';
 import * as columnStyles from '../../../../modules/common/Table/ColumnStyles';
 import Table from '../../../../modules/common/Table/Table';
-import { loadContacts } from '../../../common/autocomplete/contact/contactActions';
 import NavBar from '../../Navbar/Navbar';
+import { loadAggregatedContacts } from './contactActions';
 import * as styles from './People.css';
 
 interface Props {
   contacts: Contact[];
 
-  loadContacts(): void;
+  loadAggregatedContacts(): void;
 }
 
 const columns = [
@@ -60,7 +60,7 @@ const columns = [
 
 class People extends React.Component<Props, object> {
   public componentWillMount = () => {
-    this.props.loadContacts();
+    this.props.loadAggregatedContacts();
   };
 
   public getHeader = (count: number) => {
@@ -103,4 +103,4 @@ const mapStateToProps = (state: any) => ({
   contacts: state.contacts,
 });
 
-export default connect(mapStateToProps, { loadContacts })(People);
+export default connect(mapStateToProps, { loadAggregatedContacts  })(People);

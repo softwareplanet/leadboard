@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import Organization from '../../../../models/Organization';
 import Table from '../../../../modules/common/Table/Table';
-import { loadOrganizations } from '../../../common/autocomplete/organization/organizationActions';
+import { loadAggregatedOrganizations } from './organizationActions';
 import NavBar from '../../Navbar/Navbar';
 import * as styles from './Organizations.css';
 import * as columnStyles from '../../../common/Table/ColumnStyles';
@@ -10,7 +10,7 @@ import * as columnStyles from '../../../common/Table/ColumnStyles';
 interface Props {
   organizations: Organization[];
 
-  loadOrganizations(): void;
+  loadAggregatedOrganizations(): void;
 }
 
 const columns = [
@@ -54,7 +54,7 @@ const columns = [
 
 class Organizations extends React.Component<Props, object> {
   public componentWillMount = () => {
-    this.props.loadOrganizations();
+    this.props.loadAggregatedOrganizations();
   };
 
   public getHeader = (count: number) => {
@@ -100,4 +100,4 @@ const mapStateToProps = (state: any) => ({
   organizations: state.organizations,
 });
 
-export default connect(mapStateToProps, { loadOrganizations })(Organizations);
+export default connect(mapStateToProps, { loadAggregatedOrganizations })(Organizations);
