@@ -8,7 +8,7 @@ import * as styles from './DashboardFilter.css';
 import DashboardFilterPopover from './DashboardFilterPopover/DashboardFilterPopover';
 
 const filters = [
-  { text: 'Leads in progress', type: IN_PROGRESS, showCheckMark: false },
+  { text: 'All open leads', type: IN_PROGRESS, showCheckMark: false },
   { text: 'All won leads', type: WON, showCheckMark: false },
   { text: 'All lost leads', type: LOST, showCheckMark: false },
 ];
@@ -42,7 +42,7 @@ class DashboardFilter extends React.Component<Props, State> {
       <div>
         <button id="filter-button" className={styles.filterButton} onClick={this.togglePopover}>
           <span className={styles.iconSpan}><img src={filterIcon} alt="Filter icon" /></span>
-          <span className={styles.filterSpan}>Filter</span>
+          <span className={styles.filterSpan}>{this.getCurrentFilterText()}</span>
           <span className={styles.iconSpan}><img src={downArrowIcon} alt="Down arrow icon" /></span>
         </button>
         <DashboardFilterPopover
@@ -64,6 +64,13 @@ class DashboardFilter extends React.Component<Props, State> {
   private getFiltersWithShowedMark = (status: string) => {
     return filters.map(f => f.type === status ? ({ ...f, showCheckMark: true }) : f);
   };
+
+  private getCurrentFilterText = () => {
+    const currentFilter = this.state.filters.find(f =>
+      f.showCheckMark === true
+    )
+    return currentFilter ? currentFilter.text : this.state.filters[0].text;
+  }
 
   private onFilterClick = (status: string) => {
     this.setState({

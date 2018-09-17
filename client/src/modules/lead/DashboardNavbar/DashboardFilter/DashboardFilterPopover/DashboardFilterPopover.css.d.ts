@@ -1,4 +1,6 @@
 export const popover: string;
+export const card: string;
+export const cardHeader: string;
 export const cardBody: string;
 export const filter: string;
 export const filterName: string;
@@ -8,3 +10,4 @@ export const filterTypesList: string;
 export const filterIcon: string;
 export const iconSpan: string;
 export const checkMarkIcon: string;
+export const currentFilter: string;

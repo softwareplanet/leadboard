@@ -24,6 +24,10 @@
   outline: none;
 }
 
+.filterButton:hover {
+  background: #f7f7f7;
+}
+
 .filterButton:active {
   background-color: #cbcccd;
 }
