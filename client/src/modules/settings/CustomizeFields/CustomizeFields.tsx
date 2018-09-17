@@ -59,7 +59,7 @@ class CustomizeFields extends React.Component<Props, State> {
             </li>
           </ul>
           <div className={styles.actions}>
-            <AddCustomField buttonSign={`Add ${MODEL_NAMES[this.state.selectedTabIndex].toLowerCase()} field`} />
+            <AddCustomField modelName={MODEL_NAMES[this.state.selectedTabIndex]} />
           </div>
           <div className={styles.tabs}>
             {this.createTabs(MODEL_NAMES)}
