@@ -108,3 +108,9 @@ tr {
   padding: 4px 6px;
   margin-bottom: 1px;
 }
+
+.smallLink {
+  cursor: pointer;
+  color: rgb(49, 122, 226);
+  font-size: 14px;
+}

@@ -4,7 +4,7 @@ import CustomFieldSetting from '../../../models/customFields/CustomFieldSetting'
 import DomainSettings from '../../../models/DomainSettings';
 import AddCustomField from '../../customFields/AddCustomField/AddCustomField';
 import { getCustomFieldSettingsByModel } from '../../lead/EditLead/EditLeadSidebar/CustomFieldsService';
-import { addCustomFieldToDomain } from '../customFieldsActions';
+import { addCustomFieldToDomain, editCustomFieldInDomain } from '../customFieldsActions';
 import * as styles from './CustomFields.css';
 
 const MODEL_NAMES = ['Lead', 'Organization', 'Contact'];
@@ -16,7 +16,9 @@ interface State {
 interface Props {
   settings: DomainSettings;
 
-  addCustomFieldToDomain(customField: CustomFieldSetting): void
+  addCustomFieldToDomain(customField: CustomFieldSetting): void;
+
+  editCustomFieldInDomain(customFieldUpdate: any): void;
 }
 
 class CustomizeFields extends React.Component<Props, State> {
@@ -120,7 +122,12 @@ class CustomizeFields extends React.Component<Props, State> {
         </td>
         <td
           className={styles.showFieldInDetailedView}>
-          {this.convertBoolToYesNo(customField.isAlwaysVisible)}
+
+          {!customField.isDefault
+            ? <span className={styles.smallLink} onClick={this.invertIsAlwaysVisible.bind(this, customField)}>
+              {this.convertBoolToYesNo(customField.isAlwaysVisible)}
+            </span>
+            : ''}
         </td>
       </tr>
     ));
@@ -130,6 +137,14 @@ class CustomizeFields extends React.Component<Props, State> {
     this.setState({
       selectedTabIndex: MODEL_NAMES.indexOf(modelName),
     });
+  };
+
+  private invertIsAlwaysVisible = (customField: CustomFieldSetting) => {
+    const customFieldUpdate = {
+      _id: customField._id,
+      isAlwaysVisible: !customField.isAlwaysVisible,
+    };
+    this.props.editCustomFieldInDomain(customFieldUpdate);
   };
 
 }
@@ -144,4 +159,5 @@ export default connect(
   mapStateToProps,
   {
     addCustomFieldToDomain,
+    editCustomFieldInDomain,
   })(CustomizeFields);

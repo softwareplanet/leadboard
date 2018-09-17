@@ -12,3 +12,4 @@ export const actions: string;
 export const tabs: string;
 export const tab: string;
 export const tabActive: string;
+export const smallLink: string;
