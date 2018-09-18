@@ -241,7 +241,6 @@ describe("Lead", () => {
   });
 
   it("should return leads by status", async () => {
-    
     await request(app())
       .patch(`/api/lead/${lead._id}`)
       .set("Authorization", cred.token)

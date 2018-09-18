@@ -1,1 +1,1 @@
-export const dashboardNavbar: string;
+export const dashboardActions: string;

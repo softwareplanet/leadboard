@@ -6,7 +6,7 @@ import * as styles from './DashboardActions.css';
 class DashboardActions extends React.Component {
   public render() {
     return (
-      <div className={styles.dashboardNavbar}>
+      <div className={styles.dashboardActions}>
         <AddLead />
         <DashboardFilter />
       </div>
