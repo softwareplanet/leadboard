@@ -14,3 +14,4 @@ export const lostBadge: string;
 export const leadActions: string;
 export const reopenButton: string;
 export const closedLeadActions: string;
+export const bottom: string;

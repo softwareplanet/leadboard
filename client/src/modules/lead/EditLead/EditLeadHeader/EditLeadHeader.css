@@ -141,3 +141,9 @@
 .closedLeadActions {
   display: flex;
 }
+
+.bottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
