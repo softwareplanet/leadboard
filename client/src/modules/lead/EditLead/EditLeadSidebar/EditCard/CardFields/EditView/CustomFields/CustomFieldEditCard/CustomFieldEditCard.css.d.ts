@@ -11,3 +11,4 @@ export const checkboxLabel: string;
 export const actionButtons: string;
 export const invalidName: string;
 export const checkMark: string;
+export const deleteButton: string;

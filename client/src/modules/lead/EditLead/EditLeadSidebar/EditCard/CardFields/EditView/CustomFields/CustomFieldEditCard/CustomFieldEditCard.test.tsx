@@ -19,6 +19,7 @@ describe('<CustomFieldEditCard />', () => {
     wrapper = shallow
     (
       <CustomFieldEditCard
+        onDelete={jest.fn()}
         model="Contact"
         field={customField}
         onSave={callback}
@@ -35,6 +36,7 @@ describe('<CustomFieldEditCard />', () => {
     wrapper = mount
     (
       <CustomFieldEditCard
+        onDelete={jest.fn()}
         model="Contact"
         field={customField}
         onSave={callback}

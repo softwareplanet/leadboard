@@ -1,6 +1,7 @@
 import * as React from 'react';
 import CustomFieldSetting from '../../../../../../../../../models/customFields/CustomFieldSetting';
 import isBlank from '../../../../../../../../../utils/isBlank';
+import DeleteButton from '../../../../DeleteButton/DeleteButton';
 import * as styles from './CustomFieldEditCard.css';
 
 interface Props {
@@ -8,6 +9,8 @@ interface Props {
   model: string;
 
   onSave(customField: CustomFieldSetting): void;
+
+  onDelete(id: string): void;
 
   onCancel(): void;
 }
@@ -58,10 +61,14 @@ class CustomFieldEditCard extends React.Component<Props, State> {
     });
   };
 
-  public visiblityHandler = () => {
+  public visibilityHandler = () => {
     this.setState({
       isAlwaysVisible: !this.state.isAlwaysVisible,
     });
+  };
+
+  private onDeleteHandler = () => {
+    this.props.onDelete(this.props.field && this.props.field._id ? this.props.field._id : '');
   };
 
   public render() {
@@ -87,13 +94,14 @@ class CustomFieldEditCard extends React.Component<Props, State> {
               <input
                 type="checkbox"
                 checked={this.state.isAlwaysVisible}
-                onChange={this.visiblityHandler}
+                onChange={this.visibilityHandler}
               />
               <span className={styles.checkMark} />
             </label>
           </div>
         </div>
         <div className={styles.actionButtons}>
+          <DeleteButton className={styles.deleteButton} onClick={this.onDeleteHandler} />
           <button
             className={styles.cancelButton}
             onClick={this.props.onCancel}

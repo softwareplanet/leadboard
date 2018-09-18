@@ -63,6 +63,7 @@ class CustomFields extends React.Component<Props, State> {
       <CustomFieldEditCard
         model={this.props.modelType}
         onSave={this.props.addCustomFieldToDomain}
+        onDelete={this.props.deleteCustomField}
         onCancel={this.triggerNewFieldCard}
       /> :
       <div className={styles.newFieldContainer}>

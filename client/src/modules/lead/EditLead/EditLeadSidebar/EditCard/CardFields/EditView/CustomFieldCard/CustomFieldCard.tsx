@@ -1,10 +1,9 @@
 import * as classNames from 'classnames';
 import * as React from 'react';
-import trashIcon from '../../../../../../../../assets/trash-icon.svg';
 import CustomFieldSetting from '../../../../../../../../models/customFields/CustomFieldSetting';
+import DeleteButton from '../../../DeleteButton/DeleteButton';
 import CustomFieldEditCard from '../CustomFields/CustomFieldEditCard/CustomFieldEditCard';
 import * as styles from './CustomFieldCard.css';
-
 
 interface Props {
   customSettings: CustomFieldSetting;
@@ -23,23 +22,18 @@ class CustomFieldCard extends React.Component<Props, State> {
     editMode: false,
   };
 
-  public editModeHandler = () => {
+  public render() {
+    return !this.state.editMode ? this.renderCard() : this.renderEditCard();
+  }
+
+  private editModeHandler = () => {
     this.setState(prevState => {
       return { editMode: !prevState.editMode };
     });
   };
 
-  public render() {
-    return !this.state.editMode ? this.renderCard() : this.renderEditCard();
-  }
-
   private onCustomFieldDelete = () => {
-    if (window.confirm('You will delete the field from everywhere' +
-      ' in your Pipedrive as well as delete data stored' +
-      ' within this field. Are you sure you want to delete?')
-    ) {
-      this.props.deleteCustomField(this.props.customSettings._id ? this.props.customSettings._id : '');
-    }
+    this.props.deleteCustomField(this.props.customSettings._id ? this.props.customSettings._id : '');
   };
 
   private renderCard = () => {
@@ -57,9 +51,7 @@ class CustomFieldCard extends React.Component<Props, State> {
                   Edit
               </span>
               </button>
-              <button className={styles.deleteButton} onClick={this.onCustomFieldDelete}>
-                <img src={trashIcon} alt="trash-icon" />
-              </button>
+              <DeleteButton className={styles.editButton} onClick={this.onCustomFieldDelete} />
             </div>
           </div>
           <ul className={styles.properties}>
@@ -73,6 +65,7 @@ class CustomFieldCard extends React.Component<Props, State> {
   private renderEditCard = () => {
     return (
       <CustomFieldEditCard
+        onDelete={this.props.deleteCustomField}
         field={this.props.customSettings}
         model={this.props.customSettings.model}
         onSave={this.props.editCustomFieldInDomain}
