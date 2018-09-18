@@ -14,7 +14,7 @@ import Login from "./modules/auth/Login/Login";
 import Registration from "./modules/auth/Registration/Registration";
 import People from "./modules/layouts/Contacts/People/People";
 
-import "./App.css";
+import styles from "./App.css";
 import { Switch } from "react-router-dom";
 import EditLead from "./modules/lead/EditLead/EditLead";
 import Settings from "./modules/settings/Settings";
@@ -49,7 +49,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <div className="App">
+          <div className={styles.app}>
             <Switch>
               <PrivateRoute
                 exact

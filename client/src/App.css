@@ -20,6 +20,12 @@ li {
   cursor: pointer;
 }
 
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 /* LOGIN FORM */
 :global(#login-container) {
   display: flex;
@@ -115,4 +121,5 @@ li {
   padding-top: 40px;
   text-align: center;
   color: #888E94;
+  margin-bottom: 0;
 }

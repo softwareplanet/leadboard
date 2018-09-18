@@ -1,14 +1,14 @@
 import * as React from 'react';
-import * as styles from './UserDropDown.css';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import ReactSVG from 'react-svg';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 import dropMenuIcon from '../../../../assets/drop-menu-icon.svg';
 import profileIcon from '../../../../assets/header-profile.svg';
-import settingsIcon from '../../../../assets/settings-icon.svg';
 import logoutIcon from '../../../../assets/logout-icon.svg';
+import settingsIcon from '../../../../assets/settings-icon.svg';
 import { logoutUser } from '../../../auth/authActions';
+import * as styles from './UserDropDown.css';
 
 interface Props extends RouteComponentProps<any> {
   auth: any;
@@ -72,18 +72,18 @@ class UserDropDown extends React.Component<Props, State> {
             </div>
           </DropdownToggle>
           <DropdownMenu className={styles.userDropDownMenu} tag={'span'} right={true}>
-            <DropdownItem className={styles.userDropDownItem} onClick={this.onLogout} id="logout">
-              <div className={styles.menuItemIcon}>
-                <ReactSVG src={logoutIcon} />
-              </div>
-              <span>Log out</span>
-            </DropdownItem>
             <Link to={settingsRoute}>
               <DropdownItem className={styles.userDropDownItem} id="settings">
                 <ReactSVG src={settingsIcon} className={styles.menuItemIcon} />
                 <span>Settings</span>
               </DropdownItem>
             </Link>
+            <DropdownItem className={styles.userDropDownItem} onClick={this.onLogout} id="logout">
+              <div className={styles.menuItemIcon}>
+                <ReactSVG src={logoutIcon} />
+              </div>
+              <span>Log out</span>
+            </DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </div>

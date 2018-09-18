@@ -59,7 +59,7 @@ router.post("/", function(req, res) {
 // @desc    update funnel
 // @access  Private
 router.patch("/:funnelId", validateFunnelDomain, function(req, res) {
-  Funnel.findByIdAndUpdate(req.params.funnelId, { $set: req.body}, { new: true })
+  Funnel.findByIdAndUpdate(req.params.funnelId, { $set: req.body }, { new: true })
     .then(funnel => {
       res.json(funnel);
     })

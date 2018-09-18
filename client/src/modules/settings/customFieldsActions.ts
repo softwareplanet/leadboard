@@ -19,8 +19,11 @@ export const addCustomFieldToDomain =
 export const editCustomFieldInDomain =
   (customField: CustomFieldSetting) =>
     (dispatch: Dispatch, getState: any) => {
+      const customFieldId = customField._id;
+      const customFieldUpdate = { ...customField };
+      delete customFieldUpdate._id;
       axios
-        .patch(`/api/domain/${getState().auth.domainid}/settings/customFields/${customField._id}`, customField)
+        .patch(`/api/domain/${getState().auth.domainid}/settings/customFields/${customFieldId}`, customFieldUpdate)
         .then(result => {
           dispatch({
             payload: result.data,
