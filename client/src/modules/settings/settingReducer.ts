@@ -1,13 +1,13 @@
 import Action from '../../models/Action';
 import Funnel from '../../models/Funnel';
 import Stage from '../../models/Stage';
-import { ADD_STAGE, EDIT_STAGE, LOAD_FUNNELS, LOAD_STAGES, SET_FUNNEL, ADD_FUNNEL } from './types';
+import { ADD_FUNNEL, ADD_STAGE, EDIT_STAGE, LOAD_FUNNELS, LOAD_STAGES, SET_FUNNEL } from './types';
 
 
 interface InitialState {
-  funnels: any[],
-  selectedFunnel: any,
-  stages: any[];
+  funnels: Funnel[];
+  selectedFunnel: any;
+  stages: Stage[];
 }
 
 const initialState: InitialState = {
@@ -53,7 +53,7 @@ export default function(state = initialState, action: Action) {
       return {
         ...state,
         funnels,
-      }
+      };
     }
     case ADD_STAGE: {
       const stages = [ ...state.stages ];
@@ -61,7 +61,7 @@ export default function(state = initialState, action: Action) {
       return {
         ...state,
         stages,
-      }
+      };
     }
     default:
       return state;

@@ -66,7 +66,7 @@ router.post("/", function(req, res) {
 // @desc    Update stage
 // @access  Private
 router.patch("/:stageId", validateStageDomain, (req, res) => {
-  if (isBlank(req.body.name)) { 
+  if (req.body.name && isBlank(req.body.name)) { 
     return res.status(400).json("Name cannot be empty");
   }
 

@@ -51,7 +51,7 @@ class Funnels extends React.Component<Props, State> {
         <div className={styles.tabs}>
           {this.createTabs(this.props.funnels)}
         </div>
-        <Funnel funnel={this.props.selectedFunnel}/>
+        <Funnel funnel={this.props.selectedFunnel} />
       </div>
     );
   }

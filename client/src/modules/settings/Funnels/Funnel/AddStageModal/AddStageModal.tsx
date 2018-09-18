@@ -1,8 +1,8 @@
-import * as React from 'react'
+import * as React from 'react';
 import * as Modal from 'react-modal';
 import Stage from '../../../../../models/Stage';
 import isBlank from '../../../../../utils/isBlank';
-import * as styles from './AddStageModal.css'
+import * as styles from './AddStageModal.css';
 
 interface Props {
   isModalOpen: boolean;
@@ -37,7 +37,7 @@ const customStyles = {
 export default class AddStageModal extends React.Component<Props, State> {
   public state: State = {
     name: '',
-  }
+  };
   
   public render() {
     const header = this.props.stage ? 'Edit stage' : 'Add stage';
@@ -71,14 +71,14 @@ export default class AddStageModal extends React.Component<Props, State> {
           </div>
         </div>
       </Modal>
-    )
+    );
   }
 
   public componentWillReceiveProps(nextProps: Props) {
     if (nextProps.stage) {
       this.setState({
         name: nextProps.stage.name,
-      })
+      });
     }
   }
 
@@ -88,8 +88,7 @@ export default class AddStageModal extends React.Component<Props, State> {
 
   private onNameChange = (e: any) => {
     this.setState({
-      ...this.state,
       name: e.target.value,
-    })
+    });
   }
 }
