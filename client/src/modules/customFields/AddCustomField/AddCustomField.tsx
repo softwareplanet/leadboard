@@ -141,6 +141,7 @@ class AddCustomField extends React.Component<Props, State> {
         type: newFieldType,
       };
       this.props.addCustomField(newCustomField);
+      this.hideModal();
     } else {
       this.showValidation();
     }
