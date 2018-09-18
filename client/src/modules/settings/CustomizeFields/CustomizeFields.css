@@ -1,0 +1,112 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 9px;
+  font-family: "Open Sans", sans-serif;
+}
+
+.header {
+  font-size: 24px;
+  font-weight: normal;
+  padding: 16px;
+  line-height: normal;
+  margin: 0;
+}
+
+.featuresList {
+  margin-top: 1px;
+  margin-left: 27px;
+  list-style-type: disc;
+}
+
+.feature {
+  cursor: text;
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+
+.actions {
+  padding: 16px;
+}
+
+.tabs {
+  height: 32px;
+  padding: 5px 10px 0 10px;
+}
+
+.tab {
+  color: #747678;
+  min-width: 8px;
+  font-size: 14px;
+  text-align: center;
+  border: 1px solid #b9babb;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  height: 27px;
+  border-bottom: none;
+  background: #fff;
+  padding: 2px 11px 3px 11px;
+  margin-left: -1px;
+  cursor: pointer;
+}
+
+.tab:focus {
+  outline: none;
+}
+
+.tabActive {
+  composes: tab;
+  color: #26292c;
+}
+
+.customFieldsTableWrapper {
+  line-height: 20px;
+}
+
+.tableRow {
+
+}
+
+.fieldName {
+  font-size: 14px;
+}
+
+.fieldType {
+  font-size: 11px;
+}
+
+.showFieldInDetailedView {
+  font-size: 11px;
+}
+
+table {
+  width: 100%;
+}
+
+tbody td {
+  border: none;
+  box-shadow: none;
+}
+
+thead {
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid #e5e5e5;
+  font-weight: bold;
+  background: linear-gradient(#ffffff, #f7f7f7);
+}
+
+th, td {
+  height: 29px;
+}
+
+tr {
+  padding: 4px 6px;
+  margin-bottom: 1px;
+}
+
+.smallLink {
+  cursor: pointer;
+  color: rgb(49, 122, 226);
+  font-size: 14px;
+}

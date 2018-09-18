@@ -17,3 +17,4 @@ This file contains everything that must be fixed/changed/done. We didn't do that
 - Add tests for the lead card component on dashboard (client must see correct status icons)
 - Use `connect()` instead of `dispatch()` directly from store in Activity.tsx
 - Add tests for delete activity
+- Rework settings reducer using `combineReducer`
