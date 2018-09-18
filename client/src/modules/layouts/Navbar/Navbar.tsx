@@ -1,13 +1,14 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { Link, NavLink, RouteComponentProps, withRouter } from 'react-router-dom';
 import { logoutUser } from '../../auth/authActions';
 import ContactsDropDown from './ContactsDropDown/ContactsDropDown';
 import dealsIconActive from '../../../assets/deals-icon-active.svg';
 import dealsIcon from '../../../assets/deals-icon.svg';
+import { logoutUser } from '../../auth/authActions';
 import * as styles from './Navbar.css';
-import UserDropDown from './UserDropDown/UserDropDown'
 import Search from './Search/Search';
-import { connect } from 'react-redux';
+import UserDropDown from './UserDropDown/UserDropDown';
 
 const leadsRoute = '/home';
 
@@ -38,8 +39,12 @@ class Navbar extends React.Component<Props, object> {
             activeClassName={styles.currentLink}
             to={leadsRoute}>
             <div>
-              <img className={styles.icon}
-                src={this.getDealsIcon()} alt="leads" />Leads
+              <img
+                className={styles.icon}
+                src={this.getDealsIcon()}
+                alt="leads"
+              />
+              Leads
             </div>
           </NavLink>
           <ContactsDropDown />

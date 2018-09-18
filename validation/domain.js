@@ -37,14 +37,18 @@ export const validateCustomFieldCreation = (data) => {
   };
 };
 
-export const validateCustomFieldUpdate = (data) => {
+export const validateCustomFieldUpdate = (data, previousSettings) => {
   let errors = {};
 
-  if (data.isDefault) {
-    errors.isDefault = "You cannot add custom fields with property default";
+  if (previousSettings.isDefault) {
+    errors.isDefault = "You cannot patch default fields";
+  } else {
+    if ("isDefault" in data && data.isDefault) {
+      errors.isDefault = "You cannot make a custom field default";
+    }
   }
 
-  if (isEmpty(data.name)) {
+  if ("name" in data && isEmpty(data.name)) {
     errors.name = "You cannot update custom fields with empty name";
   }
 

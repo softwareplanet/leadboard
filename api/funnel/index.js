@@ -44,11 +44,11 @@ router.post("/", function(req, res) {
   const funnel = new Funnel({
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
-    domain: req.body.domain
+    domain: req.user.domain,
   });
   Funnel.create(funnel)
     .then(funnel => {
-      res.json(funnel._id);
+      res.json(funnel);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });
@@ -59,6 +59,9 @@ router.post("/", function(req, res) {
 // @desc    update funnel
 // @access  Private
 router.patch("/:funnelId", validateFunnelDomain, function(req, res) {
+  const { hasErrors, errors } = validateFunnelInput(req.body);
+  if (hasErrors) return res.status(400).json({ errors });
+  
   Funnel.findByIdAndUpdate(req.params.funnelId, { $set: req.body}, { new: true })
     .then(funnel => {
       res.json(funnel);

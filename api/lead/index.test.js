@@ -18,6 +18,8 @@ let cred;
 let lead;
 let stageId;
 const UPDATED_NOTE = "Updated note";
+const IN_PROGRESS = "InProgress";
+
 beforeEach(async done => {
   await dropTables();
   cred = await createUserAndDomain(app);
@@ -206,6 +208,7 @@ describe("Lead", () => {
       .set("Authorization", cred.token)
       .query({
         stage: stageId,
+        status: IN_PROGRESS,
       });
     expect(status).toBe(200);
     expect(Object.keys(body).length).toBe(2);
@@ -223,6 +226,37 @@ describe("Lead", () => {
       });
     expect(status).toBe(200);
     expect(body.name).toBe(newLeadsName);
+  });
+
+  it("should update lead's status", async () => {
+    const newLeadStatus = "Lost";
+    const { status, body } = await request(app())
+      .patch(`/api/lead/${lead._id}`)
+      .set("Authorization", cred.token)
+      .send({
+        status: newLeadStatus,
+      });
+    expect(status).toBe(200);
+    expect(body.status).toBe(newLeadStatus);
+  });
+
+  it("should return leads by status", async () => {
+    await request(app())
+      .patch(`/api/lead/${lead._id}`)
+      .set("Authorization", cred.token)
+      .send({
+        status: "Lost",
+      });
+    
+    let { status, body } = await request(app())
+      .get("/api/lead")
+      .set("Authorization", cred.token)
+      .query({
+        stage: stageId,
+        status: "Lost",
+      });
+    expect(status).toBe(200);
+    expect(Object.keys(body).length).toBe(1);
   });
 
   it("should fail to update lead's notes", async () => {
