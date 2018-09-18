@@ -7,12 +7,12 @@ export const loadSearchResult = (query: string) => (dispatch: Dispatch) => {
   dispatch({ type: START_SEARCH_LOADING });
   axios.get('/api/searchResults', { params: { query } })
     .then(result => {
-    dispatch({
-      payload: result.data,
-      type: LOAD_SEARCH_RESULT,
-    });
+      dispatch({
+        payload: result.data,
+        type: LOAD_SEARCH_RESULT,
+      });
 
-  })
+    })
     .catch(error => {
       dispatch({
         payload: error.response.data,

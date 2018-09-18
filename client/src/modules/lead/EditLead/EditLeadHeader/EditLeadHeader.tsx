@@ -13,7 +13,9 @@ import EditLeadStageProgress from './EditLeadStageProgress/EditLeadStageProgress
 interface Props {
   match: any;
   editLead: Lead;
+
   loadLeadActivities(leadId: string): void;
+
   updateLead(lead: Lead): void;
 }
 
@@ -39,9 +41,9 @@ class EditLeadHeader extends React.Component<Props, State> {
         <div className={statusStyle}> 
           {editLead ? editLead.status.toUpperCase() : ''}
         </div>
-        <button 
+        <button
           className={styles.reopenButton}
-          onClick={() => this.handleStatusChange(IN_PROGRESS)} 
+          onClick={this.handleStatusChange.bind(this, IN_PROGRESS)}
         >
           Reopen
         </button>
@@ -50,14 +52,14 @@ class EditLeadHeader extends React.Component<Props, State> {
 
     const inProgressLeadActions = (
       <div>
-        <button 
-          onClick={() => this.handleStatusChange(WON)} 
+        <button
+          onClick={this.handleStatusChange.bind(this, WON)}
           className={styles.button}
         >
           Won
         </button>
-        <button 
-          onClick={() => this.handleStatusChange(LOST)} 
+        <button
+          onClick={this.handleStatusChange.bind(this, LOST)}
           className={styles.buttonLost}
         >
           Lost
@@ -126,7 +128,7 @@ class EditLeadHeader extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: any) => ({
-  editLead: state.leads.editLead.lead
+  editLead: state.leads.editLead.lead,
 });
 
 export { EditLeadHeader };
