@@ -1,3 +1,4 @@
+import cx from 'classnames';
 import * as React from 'react';
 import * as Modal from 'react-modal';
 import CustomFieldSetting from '../../../models/customFields/CustomFieldSetting';
@@ -5,7 +6,6 @@ import isBlank from '../../../utils/isBlank';
 import EditFieldGroup
   from '../../lead/EditLead/EditLeadSidebar/EditCard/CardFields/EditView/EditFieldGroup/EditFieldGroup';
 import * as styles from './AddCustomField.css';
-import classnames from 'classnames';
 
 interface Props {
   modelName: string;
@@ -66,7 +66,9 @@ class AddCustomField extends React.Component<Props, State> {
         >
           <div className={styles.modalHeading}>
             <div className={styles.modalHeader}>{`Add a field for ${this.props.modelName.toLowerCase()}s`}</div>
-            <button className={styles.closeModal} onClick={this.hideModal}>x</button>
+            <button className={styles.closeModal} onClick={this.hideModal}>
+              <i className="fas fa-times" />
+            </button>
           </div>
           <div className={styles.modalBody}>
             <div className={styles.nameInputGroupContainer}>
@@ -80,7 +82,7 @@ class AddCustomField extends React.Component<Props, State> {
             </div>
             <div className={styles.actions}>
               <button
-                className={classnames(styles.buttonSave, { [styles.disabled]: !this.isNameValid() })}
+                className={cx(styles.buttonSave, { [styles.disabled]: !this.isNameValid() })}
                 onClick={this.saveCustomField}
               >
                 Save
