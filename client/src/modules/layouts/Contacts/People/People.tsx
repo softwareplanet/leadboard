@@ -16,44 +16,37 @@ interface Props {
 const columns = [
   {
     dataField: 'custom[0].value',
-    headerStyle: columnStyles.basicHeaderStyle,
-    style: columnStyles.basicColumnStyle,
+    ...columnStyles.basicColumnStyles,
     text: 'Email',
   },
   {
     dataField: 'name',
-    headerStyle: columnStyles.basicHeaderStyle,
-    style: columnStyles.basicColumnStyle,
+    ...columnStyles.basicColumnStyles,
     text: 'Name',
   },
   {
     dataField: 'organization.name',
-    headerStyle: columnStyles.basicHeaderStyle,
-    style: columnStyles.basicColumnStyle,
+    ...columnStyles.basicColumnStyles,
     text: 'Organization',
   },
   {
     dataField: 'custom[1].value',
-    headerStyle: columnStyles.basicHeaderStyle,
-    style: columnStyles.basicColumnStyle,
+    ...columnStyles.basicColumnStyles,
     text: 'Phone',
   },
   {
     dataField: 'openedLeads',
-    headerStyle: columnStyles.rightAliginHeaderStyle,
-    style: columnStyles.rightAlignColumnStyle,
+    ...columnStyles.rightAlignStyles,
     text: 'Open leads',
   },
   {
     dataField: 'closedLeads',
-    headerStyle: columnStyles.rightAliginHeaderStyle,
-    style: columnStyles.rightAlignColumnStyle,
+    ...columnStyles.rightAlignStyles,
     text: 'Closed leads',
   },
   {
     dataField: 'owner.email',
-    headerStyle: columnStyles.basicHeaderStyle,
-    style: columnStyles.basicColumnStyle,
+    ...columnStyles.basicColumnStyles,
     text: 'Owner',
   },
 ];
@@ -103,4 +96,4 @@ const mapStateToProps = (state: any) => ({
   contacts: state.contacts,
 });
 
-export default connect(mapStateToProps, { loadAggregatedContacts  })(People);
+export default connect(mapStateToProps, { loadAggregatedContacts })(People);

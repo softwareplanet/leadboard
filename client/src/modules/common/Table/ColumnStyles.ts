@@ -1,23 +1,33 @@
-export const basicStyle = {
+export const basicSellStyles = {
   height: '32px',
   padding: '6px 8px 6px 8px',
 };
 
-export const basicHeaderStyle = {
-  ...basicStyle,
+export const basicHeader = {
+  ...basicSellStyles,
   borderColor: '#b9babb',
 };
 
-export const rightAliginHeaderStyle = {
-  ...basicHeaderStyle,
+export const rightAlignHeader = {
+  ...basicHeader,
   textAlign: 'right',
 };
 
-export const basicColumnStyle = {
-  ...basicStyle,
+export const basicColumn = {
+  ...basicSellStyles,
 };
 
-export const rightAlignColumnStyle = {
-  ...basicColumnStyle,
+export const rightAlignColumn = {
+  ...basicColumn,
   textAlign: 'right',
+};
+
+export const rightAlignStyles = {
+  headerStyle: rightAlignHeader,
+  style: rightAlignColumn,
+};
+
+export const basicColumnStyles = {
+  headerStyle: basicHeader,
+  style: basicColumn,
 };
