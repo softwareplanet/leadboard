@@ -21,11 +21,10 @@ interface State {
   isAddStageModalOpen: boolean;
 }
 
-
 class Funnel extends React.Component<Props, State> {
   public state: State = {
-    isEditNameModalOpen: false,
     isAddStageModalOpen: false,
+    isEditNameModalOpen: false,
   };
 
   public render() {
@@ -83,7 +82,6 @@ class Funnel extends React.Component<Props, State> {
 
   private onEditNameCancel = () => {
     this.setState({
-      ...this.state,
       isEditNameModalOpen: false,
     });
   }
@@ -96,14 +94,12 @@ class Funnel extends React.Component<Props, State> {
     };
     this.props.createStage(stage);
     this.setState({
-      ...this.state,
       isAddStageModalOpen: false,
     });
   }
 
   private onAddNewStageCancel = () => {
     this.setState({
-      ...this.state,
       isAddStageModalOpen: false,
     });
   }

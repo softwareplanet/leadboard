@@ -16,7 +16,7 @@ export default class StageView extends React.Component<Props> {
             {this.props.stage.name}
           </span>
         </div>
-    </div>
-  );
+      </div>
+    );
   }
 }
