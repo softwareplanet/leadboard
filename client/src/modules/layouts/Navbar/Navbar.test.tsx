@@ -7,37 +7,14 @@ configure({ adapter: new ReactSixteenAdapter });
 
 describe('<Navbar /> :', () => {
   let wrapper;
-
-  let logoutUser;
   let location: any = {};
   const history: any = {};
   const match: any = {};
-
-  const auth = {
-    domainName: 'Test domain',
-    domainid: '5b6a9cca9a32282c3e8435c4',
-    isAuthenticated: true,
-    userName: 'John Doe',
-    userid: '5b6a9cca9a32282c3e8435c5',
-  };
+  const auth: any = {};
 
   location = {
     pathname: '/home',
   };
-
-  it('should call method logoutUser user when Logout clicked', () => {
-    logoutUser = jest.fn();
-    wrapper = shallow(
-      <Navbar
-        location={location}
-        history={history}
-        auth={auth}
-        logoutUser={logoutUser}
-        match={match}
-      />,
-    );
-    wrapper.find('#logout').simulate('click');
-    expect(logoutUser).toHaveBeenCalledTimes(1);
 
   it('should render NavBar', () => {
     wrapper = shallow
@@ -48,7 +25,7 @@ describe('<Navbar /> :', () => {
         match={match}
         auth={auth}
         logoutUser={jest.fn()}
-      />
+      />,
     );
     expect(wrapper.find('header').exists()).toBe(true);
   });

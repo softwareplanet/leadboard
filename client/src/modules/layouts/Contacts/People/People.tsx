@@ -4,9 +4,9 @@ import ContactData from '../../../../models/ContactData';
 import CustomFieldSetting from '../../../../models/customFields/CustomFieldSetting';
 import Table from '../../../../modules/common/Table/Table';
 import NavBar from '../../Navbar/Navbar';
+import { getTableData } from '../ContactsService';
 import { loadAggregatedContacts } from './contactActions';
 import * as styles from './People.css';
-import { getTableData } from '../ContactsService';
 
 interface Props {
   contacts: ContactData[];
