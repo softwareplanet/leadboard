@@ -105,29 +105,29 @@ class AddCustomField extends React.Component<Props, State> {
     return !isBlank(this.state.newFieldName);
   };
 
-  private updateFieldName = (name: string, value: string): void => {
+  private updateFieldName = (name: string, value: string) => {
     this.setState({
       newFieldName: value,
     });
   };
 
-  private showModal = (): void => {
+  private showModal = () => {
     this.setState({
       isModalShown: true,
     });
   };
 
-  private hideModal = (): void => {
+  private hideModal = () => {
     this.setState(defaultState);
   };
 
-  private showValidation = (): void => {
+  private showValidation = () => {
     this.setState({
       isValidationShown: true,
     });
   };
 
-  private saveCustomField = (): void => {
+  private saveCustomField = () => {
     if (this.isNameValid()) {
       const { newFieldName, newFieldType } = this.state;
       const newCustomField: CustomFieldSetting = {

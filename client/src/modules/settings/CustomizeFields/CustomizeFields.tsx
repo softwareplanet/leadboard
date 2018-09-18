@@ -133,7 +133,7 @@ class CustomizeFields extends React.Component<Props, State> {
     ));
   };
 
-  private handleTabClick = (modelName: string): void => {
+  private handleTabClick = (modelName: string) => {
     this.setState({
       selectedTabIndex: MODEL_NAMES.indexOf(modelName),
     });
