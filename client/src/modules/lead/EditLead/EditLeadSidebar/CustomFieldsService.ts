@@ -14,9 +14,9 @@ export function makeCustomFieldData(modelType: string, model: Contact | Organiza
 
   customFieldSettings.map((fieldSetting: CustomFieldSetting) => {
     const customFieldData: CustomFieldData = {
-      isShownInAddDialog: fieldSetting.isShownInAddDialog,
       isAlwaysVisible: fieldSetting.isAlwaysVisible,
       isDefault: fieldSetting.isDefault,
+      isShownInAddDialog: fieldSetting.isShownInAddDialog,
       key: fieldSetting._id ? fieldSetting._id: '',
       model: modelType,
       name: fieldSetting.name,
