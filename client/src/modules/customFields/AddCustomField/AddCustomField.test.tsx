@@ -4,7 +4,6 @@ import * as ReactModal from 'react-modal';
 import AddCustomField from './AddCustomField';
 import * as styles from './AddCustomField.css';
 
-
 describe('<AddCustomField />', () => {
   let wrapper: any;
   const addCustomField = jest.fn();
