@@ -62,6 +62,10 @@ class Funnels extends React.Component<Props, State> {
     }
   }
 
+  public componentWillMount() {
+    this.props.loadFunnels();
+  }
+
   private onClick = () => {
     this.setState({ isModalOpen: true });
   };
@@ -79,8 +83,6 @@ class Funnels extends React.Component<Props, State> {
         onClick={this.props.selectFunnel.bind(this, funnel)}
       >
         {funnel.name}
-        {/* <span
-          className={this.props.selectedFunnel._id === funnel._id ? styles.tabBadgeActive : styles.tabBadge}></span> */}
       </button>
     ));
   };

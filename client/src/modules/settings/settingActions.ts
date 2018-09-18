@@ -38,7 +38,7 @@ export const updateFunnel = (funnelId: string, funnel: any) => (dispatch: Dispat
     });
 };
 
-export const updateStage = (stageId: string, name: string) => (dispatch: Dispatch) => {
+export const updateStageName = (stageId: string, name: string) => (dispatch: Dispatch) => {
   axios
     .patch(`/api/stage/${stageId}`, { name })
     .then(result => {

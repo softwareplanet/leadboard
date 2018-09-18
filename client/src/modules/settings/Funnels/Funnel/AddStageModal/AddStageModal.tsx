@@ -46,7 +46,7 @@ export default class AddStageModal extends React.Component<Props, State> {
         isOpen={this.props.isModalOpen}
         style={customStyles}
       >
-        <h1 className={styles.modalHeader}>{ header }</h1>
+        <h1 className={styles.modalHeader}>{header}</h1>
         <div className={styles.modalContent}>
           <div className={styles.nameInputContainer}>
             <div className={styles.inputContainer}>

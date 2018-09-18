@@ -125,7 +125,6 @@ class Funnel extends React.Component<Props, State> {
     if(this.props.funnel){
       this.props.updateFunnel(this.props.funnel._id, { name: this.state.name })
       this.setState({
-        ...this.state,
         isEditNameModalOpen: false,
       })
     }

@@ -32,13 +32,11 @@ describe('<Stages />', () => {
     (
       <Stages 
         loadStages={jest.fn()} 
-        updateStage={jest.fn()} 
+        updateStageName={jest.fn()} 
         selectedFunnel={selectedFunnel}
         stages={stages}
       />
     )
     expect(wrapper.find(StageView)).toHaveLength(2);
   });
-
-
 })

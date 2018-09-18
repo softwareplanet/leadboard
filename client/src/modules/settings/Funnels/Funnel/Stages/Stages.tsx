@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import Funnel from '../../../../../models/Funnel';
 import Stage from '../../../../../models/Stage';
-import { loadStages, updateStage } from '../../../settingActions';
+import { loadStages, updateStageName } from '../../../settingActions';
 import AddStageModal from '../AddStageModal/AddStageModal';
 import * as styles from './Stages.css'
 import StageView from './StageView/StageView';
@@ -13,7 +13,7 @@ interface Props {
 
   loadStages(funnelId: string): void;
 
-  updateStage(stageIs: string, name: string): void;
+  updateStageName(stageIs: string, name: string): void;
 }
 
 interface State {
@@ -56,7 +56,7 @@ class Stages extends React.Component<Props, State> {
   }
 
   private onEditStageSave = (name: string, id: string) => {
-    this.props.updateStage(id, name);
+    this.props.updateStageName(id, name);
     this.setState({
       isModalOpen: false,
     })
@@ -83,4 +83,4 @@ const mapStateToProps = (state: any) => ({
 
 export { Stages };
 
-export default connect(mapStateToProps, { loadStages, updateStage })(Stages)
+export default connect(mapStateToProps, { loadStages, updateStageName })(Stages)
