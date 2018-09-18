@@ -228,6 +228,38 @@ describe("Lead", () => {
     expect(body.name).toBe(newLeadsName);
   });
 
+  it("should update lead's status", async () => {
+    const newLeadStatus = "Lost";
+    const { status, body } = await request(app())
+      .patch(`/api/lead/${lead._id}`)
+      .set("Authorization", cred.token)
+      .send({
+        status: newLeadStatus,
+      });
+    expect(status).toBe(200);
+    expect(body.status).toBe(newLeadStatus);
+  });
+
+  it("should return leads by status", async () => {
+    
+    await request(app())
+      .patch(`/api/lead/${lead._id}`)
+      .set("Authorization", cred.token)
+      .send({
+        status: "Lost",
+      });
+    
+    let { status, body } = await request(app())
+      .get("/api/lead")
+      .set("Authorization", cred.token)
+      .query({
+        stage: stageId,
+        status: "Lost",
+      });
+    expect(status).toBe(200);
+    expect(Object.keys(body).length).toBe(1);
+  });
+
   it("should fail to update lead's notes", async () => {
     const { status, body } = await request(app())
       .patch(`/api/lead/${lead._id}`)
