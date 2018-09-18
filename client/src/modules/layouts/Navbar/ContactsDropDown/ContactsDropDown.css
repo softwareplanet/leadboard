@@ -2,6 +2,10 @@
   fill: white;
 }
 
+.dropDown {
+  user-select: none;
+}
+
 .notActiveContacts {
   color: #b9babb;
 }
@@ -37,9 +41,11 @@
 }
 
 .dropDownMenu {
-  border-radius: 0px;
+  user-select: none;
+  border-radius: 0;
   border: none;
-  box-shadow: 0px 2px 4px 2px #b9babb;
+  border-top: 0;
+  box-shadow: 0 4px 8px rgba(38, 41, 44, 0.16);
 }
 
 .dropDownMenu a {
@@ -65,6 +71,7 @@
 }
 
 .closedDropDown {
+  composes: dropDown;
   color: inherit;
 }
 
@@ -83,6 +90,7 @@
 }
 
 .openedDropDown {
+  composes: dropDown;
   background-color: white;
   color: black;
 }
