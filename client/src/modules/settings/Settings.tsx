@@ -12,21 +12,20 @@ export default class Settings extends React.Component {
 
   public render() {
     return (
-      <div>
+      <div className={styles.settingsWrapper}>
         <Navbar />
-        <div className={styles.settings}>
+        <div className={styles.settingsContent}>
           <Sidebar />
-          <div className={styles.settingsContent}>
-            <Route
-              path={`/settings/${PIPELINES}`}
-              component={Funnels}
-            />
-            <Route
-              path={`/settings/${CUSTOMIZE_FIELDS}`}
-              component={CustomizeFields}
-            />
-          </div>
+          <Route
+            path={`/settings/${PIPELINES}`}
+            component={Funnels}
+          />
+          <Route
+            path={`/settings/${CUSTOMIZE_FIELDS}`}
+            component={CustomizeFields}
+          />
         </div>
+
       </div>
     );
   }

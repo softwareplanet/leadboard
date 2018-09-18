@@ -63,7 +63,7 @@ class Funnel extends React.Component<Props, State> {
         isEditNameModalOpen: true,
       });
     }
-  }
+  };
 
   private openAddStageModal = () => {
     this.setState({
@@ -78,7 +78,7 @@ class Funnel extends React.Component<Props, State> {
         isEditNameModalOpen: false,
       });
     }
-  }
+  };
 
   private onEditNameCancel = () => {
     this.setState({
