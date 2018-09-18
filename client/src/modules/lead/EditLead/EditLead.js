@@ -16,7 +16,7 @@ class EditLead extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     let leadId = nextProps.match.params.leadId;
-    if(leadId !== this.props.match.params.leadId) {
+    if (leadId !== this.props.match.params.leadId) {
       this.props.loadLead(leadId);
       return true;
     }

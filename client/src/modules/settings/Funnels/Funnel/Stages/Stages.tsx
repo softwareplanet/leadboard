@@ -4,7 +4,7 @@ export default class Stages extends React.Component {
 
   public render() {
     return (
-      <div></div>
-    )
+      <div />
+    );
   }
 }
