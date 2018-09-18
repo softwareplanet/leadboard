@@ -20,18 +20,18 @@ interface State {
 
 const customStyles = {
   content: {
-    top: 100,
-    right: 'auto',
-    left: '50%',
-    bottom: 'auto',
-    transform: 'translate(-50%, 0)',
-    margin: '0',
-    padding: '0',
-    width: '400px',
-    borderRadius: '0 0 2px 2px',
     border: '1px solid #e5e5e5',
+    borderRadius: '0 0 2px 2px',
+    bottom: 'auto',
     boxShadow: '0 10px 45px rgba(0, 0, 0, 0.75)',
+    left: '50%',
+    margin: '0',
     overflow: 'hidden',
+    padding: '0',
+    right: 'auto',
+    top: 100,
+    transform: 'translate(-50%, 0)',
+    width: '400px',
   },
 };
 
@@ -118,8 +118,6 @@ class Funnel extends React.Component<Props, State> {
   };
 }
 
-const mapStateToProps = (state: any) => ({});
-
 export { Funnel };
 
-export default connect(mapStateToProps, { updateFunnel })(Funnel);
+export default connect(null, { updateFunnel })(Funnel);
