@@ -74,7 +74,6 @@ class Funnels extends React.Component<Props, State> {
     this.setState({ isModalOpen: false });
   }
 
-
   private createTabs = (funnels: FunnelModel[]) => {
     return funnels.map((funnel: FunnelModel) => (
       <button

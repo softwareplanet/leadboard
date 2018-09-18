@@ -10,7 +10,7 @@ const selectedFunnel: Funnel = {
   name: 'First Pipeline',
   domain: '5b9bbf818893d17d417a3d7c',
   timestamp: new Date('2018-09-14T14:02:41.804Z')
-}
+};
 const funnels: Funnel[] = [{
     _id: '5b9bbf818893d17d417a3d7e',
     name: 'First Pipeline',
@@ -37,7 +37,7 @@ describe('<Funnels />', () => {
         createFunnel={jest.fn()} 
         selectFunnel={jest.fn()}
       />
-    )
+    );
     expect(wrapper.find(`.${styles.tab}`)).toHaveLength(1);
     expect(wrapper.find(`.${styles.tabActive}`)).toHaveLength(1);
   });
@@ -54,7 +54,7 @@ describe('<Funnels />', () => {
         createFunnel={jest.fn()} 
         selectFunnel={selectFunnel}
       />
-    )
+    );
     const tab = wrapper.find(`.${styles.tab}`);
     tab.simulate('click');
     expect(selectFunnel).toHaveBeenCalled();

@@ -24,7 +24,7 @@ describe('<Funnel />', () => {
   test('button disable prop if input is empty', () => {
     const updateFunnel = jest.fn();
     const createStage = jest.fn();
-    const wrapper = shallow(<Funnel updateFunnel={updateFunnel}createStage={createStage}  funnel={funnel} />);
+    const wrapper = shallow(<Funnel updateFunnel={updateFunnel} createStage={createStage} funnel={funnel} />);
     wrapper.find(`.${styles.edit}`).simulate('click');
     wrapper.find(`.${styles.input}`).simulate('change', { target: { value: '' } });
     expect(wrapper.find(`.${styles.save}`).props().disabled).toBe(true);

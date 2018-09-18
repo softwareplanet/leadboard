@@ -48,7 +48,6 @@ class Funnel extends React.Component<Props, State> {
   };
 
   public render() {
-
     return (
       <div className={styles.funnel}>
         <div>
@@ -141,7 +140,7 @@ class Funnel extends React.Component<Props, State> {
     const stage: any = {
       funnel: this.props.funnel ? this.props.funnel._id : null,
       name,
-      order: this.props.stages ? this.props.stages.length+1 : null,
+      order: this.props.stages ? this.props.stages.length + 1 : null,
     };
     this.props.createStage(stage);
     this.setState({

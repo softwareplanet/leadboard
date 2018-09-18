@@ -11,7 +11,8 @@
   "rules": {
     "interface-name": false,
     "quotemark": [true, "single", "jsx-double"],
-    "semicolon": [true, "always"]
+    "semicolon": [true, "always"],
+    "trailing-comma": [true, { "multiline": "always", "singleline": "never" }]
   }
 }
   

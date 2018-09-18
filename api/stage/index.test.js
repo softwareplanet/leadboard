@@ -33,7 +33,7 @@ describe("Stage", () => {
     expect(status).toBe(200);
     expect(body).toMatchObject({
       name: "My Lead",
-      order: 1
+      order: 1,
     });
   });
 
