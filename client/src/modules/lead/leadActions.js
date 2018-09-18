@@ -52,7 +52,7 @@ export const loadLeads = (stage, status) => dispatch => {
     .get("/api/lead", {
       params: {
         stage,
-        status
+        status,
       },
     })
     .then(result => {
