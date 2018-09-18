@@ -31,7 +31,10 @@ describe("Stage", () => {
       });
 
     expect(status).toBe(200);
-    expect(typeof body).toBe("object");
+    expect(body).toMatchObject({
+      name: "My Lead",
+      order: 1
+    });
   });
 
   it("should return an ordered stages by funnel", async () => {

@@ -23,7 +23,7 @@ describe("Funnel", function() {
       .set("Authorization", cred.token)
       .send({ domain: cred.domainId, name: "Sales Funnel" });
     expect(status).toBe(200);
-    expect(typeof body).toBe("object");
+    expect(body).toMatchObject({ name: "Sales Funnel" });
   }
   );
 
