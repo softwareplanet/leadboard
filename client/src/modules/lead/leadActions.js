@@ -68,7 +68,7 @@ export const createLead = lead => (dispatch, getState) => {
   return axios
     .post("/api/lead", lead)
     .then(() => {
-      dispatch(loadLeadboard(getState().auth.domainid));
+      dispatch(loadLeadboard(lead.status));
     })
     .catch(error => {
       dispatch(getErrorsAction(error.response.data.errors));

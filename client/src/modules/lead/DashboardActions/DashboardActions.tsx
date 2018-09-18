@@ -3,7 +3,7 @@ import AddLead from '../AddLead/AddLead';
 import DashboardFilter from '../DashboardActions/DashboardFilter/DashboardFilter';
 import * as styles from './DashboardActions.css';
 
-class DashboardNavbar extends React.Component {
+class DashboardActions extends React.Component {
   public render() {
     return (
       <div className={styles.dashboardNavbar}>
@@ -14,4 +14,4 @@ class DashboardNavbar extends React.Component {
   }
 }
 
-export default DashboardNavbar;
+export default DashboardActions;
