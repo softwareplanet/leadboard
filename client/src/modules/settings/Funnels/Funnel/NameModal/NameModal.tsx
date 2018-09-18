@@ -47,7 +47,7 @@ export default class AddStageModal extends React.Component<Props, State> {
         style={customStyles}
       >
         <h1 className={styles.modalHeader}>{this.props.heading}</h1>
-        <form className={styles.modalContent}>
+        <form onSubmit={this.onSave} className={styles.modalContent}>
           <div className={styles.nameInputContainer}>
             <div className={styles.inputContainer}>
               <input 
@@ -58,13 +58,13 @@ export default class AddStageModal extends React.Component<Props, State> {
               />
               <div className={styles.modalButtons}>
                 <button 
+                  type="submit"
                   disabled={isBlank(this.state.name)} 
-                  onClick={this.onSave} 
                   className={styles.save}
                 >
                   Save
                 </button>
-                <button type="submit" onClick={this.props.onCancel} className={styles.cancel}>Cancel</button>  
+                <button onClick={this.props.onCancel} className={styles.cancel}>Cancel</button>  
               </div>
             </div>
             <div>Name</div>
