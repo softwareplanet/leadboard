@@ -1,9 +1,11 @@
-.settings {
+.settingsWrapper {
   display: flex;
-  margin-top: 10px;
+  flex-direction: column;
 }
 
 .settingsContent {
+  display: flex;
+  flex-direction: row;
   margin-left: 10px;
   width: 100%;
 }

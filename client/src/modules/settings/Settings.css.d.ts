@@ -1,2 +1,2 @@
-export const settings: string;
+export const settingsWrapper: string;
 export const settingsContent: string;

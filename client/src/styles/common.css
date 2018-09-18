@@ -60,3 +60,7 @@
   text-decoration: underline;
   cursor: pointer;
 }
+
+:global(button:focus) {
+  outline: none;
+}

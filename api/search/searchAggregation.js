@@ -30,9 +30,9 @@ export const loadLeads = (domain, query) => {
     {
       $match: { domain: domain },
     },
-    ...lookupOne('contact'),
-    ...lookupOne('organization'),
-    ...lookupOne('stage'),
+    ...lookupOne("contact"),
+    ...lookupOne("organization"),
+    ...lookupOne("stage"),
     {
       $match: {
         $or: [
