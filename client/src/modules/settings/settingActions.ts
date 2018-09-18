@@ -1,6 +1,10 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
-import { EDIT_STAGE, LOAD_FUNNELS, LOAD_STAGES, SET_FUNNEL } from './types';
+import { GET_ERRORS } from '../../actionTypes';
+import FunnelModel from '../../models/Funnel';
+import Stage from '../../models/Stage';
+import { ADD_FUNNEL, ADD_STAGE, EDIT_STAGE, LOAD_FUNNELS, LOAD_STAGES, SET_FUNNEL } from './types';
+
 
 export const loadFunnels = () => (dispatch: Dispatch) => {
   axios
@@ -10,16 +14,28 @@ export const loadFunnels = () => (dispatch: Dispatch) => {
         payload: result.data,
         type: LOAD_FUNNELS,
       });
+    })
+    .catch(error => {
+      dispatch({
+        payload: error,
+        type: GET_ERRORS,
+      });
     });
 };
 
 export const loadStages = (funnelId: string) => (dispatch: Dispatch) => {
   axios
-    .get(`/api/stage?funnelId=${funnelId}`)
+    .get(`/api/stage?funnel=${funnelId}`)
     .then(result => {
       dispatch({
         payload: result.data,
         type: LOAD_STAGES,
+      });
+    })
+    .catch(error => {
+      dispatch({
+        payload: error,
+        type: GET_ERRORS,
       });
     });
 };
@@ -32,16 +48,70 @@ export const updateFunnel = (funnelId: string, funnel: any) => (dispatch: Dispat
         payload: result.data,
         type: SET_FUNNEL,
       });
+    })
+    .catch(error => {
+      dispatch({
+        payload: error,
+        type: GET_ERRORS,
+      });
     });
 };
 
-export const updateStage = (stageId: string, stage: any) => (dispatch: Dispatch) => {
+export const updateStageName = (stageId: string, name: string) => (dispatch: Dispatch) => {
   axios
-    .patch(`/api/stage/${stageId}`, stage)
+    .patch(`/api/stage/${stageId}`, { name })
     .then(result => {
       dispatch({
         payload: result.data,
         type: EDIT_STAGE,
       });
+    })
+    .catch(error => {
+      dispatch({
+        payload: error,
+        type: GET_ERRORS,
+      });
     });
 };
+
+export const createFunnel = (name: string) => (dispatch: Dispatch) => {
+  axios
+    .post(`/api/funnel`, { name })
+    .then(result => {
+      dispatch({
+        payload: result.data,
+        type: ADD_FUNNEL,
+      });
+    })
+    .catch(error => {
+      dispatch({
+        payload: error,
+        type: GET_ERRORS,
+      });
+    });
+ };
+
+ export const createStage = (stage: Stage) => (dispatch: Dispatch) => {
+  axios
+    .post(`/api/stage`, stage)
+    .then(result => {
+      dispatch({
+        payload: result.data,
+        type: ADD_STAGE,
+    });
+  })
+  .catch(error => {
+    dispatch({
+      payload: error,
+      type: GET_ERRORS,
+    });
+  });
+};
+
+export const selectFunnel = (funnel: FunnelModel) => (dispatch: Dispatch) => {
+  dispatch({
+    payload: funnel,
+    type: SET_FUNNEL,
+  });
+};
+

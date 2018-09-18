@@ -2,8 +2,25 @@ import { Router } from "express";
 import mongoose from "mongoose";
 import Stage from "../../models/stage";
 import { validateStageInput, validateStageSearchInput } from "../../validation/stage";
+import { isValidModelId, isBlank } from "../../validation/validationUtils";
 
 const router = new Router();
+
+const validateStageDomain = (req, res, next) => {
+  if (isValidModelId(req.params.stageId)) {
+    Stage.findById(req.params.stageId)
+      .populate("funnel")
+      .then(stage => {
+        if (stage !== null && stage.funnel.domain.equals(req.user.domain)) {
+          next();
+        } else {
+          return res.status(404).json({ errors: { message: "Stage with provided id is not found in your domain" } });
+        }
+      });
+  } else {
+    return res.status(404).json({ errors: { message: "Provided stage's id is not valid" } });
+  }
+};
 
 // @route   GET api/stage
 // @desc    Get ordered stages by funnel IDs
@@ -38,7 +55,27 @@ router.post("/", function(req, res) {
 
   Stage.create(stage)
     .then(stage => {
-      res.status(200).json(stage._id);
+      res.status(200).json(stage);
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
+});
+
+// @route   PATCH api/stage/:stageId
+// @desc    Update stage
+// @access  Private
+router.patch("/:stageId", validateStageDomain, (req, res) => {
+  if (req.body.name && isBlank(req.body.name)) { 
+    return res.status(400).json("Name cannot be empty");
+  }
+
+  Stage.findByIdAndUpdate(
+    req.params.stageId,
+    { $set: req.body },
+    { new: true })
+    .then(stage => {
+      res.status(200).json(stage);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });

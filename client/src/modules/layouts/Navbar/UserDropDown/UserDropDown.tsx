@@ -8,6 +8,7 @@ import profileIcon from '../../../../assets/header-profile.svg';
 import logoutIcon from '../../../../assets/logout-icon.svg';
 import settingsIcon from '../../../../assets/settings-icon.svg';
 import { logoutUser } from '../../../auth/authActions';
+import { PIPELINES } from '../../../settings/settingsRoutes';
 import * as styles from './UserDropDown.css';
 
 interface Props extends RouteComponentProps<any> {
@@ -20,7 +21,7 @@ interface State {
   isDropdownOpen: boolean;
 }
 
-const settingsRoute = '/settings/funnels';
+const settingsRoute = `/settings/${PIPELINES}`;
 
 class UserDropDown extends React.Component<Props, State> {
   public state: State = {

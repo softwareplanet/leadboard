@@ -10,4 +10,96 @@
   display: flex;
   flex-direction: column;
   margin-right: 15px;
+  width: 100%;
 }
+
+.content div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.addPipelineButton {
+  background: #2cbf55;
+  color: #fff;
+  border: 1px solid #2cbf55;
+  border-radius: 3px;
+  cursor: pointer;
+  outline: none;
+}
+
+.addPipelineButton:focus {
+  outline: none;
+}
+
+.addPipelineButton:hover {
+  background: #3dc463;
+  border: 1px solid #3dc463;
+}
+
+.addPipelineButton span {
+  font-size: 12px;
+  font-weight: bold;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.tabs {
+  display: flex;
+  justify-content: flex-start !important;
+  height: 27px;
+  margin-top: 16px;
+  padding: 0 10px 0 10px ;
+}
+
+.tab {
+  color: #747678;
+  min-width: 8px;
+  font-size: 14px;
+  text-align: center;
+  border: 1px solid #b9babb;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  height: 27px;
+  border-bottom: none;
+  background: #fff;
+  padding: 2px 11px 3px 11px;
+  margin-left: -1px;
+  cursor: pointer;
+}
+
+.tab:focus {
+  outline: none;
+}
+
+.tab:hover {
+  color: #404346;
+  background: #fff;
+}
+
+.tab:hover .tabBadge {
+  background: #7c7e80;
+}
+
+.tabActive {
+  composes: tab;
+  color: #26292c;
+}
+
+.tabBadge {
+  background: #b9babb;
+  color: #fff;
+  margin-left: 4px;
+  border-radius: 7px;
+  font-size: 10px;
+  padding: 1px 5px;
+}
+
+.tabBadgeActive {
+  composes: tabBadge;
+  background: #3f4346;
+}
+
+.tab:hover .tabBadgeActive {
+  background: #3f4346;
+}
+
