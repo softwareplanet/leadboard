@@ -72,18 +72,18 @@ class UserDropDown extends React.Component<Props, State> {
             </div>
           </DropdownToggle>
           <DropdownMenu className={styles.userDropDownMenu} tag={'span'} right={true}>
-            <DropdownItem className={styles.userDropDownItem} onClick={this.onLogout} id="logout">
-              <div className={styles.menuItemIcon}>
-                <ReactSVG src={logoutIcon} />
-              </div>
-              <span>Log out</span>
-            </DropdownItem>
             <Link to={settingsRoute}>
               <DropdownItem className={styles.userDropDownItem} id="settings">
                 <ReactSVG src={settingsIcon} className={styles.menuItemIcon} />
                 <span>Settings</span>
               </DropdownItem>
             </Link>
+            <DropdownItem className={styles.userDropDownItem} onClick={this.onLogout} id="logout">
+              <div className={styles.menuItemIcon}>
+                <ReactSVG src={logoutIcon} />
+              </div>
+              <span>Log out</span>
+            </DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </div>
