@@ -34,7 +34,6 @@ const modalStyles = {
     margin: '0',
     padding: '0',
     width: '590px',
-
   },
 };
 
@@ -46,7 +45,6 @@ const defaultState: State = {
 };
 
 class AddCustomField extends React.Component<Props, State> {
-
   public state: State = defaultState;
 
   public render() {
@@ -78,7 +76,7 @@ class AddCustomField extends React.Component<Props, State> {
               <EditFieldGroup
                 fieldKey={'fieldName'}
                 name={'Name of the field'}
-                value={''}
+                value=""
                 onChange={this.updateFieldName}
                 isValid={this.state.isValidationShown ? this.isNameValid() : undefined}
               />

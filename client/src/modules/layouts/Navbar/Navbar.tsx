@@ -48,8 +48,12 @@ class Navbar extends React.Component<Props, State> {
             activeClassName={styles.currentLink}
             to={leadsRoute}>
             <div>
-              <img className={styles.icon}
-                   src={this.getDealsIcon()} alt="leads" />Leads
+              <img
+                className={styles.icon}
+                src={this.getDealsIcon()}
+                alt="leads"
+              />
+              Leads
             </div>
           </NavLink>
           <div className={this.props.location.pathname === '/people' ? styles.activeContacts : undefined}>

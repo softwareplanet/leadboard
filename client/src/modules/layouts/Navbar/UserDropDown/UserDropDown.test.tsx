@@ -26,8 +26,14 @@ describe('<UserDropDown /> :', () => {
 
   it('should call method logoutUser user when Logout clicked', () => {
     logoutUser = jest.fn();
-    wrapper = shallow(<UserDropDown location={location} history={history} auth={auth} logoutUser={logoutUser}
-                                    match={match} />);
+    wrapper = shallow(
+      <UserDropDown
+        location={location}
+        history={history}
+        auth={auth}
+        logoutUser={logoutUser}
+        match={match}
+      />);
     wrapper.find('#logout').simulate('click');
     expect(logoutUser).toHaveBeenCalledTimes(1);
   });
