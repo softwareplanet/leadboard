@@ -71,6 +71,9 @@ class AddCustomField extends React.Component<Props, State> {
             </button>
           </div>
           <div className={styles.modalBody}>
+            <div className={this.state.isValidationShown && !this.isNameValid() ? styles.error : styles.hidden}>
+              Field cannot be empty
+            </div>
             <div className={styles.nameInputGroupContainer}>
               <EditFieldGroup
                 fieldKey={'fieldName'}

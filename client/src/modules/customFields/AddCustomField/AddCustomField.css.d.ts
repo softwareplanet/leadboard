@@ -9,3 +9,5 @@ export const disabled: string;
 export const buttonCancel: string;
 export const addButton: string;
 export const nameInputGroupContainer: string;
+export const hidden: string;
+export const error: string;

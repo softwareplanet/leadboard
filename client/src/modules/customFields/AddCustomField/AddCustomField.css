@@ -101,3 +101,18 @@
   cursor: pointer;
   font-family: "Open Sans", sans-serif;
 }
+
+.hidden {
+  display: none;
+}
+
+.error {
+  color: rgb(255, 255, 255);
+  background: rgb(232, 70, 70);
+  border: 1px solid rgb(232, 70, 70);
+  border-image: initial;
+  padding: 5px 10px;
+  border-radius: 3px;
+  width: 100%;
+  margin-bottom: 5px;
+}
