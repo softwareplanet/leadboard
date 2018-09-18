@@ -32,7 +32,6 @@ class DashboardFilter extends React.Component<Props, State> {
 
   public componentDidMount() {
     this.setState({
-      ...this.state,
       filters: this.getFiltersWithShowedMark(IN_PROGRESS),
     });
   }
