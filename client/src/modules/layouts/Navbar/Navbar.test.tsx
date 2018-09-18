@@ -7,6 +7,7 @@ configure({ adapter: new ReactSixteenAdapter });
 
 describe('<Navbar /> :', () => {
   let wrapper;
+
   let logoutUser;
   let location: any = {};
   const history: any = {};
@@ -37,5 +38,18 @@ describe('<Navbar /> :', () => {
     );
     wrapper.find('#logout').simulate('click');
     expect(logoutUser).toHaveBeenCalledTimes(1);
+
+  it('should render NavBar', () => {
+    wrapper = shallow
+    (
+      <Navbar
+        location={location}
+        history={history}
+        match={match}
+        auth={auth}
+        logoutUser={jest.fn()}
+      />
+    );
+    expect(wrapper.find('header').exists()).toBe(true);
   });
 });

@@ -1,12 +1,13 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
 import { Link, NavLink, RouteComponentProps, withRouter } from 'react-router-dom';
-import dealsIconActive from '../../../assets/deals-icon-active.svg';
-import dealsIcon from '../../../assets/deals-icon.svg';
-import profileIcon from '../../../assets/header-profile.svg';
 import { logoutUser } from '../../auth/authActions';
 import ContactsDropDown from './ContactsDropDown/ContactsDropDown';
+import dealsIconActive from '../../../assets/deals-icon-active.svg';
+import dealsIcon from '../../../assets/deals-icon.svg';
 import * as styles from './Navbar.css';
+import UserDropDown from './UserDropDown/UserDropDown'
+import Search from './Search/Search';
+import { connect } from 'react-redux';
 
 const leadsRoute = '/home';
 
@@ -17,12 +18,6 @@ interface Props extends RouteComponentProps<any> {
 }
 
 class Navbar extends React.Component<Props, object> {
-  public renderUserAvatar = () => {
-    return this.props.auth && this.props.auth.avatar ?
-      <img className={styles.userImg} src={this.props.auth.avatar} alt="user" /> :
-      <img className={styles.defaultImg} src={profileIcon} alt="user" />;
-  };
-
   public onLogout = () => {
     this.props.logoutUser(this.props.history);
   };
@@ -37,29 +32,19 @@ class Navbar extends React.Component<Props, object> {
         <ul className={styles.menu} role="navigation">
           <li className={styles.logo}><Link to={leadsRoute}>Leadboard</Link></li>
           <li className={styles.logoSmall}><Link to={leadsRoute}><h1>L</h1></Link></li>
+          <Search history={this.props.history} />
           <NavLink
             className={styles.link}
             activeClassName={styles.currentLink}
             to={leadsRoute}>
             <div>
               <img className={styles.icon}
-                   src={this.getDealsIcon()} alt="leads" />Leads
+                src={this.getDealsIcon()} alt="leads" />Leads
             </div>
           </NavLink>
           <ContactsDropDown />
           <li className={styles.rightItem}>
-            <div>
-              {this.renderUserAvatar()}
-              <div className={styles.userInfo}>
-                <span>{this.props.auth.userName}</span>
-                <small>{this.props.auth.domainName}</small>
-              </div>
-            </div>
-          </li>
-          <li id="logout" onClick={this.onLogout} className={styles.item}>
-            <div>
-              Logout
-            </div>
+            <UserDropDown />
           </li>
         </ul>
       </header>
