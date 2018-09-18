@@ -96,7 +96,7 @@ class EditLeadHeader extends React.Component<Props, State> {
         </div>
         <div className={styles.bottom}>
           <EditLeadStageProgress />
-          <div>
+          <div className={styles.bottomStageStatus}>
             current stage
           </div>
         </div>
