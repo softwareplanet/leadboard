@@ -23,23 +23,6 @@ interface Props {
 
 class CustomizeFields extends React.Component<Props, State> {
 
-  private static getTabName(modelName: string): string {
-    return modelName + 's';
-  }
-
-  private static getFieldType(customField: CustomFieldSetting): string {
-    switch (customField.type) {
-      case 'string':
-        return 'Text';
-      default:
-        return this.capitalizeFirstLetter(customField.type);
-    }
-  }
-
-  private static capitalizeFirstLetter(str: string): string {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
-
   public state: State = {
     selectedTabIndex: 0,
   };
@@ -91,6 +74,23 @@ class CustomizeFields extends React.Component<Props, State> {
     )
   }
 
+  private getTabName(modelName: string): string {
+    return modelName + 's';
+  }
+
+  private getFieldType(customField: CustomFieldSetting): string {
+    switch (customField.type) {
+      case 'string':
+        return 'Text';
+      default:
+        return this.capitalizeFirstLetter(customField.type);
+    }
+  }
+
+  private capitalizeFirstLetter(str: string): string {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
   private convertBoolToYesNo(bool: boolean): string {
     return bool ? 'Yes' : 'No';
   }
@@ -102,7 +102,7 @@ class CustomizeFields extends React.Component<Props, State> {
         className={this.state.selectedTabIndex === index ? styles.tabActive : styles.tab}
         onClick={this.handleTabClick.bind(this, modelName)}
       >
-        {CustomizeFields.getTabName(modelName)}
+        {this.getTabName(modelName)}
       </button>
     ));
   };
@@ -118,7 +118,7 @@ class CustomizeFields extends React.Component<Props, State> {
           {customField.name}
         </td>
         <td className={styles.fieldType}>
-          {CustomizeFields.getFieldType(customField)}
+          {this.getFieldType(customField)}
         </td>
         <td
           className={styles.showFieldInDetailedView}>
