@@ -49,13 +49,6 @@
   flex-direction: row-reverse;
 }
 
-.input {
-  padding: 3px;
-  border: 1px #747678 solid;
-  border-radius: 2px;
-  font-size: 13px;
-}
-
 .inputContainer {
   margin: 0 10px;
 }

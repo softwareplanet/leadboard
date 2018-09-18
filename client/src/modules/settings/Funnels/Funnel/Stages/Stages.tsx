@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Funnel from '../../../../../models/Funnel';
 import Stage from '../../../../../models/Stage';
 import { loadStages, updateStageName } from '../../../settingActions';
-import AddStageModal from '../AddStageModal/AddStageModal';
+import NameModal from '../NameModal/NameModal';
 import * as styles from './Stages.css';
 import StageView from './StageView/StageView';
 
@@ -45,11 +45,13 @@ class Stages extends React.Component<Props, State> {
             );
           })}
         </ul>
-        <AddStageModal 
+        <NameModal 
           isModalOpen={this.state.isModalOpen} 
+          heading="Edit stage"
           onCancel={this.onEditStageCancel} 
           onSave={this.onEditStageSave} 
-          stage={this.state.clickedStage}
+          id={this.state.clickedStage ? this.state.clickedStage._id : null}
+          name={this.state.clickedStage ? this.state.clickedStage.name : null}
         />
       </div>
     );

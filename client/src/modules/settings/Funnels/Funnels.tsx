@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import FunnelModel from '../../../models/Funnel';
-import isBlank from '../../../utils/isBlank';
 import { createFunnel, loadFunnels, selectFunnel } from '../settingActions';
-import AddPipelineModal from './AddPipelineModal/AddPipelineModal';
 import Funnel from './Funnel/Funnel';
+import NameModal from './Funnel/NameModal/NameModal';
 import * as styles from './Funnels.css';
 
 interface Props {
@@ -22,12 +21,10 @@ interface Props {
 interface State {
   isModalOpen: boolean;
   isInputEmpty: boolean;
-  inputValue: string;
 }
 
 class Funnels extends React.Component<Props, State> {
   public state: State = {
-    inputValue: '',
     isInputEmpty: false,
     isModalOpen: false,
   };
@@ -38,14 +35,11 @@ class Funnels extends React.Component<Props, State> {
         <div>
           <h1 className={styles.heading}>Customize sales stages</h1>
           <button className={styles.addPipelineButton} onClick={this.onClick}><span>Add new pipeline</span></button>
-          <AddPipelineModal
+          <NameModal 
             isModalOpen={this.state.isModalOpen}
-            onCancelClick={this.onCancelClick}
-            onInputChange={this.onInputChange}
-            onInputBlur={this.onInputBlur}
-            isInputEmpty={this.state.isInputEmpty}
-            inputValue={this.state.inputValue}
-            onSaveButtonClick={this.onSaveButtonClick}
+            heading={'Add Pipeline'}
+            onSave={this.onSaveButtonClick}
+            onCancel={this.onCancelClick}
           />
         </div>
         <div className={styles.tabs}>
@@ -86,17 +80,8 @@ class Funnels extends React.Component<Props, State> {
     ));
   }
 
-  private onInputBlur = () => {
-    this.setState({ isInputEmpty: isBlank(this.state.inputValue) });
-  }
-
-  private onInputChange = (event: any) => {
-    this.setState({ inputValue: event.target.value });
-  }
-
-  private onSaveButtonClick = (event: any) => {
-    event.preventDefault();
-    this.props.createFunnel(this.state.inputValue);
+  private onSaveButtonClick = (name: string) => {
+    this.props.createFunnel(name);
     this.setState({ isModalOpen: false });
   }
 }

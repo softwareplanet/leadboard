@@ -1,13 +1,14 @@
 import * as React from 'react';
 import * as Modal from 'react-modal';
-import Stage from '../../../../../models/Stage';
 import isBlank from '../../../../../utils/isBlank';
-import * as styles from './AddStageModal.css';
+import * as styles from './NameModal.css';
 
 interface Props {
   isModalOpen: boolean;
-  stage?: Stage;
-
+  name?: string;
+  id?: string;
+  heading: string;
+  
   onSave(name: string, id?: string): void;
 
   onCancel(): void;
@@ -40,14 +41,13 @@ export default class AddStageModal extends React.Component<Props, State> {
   };
   
   public render() {
-    const header = this.props.stage ? 'Edit stage' : 'Add stage';
     return (
       <Modal 
         isOpen={this.props.isModalOpen}
         style={customStyles}
       >
-        <h1 className={styles.modalHeader}>{header}</h1>
-        <div className={styles.modalContent}>
+        <h1 className={styles.modalHeader}>{this.props.heading}</h1>
+        <form className={styles.modalContent}>
           <div className={styles.nameInputContainer}>
             <div className={styles.inputContainer}>
               <input 
@@ -64,26 +64,26 @@ export default class AddStageModal extends React.Component<Props, State> {
                 >
                   Save
                 </button>
-                <button onClick={this.props.onCancel} className={styles.cancel}>Cancel</button>  
+                <button type="submit" onClick={this.props.onCancel} className={styles.cancel}>Cancel</button>  
               </div>
             </div>
-            <div>Stage name</div>
+            <div>Name</div>
           </div>
-        </div>
+        </form>
       </Modal>
     );
   }
 
   public componentWillReceiveProps(nextProps: Props) {
-    if (nextProps.stage) {
+    if (nextProps.name) {
       this.setState({
-        name: nextProps.stage.name,
+        name: nextProps.name,
       });
     }
   }
 
   private onSave = () => {
-    this.props.onSave(this.state.name, this.props.stage ? this.props.stage._id : undefined);
+    this.props.onSave(this.state.name, this.props.id ? this.props.id : undefined);
   }
 
   private onNameChange = (e: any) => {
