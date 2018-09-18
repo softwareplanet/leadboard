@@ -5,7 +5,7 @@ import DomainSettings from '../../../models/DomainSettings';
 import AddCustomField from '../../customFields/AddCustomField/AddCustomField';
 import { getCustomFieldSettingsByModel } from '../../lead/EditLead/EditLeadSidebar/CustomFieldsService';
 import { addCustomFieldToDomain, editCustomFieldInDomain } from '../customFieldsActions';
-import * as styles from './CustomFields.css';
+import * as styles from './CustomizeFields.css';
 
 const MODEL_NAMES = ['Lead', 'Organization', 'Contact'];
 
