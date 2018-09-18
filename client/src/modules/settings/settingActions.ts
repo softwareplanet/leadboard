@@ -75,6 +75,6 @@ export const selectFunnel = (funnel: FunnelModel) => (dispatch: Dispatch) => {
   dispatch({
     payload: funnel,
     type: SET_FUNNEL
-  })
+  });
 };
 

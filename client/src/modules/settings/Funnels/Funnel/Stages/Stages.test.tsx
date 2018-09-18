@@ -24,7 +24,7 @@ const selectedFunnel: Funnel = {
   name: 'First Pipeline',
   domain: '5b9bbf818893d17d417a3d7c',
   timestamp: new Date('2018-09-14T14:02:41.804Z')
-}
+};
 
 describe('<Stages />', () => {
   it('should render 2 stages', () => {
@@ -36,7 +36,7 @@ describe('<Stages />', () => {
         selectedFunnel={selectedFunnel}
         stages={stages}
       />
-    )
+    );
     expect(wrapper.find(StageView)).toHaveLength(2);
   });
-})
+});

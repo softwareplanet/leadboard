@@ -28,6 +28,6 @@ export default class Settings extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }

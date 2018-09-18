@@ -42,22 +42,6 @@ describe('<Funnels />', () => {
     expect(wrapper.find(`.${styles.tabActive}`)).toHaveLength(1);
   });
 
-  it('should render correct tabs', () => {
-    const wrapper = shallow
-    (
-      <Funnels 
-        funnels={funnels} 
-        domainId={domainId} 
-        selectedFunnel={selectedFunnel} 
-        loadFunnels={jest.fn()} 
-        createFunnel={jest.fn()} 
-        selectFunnel={jest.fn()}
-      />
-    )
-    expect(wrapper.find(`.${styles.tab}`)).toHaveLength(1);
-    expect(wrapper.find(`.${styles.tabActive}`)).toHaveLength(1);
-  });
-
   it('should call select funnel action', () => {
     const selectFunnel = jest.fn();
     const wrapper = shallow

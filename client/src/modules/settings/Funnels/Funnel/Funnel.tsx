@@ -2,12 +2,12 @@ import * as React from 'react';
 import * as Modal from 'react-modal';
 import { connect } from 'react-redux';
 import FunnelModel from '../../../../models/Funnel';
+import Stage from '../../../../models/Stage';
 import isBlank from '../../../../utils/isBlank';
-import { updateFunnel, createStage } from '../../settingActions';
+import { createStage, updateFunnel } from '../../settingActions';
+import AddStageModal from './AddStageModal/AddStageModal';
 import * as styles from './Funnel.css';
 import Stages from './Stages/Stages';
-import AddStageModal from './AddStageModal/AddStageModal';
-import Stage from '../../../../models/Stage';
 
 interface Props {
   funnel?: FunnelModel;
@@ -45,7 +45,7 @@ class Funnel extends React.Component<Props, State> {
     isEditNameModalOpen: false,
     isAddStageModalOpen: false,
     name: '',
-  }
+  };
 
   public render() {
 
@@ -96,7 +96,7 @@ class Funnel extends React.Component<Props, State> {
         </div> 
         <Stages />
       </div>
-    )
+    );
   }
 
   private openEditNameModal = () => {
@@ -104,29 +104,29 @@ class Funnel extends React.Component<Props, State> {
       this.setState({
         isEditNameModalOpen: true,
         name: this.props.funnel.name,
-      })
+      });
     }
   }
 
   private openAddStageModal = () => {
     this.setState({
       isAddStageModalOpen: true,
-    })
+    });
   }
 
   private onNameChange = (e: any) => {
     this.setState({
       ...this.state,
       name: e.target.value,
-    })
+    });
   }
 
   private onEditNameSave = () => {
     if(this.props.funnel){
-      this.props.updateFunnel(this.props.funnel._id, { name: this.state.name })
+      this.props.updateFunnel(this.props.funnel._id, { name: this.state.name });
       this.setState({
         isEditNameModalOpen: false,
-      })
+      });
     }
   }
 
@@ -134,34 +134,34 @@ class Funnel extends React.Component<Props, State> {
     this.setState({
       ...this.state,
       isEditNameModalOpen: false,
-    })
+    });
   }
 
   private onAddNewStageSave = (name: string) => {
-    let stage: any = {
+    const stage: any = {
       funnel: this.props.funnel ? this.props.funnel._id : null,
       name,
       order: this.props.stages ? this.props.stages.length+1 : null,
-    }
+    };
     this.props.createStage(stage);
     this.setState({
       ...this.state,
       isAddStageModalOpen: false,
-    })
+    });
   }
 
   private onAddNewStageCancel = () => {
     this.setState({
       ...this.state,
       isAddStageModalOpen: false,
-    })
+    });
   }
 }
 
 const mapStateToProps = (state: any) => ({
   stages: state.settings.stages,
-})
+});
 
-export { Funnel }
+export { Funnel };
 
-export default connect(mapStateToProps, { updateFunnel, createStage })(Funnel)
+export default connect(mapStateToProps, { updateFunnel, createStage })(Funnel);

@@ -68,11 +68,11 @@ class Funnels extends React.Component<Props, State> {
 
   private onClick = () => {
     this.setState({ isModalOpen: true });
-  };
+  }
 
   private onCancelClick = () => {
     this.setState({ isModalOpen: false });
-  };
+  }
 
 
   private createTabs = (funnels: FunnelModel[]) => {
@@ -85,21 +85,21 @@ class Funnels extends React.Component<Props, State> {
         {funnel.name}
       </button>
     ));
-  };
+  }
 
   private onInputBlur = () => {
     this.setState({ isInputEmpty: isBlank(this.state.inputValue) });
-  };
+  }
 
   private onInputChange = (event: any) => {
     this.setState({ inputValue: event.target.value });
-  };
+  }
 
   private onSaveButtonClick = (event: any) => {
     event.preventDefault();
     this.props.createFunnel(this.state.inputValue);
     this.setState({ isModalOpen: false });
-  };
+  }
 }
 
 const mapStateToProps = (state: any) => ({
@@ -110,4 +110,4 @@ const mapStateToProps = (state: any) => ({
 
 export { Funnels };
 
-export default connect(mapStateToProps, { loadFunnels, selectFunnel, createFunnel })(Funnels)
+export default connect(mapStateToProps, { loadFunnels, selectFunnel, createFunnel })(Funnels);

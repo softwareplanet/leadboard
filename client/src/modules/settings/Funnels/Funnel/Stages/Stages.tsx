@@ -4,7 +4,7 @@ import Funnel from '../../../../../models/Funnel';
 import Stage from '../../../../../models/Stage';
 import { loadStages, updateStageName } from '../../../settingActions';
 import AddStageModal from '../AddStageModal/AddStageModal';
-import * as styles from './Stages.css'
+import * as styles from './Stages.css';
 import StageView from './StageView/StageView';
 
 interface Props {
@@ -25,7 +25,7 @@ class Stages extends React.Component<Props, State> {
   public state: State = {
     clickedStage: undefined,
     isModalOpen: false,
-  }
+  };
 
   public componentWillReceiveProps(nextProps: Props) {
     if (nextProps.selectedFunnel._id !== this.props.selectedFunnel._id){
@@ -42,7 +42,7 @@ class Stages extends React.Component<Props, State> {
               <li onClick={() => this.openModal(stage)} key={stage._id}>
                 <StageView stage={stage} />
               </li>
-            )
+            );
           })}
         </ul>
         <AddStageModal 
@@ -52,27 +52,27 @@ class Stages extends React.Component<Props, State> {
           stage={this.state.clickedStage}
         />
       </div>
-    )
+    );
   }
 
   private onEditStageSave = (name: string, id: string) => {
     this.props.updateStageName(id, name);
     this.setState({
       isModalOpen: false,
-    })
+    });
   }
 
   private onEditStageCancel = () => {
     this.setState({
       isModalOpen: false,
-    })
+    });
   }
 
   private openModal = (stage: any) => {
     this.setState({
       clickedStage: stage,
       isModalOpen: true,
-    })
+    });
   }
 }
 
@@ -83,4 +83,4 @@ const mapStateToProps = (state: any) => ({
 
 export { Stages };
 
-export default connect(mapStateToProps, { loadStages, updateStageName })(Stages)
+export default connect(mapStateToProps, { loadStages, updateStageName })(Stages);

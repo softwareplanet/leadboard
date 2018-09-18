@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Stage from '../../../../../../models/Stage';
-import * as styles from './StageView.css'
+import * as styles from './StageView.css';
 
 interface Props {
   stage: Stage;
@@ -12,13 +12,11 @@ export default class StageView extends React.Component<Props> {
     return (
       <div className={styles.container}>
         <div className={styles.content}>
-          <a className={styles.stageName}>
-            <span>
-              {this.props.stage.name}
-            </span>
-          </a>
+          <span className={styles.stageName}>
+            {this.props.stage.name}
+          </span>
         </div>
     </div>
-  )
+  );
   }
 }

@@ -10,7 +10,8 @@
   },
   "rules": {
     "interface-name": false,
-    "quotemark": [true, "single", "jsx-double"]
+    "quotemark": [true, "single", "jsx-double"],
+    "semicolon": [true, "always"]
   }
 }
   
