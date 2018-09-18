@@ -19,7 +19,7 @@ describe('<CustomFieldEditCard />', () => {
     wrapper = shallow
     (
       <CustomFieldEditCard
-        model={'Contact'}
+        model="Contact"
         field={customField}
         onSave={callback}
         onCancel={callback}
@@ -35,7 +35,7 @@ describe('<CustomFieldEditCard />', () => {
     wrapper = mount
     (
       <CustomFieldEditCard
-        model={'Contact'}
+        model="Contact"
         field={customField}
         onSave={callback}
         onCancel={callback}

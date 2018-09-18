@@ -82,10 +82,10 @@ describe('<EditCard />', () => {
         addCustomFieldToDomain={noop}
         editCustomFieldInDomain={noop}
         model={contact}
-        modelType={'Contact'}
+        modelType="Contact"
         customFieldsSettings={[]}
         onUpdate={jest.fn()}
-        title={'Person'}
+        title="Person"
         icon={someIcon}
         customFields={customFields}
       />,
@@ -111,10 +111,10 @@ describe('<EditCard />', () => {
         addCustomFieldToDomain={noop}
         editCustomFieldInDomain={noop}
         model={organization}
-        modelType={'Organization'}
+        modelType="Organization"
         customFieldsSettings={[]}
         onUpdate={jest.fn()}
-        title={'Person'}
+        title="Person"
         icon={someIcon}
         customFields={customFields}
       />,
