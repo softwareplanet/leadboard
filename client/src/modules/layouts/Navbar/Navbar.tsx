@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, NavLink, RouteComponentProps, withRouter } from 'react-router-dom';
-import { logoutUser } from '../../auth/authActions';
 import ContactsDropDown from './ContactsDropDown/ContactsDropDown';
 import dealsIconActive from '../../../assets/deals-icon-active.svg';
 import dealsIcon from '../../../assets/deals-icon.svg';
