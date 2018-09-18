@@ -93,6 +93,9 @@ class EditLeadHeader extends React.Component<Props, State> {
 
             <div className={styles.leadActions}>
               {editLead && editLead.status !== IN_PROGRESS ? closedLeadActions : inProgressLeadActions}
+              <button className={styles.btnAdditionalActions}>
+                <i className="fas fa-ellipsis-h" />
+              </button>
             </div>
           </div>
         </div>
