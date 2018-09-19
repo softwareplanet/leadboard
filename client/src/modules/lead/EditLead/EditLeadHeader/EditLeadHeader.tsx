@@ -130,30 +130,30 @@ class EditLeadHeader extends React.Component<Props, State> {
     this.setState(prevState => {
       return { isEditNamePopoverOpen: !prevState.isEditNamePopoverOpen };
     });
-  }
+  };
 
   private toggleAdditionalActionsPopover = () => {
     this.setState(prevState => {
       return { isAdditionalActionsPopoverOpen: !prevState.isAdditionalActionsPopoverOpen };
     });
-  }
+  };
 
   private handleStatusChange = (status: string) => {
     const lead = this.props.editLead;
     lead.status = status;
     this.props.updateLead(lead);
-  }
+  };
 
   private handleLeadNameSave = (name: string) => {
     const lead = this.props.editLead;
     lead.name = name;
     this.props.updateLead(lead);
     this.toggleEditNamePopover();
-  }
+  };
 
   private handlePopoverCancel = () => {
     this.toggleEditNamePopover();
-  }
+  };
 }
 
 const mapStateToProps = (state: any) => ({
