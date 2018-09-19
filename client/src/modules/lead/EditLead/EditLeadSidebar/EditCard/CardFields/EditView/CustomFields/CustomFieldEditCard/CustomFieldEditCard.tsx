@@ -1,6 +1,7 @@
 import * as React from 'react';
 import CustomFieldSetting from '../../../../../../../../../models/customFields/CustomFieldSetting';
 import isBlank from '../../../../../../../../../utils/isBlank';
+import DeleteButton from '../../../../DeleteButton/DeleteButton';
 import * as styles from './CustomFieldEditCard.css';
 
 interface Props {
@@ -8,6 +9,8 @@ interface Props {
   model: string;
 
   onSave(customField: CustomFieldSetting): void;
+
+  onDelete(id: string): void;
 
   onCancel(): void;
 }
@@ -36,7 +39,7 @@ class CustomFieldEditCard extends React.Component<Props, State> {
       model: this.props.model,
       name: this.state.name,
       type: 'string',
-    }
+    };
 
     if (isBlank(this.nameInputRef.current!.value)) {
       this.nameInputRef.current!.className = styles.invalidName;
@@ -45,24 +48,28 @@ class CustomFieldEditCard extends React.Component<Props, State> {
       this.props.onSave(fieldToSave);
       this.props.onCancel();
     }
-  }
+  };
 
   public nameHandler = (e: React.FormEvent<HTMLInputElement>) => {
-    this.setState({ name: e.currentTarget.value })
+    this.setState({ name: e.currentTarget.value });
     this.nameInputRef.current!.className = styles.nameInput;
-  }
+  };
 
   public addDialogHandler = () => {
     this.setState({
       isShownInAddDialog: !this.state.isShownInAddDialog,
-    })
-  }
+    });
+  };
 
-  public visiblityHandler = () => {
+  public visibilityHandler = () => {
     this.setState({
       isAlwaysVisible: !this.state.isAlwaysVisible,
-    })
-  }
+    });
+  };
+
+  private onDeleteHandler = () => {
+    this.props.onDelete(this.props.field && this.props.field._id || '');
+  };
 
   public render() {
     return (
@@ -84,14 +91,17 @@ class CustomFieldEditCard extends React.Component<Props, State> {
           <div className={styles.visibilityOptions}>
             <label className={styles.checkboxLabel}>
               Always visible on sidebar
-              <input type="checkbox" checked={this.state.isAlwaysVisible}
-                onChange={this.visiblityHandler}
+              <input
+                type="checkbox"
+                checked={this.state.isAlwaysVisible}
+                onChange={this.visibilityHandler}
               />
               <span className={styles.checkMark} />
             </label>
           </div>
         </div>
         <div className={styles.actionButtons}>
+          <DeleteButton className={styles.deleteButton} onClick={this.onDeleteHandler} />
           <button
             className={styles.cancelButton}
             onClick={this.props.onCancel}

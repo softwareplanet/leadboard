@@ -53,9 +53,9 @@ describe('<EditCard />', () => {
 
   const customFields: CustomFieldData[] = [
     {
-      isShownInAddDialog: false,
       isAlwaysVisible: true,
       isDefault: true,
+      isShownInAddDialog: false,
       key: '5b97d3573485d2406c818ba0',
       model: 'Organization',
       name: 'Address',
@@ -63,9 +63,9 @@ describe('<EditCard />', () => {
       value: '',
     },
     {
-      isShownInAddDialog: false,
       isAlwaysVisible: true,
       isDefault: true,
+      isShownInAddDialog: false,
       key: '5b97d3573485d2406c818ba0',
       model: 'Contact',
       name: 'Address',
@@ -88,6 +88,7 @@ describe('<EditCard />', () => {
         title="Person"
         icon={someIcon}
         customFields={customFields}
+        deleteCustomField={jest.fn()}
       />,
     );
   });
@@ -117,6 +118,7 @@ describe('<EditCard />', () => {
         title="Person"
         icon={someIcon}
         customFields={customFields}
+        deleteCustomField={jest.fn()}
       />,
     );
     wrapper.update();

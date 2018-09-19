@@ -1,6 +1,7 @@
 import * as classNames from 'classnames';
 import * as React from 'react';
 import CustomFieldSetting from '../../../../../../../../models/customFields/CustomFieldSetting';
+import DeleteButton from '../../../DeleteButton/DeleteButton';
 import CustomFieldEditCard from '../CustomFields/CustomFieldEditCard/CustomFieldEditCard';
 import * as styles from './CustomFieldCard.css';
 
@@ -8,6 +9,8 @@ interface Props {
   customSettings: CustomFieldSetting;
 
   editCustomFieldInDomain(customField: CustomFieldSetting): void;
+
+  deleteCustomField(id: string): void;
 }
 
 interface State {
@@ -19,15 +22,19 @@ class CustomFieldCard extends React.Component<Props, State> {
     editMode: false,
   };
 
-  public editModeHandler = () => {
-    this.setState(prevState => {
-      return { editMode: !prevState.editMode } 
-    });
+  public render() {
+    return !this.state.editMode ? this.renderCard() : this.renderEditCard();
   }
 
-  public render() {
-    return !this.state.editMode ? this.renderCard() : this.renderEditCard()
-  }
+  private editModeHandler = () => {
+    this.setState(prevState => {
+      return { editMode: !prevState.editMode };
+    });
+  };
+
+  private onCustomFieldDelete = () => {
+    this.props.deleteCustomField(this.props.customSettings._id ? this.props.customSettings._id : '');
+  };
 
   private renderCard = () => {
     return (
@@ -44,6 +51,7 @@ class CustomFieldCard extends React.Component<Props, State> {
                   Edit
               </span>
               </button>
+              <DeleteButton className={styles.editButton} onClick={this.onCustomFieldDelete} />
             </div>
           </div>
           <ul className={styles.properties}>
@@ -52,17 +60,18 @@ class CustomFieldCard extends React.Component<Props, State> {
         </div>
       </div>
     );
-  }
+  };
 
   private renderEditCard = () => {
     return (
       <CustomFieldEditCard
+        onDelete={this.props.deleteCustomField}
         field={this.props.customSettings}
         model={this.props.customSettings.model}
         onSave={this.props.editCustomFieldInDomain}
         onCancel={this.editModeHandler}
       />);
-  }
+  };
 
   private isEditable() {
     return !this.props.customSettings.isDefault;

@@ -7,7 +7,7 @@ import { dropTables, createUserAndDomain, createFunnel } from "../../test/db-pre
 
 const app = () => express(routes);
 
-var cred;
+let cred;
 let funnel;
 beforeEach(async done => {
   await dropTables();
