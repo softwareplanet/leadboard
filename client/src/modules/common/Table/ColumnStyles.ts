@@ -1,10 +1,10 @@
-export const basicSellStyles = {
+export const basicCellStyles = {
   height: '32px',
   padding: '6px 8px 6px 8px',
 };
 
 export const basicHeader = {
-  ...basicSellStyles,
+  ...basicCellStyles,
   borderColor: '#b9babb',
 };
 
@@ -14,7 +14,7 @@ export const rightAlignHeader = {
 };
 
 export const basicColumn = {
-  ...basicSellStyles,
+  ...basicCellStyles,
 };
 
 export const rightAlignColumn = {

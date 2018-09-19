@@ -1,8 +1,10 @@
 import * as React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
+import ContactData from '../../../models/ContactData';
+import OrganizationData from '../../../models/OrganizationData';
 
 interface Props {
-  data: any[];
+  data: OrganizationData[] | ContactData[];
   columns: any[];
 }
 

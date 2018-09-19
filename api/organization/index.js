@@ -10,9 +10,9 @@ const router = new Router;
 // @desc    Return all organizations by domain
 // @access  Private
 router.get("/", (req, res) => {
-  Organization.find({domain: req.user.domain}, "_id name")
+  Organization.find({ domain: req.user.domain }, "_id name")
     .then(organizations => {
-      res.json(organizations);
+      res.send(organizations);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });
@@ -23,12 +23,10 @@ router.get("/", (req, res) => {
 // @desc    Return all aggregated organizations by domain
 // @access  Private
 router.get("/aggregated/", (req, res) => {
-  console.log('asd');
   organizationAggregation(req.user.domain).then(organizations => {
-      res.status(200).json(organizations);
+      res.send(organizations);
     },
   ).catch(error => {
-    console.log("error");
     res.status(400).json({ errors: { message: error } });
   });
 });
@@ -39,7 +37,7 @@ router.get("/aggregated/", (req, res) => {
 router.get("/:id", (req, res) => {
   Organization.findById(req.params.id)
     .then(organizations => {
-      res.status(200).json(organizations);
+      res.send(organizations);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });

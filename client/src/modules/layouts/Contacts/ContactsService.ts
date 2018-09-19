@@ -4,7 +4,7 @@ import CustomFieldSetting from '../../../models/customFields/CustomFieldSetting'
 import { basicColumnStyles, rightAlignStyles } from '../../common/Table/ColumnStyles';
 
 const contactModel = 'Contact';
-const columnsWithRightAlign = ['Closed leads', 'Opened leads', 'People'];
+const columnsWithRightAlignment = ['Closed leads', 'Opened leads', 'People'];
 
 export function getTableData(model: string, contacts: any, customFieldSetting: CustomFieldSetting[]) {
   const contactsDataFields = getContactsDataFields(model, contacts, customFieldSetting);
@@ -112,7 +112,7 @@ function getCustomFieldsByDomainSettings(model: string, customFieldsSettings: Cu
 }
 
 function getStyles(name: string) {
-  if (columnsWithRightAlign.indexOf(name) > -1) {
+  if (columnsWithRightAlignment.indexOf(name) > -1) {
     return { ...rightAlignStyles };
   }
   return { ...basicColumnStyles };

@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
   Contact.find({domain: req.user.domain}, "_id name organization")
     .populate( "organization" )
     .then(contacts => {
-      res.status(200).json(contacts);
+      res.send(contacts);
     },
   ).catch(error => {
     res.status(400).json({ errors: { message: error } });
@@ -25,7 +25,7 @@ router.get("/", (req, res) => {
 // @access Private
 router.get("/aggregated/", (req, res) => {
   contactAggregation(req.user.domain).then(contacts => {
-      res.status(200).json(contacts);
+      res.send(contacts);
     },
   ).catch(error => {
     res.status(400).json({ errors: { message: error } });
