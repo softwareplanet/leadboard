@@ -69,9 +69,9 @@ class CustomFields extends React.Component<Props, State> {
       <div className={styles.newFieldContainer}>
         <span onClick={this.triggerNewFieldCard} className={styles.addNewField}>
           + Add a new field
-    </span>
+        </span>
       </div>;
-  };
+  }
 }
 
 export default CustomFields;

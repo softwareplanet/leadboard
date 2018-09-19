@@ -68,7 +68,7 @@ class CustomFieldEditCard extends React.Component<Props, State> {
   };
 
   private onDeleteHandler = () => {
-    this.props.onDelete(this.props.field && this.props.field._id ? this.props.field._id : '');
+    this.props.onDelete(this.props.field && this.props.field._id || '');
   };
 
   public render() {
