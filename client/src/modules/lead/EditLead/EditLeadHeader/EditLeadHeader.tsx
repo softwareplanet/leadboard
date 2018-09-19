@@ -9,10 +9,12 @@ import { loadLeadActivities } from '../Activities/activityActions';
 import * as styles from './EditLeadHeader.css';
 import EditLeadPopover from './EditLeadPopover/EditLeadPopover';
 import EditLeadStageProgress from './EditLeadStageProgress/EditLeadStageProgress';
+import ReactSVG from 'react-svg';
+import pipelineArrow from '../../../../assets/pipeline-stage-arrow.svg';
 
 interface Props {
   match: any;
-  editLead: Lead;
+  editLead: any;
 
   loadLeadActivities(leadId: string): void;
 
@@ -25,7 +27,7 @@ interface State {
 
 class EditLeadHeader extends React.Component<Props, State> {
   public state: State = {
-    isPopoverOpen: false
+    isPopoverOpen: false,
   };
 
   public componentDidMount() {
@@ -65,8 +67,9 @@ class EditLeadHeader extends React.Component<Props, State> {
           Lost
         </button>
       </div>
-    );
-
+    );        
+    console.log(this.props.editLead);
+    
     return (
       <div className={styles.header}>
         <div className={styles.description}>
@@ -98,9 +101,13 @@ class EditLeadHeader extends React.Component<Props, State> {
         </div>
         <div>
           <EditLeadStageProgress />
-          <div className={styles.bottomStageStatus}>
-            current stage
-          </div>
+            {this.props.editLead.stage 
+              ? (
+                  <div className={styles.bottomStageStatus}>
+                    {this.props.editLead.stage.funnel.name} <ReactSVG className={styles.pipelineArrowSvg} src={pipelineArrow} /> {this.props.editLead.stage.name} 
+                  </div>
+                )
+              : ''}
         </div>
       </div>
     );
@@ -110,24 +117,24 @@ class EditLeadHeader extends React.Component<Props, State> {
     this.setState(prevState => {
       return { isPopoverOpen: !prevState.isPopoverOpen };
     });
-  };
+  }
 
   private handleStatusChange = (status: string) => {
     const lead = this.props.editLead;
     lead.status = status;
     this.props.updateLead(lead);  
-  };
+  }
 
   private handleLeadNameSave = (name: string) => {
     const lead = this.props.editLead;
     lead.name = name;
     this.props.updateLead(lead);
     this.togglePopover();
-  };
+  }
 
   private handlePopoverCancel = () => {
     this.togglePopover();
-  };
+  }
 }
 
 const mapStateToProps = (state: any) => ({
@@ -138,5 +145,5 @@ export { EditLeadHeader };
 
 export default connect(
   mapStateToProps,
-  { loadLead, updateLead, loadLeadActivities }
+  { loadLead, updateLead, loadLeadActivities },
 )(EditLeadHeader);

@@ -112,3 +112,4 @@ describe('<EditLeadHeader />', () => {
     expect(closedLeadActions).toHaveLength(1);
   });
 });
+

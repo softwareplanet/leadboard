@@ -15,3 +15,4 @@ export const leadActions: string;
 export const reopenButton: string;
 export const closedLeadActions: string;
 export const bottomStageStatus: string;
+export const pipelineArrowSvg: string;

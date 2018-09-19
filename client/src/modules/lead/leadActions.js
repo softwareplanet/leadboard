@@ -27,11 +27,11 @@ export const loadLeadboard = () => dispatch => {
 };
 
 // Load Stages by Funnel ID
-export const loadStages = funnel => dispatch => {
+export const loadStages = funnelId => dispatch => {
   axios
     .get("/api/stage", {
       params: {
-        funnel,
+        funnel: funnelId,
       },
     })
     .then(result => {
@@ -83,7 +83,7 @@ export const loadLead = leadId => dispatch => {
         type: LOAD_LEAD,
         payload: lead,
       });
-      dispatch(loadStages(lead.stage.funnel));
+      dispatch(loadStages(lead.stage.funnel._id));
     })
     .catch(error => {
       if (error.response.status === 404) {
