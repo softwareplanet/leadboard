@@ -2,7 +2,7 @@ import * as React from 'react';
 import trashIcon from '../../../../../../assets/trash-icon.svg';
 
 interface Props {
-  className: any;
+  styles: any;
 
   onClick(): void;
 }
@@ -10,7 +10,7 @@ interface Props {
 class DeleteButton extends React.Component<Props, object> {
   public render() {
     return (
-      <button className={this.props.className} onClick={this.props.onClick}>
+      <button className={this.props.styles} onClick={this.props.onClick}>
         <img src={trashIcon} alt="trash-icon" />
       </button>
     );

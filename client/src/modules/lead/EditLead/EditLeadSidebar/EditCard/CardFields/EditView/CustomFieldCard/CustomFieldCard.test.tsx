@@ -39,11 +39,4 @@ describe('<CustomFieldCard />', () => {
     );
     expect(wrapper.length).toBe(1);
   });
-
-  window.confirm = jest.fn(() => true);
-  it('should call deleteCustomField method on click delete button', () => {
-    const button = wrapper.find('.deleteButton');
-    button.simulate('click');
-    expect(onDelete).toHaveBeenCalled();
-  });
 });
