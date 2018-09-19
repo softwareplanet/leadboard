@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Popover, Card, CardBody, CardFooter } from "reactstrap";
-import styles from "./EditLeadPopover.css";
+import styles from "./EditLeadFieldPopover.css";
 import isBlank from "../../../../../utils/isBlank"
 
 class EditLeadPopover extends Component {

@@ -7,7 +7,7 @@ import Lead from '../../../../models/Lead';
 import { loadLead, updateLead } from '../../leadActions';
 import { loadLeadActivities } from '../Activities/activityActions';
 import * as styles from './EditLeadHeader.css';
-import EditLeadPopover from './EditLeadPopover/EditLeadPopover';
+import EditLeadFieldPopover from './EditLeadFieldPopover/EditLeadFieldPopover';
 import EditLeadStageProgress from './EditLeadStageProgress/EditLeadStageProgress';
 import ReactSVG from 'react-svg';
 import pipelineArrow from '../../../../assets/pipeline-stage-arrow.svg';
@@ -76,7 +76,7 @@ class EditLeadHeader extends React.Component<Props, State> {
           <h4 onClick={this.togglePopover} className={styles.leadName} id="edit-lead-header-name">
             {editLead ? editLead.name : null}
           </h4>
-          <EditLeadPopover
+          <EditLeadFieldPopover
             onSave={this.handleLeadNameSave}
             onCancel={this.handlePopoverCancel}
             value={editLead ? editLead.name : null}
@@ -104,7 +104,9 @@ class EditLeadHeader extends React.Component<Props, State> {
             {this.props.editLead.stage 
               ? (
                   <div className={styles.bottomStageStatus}>
-                    {this.props.editLead.stage.funnel.name} <ReactSVG className={styles.pipelineArrowSvg} src={pipelineArrow} /> {this.props.editLead.stage.name} 
+                    {this.props.editLead.stage.funnel.name} 
+                    <ReactSVG className={styles.pipelineArrowSvg} src={pipelineArrow} /> 
+                    {this.props.editLead.stage.name} 
                   </div>
                 )
               : ''}
