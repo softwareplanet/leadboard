@@ -25,10 +25,7 @@ class AdditionalActionsPopover extends React.Component<Props> {
       >
         <div className={styles.popoverBody}>
           <div className={styles.actions}>
-            <div
-              className={styles.action}
-              onClick={this.handleDeleteClick}
-            >
+            <div className={styles.action} onClick={this.handleDeleteClick}>
               Delete
             </div>
           </div>
