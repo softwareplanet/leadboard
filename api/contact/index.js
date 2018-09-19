@@ -10,8 +10,8 @@ const router = new Router();
 // @desc Return all contacts that have name field
 // @access Private
 router.get("/", (req, res) => {
-  Contact.find({ domain: req.user.domain }, "_id name organization")
-    .populate("organization")
+  Contact.find({ domain: req.user.domain })
+    .populate("organization", "id name ")
     .then(contacts => {
         res.send(contacts);
       },
