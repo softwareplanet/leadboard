@@ -5,8 +5,11 @@ import * as styles from './AdditionalActionsPopover.css';
 interface Props {
   target: string;
   isOpen: boolean;
+  leadId: string;
 
   toggle(): void;
+
+  deleteLead(leadId: string): void;
 }
 
 class AdditionalActionsPopover extends React.Component<Props> {
@@ -36,11 +39,11 @@ class AdditionalActionsPopover extends React.Component<Props> {
 
   private handleDeleteClick = () => {
     if (window.confirm('Are you sure you want to delete this deal?')) {
-      alert('Add delete action!!!!');
+      this.props.deleteLead(this.props.leadId);
     } else {
       this.props.toggle();
     }
-  };
+  }
 }
 
 export default AdditionalActionsPopover;

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ownerIcon from '../../../../assets/user-icon.svg';
 import { IN_PROGRESS, LOST, WON } from '../../../../constants';
 import Lead from '../../../../models/Lead';
-import { loadLead, updateLead } from '../../leadActions';
+import { deleteLead, loadLead, updateLead } from '../../leadActions';
 import { loadLeadActivities } from '../Activities/activityActions';
 import AdditionalActionsPopover from './AdditionalActionsPopover/AdditionalActionsPopover';
 import * as styles from './EditLeadHeader.css';
@@ -14,6 +14,8 @@ import EditLeadStageProgress from './EditLeadStageProgress/EditLeadStageProgress
 interface Props {
   match: any;
   editLead: Lead;
+
+  deleteLead(leadId: string): void;
 
   loadLeadActivities(leadId: string): void;
 
@@ -108,8 +110,10 @@ class EditLeadHeader extends React.Component<Props, State> {
                 <i className="fas fa-ellipsis-h" />
               </button>
               <AdditionalActionsPopover
-                target="btnAdditionalActions"
+                deleteLead={this.props.deleteLead}
                 isOpen={this.state.isAdditionalActionsPopoverOpen}
+                leadId={this.props.editLead._id}
+                target="btnAdditionalActions"
                 toggle={this.toggleAdditionalActionsPopover}
               />
             </div>
@@ -126,30 +130,30 @@ class EditLeadHeader extends React.Component<Props, State> {
     this.setState(prevState => {
       return { isEditNamePopoverOpen: !prevState.isEditNamePopoverOpen };
     });
-  };
+  }
 
   private toggleAdditionalActionsPopover = () => {
     this.setState(prevState => {
       return { isAdditionalActionsPopoverOpen: !prevState.isAdditionalActionsPopoverOpen };
     });
-  };
+  }
 
   private handleStatusChange = (status: string) => {
     const lead = this.props.editLead;
     lead.status = status;
-    this.props.updateLead(lead);  
-  };
+    this.props.updateLead(lead);
+  }
 
   private handleLeadNameSave = (name: string) => {
     const lead = this.props.editLead;
     lead.name = name;
     this.props.updateLead(lead);
     this.toggleEditNamePopover();
-  };
+  }
 
   private handlePopoverCancel = () => {
     this.toggleEditNamePopover();
-  };
+  }
 }
 
 const mapStateToProps = (state: any) => ({
@@ -160,5 +164,5 @@ export { EditLeadHeader };
 
 export default connect(
   mapStateToProps,
-  { loadLead, updateLead, loadLeadActivities }
+  { loadLead, updateLead, deleteLead, loadLeadActivities },
 )(EditLeadHeader);
