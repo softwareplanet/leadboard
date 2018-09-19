@@ -2,12 +2,12 @@ import axios from "axios";
 import { LOAD_CONTACTS } from "./types";
 import { dispatchResponse } from "../../../../dispatchResponse";
 
-export const loadContacts = () => dispatch => {
+export const loadContacts = () => {
   axios.get("/api/contact")
     .then(...dispatchResponse(LOAD_CONTACTS));
 };
 
-export const loadAggregatedContacts = () => dispatch => {
+export const loadAggregatedContacts = () => {
   axios.get("/api/contact/aggregated/")
     .then(...dispatchResponse(LOAD_CONTACTS));
 };
