@@ -22,7 +22,7 @@ export default class EditLeadPipelinePopover extends React.Component<Props, Stat
   public render() {
     return (
       <Popover
-        className={styles.popover}
+        className={styles.pipelinePopover}
         placement="bottom-start"
         isOpen={this.props.isOpen}
         target={this.props.target}
@@ -30,11 +30,10 @@ export default class EditLeadPipelinePopover extends React.Component<Props, Stat
       >
         <Card>
           <div className={styles.header}>Pipelines</div>
-          <CardBody className={styles.container}>
+          <CardBody className={styles.pipelineContainer}>
             <div className={styles.inputContainer}>
               <select
                 className={styles.input} 
-
                 value={this.state.selectedFunnel} onChange={this.onFunnelSelect}>
                 {this.renderSelectOptions()}
               </select>

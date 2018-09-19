@@ -16,7 +16,7 @@ class EditLeadPopover extends Component {
   render() {
     return (
       <Popover
-        className={styles.popover}
+        className={styles.fieldPopover}
         placement="bottom-start"
         target={this.props.target ? this.props.target : ""}
         isOpen={this.props.isOpen}
