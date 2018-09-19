@@ -95,7 +95,7 @@ router.delete("/:domainId/settings/customFields/:customFieldId", domainMembersMi
     const domain = await Domain.findById({ _id: req.params.domainId });
     const field = domain.settings.customFields.find(field => field._id.equals(req.params.customFieldId));
     if (field.isDefault) {
-      return res.status(403).json({ errors: { message: "Can't delete default field" } });
+      return res.status(400).json({ errors: { message: "Can't delete default field" } });
     } else {
       Domain.findByIdAndUpdate(req.params.domainId,
         { $pull: { "settings.customFields": { _id: req.params.customFieldId } } }, { new: true })
