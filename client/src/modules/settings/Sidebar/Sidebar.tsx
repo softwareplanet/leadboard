@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
-import { CUSTOMIZE_FIELDS, FUNNELS } from '../settingsRoutes';
+import { CUSTOMIZE_FIELDS, PIPELINES } from '../settingsRoutes';
 import * as styles from './Sidebar.css';
 
 export default class Sidebar extends React.Component {
   private settingsMenu = [{
-    value: 'Funnels',
-    param: FUNNELS,
+    value: 'Pipelines',
+    param: PIPELINES,
   }, 
   {
     value: 'Customize fields',

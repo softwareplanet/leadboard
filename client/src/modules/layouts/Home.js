@@ -2,14 +2,14 @@ import React, { Component } from "react";
 
 import Navbar from "./Navbar/Navbar";
 import Dashboard from "../lead/Dashboard/Dashboard";
-import AddLead from "../lead/AddLead/AddLead";
+import DashboardActions from "../lead/DashboardActions/DashboardActions";
 
 class Home extends Component {
   render() {
     return (
       <div>
         <Navbar />
-        <AddLead />
+        <DashboardActions />
         <Dashboard />
       </div>
     );

@@ -18,13 +18,13 @@ beforeEach(async done => {
 
 describe("Funnel", function() {
   it("should create a new funnel", async () => {
-      const { status, body } = await request(app())
-        .post("/api/funnel")
-        .set("Authorization", cred.token)
-        .send({ domain: cred.domainId, name: "Sales Funnel" });
-      expect(status).toBe(200);
-      expect(typeof body).toBe("string");
-    }
+    const { status, body } = await request(app())
+      .post("/api/funnel")
+      .set("Authorization", cred.token)
+      .send({ domain: cred.domainId, name: "Sales Funnel" });
+    expect(status).toBe(200);
+    expect(body).toMatchObject({ name: "Sales Funnel" });
+  }
   );
 
   it("should retrieve all domain' funnels", async () => {
@@ -38,7 +38,7 @@ describe("Funnel", function() {
 
   it("should update funnel", async () => {
     const { status, body } = await request(app())
-      .patch(`/api/funnel/${funnel}`)
+      .patch(`/api/funnel/${funnel._id}`)
       .set("Authorization", cred.token)
       .send({ name: "New funnel name" });
     expect(status).toBe(200);
