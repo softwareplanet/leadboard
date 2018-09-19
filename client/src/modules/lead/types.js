@@ -1,4 +1,4 @@
-export const LOAD_LEADBOARD = "LOAD_LEADBOARD";
+export const LOAD_FUNNELS = "LOAD_FUNNELS";
 export const LOAD_STAGES = "LOAD_STAGES";
 export const LOAD_LEADS = "LOAD_LEADS";
 export const UPDATE_ORGANIZATION = "UPDATE_ORGANIZATION";

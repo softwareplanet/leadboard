@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ownerIcon from '../../../../assets/user-icon.svg';
 import { IN_PROGRESS, LOST, WON } from '../../../../constants';
 import Lead from '../../../../models/Lead';
-import { loadLead, updateLead } from '../../leadActions';
+import { loadLead, updateLead, loadFunnels } from '../../leadActions';
 import { loadLeadActivities } from '../Activities/activityActions';
 import * as styles from './EditLeadHeader.css';
 import EditLeadFieldPopover from './EditLeadFieldPopover/EditLeadFieldPopover';
@@ -12,16 +12,20 @@ import EditLeadStageProgress from './EditLeadStageProgress/EditLeadStageProgress
 import ReactSVG from 'react-svg';
 import pipelineArrow from '../../../../assets/pipeline-stage-arrow.svg';
 import EditLeadPipelinePopover from './EditLeadPipelinePopover/EditLeadPipelinePopover';
+import Funnel from '../../../../models/Funnel';
 
 const PIPELINE_POPOVER_ID: string = 'pipelineTarget';
 
 interface Props {
   match: any;
   editLead: any;
+  funnels: Funnel[];
 
   loadLeadActivities(leadId: string): void;
 
   updateLead(lead: Lead): void;
+
+  loadFunnels(): void;
 }
 
 interface State {
@@ -35,9 +39,10 @@ class EditLeadHeader extends React.Component<Props, State> {
     isPipelinePopoverOpen: false,
   };
 
-  public componentDidMount() {
+  public componentWillMount() {
     const leadId = this.props.match.params.leadId;
     this.props.loadLeadActivities(leadId);
+    this.props.loadFunnels();
   }
 
   public render() {
@@ -111,8 +116,9 @@ class EditLeadHeader extends React.Component<Props, State> {
                       <ReactSVG className={styles.pipelineArrowSvg} src={pipelineArrow} /> 
                     {this.props.editLead.stage.name}
                     <EditLeadPipelinePopover
+                      stage={this.props.editLead.stage}
                       isOpen={this.state.isPipelinePopoverOpen}
-                      funnels={[]}
+                      funnels={this.props.funnels}
                       target={PIPELINE_POPOVER_ID}
                       toggle={this.togglePipelinePopover}    
                     />
@@ -156,11 +162,12 @@ class EditLeadHeader extends React.Component<Props, State> {
 
 const mapStateToProps = (state: any) => ({
   editLead: state.leads.editLead.lead,
+  funnels: state.leads.funnels,
 });
 
 export { EditLeadHeader };
 
 export default connect(
   mapStateToProps,
-  { loadLead, updateLead, loadLeadActivities },
+  { loadLead, updateLead, loadLeadActivities, loadFunnels },
 )(EditLeadHeader);

@@ -11,3 +11,4 @@ export const buttonSave: string;
 export const pipelinePopover: string;
 export const select: string;
 export const pipelineContainer: string;
+export const option: string;

@@ -84,6 +84,8 @@ describe('<EditLeadHeader />', () => {
     const wrapper = shallow
     (
       <EditLeadHeader
+        funnels={[]}
+        loadFunnels={jest.fn()}
         match={match}
         editLead={editLead}
         updateLead={updateLead}
@@ -102,7 +104,9 @@ describe('<EditLeadHeader />', () => {
     const wrapper = shallow
     (
       <EditLeadHeader
+        funnels={[]}
         match={match}
+        loadFunnels={jest.fn()}
         editLead={editLead}
         updateLead={updateLead}
         loadLeadActivities={loadLeadActivities}
@@ -112,4 +116,3 @@ describe('<EditLeadHeader />', () => {
     expect(closedLeadActions).toHaveLength(1);
   });
 });
-

@@ -1,7 +1,7 @@
 import axios from "axios";
 import {
   LOAD_LEAD,
-  LOAD_LEADBOARD,
+  LOAD_FUNNELS,
   LOAD_LEADS,
   LOAD_STAGES,
   UPDATE_CONTACT,
@@ -11,12 +11,12 @@ import {
 } from "./types";
 import { GET_ERRORS } from "../../actionTypes";
 
-// Load leadboard by Domain ID
+// Load leadboard by authorized user's domain id
 export const loadLeadboard = () => dispatch => {
   axios
     .get("/api/funnel")
     .then(result => {
-      dispatch(loadLeadboardAction(result.data));
+      dispatch(loadFunnelsAction(result.data));
       if (typeof result.data[0]._id === "string") {
         dispatch(loadStages(result.data[0]._id));
       }
@@ -211,15 +211,27 @@ export const deleteNote = (leadId, noteId) => dispatch => {
     });
 };
 
+// Load funnels by authorized user's domain id
+export const loadFunnels = () => dispatch => {
+  axios
+    .get("/api/funnel")
+    .then(result => {
+      dispatch(loadFunnelsAction(result.data));
+    })
+    .catch(error => {
+      dispatch(getErrorsAction(error.response.data.errors));
+    });
+};
+
 export const leadNotFound = () => {
   return {
     type: LEAD_NOT_FOUND,
   };
 }
 
-export function loadLeadboardAction(data) {
+export function loadFunnelsAction(data) {
   return {
-    type: LOAD_LEADBOARD,
+    type: LOAD_FUNNELS,
     payload: data,
   };
 }

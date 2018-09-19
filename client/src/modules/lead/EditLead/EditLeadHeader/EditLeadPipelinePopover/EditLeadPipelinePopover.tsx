@@ -1,22 +1,28 @@
 import * as React from 'react';
-import { Card, CardBody, CardFooter, Popover } from 'reactstrap';
+import { Card, CardBody, CardFooter, Popover, Dropdown, DropdownToggle, DropdownMenu } from 'reactstrap';
 import Funnel from '../../../../../models/Funnel';
 import * as styles from '../popover.css';
+import DropdownItem from 'reactstrap/lib/DropdownItem';
+import { FullStage } from '../../../../../models/Stage';
 
 interface Props {
   isOpen: boolean;
   funnels: Funnel[];
   target: string;
+  stage: FullStage;
+
   toggle(): void;
 }
 
 interface State {
-  selectedFunnel: string;
+  selectedFunnel: Funnel;
+  isDropdownOpen: boolean;
 }
 
 export default class EditLeadPipelinePopover extends React.Component<Props, State> {
   public state: State = {
-    selectedFunnel: '',
+    isDropdownOpen: false,
+    selectedFunnel: this.props.stage.funnel,
   };
 
   public render() {
@@ -32,11 +38,15 @@ export default class EditLeadPipelinePopover extends React.Component<Props, Stat
           <div className={styles.header}>Pipelines</div>
           <CardBody className={styles.pipelineContainer}>
             <div className={styles.inputContainer}>
-              <select
-                className={styles.input} 
-                value={this.state.selectedFunnel} onChange={this.onFunnelSelect}>
+              <Dropdown
+                isOpen={this.state.isDropdownOpen}
+                toggle={this.toggleDropdown}
+              >
+                <DropdownToggle className={styles.select}>
+                  {this.state.selectedFunnel.name}
+                </DropdownToggle>
                 {this.renderSelectOptions()}
-              </select>
+              </Dropdown>
             </div>
           </CardBody>
           <CardFooter className={styles.buttons}>
@@ -53,18 +63,28 @@ export default class EditLeadPipelinePopover extends React.Component<Props, Stat
   }
 
   private renderSelectOptions() {
-    return this.props.funnels.map((funnel: Funnel) => {
-      return (
-        <option value={funnel._id} key={funnel._id}>
-          {funnel.name}
-        </option>
-      );
+    return (
+      <DropdownMenu>
+        {this.props.funnels.map((funnel: Funnel) => {
+        return (
+          <DropdownItem className={styles.option} onClick={this.onFunnelSelect.bind(this, funnel)} key={funnel._id}>
+            {funnel.name}
+          </DropdownItem>
+        );
+        })}
+      </DropdownMenu>
+    );
+  }
+
+  private onFunnelSelect(funnel: Funnel) {
+    this.setState({
+      selectedFunnel: funnel,
     });
   }
 
-  private onFunnelSelect = (e: any) => {
-    this.setState({
-      selectedFunnel: e.target.value,
-    });
+  private toggleDropdown = () => {
+    this.setState((prevState: State) => ({
+      isDropdownOpen: !prevState.isDropdownOpen,
+    }));
   }
 }
