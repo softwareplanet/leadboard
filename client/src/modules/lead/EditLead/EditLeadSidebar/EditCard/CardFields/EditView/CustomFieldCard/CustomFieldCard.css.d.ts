@@ -5,4 +5,5 @@ export const title: string;
 export const actions: string;
 export const properties: string;
 export const editButton: string;
+export const deleteButton: string;
 export const editable: string;

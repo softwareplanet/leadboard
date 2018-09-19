@@ -13,7 +13,7 @@ interface Props {
 
   updateFunnel(funnelId: string, funnel: any): void;
 
-  createStage (stage: any): void;
+  createStage(stage: any): void;
 }
 
 interface State {
@@ -38,20 +38,20 @@ class Funnel extends React.Component<Props, State> {
             </div>
             <button onClick={this.openAddStageModal} className={styles.addButton}>Add new stage</button>
           </div>
-          <NameModal 
+          <NameModal
             isModalOpen={this.state.isEditNameModalOpen}
             onSave={this.onEditNameSave}
             onCancel={this.onEditNameCancel}
             heading="Edit funnel"
             name={this.props.funnel ? this.props.funnel.name : ''}
           />
-          <NameModal 
-            isModalOpen={this.state.isAddStageModalOpen} 
+          <NameModal
+            isModalOpen={this.state.isAddStageModalOpen}
             heading="Add stage"
-            onSave={this.onAddNewStageSave} 
+            onSave={this.onAddNewStageSave}
             onCancel={this.onAddNewStageCancel}
           />
-        </div> 
+        </div>
         <Stages />
       </div>
     );
@@ -69,10 +69,10 @@ class Funnel extends React.Component<Props, State> {
     this.setState({
       isAddStageModalOpen: true,
     });
-  }
+  };
 
   private onEditNameSave = (name: string) => {
-    if(this.props.funnel){
+    if (this.props.funnel) {
       this.props.updateFunnel(this.props.funnel._id, { name });
       this.setState({
         isEditNameModalOpen: false,
@@ -84,7 +84,7 @@ class Funnel extends React.Component<Props, State> {
     this.setState({
       isEditNameModalOpen: false,
     });
-  }
+  };
 
   private onAddNewStageSave = (name: string) => {
     const stage: any = {
@@ -96,13 +96,13 @@ class Funnel extends React.Component<Props, State> {
     this.setState({
       isAddStageModalOpen: false,
     });
-  }
+  };
 
   private onAddNewStageCancel = () => {
     this.setState({
       isAddStageModalOpen: false,
     });
-  }
+  };
 }
 
 const mapStateToProps = (state: any) => ({
