@@ -1,3 +1,37 @@
 .button {
   composes: button buttonGreen from '../../../../../styles/common.css';
 }
+
+.form {
+  padding: 13px 15px 18px 15px;
+}
+
+.formHeader {
+  composes: formHeader from '../../../../lead/AddLead/AddLead.css';
+}
+
+.formFooter {
+  border-top: 1px solid #e5e5e5;
+  composes: formFooter from '../../../../lead/AddLead/AddLead.css';
+}
+
+.formInput {
+  border-radius: 3px;
+  composes: formInput from '../../../../lead/AddLead/AddLead.css';
+}
+
+.inputLabel {
+  composes: inputLabel from '../../../../lead/AddLead/AddLead.css';
+}
+
+.inputContainer {
+  composes: inputContainer from '../../../../lead/AddLead/AddLead.css';
+}
+
+.closeBtn {
+  composes: closeBtn from '../../../../lead/AddLead/AddLead.css';
+}
+
+.saveBtn {
+  composes: button buttonGreen from '../../../../../styles/common.css';
+}

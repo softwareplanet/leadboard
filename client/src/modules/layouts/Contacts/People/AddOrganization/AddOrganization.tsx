@@ -1,6 +1,7 @@
 import * as React from 'react';
-import Modal from 'react-modal';
+import * as Modal from 'react-modal';
 import * as styles from './AddOrganization.css';
+import * as classNames from 'classnames';
 
 const customStyles = {
   content: {
@@ -19,20 +20,70 @@ const customStyles = {
   },
 };
 
-class AddOrganization extends React.Component {
+interface State {
+  modalIsOpen: boolean;
+}
+
+class AddOrganization extends React.Component<object, State> {
+
+  public state: State = {
+    modalIsOpen: false,
+  };
+
   public render() {
     return (
       <div>
-        <button type="button" className={styles.button}>
-          Add person
+        <button type="button" className={styles.button} onClick={this.openModal}>
+          Add organization
         </button>
 
-        <Modal >
-
+        <Modal isOpen={this.state.modalIsOpen} style={customStyles}>
+          <header className={styles.formHeader}>Add organization</header>
+          <button type="button" aria-label="Close" className={styles.closeBtn}>
+            <span aria-hidden="true" onClick={this.closeModal} className={classNames("close", styles.closeIcon)}>
+              &times;
+            </span>
+          </button>
+          <form className={styles.form}>
+            <label className={styles.inputLabel}>Name</label>
+            <div className={styles.inputContainer}>
+              <input
+                name="address"
+                type="text"
+                className={styles.formInput}
+              />
+            </div>
+            <label className={styles.inputLabel}>Owner</label>
+            <label className={styles.inputLabel}>Address</label>
+            <div className={styles.inputContainer}>
+              <input
+                name="address"
+                type="text"
+                className={styles.formInput}
+              />
+            </div>
+          </form>
+          <footer className={styles.formFooter}>
+            <button type="button" className={styles.saveBtn}>
+              Save
+            </button>
+          </footer>
         </Modal>
       </div>
     )
   }
+
+  openModal = () => {
+    this.setState({
+      modalIsOpen: true,
+    });
+  };
+
+  closeModal = () => {
+    this.setState({
+      modalIsOpen: false,
+    });
+  };
 }
 
 export default AddOrganization;
