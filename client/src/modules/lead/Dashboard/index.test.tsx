@@ -51,7 +51,7 @@ describe('DASHBOARD component', () => {
     wrapper = shallow(<Dashboard
       loadLeadboard={noop}
       loadFirstActivityInLeadsPlan={noop}
-      leads={leads}
+      dashboard={leads}
       nearestActivities={activities}
     />);
   });
@@ -98,7 +98,7 @@ describe('DASHBOARD component', () => {
     wrapper = shallow(<Dashboard
       loadLeadboard={noop}
       loadFirstActivityInLeadsPlan={noop}
-      leads={leads}
+      dashboard={leads}
       nearestActivities={activities}
     />);
     const stages = leads.stages.length;
