@@ -1,0 +1,17 @@
+.content {
+  background: #cbcbcb;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 20px 10px;
+  border-radius: 4px;
+}
+
+.stagesList {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.stagesList li {
+  flex-grow: 1;
+  cursor: default;
+}

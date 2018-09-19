@@ -19,11 +19,12 @@ describe('<CustomFieldEditCard />', () => {
     wrapper = shallow
     (
       <CustomFieldEditCard
+        onDelete={jest.fn()}
         model="Contact"
         field={customField}
         onSave={callback}
         onCancel={callback}
-      />
+      />,
     );
   });
 
@@ -35,11 +36,12 @@ describe('<CustomFieldEditCard />', () => {
     wrapper = mount
     (
       <CustomFieldEditCard
+        onDelete={jest.fn()}
         model="Contact"
         field={customField}
         onSave={callback}
         onCancel={callback}
-      />
+      />,
     );
     const button = wrapper.find('.saveButton');
     button.simulate('click');

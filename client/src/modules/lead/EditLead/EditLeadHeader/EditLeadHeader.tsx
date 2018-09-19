@@ -153,7 +153,7 @@ class EditLeadHeader extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: any) => ({
-  editLead: state.leads.editLead.lead
+  editLead: state.leads.editLead.lead,
 });
 
 export { EditLeadHeader };
