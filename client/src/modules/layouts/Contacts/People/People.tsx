@@ -5,6 +5,7 @@ import CustomFieldSetting from '../../../../models/customFields/CustomFieldSetti
 import Table from '../../../../modules/common/Table/Table';
 import NavBar from '../../Navbar/Navbar';
 import { getTableData } from '../ContactsService';
+import { isExistsContactDataValid } from '../ContactsUtils';
 import { loadAggregatedContacts } from './contactActions';
 import * as styles from './People.css';
 
@@ -24,7 +25,7 @@ class People extends React.Component<Props, object> {
   public render() {
     const { contacts } = this.props;
     const contactsCount = contacts.length;
-    if (this.isExistsContactData(contacts)) {
+    if (isExistsContactDataValid(contacts)) {
       const tableData = getTableData('Contact', contacts, this.props.domainCustomFields);
       return (<div>
         <NavBar />
@@ -47,15 +48,6 @@ class People extends React.Component<Props, object> {
         <hr />
       </div>
     );
-  }
-
-  private isExistsContactData(contacts: ContactData[]) {
-    if (contacts.length > 0) {
-      if (contacts[0].owner) {
-        return true;
-      }
-    }
-    return false;
   }
 
   private getHeader = (count: number) => {

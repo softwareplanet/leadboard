@@ -7,7 +7,7 @@ import { organizationAggregation } from "./organizationAggregation";
 const router = new Router;
 
 // @route   GET api/organization
-// @desc    Return all organizations by domain
+// @desc    Get all organizations by domain
 // @access  Private
 router.get("/", (req, res) => {
   Organization.find({ domain: req.user.domain }, "_id name")
@@ -20,7 +20,7 @@ router.get("/", (req, res) => {
 });
 
 // @route   GET api/organization/aggregated/
-// @desc    Return all aggregated organizations by domain
+// @desc    Get all aggregated organizations by domain
 // @access  Private
 router.get("/aggregated/", (req, res) => {
   organizationAggregation(req.user.domain).then(organizations => {

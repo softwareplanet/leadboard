@@ -5,6 +5,7 @@ import OrganizationData from '../../../../models/OrganizationData';
 import Table from '../../../../modules/common/Table/Table';
 import NavBar from '../../Navbar/Navbar';
 import { getTableData } from '../ContactsService';
+import { isExistsContactDataValid } from '../ContactsUtils';
 import { loadAggregatedOrganizations } from './organizationActions';
 import * as styles from './Organizations.css';
 
@@ -31,7 +32,7 @@ class Organizations extends React.Component<Props, object> {
   public render() {
     const { organizations } = this.props;
     const organizationsCount = organizations.length;
-    if (this.isExistsContactData(organizations)) {
+    if (isExistsContactDataValid(organizations)) {
       const tableData = getTableData('Organization', organizations, this.props.domainCustomFields);
       return (
         <div>
@@ -57,15 +58,6 @@ class Organizations extends React.Component<Props, object> {
         </div>
       );
     }
-  }
-
-  private isExistsContactData(contacts: OrganizationData[]) {
-    if (contacts.length > 0) {
-      if (contacts[0].owner) {
-        return true;
-      }
-    }
-    return false;
   }
 }
 

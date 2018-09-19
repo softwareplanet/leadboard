@@ -10,12 +10,12 @@ const router = new Router();
 // @desc Return all contacts that have name field
 // @access Private
 router.get("/", (req, res) => {
-  Contact.find({domain: req.user.domain}, "_id name organization")
-    .populate( "organization" )
+  Contact.find({ domain: req.user.domain }, "_id name organization")
+    .populate("organization")
     .then(contacts => {
-      res.send(contacts);
-    },
-  ).catch(error => {
+        res.send(contacts);
+      },
+    ).catch(error => {
     res.status(400).json({ errors: { message: error } });
   });
 });

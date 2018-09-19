@@ -23,7 +23,7 @@ class ContactsDropDown extends React.Component<Props, State> {
 
   public render() {
     return (
-      <div className={this.isActive()}>
+      <div className={this.getStyles()}>
         <Dropdown
           className={this.state.isDropdownOpen ? styles.openedDropDown : styles.closedDropDown}
           isOpen={this.state.isDropdownOpen}
@@ -57,7 +57,7 @@ class ContactsDropDown extends React.Component<Props, State> {
     );
   }
 
-  private isActive = () => {
+  private getStyles = () => {
     const { location } = this.props;
     if (location.pathname === '/people' || location.pathname === '/organizations') {
       return styles.activeContacts;

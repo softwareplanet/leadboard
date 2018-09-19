@@ -128,8 +128,8 @@ function getContactsColumns(contactsDataField: any[]) {
 
 function createColumn(data: any) {
   return {
-    dataField: `${data.name}`,
+    dataField: data.name,
     ...getStyles(data.name),
-    text: `${data.name}`,
+    text: data.name,
   };
 }
