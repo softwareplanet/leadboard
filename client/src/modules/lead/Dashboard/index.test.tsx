@@ -1,3 +1,4 @@
+import 'jsdom-global/register';
 import { noop } from 'lodash';
 import * as moment from 'moment';
 import * as React from 'react';

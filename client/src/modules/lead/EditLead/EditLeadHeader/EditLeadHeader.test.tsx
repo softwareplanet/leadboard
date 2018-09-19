@@ -1,4 +1,5 @@
 import { shallow } from 'enzyme';
+import 'jsdom-global/register';
 import * as React from 'react';
 import { IN_PROGRESS, LOST } from '../../../../constants';
 import Domain from '../../../../models/Domain';
