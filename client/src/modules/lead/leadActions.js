@@ -11,6 +11,7 @@ import {
 } from "./types";
 import { GET_ERRORS } from "../../actionTypes";
 import { IN_PROGRESS } from "../../constants";
+import history from "../../history";
 
 // Load leadboard by Domain ID
 export const loadLeadboard = (status = IN_PROGRESS) => dispatch => {
@@ -114,6 +115,21 @@ export const updateLead = lead => dispatch => {
         type: UPDATE_LEAD,
         payload: res.data,
       });
+    })
+    .catch(error => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error,
+      });
+    });
+};
+
+// Delete lead by id
+export const deleteLead = leadId => dispatch => {
+  axios
+    .delete(`/api/lead/${leadId}`)
+    .then(() => {
+      history.replace("/home");
     })
     .catch(error => {
       dispatch({
