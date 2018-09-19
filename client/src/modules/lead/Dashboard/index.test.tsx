@@ -49,9 +49,9 @@ describe('DASHBOARD component', () => {
   let wrapper: any;
   beforeEach(() => {
     wrapper = shallow(<Dashboard
-      loadLeadboard={noop}
+      loadDashboad={noop}
       loadFirstActivityInLeadsPlan={noop}
-      leads={leads}
+      dashboard={leads}
       nearestActivities={activities}
     />);
   });
@@ -96,9 +96,9 @@ describe('DASHBOARD component', () => {
   it('check if user don\'t have lead component it should been rendered a funnel by invocation createEmptyLeadCards method', () => {
     leads = { ...leads, leads: { _5b6b123391e0774579ed6701: { leads: [] } } };
     wrapper = shallow(<Dashboard
-      loadLeadboard={noop}
+      loadDashboad={noop}
       loadFirstActivityInLeadsPlan={noop}
-      leads={leads}
+      dashboard={leads}
       nearestActivities={activities}
     />);
     const stages = leads.stages.length;
