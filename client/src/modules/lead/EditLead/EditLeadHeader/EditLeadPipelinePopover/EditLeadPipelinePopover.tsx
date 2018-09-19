@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Popover } from 'reactstrap';
-import { Funnel } from '../../../../settings/Funnels/Funnel/Funnel';
+import { Card, CardBody, CardFooter, Popover } from 'reactstrap';
+import Funnel from '../../../../../models/Funnel';
+import * as styles from '../popover.css';
 
 interface Props {
   isOpen: boolean;
@@ -10,20 +11,61 @@ interface Props {
 }
 
 interface State {
-  selectedFunnel: Funnel;
+  selectedFunnel: string;
 }
 
 export default class EditLeadPipelinePopover extends React.Component<Props, State> {
+  public state: State = {
+    selectedFunnel: '',
+  };
 
   public render() {
     return (
       <Popover
+        className={styles.popover}
+        placement="bottom-start"
         isOpen={this.props.isOpen}
         target={this.props.target}
         toggle={this.props.toggle}
       >
-        <div>popover</div>
+        <Card>
+          <div className={styles.header}>Pipelines</div>
+          <CardBody className={styles.container}>
+            <div className={styles.inputContainer}>
+              <select
+                className={styles.input} 
+
+                value={this.state.selectedFunnel} onChange={this.onFunnelSelect}>
+                {this.renderSelectOptions()}
+              </select>
+            </div>
+          </CardBody>
+          <CardFooter className={styles.buttons}>
+            <button className={styles.buttonSave}>
+              Save
+            </button>
+            <button className={styles.button}>
+              Cancel
+            </button>
+          </CardFooter>
+        </Card>
       </Popover>
     );
+  }
+
+  private renderSelectOptions() {
+    return this.props.funnels.map((funnel: Funnel) => {
+      return (
+        <option value={funnel._id} key={funnel._id}>
+          {funnel.name}
+        </option>
+      );
+    });
+  }
+
+  private onFunnelSelect = (e: any) => {
+    this.setState({
+      selectedFunnel: e.target.value,
+    });
   }
 }

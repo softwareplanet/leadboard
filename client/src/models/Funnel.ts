@@ -4,4 +4,3 @@ export default interface Funnel {
   timestamp: Date;
   domain: string;
 }
-\
