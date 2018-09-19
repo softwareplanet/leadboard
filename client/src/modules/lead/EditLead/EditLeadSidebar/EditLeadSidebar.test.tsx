@@ -138,6 +138,7 @@ describe('<EditLeadSidebar />', () => {
   ];
 
   let wrapper: any;
+  const callBack = jest.fn();
   beforeEach(() => {
     wrapper = shallow
     (
@@ -154,7 +155,7 @@ describe('<EditLeadSidebar />', () => {
         contacts={contacts}
         organizations={organizations}
         settings={settings}
-        deleteCustomField={jest.fn()}
+        deleteCustomField={callBack}
       />,
     );
   });
@@ -189,7 +190,7 @@ describe('<EditLeadSidebar />', () => {
         contacts={contacts}
         organizations={organizations}
         settings={settings}
-        deleteCustomField={jest.fn()}
+        deleteCustomField={callBack}
       />,
     );
     expect(wrapper.find('EmptyCard')).toHaveLength(1);
@@ -215,7 +216,7 @@ describe('<EditLeadSidebar />', () => {
         contacts={contacts}
         organizations={organizations}
         settings={settings}
-        deleteCustomField={jest.fn()}
+        deleteCustomField={callBack}
       />,
     );
     expect(wrapper.find('EmptyCard')).toHaveLength(2);
