@@ -6,6 +6,7 @@ import { IN_PROGRESS, LOST, WON } from '../../../../constants';
 import Lead from '../../../../models/Lead';
 import { loadLead, updateLead } from '../../leadActions';
 import { loadLeadActivities } from '../Activities/activityActions';
+import AdditionalActionsPopover from './AdditionalActionsPopover/AdditionalActionsPopover';
 import * as styles from './EditLeadHeader.css';
 import EditLeadPopover from './EditLeadPopover/EditLeadPopover';
 import EditLeadStageProgress from './EditLeadStageProgress/EditLeadStageProgress';
@@ -20,12 +21,14 @@ interface Props {
 }
 
 interface State {
-  isPopoverOpen: boolean;
+  isEditNamePopoverOpen: boolean;
+  isAdditionalActionsPopoverOpen: boolean;
 }
 
 class EditLeadHeader extends React.Component<Props, State> {
   public state: State = {
-    isPopoverOpen: false
+    isAdditionalActionsPopoverOpen: false,
+    isEditNamePopoverOpen: false,
   };
 
   public componentDidMount() {
@@ -70,16 +73,20 @@ class EditLeadHeader extends React.Component<Props, State> {
     return (
       <div className={styles.header}>
         <div className={styles.description}>
-          <h4 onClick={this.togglePopover} className={styles.leadName} id="edit-lead-header-name">
+          <h4
+            onClick={this.toggleEditNamePopover}
+            className={styles.leadName}
+            id="edit-lead-header-name"
+          >
             {editLead ? editLead.name : null}
           </h4>
           <EditLeadPopover
             onSave={this.handleLeadNameSave}
             onCancel={this.handlePopoverCancel}
             value={editLead ? editLead.name : null}
-            isOpen={this.state.isPopoverOpen}
+            isOpen={this.state.isEditNamePopoverOpen}
             target="edit-lead-header-name"
-            toggle={this.togglePopover}
+            toggle={this.toggleEditNamePopover}
             title="Rename this lead:"
           />
           <div className={styles.leadOptions}>
@@ -93,9 +100,18 @@ class EditLeadHeader extends React.Component<Props, State> {
 
             <div className={styles.leadActions}>
               {editLead && editLead.status !== IN_PROGRESS ? closedLeadActions : inProgressLeadActions}
-              <button className={styles.btnAdditionalActions}>
+              <button
+                id="btnAdditionalActions"
+                className={styles.btnAdditionalActions}
+                onClick={this.toggleAdditionalActionsPopover}
+              >
                 <i className="fas fa-ellipsis-h" />
               </button>
+              <AdditionalActionsPopover
+                target="btnAdditionalActions"
+                isOpen={this.state.isAdditionalActionsPopoverOpen}
+                toggle={this.toggleAdditionalActionsPopover}
+              />
             </div>
           </div>
         </div>
@@ -106,9 +122,15 @@ class EditLeadHeader extends React.Component<Props, State> {
     );
   }
 
-  private togglePopover = () => {
+  private toggleEditNamePopover = () => {
     this.setState(prevState => {
-      return { isPopoverOpen: !prevState.isPopoverOpen };
+      return { isEditNamePopoverOpen: !prevState.isEditNamePopoverOpen };
+    });
+  };
+
+  private toggleAdditionalActionsPopover = () => {
+    this.setState(prevState => {
+      return { isAdditionalActionsPopoverOpen: !prevState.isAdditionalActionsPopoverOpen };
     });
   };
 
@@ -122,11 +144,11 @@ class EditLeadHeader extends React.Component<Props, State> {
     const lead = this.props.editLead;
     lead.name = name;
     this.props.updateLead(lead);
-    this.togglePopover();
+    this.toggleEditNamePopover();
   };
 
   private handlePopoverCancel = () => {
-    this.togglePopover();
+    this.toggleEditNamePopover();
   };
 }
 
