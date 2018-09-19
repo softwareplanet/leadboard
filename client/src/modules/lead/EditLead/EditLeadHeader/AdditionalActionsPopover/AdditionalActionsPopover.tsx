@@ -38,7 +38,7 @@ class AdditionalActionsPopover extends React.Component<Props> {
   }
 
   private handleDeleteClick = () => {
-    if (window.confirm('Are you sure you want to delete this deal?')) {
+    if (window.confirm('Are you sure you want to delete this lead?')) {
       this.props.deleteLead(this.props.leadId);
     } else {
       this.props.toggle();
