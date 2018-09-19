@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme';
-import 'jsdom-global/register';
 import * as React from 'react';
 import { IN_PROGRESS, LOST } from '../../../../constants';
 import Domain from '../../../../models/Domain';
@@ -71,6 +70,7 @@ const editLead: Lead = {
 
 describe('<EditLeadHeader />', () => {
   let updateLead;
+  let deleteLead;
   const match = {
     params: {
       leadId: '5b86aa21ed17641891c50127',
@@ -80,6 +80,7 @@ describe('<EditLeadHeader />', () => {
 
   it('should call updateLead after won and lost buttons click', () => {
     updateLead = jest.fn();
+    deleteLead = jest.fn();
     loadLeadActivities = jest.fn();
     const wrapper = shallow
     (
@@ -87,6 +88,7 @@ describe('<EditLeadHeader />', () => {
         match={match}
         editLead={editLead}
         updateLead={updateLead}
+        deleteLead={deleteLead}
         loadLeadActivities={loadLeadActivities}
       />,
     );
@@ -97,6 +99,7 @@ describe('<EditLeadHeader />', () => {
 
   it('should display closed lead actions if status is won or lost', () => {
     updateLead = jest.fn();
+    deleteLead = jest.fn();
     loadLeadActivities = jest.fn();
     editLead.status = LOST;
     const wrapper = shallow
@@ -105,6 +108,7 @@ describe('<EditLeadHeader />', () => {
         match={match}
         editLead={editLead}
         updateLead={updateLead}
+        deleteLead={deleteLead}
         loadLeadActivities={loadLeadActivities}
       />,
     );
