@@ -51,7 +51,7 @@ class CustomFieldCard extends React.Component<Props, State> {
                   Edit
               </span>
               </button>
-              <DeleteButton className={styles.editButton} onClick={this.onCustomFieldDelete} />
+              <DeleteButton styles={styles.editButton} onClick={this.onCustomFieldDelete} />
             </div>
           </div>
           <ul className={styles.properties}>
@@ -70,7 +70,8 @@ class CustomFieldCard extends React.Component<Props, State> {
         model={this.props.customSettings.model}
         onSave={this.props.editCustomFieldInDomain}
         onCancel={this.editModeHandler}
-      />);
+      />
+    );
   };
 
   private isEditable() {

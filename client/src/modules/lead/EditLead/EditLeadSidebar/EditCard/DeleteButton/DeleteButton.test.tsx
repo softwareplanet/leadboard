@@ -7,7 +7,7 @@ describe('<DeleteButton />', () => {
   let wrapper: any;
   const onDelete = jest.fn();
   beforeEach(() => {
-    wrapper = shallow(<DeleteButton onClick={onDelete} className={'deleteButton'} />);
+    wrapper = shallow(<DeleteButton onClick={onDelete} styles={'deleteButton'} />);
   });
 
   it('should render deleteButton component', () => {

@@ -101,7 +101,7 @@ class CustomFieldEditCard extends React.Component<Props, State> {
           </div>
         </div>
         <div className={styles.actionButtons}>
-          <DeleteButton className={styles.deleteButton} onClick={this.onDeleteHandler} />
+          <DeleteButton styles={styles.deleteButton} onClick={this.onDeleteHandler} />
           <button
             className={styles.cancelButton}
             onClick={this.props.onCancel}
