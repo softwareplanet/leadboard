@@ -1,11 +1,11 @@
 import * as React from 'react';
 import CustomFieldSetting from '../../../../../../../../models/customFields/CustomFieldSetting';
 import CustomFieldCard from '../CustomFieldCard/CustomFieldCard';
-import * as styles from './CustomFields.css';
 import CustomFieldEditCard from './CustomFieldEditCard/CustomFieldEditCard';
+import * as styles from './CustomFields.css';
 
 interface Props {
-  modelType:string;
+  modelType: string;
   customFields: CustomFieldSetting[];
 
   addCustomFieldToDomain(customField: CustomFieldSetting): void;
@@ -13,8 +13,9 @@ interface Props {
   editCustomFieldInDomain(customField: CustomFieldSetting): void;
 
   closeEditCustomFieldsMode(): void;
-}
 
+  deleteCustomField(id: string): void;
+}
 
 interface State {
   isAddNew: boolean;
@@ -27,9 +28,9 @@ class CustomFields extends React.Component<Props, State> {
 
   public triggerNewFieldCard = () => {
     this.setState(prevState => {
-      return { isAddNew: !prevState.isAddNew }
+      return { isAddNew: !prevState.isAddNew };
     });
-  }
+  };
 
   public render() {
     return (
@@ -38,6 +39,7 @@ class CustomFields extends React.Component<Props, State> {
           {this.props.customFields.map(customField => (
             <CustomFieldCard
               key={customField._id}
+              deleteCustomField={this.props.deleteCustomField}
               customSettings={customField}
               editCustomFieldInDomain={this.props.editCustomFieldInDomain}
             />
@@ -61,13 +63,14 @@ class CustomFields extends React.Component<Props, State> {
       <CustomFieldEditCard
         model={this.props.modelType}
         onSave={this.props.addCustomFieldToDomain}
+        onDelete={this.props.deleteCustomField}
         onCancel={this.triggerNewFieldCard}
       /> :
       <div className={styles.newFieldContainer}>
         <span onClick={this.triggerNewFieldCard} className={styles.addNewField}>
           + Add a new field
         </span>
-      </div>
+      </div>;
   }
 }
 

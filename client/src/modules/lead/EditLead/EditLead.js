@@ -38,7 +38,7 @@ class EditLead extends Component {
           <EditLeadContent />
         </div>
       </div>
-    )
+    );
 
     return (
       <div>
@@ -52,6 +52,6 @@ class EditLead extends Component {
 const mapStateToProps = state => ({
   editLead: state.leads.editLead.lead,
   notFound: state.leads.editLead.notFound
-})
+});
 
 export default connect(mapStateToProps, { loadLead })(EditLead)

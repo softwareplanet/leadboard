@@ -9,18 +9,18 @@ describe('<CustomFields />', () => {
   const customs = [
     {
       _id: '5b97d3573485d2406c818ba0',
-      isShownInAddDialog: false,
       isAlwaysVisible: true,
       isDefault: true,
+      isShownInAddDialog: false,
       model: 'Contact',
       name: 'Address',
       type: 'string',
     },
     {
       _id: '5b97d3573485d2406c818ba0',
-      isShownInAddDialog: false,
       isAlwaysVisible: true,
       isDefault: true,
+      isShownInAddDialog: false,
       model: 'Contact',
       name: 'Address',
       type: 'string',
@@ -33,6 +33,7 @@ describe('<CustomFields />', () => {
     wrapper = shallow
     (
       <CustomFields
+        deleteCustomField={jest.fn()}
         addCustomFieldToDomain={noop}
         modelType="Contact"
         editCustomFieldInDomain={noop}

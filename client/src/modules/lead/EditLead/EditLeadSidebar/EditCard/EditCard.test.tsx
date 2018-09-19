@@ -88,6 +88,7 @@ describe('<EditCard />', () => {
         title="Person"
         icon={someIcon}
         customFields={customFields}
+        deleteCustomField={jest.fn()}
       />,
     );
   });
@@ -117,6 +118,7 @@ describe('<EditCard />', () => {
         title="Person"
         icon={someIcon}
         customFields={customFields}
+        deleteCustomField={jest.fn()}
       />,
     );
     wrapper.update();

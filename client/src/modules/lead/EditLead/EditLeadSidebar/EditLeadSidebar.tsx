@@ -5,6 +5,7 @@ import personIcon from '../../../../img/personIcon.svg';
 import { loadContacts } from '../../../layouts/Contacts/People/contactActions';
 import { loadOrganizations } from '../../../layouts/Contacts/Organizations/organizationActions';
 import { addCustomFieldToDomain, editCustomFieldInDomain } from '../../../settings/customFieldsActions';
+import { deleteCustomField } from '../../../settings/domain/domainActions';
 import { loadLead, updateContact, updateLead, updateOrganization } from '../../leadActions';
 import EditCard from './EditCard/EditCard';
 import * as styles from './EditLeadSidebar.css';
@@ -43,6 +44,8 @@ interface Props {
   loadContacts(): void;
 
   updateLead(lead: Lead): void;
+
+  deleteCustomField(id: string): void;
 }
 
 class EditLeadSidebar extends React.Component<Props> {
@@ -60,6 +63,7 @@ class EditLeadSidebar extends React.Component<Props> {
       if (contact) {
         contactCard =
           <EditCard
+            deleteCustomField={this.deleteCustomField}
             model={contact}
             title="Person"
             modelType="Contact"
@@ -75,6 +79,7 @@ class EditLeadSidebar extends React.Component<Props> {
       if (organization) {
         organizationCard =
           <EditCard
+            deleteCustomField={this.deleteCustomField}
             model={organization}
             modelType="Organization"
             title="Organization"
@@ -123,6 +128,15 @@ class EditLeadSidebar extends React.Component<Props> {
       return <div className={styles.sidebar} />;
     }
   }
+
+  private deleteCustomField = (customFieldId: string) => {
+    if (window.confirm('You will delete the field from everywhere' +
+      ' in your Pipedrive as well as delete data stored' +
+      ' within this field. Are you sure you want to delete?')
+    ) {
+      this.props.deleteCustomField(customFieldId);
+    }
+  };
 }
 
 const mapStateToProps = (state: any) => ({
@@ -136,5 +150,15 @@ export { EditLeadSidebar };
 
 export default connect(
   mapStateToProps,
-  { addCustomFieldToDomain, editCustomFieldInDomain, loadLead, updateOrganization, updateContact, loadOrganizations, loadContacts, updateLead },
+  {
+    addCustomFieldToDomain,
+    deleteCustomField,
+    editCustomFieldInDomain,
+    loadContacts,
+    loadLead,
+    loadOrganizations,
+    updateContact,
+    updateLead,
+    updateOrganization,
+  },
 )(EditLeadSidebar);

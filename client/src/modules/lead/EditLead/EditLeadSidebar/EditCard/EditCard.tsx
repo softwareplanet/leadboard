@@ -30,6 +30,8 @@ interface Props {
   editCustomFieldInDomain(customField: CustomFieldSetting): void;
   
   onUpdate(model: Contact | Organization): void;
+
+  deleteCustomField(csid: string): void;
 }
 
 class EditCard extends React.Component<Props, State> {
@@ -46,7 +48,7 @@ class EditCard extends React.Component<Props, State> {
         key={index}
         field={field}
         onUpdate={this.handleCustomFieldUpdate}
-      />
+      />,
     );
     return (
       <div className={styles.container}>
@@ -84,6 +86,7 @@ class EditCard extends React.Component<Props, State> {
         {
           isInCustomizeFieldsMode &&
           <CustomFields
+            deleteCustomField={this.props.deleteCustomField}
             modelType={this.props.modelType}
             addCustomFieldToDomain={this.props.addCustomFieldToDomain}
             editCustomFieldInDomain={this.props.editCustomFieldInDomain}
