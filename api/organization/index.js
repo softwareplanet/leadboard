@@ -10,9 +10,9 @@ const router = new Router;
 // @desc    Get all organizations by domain
 // @access  Private
 router.get("/", (req, res) => {
-  Organization.find({ domain: req.user.domain }, "_id name")
+  Organization.find({ domain: req.user.domain }, "name")
     .then(organizations => {
-      res.send(organizations);
+      res.json(organizations);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });
@@ -20,15 +20,16 @@ router.get("/", (req, res) => {
 });
 
 // @route   GET api/organization/aggregated/
-// @desc    Get all aggregated organizations by domain
+// @desc    Get all aggregated organizations
 // @access  Private
 router.get("/aggregated/", (req, res) => {
-  organizationAggregation(req.user.domain).then(organizations => {
-      res.send(organizations);
-    },
-  ).catch(error => {
-    res.status(400).json({ errors: { message: error } });
-  });
+  organizationAggregation(req.user.domain)
+    .then(organizations => {
+      res.json(organizations);
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
 });
 
 // @route   GET api/organization/:id
@@ -37,7 +38,7 @@ router.get("/aggregated/", (req, res) => {
 router.get("/:id", (req, res) => {
   Organization.findById(req.params.id)
     .then(organizations => {
-      res.send(organizations);
+      res.json(organizations);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });
@@ -60,7 +61,7 @@ router.post("/", (req, res) => {
 
   Organization.create(organization)
     .then(org => {
-      res.status(200).json(org);
+      res.json(org);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });
@@ -74,12 +75,9 @@ router.patch("/:id", (req, res) => {
   const { hasErrors, errors } = validateOrganizationUpdate(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 
-  Organization.findByIdAndUpdate(
-    req.params.id,
-    { $set: req.body },
-    { new: true })
+  Organization.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
     .then(org => {
-      res.status(200).json(org);
+      res.json(org);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });

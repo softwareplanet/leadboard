@@ -11,25 +11,26 @@ const router = new Router();
 // @access Private
 router.get("/", (req, res) => {
   Contact.find({ domain: req.user.domain })
-    .populate("organization", "id name ")
+    .populate("organization", "name")
     .then(contacts => {
-        res.send(contacts);
-      },
-    ).catch(error => {
-    res.status(400).json({ errors: { message: error } });
-  });
+      res.json(contacts);
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
 });
 
 // @route GET api/contact/aggregated/
 // @desc Return all aggregated contacts that have name field
 // @access Private
 router.get("/aggregated/", (req, res) => {
-  contactAggregation(req.user.domain).then(contacts => {
-      res.send(contacts);
-    },
-  ).catch(error => {
-    res.status(400).json({ errors: { message: error } });
-  });
+  contactAggregation(req.user.domain)
+    .then(contacts => {
+      res.json(contacts);
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
 });
 
 // @route   POST api/contact
@@ -49,7 +50,7 @@ router.post("/", function(req, res) {
   });
   Contact.create(contact)
     .then(contact => {
-      res.status(200).json(contact);
+      res.json(contact);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });
@@ -63,12 +64,9 @@ router.patch("/:id", function(req, res) {
   const { hasErrors, errors } = validateContactUpdate(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 
-  Contact.findByIdAndUpdate(
-    req.params.id,
-    { $set: req.body },
-    { new: true })
+  Contact.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
     .then(contact => {
-      res.status(200).json(contact);
+      res.json(contact);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });
