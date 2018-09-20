@@ -1,8 +1,8 @@
-import React from "react";
+import React, { Component } from "react";
 import ReactAutocomplete from "react-autocomplete";
 import { trim } from "lodash";
 
-class OrganizationAutocomplete extends React.Component {
+class OrganizationAutocomplete extends Component {
   input = React.createRef();
 
   inputFocus = () => {

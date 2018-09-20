@@ -1,3 +1,4 @@
+import 'jsdom-global/register';
 import { noop } from 'lodash';
 import * as moment from 'moment';
 import * as React from 'react';
@@ -48,9 +49,9 @@ describe('DASHBOARD component', () => {
   let wrapper: any;
   beforeEach(() => {
     wrapper = shallow(<Dashboard
-      loadLeadboard={noop}
+      loadDashboard={noop}
       loadFirstActivityInLeadsPlan={noop}
-      leads={leads}
+      dashboard={leads}
       nearestActivities={activities}
     />);
   });
@@ -95,9 +96,9 @@ describe('DASHBOARD component', () => {
   it('check if user don\'t have lead component it should been rendered a funnel by invocation createEmptyLeadCards method', () => {
     leads = { ...leads, leads: { _5b6b123391e0774579ed6701: { leads: [] } } };
     wrapper = shallow(<Dashboard
-      loadLeadboard={noop}
+      loadDashboard={noop}
       loadFirstActivityInLeadsPlan={noop}
-      leads={leads}
+      dashboard={leads}
       nearestActivities={activities}
     />);
     const stages = leads.stages.length;

@@ -49,8 +49,8 @@ class EditLeadStageProgress extends Component {
 }
 
 const mapStateToProps = state => ({
-  stages: state.leads.stages,
-  editLead: state.leads.editLead.lead
+  stages: state.dashboard.stages,
+  editLead: state.dashboard.editLead.lead
 });
 
 export { EditLeadStageProgress };

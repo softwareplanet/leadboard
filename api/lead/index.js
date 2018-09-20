@@ -11,8 +11,6 @@ import Activity from "../../models/activity";
 
 const router = new Router();
 
-const IN_PROGRESS = "InProgress";
-
 const assertLeadIdParam = (req, res, next) => {
   if (req.params.id) {
     return res.status(500).json({
@@ -47,7 +45,7 @@ if (process.env.NODE_ENV !== "production") {
 // @desc    Find sorted leads by domain and stage IDs
 // @access  Private
 router.get("/", (req, res) => {
-  Lead.find({ stage: req.query.stage, status: IN_PROGRESS })
+  Lead.find({ stage: req.query.stage, status: req.query.status })
     .populate(Lead.populates.basic)
     .sort({ order: "asc" })
     .then(leads => {
@@ -67,7 +65,8 @@ router.post("/", async (req, res) => {
 
   let newLead = {
     _id: new mongoose.Types.ObjectId(),
-    owner: req.body.owner ? req.body.owner : req.user._id,
+    domain: req.user.domain,
+    owner: req.user._id,
     stage: req.body.stage,
     name: req.body.name,
     order: req.body.order,
@@ -190,6 +189,19 @@ router.patch("/:leadId", leadMembersMiddlewares, async (req, res) => {
     .populate(Lead.populates.full)
     .then(lead => {
       res.json(lead);
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
+});
+
+// @route   DELETE api/lead/:leadId
+// @desc    Delete lead
+// @access  Private
+router.delete("/:leadId", leadMembersMiddlewares, (req, res) => {
+  Lead.findByIdAndRemove(req.params.leadId)
+    .then(() => {
+      return res.sendStatus(204);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });

@@ -1,0 +1,26 @@
+.popover {
+  max-width: 100%;
+  box-shadow: 0 2px 8px 0 rgba(38, 41, 44, .12);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  width: 100%;
+  padding: 10px 0 10px;
+  overflow-x: hidden;
+}
+
+.action {
+  cursor: pointer;
+  font-size: 14px;
+  padding: 6px 16px;
+  line-height: 20px;
+}
+
+.action:hover {
+  text-decoration: none;
+  background-color: #317ae2;
+  color: #fff;
+}

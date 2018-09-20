@@ -4,107 +4,116 @@ body {
   font: 400 14px/20px "Open Sans", sans-serif;
   background-color: #f7f7f7;
 }
+
 ul {
   padding: 0;
   margin: 0;
   list-style: none;
 }
+
 header {
   background-color: #404346;
 }
 
 li {
-	padding: 0 5px;
-	cursor: pointer;
+  padding: 0 5px;
+  cursor: pointer;
 }
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 /* LOGIN FORM */
 :global(#login-container) {
-    display: flex;
-    justify-content: center;
-    padding-top: 100px;
+  display: flex;
+  justify-content: center;
+  padding-top: 100px;
 }
 
 :global(#login-form) {
-    width: 650px;
-    background-color: white;
-    padding: 80px 60px;
+  width: 650px;
+  background-color: white;
+  padding: 80px 60px;
 }
 
 :global(.login-form__title) {
-    font-size: 32px;
-    color: #26292C;
-    text-align: center;
-    padding-bottom: 25px;
+  font-size: 32px;
+  color: #26292C;
+  text-align: center;
+  padding-bottom: 25px;
 }
 
 :global(#login-form) > :global(.login-form__field) {
-    position: relative;
+  position: relative;
 }
 
 :global(#login-form) > :global(.login-form__field) > :global(label) {
-    position: absolute;
+  position: absolute;
 }
 
 :global(#login-form) label {
-    position: absolute;
-    top: -10px;
-    bottom: 0;
-    left: 30px;
-    width: 100%;
-    transition: 0.2s;
-    color: #aeb5b7;
-    font-size: 22px;
+  position: absolute;
+  top: -10px;
+  bottom: 0;
+  left: 30px;
+  width: 100%;
+  transition: 0.2s;
+  color: #aeb5b7;
+  font-size: 22px;
 }
 
 :global(.login-form__field) {
-    margin-top: 35px;
+  margin-top: 35px;
 }
 
 :global(.login-form__field-error) {
-    color: #e84646;
-    font-size: 12px;
+  color: #e84646;
+  font-size: 12px;
 }
 
 :global(.login-form__control) {
-    margin-top: 50px;
-    margin-bottom: 20px;
-    margin-left: 85px;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  margin-left: 85px;
 }
 
 :global(.login-form__field input:focus + label) {
-    top: 100%;
-    margin-top: -26px;
-    font-size: 2em;
+  top: 100%;
+  margin-top: -26px;
+  font-size: 2em;
 }
 
 :global(.login-form__field input) {
-    border: 0;
-    border-bottom: 1px solid #26292c;
-    outline-style: none;
-    width: 520px;
-    font-size: 22px;
-    padding-bottom: 5px;
-    padding-left: 30px;
+  border: 0;
+  border-bottom: 1px solid #26292c;
+  outline-style: none;
+  width: 520px;
+  font-size: 22px;
+  padding-bottom: 5px;
+  padding-left: 30px;
 }
 
 :global(.login-form__field-red input) {
-    border-bottom: 1px solid red !important;
+  border-bottom: 1px solid red !important;
 }
 
 :global(.big-button) {
-    display: inline-block;
-    cursor: pointer;
-    background-color: #2cbf55;
-    border: 0;
-    min-width: 365px;
-    font-size: 25px;
-    padding: 9px 24px;
-    color: white;
-    height: 60px;
+  display: inline-block;
+  cursor: pointer;
+  background-color: #2cbf55;
+  border: 0;
+  min-width: 365px;
+  font-size: 25px;
+  padding: 9px 24px;
+  color: white;
+  height: 60px;
 }
 
 :global(.big-button:hover) {
-    background-color: #56c96e;
+  background-color: #56c96e;
 }
 
 /* FOOTER */
@@ -112,4 +121,5 @@ li {
   padding-top: 40px;
   text-align: center;
   color: #888E94;
+  margin-bottom: 0;
 }
