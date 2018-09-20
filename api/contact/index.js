@@ -57,14 +57,14 @@ router.post("/", function(req, res) {
     });
 });
 
-// @route   PATCH api/contact/:id
+// @route   PATCH api/contact/:contactId
 // @desc    Update contact
 // @access  Private
-router.patch("/:id", function(req, res) {
+router.patch("/:contactId", function(req, res) {
   const { hasErrors, errors } = validateContactUpdate(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 
-  Contact.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
+  Contact.findByIdAndUpdate(req.params.contactId, { $set: req.body }, { new: true })
     .then(contact => {
       res.json(contact);
     })

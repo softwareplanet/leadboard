@@ -32,11 +32,11 @@ router.get("/aggregated/", (req, res) => {
     });
 });
 
-// @route   GET api/organization/:id
-// @desc    Get organization by id
+// @route   GET api/organization/:organizationId
+// @desc    Get organization by organizationId
 // @access  Private
-router.get("/:id", (req, res) => {
-  Organization.findById(req.params.id)
+router.get("/:organizationId", (req, res) => {
+  Organization.findById(req.params.organizationId)
     .then(organizations => {
       res.json(organizations);
     })
@@ -68,14 +68,14 @@ router.post("/", (req, res) => {
     });
 });
 
-// @route   PATCH api/organization/:id
+// @route   PATCH api/organization/:organizationId
 // @desc    Update organization
 // @access  Private
-router.patch("/:id", (req, res) => {
+router.patch("/:organizationId", (req, res) => {
   const { hasErrors, errors } = validateOrganizationUpdate(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 
-  Organization.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
+  Organization.findByIdAndUpdate(req.params.organizationId, { $set: req.body }, { new: true })
     .then(org => {
       res.json(org);
     })
