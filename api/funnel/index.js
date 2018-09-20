@@ -34,6 +34,19 @@ router.get("/", function(req, res) {
     });
 });
 
+// @route   GET api/funnel/:id
+// @desc    Return funnel by id
+// @access  Private
+router.get("/:funnelId", function(req, res) {
+  Funnel.findById(req.params.funnelId)
+    .then(funnel => {
+      res.json(funnel);
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
+});
+
 // @route   POST api/funnel
 // @desc    Create a new funnel
 // @access  Private
