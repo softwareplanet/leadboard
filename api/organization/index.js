@@ -43,6 +43,7 @@ router.post("/", (req, res) => {
     name: req.body.name,
     domain: req.user.domain,
     custom: req.body.custom,
+    owner: req.body.owner,
   });
 
   Organization.create(organization)

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { DOMAIN, ORGANIZATION } from "./refs";
+import { DOMAIN, ORGANIZATION, USER } from "./refs";
 
 // Organization
 const organizationSchema = new mongoose.Schema({
@@ -7,6 +7,7 @@ const organizationSchema = new mongoose.Schema({
   name: String,
   domain: { type: mongoose.Schema.Types.ObjectId, required: true, ref: DOMAIN },
   custom: [{ key: mongoose.Schema.Types.ObjectId, value: "string" }],
+  owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: USER },
   timestamp: { type: Date, default: Date.now },
 });
 
