@@ -1,8 +1,8 @@
+import * as classNames from 'classnames';
 import * as React from 'react';
 import * as Modal from 'react-modal';
-import * as styles from './AddOrganization.css';
-import * as classNames from 'classnames';
 import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
+import * as styles from './AddOrganization.css';
 
 const customStyles = {
   content: {
@@ -22,15 +22,14 @@ const customStyles = {
 };
 
 interface State {
-  modalIsOpen: boolean;
-  dropdownOpen: boolean;
+  isDropdownOpen: boolean;
+  isModalOpen: boolean;
 }
 
 class AddOrganization extends React.Component<object, State> {
-
   public state: State = {
-    modalIsOpen: false,
-    dropdownOpen: false,
+    isDropdownOpen: false,
+    isModalOpen: false,
   };
 
   public render() {
@@ -40,10 +39,14 @@ class AddOrganization extends React.Component<object, State> {
           Add organization
         </button>
 
-        <Modal isOpen={this.state.modalIsOpen} style={customStyles}>
+        <Modal isOpen={this.state.isModalOpen} style={customStyles}>
           <header className={styles.formHeader}>Add organization</header>
           <button type="button" aria-label="Close" className={styles.closeBtn}>
-            <span aria-hidden="true" onClick={this.closeModal} className={classNames("close", styles.closeIcon)}>
+            <span
+              aria-hidden="true"
+              onClick={this.closeModal}
+              className={classNames('close', styles.closeIcon)}
+            >
               &times;
             </span>
           </button>
@@ -58,12 +61,16 @@ class AddOrganization extends React.Component<object, State> {
             </div>
             <label className={styles.inputLabel}>Owner</label>
             <div className={styles.inputContainer}>
-              <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} className={this.state.dropdownOpen ? styles.dropdownOpen : styles.dropdownClose}>
+              <Dropdown
+                isOpen={this.state.isDropdownOpen}
+                toggle={this.toggle}
+                className={this.state.isDropdownOpen ? styles.dropdownOpen : styles.dropdownClose}
+              >
                 <DropdownToggle
                   tag="span"
                   onClick={this.toggle}
                   data-toggle="dropdown"
-                  aria-expanded={this.state.dropdownOpen}
+                  aria-expanded={this.state.isDropdownOpen}
                 >
                   User name
                 </DropdownToggle>
@@ -90,26 +97,26 @@ class AddOrganization extends React.Component<object, State> {
           </footer>
         </Modal>
       </div>
-    )
+    );
   }
 
-  toggle = () => {
+  private toggle = () => {
     this.setState({
-      dropdownOpen: !this.state.dropdownOpen
+      isDropdownOpen: !this.state.isDropdownOpen,
     });
-  };
+  }
 
-  openModal = () => {
+  private openModal = () => {
     this.setState({
-      modalIsOpen: true,
+      isModalOpen: true,
     });
-  };
+  }
 
-  closeModal = () => {
+  private closeModal = () => {
     this.setState({
-      modalIsOpen: false,
+      isModalOpen: false,
     });
-  };
+  }
 }
 
 export default AddOrganization;
