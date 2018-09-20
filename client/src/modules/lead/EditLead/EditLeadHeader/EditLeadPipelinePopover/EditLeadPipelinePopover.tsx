@@ -33,7 +33,7 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
   public state: State = {
     isDropdownOpen: false,
     selectedFunnel: this.props.lead.stage.funnel,
-    selectedStageId: this.props.lead.stage._id  ,
+    selectedStageId: this.props.lead.stage._id,
   };
 
   public render() {
@@ -80,23 +80,23 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
   }
 
   public componentWillMount() {
-    this.props.loadPipelinePopoverStages(this.props.lead.stage.funnel._id);
+    this.props.loadPipelinePopoverStages(this.props.lead.stage.funnel._id);    
+    this.setState({
+      selectedFunnel: this.props.lead.stage.funnel,
+      selectedStageId: this.props.lead.stage._id,
+    });
   }
 
   public componentWillReceiveProps(nextProps: Props) {
     if (this.props.stages !== nextProps.stages && this.props.stages.length !== 0) {
       this.setState({
         selectedStageId: nextProps.stages[0]._id,
-      });    
-    } else if (this.props.lead.stage.funnel._id === this.state.selectedFunnel._id) {
-      this.setState({
-        selectedStageId: this.props.lead.stage._id,
-      });    
-    }
+      });
+    } 
 
-    // this.setState({
-    //   selectedStageId: nextProps.lead.stage._id,
-    // });
+    if (this.state.selectedFunnel._id !== nextProps.lead.stage.funnel._id && this.props.stages === nextProps.stages) {
+      this.onFunnelSelect(nextProps.lead.stage.funnel);
+    }
   }
 
   private renderSelectOptions() {
@@ -133,7 +133,7 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
     }));
   }
 
-  private togglePopover = () => {
+  private togglePopover = () => {    
     this.setState({  
       isDropdownOpen: false,
       selectedFunnel: this.props.lead.stage.funnel,
@@ -142,6 +142,7 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
       this.props.loadPipelinePopoverStages(this.state.selectedFunnel._id);
       this.props.toggle();
     });
+
   }
 
   private onSave = () => {

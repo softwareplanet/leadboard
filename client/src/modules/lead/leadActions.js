@@ -116,6 +116,7 @@ export const updateLead = lead => dispatch => {
         type: UPDATE_LEAD,
         payload: res.data,
       });
+      dispatch(loadStagesWithoutLeads(res.data.stage.funnel._id));
     })
     .catch(error => {
       dispatch({
