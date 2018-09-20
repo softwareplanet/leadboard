@@ -59,6 +59,10 @@ class BulkEditView extends React.Component<Props, State> {
     );
   }
 
+  private isNameValid(name: string) {
+    return !isBlank(name);
+  }
+
   private onChangeEditField = (key: string, value: any) => {
     if (key === 'Name') {
       this.setState({ name: value });
@@ -85,9 +89,9 @@ class BulkEditView extends React.Component<Props, State> {
   private getEditableFields(): CustomFieldData[] {
     let result = [
       {
-        isShownInAddDialog: true,
         isAlwaysVisible: true,
         isDefault: true,
+        isShownInAddDialog: true,
         key: 'Name',
         model: '',
         name: 'Name',
@@ -110,10 +114,6 @@ class BulkEditView extends React.Component<Props, State> {
         onChange={this.onChangeEditField}
       />
     ));
-  }
-
-  private isNameValid(name: string) {
-    return !isBlank(name);
   }
 }
 

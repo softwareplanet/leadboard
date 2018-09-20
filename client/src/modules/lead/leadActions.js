@@ -1,7 +1,7 @@
 import axios from "axios";
 import {
   LOAD_LEAD,
-  LOAD_FUNNELS,
+  LOAD_DASHBOARD,
   LOAD_LEADS,
   LOAD_STAGES,
   UPDATE_CONTACT,
@@ -11,15 +11,17 @@ import {
   LOAD_STAGES_FOR_FUNNELS,
 } from "./types";
 import { GET_ERRORS } from "../../actionTypes";
+import { IN_PROGRESS } from "../../constants";
+import history from "../../history";
 
-// Load leadboard by authorized user's domain id
-export const loadLeadboard = () => dispatch => {
+// Load leadboard by Domain ID
+export const loadDashboard = (status = IN_PROGRESS) => dispatch => {
   axios
     .get("/api/funnel")
     .then(result => {
-      dispatch(loadFunnelsAction(result.data));
-      if (typeof result.data[0]._id === "string") {
-        dispatch(loadStages(result.data[0]._id));
+      dispatch(loadDashboardAction(result.data));
+      if (result.data.length > 0) {
+        dispatch(loadStages(result.data[0]._id, status));
       }
     })
     .catch(error => {
@@ -28,7 +30,7 @@ export const loadLeadboard = () => dispatch => {
 };
 
 // Load Stages by Funnel ID
-export const loadStages = funnelId => dispatch => {
+export const loadStages = (funnel, status) => dispatch => {
   axios
     .get("/api/stage", {
       params: {
@@ -38,7 +40,7 @@ export const loadStages = funnelId => dispatch => {
     .then(result => {
       dispatch(loadStagesAction(result.data));
       for (let i = 0; i < Object.keys(result.data).length; i++) {
-        dispatch(loadLeads(result.data[i]._id));
+        dispatch(loadLeads(result.data[i]._id, status));
       }
     })
     .catch(error => {
@@ -47,11 +49,12 @@ export const loadStages = funnelId => dispatch => {
 };
 
 // Load leads by Stage ID
-export const loadLeads = stage => dispatch => {
+export const loadLeads = (stage, status) => dispatch => {
   axios
     .get("/api/lead", {
       params: {
         stage,
+        status,
       },
     })
     .then(result => {
@@ -67,7 +70,7 @@ export const createLead = lead => (dispatch, getState) => {
   return axios
     .post("/api/lead", lead)
     .then(() => {
-      dispatch(loadLeadboard(getState().auth.domainid));
+      dispatch(loadDashboard(lead.status));
     })
     .catch(error => {
       dispatch(getErrorsAction(error.response.data.errors));
@@ -113,6 +116,21 @@ export const updateLead = lead => dispatch => {
         type: UPDATE_LEAD,
         payload: res.data,
       });
+    })
+    .catch(error => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error,
+      });
+    });
+};
+
+// Delete lead by id
+export const deleteLead = leadId => dispatch => {
+  axios
+    .delete(`/api/lead/${leadId}`)
+    .then(() => {
+      history.replace("/home");
     })
     .catch(error => {
       dispatch({
@@ -217,10 +235,10 @@ export const loadFunnels = () => dispatch => {
   axios
     .get("/api/funnel")
     .then(result => {
-      dispatch(loadFunnelsAction(result.data));
+      dispatch(loadDashboardAction(result.data));
     })
     .catch(error => {
-      dispatch(getErrorsAction(error.response.data.errors));
+      dispatch(getErrorsAction(error));
     });
 };
 
@@ -265,9 +283,9 @@ export const leadNotFound = () => {
   };
 }
 
-export function loadFunnelsAction(data) {
+export function loadDashboardAction(data) {
   return {
-    type: LOAD_FUNNELS,
+    type: LOAD_DASHBOARD,
     payload: data,
   };
 }
@@ -289,7 +307,7 @@ export function loadStagesAction(data) {
 export function loadLeadsAction(stage, data) {
   return {
     type: LOAD_LEADS,
-    stage: stage,
+    stage,
     payload: data,
   };
 }

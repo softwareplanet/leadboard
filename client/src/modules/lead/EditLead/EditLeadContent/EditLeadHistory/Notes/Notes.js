@@ -43,7 +43,7 @@ class Notes extends Component {
 
 const mapStateToProps = state => ({
   userId: state.auth.userid,
-  editLead: state.leads.editLead.lead,
+  editLead: state.dashboard.editLead.lead,
 });
 
 Notes.propTypes = {

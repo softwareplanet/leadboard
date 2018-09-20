@@ -11,13 +11,25 @@ import Organization from '../../../../models/Organization';
 import { EditLeadSidebar } from './EditLeadSidebar';
 
 describe('<EditLeadSidebar />', () => {
+  const settings: DomainSettings = {
+    customFields: [
+      {
+        _id: '5b97a9bb8ef7eb47231396ad',
+        isAlwaysVisible: true,
+        isDefault: true,
+        isShownInAddDialog: false,
+        model: 'Contact',
+        name: 'Phone',
+        type: 'string',
+      },
+    ],
+    timezone: 'Etc/UTC',
+  };
+
   const domain: Domain = {
     _id: '5b86a96eed17641891c5011b',
     name: 'interLink',
-    settings: {
-      customFields: [],
-      timezone: 'UTC',
-    },
+    settings,
     timestamp: new Date('2018-08-29T14:10:54.395Z'),
   };
 
@@ -125,22 +137,8 @@ describe('<EditLeadSidebar />', () => {
     },
   ];
 
-  const settings: DomainSettings = {
-    customFields: [
-      {
-        _id: '5b97a9bb8ef7eb47231396ad',
-        isAlwaysVisible: true,
-        isDefault: true,
-        isShownInAddDialog: false,
-        model: 'Contact',
-        name: 'Phone',
-        type: 'string',
-      },
-    ],
-    timezone: 'Etc/UTC',
-  };
-
   let wrapper: any;
+  const callBack = jest.fn();
   beforeEach(() => {
     wrapper = shallow
     (
@@ -157,6 +155,7 @@ describe('<EditLeadSidebar />', () => {
         contacts={contacts}
         organizations={organizations}
         settings={settings}
+        deleteCustomField={callBack}
       />,
     );
   });
@@ -191,6 +190,7 @@ describe('<EditLeadSidebar />', () => {
         contacts={contacts}
         organizations={organizations}
         settings={settings}
+        deleteCustomField={callBack}
       />,
     );
     expect(wrapper.find('EmptyCard')).toHaveLength(1);
@@ -216,6 +216,7 @@ describe('<EditLeadSidebar />', () => {
         contacts={contacts}
         organizations={organizations}
         settings={settings}
+        deleteCustomField={callBack}
       />,
     );
     expect(wrapper.find('EmptyCard')).toHaveLength(2);

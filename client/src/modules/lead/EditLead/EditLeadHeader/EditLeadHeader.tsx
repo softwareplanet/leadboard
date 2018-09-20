@@ -7,12 +7,13 @@ import ownerIcon from '../../../../assets/user-icon.svg';
 import { IN_PROGRESS, LOST, WON } from '../../../../constants';
 import Funnel from '../../../../models/Funnel';
 import Lead from '../../../../models/Lead';
-import { loadFunnels, loadLead, loadStagesWithoutLeads, updateLead } from '../../leadActions';
+import { loadFunnels, loadLead, loadStagesWithoutLeads, updateLead, deleteLead } from '../../leadActions';
 import { loadLeadActivities } from '../Activities/activityActions';
 import EditLeadFieldPopover from './EditLeadFieldPopover/EditLeadFieldPopover';
 import * as styles from './EditLeadHeader.css';
 import EditLeadPipelinePopover from './EditLeadPipelinePopover/EditLeadPipelinePopover';
 import EditLeadStageProgress from './EditLeadStageProgress/EditLeadStageProgress';
+import AdditionalActionsPopover from './AdditionalActionsPopover/AdditionalActionsPopover';
 
 const PIPELINE_POPOVER_ID: string = 'pipelineTarget';
 
@@ -20,6 +21,8 @@ interface Props {
   match: any;
   editLead: any;
   funnels: Funnel[];
+
+  deleteLead(leadId: string): void;
 
   loadLeadActivities(leadId: string): void;
 
@@ -33,12 +36,14 @@ interface Props {
 interface State {
   isFieldPopoverOpen: boolean;
   isPipelinePopoverOpen: boolean;
+  isAdditionalActionsPopoverOpen: boolean;
 }
 
 class EditLeadHeader extends React.Component<Props, State> {
   public state: State = {
     isFieldPopoverOpen: false,
     isPipelinePopoverOpen: false,
+    isAdditionalActionsPopoverOpen: false,
   };
 
   public render() {
@@ -100,6 +105,20 @@ class EditLeadHeader extends React.Component<Props, State> {
 
             <div className={styles.leadActions}>
               {editLead && editLead.status !== IN_PROGRESS ? closedLeadActions : inProgressLeadActions}
+              <button
+                id="btnAdditionalActions"
+                className={styles.btnAdditionalActions}
+                onClick={this.toggleAdditionalActionsPopover}
+              >
+                <i className="fas fa-ellipsis-h" />
+              </button>
+              <AdditionalActionsPopover
+                deleteLead={this.props.deleteLead}
+                isOpen={this.state.isAdditionalActionsPopoverOpen}
+                leadId={this.props.editLead._id}
+                target="btnAdditionalActions"
+                toggle={this.toggleAdditionalActionsPopover}
+              />
             </div>
           </div>
         </div>
@@ -136,6 +155,12 @@ class EditLeadHeader extends React.Component<Props, State> {
     });
   }
 
+  private toggleAdditionalActionsPopover = () => {
+    this.setState(prevState => {
+      return { isAdditionalActionsPopoverOpen: !prevState.isAdditionalActionsPopoverOpen };
+    });
+  }
+
   private togglePipelinePopover = () => {
     this.setState(prevState => {
       return { isPipelinePopoverOpen: !prevState.isPipelinePopoverOpen };
@@ -161,13 +186,13 @@ class EditLeadHeader extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: any) => ({
-  editLead: state.leads.editLead.lead,
-  funnels: state.leads.funnels,
+  editLead: state.dashboard.editLead.lead,
+  funnels: state.dashboard.funnels,
 });
 
 export { EditLeadHeader };
 
 export default connect(
   mapStateToProps,
-  { loadLead, updateLead, loadLeadActivities, loadFunnels, loadStagesWithoutLeads },
+  { loadLead, updateLead, loadLeadActivities, loadFunnels, loadStagesWithoutLeads, deleteLead },
 )(EditLeadHeader);

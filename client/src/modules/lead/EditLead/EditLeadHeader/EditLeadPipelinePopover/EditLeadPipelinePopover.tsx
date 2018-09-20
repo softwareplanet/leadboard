@@ -134,9 +134,10 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: any) => ({
-  funnels: state.leads.funnels,
-  lead: state.leads.editLead.lead,
-  stages: state.leads.editLead.stagesForFunnel,
+  funnels: state.dashboard.funnels,
+  lead: state.dashboard.editLead.lead,
+  stages: state.dashboard.editLead.stagesForFunnel,
 });
+
 
 export default connect(mapStateToProps, { loadPipelinePopoverStages, updateLead })(EditLeadPipelinePopover);
