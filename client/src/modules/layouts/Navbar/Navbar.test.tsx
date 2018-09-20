@@ -1,5 +1,6 @@
 import { configure, shallow } from 'enzyme';
 import * as ReactSixteenAdapter from 'enzyme-adapter-react-16';
+import 'jsdom-global/register';
 import * as React from 'react';
 import { Navbar } from './Navbar';
 

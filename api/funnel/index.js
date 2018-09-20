@@ -24,7 +24,7 @@ const validateFunnelDomain = (req, res, next) => {
 // @route   GET api/funnel
 // @desc    Return all funnels by domain
 // @access  Private
-router.get("/", function(req, res) {
+router.get("/", function (req, res) {
   Funnel.find({ domain: req.user.domain })
     .then(funnels => {
       res.status(200).json(funnels);
@@ -37,7 +37,7 @@ router.get("/", function(req, res) {
 // @route   GET api/funnel/:id
 // @desc    Return funnel by id
 // @access  Private
-router.get("/:funnelId", function(req, res) {
+router.get("/:funnelId", function (req, res) {
   Funnel.findById(req.params.funnelId)
     .then(funnel => {
       res.json(funnel);
@@ -50,7 +50,7 @@ router.get("/:funnelId", function(req, res) {
 // @route   POST api/funnel
 // @desc    Create a new funnel
 // @access  Private
-router.post("/", function(req, res) {
+router.post("/", function (req, res) {
   const { hasErrors, errors } = validateFunnelInput(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 
@@ -71,11 +71,11 @@ router.post("/", function(req, res) {
 // @route   PATCH api/funnel/:funnelId
 // @desc    update funnel
 // @access  Private
-router.patch("/:funnelId", validateFunnelDomain, function(req, res) {
+router.patch("/:funnelId", validateFunnelDomain, function (req, res) {
   const { hasErrors, errors } = validateFunnelInput(req.body);
   if (hasErrors) return res.status(400).json({ errors });
-  
-  Funnel.findByIdAndUpdate(req.params.funnelId, { $set: req.body}, { new: true })
+
+  Funnel.findByIdAndUpdate(req.params.funnelId, { $set: req.body }, { new: true })
     .then(funnel => {
       res.json(funnel);
     })

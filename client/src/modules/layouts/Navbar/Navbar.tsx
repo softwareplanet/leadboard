@@ -47,7 +47,9 @@ class Navbar extends React.Component<Props, State> {
             <div>
               <img
                 className={styles.icon}
-                src={leadsRoute ? dealsIconActive : dealsIcon}
+                src={this.props.location.pathname === leadsRoute ?
+                  dealsIconActive :
+                  dealsIcon}
                 alt="leads"
               />
               Leads

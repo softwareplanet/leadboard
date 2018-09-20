@@ -16,7 +16,6 @@ import { GET_ERRORS } from "../../actionTypes";
 import { IN_PROGRESS } from "../../constants";
 import history from "../../history";
 
-
 // set active funnel 
 export const setActiveFunnel = (funnelId) => (dispatch) => {
   dispatch(dashboardLoadingAction(true));
@@ -24,7 +23,7 @@ export const setActiveFunnel = (funnelId) => (dispatch) => {
     .get("/api/funnel")
     .then(result => {
       dispatch(loadFunnelsAction(result.data));
-      const funnel = result.data.find(funnel => funnel._id === funnelId) || result.data[0]; 
+      const funnel = result.data.find(funnel => funnel._id === funnelId) || result.data[0];
       dispatch(setActiveFunnelAction(funnel));
       dispatch(loadDashboard(funnel._id))
       localStorage.setItem("activeFunnelId", funnel._id);
@@ -74,7 +73,7 @@ export const loadLeads = (stage, status) => dispatch => {
     })
     .then(result => {
       dispatch(loadLeadsAction(stage, result.data));
-      dispatch(dashboardLoadingAction(false))    
+      dispatch(dashboardLoadingAction(false))
     })
     .catch(error => {
       dispatch(getErrorsAction(error.response.data.errors));
@@ -86,7 +85,7 @@ export const createLead = lead => dispatch => {
   return axios
     .post("/api/lead", lead)
     .then(() => {
-      dispatch(loadDashboard(localStorage.getItem("activeFunnelId"),lead.status));
+      dispatch(loadDashboard(localStorage.getItem("activeFunnelId"), lead.status));
     })
     .catch(error => {
       dispatch(getErrorsAction(error.response.data.errors));

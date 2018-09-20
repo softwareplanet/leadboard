@@ -16,10 +16,9 @@ let store;
 const mockStore = configureStore();
 
 describe('DASHBOARD component', () => {
-  let location: any = {};
+  const location: any = {};
   const history: any = {};
   const match: any = {};
-
   let leads = {
     funnels: [{ _id: '5b6b0fbe91e0774579ed6700', name: 'renkonazbkafunnel', domain: '5b6ab060f60c0524980fa23b' }],
     leads: {
@@ -43,11 +42,11 @@ describe('DASHBOARD component', () => {
   };
 
   const activities = [
-    { lead: '3456465474h5j', date: moment().add(2,'day') },
+    { lead: '3456465474h5j', date: moment().add(2, 'day') },
     { lead: '3456465474h5', date: moment().endOf('day') },
     { lead: '3456465474j', date: moment().subtract(2, 'day') },
-    { lead: '3456465474hr2334', date: moment().subtract(2,'hour') },
-    { lead: '34564653424235t', date: moment().add(2,'hour') }
+    { lead: '3456465474hr2334', date: moment().subtract(2, 'hour') },
+    { lead: '34564653424235t', date: moment().add(2, 'hour') }
   ];
 
   let wrapper: any;

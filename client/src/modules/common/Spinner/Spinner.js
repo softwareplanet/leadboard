@@ -10,7 +10,6 @@ const spinner = (props) => {
         <span>L</span>
       </div>
     </div>
-
   );
 };
 

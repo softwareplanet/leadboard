@@ -31,11 +31,9 @@
   0% {
     transform: rotate(-45deg);
   }
-
   40% {
     transform: rotate(315deg)
   }
-
   100% {
     transform: rotate(1035deg);
   }
