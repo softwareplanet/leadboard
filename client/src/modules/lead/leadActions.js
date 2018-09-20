@@ -7,6 +7,7 @@ import {
   UPDATE_CONTACT,
   UPDATE_LEAD,
   UPDATE_ORGANIZATION,
+  DASHBOARD_LOADING,
   LEAD_NOT_FOUND,
   SET_ACTIVE_FUNNEL,
   LOAD_FUNNELS,
@@ -15,14 +16,19 @@ import { GET_ERRORS } from "../../actionTypes";
 import { IN_PROGRESS } from "../../constants";
 import history from "../../history";
 
+
 // set active funnel 
-export const setActiveFunnel = () => (dispatch,getState) => {
+export const setActiveFunnel = (funnelId) => (dispatch) => {
+  dispatch(dashboardLoadingAction(true));
   axios
     .get("/api/funnel")
     .then(result => {
       dispatch(loadFunnelsAction(result.data));
-      dispatch(setActiveFunnelAction(result.data[0]))
-      if (history) history.push(`/pipelines/${getState().dashboard.activeFunnel._id}`);
+      const funnel = result.data.find(funnel => funnel._id === funnelId) || result.data[0]; 
+      dispatch(setActiveFunnelAction(funnel));
+      dispatch(loadDashboard(funnel._id))
+      localStorage.setItem("activeFunnelId", funnel._id);
+      if (history) history.push(`/pipelines/${funnel._id}`);
     })
 }
 
@@ -68,6 +74,7 @@ export const loadLeads = (stage, status) => dispatch => {
     })
     .then(result => {
       dispatch(loadLeadsAction(stage, result.data));
+      dispatch(dashboardLoadingAction(false))    
     })
     .catch(error => {
       dispatch(getErrorsAction(error.response.data.errors));
@@ -75,11 +82,11 @@ export const loadLeads = (stage, status) => dispatch => {
 };
 
 // Create a new lead
-export const createLead = lead => (dispatch, getState) => {
+export const createLead = lead => dispatch => {
   return axios
     .post("/api/lead", lead)
     .then(() => {
-      dispatch(loadDashboard(lead.status));
+      dispatch(loadDashboard(localStorage.getItem("activeFunnelId"),lead.status));
     })
     .catch(error => {
       dispatch(getErrorsAction(error.response.data.errors));
@@ -290,6 +297,13 @@ export function loadLeadsAction(stage, data) {
   return {
     type: LOAD_LEADS,
     stage,
+    payload: data,
+  };
+}
+
+export function dashboardLoadingAction(data) {
+  return {
+    type: DASHBOARD_LOADING,
     payload: data,
   };
 }
