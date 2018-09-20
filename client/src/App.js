@@ -9,7 +9,6 @@ import setAuthInterceptor from "./utils/setAuthInterceptor"
 import { loginUserById, logoutUser,setLoginData } from "./modules/auth/authActions";
 import PrivateRoute from "./modules/common/PrivateRoute";
 import Home from "./modules/layouts/Home";
-import Loading from "./modules/layouts/Loading";
 import Footer from "./modules/layouts/Footer/Footer";
 import Login from "./modules/auth/Login/Login";
 import Registration from "./modules/auth/Registration/Registration";
@@ -44,7 +43,7 @@ class App extends Component {
   };
 
   redirectHome = () => {
-    return <Redirect to="/home"/>;
+    return <Redirect to={`/pipelines/${localStorage.getItem('activeFunnelId')}`} />;
   };
 
   render() {
@@ -52,13 +51,6 @@ class App extends Component {
       <Provider store={store}>
         <Router history={history}>
           <div className={styles.app}>
-            <Switch>
-              <PrivateRoute
-                exact
-                path="/home"
-                component={Loading}
-              />
-            </Switch>
             <Switch>
               <PrivateRoute
                 exact

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import downArrowIcon from '../../../../assets/down-arrow.svg';
 import filterIcon from '../../../../assets/filter-icon.svg';
 import { IN_PROGRESS, LOST, WON } from '../../../../constants';
@@ -18,10 +19,10 @@ interface State {
   filters: any[];
 }
 
-interface Props {
+interface Props extends RouteComponentProps<any> {
   leads: any;
 
-  loadDashboard(status: string): void;
+  loadDashboard(funnelId: string, status: string): void;
 }
 
 class DashboardFilter extends React.Component<Props, State> {
@@ -76,7 +77,7 @@ class DashboardFilter extends React.Component<Props, State> {
       ...this.state,
       filters: this.getFiltersWithShowedMark(status),
     });
-    this.props.loadDashboard(status);
+    this.props.loadDashboard(this.props.match.params.funnelId, status);
     this.togglePopover();
   };
 
@@ -89,4 +90,4 @@ const mapStateToProps = (state: any) => ({
 export default connect(
   mapStateToProps,
   { loadDashboard },
-)(DashboardFilter);
+)(withRouter(DashboardFilter));

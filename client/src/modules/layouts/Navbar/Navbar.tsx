@@ -11,7 +11,6 @@ import * as styles from './Navbar.css';
 import Search from './Search/Search';
 import UserDropDown from './UserDropDown/UserDropDown';
 
-const leadsRoute = '/home';
 const peopleRoute = '/people';
 
 interface Props extends RouteComponentProps<any> {
@@ -32,11 +31,9 @@ class Navbar extends React.Component<Props, State> {
     this.setState({ isDropdownOpen: !this.state.isDropdownOpen });
   };
 
-  public getDealsIcon = () => {
-    return this.props.location.pathname === leadsRoute ? dealsIconActive : dealsIcon;
-  };
-
   public render() {
+    const leadsRoute = `/pipelines/${localStorage.getItem('activeFunnelId')}`;
+
     return (
       <header>
         <ul className={styles.menu} role="navigation">
@@ -50,7 +47,7 @@ class Navbar extends React.Component<Props, State> {
             <div>
               <img
                 className={styles.icon}
-                src={this.getDealsIcon()}
+                src={leadsRoute ? dealsIconActive : dealsIcon}
                 alt="leads"
               />
               Leads
@@ -79,7 +76,7 @@ class Navbar extends React.Component<Props, State> {
                 </NavLink>
               </DropdownMenu>
             </Dropdown>
-          </div>  
+          </div>
           <li className={styles.rightItem}>
             <UserDropDown />
           </li>
