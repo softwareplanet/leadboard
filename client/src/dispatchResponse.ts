@@ -1,5 +1,6 @@
 import { GET_ERRORS } from './actionTypes';
 import store from './store';
+
 export const dispatchResponse = (actionType: any) => {
   return [
     (result: any) => store.dispatch({
