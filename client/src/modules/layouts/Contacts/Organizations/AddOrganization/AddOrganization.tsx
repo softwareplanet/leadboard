@@ -1,7 +1,10 @@
 import * as classNames from 'classnames';
 import * as React from 'react';
 import * as Modal from 'react-modal';
+import { connect } from 'react-redux';
 import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
+import DomainSettings from '../../../../../models/DomainSettings';
+import { addOrganization } from '../organizationActions';
 import * as styles from './AddOrganization.css';
 
 const customStyles = {
@@ -21,15 +24,26 @@ const customStyles = {
   },
 };
 
-interface State {
-  isDropdownOpen: boolean;
-  isModalOpen: boolean;
+interface Props {
+  auth: any;
+  domainSettings: DomainSettings;
+
+  addOrganization(organization: any): void;
 }
 
-class AddOrganization extends React.Component<object, State> {
+interface State {
+  address: string;
+  isDropdownOpen: boolean;
+  isModalOpen: boolean;
+  name: string;
+}
+
+class AddOrganization extends React.Component<Props, State> {
   public state: State = {
+    address: '',
     isDropdownOpen: false,
     isModalOpen: false,
+    name: '',
   };
 
   public render() {
@@ -50,13 +64,14 @@ class AddOrganization extends React.Component<object, State> {
               &times;
             </span>
           </button>
-          <form className={styles.form}>
+          <form className={styles.form} autoComplete="off">
             <label className={styles.inputLabel}>Name</label>
             <div className={styles.inputContainer}>
               <input
-                name="address"
+                name="name"
                 type="text"
                 className={styles.formInput}
+                onChange={this.handleNameChange}
               />
             </div>
             <label className={styles.inputLabel}>Owner</label>
@@ -72,12 +87,12 @@ class AddOrganization extends React.Component<object, State> {
                   data-toggle="dropdown"
                   aria-expanded={this.state.isDropdownOpen}
                 >
-                  User name
+                  {`${this.props.auth.userName} (you)`}
                 </DropdownToggle>
                 <DropdownMenu className={styles.dropdownMenu}>
-                  <div onClick={this.toggle} className={styles.menuItem}>User name</div>
-                  <div onClick={this.toggle} className={styles.menuItem}>Bob owner</div>
-                  <div onClick={this.toggle} className={styles.menuItem}>Bob</div>
+                  <div onClick={this.toggle} className={styles.menuItem}>
+                    {`${this.props.auth.userName} (you)`}
+                  </div>
                 </DropdownMenu>
               </Dropdown>
             </div>
@@ -87,11 +102,12 @@ class AddOrganization extends React.Component<object, State> {
                 name="address"
                 type="text"
                 className={styles.formInput}
+                onChange={this.handleAddressChange}
               />
             </div>
           </form>
           <footer className={styles.formFooter}>
-            <button type="button" className={styles.saveBtn}>
+            <button type="button" className={styles.saveBtn} onClick={this.handleSaveClick}>
               Save
             </button>
           </footer>
@@ -117,6 +133,44 @@ class AddOrganization extends React.Component<object, State> {
       isModalOpen: false,
     });
   }
+
+  private handleNameChange = (e: React.SyntheticEvent) => {
+    const target = e.target as HTMLInputElement;
+    this.setState({
+      name: target.value,
+    });
+  }
+
+  private handleAddressChange = (e: React.SyntheticEvent) => {
+    const target = e.target as HTMLInputElement;
+    this.setState({
+      address: target.value,
+    });
+  }
+
+  private handleSaveClick = () => {
+    const customFieldSetting = this.props.domainSettings.customFields
+      .find(customField =>
+        customField.model === 'Organization' && customField.isDefault && customField.name === 'Address');
+    const organization = {
+      custom: [
+        {
+          key: customFieldSetting ? customFieldSetting._id : '',
+          value: this.state.address,
+        },
+      ],
+      name: this.state.name,
+      owner: this.props.auth.userid,
+    };
+    this.props.addOrganization(organization);
+  }
 }
 
-export default AddOrganization;
+const mapStateToProps = (state: any) => ({
+  auth: state.auth,
+  domainSettings: state.domain.settings,
+});
+
+export { AddOrganization };
+
+export default connect(mapStateToProps, { addOrganization })(AddOrganization);
