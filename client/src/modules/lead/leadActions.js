@@ -8,20 +8,30 @@ import {
   UPDATE_LEAD,
   UPDATE_ORGANIZATION,
   LEAD_NOT_FOUND,
+  SET_ACTIVE_FUNNEL,
+  LOAD_FUNNELS,
 } from "./types";
 import { GET_ERRORS } from "../../actionTypes";
 import { IN_PROGRESS } from "../../constants";
 import history from "../../history";
 
-// Load leadboard by Domain ID
-export const loadDashboard = (status = IN_PROGRESS) => dispatch => {
+// set active funnel 
+export const setActiveFunnel = () => (dispatch,getState) => {
   axios
     .get("/api/funnel")
     .then(result => {
-      dispatch(loadDashboardAction(result.data));
-      if (result.data.length > 0) {
-        dispatch(loadStages(result.data[0]._id, status));
-      }
+      dispatch(loadFunnelsAction(result.data));
+      dispatch(setActiveFunnelAction(result.data[0]))
+      if (history) history.push(`/pipelines/${getState().dashboard.activeFunnel._id}`);
+    })
+}
+
+// Load leadboard by funnel ID
+export const loadDashboard = (funnelId, status = IN_PROGRESS) => dispatch => {
+  axios
+    .get(`/api/funnel/${funnelId}`)
+    .then(result => {
+      dispatch(loadStages(result.data._id, status));
     })
     .catch(error => {
       dispatch(getErrorsAction(error.response.data.errors));
@@ -229,6 +239,26 @@ export const deleteNote = (leadId, noteId) => dispatch => {
     });
 };
 
+// Load funnels by authorized user's domain id
+export const loadFunnels = () => dispatch => {
+  axios
+    .get("/api/funnel")
+    .then(result => {
+      dispatch(loadFunnelsAction(result.data));
+    })
+    .catch(error => {
+      dispatch(getErrorsAction(error.response.data.errors));
+    });
+};
+
+
+export function loadFunnelsAction(data) {
+  return {
+    type: LOAD_FUNNELS,
+    payload: data,
+  };
+}
+
 export const leadNotFound = () => {
   return {
     type: LEAD_NOT_FOUND,
@@ -260,6 +290,13 @@ export function loadLeadsAction(stage, data) {
   return {
     type: LOAD_LEADS,
     stage,
+    payload: data,
+  };
+}
+
+export function setActiveFunnelAction(data) {
+  return {
+    type: SET_ACTIVE_FUNNEL,
     payload: data,
   };
 }
