@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as Modal from 'react-modal';
 import * as styles from './AddOrganization.css';
 import * as classNames from 'classnames';
+import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
 
 const customStyles = {
   content: {
@@ -22,12 +23,14 @@ const customStyles = {
 
 interface State {
   modalIsOpen: boolean;
+  dropdownOpen: boolean;
 }
 
 class AddOrganization extends React.Component<object, State> {
 
   public state: State = {
     modalIsOpen: false,
+    dropdownOpen: false,
   };
 
   public render() {
@@ -54,6 +57,23 @@ class AddOrganization extends React.Component<object, State> {
               />
             </div>
             <label className={styles.inputLabel}>Owner</label>
+            <div className={styles.inputContainer}>
+              <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} className={this.state.dropdownOpen ? styles.dropdownOpen : styles.dropdownClose}>
+                <DropdownToggle
+                  tag="span"
+                  onClick={this.toggle}
+                  data-toggle="dropdown"
+                  aria-expanded={this.state.dropdownOpen}
+                >
+                  User name
+                </DropdownToggle>
+                <DropdownMenu className={styles.dropdownMenu}>
+                  <div onClick={this.toggle} className={styles.menuItem}>User name</div>
+                  <div onClick={this.toggle} className={styles.menuItem}>Bob owner</div>
+                  <div onClick={this.toggle} className={styles.menuItem}>Bob</div>
+                </DropdownMenu>
+              </Dropdown>
+            </div>
             <label className={styles.inputLabel}>Address</label>
             <div className={styles.inputContainer}>
               <input
@@ -72,6 +92,12 @@ class AddOrganization extends React.Component<object, State> {
       </div>
     )
   }
+
+  toggle = () => {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen
+    });
+  };
 
   openModal = () => {
     this.setState({
