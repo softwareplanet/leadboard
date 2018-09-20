@@ -8,7 +8,7 @@ const router = new Router();
 // @route   GET api/note/
 // @desc    Get notes by contact
 // @access  Private
-router.get("/:modelId/:modelName", (req, res) => {
+router.get("/:modelName/:modelId", (req, res) => {
   const { modelName, modelId } = req.params;
   Note.findNoteByModel(modelName, modelId)
     .then(result => {

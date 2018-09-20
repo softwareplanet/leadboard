@@ -29,7 +29,6 @@ const appReducer = combineReducers({
   settings: settingReducer,
   search: searchReducer,
   domain: domainReducer,
-  settings: settingReducer,
 });
 
 export default function rootReducer(state, action) {

@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { isEmpty } from "lodash";
 import styles from "./EditLeadHistory.css";
+import { loadNotes } from "./Notes/noteActions";
 
 const tabStyles = {
   tabsIndicator: {
@@ -30,6 +31,10 @@ class EditLeadHistory extends React.Component {
 
   handleChange = (event, selectedTab) => {
     this.setState({ selectedTab });
+  };
+
+  componentWillMount() {
+    this.props.loadNotes("Lead", this.props.lead._id);
   };
 
   render() {
@@ -70,6 +75,7 @@ const mapStateToProps = state => {
     notesCount: !isEmpty(notes) ? notes.length : "",
     plannedActivities: getPlannedActivities(activities),
     doneActivities: getDoneActivities(activities),
+    lead: state.dashboard.editLead.lead,
   };
 };
 
@@ -82,6 +88,6 @@ const getPlannedActivities = (activities) => {
 };
 
 export default compose(
-  connect(mapStateToProps),
+  connect(mapStateToProps,{ loadNotes }),
   withStyles(tabStyles),
 )(EditLeadHistory);
