@@ -1,18 +1,18 @@
 import { isEmpty }from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import ownerIcon from '../../../../assets/user-icon.svg';
-import { IN_PROGRESS, LOST, WON } from '../../../../constants';
-import Lead from '../../../../models/Lead';
-import { loadLead, updateLead, loadFunnels } from '../../leadActions';
-import { loadLeadActivities } from '../Activities/activityActions';
-import * as styles from './EditLeadHeader.css';
-import EditLeadFieldPopover from './EditLeadFieldPopover/EditLeadFieldPopover';
-import EditLeadStageProgress from './EditLeadStageProgress/EditLeadStageProgress';
 import ReactSVG from 'react-svg';
 import pipelineArrow from '../../../../assets/pipeline-stage-arrow.svg';
-import EditLeadPipelinePopover from './EditLeadPipelinePopover/EditLeadPipelinePopover';
+import ownerIcon from '../../../../assets/user-icon.svg';
+import { IN_PROGRESS, LOST, WON } from '../../../../constants';
 import Funnel from '../../../../models/Funnel';
+import Lead from '../../../../models/Lead';
+import { loadFunnels, loadLead, loadStagesWithoutLeads, updateLead } from '../../leadActions';
+import { loadLeadActivities } from '../Activities/activityActions';
+import EditLeadFieldPopover from './EditLeadFieldPopover/EditLeadFieldPopover';
+import * as styles from './EditLeadHeader.css';
+import EditLeadPipelinePopover from './EditLeadPipelinePopover/EditLeadPipelinePopover';
+import EditLeadStageProgress from './EditLeadStageProgress/EditLeadStageProgress';
 
 const PIPELINE_POPOVER_ID: string = 'pipelineTarget';
 
@@ -26,6 +26,8 @@ interface Props {
   updateLead(lead: Lead): void;
 
   loadFunnels(): void;
+
+  loadStagesWithoutLeads(funnelId: string): void;
 }
 
 interface State {
@@ -38,12 +40,6 @@ class EditLeadHeader extends React.Component<Props, State> {
     isFieldPopoverOpen: false,
     isPipelinePopoverOpen: false,
   };
-
-  public componentWillMount() {
-    const leadId = this.props.match.params.leadId;
-    this.props.loadLeadActivities(leadId);
-    this.props.loadFunnels();
-  }
 
   public render() {
     const editLead = !isEmpty( this.props.editLead ) ? this.props.editLead : null;
@@ -130,6 +126,12 @@ class EditLeadHeader extends React.Component<Props, State> {
     );
   }
 
+  public componentWillMount() {
+    const leadId = this.props.match.params.leadId;
+    this.props.loadLeadActivities(leadId);
+    this.props.loadFunnels();
+  }
+
   private toggleFieldPopover = () => {
     this.setState(prevState => {
       return { isFieldPopoverOpen: !prevState.isFieldPopoverOpen };
@@ -169,5 +171,5 @@ export { EditLeadHeader };
 
 export default connect(
   mapStateToProps,
-  { loadLead, updateLead, loadLeadActivities, loadFunnels },
+  { loadLead, updateLead, loadLeadActivities, loadFunnels, loadStagesWithoutLeads },
 )(EditLeadHeader);

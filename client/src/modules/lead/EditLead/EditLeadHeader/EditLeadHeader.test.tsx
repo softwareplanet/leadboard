@@ -84,6 +84,7 @@ describe('<EditLeadHeader />', () => {
     const wrapper = shallow
     (
       <EditLeadHeader
+        loadStagesWithoutLeads={jest.fn()}
         funnels={[]}
         loadFunnels={jest.fn()}
         match={match}
@@ -104,6 +105,7 @@ describe('<EditLeadHeader />', () => {
     const wrapper = shallow
     (
       <EditLeadHeader
+        loadStagesWithoutLeads={jest.fn()}
         funnels={[]}
         match={match}
         loadFunnels={jest.fn()}
