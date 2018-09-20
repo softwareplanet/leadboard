@@ -9,8 +9,8 @@ export default interface ContactData {
   organization?: Organization;
   custom: CustomField[];
   domain: Domain;
-  closedLeads: number,
-  openedLeads: number,
+  closedLeads: number;
+  openedLeads: number;
   owner: User;
   timestamp: Date;
 }

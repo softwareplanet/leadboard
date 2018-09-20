@@ -6,9 +6,9 @@ export default interface OrganizationData {
   name: string;
   custom: CustomField[];
   domain: string;
-  closedLeads: number,
-  openedLeads: number,
-  contacts:number,
+  closedLeads: number;
+  openedLeads: number;
+  contacts: number;
   owner: User;
   timestamp: Date;
 }

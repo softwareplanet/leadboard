@@ -1,16 +1,37 @@
-import ContactData from '../../../models/ContactData';
 import CustomField from '../../../models/customFields/CustomField';
 import CustomFieldSetting from '../../../models/customFields/CustomFieldSetting';
 import { basicColumnStyles, rightAlignStyles } from '../../common/Table/ColumnStyles';
 
+interface ContactDataField {
+  name: string;
+  value: string;
+}
+
+interface ContactColumn {
+  dataField: string;
+
+  [name: string]: string;
+}
+
+interface Styles {
+  [name: string]: object;
+}
+
+interface ContactData {
+  [name: string]: string;
+}
+
 const contactModel = 'Contact';
 const columnsWithRightAlignment = ['Closed leads', 'Opened leads', 'People'];
 
-export function getTableData(model: string, contacts: any, customFieldSetting: CustomFieldSetting[]) {
-  const contactsDataFields = getContactsDataFields(model, contacts, customFieldSetting);
-  const contactsData = getContactsData(contactsDataFields);
+export function getTableData(model: string, contacts: any[], customFieldSetting: CustomFieldSetting[]) {
+  const contactsDataFields = contacts.map((contact: any) => {
+    const customFields = getCustomFieldsByDomainSettings(model, customFieldSetting, contact.custom);
+    return createContactDataFieldsEntity(model, contact, customFields);
+  });
+  const contactsData = contactsDataFields.map((dataFields: ContactDataField[]) => createContactData(dataFields));
   const firstContactFieldsForTemplate = contactsDataFields[0];
-  const contactColumns = getContactsColumns(firstContactFieldsForTemplate);
+  const contactColumns = firstContactFieldsForTemplate.map((data: ContactDataField) => createColumn(data));
 
   return {
     contactColumns,
@@ -18,17 +39,7 @@ export function getTableData(model: string, contacts: any, customFieldSetting: C
   };
 }
 
-function getContactsDataFields(model: string, contacts: ContactData[], customFieldSetting: CustomFieldSetting[]) {
-  const contactsDataFields: any[] = [];
-  contacts.map(contact => {
-    const customs = getCustomFieldsByDomainSettings(model, customFieldSetting, contact.custom);
-    const contactDataEntity = createContactDataEntity(model, contact, customs);
-    contactsDataFields.push(contactDataEntity);
-  });
-  return contactsDataFields;
-}
-
-function createContactDataEntity(model: string, contact: any, customs: any[]) {
+function createContactDataFieldsEntity(model: string, contact: any, customs: ContactDataField[]): ContactDataField[] {
   if (model === contactModel) {
     return [
       {
@@ -80,53 +91,36 @@ function createContactDataEntity(model: string, contact: any, customs: any[]) {
   }
 }
 
-function getContactsData(contactDataFields: any[]) {
-  const contactsData: any[] = [];
-  contactDataFields.map(dataFields => {
-    contactsData.push(createContactData(dataFields));
-  });
-  return contactsData;
-}
-
-function createContactData(dataFields: any) {
+function createContactData(dataFields: ContactDataField[]): ContactData {
   const contactData = {};
-  dataFields.map((dataField: any) => {
+  dataFields.map((dataField: ContactDataField) => {
     contactData[dataField.name] = dataField.value;
   });
   return contactData;
 }
 
-function getCustomFieldsByDomainSettings(model: string, customFieldsSettings: CustomFieldSetting[], modelCustomFields: CustomField[]) {
-  const customs: any[] = [];
-  customFieldsSettings.map(field => {
-    if (field.model === model) {
-      const nextField = modelCustomFields.find(modelField => modelField.key === field._id);
-      const customField = {
-        name: field.name,
-        value: nextField ? nextField.value : '',
-      };
-      customs.push(customField);
-    }
+function getCustomFieldsByDomainSettings(
+  model: string,
+  customFieldsSettings: CustomFieldSetting[],
+  modelCustomFields: CustomField[],
+): ContactDataField[] {
+  return customFieldsSettings.filter(field => field.model === model).map(field => {
+    const nextField = modelCustomFields.find(modelField => modelField.key === field._id);
+    return {
+      name: field.name,
+      value: nextField ? nextField.value : '',
+    };
   });
-  return customs;
 }
 
-function getStyles(name: string) {
+function getStyles(name: string): Styles {
   if (columnsWithRightAlignment.indexOf(name) > -1) {
     return { ...rightAlignStyles };
   }
   return { ...basicColumnStyles };
 }
 
-function getContactsColumns(contactsDataField: any[]) {
-  const columns: any[] = [];
-  contactsDataField.map((data: any) => {
-    columns.push(createColumn(data));
-  });
-  return columns;
-}
-
-function createColumn(data: any) {
+function createColumn(data: ContactDataField): ContactColumn {
   return {
     dataField: data.name,
     ...getStyles(data.name),

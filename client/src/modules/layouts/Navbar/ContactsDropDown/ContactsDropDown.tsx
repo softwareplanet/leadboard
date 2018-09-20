@@ -59,7 +59,7 @@ class ContactsDropDown extends React.Component<Props, State> {
 
   private getStyles = () => {
     const { location } = this.props;
-    if (location.pathname === '/people' || location.pathname === '/organizations') {
+    if ([peopleRoute, organizationsRoute].includes(location.pathname)) {
       return styles.activeContacts;
     } else {
       return styles.notActiveContacts;
