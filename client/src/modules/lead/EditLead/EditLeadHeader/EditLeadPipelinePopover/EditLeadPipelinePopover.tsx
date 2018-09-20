@@ -4,21 +4,23 @@ import { Card, CardBody, CardFooter, Dropdown, DropdownMenu, DropdownToggle, Pop
 import DropdownItem from 'reactstrap/lib/DropdownItem';
 import Funnel from '../../../../../models/Funnel';
 import { FullStage } from '../../../../../models/Stage';
-import { loadPipelinePopoverStages } from '../../../leadActions';
+import { loadPipelinePopoverStages, updateLead } from '../../../leadActions';
 import * as styles from '../popover.css';
 import SelectStageOnCreation from '../../../AddLead/SelectStage/SelectStageOnCreation';
+import { FullLead } from '../../../../../models/Lead';
 
 interface Props {
   isOpen: boolean;
   funnels: Funnel[];
   target: string;
-  stage: FullStage;
+  lead: FullLead;
   stages: FullStage[];
 
   toggle(): void;
 
   loadPipelinePopoverStages(funnelId: string): void;
 
+  updateLead (lead: any): void;
 }
 
 interface State {
@@ -30,8 +32,8 @@ interface State {
 class EditLeadPipelinePopover extends React.Component<Props, State> {
   public state: State = {
     isDropdownOpen: false,
-    selectedFunnel: this.props.stage.funnel,
-    selectedStageId: this.props.stage._id  ,
+    selectedFunnel: this.props.lead.stage.funnel,
+    selectedStageId: this.props.lead.stage._id  ,
   };
 
   public render() {
@@ -64,10 +66,10 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
             />
           </CardBody>
           <CardFooter className={styles.buttons}>
-            <button className={styles.buttonSave}>
+            <button onClick={this.onSave} className={styles.buttonSave}>
               Save
             </button>
-            <button className={styles.button}>
+            <button className={styles.button} onClick={this.togglePopover}>
               Cancel
             </button>
           </CardFooter>
@@ -77,7 +79,7 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
   }
 
   public componentWillMount() {
-    this.props.loadPipelinePopoverStages(this.props.stage.funnel._id);
+    this.props.loadPipelinePopoverStages(this.props.lead.stage.funnel._id);
   }
 
   private renderSelectOptions() {
@@ -117,19 +119,24 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
   private togglePopover = () => {
     this.setState({  
       isDropdownOpen: false,
-      selectedFunnel: this.props.stage.funnel,
-      selectedStageId: this.props.stage._id,
+      selectedFunnel: this.props.lead.stage.funnel,
+      selectedStageId: this.props.lead.stage._id,
     }, () => {
       this.props.loadPipelinePopoverStages(this.state.selectedFunnel._id);
       this.props.toggle();
     });
   }
+
+  private onSave = () => {
+    this.props.updateLead( { _id: this.props.lead._id, stage: this.state.selectedStageId } );
+    this.togglePopover();
+  }
 }
 
 const mapStateToProps = (state: any) => ({
   funnels: state.leads.funnels,
-  stage: state.leads.editLead.lead.stage,
+  lead: state.leads.editLead.lead,
   stages: state.leads.editLead.stagesForFunnel,
 });
 
-export default connect(mapStateToProps, { loadPipelinePopoverStages })(EditLeadPipelinePopover);
+export default connect(mapStateToProps, { loadPipelinePopoverStages, updateLead })(EditLeadPipelinePopover);
