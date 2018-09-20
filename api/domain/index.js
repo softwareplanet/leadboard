@@ -65,13 +65,23 @@ router.post("/:domainId/settings/customFields", domainMembersMiddlewares, (req, 
 // @route   PATCH api/domain/:domainId/settings/customFields/:customFieldId
 // @desc    Update custom field
 // @access  Private
-router.patch("/:domainId/settings/customFields/:customFieldId", domainMembersMiddlewares, (req, res) => {
-  const { hasErrors, errors } = validateCustomFieldUpdate(req.body);
+router.patch("/:domainId/settings/customFields/:customFieldId", domainMembersMiddlewares, async (req, res) => {
+  const previousSettings = await Domain.findOne(
+    { _id: req.params.domainId, "settings.customFields._id": req.params.customFieldId },
+  );
+  const { hasErrors, errors } = validateCustomFieldUpdate(req.body, previousSettings);
   if (hasErrors) return res.status(400).json({ errors });
+
+  let updates = {};
+  for (let field in req.body) {
+    if (req.body.hasOwnProperty(field)) {
+      updates["settings.customFields.$." + field] = req.body[field];
+    }
+  }
 
   Domain.findOneAndUpdate(
     { _id: req.params.domainId, "settings.customFields._id": req.params.customFieldId },
-    { $set: { "settings.customFields.$": req.body } },
+    { $set: updates },
     { new: true })
     .then(domain => res.json(domain))
     .catch(error => res.status(400).json({ errors: { message: error } }));
@@ -80,12 +90,20 @@ router.patch("/:domainId/settings/customFields/:customFieldId", domainMembersMid
 // @route   DELETE api/domain/:domainId/settings/customFields/:customFieldId
 // @desc    Delete custom field
 // @access  Private
-router.delete("/:domainId/settings/customFields/:customFieldId", domainMembersMiddlewares, (req, res) => {
-  Domain.findByIdAndUpdate(req.params.domainId,
-    { $pull: { "settings.customFields": { _id: req.params.customFieldId } } },
-    { new: true })
-    .then(domain => res.json(domain))
-    .catch(error => res.status(400).json({ errors: { message: error } }));
+router.delete("/:domainId/settings/customFields/:customFieldId", domainMembersMiddlewares, async (req, res) => {
+  try {
+    const domain = await Domain.findById({ _id: req.params.domainId });
+    const field = domain.settings.customFields.find(field => field._id.equals(req.params.customFieldId));
+    if (field.isDefault) {
+      return res.status(400).json({ errors: { message: "Can't delete default field" } });
+    } else {
+      Domain.findByIdAndUpdate(req.params.domainId,
+        { $pull: { "settings.customFields": { _id: req.params.customFieldId } } }, { new: true })
+        .then(domain => res.json(domain));
+    }
+  } catch (error) {
+    res.status(400).json({ errors: { message: error } });
+  }
 });
 
 // @route   PATCH api/domain/:domainId/settings

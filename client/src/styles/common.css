@@ -26,6 +26,10 @@
   margin-left: 8px;
 }
 
+.button:hover {
+  background: #f7f7f7;
+}
+
 .backgroundColor {
   background-color: #f7f7f7;
 }
@@ -59,4 +63,8 @@
 .link {
   text-decoration: underline;
   cursor: pointer;
+}
+
+:global(button:focus) {
+  outline: none;
 }

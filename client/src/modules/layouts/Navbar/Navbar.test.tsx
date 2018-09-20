@@ -25,7 +25,7 @@ describe('<Navbar /> :', () => {
         match={match}
         auth={auth}
         logoutUser={jest.fn()}
-      />
+      />,
     );
     expect(wrapper.find('header').exists()).toBe(true);
   });

@@ -22,13 +22,14 @@ function errorReducer(state = initialState, action) {
 
 const appReducer = combineReducers({
   auth: authReducer,
-  leads: leadReducersAggregator,
+  dashboard: leadReducersAggregator,
   errors: errorReducer,
   contacts: contactReducer,
   organizations: organizationReducer,
   settings: settingReducer,
   search: searchReducer,
   domain: domainReducer,
+  settings: settingReducer,
 });
 
 export default function rootReducer(state, action) {

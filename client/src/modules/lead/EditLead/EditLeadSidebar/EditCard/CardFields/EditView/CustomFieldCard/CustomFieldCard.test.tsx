@@ -15,15 +15,27 @@ describe('<CustomFieldCard />', () => {
     type: 'string',
   };
 
-  let wrapper;
-
-  it('renders without crashing', () => {
+  let wrapper: any;
+  const onDelete = jest.fn();
+  beforeEach(() => {
     wrapper = shallow
     (
       <CustomFieldCard
         customSettings={settings}
         editCustomFieldInDomain={noop}
-      />
+        deleteCustomField={onDelete}
+      />,
+    );
+  });
+
+  it('renders without crashing', () => {
+    wrapper = shallow
+    (
+      <CustomFieldCard
+        deleteCustomField={onDelete}
+        customSettings={settings}
+        editCustomFieldInDomain={noop}
+      />,
     );
     expect(wrapper.length).toBe(1);
   });

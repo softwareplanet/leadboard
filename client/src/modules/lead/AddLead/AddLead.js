@@ -68,7 +68,7 @@ class AddLead extends React.Component {
   state = initialState;
 
   openModal = () => {
-    const { stages } = this.props.leads;
+    const { stages } = this.props.dashboard;
     this.props.loadContacts();
     this.props.loadOrganizations();
     this.setState({
@@ -282,7 +282,7 @@ class AddLead extends React.Component {
   };
 
   getNextLeadNumber = stage => {
-    return this.props.leads.leads[`_${stage}`].leads.length + 1;
+    return this.props.dashboard.leads[`_${stage}`].leads.length + 1;
   };
 
   selectStageHandler = stageid => {
@@ -366,7 +366,7 @@ class AddLead extends React.Component {
                 onFocus={this.onFocus}
                 onBlur={this.onBlur} />
             </div>
-            <SelectStageOnCreation stages={this.props.leads.stages} onStageChange={this.selectStageHandler} />
+            <SelectStageOnCreation stages={this.props.dashboard.stages} onStageChange={this.selectStageHandler} />
           </form>
           <div className={styles.formFooter}>
             <button type="button" className={styles.saveBtn} onClick={this.onSubmit}>
@@ -380,7 +380,7 @@ class AddLead extends React.Component {
 }
 
 AddLead.propTypes = {
-  leads: PropTypes.object.isRequired,
+  dashboard: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   contacts: PropTypes.array.isRequired,
@@ -388,7 +388,7 @@ AddLead.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  leads: state.leads,
+  dashboard: state.dashboard,
   contacts: state.contacts,
   organizations: state.organizations,
   auth: state.auth,

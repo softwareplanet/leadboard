@@ -50,7 +50,7 @@ export const loginUserById = id => dispatch => {
         domainName: result.data.domain.name
       };
       dispatch(setLoginData(loginData));
-      dispatch(loadDomain(loginData.domainId));
+      dispatch(loadDomain());
     })
     .catch(error => console.log(error));
 };

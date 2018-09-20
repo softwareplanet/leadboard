@@ -14,15 +14,6 @@ class EditLead extends Component {
     this.props.loadLead(leadId);
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    let leadId = nextProps.match.params.leadId;
-    if(leadId !== this.props.match.params.leadId) {
-      this.props.loadLead(leadId);
-      return true;
-    }
-    return false;
-  }
-
   render() {
     const displayFlex = {
       display: "flex"
@@ -38,7 +29,7 @@ class EditLead extends Component {
           <EditLeadContent />
         </div>
       </div>
-    )
+    );
 
     return (
       <div>
@@ -50,8 +41,8 @@ class EditLead extends Component {
 }
 
 const mapStateToProps = state => ({
-  editLead: state.leads.editLead.lead,
-  notFound: state.leads.editLead.notFound
-})
+  editLead: state.dashboard.editLead.lead,
+  notFound: state.dashboard.editLead.notFound
+});
 
 export default connect(mapStateToProps, { loadLead })(EditLead)

@@ -7,7 +7,7 @@ import { dropTables, createUserAndDomain, createFunnel } from "../../test/db-pre
 
 const app = () => express(routes);
 
-var cred;
+let cred;
 let funnel;
 beforeEach(async done => {
   await dropTables();
@@ -23,7 +23,7 @@ describe("Funnel", function() {
       .set("Authorization", cred.token)
       .send({ domain: cred.domainId, name: "Sales Funnel" });
     expect(status).toBe(200);
-    expect(typeof body).toBe("string");
+    expect(body).toMatchObject({ name: "Sales Funnel" });
   }
   );
 
@@ -38,7 +38,7 @@ describe("Funnel", function() {
 
   it("should update funnel", async () => {
     const { status, body } = await request(app())
-      .patch(`/api/funnel/${funnel}`)
+      .patch(`/api/funnel/${funnel._id}`)
       .set("Authorization", cred.token)
       .send({ name: "New funnel name" });
     expect(status).toBe(200);
