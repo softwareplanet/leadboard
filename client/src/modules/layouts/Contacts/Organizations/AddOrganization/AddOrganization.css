@@ -46,7 +46,7 @@
   cursor: pointer;
   width: 100%;
   height: 100%;
-  padding-left: 10px;
+  padding-left: 8px;
   display: inline-block;
 }
 
@@ -60,6 +60,7 @@
   margin: 0;
   border-radius: 0;
   width: 316px;
+  padding: 4px 0;
 }
 
 .dropdownOpen {
@@ -73,13 +74,17 @@
 }
 
 .menuItem {
-  padding: 3px 7px 4px;
-  margin: 0;
+  color: #4074e1;
+  display: flex;
+  align-items: center;
+  padding-left: 4px;
+  margin: 0 4px;
   font: 400 14px/20px "Open Sans", sans-serif;
+  height: 28px;
   cursor: pointer;
 }
 
 .menuItem:hover {
-  background-color: blue;
+  background-color: #4074e1;
   color: white;
 }
