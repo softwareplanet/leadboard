@@ -163,6 +163,7 @@ class AddOrganization extends React.Component<Props, State> {
       owner: this.props.auth.userid,
     };
     this.props.addOrganization(organization);
+    this.toggle();
   }
 }
 
