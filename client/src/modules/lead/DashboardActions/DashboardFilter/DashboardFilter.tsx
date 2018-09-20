@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import downArrowIcon from '../../../../assets/down-arrow.svg';
 import filterIcon from '../../../../assets/filter-icon.svg';
 import { IN_PROGRESS, LOST, WON } from '../../../../constants';
-import { loadDashboad } from '../../leadActions';
+import { loadDashboard } from '../../leadActions';
 import * as styles from './DashboardFilter.css';
 import DashboardFilterPopover from './DashboardFilterPopover/DashboardFilterPopover';
 
@@ -21,7 +21,7 @@ interface State {
 interface Props {
   leads: any;
 
-  loadDashboad(status: string): void;
+  loadDashboard(status: string): void;
 }
 
 class DashboardFilter extends React.Component<Props, State> {
@@ -76,7 +76,7 @@ class DashboardFilter extends React.Component<Props, State> {
       ...this.state,
       filters: this.getFiltersWithShowedMark(status),
     });
-    this.props.loadDashboad(status);
+    this.props.loadDashboard(status);
     this.togglePopover();
   };
 
@@ -88,5 +88,5 @@ const mapStateToProps = (state: any) => ({
 
 export default connect(
   mapStateToProps,
-  { loadDashboad },
+  { loadDashboard },
 )(DashboardFilter);

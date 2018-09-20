@@ -14,11 +14,11 @@ import { IN_PROGRESS } from "../../constants";
 import history from "../../history";
 
 // Load leadboard by Domain ID
-export const loadDashboad = (status = IN_PROGRESS) => dispatch => {
+export const loadDashboard = (status = IN_PROGRESS) => dispatch => {
   axios
     .get("/api/funnel")
     .then(result => {
-      dispatch(loadDashboadAction(result.data));
+      dispatch(loadDashboardAction(result.data));
       if (result.data.length > 0) {
         dispatch(loadStages(result.data[0]._id, status));
       }
@@ -69,7 +69,7 @@ export const createLead = lead => (dispatch, getState) => {
   return axios
     .post("/api/lead", lead)
     .then(() => {
-      dispatch(loadDashboad(lead.status));
+      dispatch(loadDashboard(lead.status));
     })
     .catch(error => {
       dispatch(getErrorsAction(error.response.data.errors));
@@ -235,7 +235,7 @@ export const leadNotFound = () => {
   };
 }
 
-export function loadDashboadAction(data) {
+export function loadDashboardAction(data) {
   return {
     type: LOAD_DASHBOARD,
     payload: data,

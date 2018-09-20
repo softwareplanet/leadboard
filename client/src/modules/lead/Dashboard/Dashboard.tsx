@@ -8,14 +8,14 @@ import { connect } from 'react-redux';
 import LeadModel from '../../../models/Lead';
 import Stage from '../../../models/Stage';
 import { loadFirstActivityInLeadsPlan } from '../EditLead/Activities/activityActions';
-import { loadDashboad } from '../leadActions';
+import { loadDashboard } from '../leadActions';
 import { ACTIVE, NOACTIVITY, OVERDUE, PLANNED } from './activityStatuses';
 import Lead from './Lead/Lead';
 
 interface Props {
   dashboard: any;
   nearestActivities: any;
-  loadDashboad(): void;
+  loadDashboard(): void;
   loadFirstActivityInLeadsPlan(): void;
 }
 
@@ -121,7 +121,7 @@ export class Dashboard extends React.Component<Props, State> {
 
   private loadItems = () => {
     if (!this.state.leadboardLoaded) {
-      this.props.loadDashboad();
+      this.props.loadDashboard();
       this.props.loadFirstActivityInLeadsPlan();
       this.setState({ leadboardLoaded: true });
     }
@@ -135,5 +135,5 @@ const mapStateToProps = (state: any) => ({
 
 export default connect(
   mapStateToProps,
-  { loadDashboad, loadFirstActivityInLeadsPlan },
+  { loadDashboard, loadFirstActivityInLeadsPlan },
 )(Dashboard);
