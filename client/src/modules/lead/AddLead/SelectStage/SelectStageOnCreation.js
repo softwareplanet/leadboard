@@ -60,7 +60,7 @@ class SelectStageOnCreation extends Component {
     return (
       <div className={styles.stages}>
         <div>
-          <label className={addModalStyles.inputLabel}>Lead stage</label>
+          <label className={addModalStyles.inputLabel}>{this.props.title}</label>
           <span className={classNames(styles.stageOptionWrapper, styles.stagesInput)}>
             <span className={styles.stagesOptions}>{stagesDisplay}</span>
             <ReactTooltip
@@ -78,7 +78,8 @@ class SelectStageOnCreation extends Component {
 }
 
 SelectStageOnCreation.propTypes = {
-  stages: PropTypes.array.isRequired
+  stages: PropTypes.array.isRequired,
+  title: PropTypes.string,
 };
 
 export default SelectStageOnCreation;

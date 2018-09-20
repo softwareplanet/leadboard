@@ -56,8 +56,11 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
                 {this.renderSelectOptions()}
               </Dropdown>
             </div>
-            <div className={styles.pipelineHeader}>Pipeline's stages</div>
-            <SelectStageOnCreation stages={this.props.stages} onStageChange={this.onStageSelect}/>
+            <SelectStageOnCreation 
+              stages={this.props.stages} 
+              onStageChange={this.onStageSelect}
+              title="Pipeline's stages"
+            />
           </CardBody>
           <CardFooter className={styles.buttons}>
             <button className={styles.buttonSave}>
