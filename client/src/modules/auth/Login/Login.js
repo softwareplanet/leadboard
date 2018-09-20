@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import styles from "./Login.css";
 import { connect } from "react-redux";
 import { loginUser } from "../authActions";
+import Spinner from "../../common/Spinner/Spinner";
 import InputGroup from "../../common/InputGroup/InputGroup";
 import { flow, isEmpty, trim } from "lodash/fp";
 
@@ -66,6 +67,17 @@ class Login extends Component {
   }
 
   render() {
+
+    return this.props.isLoading ? this.renderSpinner() : this.renderLogin();
+  }
+
+  renderSpinner = () => (
+    <div>
+      <div style={{ position: "fixed", top: "50%", left: "50%" }}><Spinner /></div>
+    </div>
+  )
+
+  renderLogin = () => {
     const { errors } = this.state;
 
     return (
@@ -107,12 +119,14 @@ class Login extends Component {
 
 loginUser.propTypes = {
   loginUser: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth,
+  isLoading: state.dashboard.loading,
   errors: state.errors
 });
 
