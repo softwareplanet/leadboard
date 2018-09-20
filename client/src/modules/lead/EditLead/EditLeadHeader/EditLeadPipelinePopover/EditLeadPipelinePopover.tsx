@@ -18,6 +18,7 @@ interface Props {
   toggle(): void;
 
   loadPipelinePopoverStages(funnelId: string): void;
+
 }
 
 interface State {
@@ -30,7 +31,7 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
   public state: State = {
     isDropdownOpen: false,
     selectedFunnel: this.props.stage.funnel,
-    selectedStageId: this.props.stage._id,
+    selectedStageId: this.props.stage._id  ,
   };
 
   public render() {
@@ -40,7 +41,7 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
         placement="bottom-start"
         isOpen={this.props.isOpen}
         target={this.props.target}
-        toggle={this.props.toggle}
+        toggle={this.togglePopover}
       >
         <Card>
           <CardBody className={styles.pipelineContainer}>
@@ -112,9 +113,22 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
       isDropdownOpen: !prevState.isDropdownOpen,
     }));
   }
+
+  private togglePopover = () => {
+    this.setState({  
+      isDropdownOpen: false,
+      selectedFunnel: this.props.stage.funnel,
+      selectedStageId: this.props.stage._id,
+    }, () => {
+      this.props.loadPipelinePopoverStages(this.state.selectedFunnel._id);
+      this.props.toggle();
+    });
+  }
 }
 
 const mapStateToProps = (state: any) => ({
+  funnels: state.leads.funnels,
+  stage: state.leads.editLead.lead.stage,
   stages: state.leads.editLead.stagesForFunnel,
 });
 

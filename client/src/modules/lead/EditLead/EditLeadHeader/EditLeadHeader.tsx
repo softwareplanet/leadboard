@@ -112,9 +112,7 @@ class EditLeadHeader extends React.Component<Props, State> {
                       <ReactSVG className={styles.pipelineArrowSvg} src={pipelineArrow} /> 
                     {this.props.editLead.stage.name}
                     <EditLeadPipelinePopover
-                      stage={this.props.editLead.stage}
                       isOpen={this.state.isPipelinePopoverOpen}
-                      funnels={this.props.funnels}
                       target={PIPELINE_POPOVER_ID}
                       toggle={this.togglePipelinePopover}    
                     />
