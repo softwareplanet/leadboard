@@ -63,6 +63,7 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
               stages={this.props.stages} 
               onStageChange={this.onStageSelect}
               title="Pipeline's stages"
+              stage={this.state.selectedStageId}
             />
           </CardBody>
           <CardFooter className={styles.buttons}>
@@ -80,6 +81,22 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
 
   public componentWillMount() {
     this.props.loadPipelinePopoverStages(this.props.lead.stage.funnel._id);
+  }
+
+  public componentWillReceiveProps(nextProps: Props) {
+    if (this.props.stages !== nextProps.stages && this.props.stages.length !== 0) {
+      this.setState({
+        selectedStageId: nextProps.stages[0]._id,
+      });    
+    } else if (this.props.lead.stage.funnel._id === this.state.selectedFunnel._id) {
+      this.setState({
+        selectedStageId: this.props.lead.stage._id,
+      });    
+    }
+
+    // this.setState({
+    //   selectedStageId: nextProps.lead.stage._id,
+    // });
   }
 
   private renderSelectOptions() {

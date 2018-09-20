@@ -8,24 +8,13 @@ import classNames from "classnames/bind";
 let cx = classNames.bind(styles);
 
 class SelectStageOnCreation extends Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      firstStage: {}
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.stages) {
-      this.setState({ stagesLoaded: true, firstStage: nextProps.stages[0] });
-    }
-  }
   componentDidMount() {
-    if (this.props.stages) {
-      this.props.onStageChange(this.props.stages[0]._id);
+    if (this.props.stages ) {
+      this.props.onStageChange(this.props.stage ? this.props.stage : this.props.stages[0]._id);
     }
   }
+
   activateStageStyle = e => {
     e.preventDefault();
     e.target.parentNode.parentNode.childNodes.forEach(childNode => {
@@ -41,7 +30,7 @@ class SelectStageOnCreation extends Component {
     if (this.props.stages) {
       stagesDisplay = this.props.stages.map((stage, index) => {
         return (
-          <label key={stage._id} className={cx({ radio: true, active: index === 0 })} data-tip={stage.name}>
+          <label key={stage._id} className={cx({ radio: true, active: stage._id === this.props.stage })} data-tip={stage.name}>
             <input
               id={"stage-" + stage._id}
               type="radio"
