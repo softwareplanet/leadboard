@@ -1,25 +1,26 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { loadLeadboard } from '../../lead/leadActions';
+import { loadDashboard, setActiveFunnel } from '../../lead/leadActions';
 import AddLead from '../AddLead/AddLead';
 import DashboardFilter from '../DashboardActions/DashboardFilter/DashboardFilter';
 import * as styles from './DashboardActions.css';
 import PipelineSwitcher from './PipelineSwitcher/PipelineSwitcher';
 
 interface Props {
-  leads: any;
+  dashboard: any;
 
-  loadLeadboard(status: string): void;
+  loadDashboard(funnelId: string, status: string): void;
+  setActiveFunnel(funnelId: string): void;
 }
 
 class DashboardActions extends React.Component<Props, object> {
   public render() {
-    const {loadLeadboard, leads} = this.props;
+    const { dashboard} = this.props;
     return (
       <div className={styles.dashboardActions}>
-        <AddLead leads={this.props.leads}/>
-        <PipelineSwitcher funnels={leads.funnels} loadLeadboard={loadLeadboard}/>
-        <DashboardFilter leads={leads} loadLeadboard={loadLeadboard}/>
+        <AddLead dashboard={dashboard}/>
+        <PipelineSwitcher funnels={dashboard.funnels} setActiveFunnel={this.props.setActiveFunnel}/>
+        <DashboardFilter loadDashboard={loadDashboard}/>
       </div>
     );
   }
@@ -28,10 +29,10 @@ class DashboardActions extends React.Component<Props, object> {
 // export default DashboardActions;
 
 const mapStateToProps = (state: any) => ({
-  leads: state.leads,
+  dashboard: state.dashboard,
 });
 
 export default connect(
   mapStateToProps,
-  { loadLeadboard },
+  { loadDashboard, setActiveFunnel },
 )(DashboardActions);

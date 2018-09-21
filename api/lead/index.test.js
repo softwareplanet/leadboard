@@ -11,6 +11,7 @@ import {
   createUserAndDomain,
   dropTables,
 } from "../../test/db-prepare";
+import isEmpty from "lodash.isempty";
 
 const app = () => express(routes);
 
@@ -336,6 +337,21 @@ describe("Lead", () => {
       });
     expect(status).toBe(200);
     expect(body).toMatchObject({ contact: { name: newContactName }, organization: { name: newOrganizationName } });
+  });
+
+  it("should delete lead", async () => {
+    const { status, body } = await request(app())
+      .delete(`/api/lead/${lead._id}`)
+      .set("Authorization", cred.token)
+      .send();
+    expect(status).toBe(204);
+    expect(isEmpty(body)).toBeTruthy();
+
+    const getResponse = await request(app())
+      .get(`/api/lead/${lead._id}`)
+      .set("Authorization", cred.token)
+      .send();
+    expect(getResponse.status).toBe(404);
   });
 
   it("should create note for lead", async () => {

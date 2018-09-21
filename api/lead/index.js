@@ -195,6 +195,19 @@ router.patch("/:leadId", leadMembersMiddlewares, async (req, res) => {
     });
 });
 
+// @route   DELETE api/lead/:leadId
+// @desc    Delete lead
+// @access  Private
+router.delete("/:leadId", leadMembersMiddlewares, (req, res) => {
+  Lead.findByIdAndRemove(req.params.leadId)
+    .then(() => {
+      return res.sendStatus(204);
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
+});
+
 // @route   POST api/lead/:leadId/notes
 // @desc    Create note for lead
 // @access  Private

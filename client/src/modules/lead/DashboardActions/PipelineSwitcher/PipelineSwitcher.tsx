@@ -6,20 +6,21 @@ import checkMarkIcon from '../../../../assets/checkMark.svg';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 import * as styles from './PipelineSwitcher.css';
 import classNames from 'classnames';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import Funnel from '../../../../models/Funnel';
 
 interface State {
   isDropdownOpen: boolean;
-  // funnels: any[];
 }
 
-interface Props {
-  funnels: any;
+interface Props extends RouteComponentProps<any> {
+  funnels: Funnel[];
 
-  loadLeadboard(status: string): void;
+  setActiveFunnel(funnelId: string): void;
 }
 
 class PipelineSwitcher extends React.Component<Props, State> {
-  public state: State = {
+  public state = {
     isDropdownOpen: false,
   };
 
@@ -40,19 +41,12 @@ class PipelineSwitcher extends React.Component<Props, State> {
           <div className={styles.switchButton}>
             {/* <span>{this.getCurrentFunnelName()}</span> */}
             <span><ReactSVG className={styles.dropIcon} src={pipelinesIcon} /></span >
-            <span className={styles.switchPipelineSpan}>Pipelines</span>
+            <span className={styles.switchPipelineSpan}>{this.getCurrentFunnelName()}</span>
             <span><ReactSVG className={styles.dropIcon} src={downArrowIcon} /></span >
           </div>
         </DropdownToggle>
         <DropdownMenu className={styles.sitchMenu} tag={'div'}>
-          <DropdownItem tag="div" className={classNames(styles.switchItem)} id="logout">
-            <ReactSVG src={checkMarkIcon} className={styles.checkMarkIcon} />
-            <span>Pipeline1</span>
-          </DropdownItem>
-          <DropdownItem tag="div" className={classNames(styles.switchItem)} id="settings">
-            {/* <ReactSVG src={checkMarkIcon} className={styles.checkMarkIcon} /> */}
-            <span>Pipeline2 </span>
-          </DropdownItem>
+          {this.renderPipelines()}
         </DropdownMenu>
       </Dropdown>
     );
@@ -60,10 +54,38 @@ class PipelineSwitcher extends React.Component<Props, State> {
 
   private toggle = () => {
     this.setState({ isDropdownOpen: !this.state.isDropdownOpen });
-  };
+  }
+
+  private getCurrentFunnelName = () => {
+    console.log(this.props.funnels);
+    return null;
+    // return this.props.funnels ?
+    //   this.props.funnels.find(funnel =>
+    //     funnel._id === this.props.match.params.funnelId)!.name :
+    //   null;
+  }
+
+  private renderPipelines = () => {
+    return this.props.funnels.map(funnel => (
+      <DropdownItem
+        tag="div"
+        onClick={this.props.setActiveFunnel.bind(this, funnel._id)}
+        className={classNames(styles.switchItem)}
+        id="logout"
+        key={funnel._id}
+      >
+        {funnel._id === this.props.match.params.funnelId ?
+          <ReactSVG src={checkMarkIcon} className={styles.checkMarkIcon} /> :
+          null
+        }
+        <span>{funnel.name}</span>
+      </DropdownItem>
+    ),
+    );
+  }
 }
 
-export default PipelineSwitcher;
+export default withRouter(PipelineSwitcher);
 
 // const mapStateToProps = (state: any) => ({
 //   funnels: state.funnels,

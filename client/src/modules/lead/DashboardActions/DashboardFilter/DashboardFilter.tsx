@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import downArrowIcon from '../../../../assets/down-arrow.svg';
 import filterIcon from '../../../../assets/filter-icon.svg';
 import { IN_PROGRESS, LOST, WON } from '../../../../constants';
@@ -16,10 +17,9 @@ interface State {
   filters: any[];
 }
 
-interface Props {
-  leads: any;
+interface Props extends RouteComponentProps<any> {
 
-  loadLeadboard(status: string): void;
+  loadDashboard(funnelId: string, status: string): void;
 }
 
 class DashboardFilter extends React.Component<Props, State> {
@@ -56,16 +56,16 @@ class DashboardFilter extends React.Component<Props, State> {
     this.setState(prevState => {
       return { isPopoverOpen: !prevState.isPopoverOpen };
     });
-  };
+  }
 
   private getFiltersWithShowedMark = (status: string) => {
     return filters.map(filter => filter.type === status ? ({ ...filter, showCheckMark: true }) : filter);
-  };
+  }
 
   private getCurrentFilterText = () => {
     const currentFilter = this.state.filters.find(filter =>
-      filter.showCheckMark === true
-    )
+      filter.showCheckMark === true,
+    );
     return currentFilter ? currentFilter.text : this.state.filters[0].text;
   }
 
@@ -74,13 +74,14 @@ class DashboardFilter extends React.Component<Props, State> {
       ...this.state,
       filters: this.getFiltersWithShowedMark(status),
     });
-    this.props.loadLeadboard(status);
+    console.log(this.props.match.params.funnelId);
+    this.props.loadDashboard(this.props.match.params.funnelId, status);
     this.togglePopover();
-  };
+  }
 
 }
 
-export default DashboardFilter;
+export default withRouter(DashboardFilter);
 
 // const mapStateToProps = (state: any) => ({
 //   leads: state.leads,
