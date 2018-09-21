@@ -54,7 +54,7 @@ class AddOrganization extends React.Component<Props, State> {
         </button>
 
         <Modal isOpen={this.state.isModalOpen} style={customStyles}>
-          <header className={styles.formHeader}>Add organization</header>
+          <header className={styles.formHeader}>Add new organization</header>
           <button type="button" aria-label="Close" className={styles.closeBtn}>
             <span
               aria-hidden="true"
