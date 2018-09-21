@@ -14,5 +14,5 @@ export const loadAggregatedOrganizations = () => dispatch => {
 
 export const addOrganization = organization => dispatch => {
   axios.post(`/api/organization`, organization)
-    .then(...dispatchResponse(ADD_ORGANIZATION))
+    .then(...dispatchResponse(ADD_ORGANIZATION));
 };
