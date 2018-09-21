@@ -23,6 +23,7 @@ interface State {
 interface Props extends RouteComponentProps<any> {
   activeFunnel: Funnel;
   dashboardFilters: any[];
+  funnelsLength: number;
 
   loadDashboard(funnelId: string, status: string): void;
 
@@ -72,10 +73,25 @@ class DashboardFilter extends React.Component<Props, State> {
   }
 
   private getCurrentFilterText = () => {
-    const currentFilter = this.state.filters.find(filter =>
-      filter.showCheckMark === true,
-    );
-    return currentFilter ? currentFilter.text : this.state.filters[0].text;
+    if (this.areFunnelsWithFiltersLoaded()) {
+      const dashboardFilter = this.props.dashboardFilters.find(filter => {
+        console.log(filter.funnelId === localStorage.getItem('activeFunnelId'));
+        // console.log(filter.funnelId);
+        return filter.funnelId === localStorage.getItem('activeFunnelId')
+       });
+      console.log(dashboardFilter);
+      const currentFilter = this.state.filters.find(filter =>
+        dashboardFilter.status === filter.type,
+      );
+      return currentFilter ? currentFilter.text : this.state.filters[0].text;
+    }
+    
+    return '';
+  }
+
+  private areFunnelsWithFiltersLoaded(): boolean {
+    return this.props.funnelsLength !== 0 && 
+      this.props.dashboardFilters.length === this.props.funnelsLength;
   }
 
   private onFilterClick = (status: string) => {
@@ -89,15 +105,18 @@ class DashboardFilter extends React.Component<Props, State> {
       funnelId: localStorage.getItem('activeFunnelId'),
       status,
     });
-    status = this.props.dashboardFilters.find(filter => localStorage.getItem('activeFunnelId') === filter.funnelId).status;
+    status = this.props.dashboardFilters.find(filter => 
+      localStorage.getItem('activeFunnelId') === filter.funnelId).status;
     this.props.loadDashboard(localStorage.getItem('activeFunnelId')!, status);
     this.togglePopover();
   }
+
 }
 
 const mapStateToProps = (state: any) => ({
   activeFunnel: state.dashboard.activeFunnel,
   dashboardFilters: state.dashboard.dashboardFilters,
+  funnelsLength: state.dashboard.funnels.length,
 });
 
 export default connect(

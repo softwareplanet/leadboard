@@ -22,6 +22,7 @@ import history from "../../history";
 // set active funnel 
 export const setActiveFunnel = (funnelId) => (dispatch, getState) => {
   dispatch(dashboardLoadingAction(true));
+  localStorage.setItem("activeFunnelId", funnelId);
   axios
     .get("/api/funnel")
     .then(result => {
@@ -43,7 +44,6 @@ export const setActiveFunnel = (funnelId) => (dispatch, getState) => {
         filter.funnelId === funnel._id
       ).status;
       dispatch(loadDashboard(funnel._id, status))
-      localStorage.setItem("activeFunnelId", funnel._id);
       if (history) history.push(`/pipelines/${funnel._id}`);
     })
 }
