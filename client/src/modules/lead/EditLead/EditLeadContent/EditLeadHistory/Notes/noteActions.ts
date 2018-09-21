@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
 import { GET_ERRORS } from '../../../../../../actionTypes';
-import { CREATE_NOTE, DELETE_NOTE, LOAD_NOTES, UPDATE_NOTE } from './types';
 import Note from '../../../../../../models/Note';
+import { CREATE_NOTE, DELETE_NOTE, LOAD_NOTES, UPDATE_NOTE } from './types';
 
 export const loadNotes = (modelName: string, modelId: string) => (dispatch: Dispatch) => {
   axios
@@ -15,11 +15,11 @@ export const loadNotes = (modelName: string, modelId: string) => (dispatch: Disp
     });
 };
 
-export const deleteNote = (noteId: string) => (dispatch: Dispatch) => {
+export const deleteNote = (note: Note) => (dispatch: Dispatch) => {
   axios
-    .delete(`/api/note/${noteId}`)
+    .delete(`/api/note/${note._id}`)
     .then(() => {
-      dispatch(deleteNoteAction(noteId));
+      dispatch(deleteNoteAction(note));
     })
     .catch(errors => {
       dispatch(getErrorsAction(errors));
@@ -28,7 +28,7 @@ export const deleteNote = (noteId: string) => (dispatch: Dispatch) => {
 
 export const updateNote = (note: Note) => (dispatch: Dispatch) => {
   axios
-    .patch(`/api/note/${note._id}`, note)
+    .patch(`/api/note/${note._id}`, { text:note.text })
     .then(result => {
       dispatch(updateNoteAction(result.data));
     })
@@ -39,7 +39,7 @@ export const updateNote = (note: Note) => (dispatch: Dispatch) => {
 
 export const createNote = (note: Note) => (dispatch: Dispatch) => {
   axios
-    .patch(`/api/note`, note)
+    .post(`/api/note`, note)
     .then(result => {
       dispatch(createNoteAction(result.data));
     })
@@ -62,7 +62,7 @@ export function loadNotesAction(notes: Note[]) {
   };
 }
 
-export function deleteNoteAction(note: string) {
+export function deleteNoteAction(note: Note) {
   return {
     payload: note,
     type: DELETE_NOTE,

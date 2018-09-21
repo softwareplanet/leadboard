@@ -34,7 +34,7 @@ class EditLeadHistory extends React.Component {
   };
 
   componentWillMount() {
-    this.props.loadNotes("Lead", this.props.lead._id);
+    this.props.loadNotes("lead", this.props.lead._id);
   };
 
   render() {
@@ -69,7 +69,7 @@ class EditLeadHistory extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const notes = state.dashboard.editLead.lead.notes;
+  const notes = state.dashboard.editLead.notes;
   const activities = state.dashboard.editLead.activities;
   return {
     notesCount: !isEmpty(notes) ? notes.length : "",

@@ -26,7 +26,7 @@ class Note extends Component {
   onNoteDelete = () => {
     this.togglePopover();
     if (window.confirm("Are you sure?")){
-      this.props.deleteNote(this.props.note._id)
+      this.props.deleteNote(this.props.note)
     }
   }
 
