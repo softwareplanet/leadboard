@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Popover, Card, CardBody, CardFooter } from "reactstrap";
-import styles from "./EditLeadPopover.css";
+import styles from "../popover.css";
 import isBlank from "../../../../../utils/isBlank"
 
 class EditLeadPopover extends Component {
@@ -16,7 +16,7 @@ class EditLeadPopover extends Component {
   render() {
     return (
       <Popover
-        className={styles.popover}
+        className={styles.fieldPopover}
         placement="bottom-start"
         target={this.props.target ? this.props.target : ""}
         isOpen={this.props.isOpen}

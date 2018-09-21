@@ -366,7 +366,11 @@ class AddLead extends React.Component {
                 onFocus={this.onFocus}
                 onBlur={this.onBlur} />
             </div>
-            <SelectStageOnCreation stages={this.props.dashboard.stages} onStageChange={this.selectStageHandler} />
+            <SelectStageOnCreation 
+              stages={this.props.dashboard.stages} 
+              onStageChange={this.selectStageHandler} 
+              title="Lead's stage"
+            />
           </form>
           <div className={styles.formFooter}>
             <button type="button" className={styles.saveBtn} onClick={this.onSubmit}>

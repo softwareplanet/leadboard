@@ -8,6 +8,7 @@ import {
   UPDATE_LEAD,
   UPDATE_ORGANIZATION,
   LEAD_NOT_FOUND,
+  LOAD_STAGES_FOR_FUNNELS,
 } from "./types";
 import { GET_ERRORS } from "../../actionTypes";
 import { IN_PROGRESS } from "../../constants";
@@ -32,9 +33,7 @@ export const loadDashboard = (status = IN_PROGRESS) => dispatch => {
 export const loadStages = (funnel, status) => dispatch => {
   axios
     .get("/api/stage", {
-      params: {
-        funnel,
-      },
+      params: { funnel },
     })
     .then(result => {
       dispatch(loadStagesAction(result.data));
@@ -51,10 +50,7 @@ export const loadStages = (funnel, status) => dispatch => {
 export const loadLeads = (stage, status) => dispatch => {
   axios
     .get("/api/lead", {
-      params: {
-        stage,
-        status,
-      },
+      params: { stage, status },
     })
     .then(result => {
       dispatch(loadLeadsAction(stage, result.data));
@@ -86,7 +82,7 @@ export const loadLead = leadId => dispatch => {
         type: LOAD_LEAD,
         payload: lead,
       });
-      dispatch(loadStages(lead.stage.funnel));
+      dispatch(loadStagesWithoutLeads(lead.stage.funnel._id));
     })
     .catch(error => {
       if (error.response.status === 404) {
@@ -115,6 +111,7 @@ export const updateLead = lead => dispatch => {
         type: UPDATE_LEAD,
         payload: res.data,
       });
+      dispatch(loadStagesWithoutLeads(res.data.stage.funnel._id));
     })
     .catch(error => {
       dispatch({
@@ -226,6 +223,49 @@ export const deleteNote = (leadId, noteId) => dispatch => {
         type: GET_ERRORS,
         payload: error,
       });
+    });
+};
+
+// Load funnels by authorized user's domain id
+export const loadFunnels = () => dispatch => {
+  axios
+    .get("/api/funnel")
+    .then(result => {
+      dispatch(loadDashboardAction(result.data));
+    })
+    .catch(error => {
+      dispatch(getErrorsAction(error.response.data));
+    });
+};
+
+// Load Stages by Funnel ID without leads
+export const loadStagesWithoutLeads = funnel => dispatch => {
+  axios
+    .get("/api/stage", {
+      params: { funnel }
+    })
+    .then(result => {
+      dispatch(loadStagesAction(result.data));
+    })
+    .catch(error => {
+      dispatch(getErrorsAction(error.response.data));
+    });
+};
+
+// Load funnel's stages for pipeline popover
+export const loadPipelinePopoverStages = funnel => dispatch => {
+  axios
+    .get("/api/stage", {
+      params: { funnel }
+    })
+    .then(result => {
+      dispatch({
+        type: LOAD_STAGES_FOR_FUNNELS,
+        payload: result.data,
+      });
+    })
+    .catch(error => {
+      dispatch(getErrorsAction(error.response.data));
     });
 };
 
