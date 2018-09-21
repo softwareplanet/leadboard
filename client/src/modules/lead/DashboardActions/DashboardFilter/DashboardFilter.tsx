@@ -4,8 +4,8 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import downArrowIcon from '../../../../assets/down-arrow.svg';
 import filterIcon from '../../../../assets/filter-icon.svg';
 import { IN_PROGRESS, LOST, WON } from '../../../../constants';
-import Dashboard from '../../../../models/Dashboard';
-import { loadDashboard } from '../../leadActions';
+import Funnel from '../../../../models/Funnel';
+import { loadDashboard, setFunnelsFilter, setActiveFilter } from '../../leadActions';
 import * as styles from './DashboardFilter.css';
 import DashboardFilterPopover from './DashboardFilterPopover/DashboardFilterPopover';
 
@@ -21,8 +21,14 @@ interface State {
 }
 
 interface Props extends RouteComponentProps<any> {
+  activeFunnel: Funnel;
+  dashboardFilters: any[];
 
   loadDashboard(funnelId: string, status: string): void;
+
+  setFunnelsFilter(filter: any): void;
+
+  setActiveFilter(status: string): void;
 }
 
 class DashboardFilter extends React.Component<Props, State> {
@@ -59,11 +65,11 @@ class DashboardFilter extends React.Component<Props, State> {
     this.setState(prevState => {
       return { isPopoverOpen: !prevState.isPopoverOpen };
     });
-  };
+  }
 
   private getFiltersWithShowedMark = (status: string) => {
     return filters.map(filter => filter.type === status ? ({ ...filter, showCheckMark: true }) : filter);
-  };
+  }
 
   private getCurrentFilterText = () => {
     const currentFilter = this.state.filters.find(filter =>
@@ -74,21 +80,27 @@ class DashboardFilter extends React.Component<Props, State> {
 
   private onFilterClick = (status: string) => {
     this.setState({
+      ...this.state,
       filters: this.getFiltersWithShowedMark(status),
     });
-    this.props.loadDashboard(this.props.match.params.funnelId, status);
+    this.props.setActiveFilter(status);
+
+    this.props.setFunnelsFilter({
+      funnelId: localStorage.getItem('activeFunnelId'),
+      status,
+    });
+    status = this.props.dashboardFilters.find(filter => localStorage.getItem('activeFunnelId') === filter.funnelId).status;
+    this.props.loadDashboard(localStorage.getItem('activeFunnelId')!, status);
     this.togglePopover();
   }
-
 }
 
 const mapStateToProps = (state: any) => ({
-  dashboard: state.dashboard,
+  activeFunnel: state.dashboard.activeFunnel,
+  dashboardFilters: state.dashboard.dashboardFilters,
 });
-
-export { DashboardFilter };
 
 export default connect(
   mapStateToProps,
-  { loadDashboard },
+  { loadDashboard, setFunnelsFilter, setActiveFilter },
 )(withRouter(DashboardFilter));
