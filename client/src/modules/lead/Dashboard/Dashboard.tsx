@@ -5,17 +5,20 @@ import * as styles from './Dashboard.css';
 
 import { isEmpty } from 'lodash';
 import { connect } from 'react-redux';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import LeadModel from '../../../models/Lead';
 import Stage from '../../../models/Stage';
 import { loadFirstActivityInLeadsPlan } from '../EditLead/Activities/activityActions';
-import { loadDashboard } from '../leadActions';
+import { loadDashboard, setActiveFunnel} from '../leadActions';
 import { ACTIVE, NOACTIVITY, OVERDUE, PLANNED } from './activityStatuses';
 import Lead from './Lead/Lead';
 
-interface Props {
+interface Props extends RouteComponentProps<any> {
   dashboard: any;
   nearestActivities: any;
-  loadDashboard(): void;
+
+  loadDashboard(funnelId:string): void;
+  setActiveFunnel(): void;
   loadFirstActivityInLeadsPlan(): void;
 }
 
@@ -121,7 +124,9 @@ export class Dashboard extends React.Component<Props, State> {
 
   private loadItems = () => {
     if (!this.state.leadboardLoaded) {
-      this.props.loadDashboard();
+      this.props.setActiveFunnel();
+
+      this.props.loadDashboard(localStorage.getItem('activeFunnelId')!);
       this.props.loadFirstActivityInLeadsPlan();
       this.setState({ leadboardLoaded: true });
     }
@@ -129,11 +134,11 @@ export class Dashboard extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: any) => ({
-  nearestActivities: state.dashboard.activities,
   dashboard: state.dashboard,
+  nearestActivities: state.dashboard.activities,
 });
 
 export default connect(
   mapStateToProps,
-  { loadDashboard, loadFirstActivityInLeadsPlan },
-)(Dashboard);
+  { loadDashboard, setActiveFunnel, loadFirstActivityInLeadsPlan },
+)(withRouter(Dashboard));
