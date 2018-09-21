@@ -10,8 +10,8 @@ let cx = classNames.bind(styles);
 class SelectStageOnCreation extends Component {
 
   componentDidMount() {
-    if (this.props.stages ) {
-      this.props.onStageChange(this.props.stage ? this.props.stage : this.props.stages[0]._id);
+    if (this.props.stages) {
+      this.props.onStageChange(this.props.stageId ? this.props.stageId : this.props.stages[0]._id);
     }
   }
 
@@ -29,7 +29,7 @@ class SelectStageOnCreation extends Component {
     let stagesDisplay;
     if (this.props.stages) {
       stagesDisplay = this.props.stages.map((stage, index) => {
-        let active = this.props.stage ? (stage._id === this.props.stage) : (index === 0);
+        let active = this.props.stageId ? (stage._id === this.props.stageId) : (index === 0);
         return (
           <label key={stage._id} className={cx({ radio: true, active })} data-tip={stage.name}>
             <input
@@ -69,7 +69,8 @@ class SelectStageOnCreation extends Component {
 
 SelectStageOnCreation.propTypes = {
   stages: PropTypes.array.isRequired,
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  stageId: PropTypes.string,
 };
 
 export default SelectStageOnCreation;

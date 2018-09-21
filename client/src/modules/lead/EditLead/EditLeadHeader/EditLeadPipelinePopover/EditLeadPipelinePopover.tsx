@@ -56,14 +56,14 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
                 <DropdownToggle className={styles.select}>
                   {this.state.selectedFunnel.name}
                 </DropdownToggle>
-                {this.renderSelectOptions()}
+                {this.renderDropdownOptions()}
               </Dropdown>
             </div>
             <SelectStageOnCreation 
               stages={this.props.stages} 
               onStageChange={this.onStageSelect}
               title="Pipeline's stages"
-              stage={this.state.selectedStageId}
+              stageId={this.state.selectedStageId}
             />
           </CardBody>
           <CardFooter className={styles.buttons}>
@@ -88,18 +88,22 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
   }
 
   public componentWillReceiveProps(nextProps: Props) {
-    if (this.props.stages !== nextProps.stages && this.props.stages.length !== 0) {
+    if (this.isFunnelChangedAndStagesLoaded(nextProps)) {
       this.setState({
         selectedStageId: nextProps.stages[0]._id,
       });
     } 
 
-    if (this.state.selectedFunnel._id !== nextProps.lead.stage.funnel._id && this.props.stages === nextProps.stages) {
+    if (this.props.stages === nextProps.stages) {
       this.onFunnelSelect(nextProps.lead.stage.funnel);
     }
   }
 
-  private renderSelectOptions() {
+  private isFunnelChangedAndStagesLoaded (props: Props): boolean {
+    return this.props.stages !== props.stages && this.props.stages.length !== 0;
+  }
+
+  private renderDropdownOptions() {
     return (
       <DropdownMenu>
         {this.props.funnels.map((funnel: Funnel) => {

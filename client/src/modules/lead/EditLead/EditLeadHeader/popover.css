@@ -39,7 +39,7 @@
   height: 30px;
   background-color: #fff;
   width: 264px;
-  font: 400 14px/30px Open Sans,sans-serif;
+  font: 14px/30px Open Sans,sans-serif;
 }
 
 .option:hover {
@@ -56,7 +56,7 @@
   border-color: #cbcccd;
   border-radius: 3px;
   height: 30px;
-  font: 400 14px/30px Open Sans,sans-serif;
+  font: 14px/30px Open Sans,sans-serif;
   vertical-align: middle;
   width: 270px;
   color: #26292c;

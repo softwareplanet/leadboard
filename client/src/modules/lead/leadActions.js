@@ -33,9 +33,7 @@ export const loadDashboard = (status = IN_PROGRESS) => dispatch => {
 export const loadStages = (funnel, status) => dispatch => {
   axios
     .get("/api/stage", {
-      params: {
-        funnel: funnel,
-      },
+      params: { funnel },
     })
     .then(result => {
       dispatch(loadStagesAction(result.data));
@@ -52,10 +50,7 @@ export const loadStages = (funnel, status) => dispatch => {
 export const loadLeads = (stage, status) => dispatch => {
   axios
     .get("/api/lead", {
-      params: {
-        stage,
-        status,
-      },
+      params: { stage, status },
     })
     .then(result => {
       dispatch(loadLeadsAction(stage, result.data));
@@ -244,12 +239,10 @@ export const loadFunnels = () => dispatch => {
 };
 
 // Load Stages by Funnel ID without leads
-export const loadStagesWithoutLeads = funnelId => dispatch => {
+export const loadStagesWithoutLeads = funnel => dispatch => {
   axios
     .get("/api/stage", {
-      params: {
-        funnel: funnelId,
-      },
+      params: { funnel }
     })
     .then(result => {
       dispatch(loadStagesAction(result.data));
@@ -263,9 +256,7 @@ export const loadStagesWithoutLeads = funnelId => dispatch => {
 export const loadPipelinePopoverStages = funnelId => dispatch => {
   axios
     .get("/api/stage", {
-      params: {
-        funnel: funnelId,
-      },
+      params: { funnel: funnelId }
     })
     .then(result => {
       dispatch({

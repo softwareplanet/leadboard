@@ -6,14 +6,13 @@ import pipelineArrow from '../../../../assets/pipeline-stage-arrow.svg';
 import ownerIcon from '../../../../assets/user-icon.svg';
 import { IN_PROGRESS, LOST, WON } from '../../../../constants';
 import Funnel from '../../../../models/Funnel';
-import Lead from '../../../../models/Lead';
-import { loadFunnels, loadLead, loadStagesWithoutLeads, updateLead, deleteLead } from '../../leadActions';
+import { deleteLead, loadFunnels, loadLead, loadStagesWithoutLeads, updateLead } from '../../leadActions';
 import { loadLeadActivities } from '../Activities/activityActions';
+import AdditionalActionsPopover from './AdditionalActionsPopover/AdditionalActionsPopover';
 import EditLeadFieldPopover from './EditLeadFieldPopover/EditLeadFieldPopover';
 import * as styles from './EditLeadHeader.css';
 import EditLeadPipelinePopover from './EditLeadPipelinePopover/EditLeadPipelinePopover';
 import EditLeadStageProgress from './EditLeadStageProgress/EditLeadStageProgress';
-import AdditionalActionsPopover from './AdditionalActionsPopover/AdditionalActionsPopover';
 
 const PIPELINE_POPOVER_ID: string = 'pipelineTarget';
 
@@ -26,7 +25,7 @@ interface Props {
 
   loadLeadActivities(leadId: string): void;
 
-  updateLead(lead: Lead): void;
+  updateLead(lead: any): void;
 
   loadFunnels(): void;
 
@@ -41,9 +40,9 @@ interface State {
 
 class EditLeadHeader extends React.Component<Props, State> {
   public state: State = {
+    isAdditionalActionsPopoverOpen: false,
     isFieldPopoverOpen: false,
     isPipelinePopoverOpen: false,
-    isAdditionalActionsPopoverOpen: false,
   };
 
   public render() {
@@ -126,14 +125,18 @@ class EditLeadHeader extends React.Component<Props, State> {
           <EditLeadStageProgress />
             {this.props.editLead.stage 
               ? (
-                  <div onClick={this.togglePipelinePopover} id={PIPELINE_POPOVER_ID} className={styles.bottomStageStatus}>
+                  <div 
+                    onClick={this.togglePipelinePopover} 
+                    id={PIPELINE_POPOVER_ID} 
+                    className={styles.bottomStageStatus}
+                  >
                     {this.props.editLead.stage.funnel.name} 
-                      <ReactSVG className={styles.pipelineArrowSvg} src={pipelineArrow} /> 
+                    <ReactSVG className={styles.pipelineArrowSvg} src={pipelineArrow} /> 
                     {this.props.editLead.stage.name}
                     <EditLeadPipelinePopover
                       isOpen={this.state.isPipelinePopoverOpen}
                       target={PIPELINE_POPOVER_ID}
-                      toggle={this.togglePipelinePopover}    
+                      toggle={this.togglePipelinePopover}
                     />
                   </div>
                 )
@@ -168,15 +171,11 @@ class EditLeadHeader extends React.Component<Props, State> {
   }
 
   private handleStatusChange = (status: string) => {
-    const lead = this.props.editLead;
-    lead.status = status;
-    this.props.updateLead(lead);  
+    this.props.updateLead({ _id: this.props.editLead._id, status });  
   }
 
   private handleLeadNameSave = (name: string) => {
-    const lead = this.props.editLead;
-    lead.name = name;
-    this.props.updateLead(lead);
+    this.props.updateLead({ _id: this.props.editLead._id, name });
     this.toggleFieldPopover();
   }
 
