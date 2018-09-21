@@ -24,4 +24,7 @@ const mapStateToProps = (state: any) => ({
   domainCustomFields: state.domain.settings.customFields,
 });
 
-export default connect(mapStateToProps, { loadAggregatedContacts: loadAggregatedOrganizations })(OrganizationPage);
+export default connect(
+  mapStateToProps,
+  { loadAggregatedContacts: loadAggregatedOrganizations },
+)(OrganizationPage);
