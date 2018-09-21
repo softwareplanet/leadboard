@@ -1,0 +1,12 @@
+mongo leadster --eval 'db.leads.find().forEach(function(lead){
+  if(lead.notes.length >= 1){
+    lead.notes.forEach((note) =>{
+      note.lead = lead._id;
+      note.contact = lead.contact;
+      note.organization = lead.organization;
+      db.notes.save(note)
+    });
+    delete lead.notes;
+    db.leads.save(lead)
+  }
+})'
