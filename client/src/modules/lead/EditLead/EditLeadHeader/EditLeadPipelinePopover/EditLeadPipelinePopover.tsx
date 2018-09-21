@@ -98,7 +98,7 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
     } 
 
     if (this.isFunnelChangedNotByClick(nextProps)) {
-        this.handleFunnelSelect(nextProps.lead.stage.funnel);
+      this.handleFunnelSelect(nextProps.lead.stage.funnel);
     }
   }
 
@@ -108,7 +108,7 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
 
   private isFunnelChangedNotByClick(props: Props): boolean {
     return this.props.stages === props.stages &&
-     this.state.selectedFunnel._id !== props.lead.stage.funnel._id;
+    this.state.selectedFunnel._id !== props.lead.stage.funnel._id;
   }
 
   private renderDropdownOptions() {
