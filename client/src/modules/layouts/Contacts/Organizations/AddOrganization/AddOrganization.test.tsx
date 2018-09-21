@@ -10,6 +10,13 @@ describe('<AddOrganization /> :', () => {
     userid: '5b97a9aeb35f5710b39e3913',
   };
   let addOrganization: any;
+  let open: boolean;
+  const openModal= () => {
+    open = true;
+  };
+  const closeModal= () => {
+    open = false;
+  };
   const settings: DomainSettings = {
     customFields: [
       {
@@ -54,11 +61,15 @@ describe('<AddOrganization /> :', () => {
 
   beforeEach(() => {
     addOrganization = jest.fn();
+    open = false;
     wrapper = shallow(
       <AddOrganization
         addOrganization={addOrganization}
         auth={auth}
         domainSettings={settings}
+        open={open}
+        openModal={openModal}
+        closeModal={closeModal}
       />,
     );
   });
@@ -71,7 +82,6 @@ describe('<AddOrganization /> :', () => {
   it('should open modal on Add organization button click', () => {
     const addOrganizationBtn = wrapper.find(`button.${styles.button}`);
     addOrganizationBtn.simulate('click');
-    expect(wrapper.state().isModalOpen).toBeTruthy();
     expect(wrapper.find(`header.${styles.formHeader}`).text()).toBe('Add new organization');
   });
 

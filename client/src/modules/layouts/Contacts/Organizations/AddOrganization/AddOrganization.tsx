@@ -28,14 +28,18 @@ const customStyles = {
 interface Props {
   auth: any;
   domainSettings: DomainSettings;
+  open: boolean;
 
   addOrganization(organization: any): void;
+
+  openModal(): void;
+
+  closeModal(): void;
 }
 
 interface State {
   address: string;
   isDropdownOpen: boolean;
-  isModalOpen: boolean;
   isValidationShown: boolean;
   name: string;
 }
@@ -44,7 +48,6 @@ class AddOrganization extends React.Component<Props, State> {
   public state: State = {
     address: '',
     isDropdownOpen: false,
-    isModalOpen: false,
     isValidationShown: false,
     name: '',
   };
@@ -53,16 +56,16 @@ class AddOrganization extends React.Component<Props, State> {
     const { isValidationShown } = this.state;
     return (
       <div>
-        <button type="button" className={styles.button} onClick={this.openModal}>
+        <button type="button" className={styles.button} onClick={this.props.openModal}>
           Add organization
         </button>
 
-        <Modal isOpen={this.state.isModalOpen} style={customStyles}>
+        <Modal isOpen={this.props.open} style={customStyles}>
           <header className={styles.formHeader}>Add new organization</header>
           <button type="button" aria-label="Close" className={styles.closeBtn}>
             <span
               aria-hidden="true"
-              onClick={this.closeModal}
+              onClick={this.props.closeModal}
               className={classNames('close', styles.closeIcon)}
             >
               &times;
@@ -130,18 +133,6 @@ class AddOrganization extends React.Component<Props, State> {
     });
   }
 
-  private openModal = () => {
-    this.setState({
-      isModalOpen: true,
-    });
-  }
-
-  private closeModal = () => {
-    this.setState({
-      isModalOpen: false,
-    });
-  }
-
   private handleNameChange = (e: React.SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
     this.setState({
@@ -172,7 +163,7 @@ class AddOrganization extends React.Component<Props, State> {
         owner: this.props.auth.userid,
       };
       this.props.addOrganization(organization);
-      this.closeModal();
+      this.props.closeModal();
     } else {
       this.setState({
         isValidationShown: true,
