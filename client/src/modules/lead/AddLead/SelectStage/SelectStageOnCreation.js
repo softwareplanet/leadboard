@@ -29,8 +29,9 @@ class SelectStageOnCreation extends Component {
     let stagesDisplay;
     if (this.props.stages) {
       stagesDisplay = this.props.stages.map((stage, index) => {
+        let active = this.props.stage ? (stage._id === this.props.stage) : (index === 0);
         return (
-          <label key={stage._id} className={cx({ radio: true, active: stage._id === this.props.stage })} data-tip={stage.name}>
+          <label key={stage._id} className={cx({ radio: true, active })} data-tip={stage.name}>
             <input
               id={"stage-" + stage._id}
               type="radio"

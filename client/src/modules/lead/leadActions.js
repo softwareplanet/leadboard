@@ -34,7 +34,7 @@ export const loadStages = (funnel, status) => dispatch => {
   axios
     .get("/api/stage", {
       params: {
-        funnel: funnelId,
+        funnel: funnel,
       },
     })
     .then(result => {

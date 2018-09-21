@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { Card, CardBody, CardFooter, Dropdown, DropdownMenu, DropdownToggle, Popover } from 'reactstrap';
 import DropdownItem from 'reactstrap/lib/DropdownItem';
 import Funnel from '../../../../../models/Funnel';
+import { FullLead } from '../../../../../models/Lead';
 import { FullStage } from '../../../../../models/Stage';
+import SelectStageOnCreation from '../../../AddLead/SelectStage/SelectStageOnCreation';
 import { loadPipelinePopoverStages, updateLead } from '../../../leadActions';
 import * as styles from '../popover.css';
-import SelectStageOnCreation from '../../../AddLead/SelectStage/SelectStageOnCreation';
-import { FullLead } from '../../../../../models/Lead';
 
 interface Props {
   isOpen: boolean;
