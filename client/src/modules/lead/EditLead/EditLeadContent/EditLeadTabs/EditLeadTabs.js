@@ -6,7 +6,7 @@ import takeNotesIconActive from "../../../../../assets/take-notes/take-notes-act
 import addActivityIcon from "../../../../../assets/add-activity/add-activity.svg"
 import addActivityIconActive from "../../../../../assets/add-activity/add-activity-active.svg"
 import { connect } from 'react-redux'
-import { createNote } from "../../../leadActions";
+import { createNote } from "../EditLeadHistory/Notes/noteActions";
 import { createActivity } from "../../Activities/activityActions"
 import EditLeadEditor from "./EditLeadEditor/EditLeadEditor";
 import AddActivity from "./AddActivity/AddActivity";
@@ -56,11 +56,15 @@ class EditLeadTabs extends Component {
   onNoteSave = noteText => {
     let note = {
       text: noteText,
+      lead: this.props.editLead._id,
+      contact: this.props.editLead.contact._id,
+      organization: this.props.editLead.organization._id,
       user: this.props.userId,
-    }
-    this.props.createNote(this.props.editLead._id, note)
+    };
+
+    this.props.createNote(note);
     this.setState({ showFakeInput: true })
-  }
+  };
 
   onActivitySave = activity => {
     this.props.createActivity({
