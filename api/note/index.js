@@ -1,5 +1,4 @@
 import { Router } from "express";
-import mongoose from "mongoose";
 import Note from "../../models/note";
 import { isValidModelId, isBlank } from "../../validation/validationUtils";
 
@@ -10,7 +9,7 @@ const router = new Router();
 // @access  Private
 router.get("/:modelName/:modelId", (req, res) => {
   const { modelName, modelId } = req.params;
-  Note.findNoteByModel(modelName, modelId)
+  findNotesByModel(modelName, modelId)
     .then(result => {
       res.send(result);
     })
@@ -18,6 +17,19 @@ router.get("/:modelName/:modelId", (req, res) => {
       res.status(400).json(error);
     });
 });
+
+const findNotesByModel = (model, noteId) => {
+  switch (model) {
+    case "lead":
+      return Note.find({ lead: noteId });
+    case "contact":
+      return Note.find({ contact: noteId });
+    case "organization":
+      return Note.find({ organization: noteId });
+    default:
+      return Promise.reject(Error("Bad model's type"));
+  }
+};
 
 const validateNoteDomain = (req, res, next) => {
   if (isValidModelId(req.params.noteId)) {
@@ -43,7 +55,7 @@ router.patch("/:noteId", noteMembersMiddlewares, async (req, res) => {
   if (!isBlank(req.body)) {
     Note.findOneAndUpdate(
       { _id: req.params.noteId },
-      { $set: { text: req.body, lastUpdater: req.user.id } },
+      { $set: { text: req.body.text, lastUpdater: req.user.id } },
       { new: true })
       .then(note => {
         return res.json(note);

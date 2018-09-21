@@ -20,18 +20,4 @@ noteSchema.statics.populates = {
   basic: basicPopulates,
 };
 
-
-noteSchema.statics.findNoteByModel = (model, id) => {
-  switch (model) {
-    case "lead":
-      return this.find({ lead: id });
-    case "contact":
-      return this.find({ contact: id });
-    case "organization":
-      return this.find({ organization: id });
-    default:
-      return Promise.reject(Error("Bad model's type"));
-  }
-};
-
 export default mongoose.model("Note", noteSchema);
