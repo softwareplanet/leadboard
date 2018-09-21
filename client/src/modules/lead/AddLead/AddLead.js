@@ -2,8 +2,8 @@ import React from "react";
 import Modal from "react-modal";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { loadOrganizations } from "../../common/autocomplete/organization/organizationActions";
-import { loadContacts } from "../../common/autocomplete/contact/contactActions";
+import { loadOrganizations } from "../../layouts/Contacts/Organizations/organizationActions";
+import { loadContacts } from "../../layouts/Contacts/People/contactActions";
 import { createLead } from "../leadActions";
 import classNames from "classnames";
 import styles from "./AddLead.css";
@@ -366,7 +366,11 @@ class AddLead extends React.Component {
                 onFocus={this.onFocus}
                 onBlur={this.onBlur} />
             </div>
-            <SelectStageOnCreation stages={this.props.dashboard.stages} onStageChange={this.selectStageHandler} />
+            <SelectStageOnCreation 
+              stages={this.props.dashboard.stages} 
+              onStageChange={this.selectStageHandler} 
+              title="Lead's stage"
+            />
           </form>
           <div className={styles.formFooter}>
             <button type="button" className={styles.saveBtn} onClick={this.onSubmit}>

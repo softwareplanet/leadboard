@@ -2,27 +2,41 @@ import { Router } from "express";
 import mongoose from "mongoose";
 import Organization from "../../models/organization";
 import { validateOrganizationCreation, validateOrganizationUpdate } from "../../validation/organization";
+import { organizationAggregation } from "./organizationAggregation";
 
 const router = new Router;
 
-// @route   GET api/organization/:id
-// @desc    Get organization by id
+// @route   GET api/organization
+// @desc    Get all organizations by domain
 // @access  Private
-router.get("/:id", (req, res) => {
-  Organization.findById(req.params.id)
+router.get("/", (req, res) => {
+  Organization.find({ domain: req.user.domain }, "name")
     .then(organizations => {
-      res.status(200).json(organizations);
+      res.json(organizations);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });
     });
 });
 
-// @route   GET api/organization
-// @desc    Return all organizations by domain
+// @route   GET api/organization/aggregated/
+// @desc    Get all aggregated organizations
 // @access  Private
-router.get("/", (req, res) => {
-  Organization.find({domain: req.user.domain}, "_id name")
+router.get("/aggregated/", (req, res) => {
+  organizationAggregation(req.user.domain)
+    .then(organizations => {
+      res.json(organizations);
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
+});
+
+// @route   GET api/organization/:organizationId
+// @desc    Get organization by organizationId
+// @access  Private
+router.get("/:organizationId", (req, res) => {
+  Organization.findById(req.params.organizationId)
     .then(organizations => {
       res.json(organizations);
     })
@@ -42,30 +56,28 @@ router.post("/", (req, res) => {
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
     domain: req.user.domain,
+    owner: req.user._id,
   });
 
   Organization.create(organization)
     .then(org => {
-      res.status(200).json(org);
+      res.json(org);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });
     });
 });
 
-// @route   PATCH api/organization/:id
+// @route   PATCH api/organization/:organizationId
 // @desc    Update organization
 // @access  Private
-router.patch("/:id", (req, res) => {
+router.patch("/:organizationId", (req, res) => {
   const { hasErrors, errors } = validateOrganizationUpdate(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 
-  Organization.findByIdAndUpdate(
-    req.params.id,
-    { $set: req.body },
-    { new: true })
+  Organization.findByIdAndUpdate(req.params.organizationId, { $set: req.body }, { new: true })
     .then(org => {
-      res.status(200).json(org);
+      res.json(org);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });

@@ -6,6 +6,7 @@ This file contains everything that must be fixed/changed/done. We didn't do that
 - Add delete note tests
 - Change ":id" to ":\<model>Id" in all routes   
 - DB migration?
+- Create const for lead status conditions
 - Add searchResults endpoint tests for empty, 1 symbol, 10 words and non match query 
 ## Client
 - Define all initial reducers' states as interfaces
@@ -18,3 +19,4 @@ This file contains everything that must be fixed/changed/done. We didn't do that
 - Use `connect()` instead of `dispatch()` directly from store in Activity.tsx
 - Add tests for delete activity
 - Rework settings reducer using `combineReducer`
+- Rework filter and pipeline switcher

@@ -39,7 +39,7 @@ const notePopulates = [
 const detailedPopulates = [
   ...basicPopulates,
   { path: "owner", options: { password: 0 } },
-  { path: "stage" },
+  { path: "stage", populate: { path: "funnel" } },
 ];
 
 const fullPopulates = [
