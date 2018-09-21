@@ -253,10 +253,10 @@ export const loadStagesWithoutLeads = funnel => dispatch => {
 };
 
 // Load funnel's stages for pipeline popover
-export const loadPipelinePopoverStages = funnelId => dispatch => {
+export const loadPipelinePopoverStages = funnel => dispatch => {
   axios
     .get("/api/stage", {
-      params: { funnel: funnelId }
+      params: { funnel }
     })
     .then(result => {
       dispatch({

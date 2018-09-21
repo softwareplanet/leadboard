@@ -30,11 +30,14 @@ interface State {
 }
 
 class EditLeadPipelinePopover extends React.Component<Props, State> {
-  public state: State = {
+
+  public getInitialState = (): State => ({  
     isDropdownOpen: false,
     selectedFunnel: this.props.lead.stage.funnel,
     selectedStageId: this.props.lead.stage._id,
-  };
+  })
+
+  public state: State = this.getInitialState();
 
   public render() {
     return (
@@ -61,7 +64,7 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
             </div>
             <SelectStageOnCreation 
               stages={this.props.stages} 
-              onStageChange={this.onStageSelect}
+              onStageChange={this.handleStageSelect}
               title="Pipeline's stages"
               stageId={this.state.selectedStageId}
             />
@@ -95,7 +98,7 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
     } 
 
     if (this.props.stages === nextProps.stages) {
-      this.onFunnelSelect(nextProps.lead.stage.funnel);
+      this.handleFunnelSelect(nextProps.lead.stage.funnel);
     }
   }
 
@@ -108,7 +111,7 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
       <DropdownMenu>
         {this.props.funnels.map((funnel: Funnel) => {
         return (
-          <DropdownItem className={styles.option} onClick={this.onFunnelSelect.bind(this, funnel)} key={funnel._id}>
+          <DropdownItem className={styles.option} onClick={this.handleFunnelSelect.bind(this, funnel)} key={funnel._id}>
             {funnel.name}
           </DropdownItem>
         );
@@ -117,7 +120,7 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
     );
   }
 
-  private onFunnelSelect(funnel: Funnel) {
+  private handleFunnelSelect(funnel: Funnel) {
     this.setState({
       selectedFunnel: funnel,
     }, () => {
@@ -125,7 +128,7 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
     });
   }
 
-  private onStageSelect = (stageId: string) => {
+  private handleStageSelect = (stageId: string) => {
     this.setState({
       selectedStageId: stageId,
     });
@@ -138,11 +141,7 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
   }
 
   private togglePopover = () => {    
-    this.setState({  
-      isDropdownOpen: false,
-      selectedFunnel: this.props.lead.stage.funnel,
-      selectedStageId: this.props.lead.stage._id,
-    }, () => {
+    this.setState(this.getInitialState(), () => {
       this.props.loadPipelinePopoverStages(this.state.selectedFunnel._id);
       this.props.toggle();
     });
@@ -160,6 +159,5 @@ const mapStateToProps = (state: any) => ({
   lead: state.dashboard.editLead.lead,
   stages: state.dashboard.editLead.stagesForFunnel,
 });
-
 
 export default connect(mapStateToProps, { loadPipelinePopoverStages, updateLead })(EditLeadPipelinePopover);
