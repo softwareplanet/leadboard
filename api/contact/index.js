@@ -36,7 +36,7 @@ router.get("/aggregated/", (req, res) => {
 // @route   POST api/contact
 // @desc    Create contact
 // @access  Private
-router.post("/", function(req, res) {
+router.post("/", (req, res) => {
   const { hasErrors, errors } = validateContactCreation(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 
@@ -60,7 +60,7 @@ router.post("/", function(req, res) {
 // @route   PATCH api/contact/:contactId
 // @desc    Update contact
 // @access  Private
-router.patch("/:contactId", function(req, res) {
+router.patch("/:contactId", (req, res) => {
   const { hasErrors, errors } = validateContactUpdate(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 

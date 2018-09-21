@@ -1,4 +1,4 @@
-import ContactData from '../../../models/ContactData';
+import AggregatedContact from '../../../models/AggregatedContact';
 import CustomField from '../../../models/customFields/CustomField';
 import CustomFieldSetting from '../../../models/customFields/CustomFieldSetting';
 import { basicColumnStyles, rightAlignStyles } from '../../common/Table/ColumnStyles';
@@ -14,9 +14,14 @@ interface Styles {
   [name: string]: object;
 }
 
-const columnsWithRightAlignment = ['Closed leads', 'Opened leads', 'People'];
+const ClosedLeadsColumn = 'Closed leads';
+const OpenedLeadsColumn = 'Opened leads';
+const PeopleColumn = 'People';
+const OwnerColumn = 'Owner';
 
-export const injectCustomFields = (contact: ContactData) => {
+const columnsWithRightAlignment = [ClosedLeadsColumn, OpenedLeadsColumn, PeopleColumn];
+
+export const injectCustomFields = (contact: AggregatedContact) => {
   contact.custom.forEach((field: CustomField) => {
     contact[field.key] = field.value;
   });
@@ -32,21 +37,26 @@ export function composeTableColumns(
     ...customFieldSettings.map(fieldSettingToColumn),
     {
       dataField: 'closedLeads',
-      text: 'Closed leads',
+      text: ClosedLeadsColumn,
     },
     {
       dataField: 'openedLeads',
-      text: 'Opened leads',
+      text: OpenedLeadsColumn,
 
     },
     {
       dataField: 'owner.email',
-      text: 'Owner',
+      text: OwnerColumn,
     },
   ].map(injectStyles);
 }
 
-export function getTableData(model: string, contacts: any[], customFieldSettings: CustomFieldSetting[], modelColumns: any[]) {
+export function getTableData(
+  model: string,
+  contacts: any[],
+  customFieldSettings: CustomFieldSetting[],
+  modelColumns: any[],
+) {
   const rows = contacts.map(injectCustomFields);
   const modelCustomFieldSettings = customFieldSettings.filter(field => field.model === model);
   const columns = composeTableColumns(modelColumns, modelCustomFieldSettings);

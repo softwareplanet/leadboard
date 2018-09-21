@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ContactData from '../../../models/ContactData';
+import AggregatedContact from '../../../models/AggregatedContact';
 import CustomFieldSetting from '../../../models/customFields/CustomFieldSetting';
 import Table from '../../common/Table/Table';
 import NavBar from '../Navbar/Navbar';
@@ -8,7 +8,7 @@ import { getTableData } from './ContactsService';
 import { isContactsDataValid } from './ContactsUtils';
 
 interface Props {
-  contacts: ContactData[];
+  contacts: AggregatedContact[];
   domainCustomFields: CustomFieldSetting[];
 
   loadAggregatedContacts(): void;
@@ -21,10 +21,6 @@ class ContactsPage extends React.Component<Props, object> {
   public oneContactHeader: string;
   public moreThanOneContactsHeader: string;
   public columns: any[];
-
-  public componentWillMount = () => {
-    this.props.loadAggregatedContacts();
-  };
 
   public render() {
     const { contacts } = this.props;
@@ -53,6 +49,10 @@ class ContactsPage extends React.Component<Props, object> {
       </div>
     );
   }
+
+  public componentWillMount()  {
+    this.props.loadAggregatedContacts();
+  };
 
   private getHeader = (count: number) => {
     if (count > 1) {

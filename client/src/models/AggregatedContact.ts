@@ -1,14 +1,16 @@
 import CustomField from './customFields/CustomField';
+import Domain from './Domain';
+import Organization from './Organization';
 import User from './User';
 
-export default interface OrganizationData {
+export default interface AggregatedContact {
   _id: string;
   name: string;
+  organization?: Organization;
   custom: CustomField[];
-  domain: string;
+  domain: Domain;
   closedLeads: number;
   openedLeads: number;
-  contacts: number;
   owner: User;
   timestamp: Date;
 }
