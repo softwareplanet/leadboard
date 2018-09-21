@@ -138,6 +138,5 @@ export async function createNote(app, token, lead, user, text = "Note 1") {
     .catch(error => {
       throw "Cannot create a note";
     });
-  console.log(JSON.stringify(body));
   return body;
 }

@@ -48,6 +48,15 @@ describe("Lead", () => {
     });
   });
 
+  it("should return all notes for lead", async () => {
+    const { status, body } = await request(app())
+      .get(`/api/note/lead/${lead._id}`)
+      .set("Authorization", cred.token)
+      .send();
+    expect(status).toBe(200);
+    expect(body.length).toEqual(1);
+  });
+
   it("should update note", async () => {
     const { status, body } = await request(app())
       .patch(`/api/note/${note._id}`)
