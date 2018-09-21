@@ -24,7 +24,7 @@ beforeEach(async done => {
   let funnelId = await createFunnel(app, cred.token, cred.domainId, "Funnel");
   stageId = await createStage(app, cred.token, funnelId, "Stage", 2, cred.userId);
   lead = await createLead(app, cred.token, cred.userId, stageId, 2, "Lead A");
-  note = await createNote(app,cred.token,lead,cred.userId,"Test note");
+  note = await createNote(app, cred.token, lead, cred.userId, "Test note");
   done();
 });
 
