@@ -4,10 +4,28 @@ import { isValidModelId, isBlank } from "../../validation/validationUtils";
 
 const router = new Router();
 
+const validateNoteDomain = (req, res, next) => {
+  if (isValidModelId(req.params.noteId)) {
+    Note.findById(req.params.noteId)
+      .populate({ path: "lead", populate: { path: "owner" } })
+      .then(note => {
+        if (note !== null && note.lead.owner.domain.equals(req.user.domain)) {
+          next();
+        } else {
+          return res.status(404).json({ errors: { message: "Note with provided id is not found in your domain" } });
+        }
+      });
+  } else {
+    return res.status(404).json({ errors: { message: "Provided note's id is not valid" } });
+  }
+};
+
+const noteMembersMiddlewares = [validateNoteDomain];
+
 // @route   GET api/note/
 // @desc    Get notes by contact
 // @access  Private
-router.get("/:modelName/:modelId", (req, res) => {
+router.get("/:modelName/:modelId", noteMembersMiddlewares, (req, res) => {
   const { modelName, modelId } = req.params;
   findNotesByModel(modelName, modelId)
     .then(result => {
@@ -30,23 +48,6 @@ const findNotesByModel = (model, noteId) => {
       return Promise.reject(Error("Bad model's type"));
   }
 };
-
-const validateNoteDomain = (req, res, next) => {
-  if (isValidModelId(req.params.noteId)) {
-    Note.findById(req.params.noteId)
-      .populate({ path: "lead", populate: { path: "owner" } })
-      .then(note => {
-        if (note !== null && note.lead.owner.domain.equals(req.user.domain)) {
-          next();
-        } else {
-          return res.status(404).json({ errors: { message: "Note with provided id is not found in your domain" } });
-        }
-      });
-  } else {
-    return res.status(404).json({ errors: { message: "Provided note's id is not valid" } });
-  }
-};
-const noteMembersMiddlewares = [validateNoteDomain];
 
 // @route   PATCH api/note/:noteId
 // @desc    Update note
@@ -71,7 +72,7 @@ router.patch("/:noteId", noteMembersMiddlewares, async (req, res) => {
 // @route   POST api/note
 // @desc    Create note
 // @access  Private
-router.post("/", (req, res) => {
+router.post("/", noteMembersMiddlewares, (req, res) => {
   if (!isBlank(req.body)) {
     Note.create(req.body)
       .then(lead => {
