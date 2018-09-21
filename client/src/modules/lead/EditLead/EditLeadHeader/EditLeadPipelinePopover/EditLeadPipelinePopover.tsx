@@ -97,13 +97,18 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
       });
     } 
 
-    if (this.props.stages === nextProps.stages && this.state.selectedFunnel._id !== nextProps.lead.stage.funnel._id) {
-      this.handleFunnelSelect(nextProps.lead.stage.funnel);
+    if (this.isFunnelChangedNotByClick(nextProps)) {
+        this.handleFunnelSelect(nextProps.lead.stage.funnel);
     }
   }
 
   private isFunnelChangedAndStagesLoaded (props: Props): boolean {
     return this.props.stages !== props.stages && this.props.stages.length !== 0;
+  }
+
+  private isFunnelChangedNotByClick(props: Props): boolean {
+    return this.props.stages === props.stages &&
+     this.state.selectedFunnel._id !== props.lead.stage.funnel._id;
   }
 
   private renderDropdownOptions() {
