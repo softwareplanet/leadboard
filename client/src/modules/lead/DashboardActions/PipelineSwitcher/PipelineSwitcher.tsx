@@ -39,7 +39,6 @@ class PipelineSwitcher extends React.Component<Props, State> {
           aria-expanded={isDropdownOpen}
         >
           <div className={styles.switchButton}>
-            {/* <span>{this.getCurrentFunnelName()}</span> */}
             <span><ReactSVG className={styles.dropIcon} src={pipelinesIcon} /></span >
             <span className={styles.switchPipelineSpan}>{this.getCurrentFunnelName()}</span>
             <span><ReactSVG className={styles.dropIcon} src={downArrowIcon} /></span >
@@ -57,12 +56,9 @@ class PipelineSwitcher extends React.Component<Props, State> {
   }
 
   private getCurrentFunnelName = () => {
-    console.log(this.props.funnels);
-    return null;
-    // return this.props.funnels ?
-    //   this.props.funnels.find(funnel =>
-    //     funnel._id === this.props.match.params.funnelId)!.name :
-    //   null;
+    const activeFunnelName = this.props.funnels.find(funnel =>
+      funnel._id === localStorage.getItem('activeFunnelId'));
+    return activeFunnelName ? activeFunnelName.name : null;
   }
 
   private renderPipelines = () => {
@@ -86,13 +82,3 @@ class PipelineSwitcher extends React.Component<Props, State> {
 }
 
 export default withRouter(PipelineSwitcher);
-
-// const mapStateToProps = (state: any) => ({
-//   funnels: state.funnels,
-// });
-
-// export default connect(
-//   mapStateToProps,
-//   { loadLeadboard },
-// )(PipelineSwitcher);
-

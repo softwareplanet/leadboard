@@ -1,8 +1,11 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import downArrowIcon from '../../../../assets/down-arrow.svg';
 import filterIcon from '../../../../assets/filter-icon.svg';
 import { IN_PROGRESS, LOST, WON } from '../../../../constants';
+import Dashboard from '../../../../models/Dashboard';
+import { loadDashboard } from '../../leadActions';
 import * as styles from './DashboardFilter.css';
 import DashboardFilterPopover from './DashboardFilterPopover/DashboardFilterPopover';
 
@@ -56,11 +59,11 @@ class DashboardFilter extends React.Component<Props, State> {
     this.setState(prevState => {
       return { isPopoverOpen: !prevState.isPopoverOpen };
     });
-  }
+  };
 
   private getFiltersWithShowedMark = (status: string) => {
     return filters.map(filter => filter.type === status ? ({ ...filter, showCheckMark: true }) : filter);
-  }
+  };
 
   private getCurrentFilterText = () => {
     const currentFilter = this.state.filters.find(filter =>
@@ -71,23 +74,21 @@ class DashboardFilter extends React.Component<Props, State> {
 
   private onFilterClick = (status: string) => {
     this.setState({
-      ...this.state,
       filters: this.getFiltersWithShowedMark(status),
     });
-    console.log(this.props.match.params.funnelId);
     this.props.loadDashboard(this.props.match.params.funnelId, status);
     this.togglePopover();
   }
 
 }
 
-export default withRouter(DashboardFilter);
+const mapStateToProps = (state: any) => ({
+  dashboard: state.dashboard,
+});
 
-// const mapStateToProps = (state: any) => ({
-//   leads: state.leads,
-// });
+export { DashboardFilter };
 
-// export default connect(
-//   mapStateToProps,
-//   { loadLeadboard },
-// )(DashboardFilter);
+export default connect(
+  mapStateToProps,
+  { loadDashboard },
+)(withRouter(DashboardFilter));

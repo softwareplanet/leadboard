@@ -18,7 +18,7 @@ interface Props extends RouteComponentProps<any> {
   nearestActivities: any;
 
   loadDashboard(funnelId:string): void;
-  setActiveFunnel(): void;
+  setActiveFunnel(funnelId?: string): void;
   loadFirstActivityInLeadsPlan(): void;
 }
 
@@ -124,7 +124,7 @@ export class Dashboard extends React.Component<Props, State> {
 
   private loadItems = () => {
     if (!this.state.leadboardLoaded) {
-      this.props.setActiveFunnel();
+      this.props.setActiveFunnel(localStorage.getItem('activeFunnelId')!);
 
       this.props.loadDashboard(localStorage.getItem('activeFunnelId')!);
       this.props.loadFirstActivityInLeadsPlan();
