@@ -4,6 +4,7 @@ import * as Modal from 'react-modal';
 import { connect } from 'react-redux';
 import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
 import DomainSettings from '../../../../../models/DomainSettings';
+import isBlank from '../../../../../utils/isBlank';
 import { addOrganization } from '../organizationActions';
 import * as styles from './AddOrganization.css';
 
@@ -35,6 +36,7 @@ interface State {
   address: string;
   isDropdownOpen: boolean;
   isModalOpen: boolean;
+  isValidationShown: boolean;
   name: string;
 }
 
@@ -43,10 +45,12 @@ class AddOrganization extends React.Component<Props, State> {
     address: '',
     isDropdownOpen: false,
     isModalOpen: false,
+    isValidationShown: false,
     name: '',
   };
 
   public render() {
+    const { isValidationShown } = this.state;
     return (
       <div>
         <button type="button" className={styles.button} onClick={this.openModal}>
@@ -66,7 +70,11 @@ class AddOrganization extends React.Component<Props, State> {
           </button>
           <form className={styles.form} autoComplete="off">
             <label className={styles.inputLabel}>Name</label>
-            <div className={styles.inputContainer}>
+            <div
+              className={isValidationShown && isBlank(this.state.name)
+                ? styles.inputContainerInvalid
+                : styles.inputContainer}
+            >
               <input
                 name="name"
                 type="text"
@@ -149,21 +157,27 @@ class AddOrganization extends React.Component<Props, State> {
   }
 
   private handleSaveClick = () => {
-    const customFieldSetting = this.props.domainSettings.customFields
-      .find(customField =>
-        customField.model === 'Organization' && customField.isDefault && customField.name === 'Address');
-    const organization = {
-      custom: [
-        {
-          key: customFieldSetting ? customFieldSetting._id : '',
-          value: this.state.address,
-        },
-      ],
-      name: this.state.name,
-      owner: this.props.auth.userid,
-    };
-    this.props.addOrganization(organization);
-    this.toggle();
+    if (!isBlank(this.state.name)) {
+      const customFieldSetting = this.props.domainSettings.customFields
+        .find(customField =>
+          customField.model === 'Organization' && customField.isDefault && customField.name === 'Address');
+      const organization = {
+        custom: [
+          {
+            key: customFieldSetting ? customFieldSetting._id : '',
+            value: this.state.address,
+          },
+        ],
+        name: this.state.name,
+        owner: this.props.auth.userid,
+      };
+      this.props.addOrganization(organization);
+      this.closeModal();
+    } else {
+      this.setState({
+        isValidationShown: true,
+      });
+    }
   }
 }
 

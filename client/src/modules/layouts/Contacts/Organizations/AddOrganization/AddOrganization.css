@@ -28,6 +28,14 @@
   composes: inputContainer from '../../../../lead/AddLead/AddLead.css';
 }
 
+.inputContainerInvalid {
+  composes: invalidContainer from '../../../../lead/AddLead/AddLead.css';
+}
+
+.inputContainerInvalid input:focus {
+  border: none;
+}
+
 .closeBtn {
   composes: closeBtn from '../../../../lead/AddLead/AddLead.css';
 }
