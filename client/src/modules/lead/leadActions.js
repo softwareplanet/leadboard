@@ -257,7 +257,6 @@ export const loadFunnels = () => dispatch => {
     });
 };
 
-
 export function loadFunnelsAction(data) {
   return {
     type: LOAD_FUNNELS,
