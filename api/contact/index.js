@@ -2,6 +2,7 @@ import { Router } from "express";
 import mongoose from "mongoose";
 import Contact from "../../models/contact";
 import { validateContactCreation, validateContactUpdate } from "../../validation/contact";
+import { contactAggregation } from "./contactAggregation";
 
 const router = new Router();
 
@@ -9,8 +10,21 @@ const router = new Router();
 // @desc Return all contacts that have name field
 // @access Private
 router.get("/", (req, res) => {
-  Contact.find({ domain: req.user.domain, name: { $exists: true } })
-    .populate("organization", "_id name")
+  Contact.find({ domain: req.user.domain })
+    .populate("organization", "name")
+    .then(contacts => {
+      res.json(contacts);
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
+});
+
+// @route GET api/contact/aggregated/
+// @desc Return all aggregated contacts that have name field
+// @access Private
+router.get("/aggregated/", (req, res) => {
+  contactAggregation(req.user.domain)
     .then(contacts => {
       res.json(contacts);
     })
@@ -22,7 +36,7 @@ router.get("/", (req, res) => {
 // @route   POST api/contact
 // @desc    Create contact
 // @access  Private
-router.post("/", function(req, res) {
+router.post("/", (req, res) => {
   const { hasErrors, errors } = validateContactCreation(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 
@@ -32,29 +46,27 @@ router.post("/", function(req, res) {
     domain: req.user.domain,
     organization: req.body.organization,
     custom: req.body.custom ? req.body.custom : [],
+    owner: req.user._id,
   });
   Contact.create(contact)
     .then(contact => {
-      res.status(200).json(contact);
+      res.json(contact);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });
     });
 });
 
-// @route   PATCH api/contact/:id
+// @route   PATCH api/contact/:contactId
 // @desc    Update contact
 // @access  Private
-router.patch("/:id", function(req, res) {
+router.patch("/:contactId", (req, res) => {
   const { hasErrors, errors } = validateContactUpdate(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 
-  Contact.findByIdAndUpdate(
-    req.params.id,
-    { $set: req.body },
-    { new: true })
+  Contact.findByIdAndUpdate(req.params.contactId, { $set: req.body }, { new: true })
     .then(contact => {
-      res.status(200).json(contact);
+      res.json(contact);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });

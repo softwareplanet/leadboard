@@ -91,7 +91,7 @@ router.post("/", async (req, res) => {
       let { errors, hasErrors } = validateExisting(existingContact, "Contact", req.user.domain);
       if (hasErrors) return res.status(400).json({ errors });
     } else {
-      contact = await createContact(contact, organization, req.user.domain);
+      contact = await createContact(contact, organization, req.user.domain, req.user._id);
     }
     newLead.contact = contact;
   }
@@ -108,18 +108,19 @@ router.post("/", async (req, res) => {
 function createOrganization(name, domain, owner) {
   return Organization.create({
     _id: new mongoose.Types.ObjectId(),
-    name,
-    domain,
-    owner,
+    name: name,
+    domain: domain,
+    owner: owner,
   });
 }
 
-function createContact(name, organization, domain) {
+function createContact(name, organization, domain, owner) {
   let contactToCreate = {
     _id: new mongoose.Types.ObjectId(),
     name: name,
     organization: organization,
     domain: domain,
+    owner: owner,
   };
   if (isEmpty(contactToCreate.organization)) delete contactToCreate.organization;
   return Contact.create(contactToCreate);
@@ -181,7 +182,7 @@ router.patch("/:leadId", leadMembersMiddlewares, async (req, res) => {
       let { errors, hasErrors } = validateExisting(existingContact, "Contact", req.user.domain);
       if (hasErrors) return res.status(400).json({ errors });
     } else {
-      contact = await createContact(contact, updates.organization, req.user.domain);
+      contact = await createContact(contact, updates.organization, req.user.domain, req.user._id);
     }
     updates.contact = (typeof contact === "object" ? contact._id : contact);
   }

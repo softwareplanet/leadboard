@@ -1,13 +1,11 @@
-import { ADD_ORGANIZATION } from "./types";
+import { LOAD_ORGANIZATIONS } from "./types";
 
 const initialState = [];
 
 export default function(state = initialState, action) {
-  switch (action.type) {
-    case ADD_ORGANIZATION:
-      let newOrganizations = [...state];
-      newOrganizations.push(action.payload);
-      return newOrganizations;
+  switch (action.type){
+    case LOAD_ORGANIZATIONS:
+      return action.payload;
     default:
       return state;
   }

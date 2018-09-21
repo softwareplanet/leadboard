@@ -42,12 +42,8 @@
 }
 
 .closedUserDropDown {
-  display: flex;
+  user-select: none;
   align-items: center;
-  flex-wrap: nowrap;
-  border: none;
-  text-decoration: none;
-  background: none;
   cursor: pointer;
   color: #b9babb;
 }
@@ -99,12 +95,12 @@
 }
 
 .userDropDownMenu {
+  user-select: none;
   box-shadow: 0 4px 8px rgba(38, 41, 44, 0.1);
   border-radius: 0;
   border: none;
   color: black;
-  min-width: 250px;
-  margin-top: -1px;
+  min-width:250px;
 }
 
 .dropDownToggle {
@@ -112,6 +108,7 @@
 }
 
 .openedUserDropDown {
+  user-select: none;
   background-color: white;
   color: #404346;
 }

@@ -7,13 +7,3 @@ export const active: string;
 export const icon: string;
 export const link: string;
 export const currentLink: string;
-export const dropDownToggle: string;
-export const closedDropDown: string;
-export const openedDropDown: string;
-export const dropDownMenu: string;
-export const linkText: string;
-export const contactIcon: string;
-export const menuItemDataWrapper: string;
-export const activeContacts: string;
-export const peopleIcon: string;
-
