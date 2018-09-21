@@ -97,7 +97,7 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
       });
     } 
 
-    if (this.props.stages === nextProps.stages) {
+    if (this.props.stages === nextProps.stages && this.state.selectedFunnel._id !== nextProps.lead.stage.funnel._id) {
       this.handleFunnelSelect(nextProps.lead.stage.funnel);
     }
   }
