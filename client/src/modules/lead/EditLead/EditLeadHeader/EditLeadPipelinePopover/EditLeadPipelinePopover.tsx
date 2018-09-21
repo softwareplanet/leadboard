@@ -109,13 +109,15 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
   private renderDropdownOptions() {
     return (
       <DropdownMenu>
-        {this.props.funnels.map((funnel: Funnel) => {
-        return (
-          <DropdownItem className={styles.option} onClick={this.handleFunnelSelect.bind(this, funnel)} key={funnel._id}>
+        {this.props.funnels.map((funnel: Funnel) => (
+          <DropdownItem 
+            className={styles.option} 
+            onClick={this.handleFunnelSelect.bind(this, funnel)} 
+            key={funnel._id}
+          >
             {funnel.name}
           </DropdownItem>
-        );
-        })}
+        ))}
       </DropdownMenu>
     );
   }

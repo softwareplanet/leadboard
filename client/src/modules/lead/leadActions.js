@@ -234,7 +234,7 @@ export const loadFunnels = () => dispatch => {
       dispatch(loadDashboardAction(result.data));
     })
     .catch(error => {
-      dispatch(getErrorsAction(error));
+      dispatch(getErrorsAction(error.response.data));
     });
 };
 
@@ -248,7 +248,7 @@ export const loadStagesWithoutLeads = funnel => dispatch => {
       dispatch(loadStagesAction(result.data));
     })
     .catch(error => {
-      dispatch(getErrorsAction(error.response.data.errors));
+      dispatch(getErrorsAction(error.response.data));
     });
 };
 
@@ -265,7 +265,7 @@ export const loadPipelinePopoverStages = funnel => dispatch => {
       });
     })
     .catch(error => {
-      dispatch(getErrorsAction(error.response.data.errors));
+      dispatch(getErrorsAction(error.response.data));
     });
 };
 
