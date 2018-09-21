@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import downArrowIcon from '../../../../assets/down-arrow.svg';
 import filterIcon from '../../../../assets/filter-icon.svg';
 import { IN_PROGRESS, LOST, WON } from '../../../../constants';
-import { loadDashboard } from '../../leadActions';
+import Funnel from '../../../../models/Funnel';
+import { loadDashboard, setFunnelsFilter, setActiveFilter } from '../../leadActions';
 import * as styles from './DashboardFilter.css';
 import DashboardFilterPopover from './DashboardFilterPopover/DashboardFilterPopover';
 
@@ -18,10 +20,16 @@ interface State {
   filters: any[];
 }
 
-interface Props {
-  leads: any;
+interface Props extends RouteComponentProps<any> {
+  activeFunnel: Funnel;
+  dashboardFilters: any[];
+  funnelsLength: number;
 
-  loadDashboard(status: string): void;
+  loadDashboard(funnelId: string, status: string): void;
+
+  setFunnelsFilter(filter: any): void;
+
+  setActiveFilter(status: string): void;
 }
 
 class DashboardFilter extends React.Component<Props, State> {
@@ -58,17 +66,32 @@ class DashboardFilter extends React.Component<Props, State> {
     this.setState(prevState => {
       return { isPopoverOpen: !prevState.isPopoverOpen };
     });
-  };
+  }
 
   private getFiltersWithShowedMark = (status: string) => {
     return filters.map(filter => filter.type === status ? ({ ...filter, showCheckMark: true }) : filter);
-  };
+  }
 
   private getCurrentFilterText = () => {
-    const currentFilter = this.state.filters.find(filter =>
-      filter.showCheckMark === true
-    )
-    return currentFilter ? currentFilter.text : this.state.filters[0].text;
+    if (this.areFunnelsWithFiltersLoaded()) {
+      const dashboardFilter = this.props.dashboardFilters.find(filter => {
+        console.log(filter.funnelId === localStorage.getItem('activeFunnelId'));
+        // console.log(filter.funnelId);
+        return filter.funnelId === localStorage.getItem('activeFunnelId')
+       });
+      console.log(dashboardFilter);
+      const currentFilter = this.state.filters.find(filter =>
+        dashboardFilter.status === filter.type,
+      );
+      return currentFilter ? currentFilter.text : this.state.filters[0].text;
+    }
+    
+    return '';
+  }
+
+  private areFunnelsWithFiltersLoaded(): boolean {
+    return this.props.funnelsLength !== 0 && 
+      this.props.dashboardFilters.length === this.props.funnelsLength;
   }
 
   private onFilterClick = (status: string) => {
@@ -76,17 +99,27 @@ class DashboardFilter extends React.Component<Props, State> {
       ...this.state,
       filters: this.getFiltersWithShowedMark(status),
     });
-    this.props.loadDashboard(status);
+    this.props.setActiveFilter(status);
+
+    this.props.setFunnelsFilter({
+      funnelId: localStorage.getItem('activeFunnelId'),
+      status,
+    });
+    status = this.props.dashboardFilters.find(filter => 
+      localStorage.getItem('activeFunnelId') === filter.funnelId).status;
+    this.props.loadDashboard(localStorage.getItem('activeFunnelId')!, status);
     this.togglePopover();
-  };
+  }
 
 }
 
 const mapStateToProps = (state: any) => ({
-  leads: state.leads,
+  activeFunnel: state.dashboard.activeFunnel,
+  dashboardFilters: state.dashboard.dashboardFilters,
+  funnelsLength: state.dashboard.funnels.length,
 });
 
 export default connect(
   mapStateToProps,
-  { loadDashboard },
-)(DashboardFilter);
+  { loadDashboard, setFunnelsFilter, setActiveFilter },
+)(withRouter(DashboardFilter));

@@ -7,12 +7,12 @@ import filterIcon from '../../../../../assets/filter-icon.svg';
 import * as styles from './DashboardFilterPopover.css';
 
 interface Props {
-  isOpen: boolean,
-  filters: any[]
+  isOpen: boolean;
+  filters: any[];
 
-  toggle(): void,
+  toggle(): void;
 
-  onFilterClick(type: string): void,
+  onFilterClick(type: string): void;
 }
 
 class DashboardFilterPopover extends React.Component<Props, object> {

@@ -7,22 +7,57 @@ import {
   UPDATE_CONTACT,
   UPDATE_LEAD,
   UPDATE_ORGANIZATION,
+  DASHBOARD_LOADING,
   LEAD_NOT_FOUND,
+  SET_ACTIVE_FUNNEL,
+  LOAD_FUNNELS,
+  SET_DASHBOARD_FUNNELS_FILTER,
+  SET_ACTIVE_FILTER,
+  ADD_DASHBOARD_FUNNELS_FILTER,
   LOAD_STAGES_FOR_FUNNELS,
 } from "./types";
 import { GET_ERRORS } from "../../actionTypes";
 import { IN_PROGRESS } from "../../constants";
 import history from "../../history";
 
-// Load leadboard by Domain ID
-export const loadDashboard = (status = IN_PROGRESS) => dispatch => {
+// set active funnel 
+export const setActiveFunnel = (funnelId) => (dispatch, getState) => {
+  dispatch(dashboardLoadingAction(true));
+  localStorage.setItem("activeFunnelId", funnelId);
   axios
     .get("/api/funnel")
     .then(result => {
-      dispatch(loadDashboardAction(result.data));
-      if (result.data.length > 0) {
-        dispatch(loadStages(result.data[0]._id, status));
+      dispatch({
+        type: LOAD_FUNNELS,
+        payload: result.data,
+      });
+      const funnel = result.data.find(funnel => funnel._id === funnelId) || result.data[0];
+      dispatch(setActiveFunnelAction(funnel));
+      if (getState().dashboard.dashboardFilters.length === 0) {
+        result.data.forEach(funnel => {
+          dispatch({
+            type: ADD_DASHBOARD_FUNNELS_FILTER,
+            payload: {
+              funnelId: funnel._id,
+              status: IN_PROGRESS,
+            }
+          })
+        });
       }
+      const status = getState().dashboard.dashboardFilters.find(filter =>
+        filter.funnelId === funnel._id
+      ).status;
+      dispatch(loadDashboard(funnel._id, status))
+      if (history) history.push(`/pipelines/${funnel._id}`);
+    })
+}
+
+// Load leadboard by funnel ID
+export const loadDashboard = (funnelId, status = IN_PROGRESS) => dispatch => {
+  axios
+    .get(`/api/funnel/${funnelId}`)
+    .then(result => {
+      dispatch(loadStages(result.data._id, status));
     })
     .catch(error => {
       dispatch(getErrorsAction(error.response.data.errors));
@@ -54,6 +89,7 @@ export const loadLeads = (stage, status) => dispatch => {
     })
     .then(result => {
       dispatch(loadLeadsAction(stage, result.data));
+      dispatch(dashboardLoadingAction(false))
     })
     .catch(error => {
       dispatch(getErrorsAction(error.response.data.errors));
@@ -61,11 +97,11 @@ export const loadLeads = (stage, status) => dispatch => {
 };
 
 // Create a new lead
-export const createLead = lead => (dispatch, getState) => {
+export const createLead = lead => dispatch => {
   return axios
     .post("/api/lead", lead)
     .then(() => {
-      dispatch(loadDashboard(lead.status));
+      dispatch(loadDashboard(localStorage.getItem("activeFunnelId"), lead.status));
     })
     .catch(error => {
       dispatch(getErrorsAction(error.response.data.errors));
@@ -302,4 +338,39 @@ export function loadLeadsAction(stage, data) {
     stage,
     payload: data,
   };
+}
+
+export function dashboardLoadingAction(data) {
+  return {
+    type: DASHBOARD_LOADING,
+    payload: data,
+  };
+}
+
+export function setActiveFunnelAction(data) {
+  return {
+    type: SET_ACTIVE_FUNNEL,
+    payload: data,
+  };
+}
+
+export const setFunnelsFilter = (filter) => {
+  return {
+    type: SET_DASHBOARD_FUNNELS_FILTER,
+    payload: filter,
+  }
+}
+
+export const setActiveFilter = (status) => {
+  return {
+    type: SET_ACTIVE_FILTER,
+    payload: status,
+  }
+}
+
+export const addFunnelsFilter = () => {
+  return {
+    type: ADD_DASHBOARD_FUNNELS_FILTER,
+    payload: status,
+  }
 }
