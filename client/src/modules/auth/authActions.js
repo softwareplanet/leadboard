@@ -3,6 +3,7 @@ import setAuthToken from "../../utils/setAuthToken";
 import { SET_LOGIN_DATA, LOGOUT_USER } from "./types";
 import { GET_ERRORS, CLEAR_STORE } from "../../actionTypes";
 import { loadDomain } from "../settings/domain/domainActions";
+import { setActiveFunnel } from "../lead/leadActions";
 
 // Register user
 export const registerUser = (user, history) => dispatch => {
@@ -18,7 +19,7 @@ export const registerUser = (user, history) => dispatch => {
 };
 
 // Login user - Get user token
-export const loginUser = (user, history) => dispatch => {
+export const loginUser = user => dispatch => {
   axios
     .post("/api/login", user)
     .then(result => {
@@ -26,8 +27,7 @@ export const loginUser = (user, history) => dispatch => {
       localStorage.setItem("jwtToken", token);
       setAuthToken(token);
       dispatch(setLoginData(result.data));
-
-      if (history) history.push("/home");
+      dispatch(setActiveFunnel());
     })
     .catch(error => {
       console.log(JSON.stringify(error));
@@ -65,6 +65,7 @@ export const setLoginData = data => {
 
 export const logoutUser = history => dispatch => {
   localStorage.removeItem("jwtToken");
+  localStorage.removeItem("activeFunnelId");
 
   setAuthToken({});
   dispatch({

@@ -1,0 +1,40 @@
+.container {
+  height: 100%;
+  width: 64px;
+}
+
+.spinner {
+  position: relative;
+  width: inherit;
+}
+
+.loader {
+  border: 2px solid #e5e5e5;
+  border-top: 2px solid #2cbf55;
+  border-left: 2px solid #2cbf55;
+  border-radius: 50%;
+  height: 64px;
+  animation: spin 2s linear infinite;
+  background-color: transparent;
+  position: relative;
+}
+
+.container span {
+  position: absolute;
+  font: 600 16px/16px "Open Sans", sans-serif;
+  color: #e5e5e5;
+  top: 25px;
+  right: 43%;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(-45deg);
+  }
+  40% {
+    transform: rotate(315deg)
+  }
+  100% {
+    transform: rotate(1035deg);
+  }
+}
