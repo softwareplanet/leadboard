@@ -42,7 +42,6 @@ export function composeTableColumns(
     {
       dataField: 'openedLeads',
       text: OpenedLeadsColumn,
-
     },
     {
       dataField: 'owner.email',
