@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, NavLink, RouteComponentProps, withRouter } from 'react-router-dom';
-import ReactSVG from 'react-svg';
-import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
-import contactIcon from '../../../assets/contacts-icon.svg';
+import ContactsDropDown from './ContactsDropDown/ContactsDropDown';
 import dealsIconActive from '../../../assets/deals-icon-active.svg';
 import dealsIcon from '../../../assets/deals-icon.svg';
 import { logoutUser } from '../../auth/authActions';
@@ -12,7 +10,6 @@ import Search from './Search/Search';
 import UserDropDown from './UserDropDown/UserDropDown';
 
 const leadsRoute = '/home';
-const peopleRoute = '/people';
 
 interface Props extends RouteComponentProps<any> {
   auth: any;
@@ -20,16 +17,9 @@ interface Props extends RouteComponentProps<any> {
   logoutUser(history: any): void;
 }
 
-interface State {
-  isDropdownOpen: boolean;
-}
-class Navbar extends React.Component<Props, State> {
-  public state: State = {
-    isDropdownOpen: false,
-  };
-
-  public toggle = () => {
-    this.setState({ isDropdownOpen: !this.state.isDropdownOpen });
+class Navbar extends React.Component<Props, object> {
+  public onLogout = () => {
+    this.props.logoutUser(this.props.history);
   };
 
   public getDealsIcon = () => {
@@ -56,30 +46,7 @@ class Navbar extends React.Component<Props, State> {
               Leads
             </div>
           </NavLink>
-          <div className={this.props.location.pathname === '/people' ? styles.activeContacts : undefined}>
-            <Dropdown
-              className={this.state.isDropdownOpen ? styles.openedDropDown : styles.closedDropDown}
-              isOpen={this.state.isDropdownOpen}
-              toggle={this.toggle}
-            >
-              <DropdownToggle
-                className={styles.dropDownToggle}
-                onClick={this.toggle}
-                data-toggle="dropdown"
-                aria-expanded={this.state.isDropdownOpen}
-              >
-                <span><ReactSVG className={styles.contactIcon} src={contactIcon} /></span>
-                <span className={styles.linkText}>Contacts</span>
-              </DropdownToggle>
-              <DropdownMenu className={styles.dropDownMenu}>
-                <NavLink onClick={this.toggle} to={peopleRoute}>
-                  <div className={styles.menuItemDataWrapper}>
-                    <ReactSVG className={styles.peopleIcon} src={contactIcon} />People
-                  </div>
-                </NavLink>
-              </DropdownMenu>
-            </Dropdown>
-          </div>  
+          <ContactsDropDown />
           <li className={styles.rightItem}>
             <UserDropDown />
           </li>
