@@ -3,7 +3,6 @@ import stageReducer from "./stageReducer";
 import leadsReducer from "./leadsReducer";
 import editLeadReducer from "./editLeadReducer";
 import { combineReducers } from "redux";
-import noteReducer from "../../modules/lead/EditLead/EditLeadContent/EditLeadHistory/Notes/noteReducer";
 import { LOAD_FIRST_ACTIVITY_IN_LEAD_PLAN } from "./EditLead/Activities/types";
 
 export const replacementReducer = (type, initialState) => (state = initialState, action) => {
@@ -21,5 +20,4 @@ export default combineReducers({
   leads: leadsReducer,
   editLead: editLeadReducer,
   activities: replacementReducer(LOAD_FIRST_ACTIVITY_IN_LEAD_PLAN, []),
-  notes: noteReducer,
 });

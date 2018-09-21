@@ -6,12 +6,14 @@ import { loadLead } from "../leadActions";
 import EditLeadContent from "./EditLeadContent/EditLeadContent";
 import { connect } from "react-redux";
 import NotFound from "../../common/NotFound/NotFound";
+import { loadNotes } from "./EditLeadContent/EditLeadHistory/Notes/noteActions";
 
 class EditLead extends Component {
 
   componentDidMount() {
     let leadId = this.props.match.params.leadId;
     this.props.loadLead(leadId);
+    this.props.loadNotes('lead',leadId);
   }
 
   render() {
@@ -45,4 +47,4 @@ const mapStateToProps = state => ({
   notFound: state.dashboard.editLead.notFound
 });
 
-export default connect(mapStateToProps, { loadLead })(EditLead)
+export default connect(mapStateToProps, { loadLead, loadNotes })(EditLead)
