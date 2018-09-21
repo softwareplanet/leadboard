@@ -8,14 +8,14 @@ import { connect } from 'react-redux';
 import LeadModel from '../../../models/Lead';
 import Stage from '../../../models/Stage';
 import { loadFirstActivityInLeadsPlan } from '../EditLead/Activities/activityActions';
-import { loadLeadboard } from '../leadActions';
+import { loadDashboard } from '../leadActions';
 import { ACTIVE, NOACTIVITY, OVERDUE, PLANNED } from './activityStatuses';
 import Lead from './Lead/Lead';
 
 interface Props {
-  leads: any;
+  dashboard: any;
   nearestActivities: any;
-  loadLeadboard(): void;
+  loadDashboard(): void;
   loadFirstActivityInLeadsPlan(): void;
 }
 
@@ -37,9 +37,9 @@ export class Dashboard extends React.Component<Props, State> {
   }
 
   public render() {
-    const { leads } = this.props;
+    const { dashboard } = this.props;
     const noLeads = this.isStagesEmpty();
-    const stages = leads.stages.map((stage: Stage, index: number) => {
+    const stages = dashboard.stages.map((stage: Stage, index: number) => {
       const leadCards = this.createLeadCards(stage._id);
 
       return (
@@ -66,7 +66,7 @@ export class Dashboard extends React.Component<Props, State> {
   }
 
   private isStagesEmpty = () => {
-    const leads = this.props.leads.leads;
+    const leads = this.props.dashboard.leads;
     const stages = Object.keys(leads).map(value => leads[value]);
     return fp.all(s => s.leads.length === 0, stages);
   };
@@ -74,7 +74,7 @@ export class Dashboard extends React.Component<Props, State> {
   private createLeadCards = (stage: string) => {
     if (this.isStageIsUndefined(stage)) {return <div />;}
 
-    return this.props.leads.leads['_' + stage].leads.map((lead: LeadModel) => {
+    return this.props.dashboard.leads['_' + stage].leads.map((lead: LeadModel) => {
       const status = this.getLeadActivityStatus(lead);
       return <Lead key={lead._id} lead={lead} link={this.leadPath(lead)} activityStatus={status} />;
     });
@@ -109,19 +109,19 @@ export class Dashboard extends React.Component<Props, State> {
 
   private createEmptyLeadCards = (index: number) => {
     const emptyLeads = [];
-    for (let i = 0; i < this.props.leads.stages.length - index; i++) {
+    for (let i = 0; i < this.props.dashboard.stages.length - index; i++) {
       emptyLeads.push(<div key={i} className={styles.stagePlaceholder} />);
     }
     return emptyLeads;
   };
 
   private isStageIsUndefined = (stage: string) => {
-    return typeof this.props.leads.leads['_' + stage] === 'undefined';
+    return typeof this.props.dashboard.leads['_' + stage] === 'undefined';
   };
 
   private loadItems = () => {
     if (!this.state.leadboardLoaded) {
-      this.props.loadLeadboard();
+      this.props.loadDashboard();
       this.props.loadFirstActivityInLeadsPlan();
       this.setState({ leadboardLoaded: true });
     }
@@ -129,11 +129,11 @@ export class Dashboard extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: any) => ({
-  nearestActivities: state.leads.activities,
-  leads: state.leads,
+  nearestActivities: state.dashboard.activities,
+  dashboard: state.dashboard,
 });
 
 export default connect(
   mapStateToProps,
-  { loadLeadboard, loadFirstActivityInLeadsPlan },
+  { loadDashboard, loadFirstActivityInLeadsPlan },
 )(Dashboard);

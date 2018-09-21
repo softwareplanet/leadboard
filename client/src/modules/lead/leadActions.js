@@ -1,7 +1,7 @@
 import axios from "axios";
 import {
   LOAD_LEAD,
-  LOAD_LEADBOARD,
+  LOAD_DASHBOARD,
   LOAD_LEADS,
   LOAD_STAGES,
   UPDATE_CONTACT,
@@ -11,13 +11,14 @@ import {
 } from "./types";
 import { GET_ERRORS } from "../../actionTypes";
 import { IN_PROGRESS } from "../../constants";
+import history from "../../history";
 
 // Load leadboard by Domain ID
-export const loadLeadboard = (status = IN_PROGRESS) => dispatch => {
+export const loadDashboard = (status = IN_PROGRESS) => dispatch => {
   axios
     .get("/api/funnel")
     .then(result => {
-      dispatch(loadLeadboardAction(result.data));
+      dispatch(loadDashboardAction(result.data));
       if (result.data.length > 0) {
         dispatch(loadStages(result.data[0]._id, status));
       }
@@ -68,7 +69,7 @@ export const createLead = lead => (dispatch, getState) => {
   return axios
     .post("/api/lead", lead)
     .then(() => {
-      dispatch(loadLeadboard(lead.status));
+      dispatch(loadDashboard(lead.status));
     })
     .catch(error => {
       dispatch(getErrorsAction(error.response.data.errors));
@@ -114,6 +115,21 @@ export const updateLead = lead => dispatch => {
         type: UPDATE_LEAD,
         payload: res.data,
       });
+    })
+    .catch(error => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error,
+      });
+    });
+};
+
+// Delete lead by id
+export const deleteLead = leadId => dispatch => {
+  axios
+    .delete(`/api/lead/${leadId}`)
+    .then(() => {
+      history.replace("/home");
     })
     .catch(error => {
       dispatch({
@@ -219,9 +235,9 @@ export const leadNotFound = () => {
   };
 }
 
-export function loadLeadboardAction(data) {
+export function loadDashboardAction(data) {
   return {
-    type: LOAD_LEADBOARD,
+    type: LOAD_DASHBOARD,
     payload: data,
   };
 }

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { Router, Route, Redirect } from "react-router-dom";
 import { Provider } from "react-redux";
 import jwt_decode from "jwt-decode";
 
@@ -19,6 +19,7 @@ import styles from "./App.css";
 import { Switch } from "react-router-dom";
 import EditLead from "./modules/lead/EditLead/EditLead";
 import Settings from "./modules/settings/Settings";
+import history from "./history";
 
 setAuthInterceptor();
 // restore redux/storage on page reload
@@ -49,7 +50,7 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Router>
+        <Router history={history}>
           <div className={styles.app}>
             <Switch>
               <PrivateRoute
