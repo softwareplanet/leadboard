@@ -2,6 +2,7 @@ import cx from 'classnames';
 import * as React from 'react';
 import * as Modal from 'react-modal';
 import CustomFieldSetting from '../../../models/customFields/CustomFieldSetting';
+import reactModalStyles from '../../../styles/reactModalDefaultStyle';
 import isBlank from '../../../utils/isBlank';
 import EditFieldGroup
   from '../../lead/EditLead/EditLeadSidebar/EditCard/CardFields/EditView/EditFieldGroup/EditFieldGroup';
@@ -10,7 +11,7 @@ import * as styles from './AddCustomField.css';
 interface Props {
   modelName: string;
 
-  addCustomField(customField: CustomFieldSetting): void
+  addCustomField(customField: CustomFieldSetting): void;
 }
 
 interface State {
@@ -19,23 +20,6 @@ interface State {
   newFieldName: string;
   newFieldType: string;
 }
-
-const modalStyles = {
-  content: {
-    border: '1px solid #e5e5e5',
-    borderRadius: '0 0 2px 2px',
-    bottom: 'auto',
-    boxShadow: '0 10px 45px rgba(38,41,44,.88)',
-    boxSizing: 'border-box',
-    left: '50%',
-    margin: '0',
-    padding: '0',
-    right: 'auto',
-    top: '100px',
-    transform: 'translate(-50%, 0)',
-    width: '590px',
-  },
-};
 
 const defaultState: State = {
   isModalShown: false,
@@ -46,6 +30,13 @@ const defaultState: State = {
 
 class AddCustomField extends React.Component<Props, State> {
   public state: State = defaultState;
+  private addCustomFieldModalStyles = { ...reactModalStyles };
+
+  constructor(props: Props){
+    super(props);
+    this.addCustomFieldModalStyles.content.width = '590px';
+    this.addCustomFieldModalStyles.content.top = '100px';
+  }
 
   public render() {
     return (
@@ -60,7 +51,7 @@ class AddCustomField extends React.Component<Props, State> {
           isOpen={this.state.isModalShown}
           onRequestClose={this.hideModal}
           shouldCloseOnOverlayClick={false}
-          style={modalStyles}
+          style={this.addCustomFieldModalStyles}
         >
           <div className={styles.modalHeading}>
             <div className={styles.modalHeader}>{`Add a field for ${this.props.modelName.toLowerCase()}s`}</div>
