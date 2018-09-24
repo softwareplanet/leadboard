@@ -37,6 +37,8 @@ class Contact extends React.Component<Props> {
   public componentWillMount() {
     this.props.loadContactById(this.props.match.params.contactId);
   }
+
+  
 }
 
 const mapStateToProps = (state: any) => ({
