@@ -31,7 +31,7 @@
   composes: dropdown;
 }
 
-.menuItem {
+.dropdownItem {
   display: flex;
   align-items: center;
   padding-left: 4px;
@@ -41,7 +41,7 @@
   cursor: pointer;
 }
 
-.menuItem:hover {
+.dropdownItem:hover {
   background-color: #4074e1;
   color: white;
 }
