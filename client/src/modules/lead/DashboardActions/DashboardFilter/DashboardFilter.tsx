@@ -75,7 +75,7 @@ class DashboardFilter extends React.Component<Props, State> {
   private getCurrentFilterText = () => {
     if (this.areFunnelsWithFiltersLoaded()) {
       const dashboardFilter = this.props.dashboardFilters.find(filter => {
-        return filter.funnelId === localStorage.getItem('activeFunnelId')
+        return filter.funnelId === this.props.match.params.funnelId;
        });
       const currentFilter = this.state.filters.find(filter =>
         dashboardFilter.status === filter.type,
@@ -99,12 +99,12 @@ class DashboardFilter extends React.Component<Props, State> {
     this.props.setActiveFilter(status);
 
     this.props.setFunnelsFilter({
-      funnelId: localStorage.getItem('activeFunnelId'),
+      funnelId: this.props.match.params.funnelId,
       status,
     });
     status = this.props.dashboardFilters.find(filter => 
-      localStorage.getItem('activeFunnelId') === filter.funnelId).status;
-    this.props.loadDashboard(localStorage.getItem('activeFunnelId')!, status);
+      this.props.match.params.funnelId === filter.funnelId).status;
+    this.props.loadDashboard(this.props.match.params.funnelId, status);
     this.togglePopover();
   }
 

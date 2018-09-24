@@ -124,9 +124,8 @@ export class Dashboard extends React.Component<Props, State> {
 
   private loadItems = () => {
     if (!this.state.leadboardLoaded) {
-      this.props.setActiveFunnel(localStorage.getItem('activeFunnelId')!);
+      this.props.setActiveFunnel(this.props.match.params.funnelId);
 
-      this.props.loadDashboard(localStorage.getItem('activeFunnelId')!);
       this.props.loadFirstActivityInLeadsPlan();
       this.setState({ leadboardLoaded: true });
     }

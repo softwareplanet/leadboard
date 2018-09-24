@@ -21,7 +21,7 @@ class Navbar extends React.Component<Props, object> {
   };
 
   public render() {
-    const leadsRoute = `/pipelines/${localStorage.getItem('activeFunnelId')}`;
+    const leadsRoute = `/pipelines/${this.props.match.params.funnelId}`;
 
     return (
       <header>

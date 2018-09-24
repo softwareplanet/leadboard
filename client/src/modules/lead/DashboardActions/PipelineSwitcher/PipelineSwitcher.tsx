@@ -57,7 +57,7 @@ class PipelineSwitcher extends React.Component<Props, State> {
 
   private getCurrentFunnelName = () => {
     const activeFunnelName = this.props.funnels.find(funnel =>
-      funnel._id === localStorage.getItem('activeFunnelId'));
+      funnel._id === this.props.match.params.funnelId);
     return activeFunnelName ? activeFunnelName.name : null;
   }
 

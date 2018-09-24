@@ -65,7 +65,6 @@ export const setLoginData = data => {
 
 export const logoutUser = history => dispatch => {
   localStorage.removeItem("jwtToken");
-  localStorage.removeItem("activeFunnelId");
 
   setAuthToken({});
   dispatch({

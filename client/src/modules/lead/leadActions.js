@@ -23,7 +23,6 @@ import history from "../../history";
 // set active funnel 
 export const setActiveFunnel = (funnelId) => (dispatch, getState) => {
   dispatch(dashboardLoadingAction(true));
-  localStorage.setItem("activeFunnelId", funnelId);
   axios
     .get("/api/funnel")
     .then(result => {
@@ -47,7 +46,6 @@ export const setActiveFunnel = (funnelId) => (dispatch, getState) => {
       const status = getState().dashboard.dashboardFilters.find(filter =>
         filter.funnelId === funnel._id
       ).status;
-      localStorage.setItem("activeFunnelId", funnel._id);
       dispatch(loadDashboard(funnel._id, status))
       if (history) history.push(`/pipelines/${funnel._id}`);
     })
@@ -98,11 +96,11 @@ export const loadLeads = (stage, status) => dispatch => {
 };
 
 // Create a new lead
-export const createLead = lead => dispatch => {
+export const createLead = lead => (dispatch,getState) => {
   return axios
     .post("/api/lead", lead)
     .then(() => {
-      dispatch(loadDashboard(localStorage.getItem("activeFunnelId"), lead.status));
+      dispatch(loadDashboard(getState().dashboard.activeFunnel._id, lead.status));
     })
     .catch(error => {
       dispatch(getErrorsAction(error.response.data.errors));
@@ -159,11 +157,11 @@ export const updateLead = lead => dispatch => {
 };
 
 // Delete lead by id
-export const deleteLead = leadId => dispatch => {
+export const deleteLead = leadId => (dispatch, getState) => {
   axios
     .delete(`/api/lead/${leadId}`)
     .then(() => {
-      history.replace(`/pipelines/${localStorage.getItem('activeFunnelId')}`);
+      history.replace(`/pipelines/${getState().dashboard.activeFunnel._id}`);
     })
     .catch(error => {
       dispatch({
