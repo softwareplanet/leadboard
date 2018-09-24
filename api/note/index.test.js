@@ -34,6 +34,7 @@ describe("Lead", () => {
       .post(`/api/note`)
       .set("Authorization", cred.token)
       .send({
+        attachedTo: lead._id,
         user: cred.userId,
         text: "First note",
         contact: lead.contact._id,
@@ -41,6 +42,7 @@ describe("Lead", () => {
       });
     expect(status).toBe(200);
     expect(body).toMatchObject({
+      attachedTo: lead._id,
       text: "First note",
       contact: lead.contact._id,
       lead: lead._id,
@@ -58,7 +60,7 @@ describe("Lead", () => {
 
   it("should update note", async () => {
     const { status, body } = await request(app())
-      .patch(`/api/note/${note._id}`)
+      .patch(`/api/note/${lead._id}/${note._id}`)
       .set("Authorization", cred.token)
       .send({
         text: UPDATED_NOTE,
@@ -70,7 +72,7 @@ describe("Lead", () => {
   it("should fail to update note from other domain", async () => {
     const otherUser = await createUserAndDomain(app, "Other Domain", "other@testmail.com");
     const { status, body } = await request(app())
-      .patch(`/api/note/${lead._id}`)
+      .patch(`/api/note/${lead._id}/${note._id}`)
       .set("Authorization", otherUser.token)
       .send();
     expect(status).toBe(404);
@@ -90,6 +92,6 @@ describe("Lead", () => {
       .get(`/api/note/leads/${lead._id}`)
       .set("Authorization", cred.token)
       .send();
-    expect(body.errors.model).toEqual("Bad model's type");
+    expect(body.errors.model).toEqual("Invalid model's type");
   });
 });
