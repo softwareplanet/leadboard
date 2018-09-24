@@ -17,7 +17,6 @@ export const loadFunnels = () => (dispatch: Dispatch) => {
         payload: result.data,
         type: LOAD_FUNNELS,
       });
-      dispatch(setActiveFunnelAction(result.data[0]));
     })
     .catch(error => {
       dispatch({
@@ -124,5 +123,6 @@ export const selectFunnel = (funnel: FunnelModel) => (dispatch: Dispatch) => {
     payload: funnel,
     type: SET_FUNNEL,
   });
+  dispatch(setActiveFunnelAction(funnel));
 };
 
