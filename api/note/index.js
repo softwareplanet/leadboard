@@ -45,22 +45,23 @@ router.patch("/:modelId/:noteId", validateNoteDomainMiddleware, async (req, res)
   const { text } = req.body;
   const { hasErrors, errors } = validateNoteUpdate(noteId, text);
   if (hasErrors) return res.status(400).json({ errors });
-  Note.findOne({ attachedTo: req.params.modelId })
+  Note.findOne({ _id: noteId })
     .then(note => {
-      if (!note) {
+      if (note.attachedTo.equals(req.params.modelId)) {
+        Note.findOneAndUpdate(
+          { _id: noteId },
+          { $set: { text: text, lastUpdater: req.user.id } },
+          { new: true })
+          .then(note => {
+            Note.populate(note, Note.populates.basic, (err, note) => {
+              res.json(note);
+            });
+          });
+      } else {
         return res.status(400).json(
           { errors: { message: `You can't update note that is not attached to model:${req.params.modelId}` } },
         );
       }
-    });
-  Note.findOneAndUpdate(
-    { _id: noteId },
-    { $set: { text: text, lastUpdater: req.user.id } },
-    { new: true })
-    .then(note => {
-      Note.populate(note, Note.populates.basic, (err, note) => {
-        res.json(note);
-      });
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });
