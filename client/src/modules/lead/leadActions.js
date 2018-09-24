@@ -47,6 +47,7 @@ export const setActiveFunnel = (funnelId) => (dispatch, getState) => {
       const status = getState().dashboard.dashboardFilters.find(filter =>
         filter.funnelId === funnel._id
       ).status;
+      localStorage.setItem("activeFunnelId", funnel._id);
       dispatch(loadDashboard(funnel._id, status))
       if (history) history.push(`/pipelines/${funnel._id}`);
     })
@@ -162,7 +163,7 @@ export const deleteLead = leadId => dispatch => {
   axios
     .delete(`/api/lead/${leadId}`)
     .then(() => {
-      history.replace("/home");
+      history.replace(`/pipelines/${localStorage.getItem('activeFunnelId')}`);
     })
     .catch(error => {
       dispatch({
