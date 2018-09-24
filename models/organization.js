@@ -8,7 +8,6 @@ const organizationSchema = new mongoose.Schema({
   domain: { type: mongoose.Schema.Types.ObjectId, required: true, ref: DOMAIN },
   owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: USER },
   custom: [{ key: mongoose.Schema.Types.ObjectId, value: "string" }],
-  owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: USER },
   timestamp: { type: Date, default: Date.now },
 });
 
