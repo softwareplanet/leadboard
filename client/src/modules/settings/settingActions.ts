@@ -3,7 +3,8 @@ import { Dispatch } from 'redux';
 import { GET_ERRORS } from '../../actionTypes';
 import FunnelModel from '../../models/Funnel';
 import Stage from '../../models/Stage';
-import { ADD_FUNNEL, ADD_STAGE, EDIT_STAGE, LOAD_FUNNELS, LOAD_STAGES, SET_FUNNEL } from './types';
+import { setActiveFunnelAction } from '../lead/leadActions';
+import { ADD_FUNNEL, ADD_STAGE, EDIT_STAGE, LOAD_FUNNELS, LOAD_SETTINGS_STAGES, SET_FUNNEL } from './types';
 
 
 export const loadFunnels = () => (dispatch: Dispatch) => {
@@ -14,6 +15,7 @@ export const loadFunnels = () => (dispatch: Dispatch) => {
         payload: result.data,
         type: LOAD_FUNNELS,
       });
+      dispatch(setActiveFunnelAction(result.data[0]));
     })
     .catch(error => {
       dispatch({
@@ -23,13 +25,13 @@ export const loadFunnels = () => (dispatch: Dispatch) => {
     });
 };
 
-export const loadStages = (funnelId: string) => (dispatch: Dispatch) => {
+export const loadSettingsStages = (funnelId: string) => (dispatch: Dispatch) => {
   axios
     .get(`/api/stage?funnel=${funnelId}`)
     .then(result => {
       dispatch({
         payload: result.data,
-        type: LOAD_STAGES,
+        type: LOAD_SETTINGS_STAGES,
       });
     })
     .catch(error => {

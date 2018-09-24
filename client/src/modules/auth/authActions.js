@@ -3,6 +3,7 @@ import setAuthToken from "../../utils/setAuthToken";
 import { SET_LOGIN_DATA, LOGOUT_USER } from "./types";
 import { GET_ERRORS, CLEAR_STORE } from "../../actionTypes";
 import { loadDomain } from "../settings/domain/domainActions";
+import { loadFunnels } from "../settings/settingActions";
 import { setActiveFunnel } from "../lead/leadActions";
 
 // Register user
@@ -51,6 +52,7 @@ export const loginUserById = id => dispatch => {
       };
       dispatch(setLoginData(loginData));
       dispatch(loadDomain());
+      dispatch(loadFunnels());
     })
     .catch(error => console.log(error));
 };

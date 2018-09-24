@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import Funnel from '../../../../../models/Funnel';
 import Stage from '../../../../../models/Stage';
-import { loadStages, updateStageName } from '../../../settingActions';
+import { loadSettingsStages, updateStageName } from '../../../settingActions';
 import NameModal from '../NameModal/NameModal';
 import * as styles from './Stages.css';
 import StageView from './StageView/StageView';
@@ -11,7 +11,7 @@ interface Props {
   stages: Stage[];
   selectedFunnel: Funnel;
 
-  loadStages(funnelId: string): void;
+  loadSettingsStages(funnelId: string): void;
 
   updateStageName(stageIs: string, name: string): void;
 }
@@ -29,8 +29,12 @@ class Stages extends React.Component<Props, State> {
 
   public componentWillReceiveProps(nextProps: Props) {
     if (nextProps.selectedFunnel._id !== this.props.selectedFunnel._id){
-      this.props.loadStages(nextProps.selectedFunnel._id);
+      this.props.loadSettingsStages(nextProps.selectedFunnel._id);
     }
+  }
+
+  public componentDidMount() {
+    this.props.loadSettingsStages(this.props.selectedFunnel._id);
   }
 
   public render() {
@@ -85,4 +89,4 @@ const mapStateToProps = (state: any) => ({
 
 export { Stages };
 
-export default connect(mapStateToProps, { loadStages, updateStageName })(Stages);
+export default connect(mapStateToProps, { loadSettingsStages, updateStageName })(Stages);
