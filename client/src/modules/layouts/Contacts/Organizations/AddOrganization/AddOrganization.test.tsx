@@ -10,12 +10,12 @@ describe('<AddOrganization /> :', () => {
     userid: '5b97a9aeb35f5710b39e3913',
   };
   let addOrganization: any;
-  let open: boolean;
+  let isModalOpen: boolean;
   const openModal= () => {
-    open = true;
+    isModalOpen = true;
   };
   const closeModal= () => {
-    open = false;
+    isModalOpen = false;
   };
   const settings: DomainSettings = {
     customFields: [
@@ -61,13 +61,13 @@ describe('<AddOrganization /> :', () => {
 
   beforeEach(() => {
     addOrganization = jest.fn();
-    open = false;
+    isModalOpen = false;
     wrapper = shallow(
       <AddOrganization
         addOrganization={addOrganization}
         auth={auth}
         domainSettings={settings}
-        open={open}
+        isModalOpen={isModalOpen}
         openModal={openModal}
         closeModal={closeModal}
       />,
@@ -105,7 +105,6 @@ describe('<AddOrganization /> :', () => {
         value: organizationAddress,
       }],
       name: organizationName,
-      owner: auth.userid,
     });
   });
 });

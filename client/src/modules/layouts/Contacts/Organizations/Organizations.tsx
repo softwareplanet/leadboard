@@ -23,9 +23,9 @@ export class OrganizationPage extends ContactsPage {
   ];
   public createAddButton = () =>
     <AddOrganization
-      open={this.state.open}
-      openModal={this.openModal}
-      closeModal={this.closeModal}
+      isModalOpen={this.state.isModalOpen}
+      openModal={this.openAddingModal}
+      closeModal={this.closeAddingModal}
     />
 }
 

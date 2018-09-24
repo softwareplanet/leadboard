@@ -14,7 +14,11 @@ interface Props {
   loadAggregatedContacts(): void;
 }
 
-class ContactsPage extends React.Component<Props, { open: boolean }> {
+interface State {
+  isModalOpen: boolean;
+}
+
+class ContactsPage extends React.Component<Props, State> {
   public domainCustomFields: CustomFieldSetting[];
   public modelName: string;
   public noContactsMessage: string;
@@ -23,20 +27,21 @@ class ContactsPage extends React.Component<Props, { open: boolean }> {
   public columns: any[];
   public signCreateNew: string;
 
-  public state = {
-    open: false,
+  public state: State = {
+    isModalOpen: false,
   };
+
   public createAddButton = () => <div />;
 
-  public openModal = () => {
+  public openAddingModal = () => {
     this.setState({
-      open: true,
+      isModalOpen: true,
     });
   }
 
-  public closeModal = () => {
+  public closeAddingModal = () => {
     this.setState({
-      open: false,
+      isModalOpen: false,
     });
   }
 
@@ -68,7 +73,7 @@ class ContactsPage extends React.Component<Props, { open: boolean }> {
         <hr className={styles.noMarginTop} />
           <div className={styles.warningMessage}>
             <p>{this.noContactsMessage}</p>
-            <p className={styles.link} onClick={this.openAddModal}>
+            <p className={styles.link} onClick={this.openAddingModal}>
               {this.signCreateNew}
             </p>
           </div>
@@ -79,10 +84,6 @@ class ContactsPage extends React.Component<Props, { open: boolean }> {
 
   public componentWillMount()  {
     this.props.loadAggregatedContacts();
-  }
-
-  private openAddModal = () => {
-    this.setState({ open: true });
   }
 
   private getHeader = (count: number) => {

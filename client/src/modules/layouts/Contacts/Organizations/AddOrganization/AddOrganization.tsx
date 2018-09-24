@@ -28,7 +28,7 @@ const customStyles = {
 interface Props {
   auth: any;
   domainSettings: DomainSettings;
-  open: boolean;
+  isModalOpen: boolean;
 
   addOrganization(organization: any): void;
 
@@ -60,7 +60,7 @@ class AddOrganization extends React.Component<Props, State> {
           Add organization
         </button>
 
-        <Modal isOpen={this.props.open} style={customStyles}>
+        <Modal isOpen={this.props.isModalOpen} style={customStyles}>
           <header className={styles.formHeader}>Add new organization</header>
           <button type="button" aria-label="Close" className={styles.closeBtn}>
             <span
@@ -160,7 +160,6 @@ class AddOrganization extends React.Component<Props, State> {
           },
         ],
         name: this.state.name,
-        owner: this.props.auth.userid,
       };
       this.props.addOrganization(organization);
       this.props.closeModal();
