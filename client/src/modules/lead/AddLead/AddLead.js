@@ -14,23 +14,9 @@ import SelectStageOnCreation from "./SelectStage/SelectStageOnCreation";
 import OrganizationAutocomplete from "../../common/autocomplete/organization/OrganizationAutocomplete";
 import ContactAutocomplete from "../../common/autocomplete/contact/ContactAutocomplete";
 import { autocompleteStyles } from "../../common/autocomplete/styles/autocomplete-styles";
+import reactModalStyles from "../../../styles/reactModalDefaultStyle";
 
-const customStyles = {
-  content: {
-    top: 0,
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    transform: "translate(-50%, 0)",
-    margin: "0",
-    padding: "0",
-    width: "350px",
-    borderRadius: "0 0 2px 2px",
-    border: "1px solid #e5e5e5",
-    boxShadow: "0 10px 45px rgba(38,41,44,.88)",
-    boxSizing: "border-box",
-  },
-};
+const customStyles = { ...reactModalStyles };
 
 const initialState = {
   name: "",
