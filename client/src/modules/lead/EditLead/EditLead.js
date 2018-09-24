@@ -13,7 +13,7 @@ class EditLead extends Component {
   componentDidMount() {
     let leadId = this.props.match.params.leadId;
     this.props.loadLead(leadId);
-    this.props.loadNotes('lead',leadId);
+    this.props.loadNotes('lead', leadId);
   }
 
   render() {

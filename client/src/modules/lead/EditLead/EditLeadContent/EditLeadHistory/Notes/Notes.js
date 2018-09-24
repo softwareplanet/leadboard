@@ -21,7 +21,7 @@ class Notes extends Component {
     return (
       <div className={styles.container}>
         <div className={styles.timeLineBar} />
-        {!isEmpty(this.props.notes) ? this.props.notes.sort(function(a, b) {
+        {!isEmpty(this.props.notes) ? this.props.notes.sort((a, b) => {
           return new Date(b.date) - new Date(a.date);
         }).map((note) => {
           return (

@@ -9,7 +9,7 @@ export const validateNotesGet = (model) => {
   const contactModel = "contact";
   const models = [leadModel, organizationModel, contactModel];
   if (!models.includes(model)) {
-    errors.model = "Bad model's type";
+    errors.model = "Invalid model's type";
   }
   return {
     errors,

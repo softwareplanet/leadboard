@@ -6,27 +6,27 @@ interface Action {
   payload: any;
 }
 
-const initialState: Note[] = [];
+const initialNotes: Note[] = [];
 
-export default function(state = initialState, action: Action) {
+export default function(notes = initialNotes, action: Action) {
   switch (action.type) {
     case CREATE_NOTE:
-      return [...state, action.payload];
+      return [...notes, action.payload];
     case LOAD_NOTES:
       return action.payload;
     case UPDATE_NOTE:
-      const newState = [...state];
+      const newState = [...notes];
       const oldNote = newState.find((note: Note) => note._id === action.payload._id);
       if (oldNote) {
         newState.splice(newState.indexOf(oldNote), 1, action.payload);
       }
       return newState;
     case DELETE_NOTE:
-      const stateWithoutDeletedNote = [...state];
+      const stateWithoutDeletedNote = [...notes];
       const activityIndex = stateWithoutDeletedNote.indexOf(action.payload);
       stateWithoutDeletedNote.splice(activityIndex, 1);
       return stateWithoutDeletedNote;
     default:
-      return state;
+      return notes;
   }
 }

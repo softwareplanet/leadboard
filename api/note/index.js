@@ -9,8 +9,8 @@ import {
 
 const router = new Router();
 
-// @route   GET api/note/
-// @desc    Get notes by contact
+// @route   GET api/note/:modelName/:modelId
+// @desc    Get notes by model
 // @access  Private
 router.get("/:modelName/:modelId", (req, res) => {
   const { modelName, modelId } = req.params;
@@ -37,7 +37,7 @@ const findNotesByModel = (model, modelId) => {
   }
 };
 
-// @route   PATCH api/note/:noteId
+// @route   PATCH api/note/:modelId/:noteId
 // @desc    Update note
 // @access  Private
 router.patch("/:modelId/:noteId", validateNoteDomainMiddleware, async (req, res) => {
