@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import activeIcon from '../../../../assets/lead-activity/active-icon.png';
-import overdueIcon from '../../../../assets/lead-activity/overdue-icon.png';
-import plannedIcon from '../../../../assets/lead-activity/planned-icon.png';
-import warningIcon from '../../../../assets/lead-activity/warning-icon.png';
-import profile from '../../../../img/profile.svg';
+import activeIcon from '../../../../assets/img/lead-activity/active-icon.png';
+import overdueIcon from '../../../../assets/img/lead-activity/overdue-icon.png';
+import plannedIcon from '../../../../assets/img/lead-activity/planned-icon.png';
+import warningIcon from '../../../../assets/img/lead-activity/warning-icon.png';
+import profile from '../../../../assets/img/profile.svg';
 import LeadModel from '../../../../models/Lead';
 import { ACTIVE, NOACTIVITY, OVERDUE, PLANNED } from '../activityStatuses';
 import * as styles from './Lead.css';

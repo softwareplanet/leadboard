@@ -5,12 +5,12 @@ import PropTypes from "prop-types";
 import { isEmpty } from "lodash";
 import InfoItemWrapper from "../../../common/InfoWraper/InfoItemWrapper";
 import Activity from "./Activity/Activity";
-import callIcon from "../../../../assets/call-activity.svg";
-import meetingIcon from "../../../../assets/meeting-activity.svg";
-import taskIcon from "../../../../assets/task-activity.svg";
-import deadlineIcon from "../../../../assets/deadline-activity.svg";
-import emailIcon from "../../../../assets/email-activity.svg";
-import lunchIcon from "../../../../assets/lunch-activity.svg";
+import callIcon from "../../../../assets/img/call-activity.svg";
+import meetingIcon from "../../../../assets/img/meeting-activity.svg";
+import taskIcon from "../../../../assets/img/task-activity.svg";
+import deadlineIcon from "../../../../assets/img/deadline-activity.svg";
+import emailIcon from "../../../../assets/img/email-activity.svg";
+import lunchIcon from "../../../../assets/img/lunch-activity.svg";
 
 class Activities extends Component {
   getActivityIcon = type => {

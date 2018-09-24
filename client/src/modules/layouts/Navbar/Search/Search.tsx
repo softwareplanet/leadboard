@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import ReactSVG from 'react-svg';
-import searchIcon from '../../../../assets/search-icon.svg';
+import searchIcon from '../../../../assets/img/search-icon.svg';
 import SearchItemModel from '../../../../models/search/SearchItem';
 import isBlank from '../../../../utils/isBlank';
 import { loadSearchResult } from '../searchActions';

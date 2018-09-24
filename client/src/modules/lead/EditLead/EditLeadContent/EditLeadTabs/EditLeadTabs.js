@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import styles from "./EditLeadTabs.css";
 
-import takeNotesIcon from "../../../../../assets/take-notes/take-notes.svg"
-import takeNotesIconActive from "../../../../../assets/take-notes/take-notes-active.svg"
-import addActivityIcon from "../../../../../assets/add-activity/add-activity.svg"
-import addActivityIconActive from "../../../../../assets/add-activity/add-activity-active.svg"
+import takeNotesIcon from "../../../../../assets/img/take-notes/take-notes.svg"
+import takeNotesIconActive from "../../../../../assets/img/take-notes/take-notes-active.svg"
+import addActivityIcon from "../../../../../assets/img/add-activity/add-activity.svg"
+import addActivityIconActive from "../../../../../assets/img/add-activity/add-activity-active.svg"
 import { connect } from 'react-redux'
 import { createNote } from "../../../leadActions";
 import { createActivity } from "../../Activities/activityActions"

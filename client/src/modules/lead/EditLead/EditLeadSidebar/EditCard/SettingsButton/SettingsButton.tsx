@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Popover, PopoverBody } from 'reactstrap';
-import settingsIcon from '../../../../../../assets/settings-icon.svg';
+import settingsIcon from '../../../../../../assets/img/settings-icon.svg';
 import * as styles from './SettingsButton.css';
 
 interface State {

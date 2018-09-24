@@ -3,7 +3,7 @@ import Tabs from '@material-ui/core/Tabs';
 import * as React from 'react';
 import ReactSVG from 'react-svg';
 import * as ReactTooltip from 'react-tooltip';
-import leadIcon from '../../../../../assets/lead-icon.svg';
+import leadIcon from '../../../../../assets/img/lead-icon.svg';
 import * as styles from '../Search.css';
 
 const ALL = 'All';
