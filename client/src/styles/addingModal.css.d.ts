@@ -1,4 +1,3 @@
-export const toolPanel: string;
 export const formHeader: string;
 export const form: string;
 export const formFooter: string;
@@ -9,8 +8,6 @@ export const inputLabel: string;
 export const inputContainer: string;
 export const inputIcon: string;
 export const invalidContainer: string;
-export const btn: string;
-export const green: string;
-export const saveBtn: string;
+export const saveButton: string;
 export const button: string;
 export const newBadge: string;

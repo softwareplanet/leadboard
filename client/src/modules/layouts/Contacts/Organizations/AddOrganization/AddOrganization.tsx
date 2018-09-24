@@ -4,6 +4,7 @@ import * as Modal from 'react-modal';
 import { connect } from 'react-redux';
 import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
 import DomainSettings from '../../../../../models/DomainSettings';
+import * as addModalStyles from '../../../../../styles/addingModal.css';
 import isBlank from '../../../../../utils/isBlank';
 import { addOrganization } from '../organizationActions';
 import * as styles from './AddOrganization.css';
@@ -56,37 +57,37 @@ class AddOrganization extends React.Component<Props, State> {
     const { isValidationShown } = this.state;
     return (
       <div>
-        <button type="button" className={styles.button} onClick={this.props.openModal}>
+        <button type="button" className={addModalStyles.saveButton} onClick={this.props.openModal}>
           Add organization
         </button>
 
         <Modal isOpen={this.props.isModalOpen} style={customStyles}>
-          <header className={styles.formHeader}>Add new organization</header>
-          <button type="button" aria-label="Close" className={styles.closeBtn}>
+          <header className={addModalStyles.formHeader}>Add new organization</header>
+          <button type="button" aria-label="Close" className={addModalStyles.closeBtn}>
             <span
               aria-hidden="true"
               onClick={this.props.closeModal}
-              className={classNames('close', styles.closeIcon)}
+              className={classNames('close', addModalStyles.closeIcon)}
             >
               &times;
             </span>
           </button>
-          <form className={styles.form} autoComplete="off">
-            <label className={styles.inputLabel}>Name</label>
+          <form className={addModalStyles.form} autoComplete="off">
+            <label className={addModalStyles.inputLabel}>Name</label>
             <div
               className={isValidationShown && isBlank(this.state.name)
-                ? styles.inputContainerInvalid
-                : styles.inputContainer}
+                ? addModalStyles.invalidContainer
+                : addModalStyles.inputContainer}
             >
               <input
                 name="name"
                 type="text"
-                className={styles.formInput}
+                className={addModalStyles.formInput}
                 onChange={this.handleNameChange}
               />
             </div>
-            <label className={styles.inputLabel}>Owner</label>
-            <div className={styles.inputContainer}>
+            <label className={addModalStyles.inputLabel}>Owner</label>
+            <div className={addModalStyles.inputContainer}>
               <Dropdown
                 isOpen={this.state.isDropdownOpen}
                 toggle={this.toggle}
@@ -107,18 +108,18 @@ class AddOrganization extends React.Component<Props, State> {
                 </DropdownMenu>
               </Dropdown>
             </div>
-            <label className={styles.inputLabel}>Address</label>
-            <div className={styles.inputContainer}>
+            <label className={addModalStyles.inputLabel}>Address</label>
+            <div className={addModalStyles.inputContainer}>
               <input
                 name="address"
                 type="text"
-                className={styles.formInput}
+                className={addModalStyles.formInput}
                 onChange={this.handleAddressChange}
               />
             </div>
           </form>
-          <footer className={styles.formFooter}>
-            <button type="button" className={styles.saveBtn} onClick={this.handleSaveClick}>
+          <footer className={addModalStyles.formFooter}>
+            <button type="button" className={addModalStyles.saveButton} onClick={this.handleSaveClick}>
               Save
             </button>
           </footer>

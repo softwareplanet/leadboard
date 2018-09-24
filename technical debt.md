@@ -20,4 +20,4 @@ This file contains everything that must be fixed/changed/done. We didn't do that
 - Add tests for delete activity
 - Rework settings reducer using `combineReducer`
 - Rework filter and pipeline switcher
-- Extract common styles for adding modals (AddLead, AddOrganization) both css and react-modal styles
+- Extract common react-modal styles for adding modals (AddLead, AddOrganization)
