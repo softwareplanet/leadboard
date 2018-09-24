@@ -144,8 +144,29 @@
   display: flex;
 }
 
+.bottomStageStatus {
+  margin-top: 15px;
+  font: 12px/16px "Open Sans",sans-serif;
+  color: #26292c;
+  padding: 0px 4px;
+  cursor: pointer;
+  border-radius: 4px;
+  float: left;
+  display: flex;
+}
+
+.bottomStageStatus:hover {
+  background-color: #fffcdc;
+}
+
+.pipelineArrowSvg {
+  height: 16px;
+  width: 16px;
+}
+
 .btnAdditionalActions {
   composes: button from '../../../../styles/common.css';
   padding: 4px 8px;
   font-size: 10px;
+  margin-left: 8px;
 }

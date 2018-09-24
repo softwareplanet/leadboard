@@ -44,7 +44,7 @@ class App extends Component {
   };
 
   redirectHome = () => {
-    return <Redirect to="/home"/>;
+    return <Redirect to={`/pipelines/${localStorage.getItem('activeFunnelId')}`} />;
   };
 
   render() {
@@ -55,7 +55,7 @@ class App extends Component {
             <Switch>
               <PrivateRoute
                 exact
-                path="/home"
+                path="/pipelines/:funnelId"
                 component={Home}
               />
             </Switch>

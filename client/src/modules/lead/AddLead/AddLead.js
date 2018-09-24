@@ -6,7 +6,7 @@ import { loadOrganizations } from "../../layouts/Contacts/Organizations/organiza
 import { loadContacts } from "../../layouts/Contacts/People/contactActions";
 import { createLead } from "../leadActions";
 import classNames from "classnames";
-import styles from "./AddLead.css";
+import addingModalStyles from "../../../styles/addingModal.css";
 import { isEmpty, trim } from "lodash/fp";
 import isBlank from "../../../utils/isBlank";
 
@@ -299,27 +299,25 @@ class AddLead extends React.Component {
 
     return (
       <div>
-        <div className={styles.toolPanel}>
-          <button type="button" className={styles.button} onClick={this.openModal}>
+          <button type="button" className={addingModalStyles.saveButton} onClick={this.openModal}>
             Add lead
           </button>
-        </div>
 
         <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} shouldCloseOnOverlayClick={false}
-               style={customStyles}>
-          <header className={styles.formHeader}>Add lead</header>
-          <button type="button" onClick={this.closeModal} aria-label="Close" className={styles.closeBtn}>
-            <span aria-hidden="true" className={classNames("close", styles.closeIcon)}>
+          style={customStyles}>
+          <header className={addingModalStyles.formHeader}>Add lead</header>
+          <button type="button" onClick={this.closeModal} aria-label="Close" className={addingModalStyles.closeBtn}>
+            <span aria-hidden="true" className={classNames("close", addingModalStyles.closeIcon)}>
               &times;
             </span>
           </button>
-          <form autoComplete="off" className={styles.form}>
+          <form autoComplete="off" className={addingModalStyles.form}>
 
-            <label className={styles.inputLabel}>Contact person name</label>
+            <label className={addingModalStyles.inputLabel}>Contact person name</label>
             <div
               ref={this.contactWrapper}
-              className={validationIsShown && errors.contact ? styles.invalidContainer : styles.inputContainer}>
-              <i className={classNames("fas fa-user", styles.inputIcon)} />
+              className={validationIsShown && errors.contact ? addingModalStyles.invalidContainer : addingModalStyles.inputContainer}>
+              <i className={classNames("fas fa-user", addingModalStyles.inputIcon)} />
               <ContactAutocomplete
                 {...autocompleteProps}
                 items={this.props.contacts}
@@ -330,16 +328,16 @@ class AddLead extends React.Component {
                 open={this.state.openContactDropdown}
                 styles={autocompleteStyles.contact}
                 ref={this.contactAutocomplete} />
-              {this.state.showContactBadge ? <span id="contact-badge" className={styles.newBadge}>NEW</span> : null}
+              {this.state.showContactBadge ? <span id="contact-badge" className={addingModalStyles.newBadge}>NEW</span> : null}
             </div>
 
-            <label className={styles.inputLabel}>
+            <label className={addingModalStyles.inputLabel}>
               Organization name
             </label>
             <div
               ref={this.organizationWrapper}
-              className={validationIsShown && errors.organization ? styles.invalidContainer : styles.inputContainer}>
-              <i className={classNames("fas fa-building", styles.inputIcon)} />
+              className={validationIsShown && errors.organization ? addingModalStyles.invalidContainer : addingModalStyles.inputContainer}>
+              <i className={classNames("fas fa-building", addingModalStyles.inputIcon)} />
               <OrganizationAutocomplete
                 {...autocompleteProps}
                 items={this.props.organizations}
@@ -351,25 +349,29 @@ class AddLead extends React.Component {
                 styles={autocompleteStyles.organization}
                 ref={this.organizationAutocomplete} />
               {this.state.showOrganizationBadge ?
-                <span id="organization-badge" className={styles.newBadge}>NEW</span> : null}
+                <span id="organization-badge" className={addingModalStyles.newBadge}>NEW</span> : null}
             </div>
 
-            <label className={styles.inputLabel}>Lead name</label>
-            <div className={validationIsShown && errors.name ? styles.invalidContainer : styles.inputContainer}>
+            <label className={addingModalStyles.inputLabel}>Lead name</label>
+            <div className={validationIsShown && errors.name ? addingModalStyles.invalidContainer : addingModalStyles.inputContainer}>
               <input
                 placeholder={this.state.namePlaceholder}
                 name="name"
                 type="text"
-                className={styles.formInput}
+                className={addingModalStyles.formInput}
                 value={this.state.name}
                 onChange={this.onNameChange}
                 onFocus={this.onFocus}
                 onBlur={this.onBlur} />
             </div>
-            <SelectStageOnCreation stages={this.props.dashboard.stages} onStageChange={this.selectStageHandler} />
+            <SelectStageOnCreation 
+              stages={this.props.dashboard.stages} 
+              onStageChange={this.selectStageHandler} 
+              title="Lead's stage"
+            />
           </form>
-          <div className={styles.formFooter}>
-            <button type="button" className={styles.saveBtn} onClick={this.onSubmit}>
+          <div className={addingModalStyles.formFooter}>
+            <button type="button" className={addingModalStyles.saveButton} onClick={this.onSubmit}>
               Save
             </button>
           </div>
@@ -394,7 +396,9 @@ const mapStateToProps = state => ({
   auth: state.auth,
   errors: state.errors,
 });
+
 export { AddLead };
+
 export default connect(
   mapStateToProps,
   { loadOrganizations, createLead, loadContacts },

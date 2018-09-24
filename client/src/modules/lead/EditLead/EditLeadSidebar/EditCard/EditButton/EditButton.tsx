@@ -1,5 +1,5 @@
 import * as React from 'react';
-import editIcon from '../../../../../../assets/edit-icon.svg';
+import editIcon from '../../../../../../assets/img/edit-icon.svg';
 import * as styles from './EditButton.css';
 
 interface Props {

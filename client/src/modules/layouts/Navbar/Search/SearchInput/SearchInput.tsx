@@ -3,7 +3,7 @@ import * as React from 'react';
 import * as ReactAutocomplete from 'react-autocomplete';
 import Highlighter from 'react-highlight-words';
 import ReactSVG from 'react-svg';
-import leadIcon from '../../../../../assets/lead-icon.svg';
+import leadIcon from '../../../../../assets/img/lead-icon.svg';
 import SearchItemModel from '../../../../../models/search/SearchItem';
 import isBlank from '../../../../../utils/isBlank';
 import * as styles from '../Search.css';

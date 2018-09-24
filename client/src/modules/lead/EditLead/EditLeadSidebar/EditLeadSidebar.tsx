@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import organizationIcon from '../../../../img/organizationIcon.svg';
-import personIcon from '../../../../img/personIcon.svg';
+import organizationIcon from '../../../../assets/img/organizationIcon.svg';
+import personIcon from '../../../../assets/img/personIcon.svg';
 import { loadContacts } from '../../../layouts/Contacts/People/contactActions';
 import { loadOrganizations } from '../../../layouts/Contacts/Organizations/organizationActions';
 import { addCustomFieldToDomain, editCustomFieldInDomain } from '../../../settings/customFieldsActions';

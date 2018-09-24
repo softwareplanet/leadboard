@@ -10,7 +10,7 @@
 
     border-right: 1px #b9babb solid;
     border-bottom: 1px #b9babb solid;
-    background: url(../../../img/stage-arrow.png) no-repeat 100% 0, linear-gradient(#fff, #f7f7f7) #f7f7f7;
+    background: url(../../../assets/img/stage-arrow.png) no-repeat 100% 0, linear-gradient(#fff, #f7f7f7) #f7f7f7;
     background-size: 20px 100%, 100% 100%;
     font-size: 16px;
 
