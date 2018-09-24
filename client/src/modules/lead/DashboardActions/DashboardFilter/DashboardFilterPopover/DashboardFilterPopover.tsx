@@ -2,8 +2,8 @@ import * as classNames from 'classnames';
 import * as React from 'react';
 import ReactSVG from 'react-svg';
 import { Card, CardBody, CardHeader, Popover } from 'reactstrap';
-import checkMarkIcon from '../../../../../assets/checkMark.svg';
-import filterIcon from '../../../../../assets/filter-icon.svg';
+import checkMarkIcon from '../../../../../assets/img/checkMark.svg';
+import filterIcon from '../../../../../assets/img/filter-icon.svg';
 import * as styles from './DashboardFilterPopover.css';
 
 interface Props {

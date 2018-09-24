@@ -19,4 +19,4 @@ This file contains everything that must be fixed/changed/done. We didn't do that
 - Use `connect()` instead of `dispatch()` directly from store in Activity.tsx
 - Add tests for delete activity
 - Rework settings reducer using `combineReducer`
-- Rework filter(display current pipeline leads filter) and pipeline switcher(remove localStorage)
+- Rework filter(display current pipeline leads filter) and pipeline switcher

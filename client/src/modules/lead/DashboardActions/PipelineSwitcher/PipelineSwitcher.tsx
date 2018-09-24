@@ -3,10 +3,10 @@ import * as React from 'react';
 import { NavLink, RouteComponentProps, withRouter } from 'react-router-dom';
 import ReactSVG from 'react-svg';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
-import checkMarkIcon from '../../../../assets/checkMark.svg';
-import downArrowIcon from '../../../../assets/down-arrow.svg';
-import settingsIcon from '../../../../assets/settings-icon.svg';
-import pipelinesIcon from '../../../../assets/switch-pipeline.svg';
+import checkMarkIcon from '../../../../assets/img/checkMark.svg';
+import downArrowIcon from '../../../../assets/img/down-arrow.svg';
+import settingsIcon from '../../../../assets/img/settings-icon.svg';
+import pipelinesIcon from '../../../../assets/img/switch-pipeline.svg';
 import Funnel from '../../../../models/Funnel';
 import * as styles from './PipelineSwitcher.css';
 

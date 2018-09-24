@@ -1,8 +1,8 @@
 import * as moment from 'moment';
 import * as React from 'react';
 import { Popover, PopoverBody } from 'reactstrap';
-import doneMark from '../../../../../assets/done-mark.svg';
-import spreadButton from '../../../../../assets/spread-button.svg';
+import doneMark from '../../../../../assets/img/done-mark.svg';
+import spreadButton from '../../../../../assets/img/spread-button.svg';
 import ActivityModel from '../../../../../models/Activity';
 import store from '../../../../../store.js';
 import { deleteActivity, updateActivity } from '../activityActions';

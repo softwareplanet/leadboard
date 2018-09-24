@@ -14,22 +14,50 @@ interface Props {
   loadAggregatedContacts(): void;
 }
 
-class ContactsPage extends React.Component<Props, object> {
+interface State {
+  isModalOpen: boolean;
+}
+
+class ContactsPage extends React.Component<Props, State> {
   public domainCustomFields: CustomFieldSetting[];
   public modelName: string;
   public noContactsMessage: string;
   public oneContactHeader: string;
   public moreThanOneContactsHeader: string;
   public columns: any[];
+  public signCreateNew: string;
+
+  public state: State = {
+    isModalOpen: false,
+  };
+
+  public createAddButton = () => <div />;
+
+  public openAddingModal = () => {
+    this.setState({
+      isModalOpen: true,
+    });
+  }
+
+  public closeAddingModal = () => {
+    this.setState({
+      isModalOpen: false,
+    });
+  }
 
   public render() {
+    const addingButton = this.createAddButton();
+
     const { contacts } = this.props;
     const contactsCount = contacts.length;
     if (isContactsDataValid(contacts)) {
       const tableData = getTableData(this.modelName, contacts, this.props.domainCustomFields, this.columns);
       return (<div>
         <NavBar />
-        <p className={styles.peopleCounter}>{contactsCount} {this.getHeader(contactsCount)}</p>
+        <div className={styles.headingWrapper}>
+          {addingButton}
+          <p className={styles.peopleCounter}>{contactsCount} {this.getHeader(contactsCount)}</p>
+        </div>
         <Table
           data={tableData.rows}
           columns={tableData.columns}
@@ -39,12 +67,16 @@ class ContactsPage extends React.Component<Props, object> {
     return (
       <div>
         <NavBar />
-        <div>
-          <hr />
+        <div className={styles.headingWrapper}>
+          {addingButton}
+        </div>
+        <hr className={styles.noMarginTop} />
           <div className={styles.warningMessage}>
             <p>{this.noContactsMessage}</p>
+            <p className={styles.link} onClick={this.openAddingModal}>
+              {this.signCreateNew}
+            </p>
           </div>
-        </div>
         <hr />
       </div>
     );
@@ -52,7 +84,7 @@ class ContactsPage extends React.Component<Props, object> {
 
   public componentWillMount()  {
     this.props.loadAggregatedContacts();
-  };
+  }
 
   private getHeader = (count: number) => {
     if (count > 1) {

@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import { noop } from 'lodash';
 import * as React from 'react';
-import someIcon from '../../../../../assets/call-activity.svg';
+import someIcon from '../../../../../assets/img/call-activity.svg';
 import Contact from '../../../../../models/Contact';
 import CustomFieldData from '../../../../../models/customFields/CustomFieldData';
 import Domain from '../../../../../models/Domain';

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import downArrowIcon from '../../../../assets/down-arrow.svg';
-import filterIcon from '../../../../assets/filter-icon.svg';
+import downArrowIcon from '../../../../assets/img/down-arrow.svg';
+import filterIcon from '../../../../assets/img/filter-icon.svg';
 import { IN_PROGRESS, LOST, WON } from '../../../../constants';
 import Funnel from '../../../../models/Funnel';
-import { loadDashboard, setFunnelsFilter, setActiveFilter } from '../../leadActions';
+import { loadDashboard, setActiveFilter, setFunnelsFilter } from '../../leadActions';
 import * as styles from './DashboardFilter.css';
 import DashboardFilterPopover from './DashboardFilterPopover/DashboardFilterPopover';
 

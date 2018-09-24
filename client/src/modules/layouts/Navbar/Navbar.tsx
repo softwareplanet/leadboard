@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, NavLink, RouteComponentProps, withRouter } from 'react-router-dom';
-import dealsIconActive from '../../../assets/deals-icon-active.svg';
-import dealsIcon from '../../../assets/deals-icon.svg';
+import dealsIconActive from '../../../assets/img/deals-icon-active.svg';
+import dealsIcon from '../../../assets/img/deals-icon.svg';
 import Funnel from '../../../models/Funnel';
 import { logoutUser } from '../../auth/authActions';
 import ContactsDropDown from './ContactsDropDown/ContactsDropDown';

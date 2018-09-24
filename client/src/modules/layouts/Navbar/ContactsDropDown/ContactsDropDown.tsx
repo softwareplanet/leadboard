@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import ReactSVG from 'react-svg';
 import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
-import contactIcon from '../../../../assets/contacts-icon.svg';
-import organizationIcon from '../../../../assets/organization-icon.svg';
+import contactIcon from '../../../../assets/img/contacts-icon.svg';
+import organizationIcon from '../../../../assets/img/organization-icon.svg';
 import * as styles from './ContactsDropDown.css';
 
 const peopleRoute = '/people';
