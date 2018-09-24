@@ -1,14 +1,19 @@
 import isEmpty from "lodash.isempty";
+import { isBlank } from "./validationUtils";
 
 export function validateOrganizationCreation(data) {
   let errors = {};
 
-  if (isEmpty(data.name)) errors.name = "Name cannot be empty";
+  if (isBlank(data.name)) errors.name = "Name cannot be empty";
   if (!("custom" in data)) {
     errors.custom = "Custom must be present";
   } else {
-    if (typeof data.custom !== "object") {
+    if (!Array.isArray(data.custom)) {
       errors.custom = "Custom must be an array";
+    } else {
+      if (!data.custom.every(customField => ("key" in customField) && ("value" in customField))) {
+        errors.custom = "Custom field must contain key and value";
+      }
     }
   }
 

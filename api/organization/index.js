@@ -56,6 +56,7 @@ router.post("/", (req, res) => {
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
     domain: req.user.domain,
+    custom: req.body.custom,
     owner: req.user._id,
   });
 

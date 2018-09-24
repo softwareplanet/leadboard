@@ -1,0 +1,97 @@
+.button {
+  composes: button buttonGreen from '../../../../../styles/common.css';
+}
+
+.form {
+  padding: 13px 15px 18px 15px;
+}
+
+.formHeader {
+  composes: formHeader from '../../../../lead/AddLead/AddLead.css';
+}
+
+.formFooter {
+  border-top: 1px solid #e5e5e5;
+  composes: formFooter from '../../../../lead/AddLead/AddLead.css';
+}
+
+.formInput {
+  border-radius: 3px;
+  composes: formInput from '../../../../lead/AddLead/AddLead.css';
+}
+
+.inputLabel {
+  composes: inputLabel from '../../../../lead/AddLead/AddLead.css';
+}
+
+.inputContainer {
+  composes: inputContainer from '../../../../lead/AddLead/AddLead.css';
+}
+
+.inputContainerInvalid {
+  composes: invalidContainer from '../../../../lead/AddLead/AddLead.css';
+}
+
+.inputContainerInvalid input:focus {
+  border: none;
+}
+
+.closeBtn {
+  composes: closeBtn from '../../../../lead/AddLead/AddLead.css';
+}
+
+.saveBtn {
+  composes: button buttonGreen from '../../../../../styles/common.css';
+}
+
+.dropdown {
+  line-height: 30px;
+  width: 100%;
+  height: 100%;
+}
+
+.dropdown> span {
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  padding-left: 8px;
+  display: inline-block;
+}
+
+.formInput:focus {
+  border: 1px solid #5897fb;
+}
+
+.dropdownMenu {
+  left: -1px !important;
+  border: 1px solid #5897fb;
+  margin: 0;
+  border-radius: 0;
+  width: 316px;
+  padding: 4px 0;
+}
+
+.dropdownOpen {
+  composes: dropdown;
+  border: 1px solid #5897fb;
+  border-radius: 3px;
+}
+
+.dropdownClose {
+  composes: dropdown;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  padding-left: 4px;
+  margin: 0 4px;
+  font: 14px/20px "Open Sans", sans-serif;
+  height: 28px;
+  cursor: pointer;
+}
+
+.menuItem:hover {
+  background-color: #4074e1;
+  color: white;
+}

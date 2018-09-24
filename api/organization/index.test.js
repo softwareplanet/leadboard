@@ -9,6 +9,7 @@ import {
   createUserAndDomain,
   dropTables,
 } from "../../test/db-prepare";
+import Domain from "../../models/domain";
 
 const app = () => express(routes);
 
@@ -27,13 +28,67 @@ beforeEach(async done => {
 
 describe("Organization", function() {
   it("should create a new organization", async () => {
+    const domain = await Domain.findById(cred.domainId);
+    const customFieldsSettings = domain.settings.customFields
+      .filter(field => field.isDefault && field.model === "Organization");
+    expect(customFieldsSettings).toHaveLength(1);
+    let organization = {
+      name: "EpicSoftware",
+      custom: [
+        {
+          key: customFieldsSettings[0]._id.toString(),
+          value: "Shevchenka av. 123",
+        },
+      ],
+    };
     const { status, body } = await request(app())
       .post("/api/organization")
       .set("Authorization", cred.token)
-      .send({ name: "EpicSoftware", custom: [] });
+      .send(organization);
+
+    organization.domain = cred.domainId;
 
     expect(status).toBe(200);
-    expect(typeof body._id).toBe("string");
+    expect(body).toMatchObject(organization);
+  });
+
+  it("should fail to create an organization without data", async () => {
+    const { status, body } = await request(app())
+      .post("/api/organization")
+      .set("Authorization", cred.token)
+      .send({});
+
+    const expectedBody = {
+      errors: {
+        name: "Name cannot be empty",
+        custom: "Custom must be present",
+      },
+    };
+
+    expect(status).toBe(400);
+    expect(body).toMatchObject(expectedBody);
+  });
+
+  it("should fail to create an organization with wrong custom", async () => {
+    const { status, body } = await request(app())
+      .post("/api/organization")
+      .set("Authorization", cred.token)
+      .send({
+        name: "EpicSoftware",
+        custom: {
+          key: "1",
+          value: "Address",
+        },
+      });
+
+    const expectedBody = {
+      errors: {
+        custom: "Custom must be an array",
+      },
+    };
+
+    expect(status).toBe(400);
+    expect(body).toMatchObject(expectedBody);
   });
 
   it("should get organization by id", async () => {
