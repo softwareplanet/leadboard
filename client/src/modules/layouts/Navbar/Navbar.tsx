@@ -20,7 +20,7 @@ interface Props extends RouteComponentProps<any> {
 class Navbar extends React.Component<Props, object> {
   public onLogout = () => {
     this.props.logoutUser(this.props.history);
-  };
+  }
 
   public render() {
     const leadsRoute = `/pipelines/${this.props.activeFunnel._id}`;

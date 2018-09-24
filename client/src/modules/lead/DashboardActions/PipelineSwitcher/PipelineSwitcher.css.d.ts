@@ -5,3 +5,6 @@ export const dropIcon: string;
 export const checkMarkIcon: string;
 export const switchPipelineSpan: string;
 export const pipelineSwitcherWrapper: string;
+export const settingsIcon: string;
+export const settingsLink: string;
+export const settingsButton: string;

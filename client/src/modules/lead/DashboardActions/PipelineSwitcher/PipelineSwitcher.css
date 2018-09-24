@@ -42,6 +42,7 @@
   composes: filter from "../DashboardFilter/DashboardFilterPopover/DashboardFilterPopover.css";
   justify-content: initial;
   padding: 6px 20px 6px 30px;
+  font-size: 14px;
 }
 
 .dropIcon {
@@ -52,4 +53,37 @@
   composes: iconSpan checkMarkIcon from "../DashboardFilter/DashboardFilterPopover/DashboardFilterPopover.css";
   position: absolute;
   left: 10px;
+}
+
+.settingsIcon {
+  composes: iconSpan from "../DashboardFilter/DashboardFilter.css";
+  position: absolute;
+  left: 10px;
+}
+
+.settingsLink {
+  composes: switchItem;
+  padding: 0;
+}
+
+.settingsLink:hover {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.settingsButton {
+  composes: switchButton;
+  margin-left: auto;
+}
+
+.settingsButton span {
+  padding: 0 8px;
+}
+
+.settingsButton a {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+  display: inherit;
+  align-items: center;
 }

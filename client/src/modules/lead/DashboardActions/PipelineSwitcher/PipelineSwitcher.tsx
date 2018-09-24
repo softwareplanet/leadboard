@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { NavLink, RouteComponentProps, withRouter } from 'react-router-dom';
 import ReactSVG from 'react-svg';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 import checkMarkIcon from '../../../../assets/checkMark.svg';
@@ -26,7 +26,9 @@ class PipelineSwitcher extends React.Component<Props, State> {
   };
 
   public render() {
-    return this.renderDropdown();
+    return this.props.funnels.length === 1 ?
+      this.renderSettingsButton() :
+      this.renderDropdown();
   }
 
   private toggle = () => {
@@ -39,6 +41,17 @@ class PipelineSwitcher extends React.Component<Props, State> {
     return activeFunnelName ? activeFunnelName.name : null;
   }
 
+  private renderSettingsButton = () => {
+    return (
+      <div className={styles.settingsButton}>
+        <NavLink
+          to={'/settings/pipelines'}>
+          <ReactSVG src={settingsIcon} className={styles.dropIcon} />
+          <span>Pipelines settings</span>
+        </NavLink>
+      </div>
+    );
+  }
 
   private renderDropdown = () => {
     const { isDropdownOpen } = this.state;
@@ -63,18 +76,23 @@ class PipelineSwitcher extends React.Component<Props, State> {
         <DropdownMenu className={styles.sitchMenu} tag={'div'}>
           {this.renderPipelines()}
           <DropdownItem divider={true} />
-          <DropdownItem
-            tag="div"
-            // onClick={this.props.history.push}
-            className={classNames(styles.switchItem)}
-          >
-            <ReactSVG src={settingsIcon} className={styles.dropIcon} />
-            <span>Pipilines settings</span>
-          </DropdownItem>
+          <NavLink
+            className={styles.settingsLink}
+            to={'/settings/pipelines'}>
+            <DropdownItem
+              tag="div"
+              // onClick={this.props.history.push}
+              className={classNames(styles.switchItem)}
+            >
+              <ReactSVG src={settingsIcon} className={styles.settingsIcon} />
+              <span>Pipelines settings</span>
+            </DropdownItem>
+          </NavLink>
         </DropdownMenu>
       </Dropdown>
     );
   }
+
   private renderPipelines = () => {
     return this.props.funnels.map(funnel => (
       <DropdownItem
