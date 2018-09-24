@@ -9,6 +9,8 @@ export class People extends ContactsPage {
   public noContactsMessage = 'No people added yet';
   public oneContactHeader = 'person';
   public moreThanOneContactsHeader = 'people';
+  public signCreateNew = 'Create new person';
+
   public columns = [
     {
       dataField: 'name',
