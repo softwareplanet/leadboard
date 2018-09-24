@@ -5,7 +5,9 @@ export default class ContactSidebar extends React.Component {
 
   public render() {
     return (
-      <div className={detailedViewStyles.sidebar}></div>
+      <div className={detailedViewStyles.sidebar}>
+        Sidebar
+      </div>
     );
   }
 }
