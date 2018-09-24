@@ -20,6 +20,7 @@ import { Switch } from "react-router-dom";
 import EditLead from "./modules/lead/EditLead/EditLead";
 import Settings from "./modules/settings/Settings";
 import history from "./history";
+import Organization from "./modules/detailedView/Organization/Organization";
 
 setAuthInterceptor();
 // restore redux/storage on page reload
@@ -84,6 +85,12 @@ class App extends Component {
               <PrivateRoute
                 path="/settings"
                 component={Settings}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                path="/organization/:organizationId"
+                component={Organization}
               />
             </Switch>
             <Route exact path="/" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Login />} />
