@@ -7,6 +7,7 @@ const reactModalStyles = {
     boxSizing: 'border-box',
     left: '50%',
     margin: '0',
+    overflow: 'hidden',
     padding: '0',
     right: 'auto',
     top: '0',
