@@ -1,10 +1,10 @@
 import * as React from 'react';
-import * as styles from './OrganizationSidebar.css'
+import * as detailedViewStyles from '../../detailedView.css';
 export default class OrganizationSidebar extends React.Component {
 
   public render() {
     return (
-      <div className={styles.sidebar}>
+      <div className={detailedViewStyles.sidebar}>
         Sidebar
       </div>
     );

@@ -1,10 +1,11 @@
 import * as React from 'react';
+import * as detailedViewStyles from '../../detailedView.css';
 
 export default class ContactSidebar extends React.Component {
 
   public render() {
     return (
-      <div></div>
+      <div className={detailedViewStyles.sidebar}></div>
     );
   }
 }

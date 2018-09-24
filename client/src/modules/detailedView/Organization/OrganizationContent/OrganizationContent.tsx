@@ -1,10 +1,10 @@
 import * as React from 'react';
-import * as styles from './OrganizationContent.css';
+import * as detailedViewStyles from '../../detailedView.css';
 export default class OrganizationContent extends React.Component {
 
   public render() {
     return (
-      <div className={styles.content}>
+      <div className={detailedViewStyles.content}>
         Content
       </div>
     );
