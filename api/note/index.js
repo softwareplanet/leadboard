@@ -52,10 +52,9 @@ router.patch("/:modelId/:noteId", validateNoteDomainMiddleware, async (req, res)
           { _id: noteId },
           { $set: { text: text, lastUpdater: req.user.id } },
           { new: true })
+          .populate(Note.populates.basic)
           .then(note => {
-            Note.populate(note, Note.populates.basic, (err, note) => {
               res.json(note);
-            });
           });
       } else {
         return res.status(400).json(

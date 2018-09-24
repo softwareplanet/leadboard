@@ -31,7 +31,7 @@ export const validateNoteUpdate = (noteId, text) => {
 export const validateNoteCreate = (text) => {
   let errors = {};
   if (isBlank(text)) {
-    errors.note = "Note cant be empty";
+    errors.note = "Note can't be empty";
   }
   return {
     errors,

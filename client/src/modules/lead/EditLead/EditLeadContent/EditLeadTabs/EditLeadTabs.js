@@ -58,9 +58,9 @@ class EditLeadTabs extends Component {
     let note = {
       attachedTo: editLead._id,
       text: noteText,
-      lead: editLead._id,
-      contact: editLead.contact._id,
-      organization: editLead.organization._id,
+      lead: editLead ? editLead._id : null,
+      contact: editLead.contact ? editLead.contact._id : null,
+      organization: editLead.organization ? editLead.organization._id : null,
     };
 
     this.props.createNote(note);
