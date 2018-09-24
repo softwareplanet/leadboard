@@ -59,7 +59,6 @@ class EditLeadTabs extends Component {
       lead: this.props.editLead._id,
       contact: this.props.editLead.contact._id,
       organization: this.props.editLead.organization._id,
-      user: this.props.userId,
     };
 
     this.props.createNote(note);

@@ -1,6 +1,11 @@
 import { Router } from "express";
 import Note from "../../models/note";
-import { isValidModelId, isBlank } from "../../validation/validationUtils";
+import {
+  validateNotesGet,
+  validateNoteDomainMiddleware,
+  validateNoteUpdate,
+  validateNoteCreate,
+} from "../../validation/note";
 
 const router = new Router();
 
@@ -9,6 +14,8 @@ const router = new Router();
 // @access  Private
 router.get("/:modelName/:modelId", (req, res) => {
   const { modelName, modelId } = req.params;
+  const { hasErrors, errors } = validateNotesGet(modelName);
+  if (hasErrors) return res.status(400).json({ errors });
   findNotesByModel(modelName, modelId)
     .populate(Note.populates.basic)
     .then(result => {
@@ -19,77 +26,62 @@ router.get("/:modelName/:modelId", (req, res) => {
     });
 });
 
-const findNotesByModel = (model, noteId) => {
+const findNotesByModel = (model, modelId) => {
   switch (model) {
     case "lead":
-      return Note.find({ lead: noteId });
+      return Note.find({ lead: modelId });
     case "contact":
-      return Note.find({ contact: noteId });
+      return Note.find({ contact: modelId });
     case "organization":
-      return Note.find({ organization: noteId });
-    default:
-      return Promise.reject(Error("Bad model's type"));
+      return Note.find({ organization: modelId });
   }
 };
-
-const validateNoteDomain = (req, res, next) => {
-  if (isValidModelId(req.params.noteId)) {
-    Note.findById(req.params.noteId)
-      .populate({ path: "lead", populate: { path: "owner" } })
-      .then(note => {
-        if (note !== null && note.lead.owner.domain.equals(req.user.domain)) {
-          next();
-        } else {
-          return res.status(404).json({ errors: { message: "Note with provided id is not found in your domain" } });
-        }
-      });
-  } else {
-    return res.status(404).json({ errors: { message: "Provided note's id is not valid" } });
-  }
-};
-const noteMembersMiddlewares = [validateNoteDomain];
 
 // @route   PATCH api/note/:noteId
 // @desc    Update note
 // @access  Private
-router.patch("/:noteId", noteMembersMiddlewares, async (req, res) => {
-  if (!isBlank(req.body)) {
-    Note.findOneAndUpdate(
-      { _id: req.params.noteId },
-      { $set: { text: req.body.text, lastUpdater: req.user.id } },
-      { new: true })
-      .then(note => {
-        return res.json(note);
-      })
-      .catch(error => {
-        res.status(400).json({ errors: { message: error } });
+router.patch("/:noteId", validateNoteDomainMiddleware, async (req, res) => {
+  const { noteId } = req.params;
+  const { text } = req.body;
+  const { hasErrors, errors } = validateNoteUpdate(noteId, text);
+  if (hasErrors) return res.status(400).json({ errors });
+  Note.findOneAndUpdate(
+    { _id: noteId },
+    { $set: { text: text, lastUpdater: req.user.id } },
+    { new: true })
+    .then(note => {
+      Note.populate(note, Note.populates.basic, (err,note) => {
+        res.json(note);
       });
-  } else {
-    req.status(400).json({ errors: { message: "Note cant be empty" } });
-  }
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
 });
 
 // @route   POST api/note
 // @desc    Create note
 // @access  Private
 router.post("/", (req, res) => {
-  if (!isBlank(req.body)) {
-    Note.create(req.body)
-      .then(lead => {
-        res.json(lead);
-      })
-      .catch(error => {
-        res.status(400).json({ errors: { message: error } });
+  const note = req.body;
+  const { hasErrors, errors } = validateNoteCreate(note.text);
+  if (hasErrors) return res.status(400).json({ errors });
+  note.user = req.user.id;
+  Note.create(note)
+    .then(note => {
+      Note.populate(note, Note.populates.basic, (err,note) => {
+        res.json(note);
       });
-  } else {
-    req.status(400).json({ errors: { message: "Note cant be empty" } });
-  }
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
 });
 
 // @route   DELETE api/note/:noteId
 // @desc    Delete note
 // @access  Private
-router.delete("/:noteId", noteMembersMiddlewares, (req, res) => {
+router.delete("/:noteId", validateNoteDomainMiddleware, (req, res) => {
   Note.findByIdAndRemove(req.params.noteId)
     .then(() => res.status(204).send())
     .catch(error => {

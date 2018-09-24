@@ -41,7 +41,6 @@ describe("Lead", () => {
       });
     expect(status).toBe(200);
     expect(body).toMatchObject({
-      user: cred.userId,
       text: "First note",
       contact: lead.contact._id,
       lead: lead._id,
@@ -73,7 +72,7 @@ describe("Lead", () => {
     const { status, body } = await request(app())
       .patch(`/api/note/${lead._id}`)
       .set("Authorization", otherUser.token)
-      .send({});
+      .send();
     expect(status).toBe(404);
     expect(body).toMatchObject({ errors: { message: "Note with provided id is not found in your domain" } });
   });
@@ -82,7 +81,15 @@ describe("Lead", () => {
     const { status } = await request(app())
       .delete(`/api/note/${note._id}`)
       .set("Authorization", cred.token)
-      .send({});
+      .send();
     expect(status).toEqual(204);
+  });
+
+  it("should return error if bad model's type", async () => {
+    const { body } = await request(app())
+      .get(`/api/note/leads/${lead._id}`)
+      .set("Authorization", cred.token)
+      .send();
+    expect(body.errors.model).toEqual("Bad model's type");
   });
 });
