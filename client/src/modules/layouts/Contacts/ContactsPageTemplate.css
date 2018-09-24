@@ -11,10 +11,7 @@
 }
 
 .headingWrapper {
-  padding: 10px 0;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  composes: dashboardActions from "../../lead/DashboardActions/DashboardActions.css";
 }
 
 .noMarginTop {

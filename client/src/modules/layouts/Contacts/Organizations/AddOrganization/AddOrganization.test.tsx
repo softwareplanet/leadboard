@@ -1,8 +1,8 @@
 import { shallow } from 'enzyme';
 import * as React from 'react';
 import DomainSettings from '../../../../../models/DomainSettings';
+import * as addModalStyles from '../../../../../styles/addingModal.css';
 import { AddOrganization } from './AddOrganization';
-import * as styles from './AddOrganization.css';
 
 describe('<AddOrganization /> :', () => {
   let wrapper: any;
@@ -75,18 +75,18 @@ describe('<AddOrganization /> :', () => {
   });
 
   it('should render without crashing', () => {
-    expect(wrapper.find(`button.${styles.button}`).text()).toBe('Add organization');
+    expect(wrapper.find(`button.${addModalStyles.saveButton}`).at(0).text()).toBe('Add organization');
     expect(wrapper.state().isModaOpen).toBeFalsy();
   });
 
   it('should open modal on Add organization button click', () => {
-    const addOrganizationBtn = wrapper.find(`button.${styles.button}`);
+    const addOrganizationBtn = wrapper.find(`button.${addModalStyles.saveButton}`).at(0);
     addOrganizationBtn.simulate('click');
-    expect(wrapper.find(`header.${styles.formHeader}`).text()).toBe('Add new organization');
+    expect(wrapper.find(`header.${addModalStyles.formHeader}`).text()).toBe('Add new organization');
   });
 
   it('should create organization with set params on save click', () => {
-    const addOrganizationBtn = wrapper.find(`button.${styles.button}`);
+    const addOrganizationBtn = wrapper.find(`button.${addModalStyles.saveButton}[children="Add organization"]`);
     addOrganizationBtn.simulate('click');
 
     const nameInput = wrapper.find(`input[name='name']`);
@@ -97,7 +97,7 @@ describe('<AddOrganization /> :', () => {
     const organizationAddress = '1-st av. 25';
     addressInput.simulate('change', { target: { value: organizationAddress } });
 
-    const saveBtn = wrapper.find(`button.${styles.saveBtn}`);
+    const saveBtn = wrapper.find(`button.${addModalStyles.saveButton}[children="Save"]`);
     saveBtn.simulate('click');
     expect(addOrganization).toHaveBeenCalledWith({
       custom: [{

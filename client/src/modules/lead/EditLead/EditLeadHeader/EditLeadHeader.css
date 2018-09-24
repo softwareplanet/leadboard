@@ -168,4 +168,5 @@
   composes: button from '../../../../styles/common.css';
   padding: 4px 8px;
   font-size: 10px;
+  margin-left: 8px;
 }

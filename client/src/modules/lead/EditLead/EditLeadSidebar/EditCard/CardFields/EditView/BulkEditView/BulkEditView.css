@@ -13,4 +13,5 @@
 .saveBtn {
   composes: button from "../../../../../../../../styles/common.css";
   composes: buttonGreen from "../../../../../../../../styles/common.css";
+  margin-left: 8px;
 }

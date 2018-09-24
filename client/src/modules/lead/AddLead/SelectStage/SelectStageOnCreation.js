@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import styles from "./SelectStageOnCreation.css";
-import addModalStyles from "../AddLead.css";
+import addModalStyles from "../../../../styles/addingModal.css";
 import ReactTooltip from "react-tooltip";
 import classNames from "classnames/bind";
 

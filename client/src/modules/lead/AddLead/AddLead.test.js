@@ -9,7 +9,7 @@ import noop from "lodash";
 import { AddLead } from "./AddLead";
 import Modal from "react-modal";
 import configureStore from "redux-mock-store";
-import styles from "./AddLead.css";
+import styles from "../../../styles/addingModal.css";
 
 chai.use(spies);
 
@@ -88,7 +88,7 @@ describe("<AddLead />", () => {
     const invalidContainerClass = styles.invalidContainer;
     expect(mountedAddLead.find(`.${invalidContainerClass}`).length).to.equal(0);
 
-    let saveLeadBtn = mountedAddLead.find(`.${styles.saveBtn}`);
+    let saveLeadBtn = mountedAddLead.find(`.${styles.saveButton}[children="Save"]`);
     saveLeadBtn.simulate("click", {});
     expect(mountedAddLead.find(`.${invalidContainerClass}`).length).to.equal(3);
 
