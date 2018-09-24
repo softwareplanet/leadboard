@@ -4,8 +4,16 @@ import Navbar from '../../layouts/Navbar/Navbar';
 import DetailedViewHeader from '../DetailedViewHeader/DetailedViewHeader';
 import ContactContent from './ContactContent/ContactContent';
 import ContactSidebar from './ContactSidebar/ContactSidebar';
+import { loadContactById } from '../../layouts/Contacts/People/contactActions';
+import { RouteComponentProps } from 'react-router';
+import ContactModel from '../../../models/Contact';
 
-class Contact extends React.Component {
+interface Props extends RouteComponentProps<{contactId: string}>{
+  contact: ContactModel;
+
+  loadContactById(contact: string): void;
+}
+class Contact extends React.Component<Props> {
 
   public render() {
     const displayFlex = {
@@ -25,8 +33,14 @@ class Contact extends React.Component {
       </div>
     );
   }
+
+  public componentWillMount() {
+    this.props.loadContactById(this.props.match.params.contactId);
+  }
 }
 
-const mapStateToProps = () => ({});
+const mapStateToProps = (state: any) => ({
+  contact: state.contacts.detailedContact.contact,
+});
 
-export default connect(mapStateToProps)(Contact);
+export default connect(mapStateToProps, { loadContactById })(Contact);
