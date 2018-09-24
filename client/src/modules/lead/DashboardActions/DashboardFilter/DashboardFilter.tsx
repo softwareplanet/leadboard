@@ -75,11 +75,8 @@ class DashboardFilter extends React.Component<Props, State> {
   private getCurrentFilterText = () => {
     if (this.areFunnelsWithFiltersLoaded()) {
       const dashboardFilter = this.props.dashboardFilters.find(filter => {
-        console.log(filter.funnelId === localStorage.getItem('activeFunnelId'));
-        // console.log(filter.funnelId);
         return filter.funnelId === localStorage.getItem('activeFunnelId')
        });
-      console.log(dashboardFilter);
       const currentFilter = this.state.filters.find(filter =>
         dashboardFilter.status === filter.type,
       );
