@@ -1,9 +1,10 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import Navbar from '../../layouts/Navbar/Navbar';
 import DetailedViewHeader from '../DetailedViewHeader/DetailedViewHeader';
 import ContactContent from './ContactContent/ContactContent';
 import ContactSidebar from './ContactSidebar/ContactSidebar';
-import { connect } from 'react-redux';
+
 class Contact extends React.Component {
 
   public render() {
