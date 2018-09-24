@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
 import { GET_ERRORS } from '../../actionTypes';
+import { IN_PROGRESS } from '../../constants';
 import FunnelModel from '../../models/Funnel';
 import Stage from '../../models/Stage';
 import { setActiveFunnelAction } from '../lead/leadActions';
+import { ADD_DASHBOARD_FUNNELS_FILTER } from '../lead/types';
 import { ADD_FUNNEL, ADD_STAGE, EDIT_STAGE, LOAD_FUNNELS, LOAD_SETTINGS_STAGES, SET_FUNNEL } from './types';
 
 
@@ -83,6 +85,13 @@ export const createFunnel = (name: string) => (dispatch: Dispatch) => {
       dispatch({
         payload: result.data,
         type: ADD_FUNNEL,
+      });
+      dispatch({
+        payload: {
+          funnelId: result.data._id,
+          status: IN_PROGRESS,
+        },
+        type: ADD_DASHBOARD_FUNNELS_FILTER,
       });
     })
     .catch(error => {

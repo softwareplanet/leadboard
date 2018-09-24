@@ -45,6 +45,7 @@ class App extends Component {
 
   redirectHome = () => {
     return <Redirect to={`/pipelines/${store.getState().dashboard.activeFunnel._id}`} />;
+    // return history.push(`/pipelines/${match.params.funnelId}`);
   };
 
   render() {

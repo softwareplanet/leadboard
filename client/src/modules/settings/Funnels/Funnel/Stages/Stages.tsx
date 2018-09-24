@@ -34,7 +34,9 @@ class Stages extends React.Component<Props, State> {
   }
 
   public componentDidMount() {
-    this.props.loadSettingsStages(this.props.selectedFunnel._id);
+    if (this.props.selectedFunnel._id) {
+      this.props.loadSettingsStages(this.props.selectedFunnel._id);
+    }
   }
 
   public render() {
