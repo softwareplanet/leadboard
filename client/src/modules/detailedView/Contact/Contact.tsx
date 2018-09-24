@@ -3,8 +3,8 @@ import Navbar from '../../layouts/Navbar/Navbar';
 import DetailedViewHeader from '../DetailedViewHeader/DetailedViewHeader';
 import ContactContent from './ContactContent/ContactContent';
 import ContactSidebar from './ContactSidebar/ContactSidebar';
-
-export default class Contact extends React.Component {
+import { connect } from 'react-redux';
+class Contact extends React.Component {
 
   public render() {
     const displayFlex = {
@@ -25,3 +25,7 @@ export default class Contact extends React.Component {
     );
   }
 }
+
+const mapStateToProps = () => ({});
+
+export default connect(mapStateToProps)(Contact);
