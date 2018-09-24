@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ADD_ORGANIZATION, LOAD_ORGANIZATIONS } from "./types";
+import { ADD_ORGANIZATION, LOAD_ORGANIZATIONS, LOAD_ORGANIZATION } from "./types";
 import { dispatchResponse } from "../../../../dispatchResponse";
 
 export const loadOrganizations = () => dispatch => {
@@ -15,4 +15,9 @@ export const loadAggregatedOrganizations = () => dispatch => {
 export const addOrganization = organization => dispatch => {
   axios.post(`/api/organization`, organization)
     .then(...dispatchResponse(ADD_ORGANIZATION));
+};
+
+export const loadOrganization = organizationId => dispatch => {
+  axios.get(`/api/organization/${organizationId}`)
+    .then(...dispatchResponse(LOAD_ORGANIZATION));
 };

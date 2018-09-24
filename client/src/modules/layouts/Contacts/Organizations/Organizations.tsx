@@ -26,12 +26,11 @@ export class OrganizationPage extends ContactsPage {
       isModalOpen={this.state.isModalOpen}
       openModal={this.openAddingModal}
       closeModal={this.closeAddingModal}
-    />
+    />;
 }
 
-
 const mapStateToProps = (state: any) => ({
-  contacts: state.organizations,
+  contacts: state.organizations.organizations,
   domainCustomFields: state.domain.settings.customFields,
 });
 
