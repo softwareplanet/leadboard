@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import defaultStyles from "./InfoItemWrapper.css";
-import defaultIcon from "../../../assets/note-icon.svg";
+import defaultIcon from "../../../assets/img/note-icon.svg";
 
 const space = "&nbsp;";
 

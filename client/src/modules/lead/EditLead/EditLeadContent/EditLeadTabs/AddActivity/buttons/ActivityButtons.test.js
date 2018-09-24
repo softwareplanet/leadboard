@@ -3,8 +3,8 @@ import { shallow } from "enzyme";
 import { configure } from "enzyme/build/index";
 import Adapter from "enzyme-adapter-react-16";
 import ActivityButtons from "./ActivityButtons";
-import phoneIcon from "../../../../../../../assets/add-activity/phone.svg";
-import meetingIcon from "../../../../../../../assets/add-activity/meeting.svg";
+import phoneIcon from "../../../../../../../assets/img/add-activity/phone.svg";
+import meetingIcon from "../../../../../../../assets/img/add-activity/meeting.svg";
 import ButtonWithImg from "./ButtonWithImg";
 
 

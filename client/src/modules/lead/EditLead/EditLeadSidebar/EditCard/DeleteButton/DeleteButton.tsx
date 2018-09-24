@@ -1,5 +1,5 @@
 import * as React from 'react';
-import trashIcon from '../../../../../../assets/trash-icon.svg';
+import trashIcon from '../../../../../../assets/img/trash-icon.svg';
 
 interface Props {
   styles: any;

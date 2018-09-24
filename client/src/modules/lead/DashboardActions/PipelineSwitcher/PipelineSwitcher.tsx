@@ -1,8 +1,8 @@
 import * as React from 'react';
-import downArrowIcon from '../../../../assets/down-arrow.svg';
-import pipelinesIcon from '../../../../assets/switch-pipeline.svg';
+import downArrowIcon from '../../../../assets/img/down-arrow.svg';
+import pipelinesIcon from '../../../../assets/img/switch-pipeline.svg';
 import ReactSVG from 'react-svg';
-import checkMarkIcon from '../../../../assets/checkMark.svg';
+import checkMarkIcon from '../../../../assets/img/checkMark.svg';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 import * as styles from './PipelineSwitcher.css';
 import classNames from 'classnames';

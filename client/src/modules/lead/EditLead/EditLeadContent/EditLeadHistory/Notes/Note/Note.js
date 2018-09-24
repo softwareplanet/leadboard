@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import styles from "./Note.css";
 import { formatDate } from "../../../../../../../utils/formatDate";
-import spreadButton from "../../../../../../../assets/spread-button.svg"
+import spreadButton from "../../../../../../../assets/img/spread-button.svg"
 import { Popover, PopoverBody } from "reactstrap";
 import EditLeadEditor from "../../../EditLeadTabs/EditLeadEditor/EditLeadEditor";
 
