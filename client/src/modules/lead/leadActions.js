@@ -46,8 +46,10 @@ export const setActiveFunnel = (funnelId) => (dispatch, getState) => {
       const status = getState().dashboard.dashboardFilters.find(filter =>
         filter.funnelId === funnel._id
       ).status;
-      dispatch(loadDashboard(funnel._id, status))
-      if (history) history.push(`/pipelines/${funnel._id}`);
+      dispatch(loadDashboard(funnel._id, status));
+      if (history) {
+        history.push(`/pipelines/${funnel._id}`);
+      }
     })
 }
 
