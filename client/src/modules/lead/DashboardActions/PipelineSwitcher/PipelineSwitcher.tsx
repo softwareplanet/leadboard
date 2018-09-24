@@ -1,13 +1,14 @@
-import * as React from 'react';
-import downArrowIcon from '../../../../assets/down-arrow.svg';
-import pipelinesIcon from '../../../../assets/switch-pipeline.svg';
-import ReactSVG from 'react-svg';
-import checkMarkIcon from '../../../../assets/checkMark.svg';
-import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
-import * as styles from './PipelineSwitcher.css';
 import classNames from 'classnames';
+import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+import ReactSVG from 'react-svg';
+import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
+import checkMarkIcon from '../../../../assets/checkMark.svg';
+import downArrowIcon from '../../../../assets/down-arrow.svg';
+import settingsIcon from '../../../../assets/settings-icon.svg';
+import pipelinesIcon from '../../../../assets/switch-pipeline.svg';
 import Funnel from '../../../../models/Funnel';
+import * as styles from './PipelineSwitcher.css';
 
 interface State {
   isDropdownOpen: boolean;
@@ -25,6 +26,21 @@ class PipelineSwitcher extends React.Component<Props, State> {
   };
 
   public render() {
+    return this.renderDropdown();
+  }
+
+  private toggle = () => {
+    this.setState({ isDropdownOpen: !this.state.isDropdownOpen });
+  }
+
+  private getCurrentFunnelName = () => {
+    const activeFunnelName = this.props.funnels.find(funnel =>
+      funnel._id === this.props.match.params.funnelId);
+    return activeFunnelName ? activeFunnelName.name : null;
+  }
+
+
+  private renderDropdown = () => {
     const { isDropdownOpen } = this.state;
     return (
       <Dropdown
@@ -46,28 +62,25 @@ class PipelineSwitcher extends React.Component<Props, State> {
         </DropdownToggle>
         <DropdownMenu className={styles.sitchMenu} tag={'div'}>
           {this.renderPipelines()}
+          <DropdownItem divider={true} />
+          <DropdownItem
+            tag="div"
+            // onClick={this.props.history.push}
+            className={classNames(styles.switchItem)}
+          >
+            <ReactSVG src={settingsIcon} className={styles.dropIcon} />
+            <span>Pipilines settings</span>
+          </DropdownItem>
         </DropdownMenu>
       </Dropdown>
     );
   }
-
-  private toggle = () => {
-    this.setState({ isDropdownOpen: !this.state.isDropdownOpen });
-  }
-
-  private getCurrentFunnelName = () => {
-    const activeFunnelName = this.props.funnels.find(funnel =>
-      funnel._id === this.props.match.params.funnelId);
-    return activeFunnelName ? activeFunnelName.name : null;
-  }
-
   private renderPipelines = () => {
     return this.props.funnels.map(funnel => (
       <DropdownItem
         tag="div"
         onClick={this.props.setActiveFunnel.bind(this, funnel._id)}
         className={classNames(styles.switchItem)}
-        id="logout"
         key={funnel._id}
       >
         {funnel._id === this.props.match.params.funnelId ?
