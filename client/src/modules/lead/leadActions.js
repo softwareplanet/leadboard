@@ -48,8 +48,10 @@ export const setActiveFunnel = (funnelId) => (dispatch, getState) => {
         filter.funnelId === funnel._id
       ).status;
       localStorage.setItem("activeFunnelId", funnel._id);
-      dispatch(loadDashboard(funnel._id, status))
-      if (history) history.push(`/pipelines/${funnel._id}`);
+      dispatch(loadDashboard(funnel._id, status));
+      if (history) {
+        history.push(`/pipelines/${funnel._id}`);
+      }
     })
 }
 

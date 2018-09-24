@@ -9,15 +9,14 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import LeadModel from '../../../models/Lead';
 import Stage from '../../../models/Stage';
 import { loadFirstActivityInLeadsPlan } from '../EditLead/Activities/activityActions';
-import { loadDashboard, setActiveFunnel} from '../leadActions';
+import { setActiveFunnel} from '../leadActions';
 import { ACTIVE, NOACTIVITY, OVERDUE, PLANNED } from './activityStatuses';
 import Lead from './Lead/Lead';
 
 interface Props extends RouteComponentProps<any> {
   dashboard: any;
-  nearestActivities: any;
+  nearestActivities: any; 
 
-  loadDashboard(funnelId:string): void;
   setActiveFunnel(funnelId?: string): void;
   loadFirstActivityInLeadsPlan(): void;
 }
@@ -30,10 +29,6 @@ export class Dashboard extends React.Component<Props, State> {
   public state: State = {
     leadboardLoaded: false,
   };
-
-  public componentWillReceiveProps(nextProps: Props) {
-    this.loadItems();
-  }
 
   public componentDidMount() {
     this.loadItems();
@@ -72,7 +67,7 @@ export class Dashboard extends React.Component<Props, State> {
     const leads = this.props.dashboard.leads;
     const stages = Object.keys(leads).map(value => leads[value]);
     return fp.all(s => s.leads.length === 0, stages);
-  };
+  }
 
   private createLeadCards = (stage: string) => {
     if (this.isStageIsUndefined(stage)) {return <div />;}
@@ -81,7 +76,7 @@ export class Dashboard extends React.Component<Props, State> {
       const status = this.getLeadActivityStatus(lead);
       return <Lead key={lead._id} lead={lead} link={this.leadPath(lead)} activityStatus={status} />;
     });
-  };
+  }
 
   private getLeadActivityStatus = (lead: LeadModel) => {
     const leadWithActivities = fp.find(a => a.lead === lead._id, this.props.nearestActivities);
@@ -104,11 +99,11 @@ export class Dashboard extends React.Component<Props, State> {
     } else {
       return NOACTIVITY;
     }
-  };
+  }
 
   private leadPath = (lead: LeadModel) => {
     return `/lead/${lead._id}`;
-  };
+  }
 
   private createEmptyLeadCards = (index: number) => {
     const emptyLeads = [];
@@ -116,21 +111,19 @@ export class Dashboard extends React.Component<Props, State> {
       emptyLeads.push(<div key={i} className={styles.stagePlaceholder} />);
     }
     return emptyLeads;
-  };
+  }
 
   private isStageIsUndefined = (stage: string) => {
     return typeof this.props.dashboard.leads['_' + stage] === 'undefined';
-  };
+  }
 
   private loadItems = () => {
     if (!this.state.leadboardLoaded) {
       this.props.setActiveFunnel(localStorage.getItem('activeFunnelId')!);
-
-      this.props.loadDashboard(localStorage.getItem('activeFunnelId')!);
       this.props.loadFirstActivityInLeadsPlan();
       this.setState({ leadboardLoaded: true });
     }
-  };
+  }
 }
 
 const mapStateToProps = (state: any) => ({
@@ -140,5 +133,5 @@ const mapStateToProps = (state: any) => ({
 
 export default connect(
   mapStateToProps,
-  { loadDashboard, setActiveFunnel, loadFirstActivityInLeadsPlan },
+  { setActiveFunnel, loadFirstActivityInLeadsPlan },
 )(withRouter(Dashboard));
