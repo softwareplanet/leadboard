@@ -5,7 +5,7 @@ import downArrowIcon from '../../../../assets/down-arrow.svg';
 import filterIcon from '../../../../assets/filter-icon.svg';
 import { IN_PROGRESS, LOST, WON } from '../../../../constants';
 import Funnel from '../../../../models/Funnel';
-import { loadDashboard, setFunnelsFilter, setActiveFilter } from '../../leadActions';
+import { loadDashboard, setActiveFilter, setFunnelsFilter } from '../../leadActions';
 import * as styles from './DashboardFilter.css';
 import DashboardFilterPopover from './DashboardFilterPopover/DashboardFilterPopover';
 
@@ -75,11 +75,8 @@ class DashboardFilter extends React.Component<Props, State> {
   private getCurrentFilterText = () => {
     if (this.areFunnelsWithFiltersLoaded()) {
       const dashboardFilter = this.props.dashboardFilters.find(filter => {
-        console.log(filter.funnelId === localStorage.getItem('activeFunnelId'));
-        // console.log(filter.funnelId);
-        return filter.funnelId === localStorage.getItem('activeFunnelId')
+        return filter.funnelId === localStorage.getItem('activeFunnelId');
        });
-      console.log(dashboardFilter);
       const currentFilter = this.state.filters.find(filter =>
         dashboardFilter.status === filter.type,
       );
