@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { USER, CONTACT, ORGANIZATION, LEAD } from "./refs";
 
 const noteSchema = new mongoose.Schema({
+  attachedTo: { type: mongoose.Schema.Types.ObjectId },
   text: { type: String, required: true },
   lead: { type: mongoose.Schema.Types.ObjectId, ref: LEAD },
   contact: { type: mongoose.Schema.Types.ObjectId, ref: CONTACT },

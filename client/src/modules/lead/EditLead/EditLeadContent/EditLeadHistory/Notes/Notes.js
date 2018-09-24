@@ -10,7 +10,7 @@ import { isEmpty } from "lodash";
 class Notes extends Component {
 
   noteUpdateHandler = (note) => {
-    this.props.updateNote(note)
+    this.props.updateNote(this.props.editLead._id, note)
   };
 
   noteDeleteHandler = (note) => {
@@ -28,8 +28,8 @@ class Notes extends Component {
             <InfoItemWrapper
               key={note._id}
               component={
-              <Note 
-                updateNote={this.noteUpdateHandler} 
+              <Note
+                updateNote={this.noteUpdateHandler}
                 deleteNote={this.noteDeleteHandler}
                 note={note}
               />}

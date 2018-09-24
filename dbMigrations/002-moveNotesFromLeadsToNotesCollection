@@ -4,6 +4,7 @@ mongo leadster --eval 'db.leads.find().forEach(function(lead){
       note.lead = lead._id;
       note.contact = lead.contact;
       note.organization = lead.organization;
+      note.attachedTo = lead._id;
       db.notes.save(note)
     });
     delete lead.notes;

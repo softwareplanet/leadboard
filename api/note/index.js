@@ -40,17 +40,25 @@ const findNotesByModel = (model, modelId) => {
 // @route   PATCH api/note/:noteId
 // @desc    Update note
 // @access  Private
-router.patch("/:noteId", validateNoteDomainMiddleware, async (req, res) => {
+router.patch("/:modelId/:noteId", validateNoteDomainMiddleware, async (req, res) => {
   const { noteId } = req.params;
   const { text } = req.body;
   const { hasErrors, errors } = validateNoteUpdate(noteId, text);
   if (hasErrors) return res.status(400).json({ errors });
+  Note.findOne({ attachedTo: req.params.modelId })
+    .then(note => {
+      if (!note) {
+        return res.status(400).json(
+          { errors: { message: `You can't update note that is not attached to model:${req.params.modelId}` } },
+        );
+      }
+    });
   Note.findOneAndUpdate(
     { _id: noteId },
     { $set: { text: text, lastUpdater: req.user.id } },
     { new: true })
     .then(note => {
-      Note.populate(note, Note.populates.basic, (err,note) => {
+      Note.populate(note, Note.populates.basic, (err, note) => {
         res.json(note);
       });
     })
@@ -69,7 +77,7 @@ router.post("/", (req, res) => {
   note.user = req.user.id;
   Note.create(note)
     .then(note => {
-      Note.populate(note, Note.populates.basic, (err,note) => {
+      Note.populate(note, Note.populates.basic, (err, note) => {
         res.json(note);
       });
     })

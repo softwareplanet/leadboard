@@ -54,11 +54,13 @@ class EditLeadTabs extends Component {
   }
 
   onNoteSave = noteText => {
+    const { editLead } = this.props;
     let note = {
+      attachedTo: editLead._id,
       text: noteText,
-      lead: this.props.editLead._id,
-      contact: this.props.editLead.contact._id,
-      organization: this.props.editLead.organization._id,
+      lead: editLead._id,
+      contact: editLead.contact._id,
+      organization: editLead.organization._id,
     };
 
     this.props.createNote(note);
