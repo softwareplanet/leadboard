@@ -22,12 +22,12 @@ describe('<MainField />', () => {
 
   it('should render correct contact name with props', () => {
     wrapper = shallow(<MainField link="" value={contact.name} onUpdate={noop} title={title} />);
-    expect(wrapper.find('span.mainValue').children().text()).toBe(contact.name);
+    expect(wrapper.find('.mainValue').children().text()).toBe(contact.name);
   });
 
   it('should render correct organization name with props', () => {
     wrapper = shallow(<MainField link="" value={contact.organization.name} onUpdate={noop} title={title} />);
-    expect(wrapper.find('span.mainValue').children().text()).toBe(contact.organization.name);
+    expect(wrapper.find('.mainValue').children().text()).toBe(contact.organization.name);
   });
 
   it('should switch to edit view on click Rename', () => {
