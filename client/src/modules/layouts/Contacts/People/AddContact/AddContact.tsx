@@ -14,7 +14,7 @@ import { autocompleteStyles } from '../../../../common/autocomplete/styles/autoc
 import { getCustomFieldSettingsByModel } from '../../../../lead/EditLead/EditLeadSidebar/CustomFieldsService';
 import * as dropdownStyles from '../../DropdownStyles.css';
 import { loadOrganizations } from '../../Organizations/organizationActions';
-import { addContact } from '../contactActions';
+import { addContact, loadAggregatedContacts } from '../contactActions';
 
 const customStyles = { ...reactModalStyles };
 
@@ -27,6 +27,8 @@ interface Props {
   addContact(contact: any): void;
 
   loadOrganizations(): void;
+
+  loadAggregatedContacts(): void;
 
   openModal(): void;
 
@@ -236,10 +238,13 @@ class AddContact extends React.Component<Props, State> {
       const contact = {
         custom: newCustomFields,
         name: newName,
-        organization: organization.id ? organization.id : organization.name,
+        organization: organization.id
+          ? organization.id
+          : organization.name,
       };
       this.props.addContact(contact);
       this.props.closeModal();
+      this.props.loadAggregatedContacts();
     } else {
       this.setState({
         isValidationShown: true,
@@ -275,9 +280,9 @@ class AddContact extends React.Component<Props, State> {
 const mapStateToProps = (state: any) => ({
   auth: state.auth,
   domainSettings: state.domain.settings,
-  organizations: state.organizations,
+  organizations: state.organization.organizations,
 });
 
 export { AddContact };
 
-export default connect(mapStateToProps, { addContact, loadOrganizations })(AddContact);
+export default connect(mapStateToProps, { addContact, loadOrganizations, loadAggregatedContacts })(AddContact);
