@@ -44,14 +44,14 @@ class EditLeadTabs extends React.Component<Props, State> {
     }
   }
 
-  public handleTab = (content: any) => {
+  public handleTabChange = (content: any) => {
     this.setState({
       activeTab: content, isFakeInputShown: false,
     });
-    this.handleFakeInput(content);
+    this.showFakeInput(content);
   }
 
-  public handleFakeInput = (activeTab: any) => {
+  public showFakeInput = (activeTab: any) => {
 
     switch (activeTab.type) {
       case (this.getNoteEditor().type): {
@@ -100,7 +100,7 @@ class EditLeadTabs extends React.Component<Props, State> {
         <ul className={styles.header}>
           <li
             className={classNames(styles.headerItem, { [styles.active]: isTakingNotesActive })}
-            onClick={this.handleTab.bind(this, this.getNoteEditor())}>
+            onClick={this.handleTabChange.bind(this, this.getNoteEditor())}>
             <img
               src={isTakingNotesActive ? takeNotesIconActive : takeNotesIcon}
               className={styles.headerItemIcon}
@@ -110,7 +110,7 @@ class EditLeadTabs extends React.Component<Props, State> {
           </li>
           <li
             className={classNames(styles.headerItem, { [styles.active]: isAddingActivityActive })}
-            onClick={this.handleTab.bind(this, this.getAddActivity())}>
+            onClick={this.handleTabChange.bind(this, this.getAddActivity())}>
             <img
               src={isAddingActivityActive ? addActivityIconActive : addActivityIcon}
               className={styles.headerItemIcon}
@@ -133,7 +133,7 @@ class EditLeadTabs extends React.Component<Props, State> {
       return (
         <div
           className={styles.fakeInput}
-          onClick={this.handleTab.bind(this, notesCondition ?
+          onClick={this.handleTabChange.bind(this, notesCondition ?
             this.getNoteEditor() :
             this.state.activeTab)}>
           Click here to{this.state.fakeInputContent}...
@@ -154,11 +154,11 @@ class EditLeadTabs extends React.Component<Props, State> {
   }
 }
 
-const mapStateToProps = (state: any) => ({
+const mapLeadStateToProps = (state: any) => ({
   editLead: state.dashboard.editLead.lead,
   userId: state.auth.userid,
 });
 
 export { EditLeadTabs };
 
-export const LeadTabs = connect(mapStateToProps, { createNote, createActivity })(withRouter(EditLeadTabs));
+export const LeadTabs = connect(mapLeadStateToProps, { createNote, createActivity })(withRouter(EditLeadTabs));
