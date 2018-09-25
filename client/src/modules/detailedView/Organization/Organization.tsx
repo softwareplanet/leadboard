@@ -7,7 +7,7 @@ import DetailedViewHeader from '../DetailedViewHeader/DetailedViewHeader';
 import OrganizationContent from './OrganizationContent/OrganizationContent';
 import OrganizationSidebar from './OrganizationSidebar/OrganizationSidebar';
 
-interface Props extends RouteComponentProps<any> {
+interface Props extends RouteComponentProps<{ organizationId: string }> {
   loadOrganization(id: string): void;
 };
 
