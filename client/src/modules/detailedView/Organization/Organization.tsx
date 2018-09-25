@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
-import { loadOrganization } from '../../layouts/Contacts/Organizations/organizationActions';
+import { loadOrganization } from './detailedOrganiaztionActions';
 import Navbar from '../../layouts/Navbar/Navbar';
 import DetailedViewHeader from '../DetailedViewHeader/DetailedViewHeader';
 import OrganizationContent from './OrganizationContent/OrganizationContent';

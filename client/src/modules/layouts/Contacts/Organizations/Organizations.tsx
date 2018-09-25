@@ -30,7 +30,7 @@ export class OrganizationPage extends ContactsPage {
 }
 
 const mapStateToProps = (state: any) => ({
-  contacts: state.organizations.organizations,
+  contacts: state.organization.organizations,
   domainCustomFields: state.domain.settings.customFields,
 });
 
