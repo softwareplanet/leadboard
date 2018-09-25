@@ -40,7 +40,7 @@ class EditLeadTabs extends React.Component<Props, State> {
 
   public componentDidMount() {
     if (this.state.activeTab === null) {
-      this.setState({ activeTab: <EditLeadEditor height={160} onCancel={this.onCancel} onSave={this.onNoteSave} /> });
+      this.setState({ activeTab: <EditLeadEditor height={160} onCancel={this.onCancel} onSave={this.saveNote} /> });
     }
   }
 
@@ -66,11 +66,10 @@ class EditLeadTabs extends React.Component<Props, State> {
         this.setState({ fakeInputContent: ' take notes' });
         break;
       }
-
     }
   }
 
-  public onNoteSave = (noteText: string) => {
+  public saveNote = (noteText: string) => {
     const note = {
       text: noteText,
       user: this.props.userId,
@@ -79,7 +78,7 @@ class EditLeadTabs extends React.Component<Props, State> {
     this.setState({ isFakeInputShown: true });
   }
 
-  public onActivitySave = (activity: Activity) => {
+  public activitySave = (activity: Activity) => {
     this.props.createActivity({
       ...activity,
       assignedTo: this.props.userId,
@@ -147,11 +146,11 @@ class EditLeadTabs extends React.Component<Props, State> {
   }
 
   private getNoteEditor = () => {
-    return (<EditLeadEditor height={160} onCancel={this.onCancel} onSave={this.onNoteSave} />);
+    return (<EditLeadEditor height={160} onCancel={this.onCancel} onSave={this.saveNote} />);
   }
 
   private getAddActivity = () => {
-    return (<AddActivity onCancel={this.onCancel} onSave={this.onActivitySave} />);
+    return (<AddActivity onCancel={this.onCancel} onSave={this.activitySave} />);
   }
 }
 
