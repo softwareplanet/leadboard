@@ -75,7 +75,7 @@ class EditLeadTabs extends React.Component<Props, State> {
       user: this.props.userId,
     };
     this.props.createNote(this.props.editLead._id, note);
-    this.setState({ isFakeInputShown: true });
+    this.toggleFakeInput();
   }
 
   public saveActivity = (activity: Activity) => {
@@ -84,11 +84,14 @@ class EditLeadTabs extends React.Component<Props, State> {
       assignedTo: this.props.userId,
       lead: this.props.editLead._id,
     });
-    this.setState({ isFakeInputShown: true });
+    this.toggleFakeInput();
   }
 
+  public toggleFakeInput = () => {
+    this.setState({ isFakeInputShown: !this.state.isFakeInputShown });
+  }
   public cancel = () => {
-    this.setState({ isFakeInputShown: true });
+    this.toggleFakeInput();
   }
 
   public render() {

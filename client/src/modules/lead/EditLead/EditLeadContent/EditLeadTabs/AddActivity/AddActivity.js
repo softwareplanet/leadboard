@@ -34,7 +34,7 @@ const activityTypes = [
 export default class AddActivity extends Component {
   state = {
     activeTab: activityTypes[0].type,
-    subject: "",
+    subject: this.props.activity ? this.props.activity.subject : "",
     date: "",
     time: "",
     duration: "",
@@ -164,7 +164,6 @@ export default class AddActivity extends Component {
           />
           <input
             onChange={this.onSubjectChange}
-            defaultValue={this.props.activity ? this.props.activity.subject : ""}
             autoFocus
             className={style.typeInput}
             placeholder={this.state.activeTab}
