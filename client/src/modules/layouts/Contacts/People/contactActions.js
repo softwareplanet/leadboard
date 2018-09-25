@@ -12,7 +12,3 @@ export const loadAggregatedContacts = () => dispatch => {
     .then(...dispatchResponse(LOAD_CONTACTS));
 };
 
-export const loadContact = (contactId) => dispatch => {
-  axios.get(`/api/contact/${contactId}`)
-    .then(...dispatchResponse(LOAD_CONTACT));
-}

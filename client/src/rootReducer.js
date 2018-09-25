@@ -24,7 +24,7 @@ const appReducer = combineReducers({
   auth: authReducer,
   dashboard: leadReducersAggregator,
   errors: errorReducer,
-  contacts: contactReducer,
+  contact: contactReducer,
   organizations: organizationReducer,
   settings: settingReducer,
   search: searchReducer,

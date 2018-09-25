@@ -2,11 +2,11 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import ContactModel from '../../../models/Contact';
-import { loadContact } from '../../layouts/Contacts/People/contactActions';
 import Navbar from '../../layouts/Navbar/Navbar';
 import DetailedViewHeader from '../DetailedViewHeader/DetailedViewHeader';
 import ContactContent from './ContactContent/ContactContent';
 import ContactSidebar from './ContactSidebar/ContactSidebar';
+import { loadContact } from './detailedContactActions';
 
 interface Props extends RouteComponentProps<{contactId: string}>{
   contact: ContactModel;
@@ -40,7 +40,7 @@ class Contact extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: any) => ({
-  contact: state.contacts.detailedContact.contact,
+  contact: state.contact.detailedContact.contact,
 });
 
 export default connect(mapStateToProps, { loadContact })(Contact);

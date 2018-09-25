@@ -1,6 +1,7 @@
 import { LOAD_CONTACTS, LOAD_CONTACT } from "./types";
 import { combineReducers } from "redux";
 import activityReducer from "../../../lead/EditLead/Activities/activityReducer";
+import detailedContactReducer from "../../../detailedView/Contact/detailedContactReducer";
 
 const contactsReducer = (state = [], action) => {
   switch (action.type) {
@@ -11,20 +12,7 @@ const contactsReducer = (state = [], action) => {
   }
 }
 
-const contactReducer = (state = {}, action) => {
-  switch (action.type) {
-    case LOAD_CONTACT:
-      return action.payload;
-    default:
-      return state;
-  }
-}
-
 export default combineReducers({
   contacts: contactsReducer,
-  detailedContact: combineReducers({
-    notes: [],
-    activities: activityReducer,
-    contact: contactReducer,
-  })
+  detailedContact: detailedContactReducer,
 })
