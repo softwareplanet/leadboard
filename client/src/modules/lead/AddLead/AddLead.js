@@ -377,8 +377,8 @@ AddLead.propTypes = {
 
 const mapStateToProps = state => ({
   dashboard: state.dashboard,
+  organizations: state.organization.organizations,
   contacts: state.contact.contacts,
-  organizations: state.organizations,
   auth: state.auth,
   errors: state.errors,
 });

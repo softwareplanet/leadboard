@@ -25,11 +25,10 @@ const appReducer = combineReducers({
   dashboard: leadReducersAggregator,
   errors: errorReducer,
   contact: contactReducer,
-  organizations: organizationReducer,
+  organization: organizationReducer,
   settings: settingReducer,
   search: searchReducer,
   domain: domainReducer,
-  settings: settingReducer,
 });
 
 export default function rootReducer(state, action) {
