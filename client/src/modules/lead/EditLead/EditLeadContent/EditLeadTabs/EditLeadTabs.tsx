@@ -46,13 +46,13 @@ class EditLeadTabs extends React.Component<Props, State> {
 
   public handleTabChange = (content: any) => {
     this.setState({
-      activeTab: content, isFakeInputShown: false,
+      activeTab: content,
+      isFakeInputShown: false,
     });
     this.showFakeInput(content);
   }
 
   public showFakeInput = (activeTab: any) => {
-
     switch (activeTab.type) {
       case (this.getNoteEditor().type): {
         this.setState({ fakeInputContent: ' take notes' });
