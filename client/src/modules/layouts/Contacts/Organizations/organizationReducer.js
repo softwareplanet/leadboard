@@ -28,7 +28,9 @@ const organizationsReducer = (state = [], action) => {
 
 export default combineReducers({
   organizations: organizationsReducer,
-  detailedOrganization: organizationReducer,
-  notes: [],
-  activities: activityReducer,
+  detailedOrganization: combineReducers({
+    organization: organizationReducer,
+    notes: [],
+    activities: activityReducer,
+  }),
 });
