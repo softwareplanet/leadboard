@@ -50,6 +50,7 @@ class ContactSidebar extends React.Component<Props> {
 
     const contactCard =
       <EditCard
+        advancedMode={false}
         deleteCustomField={this.deleteCustomField}
         model={contact}
         title="Details"

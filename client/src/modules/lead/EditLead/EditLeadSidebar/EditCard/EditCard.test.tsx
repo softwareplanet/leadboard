@@ -79,6 +79,7 @@ describe('<EditCard />', () => {
     wrapper = shallow
     (
       <EditCard
+        advancedMode={true}
         addCustomFieldToDomain={noop}
         editCustomFieldInDomain={noop}
         model={contact}
@@ -109,6 +110,7 @@ describe('<EditCard />', () => {
     wrapper = shallow
     (
       <EditCard
+        advancedMode={true}
         addCustomFieldToDomain={noop}
         editCustomFieldInDomain={noop}
         model={organization}

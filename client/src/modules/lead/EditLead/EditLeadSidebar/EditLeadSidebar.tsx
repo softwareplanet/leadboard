@@ -63,6 +63,7 @@ class EditLeadSidebar extends React.Component<Props> {
       if (contact) {
         contactCard =
           <EditCard
+            advancedMode={true}
             deleteCustomField={this.deleteCustomField}
             model={contact}
             title="Person"
@@ -79,6 +80,7 @@ class EditLeadSidebar extends React.Component<Props> {
       if (organization) {
         organizationCard =
           <EditCard
+            advancedMode={true}
             deleteCustomField={this.deleteCustomField}
             model={organization}
             modelType="Organization"
