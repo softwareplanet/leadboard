@@ -98,7 +98,7 @@ export const loadLeads = (stage, status) => dispatch => {
 };
 
 // Create a new lead
-export const createLead = lead => (dispatch,getState) => {
+export const createLead = lead => (dispatch, getState) => {
   return axios
     .post("/api/lead", lead)
     .then(() => {

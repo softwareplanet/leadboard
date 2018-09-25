@@ -99,23 +99,23 @@ export const createFunnel = (name: string) => (dispatch: Dispatch) => {
         type: GET_ERRORS,
       });
     });
- };
+};
 
- export const createStage = (stage: Stage) => (dispatch: Dispatch) => {
+export const createStage = (stage: Stage) => (dispatch: Dispatch) => {
   axios
     .post(`/api/stage`, stage)
     .then(result => {
       dispatch({
         payload: result.data,
         type: ADD_STAGE,
+      });
+    })
+    .catch(error => {
+      dispatch({
+        payload: error,
+        type: GET_ERRORS,
+      });
     });
-  })
-  .catch(error => {
-    dispatch({
-      payload: error,
-      type: GET_ERRORS,
-    });
-  });
 };
 
 export const selectFunnel = (funnel: FunnelModel) => (dispatch: Dispatch) => {

@@ -44,8 +44,7 @@ class PipelineSwitcher extends React.Component<Props, State> {
   private renderSettingsButton = () => {
     return (
       <div className={styles.settingsButton}>
-        <NavLink
-          to={'/settings/pipelines'}>
+        <NavLink to={'/settings/pipelines'}>
           <ReactSVG src={settingsIcon} className={styles.dropIcon} />
           <span>Pipelines settings</span>
         </NavLink>
@@ -81,7 +80,6 @@ class PipelineSwitcher extends React.Component<Props, State> {
             to={'/settings/pipelines'}>
             <DropdownItem
               tag="div"
-              // onClick={this.props.history.push}
               className={classNames(styles.switchItem)}
             >
               <ReactSVG src={settingsIcon} className={styles.settingsIcon} />
@@ -107,8 +105,7 @@ class PipelineSwitcher extends React.Component<Props, State> {
         }
         <span>{funnel.name}</span>
       </DropdownItem>
-    ),
-    );
+    ));
   }
 }
 

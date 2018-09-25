@@ -57,9 +57,9 @@ class DashboardFilter extends React.Component<Props, State> {
   }
 
   private togglePopover = () => {
-    const activeFunnelFilter = this.props.dashboardFilters.find(filter => 
+    const activeFunnelFilter = this.props.dashboardFilters.find(filter =>
       filter.funnelId === this.props.activeFunnel._id);
-    this.setState({filters: this.getFiltersWithShowedMark(activeFunnelFilter.status)});
+    this.setState({ filters: this.getFiltersWithShowedMark(activeFunnelFilter.status) });
     this.setState(prevState => {
       return { isPopoverOpen: !prevState.isPopoverOpen };
     });
