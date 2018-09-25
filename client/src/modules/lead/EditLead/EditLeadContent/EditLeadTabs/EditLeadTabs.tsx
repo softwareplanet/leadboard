@@ -90,6 +90,7 @@ class EditLeadTabs extends React.Component<Props, State> {
   public toggleFakeInput = () => {
     this.setState({ isFakeInputShown: !this.state.isFakeInputShown });
   }
+  
   public cancel = () => {
     this.toggleFakeInput();
   }
