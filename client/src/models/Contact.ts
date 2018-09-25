@@ -1,12 +1,13 @@
 import CustomField from './customFields/CustomField';
-import Domain from './Domain';
 import Organization from './Organization';
+import User from './User';
 
 export default interface Contact {
   _id: string;
   name: string;
   organization?: Organization;
   custom: CustomField[];
-  domain: Domain;
+  domain: string;
   timestamp: Date;
+  owner: User;
 }

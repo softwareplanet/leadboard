@@ -2,8 +2,7 @@ import { Router } from "express";
 import mongoose from "mongoose";
 import { validateLeadInput, validateLeadUpdate } from "../../validation/lead";
 import isEmpty from "lodash.isempty";
-import { isEqual } from "lodash";
-import { isValidModelId } from "../../validation/validationUtils";
+import { isValidModelId, validateExisting } from "../../validation/validationUtils";
 import Lead from "../../models/lead";
 import Contact from "../../models/contact";
 import Organization from "../../models/organization";
@@ -124,19 +123,6 @@ function createContact(name, organization, domain, owner) {
   };
   if (isEmpty(contactToCreate.organization)) delete contactToCreate.organization;
   return Contact.create(contactToCreate);
-}
-
-function validateExisting(model, name, domain) {
-  let errors = {};
-  if (!model) {
-    errors[name.toLowerCase()] = `${name} does not exist`;
-  } else if (!isEqual(model.domain, domain)) {
-    errors[name.toLowerCase()] = `${name} does not belong to your domain`;
-  }
-  return {
-    errors,
-    hasErrors: !isEmpty(errors),
-  };
 }
 
 // @route   GET api/lead/:leadId

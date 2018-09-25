@@ -1,5 +1,6 @@
 import Validator from "validator";
 import { flow, isEmpty, trim } from "lodash/fp";
+import { isEqual } from "lodash";
 
 export const isBlank = flow(
   trim,
@@ -27,4 +28,17 @@ export function isValidTimezone(tz) {
   catch (ex) {
     return false;
   }
+}
+
+export function validateExisting(model, name, domain) {
+  let errors = {};
+  if (!model) {
+    errors[name.toLowerCase()] = `${name} does not exist`;
+  } else if (!isEqual(model.domain, domain)) {
+    errors[name.toLowerCase()] = `${name} does not belong to your domain`;
+  }
+  return {
+    errors,
+    hasErrors: !isEmpty(errors),
+  };
 }
