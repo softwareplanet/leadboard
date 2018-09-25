@@ -40,7 +40,7 @@ class EditLeadTabs extends React.Component<Props, State> {
 
   public componentDidMount() {
     if (this.state.activeTab === null) {
-      this.setState({ activeTab: <EditLeadEditor height={160} onCancel={this.onCancel} onSave={this.saveNote} /> });
+      this.setState({ activeTab: <EditLeadEditor height={160} onCancel={this.cancel} onSave={this.saveNote} /> });
     }
   }
 
@@ -146,11 +146,11 @@ class EditLeadTabs extends React.Component<Props, State> {
   }
 
   private getNoteEditor = () => {
-    return (<EditLeadEditor height={160} onCancel={this.onCancel} onSave={this.saveNote} />);
+    return (<EditLeadEditor height={160} onCancel={this.cancel} onSave={this.saveNote} />);
   }
 
   private getAddActivity = () => {
-    return (<AddActivity onCancel={this.onCancel} onSave={this.activitySave} />);
+    return (<AddActivity onCancel={this.cancel} onSave={this.saveActivity} />);
   }
 }
 
