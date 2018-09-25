@@ -1,11 +1,7 @@
 import { combineReducers } from 'redux';
+import Action from '../../../models/Action';
 import activityReducer from '../../lead/EditLead/Activities/activityReducer';
 import { LOAD_ORGANIZATION } from './types';
-
-interface Action {
-  type: string;
-  payload: any;
-}
 
 const detailedOrganizationReducer = (state = {}, action: Action) => {
   switch (action.type) {
