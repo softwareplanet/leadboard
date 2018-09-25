@@ -37,6 +37,7 @@ router.get("/aggregated/", (req, res) => {
 // @access  Private
 router.get("/:organizationId", (req, res) => {
   Organization.findById(req.params.organizationId)
+    .populate(Organization.populates.full)
     .then(organizations => {
       res.json(organizations);
     })

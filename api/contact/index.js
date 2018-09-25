@@ -102,6 +102,7 @@ router.patch("/:contactId", (req, res) => {
 // @access  Private
 router.get("/:contactId", (req, res) => {
   Contact.findById(req.params.contactId)
+    .populate(Contact.populates.full)
     .then(contact => {
       res.json(contact);
     })
