@@ -1,8 +1,18 @@
 .header {
-  display: flex;
-  justify-content: space-between;
   padding: 24px;
   width: 100%;
+  border: 1px solid #e5e5e5;
+  border-radius: 3px;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 30px 0 30px;
+}
+
+@media (max-width: 1440px) {
+  .header {
+    margin: 0;
+  }
 }
 
 .name {
