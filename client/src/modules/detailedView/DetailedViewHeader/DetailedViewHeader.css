@@ -1,6 +1,8 @@
 .header {
   display: flex;
+  justify-content: space-between;
   padding: 24px;
+  width: 100%;
 }
 
 .name {
@@ -8,7 +10,7 @@
   font: 24px/32px "Open Sans",sans-serif;
   color: #26292c;
   word-break: break-word;
-  margin-top: 3px;
+  margin-top: 4px;
 }
 
 .icon {
