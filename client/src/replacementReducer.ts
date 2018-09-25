@@ -10,5 +10,4 @@ const replacementReducer = (type: string, initialState: any) =>
     }
 };
 
-
 export default replacementReducer;

@@ -1,1 +1,1 @@
-export const LOAD_CONTACT = "LOAD_CONTACT";
+export const LOAD_CONTACT = 'LOAD_CONTACT';
