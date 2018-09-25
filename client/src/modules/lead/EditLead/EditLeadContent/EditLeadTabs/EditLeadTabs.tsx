@@ -78,7 +78,7 @@ class EditLeadTabs extends React.Component<Props, State> {
     this.setState({ isFakeInputShown: true });
   }
 
-  public activitySave = (activity: Activity) => {
+  public saveActivity = (activity: Activity) => {
     this.props.createActivity({
       ...activity,
       assignedTo: this.props.userId,
@@ -87,7 +87,7 @@ class EditLeadTabs extends React.Component<Props, State> {
     this.setState({ isFakeInputShown: true });
   }
 
-  public onCancel = () => {
+  public cancel = () => {
     this.setState({ isFakeInputShown: true });
   }
 
