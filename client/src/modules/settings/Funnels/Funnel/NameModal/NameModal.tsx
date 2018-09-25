@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as Modal from 'react-modal';
+import reactModalStyles from '../../../../../styles/reactModalDefaultStyle';
 import isBlank from '../../../../../utils/isBlank';
 import * as styles from './NameModal.css';
 
@@ -18,33 +19,23 @@ interface State {
   name: string;
 }
 
-const customStyles = {
-  content: {
-    top: 100,
-    right: 'auto',
-    left: '50%',
-    bottom: 'auto',
-    transform: 'translate(-50%, 0)',
-    margin: '0',
-    padding: '0',
-    width: '400px',
-    borderRadius: '0 0 2px 2px',
-    border: '1px solid #e5e5e5',
-    boxShadow: '0 10px 45px rgba(0, 0, 0, 0.75)',
-    overflow: 'hidden',
-  },
-};
-
 export default class AddStageModal extends React.Component<Props, State> {
   public state: State = {
     name: '',
   };
+  private nameModalStyles = { ...reactModalStyles };
+
+  constructor(props: Props){
+    super(props);
+    this.nameModalStyles.content.width = '400px';
+    this.nameModalStyles.content.top = '100px';
+  }
   
   public render() {
     return (
       <Modal 
         isOpen={this.props.isModalOpen}
-        style={customStyles}
+        style={this.nameModalStyles}
       >
         <h1 className={styles.modalHeader}>{this.props.heading}</h1>
         <form onSubmit={this.onSave} className={styles.modalContent}>

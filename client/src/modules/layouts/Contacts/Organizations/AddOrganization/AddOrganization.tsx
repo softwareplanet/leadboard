@@ -5,26 +5,12 @@ import { connect } from 'react-redux';
 import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
 import DomainSettings from '../../../../../models/DomainSettings';
 import * as addModalStyles from '../../../../../styles/addingModal.css';
+import reactModalStyles from '../../../../../styles/reactModalDefaultStyle';
 import isBlank from '../../../../../utils/isBlank';
 import { addOrganization } from '../organizationActions';
 import * as styles from './AddOrganization.css';
 
-const customStyles = {
-  content: {
-    border: '1px solid #e5e5e5',
-    borderRadius: '0 0 2px 2px',
-    bottom: 'auto',
-    boxShadow: '0 10px 45px rgba(38,41,44,.88)',
-    boxSizing: 'border-box',
-    left: '50%',
-    margin: '0',
-    padding: '0',
-    right: 'auto',
-    top: 0,
-    transform: 'translate(-50%, 0)',
-    width: '350px',
-  },
-};
+const customStyles = { ...reactModalStyles };
 
 interface Props {
   auth: any;
