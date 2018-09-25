@@ -89,6 +89,7 @@ router.patch("/:contactId", (req, res) => {
   if (hasErrors) return res.status(400).json({ errors });
 
   Contact.findByIdAndUpdate(req.params.contactId, { $set: req.body }, { new: true })
+    .populate(Contact.populates.full)
     .then(contact => {
       res.json(contact);
     })

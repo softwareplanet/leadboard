@@ -78,6 +78,7 @@ router.patch("/:organizationId", (req, res) => {
   if (hasErrors) return res.status(400).json({ errors });
 
   Organization.findByIdAndUpdate(req.params.organizationId, { $set: req.body }, { new: true })
+    .populate(Organization.populates.full)
     .then(org => {
       res.json(org);
     })
