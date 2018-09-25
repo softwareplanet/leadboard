@@ -203,8 +203,10 @@ class AddContact extends React.Component<Props, State> {
     });
   }
 
-  private handleAutocompleteFocus = (event: any) => {
-    event.target.parentNode.parentNode.setAttribute('style', 'border: 1px solid #317ae2');
+  private handleAutocompleteFocus = () => {
+    if (this.autocompleteWrapper.current) {
+      this.autocompleteWrapper.current.setAttribute('style', 'border: 1px solid #317ae2');
+    }
   }
 
   private handleAutocompleteBlur = () => {
