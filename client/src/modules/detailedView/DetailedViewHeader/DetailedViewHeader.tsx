@@ -37,7 +37,7 @@ export default class DetailedViewHeader extends React.Component<Props, State> {
           <span className={styles.badge}>
             <img className={styles.icon} src={iconSrc} alt="Icon" />
           </span>
-          <h1 className={styles.name} id={`${this.props.modelType}-header-name`}>{model.name}</h1>
+          <h1 onClick={this.toggleModelNamePopover} className={styles.name} id={`${this.props.modelType}-header-name`}>{model.name}</h1>
           <EditLeadFieldPopover
             onSave={this.handleModelNameSave}
             onCancel={this.toggleModelNamePopover}
