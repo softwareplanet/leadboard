@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps, withRouter } from 'react-router';
 import addActivityIconActive from '../../../../../assets/img/add-activity/add-activity-active.svg';
 import addActivityIcon from '../../../../../assets/img/add-activity/add-activity.svg';
 import takeNotesIconActive from '../../../../../assets/img/take-notes/take-notes-active.svg';
@@ -21,20 +21,21 @@ interface Props extends RouteComponentProps<any> {
   editLead: Lead;
 
   createActivity(activity: Activity): void;
+
   createNote(leadId: string, note: Note): void;
 }
 
 interface State {
-  activeTab: any;
-  showFakeInput: boolean;
+  activeTab?: any;
+  isFakeInputShown: boolean;
   fakeInputContent: string;
 }
 
 class EditLeadTabs extends React.Component<Props, State> {
   public state = {
-    activeTab: '',
+    activeTab: null,
     fakeInputContent: ' take notes',
-    showFakeInput: true,
+    isFakeInputShown: true,
   };
 
   public componentDidMount() {
@@ -43,14 +44,14 @@ class EditLeadTabs extends React.Component<Props, State> {
     }
   }
 
-  public tabHandler = (content: any) => {
+  public handleTab = (content: any) => {
     this.setState({
-      activeTab: content, showFakeInput: false,
+      activeTab: content, isFakeInputShown: false,
     });
-    this.fakeHandler(content);
+    this.handleFakeInput(content);
   }
 
-  public fakeHandler = (activeTab: any) => {
+  public handleFakeInput = (activeTab: any) => {
 
     switch (activeTab.type) {
       case (this.getNoteEditor().type): {
@@ -75,7 +76,7 @@ class EditLeadTabs extends React.Component<Props, State> {
       user: this.props.userId,
     };
     this.props.createNote(this.props.editLead._id, note);
-    this.setState({ showFakeInput: true });
+    this.setState({ isFakeInputShown: true });
   }
 
   public onActivitySave = (activity: Activity) => {
@@ -84,55 +85,56 @@ class EditLeadTabs extends React.Component<Props, State> {
       assignedTo: this.props.userId,
       lead: this.props.editLead._id,
     });
-    this.setState({ showFakeInput: true });
+    this.setState({ isFakeInputShown: true });
   }
 
   public onCancel = () => {
-    this.setState({ showFakeInput: true });
+    this.setState({ isFakeInputShown: true });
   }
 
   public render() {
-    const takeNotesCondition = this.isActive(EditLeadEditor, this.state.activeTab) || isBlank(this.state.activeTab);
-    const addActivityCondition = this.isActive(AddActivity, this.state.activeTab);
+    const isTakingNotesActive = this.isActive(EditLeadEditor, this.state.activeTab) || isBlank(this.state.activeTab!);
+    const isAddingActivityActive = this.isActive(AddActivity, this.state.activeTab);
 
     return (
       <div className={styles.tabs}>
         <ul className={styles.header}>
           <li
-            className={classNames(styles.headerItem, { [styles.active]: takeNotesCondition })}
-            onClick={this.tabHandler.bind(this, this.getNoteEditor())}>
+            className={classNames(styles.headerItem, { [styles.active]: isTakingNotesActive })}
+            onClick={this.handleTab.bind(this, this.getNoteEditor())}>
             <img
-              src={takeNotesCondition ? takeNotesIconActive : takeNotesIcon}
+              src={isTakingNotesActive ? takeNotesIconActive : takeNotesIcon}
               className={styles.headerItemIcon}
               alt="take note icon"
             />
             Take notes
           </li>
           <li
-            className={classNames(styles.headerItem, { [styles.active]: addActivityCondition })}
-            onClick={this.tabHandler.bind(this, this.getAddActivity())}>
+            className={classNames(styles.headerItem, { [styles.active]: isAddingActivityActive })}
+            onClick={this.handleTab.bind(this, this.getAddActivity())}>
             <img
-              src={addActivityCondition ? addActivityIconActive : addActivityIcon}
+              src={isAddingActivityActive ? addActivityIconActive : addActivityIcon}
               className={styles.headerItemIcon}
               alt="add activity icon"
             />
             Add activity
           </li>
         </ul>
-        {this.renderFakeInput(this.state.showFakeInput, takeNotesCondition)}
+        {this.renderFakeInput(isTakingNotesActive)}
       </div>
     );
   }
+
   private isActive = (component: any, activeTab: any) => {
     return (activeTab ? activeTab.type : null) === component;
   }
 
-  private renderFakeInput = (condition: boolean, notesCondition: boolean) => {
-    if (condition) {
+  private renderFakeInput = (notesCondition: boolean) => {
+    if (this.state.isFakeInputShown) {
       return (
         <div
           className={styles.fakeInput}
-          onClick={this.tabHandler.bind(this, notesCondition ?
+          onClick={this.handleTab.bind(this, notesCondition ?
             this.getNoteEditor() :
             this.state.activeTab)}>
           Click here to{this.state.fakeInputContent}...
@@ -160,4 +162,4 @@ const mapStateToProps = (state: any) => ({
 
 export { EditLeadTabs };
 
-export default connect(mapStateToProps, { createNote, createActivity })(EditLeadTabs);
+export const LeadTabs = connect(mapStateToProps, { createNote, createActivity })(withRouter(EditLeadTabs));
