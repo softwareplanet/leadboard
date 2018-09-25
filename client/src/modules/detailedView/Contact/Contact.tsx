@@ -1,11 +1,19 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { RouteComponentProps } from 'react-router';
+import ContactModel from '../../../models/Contact';
 import Navbar from '../../layouts/Navbar/Navbar';
 import DetailedViewHeader from '../DetailedViewHeader/DetailedViewHeader';
 import ContactContent from './ContactContent/ContactContent';
 import ContactSidebar from './ContactSidebar/ContactSidebar';
+import { loadContact } from './detailedContactActions';
 
-class Contact extends React.Component {
+interface Props extends RouteComponentProps<{contactId: string}>{
+  contact: ContactModel;
+
+  loadContact(contactId: string): void;
+}
+class Contact extends React.Component<Props> {
 
   public render() {
     const displayFlex = {
@@ -25,8 +33,14 @@ class Contact extends React.Component {
       </div>
     );
   }
+
+  public componentWillMount() {
+    this.props.loadContact(this.props.match.params.contactId);
+  }
 }
 
-const mapStateToProps = () => ({});
+const mapStateToProps = (state: any) => ({
+  contact: state.contact.detailedContact.contact,
+});
 
-export default connect(mapStateToProps)(Contact);
+export default connect(mapStateToProps, { loadContact })(Contact);

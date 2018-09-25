@@ -8,15 +8,7 @@ import { LOAD_FIRST_ACTIVITY_IN_LEAD_PLAN } from "./EditLead/Activities/types";
 import activeFunnelReducer from "./activeFunnelReducer";
 import { SET_DASHBOARD_FUNNELS_FILTER, SET_ACTIVE_FILTER, ADD_DASHBOARD_FUNNELS_FILTER } from "./types";
 import { IN_PROGRESS } from "../../constants";
-
-export const replacementReducer = (type, initialState) => (state = initialState, action) => {
-  switch (action.type) {
-    case type:
-      return action.payload;
-    default:
-      return state;
-  }
-};
+import replacementReducer from '../../replacementReducer';
 
 const dashboardFiltersReducer = (filters = [], action) => {
   switch (action.type) {
