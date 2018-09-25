@@ -1,9 +1,9 @@
-import { LOAD_ORGANIZATIONS, ADD_ORGANIZATION } from "./types";
+import { LOAD_ORGANIZATIONS, ADD_ORGANIZATION, LOAD_ORGANIZATION } from "./types";
+import detailedOrganizationReducer from  "../../../detailedView/Organization/detailedOrganizationReducer";
+import { combineReducers } from "redux";
 
-const initialState = [];
-
-export default function(state = initialState, action) {
-  switch (action.type){
+const organizationsReducer = (state = [], action) => {
+  switch (action.type) {
     case LOAD_ORGANIZATIONS:
       return action.payload;
     case ADD_ORGANIZATION:
@@ -13,4 +13,9 @@ export default function(state = initialState, action) {
     default:
       return state;
   }
-}
+};
+
+export default combineReducers({
+  organizations: organizationsReducer,
+  detailedOrganization: detailedOrganizationReducer,
+});

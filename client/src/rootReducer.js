@@ -24,12 +24,11 @@ const appReducer = combineReducers({
   auth: authReducer,
   dashboard: leadReducersAggregator,
   errors: errorReducer,
-  contacts: contactReducer,
-  organizations: organizationReducer,
+  contact: contactReducer,
+  organization: organizationReducer,
   settings: settingReducer,
   search: searchReducer,
   domain: domainReducer,
-  settings: settingReducer,
 });
 
 export default function rootReducer(state, action) {

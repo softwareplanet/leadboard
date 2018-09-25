@@ -113,6 +113,7 @@ h3 {
 
 .mainValue:hover {
   text-decoration: underline;
+  color: #26292c;
 }
 
 .mainFieldValueWrapper {
