@@ -13,6 +13,7 @@ class Table extends React.Component<Props, object> {
   public selectRow = {
     clickToSelect: true,
     hideSelectColumn: true,
+    mode: 'radio',
     onSelect: (row: any) => {
       history.push(`/${this.props.modelName.toLocaleLowerCase()}/${row._id}`);
     },
