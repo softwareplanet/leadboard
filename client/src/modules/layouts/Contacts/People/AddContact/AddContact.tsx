@@ -41,7 +41,7 @@ interface State {
   name: string;
   organization: {
     name?: string;
-    _id?: string;
+    id?: string;
   };
   showOrganizationBadge: boolean;
 
@@ -212,7 +212,7 @@ class AddContact extends React.Component<Props, State> {
     this.setState({
       openOrganizationDropdown: false,
       showOrganizationBadge: this.state.afterOrganizationSelectShowBadge
-        && !this.state.organization._id
+        && !this.state.organization.id
         && !isBlank(''+this.state.organization.name),
     });
   }
@@ -236,7 +236,7 @@ class AddContact extends React.Component<Props, State> {
       const contact = {
         custom: newCustomFields,
         name: newName,
-        organization: organization._id ? organization._id : organization.name,
+        organization: organization.id ? organization.id : organization.name,
       };
       this.props.addContact(contact);
       this.props.closeModal();
