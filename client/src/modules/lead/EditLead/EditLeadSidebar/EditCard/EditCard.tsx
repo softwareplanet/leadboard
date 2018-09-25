@@ -68,6 +68,7 @@ class EditCard extends React.Component<Props, State> {
           <div>
             { this.props.advancedMode ?
               <MainField
+                link={`${this.props.modelType}/${this.props.model._id}`}
                 title={this.props.title}
                 value={this.props.model.name}
                 icon={this.props.icon}
