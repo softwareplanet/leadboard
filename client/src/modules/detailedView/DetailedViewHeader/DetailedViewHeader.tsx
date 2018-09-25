@@ -1,11 +1,17 @@
 import * as React from 'react';
+import Contact from '../../../models/Contact';
+import Organization from '../../../models/Organization';
 
-export default class DetailedViewHeader extends React.Component {
+interface Props {
+  model: Organization | Contact;
+}
+
+export default class DetailedViewHeader extends React.Component<Props> {
 
   public render() {
     return (
       <div>
-        Header
+        {this.props.model.name}
       </div>
     );
   }
