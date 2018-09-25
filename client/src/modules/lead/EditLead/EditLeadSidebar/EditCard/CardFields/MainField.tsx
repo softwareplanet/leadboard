@@ -8,7 +8,8 @@ export interface Props {
   title: string;
   value: string;
   icon?: string;
-  link: string;
+  link: string; 
+  
   onUpdate(value: string): void;
 }
 

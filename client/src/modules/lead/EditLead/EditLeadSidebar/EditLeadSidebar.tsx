@@ -140,7 +140,7 @@ class EditLeadSidebar extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: any) => ({
-  contacts: state.contacts,
+  contacts: state.contacts.contacts,
   editLead: state.dashboard.editLead.lead,
   organizations: state.organizations,
   settings: state.domain.settings,
