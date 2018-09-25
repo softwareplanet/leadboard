@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import ContactModel from '../../../models/Contact';
-import { loadContactById } from '../../layouts/Contacts/People/contactActions';
+import { loadContact } from '../../layouts/Contacts/People/contactActions';
 import Navbar from '../../layouts/Navbar/Navbar';
 import DetailedViewHeader from '../DetailedViewHeader/DetailedViewHeader';
 import ContactContent from './ContactContent/ContactContent';
@@ -11,7 +11,7 @@ import ContactSidebar from './ContactSidebar/ContactSidebar';
 interface Props extends RouteComponentProps<{contactId: string}>{
   contact: ContactModel;
 
-  loadContactById(contactId: string): void;
+  loadContact(contactId: string): void;
 }
 class Contact extends React.Component<Props> {
 
@@ -35,7 +35,7 @@ class Contact extends React.Component<Props> {
   }
 
   public componentWillMount() {
-    this.props.loadContactById(this.props.match.params.contactId);
+    this.props.loadContact(this.props.match.params.contactId);
   }
 }
 
@@ -43,4 +43,4 @@ const mapStateToProps = (state: any) => ({
   contact: state.contacts.detailedContact.contact,
 });
 
-export default connect(mapStateToProps, { loadContactById })(Contact);
+export default connect(mapStateToProps, { loadContact })(Contact);
