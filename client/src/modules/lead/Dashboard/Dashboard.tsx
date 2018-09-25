@@ -54,7 +54,7 @@ export class Dashboard extends React.Component<Props, State> {
               </span>
             </div>
           </div>
-          {leadCards}
+          { leadCards }
           <div className={styles.cardTerminator}>{noLeads ? this.createEmptyLeadCards(index) : null}</div>
         </div>
       );
