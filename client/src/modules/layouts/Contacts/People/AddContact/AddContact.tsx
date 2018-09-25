@@ -5,11 +5,15 @@ import { connect } from 'react-redux';
 import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
 import CustomFieldSetting from '../../../../../models/customFields/CustomFieldSetting';
 import DomainSettings from '../../../../../models/DomainSettings';
-import * as addModalStyles from '../../../../../styles/addingModal.css';
+import Organization from '../../../../../models/Organization';
+import * as addingModalStyles from '../../../../../styles/addingModal.css';
 import reactModalStyles from '../../../../../styles/reactModalDefaultStyle';
 import isBlank from '../../../../../utils/isBlank';
+import OrganizationAutocomplete from '../../../../common/autocomplete/organization/OrganizationAutocomplete';
+import { autocompleteStyles } from '../../../../common/autocomplete/styles/autocomplete-styles';
 import { getCustomFieldSettingsByModel } from '../../../../lead/EditLead/EditLeadSidebar/CustomFieldsService';
 import * as dropdownStyles from '../../DropdownStyles.css';
+import { loadOrganizations } from '../../Organizations/organizationActions';
 import { addContact } from '../contactActions';
 
 const customStyles = { ...reactModalStyles };
@@ -18,8 +22,11 @@ interface Props {
   auth: any;
   domainSettings: DomainSettings;
   isModalOpen: boolean;
+  organizations: Organization[];
 
   addContact(contact: any): void;
+
+  loadOrganizations(): void;
 
   openModal(): void;
 
@@ -27,31 +34,56 @@ interface Props {
 }
 
 interface State {
+  afterOrganizationSelectShowBadge: boolean;
   isDropdownOpen: boolean;
   isValidationShown: boolean;
+  openOrganizationDropdown: boolean;
   name: string;
+  organization: {
+    name?: string;
+    _id?: string;
+  };
+  showOrganizationBadge: boolean;
 
-  [field: string]: string | boolean;
+  [field: string]: any;
 }
 
 class AddContact extends React.Component<Props, State> {
-  public state: State = {
+  private defaultState: State = {
+    afterOrganizationSelectShowBadge: false,
     isDropdownOpen: false,
     isValidationShown: false,
     name: '',
+    openOrganizationDropdown: false,
+    organization: {
+      name: '',
+    },
+    showOrganizationBadge: false,
   };
+  public state: State = this.defaultState;
+  private autocompleteStyles = { ...autocompleteStyles.organization };
+  private autocompleteWrapper = React.createRef<HTMLDivElement>();
+
+  constructor(props: Props) {
+    super(props);
+    this.autocompleteStyles.menu.top = 300;
+  }
+
+  public componentWillMount() {
+    this.props.loadOrganizations();
+  }
 
   public render() {
     const { isValidationShown } = this.state;
     const customFieldSettings = this.getDefaultCustomFieldSettings();
     const customFieldInputs = customFieldSettings.map(setting => (
       <div key={setting._id}>
-        <label className={addModalStyles.inputLabel}>{setting.name}</label>
-        <div className={addModalStyles.inputContainer}>
+        <label className={addingModalStyles.inputLabel}>{setting.name}</label>
+        <div className={addingModalStyles.inputContainer}>
           <input
             name={setting._id}
             type="text"
-            className={addModalStyles.formInput}
+            className={addingModalStyles.formInput}
             onChange={this.handleInputChange}
           />
         </div>
@@ -60,37 +92,60 @@ class AddContact extends React.Component<Props, State> {
 
     return (
       <div>
-        <button type="button" className={addModalStyles.saveButton} onClick={this.props.openModal}>
+        <button type="button" className={addingModalStyles.saveButton} onClick={this.openAddingModal}>
           Add person
         </button>
 
         <Modal isOpen={this.props.isModalOpen} style={customStyles}>
-          <header className={addModalStyles.formHeader}>Add new person</header>
-          <button type="button" aria-label="Close" className={addModalStyles.closeBtn}>
+          <header className={addingModalStyles.formHeader}>Add new person</header>
+          <button type="button" aria-label="Close" className={addingModalStyles.closeBtn}>
             <span
               aria-hidden="true"
               onClick={this.props.closeModal}
-              className={classNames('close', addModalStyles.closeIcon)}
+              className={classNames('close', addingModalStyles.closeIcon)}
             >
               &times;
             </span>
           </button>
-          <form className={addModalStyles.form} autoComplete="off">
-            <label className={addModalStyles.inputLabel}>Name</label>
+          <form className={addingModalStyles.form} autoComplete="off">
+            <label className={addingModalStyles.inputLabel}>Name</label>
             <div
               className={isValidationShown && isBlank(this.state.name)
-                ? addModalStyles.invalidContainer
-                : addModalStyles.inputContainer}
+                ? addingModalStyles.invalidContainer
+                : addingModalStyles.inputContainer}
             >
               <input
                 name="name"
                 type="text"
-                className={addModalStyles.formInput}
+                className={addingModalStyles.formInput}
                 onChange={this.handleInputChange}
               />
             </div>
-            <label className={addModalStyles.inputLabel}>Owner</label>
-            <div className={addModalStyles.inputContainer}>
+            {customFieldInputs}
+            <label className={addingModalStyles.inputLabel}>
+              Organization name
+            </label>
+            <div
+              ref={this.autocompleteWrapper}
+              className={addingModalStyles.inputContainer}>
+              <i className={classNames('fas fa-building', addingModalStyles.inputIcon)} />
+              <OrganizationAutocomplete
+                inputStyle={autocompleteStyles.addLeadInput}
+                items={this.props.organizations}
+                itemsCount={4}
+                onBlur={this.handleAutocompleteBlur}
+                onChange={this.handleOrganizationChange}
+                onFocus={this.handleAutocompleteFocus}
+                onSelect={this.handleOrganizationSelect}
+                value={this.state.organization.name}
+                open={this.state.openOrganizationDropdown}
+                styles={this.autocompleteStyles}
+              />
+              {this.state.showOrganizationBadge ?
+                <span id="organization-badge" className={addingModalStyles.newBadge}>NEW</span> : null}
+            </div>
+            <label className={addingModalStyles.inputLabel}>Owner</label>
+            <div className={addingModalStyles.inputContainer}>
               <Dropdown
                 isOpen={this.state.isDropdownOpen}
                 toggle={this.toggleDropdown}
@@ -111,16 +166,21 @@ class AddContact extends React.Component<Props, State> {
                 </DropdownMenu>
               </Dropdown>
             </div>
-            {customFieldInputs}
           </form>
-          <footer className={addModalStyles.formFooter}>
-            <button type="button" className={addModalStyles.saveButton} onClick={this.handleSaveClick}>
+          <footer className={addingModalStyles.formFooter}>
+            <button type="button" className={addingModalStyles.saveButton} onClick={this.handleSaveClick}>
               Save
             </button>
           </footer>
         </Modal>
       </div>
     );
+  }
+
+  private openAddingModal = () => {
+    this.props.loadOrganizations();
+    this.props.openModal();
+    this.setState(this.defaultState);
   }
 
   private getDefaultCustomFieldSettings(): CustomFieldSetting[] {
@@ -141,13 +201,27 @@ class AddContact extends React.Component<Props, State> {
     });
   }
 
+  private handleAutocompleteFocus = (event: any) => {
+    event.target.parentNode.parentNode.setAttribute('style', 'border: 1px solid #317ae2');
+  }
+
+  private handleAutocompleteBlur = () => {
+    if (this.autocompleteWrapper.current) {
+      this.autocompleteWrapper.current.removeAttribute('style');
+    }
+    this.setState({
+      openOrganizationDropdown: false,
+      showOrganizationBadge: this.state.afterOrganizationSelectShowBadge
+        && !this.state.organization._id
+        && !isBlank(''+this.state.organization.name),
+    });
+  }
+
   private handleSaveClick = () => {
     if (!isBlank(this.state.name)) {
       const newName = this.state.name;
+      const organization = this.state.organization;
       const stateCopy = { ...this.state };
-      delete stateCopy.isValidationShown;
-      delete stateCopy.isDropdownOpen;
-      delete stateCopy.name;
       const newCustomFields: any[] = [];
       this.getDefaultCustomFieldSettings()
         .map((setting: CustomFieldSetting) => {
@@ -162,6 +236,7 @@ class AddContact extends React.Component<Props, State> {
       const contact = {
         custom: newCustomFields,
         name: newName,
+        organization: organization._id ? organization._id : organization.name,
       };
       this.props.addContact(contact);
       this.props.closeModal();
@@ -171,13 +246,38 @@ class AddContact extends React.Component<Props, State> {
       });
     }
   }
+
+  private handleOrganizationSelect = (value: any, item: any) => {
+    this.setState({
+      afterSelectShowBadge: false,
+      openOrganizationDropdown: false,
+      organization: {
+        id: item._id,
+        name: value,
+      },
+      showOrganizationBadge: false,
+    });
+  }
+
+  private handleOrganizationChange = (event: React.SyntheticEvent) => {
+    const target = event.target as HTMLInputElement;
+    const name = target.value;
+    this.setState({
+      afterOrganizationSelectShowBadge: true,
+      openOrganizationDropdown: !isBlank(name),
+      organization: {
+        name,
+      },
+    });
+  }
 }
 
 const mapStateToProps = (state: any) => ({
   auth: state.auth,
   domainSettings: state.domain.settings,
+  organizations: state.organizations,
 });
 
 export { AddContact };
 
-export default connect(mapStateToProps, { addContact })(AddContact);
+export default connect(mapStateToProps, { addContact, loadOrganizations })(AddContact);
