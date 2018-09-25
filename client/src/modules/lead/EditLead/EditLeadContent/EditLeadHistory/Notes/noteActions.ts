@@ -5,7 +5,7 @@ import { CREATE_NOTE, DELETE_NOTE, LOAD_NOTES, UPDATE_NOTE } from './types';
 
 export const loadNotes = (modelName: string, modelId: string) => (dispatch: any) => {
   axios
-    .get(`/api/note/${modelName}/${modelId}`)
+    .get(`/api/note/?${modelName}=${modelId}`)
     .then(...dispatchResponse(LOAD_NOTES));
 };
 

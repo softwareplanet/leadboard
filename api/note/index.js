@@ -1,7 +1,6 @@
 import { Router } from "express";
 import Note from "../../models/note";
 import {
-  validateNotesGet,
   validateNoteDomainMiddleware,
   validateNoteUpdate,
   validateNoteCreate,
@@ -9,33 +8,20 @@ import {
 
 const router = new Router();
 
-// @route   GET api/note/:modelName/:modelId
+// @route   GET api/note/?model=modelId
 // @desc    Get notes by model
 // @access  Private
-router.get("/:modelName/:modelId", (req, res) => {
-  const { modelName, modelId } = req.params;
-  const { hasErrors, errors } = validateNotesGet(modelName);
-  if (hasErrors) return res.status(400).json({ errors });
-  findNotesByModel(modelName, modelId)
-    .populate(Note.populates.basic)
-    .then(result => {
-      res.send(result);
+router.get("/", (req, res) => {
+  Note.query(req.query)
+    .then(notes => {
+      Note.populate(notes, Note.populates.basic, (err, notes) => {
+        res.json(notes);
+      });
     })
     .catch(error => {
       res.status(400).json(error);
     });
 });
-
-const findNotesByModel = (model, modelId) => {
-  switch (model) {
-    case "lead":
-      return Note.find({ lead: modelId });
-    case "contact":
-      return Note.find({ contact: modelId });
-    case "organization":
-      return Note.find({ organization: modelId });
-  }
-};
 
 // @route   PATCH api/note/:modelId/:noteId
 // @desc    Update note
@@ -54,7 +40,7 @@ router.patch("/:modelId/:noteId", validateNoteDomainMiddleware, async (req, res)
           { new: true })
           .populate(Note.populates.basic)
           .then(note => {
-              res.json(note);
+            res.json(note);
           });
       } else {
         return res.status(400).json(
@@ -75,6 +61,7 @@ router.post("/", (req, res) => {
   const { hasErrors, errors } = validateNoteCreate(note.text);
   if (hasErrors) return res.status(400).json({ errors });
   note.user = req.user.id;
+  note.domain = req.user.domain;
   Note.create(note)
     .then(note => {
       Note.populate(note, Note.populates.basic, (err, note) => {
