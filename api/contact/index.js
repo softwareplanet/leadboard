@@ -97,4 +97,17 @@ router.patch("/:contactId", (req, res) => {
     });
 });
 
+// @route   GET api/contact/:contactId
+// @desc    Get contact by id
+// @access  Private
+router.get("/:contactId", (req, res) => {
+  Contact.findById(req.params.contactId)
+    .then(contact => {
+      res.json(contact);
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
+});
+
 export default router;

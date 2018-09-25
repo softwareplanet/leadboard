@@ -2,12 +2,14 @@ import * as React from 'react';
 import isBlank from '../../../../../../utils/isBlank';
 import * as styles from './CardField.css';
 import SingleEditView from './EditView/SingleEditView/SingleEditView';
+import { Link } from 'react-router-dom';
 
 export interface Props {
   title: string;
   value: string;
   icon?: string;
-
+  link: string; 
+  
   onUpdate(value: string): void;
 }
 
@@ -38,9 +40,9 @@ class MainField extends React.Component<Props, State> {
                 <img className={styles.icon} src={this.props.icon} alt="Icon" />
               </span>
               <h3>
-                <span className={styles.mainValue}>
+                <Link to={`/${this.props.link.toLowerCase()}`} className={styles.mainValue}>
                   {name}
-                </span>
+                </Link>
               </h3>
               <button
                 className={styles.buttonRename}

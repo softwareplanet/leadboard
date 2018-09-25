@@ -1,7 +1,9 @@
 import { ADD_CONTACT, LOAD_CONTACTS } from "./types";
-const initialState = [];
+import { combineReducers } from "redux";
+import activityReducer from "../../../lead/EditLead/Activities/activityReducer";
+import detailedContactReducer from "../../../detailedView/Contact/detailedContactReducer";
 
-export default function(state = initialState, action) {
+const contactsReducer = (state = [], action) => {
   switch (action.type) {
     case LOAD_CONTACTS:
       return action.payload;
@@ -13,3 +15,8 @@ export default function(state = initialState, action) {
       return state;
   }
 }
+
+export default combineReducers({
+  contacts: contactsReducer,
+  detailedContact: detailedContactReducer,
+})
