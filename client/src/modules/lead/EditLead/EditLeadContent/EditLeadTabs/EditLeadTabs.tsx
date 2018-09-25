@@ -90,7 +90,7 @@ class EditLeadTabs extends React.Component<Props, State> {
   public toggleFakeInput = () => {
     this.setState({ isFakeInputShown: !this.state.isFakeInputShown });
   }
-  
+
   public cancel = () => {
     this.toggleFakeInput();
   }
@@ -104,7 +104,8 @@ class EditLeadTabs extends React.Component<Props, State> {
         <ul className={styles.header}>
           <li
             className={classNames(styles.headerItem, { [styles.active]: isTakingNotesActive })}
-            onClick={this.handleTabChange.bind(this, this.getNoteEditor())}>
+            onClick={this.handleTabChange.bind(this, this.getNoteEditor())}
+          >
             <img
               src={isTakingNotesActive ? takeNotesIconActive : takeNotesIcon}
               className={styles.headerItemIcon}
@@ -114,7 +115,8 @@ class EditLeadTabs extends React.Component<Props, State> {
           </li>
           <li
             className={classNames(styles.headerItem, { [styles.active]: isAddingActivityActive })}
-            onClick={this.handleTabChange.bind(this, this.getAddActivity())}>
+            onClick={this.handleTabChange.bind(this, this.getAddActivity())}
+          >
             <img
               src={isAddingActivityActive ? addActivityIconActive : addActivityIcon}
               className={styles.headerItemIcon}
@@ -139,7 +141,8 @@ class EditLeadTabs extends React.Component<Props, State> {
           className={styles.fakeInput}
           onClick={this.handleTabChange.bind(this, notesCondition ?
             this.getNoteEditor() :
-            this.state.activeTab)}>
+            this.state.activeTab)}
+        >
           Click here to{this.state.fakeInputContent}...
         </div>
       );
