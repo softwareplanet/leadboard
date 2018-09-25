@@ -58,7 +58,7 @@ describe("Contact", function() {
     expect((body).name).toBe(newContactName);
   });
 
-  it("should fail to create a contact with non-existing", async () => {
+  it("should fail to create a contact with non-existing organization", async () => {
     const newContactName = "Nazar";
 
     const { status, body } = await request(app())
