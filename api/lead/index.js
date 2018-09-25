@@ -125,8 +125,6 @@ function createContact(name, organization, domain, owner) {
   return Contact.create(contactToCreate);
 }
 
-
-
 // @route   GET api/lead/:leadId
 // @desc    Load lead by id
 // @access  Private
