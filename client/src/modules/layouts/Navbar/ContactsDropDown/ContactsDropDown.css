@@ -41,6 +41,7 @@
 }
 
 .dropDownMenu {
+  margin: 0;
   user-select: none;
   border-radius: 0;
   border: none;

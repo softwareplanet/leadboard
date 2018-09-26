@@ -215,54 +215,6 @@ export const updateContact = contact => dispatch => {
     });
 };
 
-// Create note for lead
-export const createNote = (leadId, note) => dispatch => {
-  axios
-    .post(`/api/lead/${leadId}/notes`, note)
-    .then(res => {
-      dispatch({
-        type: UPDATE_LEAD,
-        payload: res.data,
-      });
-    })
-    .catch(error => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: error,
-      });
-    });
-};
-
-// Update lead's note
-export const updateNote = (leadId, note) => dispatch => {
-  axios
-    .patch(`/api/lead/${leadId}/note/${note._id}`, note)
-    .then(() => {
-      dispatch(loadLead(leadId));
-    })
-    .catch(error => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: error,
-      });
-    });
-};
-
-// Delete lead's note
-export const deleteNote = (leadId, noteId) => dispatch => {
-  axios
-    .delete(`/api/lead/${leadId}/note/${noteId}`)
-    .then(() => {
-      dispatch(loadLead(leadId));
-    })
-    .catch(error => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: error,
-      });
-    });
-};
-
 // Load funnels by authorized user's domain id
 export const loadFunnels = () => dispatch => {
   axios
@@ -310,7 +262,7 @@ export const leadNotFound = () => {
   return {
     type: LEAD_NOT_FOUND,
   };
-}
+};
 
 export function loadDashboardAction(data) {
   return {
