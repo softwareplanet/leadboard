@@ -49,7 +49,7 @@ class EditLeadTabs extends React.Component<Props, State> {
       isFakeInputShown: false,
     });
     this.showFakeInput(content);
-  };
+  }
 
   public showFakeInput = (activeTab: any) => {
     switch (activeTab.type) {
@@ -66,7 +66,7 @@ class EditLeadTabs extends React.Component<Props, State> {
         break;
       }
     }
-  };
+  }
 
   public saveNote = (noteText: string) => {
     const { editLead } = this.props;
@@ -79,7 +79,7 @@ class EditLeadTabs extends React.Component<Props, State> {
     };
     this.props.createNote(note);
     this.toggleFakeInput();
-  };
+  }
 
   public saveActivity = (activity: Activity) => {
     this.props.createActivity({
@@ -88,15 +88,15 @@ class EditLeadTabs extends React.Component<Props, State> {
       lead: this.props.editLead._id,
     });
     this.toggleFakeInput();
-  };
+  }
 
   public toggleFakeInput = () => {
     this.setState({ isFakeInputShown: !this.state.isFakeInputShown });
-  };
+  }
 
   public cancel = () => {
     this.toggleFakeInput();
-  };
+  }
 
   public render() {
     const isTakingNotesActive = this.isActive(EditLeadEditor, this.state.activeTab) || isBlank(this.state.activeTab!);
@@ -135,7 +135,7 @@ class EditLeadTabs extends React.Component<Props, State> {
 
   private isActive = (component: any, activeTab: any) => {
     return (activeTab ? activeTab.type : null) === component;
-  };
+  }
 
   private renderFakeInput = (notesCondition: boolean) => {
     if (this.state.isFakeInputShown) {
@@ -153,15 +153,15 @@ class EditLeadTabs extends React.Component<Props, State> {
     else {
       return (<div>{this.state.activeTab}</div>);
     }
-  };
+  }
 
   private getNoteEditor = () => {
     return (<EditLeadEditor height={160} onCancel={this.cancel} onSave={this.saveNote} />);
-  };
+  }
 
   private getAddActivity = () => {
     return (<AddActivity onCancel={this.cancel} onSave={this.saveActivity} />);
-  };
+  }
 }
 
 const mapLeadStateToProps = (state: any) => ({

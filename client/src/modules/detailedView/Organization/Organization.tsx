@@ -16,7 +16,7 @@ interface Props extends RouteComponentProps<{ organizationId: string }> {
 
   updateOrganization(organization: any): void;
 
-  loadNotes(modelName: string, id: string): void;
+  loadNotes(modelName: string, modelId: string): void;
 }
 
 class Organization extends React.Component<Props, object> {
