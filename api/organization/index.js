@@ -68,10 +68,11 @@ router.get("/:organizationId", organizationMembersMiddlewares, (req, res) => {
 });
 
 // @route   GET api/organization/:organizationId/contacts
-// @desc    Get all contacts for organization with supplied id
+// @desc    Get all contacts sorted by name for organization with supplied id
 // @access  Private
 router.get("/:organizationId/contacts", organizationMembersMiddlewares, (req, res) => {
   Contact.find({organization: req.params.organizationId})
+    .sort({name: "asc"})
     .then(organizations => {
       res.json(organizations);
     })
