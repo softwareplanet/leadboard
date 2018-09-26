@@ -1,0 +1,25 @@
+.modalBody {
+  display: flex;
+  flex-direction: column;
+}
+
+.organizationInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 8px 0 8px 14px;
+}
+
+.organizationIcon {
+  height: 16px;
+  width: 16px;
+}
+
+.organizationName {
+  margin-left: 4px;
+}
+
+.tableWrapper {
+  max-height: 60vh;
+  overflow-y: scroll;
+}
