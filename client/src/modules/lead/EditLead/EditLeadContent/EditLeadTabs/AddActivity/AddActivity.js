@@ -39,6 +39,7 @@ export default class AddActivity extends Component {
     date: "",
     time: "",
     duration: "",
+    lead: "",
   };
 
   onTypeButtonClick = (type) => {
@@ -117,6 +118,10 @@ export default class AddActivity extends Component {
     }
     return options;
   };
+
+  setLead = (leadId) => {
+    this.setState({lead: leadId})
+  }
 
   getTimeOptions = () => {
     let time = moment().startOf("day");
@@ -228,7 +233,7 @@ export default class AddActivity extends Component {
               </div>
             </label>
           </div>
-          <LinkedTo />
+          <LinkedTo setLead={this.setLead}/>
         </div>
         <div className={style.footer}>
           <button

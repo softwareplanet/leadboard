@@ -38,6 +38,24 @@ const organization = {
   },
 };
 
+const lead = {
+  menu: {
+    ...autocomplete.menu,
+    top: "564px",
+    right: "295px",
+    left: "auto",
+    width: "505px",
+    display: "flex",
+    flexDirection: "column",
+  },
+  emptyMenuItem: {
+    ...autocomplete.emptyMenuItem,
+  },
+  menuItem: {
+    ...autocomplete.menuItem,
+  },
+};
+
 const contact = {
   menu: {
     ...autocomplete.menu,
@@ -87,6 +105,7 @@ const linkLeadInput = {
 export const autocompleteStyles = {
   organization,
   contact,
+  lead,
   linkOrganization,
   linkPerson,
   addLeadInput,
