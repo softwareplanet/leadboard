@@ -3,6 +3,9 @@ import Note from "../../models/note";
 import {
   validateNoteUpdate,
   validateNoteCreate,
+  validateContactDomainMiddleware,
+  validateOrganizationDomainMiddleware,
+  validateLeadDomainMiddleware,
 } from "../../validation/note";
 import { isValidModelId } from "../../validation/validationUtils";
 
@@ -16,8 +19,8 @@ router.get("/", (req, res) => {
   Note.query(req.query)
     .then(notes => {
       Note.populate(notes, Note.populates.basic)
-        .then(note => {
-          res.json(note);
+        .then(notes => {
+          res.json(notes);
         });
     })
     .catch(error => {
@@ -61,10 +64,16 @@ router.patch("/:noteId", validateNoteDomainMiddleware, async (req, res) => {
     });
 });
 
+const createNoteMembersMiddlewares = [
+  validateContactDomainMiddleware,
+  validateLeadDomainMiddleware,
+  validateOrganizationDomainMiddleware,
+];
+
 // @route   POST api/note
 // @desc    Create note
 // @access  Private
-router.post("/", (req, res) => {
+router.post("/", createNoteMembersMiddlewares, (req, res) => {
   const note = req.body;
   const { hasErrors, errors } = validateNoteCreate(note.text);
   if (hasErrors) return res.status(400).json({ errors });

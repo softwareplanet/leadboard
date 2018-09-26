@@ -69,7 +69,11 @@ class EditLeadTabs extends React.Component<Props, State> {
   }
 
   public saveNote = (noteText: string) => {
+    const { editLead } = this.props;
     const note = {
+      contact: editLead.contact ? editLead.contact._id : undefined,
+      lead: editLead._id,
+      organization: editLead.organization ? editLead.organization._id : undefined,
       text: noteText,
       user: this.props.userId,
     };
