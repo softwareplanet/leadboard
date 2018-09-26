@@ -4,8 +4,8 @@ import personIcon from '../../../assets/img/personIcon.svg';
 import ownerIcon from '../../../assets/img/user-icon.svg';
 import Contact from '../../../models/Contact';
 import Organization from '../../../models/Organization';
-import EditLeadFieldPopover from '../../lead/EditLead/EditLeadHeader/EditLeadFieldPopover/EditLeadFieldPopover';
 import * as leadHeaderStyles from '../../lead/EditLead/EditLeadHeader/EditLeadHeader.css';
+import EditModelFieldPopover from '../../lead/EditLead/EditLeadHeader/EditModelFieldPopover/EditModelFieldPopover';
 import * as styles from './DetailedViewHeader.css';
 
 interface Props {
@@ -37,8 +37,14 @@ export default class DetailedViewHeader extends React.Component<Props, State> {
           <span className={styles.badge}>
             <img className={styles.icon} src={iconSrc} alt="Icon" />
           </span>
-          <h1 onClick={this.toggleModelNamePopover} className={styles.name} id={`${this.props.modelType}-header-name`}>{model.name}</h1>
-          <EditLeadFieldPopover
+          <h1 
+            onClick={this.toggleModelNamePopover} 
+            className={styles.name} 
+            id={`${this.props.modelType}-header-name`}
+          >
+            {model.name}
+          </h1>
+          <EditModelFieldPopover
             onSave={this.handleModelNameSave}
             onCancel={this.toggleModelNamePopover}
             value={model ? model.name : null}

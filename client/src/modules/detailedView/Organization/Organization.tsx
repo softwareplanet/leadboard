@@ -12,6 +12,7 @@ interface Props extends RouteComponentProps<{ organizationId: string }> {
   organization: OrganizationModel;
 
   loadOrganization(id: string): void;
+  
   updateOrganization(organization: any): void;
 }
 

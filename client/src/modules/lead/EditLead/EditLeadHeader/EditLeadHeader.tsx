@@ -9,7 +9,7 @@ import Funnel from '../../../../models/Funnel';
 import { deleteLead, loadFunnels, loadLead, loadStagesWithoutLeads, updateLead } from '../../leadActions';
 import { loadLeadActivities } from '../Activities/activityActions';
 import AdditionalActionsPopover from './AdditionalActionsPopover/AdditionalActionsPopover';
-import EditLeadFieldPopover from './EditLeadFieldPopover/EditLeadFieldPopover';
+import EditLeadFieldPopover from './EditModelFieldPopover/EditModelFieldPopover';
 import * as styles from './EditLeadHeader.css';
 import EditLeadPipelinePopover from './EditLeadPipelinePopover/EditLeadPipelinePopover';
 import EditLeadStageProgress from './EditLeadStageProgress/EditLeadStageProgress';
