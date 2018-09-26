@@ -51,7 +51,7 @@ describe("Lead", () => {
 
   it("should return all notes for lead", async () => {
     const { status, body } = await request(app())
-      .get(`/api/note/lead/${lead._id}`)
+      .get(`/api/note/?lead=${lead._id}`)
       .set("Authorization", cred.token)
       .send();
     expect(status).toBe(200);
@@ -85,13 +85,5 @@ describe("Lead", () => {
       .set("Authorization", cred.token)
       .send();
     expect(status).toEqual(204);
-  });
-
-  it("should return error if bad model's type", async () => {
-    const { body } = await request(app())
-      .get(`/api/note/leads/${lead._id}`)
-      .set("Authorization", cred.token)
-      .send();
-    expect(body.errors.model).toEqual("Invalid model's type");
   });
 });
