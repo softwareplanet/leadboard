@@ -19,7 +19,6 @@ class Contact extends React.Component<Props> {
     const displayFlex = {
       display: 'flex',
     };
-
     return (
       <div>
         <Navbar />
@@ -34,7 +33,7 @@ class Contact extends React.Component<Props> {
     );
   }
 
-  public componentWillMount() {
+  public componentDidMount() {
     this.props.loadContact(this.props.match.params.contactId);
   }
 }
