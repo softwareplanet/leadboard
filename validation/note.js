@@ -38,53 +38,59 @@ export const validateOrganizationDomainMiddleware = (req, res, next) => {
           if (organization !== null && organization.domain.equals(req.user.domain)) {
             next();
           } else {
-            return res.status(404).json({ errors: { message: "Organization with provided id is not found in your domain" } });
+            return res.status(404).json(
+              { errors: { message: "Organization with provided id is not found in your domain" } },
+            );
           }
         });
     } else {
       return res.status(404).json({ errors: { message: "Provided organization's id is not valid" } });
     }
-  }else{
+  } else {
     next();
   }
 };
 
 export const validateLeadDomainMiddleware = (req, res, next) => {
   const note = req.body;
-  if(note.lead) {
+  if (note.lead) {
     if (isValidModelId(note.lead)) {
       Lead.findById(note.lead)
         .then(lead => {
           if (lead !== null && lead.domain.equals(req.user.domain)) {
             next();
           } else {
-            return res.status(404).json({ errors: { message: "Lead with provided id is not found in your domain" } });
+            return res.status(404).json(
+              { errors: { message: "Lead with provided id is not found in your domain" } },
+            );
           }
         });
     } else {
       return res.status(404).json({ errors: { message: "Provided lead's id is not valid" } });
     }
-  }else{
+  } else {
     next();
   }
 };
 
 export const validateContactDomainMiddleware = (req, res, next) => {
   const note = req.body;
-  if(note.contact) {
+  if (note.contact) {
     if (isValidModelId(note.contact)) {
       Contact.findById(note.contact)
         .then(contact => {
           if (contact !== null && contact.domain.equals(req.user.domain)) {
             next();
           } else {
-            return res.status(404).json({ errors: { message: "Contact with provided id is not found in your domain" } });
+            return res.status(404).json(
+              { errors: { message: "Contact with provided id is not found in your domain" } },
+            );
           }
         });
     } else {
       return res.status(404).json({ errors: { message: "Provided contact's id is not valid" } });
     }
-  }else{
+  } else {
     next();
   }
 };
