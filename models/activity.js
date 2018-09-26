@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import QueryPlugin from "mongoose-query";
 
 const activitySchema = new mongoose.Schema({
   type: {
@@ -22,7 +23,7 @@ const activitySchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });
-
+activitySchema.plugin(QueryPlugin);
 const mailingPopulates = [
   { path: "assignedTo", populate: { path: "domain" } },
   { path: "lead" },

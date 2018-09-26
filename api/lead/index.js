@@ -196,17 +196,4 @@ router.delete("/:leadId", leadMembersMiddlewares, (req, res) => {
     });
 });
 
-// @route   GET api/lead/:leadId/activities
-// @desc    Find activities by lead
-// @access  Private
-router.get("/:leadId/activities", leadMembersMiddlewares, (req, res) => {
-  Activity.find({ lead: req.params.leadId })
-    .then(activities => {
-      res.json(activities);
-    })
-    .catch(error => {
-      res.status(400).json({ errors: { message: error } });
-    });
-});
-
 export default router;
