@@ -34,7 +34,7 @@ describe("Lead", () => {
       .post(`/api/note`)
       .set("Authorization", cred.token)
       .send({
-``        user: cred.userId,
+        user: cred.userId,
         text: "First note",
         contact: lead.contact._id,
         lead: lead._id,
