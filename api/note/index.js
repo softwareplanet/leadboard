@@ -64,7 +64,11 @@ router.patch("/:noteId", validateNoteDomainMiddleware, async (req, res) => {
     });
 });
 
-const createNoteMembersMiddlewares = [validateContactDomainMiddleware,validateLeadDomainMiddleware,validateOrganizationDomainMiddleware];
+const createNoteMembersMiddlewares = [
+  validateContactDomainMiddleware,
+  validateLeadDomainMiddleware,
+  validateOrganizationDomainMiddleware,
+];
 
 // @route   POST api/note
 // @desc    Create note
