@@ -13,7 +13,7 @@ const contactSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
 });
 
-const organizationPopulates = [{ path: "organization", select: "name" }];
+const organizationPopulates = [{ path: "organization" }];
 const ownerPopulates = [{ path: "owner", options: { password: 0 } }];
 
 const fullPopulates = [
