@@ -4,7 +4,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import OrganizationModel from '../../../models/Organization';
 import Navbar from '../../layouts/Navbar/Navbar';
 import DetailedViewHeader from '../DetailedViewHeader/DetailedViewHeader';
-import { loadContactsForOrganization } from './detailedOrganizationActions';
+import { loadAggregatedContactsForOrganization } from './detailedOrganizationActions';
 import { loadOrganization } from './detailedOrganizationActions';
 import OrganizationContent from './OrganizationContent/OrganizationContent';
 import OrganizationSidebar from './OrganizationSidebar/OrganizationSidebar';
@@ -14,7 +14,7 @@ interface Props extends RouteComponentProps<{ organizationId: string }> {
 
   loadOrganization(id: string): void;
 
-  loadContactsForOrganization(organizationId: string): void;
+  loadAggregatedContactsForOrganization(organizationId: string): void;
 }
 
 class Organization extends React.Component<Props, object> {
@@ -41,7 +41,7 @@ class Organization extends React.Component<Props, object> {
   public componentWillMount() {
     const organizationId = this.props.match.params.organizationId;
     this.props.loadOrganization(organizationId);
-    this.props.loadContactsForOrganization(organizationId);
+    this.props.loadAggregatedContactsForOrganization(organizationId);
   }
 }
 
@@ -49,4 +49,4 @@ const mapStateToProps = (state: any) => ({
   organization: state.organization.detailedOrganization.organization,
 });
 
-export default connect(mapStateToProps, { loadOrganization, loadContactsForOrganization })(Organization);
+export default connect(mapStateToProps, { loadOrganization, loadAggregatedContactsForOrganization })(Organization);

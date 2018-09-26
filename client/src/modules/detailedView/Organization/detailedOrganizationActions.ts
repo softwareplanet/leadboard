@@ -8,7 +8,7 @@ export const loadOrganization = (organizationId: string) => (dispatch: Dispatch)
     .then(...dispatchResponse(LOAD_ORGANIZATION));
 };
 
-export const loadContactsForOrganization = (organizationId: string) => (dispatch: Dispatch) => {
-  axios.get(`/api/organization/${organizationId}/contacts`)
+export const loadAggregatedContactsForOrganization = (organizationId: string) => (dispatch: Dispatch) => {
+  axios.get(`/api/contact/aggregated/organization/${organizationId}`)
     .then(...dispatchResponse(LOAD_CONTACTS_FOR_ORGANIZATION));
 };

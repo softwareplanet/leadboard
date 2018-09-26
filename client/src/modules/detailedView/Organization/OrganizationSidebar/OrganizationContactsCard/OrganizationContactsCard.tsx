@@ -32,7 +32,7 @@ class OrganizationContactsCard extends React.Component<Props, State> {
         <div className={styles.cardBody}>
           {contacts.length === 0 ? 'There are no people in this organization' : undefined}
           {contacts.slice(0, MAX_CONTACTS_LENGTH).map((contact: Contact) => (
-            <div className={styles.contact}>
+            <div className={styles.contact} key={contact._id}>
               <img src={contactIcon} className={styles.contactIcon} alt={'contact-icon'} />
               <Link to={`/contact/${contact._id}`} className={styles.contactName}>
                 {contact.name}

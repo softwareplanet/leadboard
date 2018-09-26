@@ -11,7 +11,6 @@ import * as commonStyles from '../../../../../styles/common.css';
 import reactModalStyles from '../../../../../styles/reactModalDefaultStyle';
 import Table from '../../../../common/Table/Table';
 import { getTableData } from '../../../../layouts/Contacts/ContactsService';
-import { loadAggregatedContacts } from '../../../../layouts/Contacts/People/contactActions';
 import * as styles from './AllContactsModal.css';
 
 const columns = [
@@ -31,8 +30,6 @@ interface Props {
   isModalOpen: boolean;
   organization: Organization;
 
-  loadAggregatedContacts(): void;
-
   openModal(): void;
 
   closeModal(): void;
@@ -41,14 +38,9 @@ interface Props {
 class AllContactsModal extends React.Component<Props> {
   private allContactsModalStyles = { ...reactModalStyles };
 
-
   constructor(props: Props){
     super(props);
     this.allContactsModalStyles.content.width = '91%';
-  }
-
-  public componentWillMount() {
-    this.props.loadAggregatedContacts();
   }
 
   public render() {
@@ -88,9 +80,9 @@ class AllContactsModal extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: any) => ({
-  contacts: state.contact.contacts,
+  contacts: state.organization.detailedOrganization.contacts,
   domainCustomFields: state.domain.settings.customFields,
   organization: state.organization.detailedOrganization.organization,
 });
 
-export default connect(mapStateToProps, { loadAggregatedContacts })(AllContactsModal);
+export default connect(mapStateToProps)(AllContactsModal);
