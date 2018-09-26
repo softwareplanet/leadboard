@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { RouteComponentProps, withRouter } from 'react-router';
 import addActivityIconActive from '../../../../../assets/img/add-activity/add-activity-active.svg';
 import addActivityIcon from '../../../../../assets/img/add-activity/add-activity.svg';
 import takeNotesIconActive from '../../../../../assets/img/take-notes/take-notes-active.svg';
@@ -16,7 +15,7 @@ import AddActivity from './AddActivity/AddActivity';
 import EditLeadEditor from './EditLeadEditor/EditLeadEditor';
 import * as styles from './EditLeadTabs.css';
 
-interface Props extends RouteComponentProps<any> {
+interface Props {
   userId: string;
   editLead: Lead;
 
@@ -168,4 +167,4 @@ const mapLeadStateToProps = (state: any) => ({
 
 export { EditLeadTabs };
 
-export const LeadTabs = connect(mapLeadStateToProps, { createNote, createActivity })(withRouter(EditLeadTabs));
+export const LeadTabs = connect(mapLeadStateToProps, { createNote, createActivity })(EditLeadTabs);
