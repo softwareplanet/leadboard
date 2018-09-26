@@ -17,7 +17,7 @@ export const deleteNote = (note: Note) => (dispatch: any) => {
 
 export const updateNote = (modelId: string, note: Note) => (dispatch: any) => {
   axios
-    .patch(`/api/note/${modelId}/${note._id}`, { text: note.text })
+    .patch(`/api/note/${note._id}`, { text: note.text })
     .then(...dispatchResponse(UPDATE_NOTE));
 };
 

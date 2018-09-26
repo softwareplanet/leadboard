@@ -58,7 +58,7 @@ describe("Lead", () => {
 
   it("should update note", async () => {
     const { status, body } = await request(app())
-      .patch(`/api/note/${lead._id}/${note._id}`)
+      .patch(`/api/note/${note._id}`)
       .set("Authorization", cred.token)
       .send({
         text: UPDATED_NOTE,
@@ -74,7 +74,6 @@ describe("Lead", () => {
       .set("Authorization", otherUser.token)
       .send();
     expect(status).toBe(404);
-    expect(body).toMatchObject({ errors: { message: "Note with provided id is not found in your domain" } });
   });
 
   it("should delete note", async () => {

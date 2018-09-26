@@ -12,6 +12,7 @@ const router = new Router();
 // @desc    Get notes by model
 // @access  Private
 router.get("/", (req, res) => {
+  req.query.domain = req.user.domain;
   Note.query(req.query)
     .then(notes => {
       Note.populate(notes, Note.populates.basic)
@@ -39,10 +40,10 @@ export const validateNoteDomainMiddleware = (req, res, next) => {
   }
 };
 
-// @route   PATCH api/note/:modelId/:noteId
+// @route   PATCH api/note/:noteId
 // @desc    Update note
 // @access  Private
-router.patch("/:modelId/:noteId", validateNoteDomainMiddleware, async (req, res) => {
+router.patch("/:noteId", validateNoteDomainMiddleware, async (req, res) => {
   const { noteId } = req.params;
   const { text } = req.body;
   const { hasErrors, errors } = validateNoteUpdate(noteId, text);

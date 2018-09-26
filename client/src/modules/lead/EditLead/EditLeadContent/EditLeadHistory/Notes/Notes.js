@@ -32,7 +32,8 @@ class Notes extends Component {
                   updateNote={this.noteUpdateHandler}
                   deleteNote={this.noteDeleteHandler}
                   note={note}
-                />}
+                />
+              }
             />
           );
         }) : null}
