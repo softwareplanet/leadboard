@@ -9,6 +9,7 @@ import LeadAutocomplete from '../../../../../../../common/autocomplete/lead/Lead
 import SearchSpinner from '../../../../../../../layouts/Navbar/Search/Spinner/SearchSpinner';
 // import { loadSearchResult } from '../searchActions';
 import * as styles from './LeadAutocompleteWrapper.css';
+import { autocompleteStyles } from '../../../../../../../common/autocomplete/styles/autocomplete-styles';
 
 
 interface Props {
@@ -32,6 +33,11 @@ class LeadAutocompleteWrapper extends React.Component<Props, State> {
 
   public render() {
     const state = this.state;
+    const autocompleteProps = {
+      inputStyle: autocompleteStyles.addLeadInput,
+      itemsCount: 5,
+      onFocus: this.onAutocompleteFocus,
+    };
     const testLeads = [ {
       "_id": "5bab2ba3baf6781b6349053f",
       "name": "Bob lead",
@@ -68,6 +74,7 @@ class LeadAutocompleteWrapper extends React.Component<Props, State> {
           onFocus={this.onFocus}
           onSelect={this.onSelect}
           value={state.value}
+          styles={autocompleteStyles.organization}
         />
         {this.state.loading ?
           <SearchSpinner className={styles.leadSpinner} />
@@ -104,7 +111,11 @@ class LeadAutocompleteWrapper extends React.Component<Props, State> {
       isDropdownOpen: !isBlank(value),
       value,
     });
-  };
+  }
+  
+  private onAutocompleteFocus = (event: any) => {
+    event.target.parentNode.parentNode.setAttribute("style", "border: 1px solid #317ae2");
+  }
 }
 
 const mapStateToProps = (state: any) => ({
