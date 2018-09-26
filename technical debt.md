@@ -21,3 +21,4 @@ This file contains everything that must be fixed/changed/done. We didn't do that
 - Rework settings reducer using `combineReducer`
 - Rework filter and pipeline switcher
 - Extract domain users dropdown from AddContact/AddOrganization
+- Fix styles on search panel (styles for tabs is unused now)
