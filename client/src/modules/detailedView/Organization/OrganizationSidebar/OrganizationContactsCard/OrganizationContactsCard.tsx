@@ -12,6 +12,7 @@ class OrganizationContactsCard extends React.Component<Props> {
 
   public render() {
     const { contacts } = this.props;
+    const MAX_CONTACTS_LENGTH = 10;
     return (
       <div className={styles.cardWrapper}>
         <div className={styles.cardHeading}>
@@ -21,7 +22,7 @@ class OrganizationContactsCard extends React.Component<Props> {
         </div>
         <div className={styles.cardBody}>
           {contacts.length === 0 ? 'There are no people in this organization' : undefined}
-          {contacts.map((contact: Contact) => (
+          {contacts.slice(0, MAX_CONTACTS_LENGTH).map((contact: Contact) => (
             <div className={styles.contact}>
               <img src={contactIcon} className={styles.contactIcon} alt={'contact-icon'} />
               <Link to={`/contact/${contact._id}`} className={styles.contactName}>
@@ -29,9 +30,18 @@ class OrganizationContactsCard extends React.Component<Props> {
               </Link>
             </div>
           ))}
+          {contacts.length > MAX_CONTACTS_LENGTH
+            ? <div>
+              +{contacts.length - MAX_CONTACTS_LENGTH} more
+            </div>
+            : undefined}
         </div>
         <div className={styles.actions}>
-          {contacts.length !== 0 ? <button className={styles.buttonViewAll}>View all</button> : undefined}
+          {contacts.length !== 0
+            ? <button className={styles.buttonViewAll}>
+              View all
+            </button>
+            : undefined}
         </div>
       </div>
     );
