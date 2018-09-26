@@ -3,12 +3,12 @@ import * as React from 'react';
 import * as ReactAutocomplete from 'react-autocomplete';
 
 interface Props {
-  styles: any;
+  styles?: any;
   value: any;
   open: any;
-  items: any;
-  itemsCount: any;
-  inputStyle: any;
+  items?: any;
+  itemsCount?: any;
+  inputStyle?: any;
   onFocus: any;
   onBlur: any;
   onChange: any;
@@ -30,20 +30,19 @@ class LeadAutocomplete extends React.Component<Props> {
           <div className="leadsList" style={styles.menu} children={items.splice(0, this.props.itemsCount)} />
         }
         renderItem={(item: any, highlighted: any) =>
-          <div
+          <span
             key={item._id}
             style={{
               ...styles.menuItem,
               backgroundColor: highlighted ? "#317ae2" : "transparent",
               color: highlighted ? "#fff" : "#317ae2"
             }}
-          >
-          </div>
+          />
         }
         inputProps={{
+          className: 'lead-input',
           onBlur: this.props.onBlur,
           onFocus: this.props.onFocus,
-          className: 'lead-input',
           style: this.props.inputStyle,
         }}
         value={this.props.value}

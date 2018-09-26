@@ -15,6 +15,7 @@ import isBlank from "../../../../../../utils/isBlank";
 import CustomSelect from "./buttons/CustomSelect";
 import DatePicker from "react-pikaday-datepicker";
 import PropTypes from "prop-types";
+import LinkedTo from "./LinkedTo/LinkedTo";
 
 const timeIntervalMinutes = 15;
 const minutesInHour = 60;
@@ -227,6 +228,7 @@ export default class AddActivity extends Component {
               </div>
             </label>
           </div>
+          <LinkedTo />
         </div>
         <div className={style.footer}>
           <button

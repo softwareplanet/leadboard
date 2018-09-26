@@ -1,0 +1,9 @@
+.linkedTo {
+margin-bottom: 8px;
+}
+
+.linkedToLabel {
+  color: rgba(38,41,44,0.64);
+  font: 600 10px/14px "Open Sans",sans-serif;
+  text-transform: uppercase;
+}

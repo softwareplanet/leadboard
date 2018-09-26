@@ -1,0 +1,30 @@
+.leadAutocomplete {
+  margin-top: 8px;
+  position: relative;
+}
+
+.clearIcon {
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  right: 8px;
+  top: 50%; 
+}
+
+.leadSpinner {
+  composes: searchSpinner from "../../../../../../../layouts/Navbar/Search/Search.css";
+  border-color: #b9babb;
+}
+
+.dealIcon {
+  height: 16px;
+  width: 16px;
+  position: absolute;
+  top: 0;
+  margin-top: 8px;
+  left: 8px;
+}
+
+.dealIcon path {
+  fill: #404346;
+}
