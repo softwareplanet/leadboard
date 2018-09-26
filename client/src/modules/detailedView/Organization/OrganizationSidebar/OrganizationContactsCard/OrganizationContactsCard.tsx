@@ -31,7 +31,7 @@ class OrganizationContactsCard extends React.Component<Props> {
           ))}
         </div>
         <div className={styles.actions}>
-          <button className={styles.buttonViewAll}>View all</button>
+          {contacts.length !== 0 ? <button className={styles.buttonViewAll}>View all</button> : undefined}
         </div>
       </div>
     );
