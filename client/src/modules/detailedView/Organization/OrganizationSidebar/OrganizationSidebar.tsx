@@ -14,7 +14,6 @@ class OrganizationSidebar extends React.Component<Props> {
   public render() {
     return (
       <div className={detailedViewStyles.sidebar}>
-        Sidebar
         <OrganizationContactsCard contacts={this.props.contacts} />
       </div>
     );
