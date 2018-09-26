@@ -1,10 +1,10 @@
 import { Router } from "express";
 import Note from "../../models/note";
 import {
-  validateNoteDomainMiddleware,
   validateNoteUpdate,
   validateNoteCreate,
 } from "../../validation/note";
+import { isValidModelId } from "../../validation/validationUtils";
 
 const router = new Router();
 
@@ -23,6 +23,21 @@ router.get("/", (req, res) => {
       res.status(400).json(error);
     });
 });
+
+export const validateNoteDomainMiddleware = (req, res, next) => {
+  if (isValidModelId(req.params.noteId)) {
+    Note.findById(req.params.noteId)
+      .then(note => {
+        if (note !== null && note.domain.equals(req.user.domain)) {
+          next();
+        } else {
+          return res.status(404).json({ errors: { message: "Note with provided id is not found in your domain" } });
+        }
+      });
+  } else {
+    return res.status(404).json({ errors: { message: "Provided note's id is not valid" } });
+  }
+};
 
 // @route   PATCH api/note/:modelId/:noteId
 // @desc    Update note

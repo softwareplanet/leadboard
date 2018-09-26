@@ -1,11 +1,13 @@
 import isEmpty from "lodash.isempty";
 import { isBlank, isValidModelId } from "./validationUtils";
-import Note from "../models/note";
 
 export const validateNoteUpdate = (noteId, text) => {
   let errors = {};
   if (isBlank(text)) {
-    errors.note = "Note cant be empty";
+    errors = "Note cant be empty";
+  }
+  if (!isValidModelId(noteId)) {
+    errors = "Provided note's id is not valid";
   }
   return {
     errors,
@@ -16,25 +18,10 @@ export const validateNoteUpdate = (noteId, text) => {
 export const validateNoteCreate = (text) => {
   let errors = {};
   if (isBlank(text)) {
-    errors.note = "Note can't be empty";
+    errors = "Note can't be empty";
   }
   return {
     errors,
     hasErrors: !isEmpty(errors),
   };
-};
-
-export const validateNoteDomainMiddleware = (req, res, next) => {
-  if (isValidModelId(req.params.noteId)) {
-    Note.findById(req.params.noteId)
-      .then(note => {
-        if (note !== null && note.domain.equals(req.user.domain)) {
-          next();
-        } else {
-          return res.status(404).json({ errors: { message: "Note with provided id is not found in your domain" } });
-        }
-      });
-  } else {
-    return res.status(404).json({ errors: { message: "Provided note's id is not valid" } });
-  }
 };
