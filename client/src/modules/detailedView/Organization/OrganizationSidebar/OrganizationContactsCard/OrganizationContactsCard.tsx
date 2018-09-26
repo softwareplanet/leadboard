@@ -21,7 +21,7 @@ class OrganizationContactsCard extends React.Component<Props> {
           {contacts.length === 0 ? 'There are no people in this organization' : undefined}
           {contacts.map((contact: Contact) => (
             <div>
-              <div>${contact.name}</div>
+              <div>{contact.name}</div>
             </div>
           ))}
         </div>
