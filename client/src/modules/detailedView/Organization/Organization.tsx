@@ -26,7 +26,11 @@ class Organization extends React.Component<Props, object> {
       <div>
         <Navbar />
         <div style={displayFlex}>
-          <DetailedViewHeader modelUpdateAction={this.props.updateOrganization} modelType="Organization" model={this.props.organization} />
+          <DetailedViewHeader 
+            modelUpdateAction={this.props.updateOrganization} 
+            modelType="Organization" 
+            model={this.props.organization} 
+          />
         </div>
         <div style={displayFlex}>
           <OrganizationSidebar />

@@ -26,7 +26,11 @@ class Contact extends React.Component<Props> {
       <div>
         <Navbar />
         <div style={displayFlex}>
-          <DetailedViewHeader modelUpdateAction={this.props.updateContact} modelType="Contact" model={this.props.contact} />
+          <DetailedViewHeader 
+            modelUpdateAction={this.props.updateContact} 
+            modelType="Contact" 
+            model={this.props.contact} 
+          />
         </div>
         <div style={displayFlex}>
           <ContactSidebar />
