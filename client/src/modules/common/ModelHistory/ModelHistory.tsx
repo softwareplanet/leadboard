@@ -36,7 +36,7 @@ class ModelHistory extends React.Component<Props, State> {
 
   public static getDerivedStateFromProps(props: Props) {
     if (getDoneActivities(props.activities).length === 0) {
-      return {selectedTab: 0};
+      return { selectedTab: 0 };
     }
     return null;
   }
@@ -62,12 +62,16 @@ class ModelHistory extends React.Component<Props, State> {
         <div className={styles.sectionTag}>
           <span className={styles.pill}>PAST</span>
         </div>
-        <StyledTabs value={selectedTab}
-                    onChange={this.handleChange}
-                    centered={true}>
+        <StyledTabs
+          value={selectedTab}
+          onChange={this.handleChange}
+          centered={true}
+        >
           <Tab label={`NOTES ${notesCount}`} />
-          <Tab label={`ACTIVITIES ${countOfDoneActivities > 0 ? countOfDoneActivities : ''}`}
-               disabled={doneActivities.length <= 0} />
+          <Tab
+            label={`ACTIVITIES ${countOfDoneActivities > 0 ? countOfDoneActivities : ''}`}
+            disabled={doneActivities.length <= 0}
+          />
         </StyledTabs>
         {selectedTab === 0 && <Notes />}
         {selectedTab === 1 && <Activities done={true} activities={doneActivities} />}
