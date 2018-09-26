@@ -34,15 +34,13 @@ describe("Lead", () => {
       .post(`/api/note`)
       .set("Authorization", cred.token)
       .send({
-        attachedTo: lead._id,
-        user: cred.userId,
+``        user: cred.userId,
         text: "First note",
         contact: lead.contact._id,
         lead: lead._id,
       });
     expect(status).toBe(200);
     expect(body).toMatchObject({
-      attachedTo: lead._id,
       text: "First note",
       contact: lead.contact._id,
       lead: lead._id,

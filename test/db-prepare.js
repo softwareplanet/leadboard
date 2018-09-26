@@ -130,7 +130,6 @@ export async function createNote(app, token, model, user, text = "Note 1") {
     .post(`/api/note`)
     .set("Authorization", token)
     .send({
-      attachedTo: model._id,
       text: text,
       user: user,
       lead: model._id,
