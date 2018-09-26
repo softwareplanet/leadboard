@@ -1,4 +1,4 @@
-const reactModalStyles = {
+const reactModalStyles: any = {
   content: {
     border: '1px solid #e5e5e5',
     borderRadius: '0 0 2px 2px',
