@@ -9,8 +9,8 @@ import Activity from '../../../../../models/Activity';
 import Lead from '../../../../../models/Lead';
 import Note from '../../../../../models/Note';
 import isBlank from '../../../../../utils/isBlank';
-import { createNote } from '../../../leadActions';
 import { createActivity } from '../../Activities/activityActions';
+import { createNote } from '../EditLeadHistory/Notes/noteActions';
 import AddActivity from './AddActivity/AddActivity';
 import EditLeadEditor from './EditLeadEditor/EditLeadEditor';
 import * as styles from './EditLeadTabs.css';
@@ -21,7 +21,7 @@ interface Props {
 
   createActivity(activity: Activity): void;
 
-  createNote(leadId: string, note: Note): void;
+  createNote(note: Note): void;
 }
 
 interface State {
@@ -73,7 +73,7 @@ class EditLeadTabs extends React.Component<Props, State> {
       text: noteText,
       user: this.props.userId,
     };
-    this.props.createNote(this.props.editLead._id, note);
+    this.props.createNote(note);
     this.toggleFakeInput();
   }
 
