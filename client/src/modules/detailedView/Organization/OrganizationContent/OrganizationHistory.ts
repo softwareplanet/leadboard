@@ -1,12 +1,9 @@
 import { connect } from 'react-redux';
-import ModuleHistory from '../../../../modules/common/ModelHistory/ModelHistory';
-
-class OrganizationHistory extends ModuleHistory {
-}
+import ModelHistory from '../../../../modules/common/ModelHistory/ModelHistory';
 
 const mapStateToProps = (state: any) => ({
   activities: [],
   notes: state.organization.detailedOrganization.notes,
 });
 
-export default connect(mapStateToProps)(OrganizationHistory);
+export default connect(mapStateToProps)(ModelHistory);
