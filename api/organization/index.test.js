@@ -135,7 +135,7 @@ describe("Organization", function() {
     expect(body[1].name).toBe("Company 2");
   });
 
-  it("should find all contacts by organization id", async () => {
+  it("should find all contacts by organization id and sort by name", async () => {
     const organization = await createOrganization(app, cred.token, "Company 1");
     const firstContact = await createContact(app, cred.token, organization._id, "Ann A.");
     const secondContact = await createContact(app, cred.token, organization._id, "Jack B.");
@@ -149,7 +149,7 @@ describe("Organization", function() {
       .set("Authorization", cred.token)
       .send({});
 
-    const expectedBody = [firstContact, secondContact, thirdContact];
+    const expectedBody = [firstContact, thirdContact, secondContact];
 
     expect(status).toBe(200);
     expect(body.length).toBe(3);
