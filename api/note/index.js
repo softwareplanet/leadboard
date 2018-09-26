@@ -16,8 +16,8 @@ router.get("/", (req, res) => {
   Note.query(req.query)
     .then(notes => {
       Note.populate(notes, Note.populates.basic)
-        .then(note => {
-          res.json(note);
+        .then(notes => {
+          res.json(notes);
         });
     })
     .catch(error => {

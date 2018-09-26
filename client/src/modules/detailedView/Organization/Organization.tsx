@@ -55,9 +55,7 @@ const mapStateToProps = (state: any) => ({
   organization: state.organization.detailedOrganization.organization,
 });
 
-export default connect(mapStateToProps,
-  {
-    loadNotes,
-    loadOrganization,
-    updateOrganization,
-  })(Organization);
+export default connect(
+  mapStateToProps,
+  { loadNotes, loadOrganization, updateOrganization },
+)(Organization);
