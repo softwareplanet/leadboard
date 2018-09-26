@@ -1,7 +1,7 @@
 import leadReducer from "./leadReducer";
 import { combineReducers } from "redux";
 import activityReducer from "../../modules/lead/EditLead/Activities/activityReducer";
-
+import noteReducer from "./EditLead/EditLeadContent/EditLeadHistory/Notes/noteReducer";
 import { LEAD_NOT_FOUND, LOAD_LEAD, LOAD_STAGES_FOR_FUNNELS } from "./types";
 
 const notFoundReducer = (state = false, action) => {
@@ -28,5 +28,6 @@ export default combineReducers({
   lead: leadReducer,
   activities: activityReducer,
   notFound: notFoundReducer,
+  notes: noteReducer,
   stagesForFunnel: stagesForFunnelsReducer,
 });

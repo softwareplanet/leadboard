@@ -125,13 +125,17 @@ export async function createContact(app, token, organization, name = "John D") {
   return body;
 }
 
-export async function createNote(app, token, leadId, user, text = "Note 1") {
+export async function createNote(app, token, model, user, text = "Note 1") {
   const { body } = await request(app())
-    .post(`/api/lead/${leadId}/notes`)
+    .post(`/api/note`)
     .set("Authorization", token)
-    .send({ text, user })
+    .send({
+      text: text,
+      user: user,
+      lead: model._id,
+      contact: model.contact._id,
+    })
     .catch(error => {
-      console.log("Cannot create a note" + error);
       throw "Cannot create a note";
     });
   return body;

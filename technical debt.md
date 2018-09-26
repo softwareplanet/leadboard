@@ -20,3 +20,4 @@ This file contains everything that must be fixed/changed/done. We didn't do that
 - Add tests for delete activity
 - Rework settings reducer using `combineReducer`
 - Extract domain users dropdown from AddContact/AddOrganization
+- Fix styles on search panel (styles for tabs is unused now)

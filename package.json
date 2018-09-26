@@ -46,6 +46,7 @@
     "moment": "^2.22.2",
     "mongoose": "^4.4.5",
     "mongoose-error-parser": "^1.0.0",
+    "mongoose-query": "^0.5.3",
     "morgan": "^1.7.0",
     "node-schedule-tz": "^1.2.1-4",
     "nunjucks": "^3.1.3",
