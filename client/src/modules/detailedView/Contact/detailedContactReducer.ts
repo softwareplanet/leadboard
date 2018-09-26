@@ -1,10 +1,9 @@
 import { combineReducers } from 'redux';
 import Action from '../../../models/Action';
 import Contact from '../../../models/Contact';
-
+import User from '../../../models/User';
 import activityReducer from '../../lead/EditLead/Activities/activityReducer';
 import { LOAD_CONTACT,UPDATE_CONTACT } from './types';
-import User from "../../../models/User";
 
 const owner: User = {
   _id: '',
