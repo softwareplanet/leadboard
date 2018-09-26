@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
+import contactIcon from '../../../../../assets/img/contacts-icon.svg';
 import Contact from '../../../../../models/Contact';
 import * as styles from './OrganizationContactsCard.css';
 
@@ -20,10 +22,16 @@ class OrganizationContactsCard extends React.Component<Props> {
         <div className={styles.cardBody}>
           {contacts.length === 0 ? 'There are no people in this organization' : undefined}
           {contacts.map((contact: Contact) => (
-            <div>
-              <div>{contact.name}</div>
+            <div className={styles.contact}>
+              <img src={contactIcon} className={styles.contactIcon} alt={'contact-icon'} />
+              <Link to={`/contact/${contact._id}`} className={styles.contactName}>
+                {contact.name}
+              </Link>
             </div>
           ))}
+        </div>
+        <div className={styles.actions}>
+          <button className={styles.buttonViewAll}>View all</button>
         </div>
       </div>
     );
