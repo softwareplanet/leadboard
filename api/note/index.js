@@ -14,9 +14,10 @@ const router = new Router();
 router.get("/", (req, res) => {
   Note.query(req.query)
     .then(notes => {
-      Note.populate(notes, Note.populates.basic, (err, notes) => {
-        res.json(notes);
-      });
+      Note.populate(notes, Note.populates.basic)
+        .then(note => {
+          res.json(note);
+        });
     })
     .catch(error => {
       res.status(400).json(error);
@@ -64,9 +65,10 @@ router.post("/", (req, res) => {
   note.domain = req.user.domain;
   Note.create(note)
     .then(note => {
-      Note.populate(note, Note.populates.basic, (err, note) => {
-        res.json(note);
-      });
+      Note.populate(note, Note.populates.basic)
+        .then(note => {
+          res.json(note);
+        });
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });
@@ -78,7 +80,7 @@ router.post("/", (req, res) => {
 // @access  Private
 router.delete("/:noteId", validateNoteDomainMiddleware, (req, res) => {
   Note.findByIdAndRemove(req.params.noteId)
-    .then(() => res.status(204).send())
+    .then(() => res.sendStatus(204))
     .catch(error => {
       res.status(400).json({ errors: { message: error } });
     });
