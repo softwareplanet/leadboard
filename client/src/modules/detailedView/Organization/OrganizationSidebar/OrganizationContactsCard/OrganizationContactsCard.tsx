@@ -2,13 +2,22 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import contactIcon from '../../../../../assets/img/contacts-icon.svg';
 import Contact from '../../../../../models/Contact';
+import AllContactsModal from '../AllContactsModal/AllContactsModal';
 import * as styles from './OrganizationContactsCard.css';
 
 interface Props {
   contacts: Contact[];
 }
 
-class OrganizationContactsCard extends React.Component<Props> {
+interface State {
+  isAllContactModalOpen: boolean;
+}
+
+class OrganizationContactsCard extends React.Component<Props, State> {
+
+  public state: State = {
+    isAllContactModalOpen: false,
+  };
 
   public render() {
     const { contacts } = this.props;
@@ -38,13 +47,26 @@ class OrganizationContactsCard extends React.Component<Props> {
         </div>
         <div className={styles.actions}>
           {contacts.length !== 0
-            ? <button className={styles.buttonViewAll}>
+            ? <button className={styles.buttonViewAll} onClick={this.openModal}>
               View all
+              <AllContactsModal
+                isModalOpen={this.state.isAllContactModalOpen}
+                openModal={this.openModal}
+                closeModal={this.closeModal}
+              />
             </button>
             : undefined}
         </div>
       </div>
     );
+  }
+
+  private openModal = () => {
+    this.setState({ isAllContactModalOpen: true });
+  }
+
+  private closeModal = () => {
+    this.setState({ isAllContactModalOpen: false });
   }
 }
 
