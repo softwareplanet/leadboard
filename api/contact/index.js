@@ -4,10 +4,25 @@ import Contact from "../../models/contact";
 import { validateContactCreation, validateContactUpdate } from "../../validation/contact";
 import { contactAggregation } from "./contactAggregation";
 import isEmpty from "lodash.isempty";
-import { isValidModelId,validateExisting } from "../../validation/validationUtils";
+import { isValidModelId, validateExisting } from "../../validation/validationUtils";
 import Organization from "../../models/organization";
 
 const router = new Router();
+
+const validateContactDomain = (req, res, next) => {
+  if (isValidModelId(req.params.contactId)) {
+    Contact.findById(req.params.contactId)
+      .then(contact => {
+        if (contact !== null && contact.domain.equals(req.user.domain)) {
+          next();
+        } else {
+          return res.status(404).json({ errors: { message: "Contact with provided id is not found in your domain" } });
+        }
+      });
+  } else {
+    return res.status(404).json({ errors: { message: "Provided contact's id is not valid" } });
+  }
+};
 
 // @route GET api/contact
 // @desc Return all contacts that have name field
@@ -84,11 +99,12 @@ function createOrganization(name, domain, owner) {
 // @route   PATCH api/contact/:contactId
 // @desc    Update contact
 // @access  Private
-router.patch("/:contactId", (req, res) => {
+router.patch("/:contactId", validateContactDomain, (req, res) => {
   const { hasErrors, errors } = validateContactUpdate(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 
   Contact.findByIdAndUpdate(req.params.contactId, { $set: req.body }, { new: true })
+    .populate(Contact.populates.full)
     .then(contact => {
       res.json(contact);
     })
@@ -100,7 +116,7 @@ router.patch("/:contactId", (req, res) => {
 // @route   GET api/contact/:contactId
 // @desc    Get contact by id
 // @access  Private
-router.get("/:contactId", (req, res) => {
+router.get("/:contactId", validateContactDomain, (req, res) => {
   Contact.findById(req.params.contactId)
     .populate(Contact.populates.full)
     .then(contact => {

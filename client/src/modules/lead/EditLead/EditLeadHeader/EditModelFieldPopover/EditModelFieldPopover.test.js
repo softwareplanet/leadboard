@@ -2,7 +2,7 @@ import "jsdom-global/register";
 import React from "react";
 import { shallow } from "enzyme";
 import { expect } from "chai";
-import EditLeadFieldPopover from "./EditLeadFieldPopover";
+import EditLeadFieldPopover from "./EditModelFieldPopover";
 
 describe("<EditLeadPopup />", () => {
   it("should change state after input", () => {
