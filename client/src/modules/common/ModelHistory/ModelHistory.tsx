@@ -33,19 +33,21 @@ interface State {
 }
 
 class ModelHistory extends React.Component<Props, State> {
+
+  public static getDerivedStateFromProps(props: Props) {
+    if (getDoneActivities(props.activities).length === 0) {
+      return {selectedTab: 0};
+    }
+    return null;
+  }
+
   public state = {
     selectedTab: 0,
   };
 
-  public handleChange = (event: any, selectedTab: any) => {
+  public handleChange = (event: any, selectedTab: number) => {
     this.setState({ selectedTab });
   };
-
-  public UNSAFE_componentWillReceiveProps(nextProps: any) {
-    if (getDoneActivities(nextProps.activities).length === 0) {
-      this.setState({ selectedTab: 0 });
-    }
-  }
 
   public render() {
     const { notesCount, plannedActivities, doneActivities } = createProps(this.props.notes, this.props.activities);
