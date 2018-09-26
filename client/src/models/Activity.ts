@@ -12,7 +12,7 @@ export default interface Activity {
   hasStartTime: boolean;
   duration: number;
   note: string;
-  assignedTo: string | User,
+  assignedTo: string | User;
   lead: string | Lead;
   participants: string[] | Contact[];
   organization: string | Organization;
