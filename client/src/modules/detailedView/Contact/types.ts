@@ -1,1 +1,2 @@
 export const LOAD_CONTACT = 'LOAD_CONTACT';
+export const UPDATE_CONTACT = 'UPDATE_CONTACT';
