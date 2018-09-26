@@ -6,7 +6,7 @@ import jwt_decode from "jwt-decode";
 import store from "./store.js";
 import setAuthToken from "./utils/setAuthToken.js";
 import setAuthInterceptor from "./utils/setAuthInterceptor"
-import { loginUserById, logoutUser,setLoginData } from "./modules/auth/authActions";
+import { loginUserById, logoutUser, setLoginData } from "./modules/auth/authActions";
 import PrivateRoute from "./modules/common/PrivateRoute";
 import Home from "./modules/layouts/Home";
 import Footer from "./modules/layouts/Footer/Footer";
@@ -21,6 +21,7 @@ import EditLead from "./modules/lead/EditLead/EditLead";
 import Settings from "./modules/settings/Settings";
 import history from "./history";
 import Organization from "./modules/detailedView/Organization/Organization";
+import Contact from "./modules/detailedView/Contact/Contact";
 
 setAuthInterceptor();
 // restore redux/storage on page reload
@@ -45,7 +46,9 @@ class App extends Component {
   };
 
   redirectHome = () => {
-    return <Redirect to={`/pipelines/${localStorage.getItem('activeFunnelId')}`} />;
+    return store.getState().dashboard.activeFunnel._id ?
+      <Redirect to={`/pipelines/${store.getState().dashboard.activeFunnel._id}`} /> :
+      <Redirect to={`/pipelines/loading`} />;
   };
 
   render() {
@@ -93,9 +96,15 @@ class App extends Component {
                 component={Organization}
               />
             </Switch>
-            <Route exact path="/" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Login />} />
-            <Route exact path="/register" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Registration />} />  
-            <Footer/>
+            <Switch>
+              <PrivateRoute
+                path="/contact/:contactId"
+                component={Contact}
+              />
+            </Switch>
+            <Route exact path="/" render={() => this.isUserAuthenticated() ? this.redirectHome() : <Login />} />
+            <Route exact path="/register" render={() => this.isUserAuthenticated() ? this.redirectHome() : <Registration />} />
+            <Footer />
           </div>
         </Router>
       </Provider>

@@ -4,7 +4,6 @@ import { noop } from 'lodash';
 import * as React from 'react';
 import { IN_PROGRESS } from '../../../../constants';
 import Contact from '../../../../models/Contact';
-import Domain from '../../../../models/Domain';
 import DomainSettings from '../../../../models/DomainSettings';
 import Lead from '../../../../models/Lead';
 import Organization from '../../../../models/Organization';
@@ -26,21 +25,22 @@ describe('<EditLeadSidebar />', () => {
     timezone: 'Etc/UTC',
   };
 
-  const domain: Domain = {
-    _id: '5b86a96eed17641891c5011b',
-    name: 'interLink',
-    settings,
-    timestamp: new Date('2018-08-29T14:10:54.395Z'),
-  };
-
   let editLead: Lead = {
     _id: '5b9110616ec37621e6b17bc4',
     contact: {
       _id: '5b9110616ec37621e6b17bc5',
       custom: [],
-      domain,
+      domain: '5b7ea5997adb5755f6bbc02b',
       name: 'Sarah',
       timestamp: new Date('2018-09-06T11:32:49.518Z'),
+      owner: {
+        _id: '5b86a96eed17641891c5011c',
+        domain: '5b7ea5997adb5755f6bbc02b',
+        email: 'olegsamardak98@gmail.com',
+        firstname: 'John',
+        lastname: 'Smith',
+        timestamp: new Date('2018-08-29T14:10:54.392Z'),
+      },
     },
     custom: [],
     name: 'Sarah lead',
@@ -56,11 +56,18 @@ describe('<EditLeadSidebar />', () => {
       domain: '5b7ea5997adb5755f6bbc02b',
       name: 'Microsoft ',
       timestamp: new Date('2018-08-23T12:19:19.758Z'),
-
+      owner: {
+        _id: '5b86a96eed17641891c5011c',
+        domain: '5b7ea5997adb5755f6bbc02b',
+        email: 'olegsamardak98@gmail.com',
+        firstname: 'John',
+        lastname: 'Smith',
+        timestamp: new Date('2018-08-29T14:10:54.392Z'),
+      },
     },
     owner: {
       _id: '5b86a96eed17641891c5011c',
-      domain,
+      domain: '5b7ea5997adb5755f6bbc02b',
       email: 'olegsamardak98@gmail.com',
       firstname: 'John',
       lastname: 'Smith',
@@ -88,6 +95,14 @@ describe('<EditLeadSidebar />', () => {
       domain: '5b6ab060f60c0524980fa23b',
       name: 'Company 1',
       timestamp: new Date('2018-08-23T12:19:19.758Z'),
+      owner: {
+        _id: '5b86a96eed17641891c5011c',
+        domain: '5b7ea5997adb5755f6bbc02b',
+        email: 'olegsamardak98@gmail.com',
+        firstname: 'John',
+        lastname: 'Smith',
+        timestamp: new Date('2018-08-29T14:10:54.392Z'),
+      },
     },
     {
       _id: '5b7c0cc542b4cb4a2c724933',
@@ -99,6 +114,14 @@ describe('<EditLeadSidebar />', () => {
       domain: '5b6ab060f60c0524980fa23b',
       name: 'Company 2',
       timestamp: new Date('2018-08-23T12:19:19.758Z'),
+      owner: {
+        _id: '5b86a96eed17641891c5011c',
+        domain: '5b7ea5997adb5755f6bbc02b',
+        email: 'olegsamardak98@gmail.com',
+        firstname: 'John',
+        lastname: 'Smith',
+        timestamp: new Date('2018-08-29T14:10:54.392Z'),
+      },
     },
   ];
 
@@ -115,9 +138,17 @@ describe('<EditLeadSidebar />', () => {
           key: 'Email',
           value: '',
         }],
-      domain,
-      name: 'Bob',
+        domain: '5b6ab060f60c0524980fa23b',
+        name: 'Bob',
       timestamp: new Date('2018-09-06T11:32:49.518Z'),
+      owner: {
+        _id: '5b86a96eed17641891c5011c',
+        domain: '5b7ea5997adb5755f6bbc02b',
+        email: 'olegsamardak98@gmail.com',
+        firstname: 'John',
+        lastname: 'Smith',
+        timestamp: new Date('2018-08-29T14:10:54.392Z'),
+      },
     },
     {
       _id: '5b7eac4a6a0682428f35485e',
@@ -131,9 +162,17 @@ describe('<EditLeadSidebar />', () => {
           key: 'Email',
           value: '',
         }],
-      domain,
+      domain: '5b6ab060f60c0524980fa23b',
       name: 'Mike',
       timestamp: new Date('2018-09-06T11:32:49.518Z'),
+      owner: {
+        _id: '5b86a96eed17641891c5011c',
+        domain: '5b7ea5997adb5755f6bbc02b',
+        email: 'olegsamardak98@gmail.com',
+        firstname: 'John',
+        lastname: 'Smith',
+        timestamp: new Date('2018-08-29T14:10:54.392Z'),
+      },
     },
   ];
 

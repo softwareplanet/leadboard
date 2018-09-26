@@ -2,8 +2,7 @@ import { Router } from "express";
 import mongoose from "mongoose";
 import { validateLeadInput, validateLeadUpdate } from "../../validation/lead";
 import isEmpty from "lodash.isempty";
-import { isEqual } from "lodash";
-import { isValidModelId } from "../../validation/validationUtils";
+import { isValidModelId, validateExisting } from "../../validation/validationUtils";
 import Lead from "../../models/lead";
 import Contact from "../../models/contact";
 import Organization from "../../models/organization";
@@ -126,19 +125,6 @@ function createContact(name, organization, domain, owner) {
   return Contact.create(contactToCreate);
 }
 
-function validateExisting(model, name, domain) {
-  let errors = {};
-  if (!model) {
-    errors[name.toLowerCase()] = `${name} does not exist`;
-  } else if (!isEqual(model.domain, domain)) {
-    errors[name.toLowerCase()] = `${name} does not belong to your domain`;
-  }
-  return {
-    errors,
-    hasErrors: !isEmpty(errors),
-  };
-}
-
 // @route   GET api/lead/:leadId
 // @desc    Load lead by id
 // @access  Private
@@ -204,49 +190,6 @@ router.delete("/:leadId", leadMembersMiddlewares, (req, res) => {
   Lead.findByIdAndRemove(req.params.leadId)
     .then(() => {
       return res.sendStatus(204);
-    })
-    .catch(error => {
-      res.status(400).json({ errors: { message: error } });
-    });
-});
-
-// @route   POST api/lead/:leadId/notes
-// @desc    Create note for lead
-// @access  Private
-router.post("/:leadId/notes", leadMembersMiddlewares, (req, res) => {
-  Lead.findByIdAndUpdate(req.params.leadId, { $push: { notes: req.body } }, { new: true })
-    .populate(Lead.populates.full)
-    .then(lead => {
-      res.json(lead);
-    })
-    .catch(error => {
-      res.status(400).json({ errors: { message: error } });
-    });
-});
-
-// @route   PATCH api/lead/:leadId/note/:id
-// @desc    Update note's lead
-// @access  Private
-router.patch("/:leadId/note/:noteId", leadMembersMiddlewares, (req, res) => {
-  Lead.findOneAndUpdate(
-    { _id: req.params.leadId, "notes._id": req.params.noteId },
-    { $set: { "notes.$.text": req.body.text, "notes.$.lastUpdater": req.user.id } },
-    { new: true })
-    .then(lead => {
-      return res.json(lead);
-    })
-    .catch(error => {
-      res.status(400).json({ errors: { message: error } });
-    });
-});
-
-// @route   DELETE api/lead/:leadId/note/:id
-// @desc    Delete note's lead
-// @access  Private
-router.delete("/:leadId/note/:noteId", leadMembersMiddlewares, (req, res) => {
-  Lead.findByIdAndUpdate(req.params.leadId, { $pull: { notes: { _id: req.params.noteId } } }, { new: true })
-    .then(lead => {
-      return res.json(lead);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });

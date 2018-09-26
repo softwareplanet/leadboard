@@ -1,5 +1,7 @@
+import * as React from 'react';
 import { connect } from 'react-redux';
 import ContactsPage from '../ContactsPageTemplate';
+import AddContact from './AddContact/AddContact';
 import { loadAggregatedContacts } from './contactActions';
 
 export class People extends ContactsPage {
@@ -7,6 +9,8 @@ export class People extends ContactsPage {
   public noContactsMessage = 'No people added yet';
   public oneContactHeader = 'person';
   public moreThanOneContactsHeader = 'people';
+  public signCreateNew = 'Create new person';
+
   public columns = [
     {
       dataField: 'name',
@@ -17,10 +21,18 @@ export class People extends ContactsPage {
       text: 'Organization',
     },
   ];
+
+  public createAddButton = () =>
+    <AddContact
+      isModalOpen={this.state.isModalOpen}
+      openModal={this.openAddingModal}
+      closeModal={this.closeAddingModal}
+    />
+
 }
 
 const mapStateToProps = (state: any) => ({
-  contacts: state.contacts,
+  contacts: state.contact.contacts,
   domainCustomFields: state.domain.settings.customFields,
 });
 

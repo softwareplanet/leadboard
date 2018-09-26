@@ -71,7 +71,7 @@ class Funnels extends React.Component<Props, State> {
   private createTabs = (funnels: FunnelModel[]) => {
     return funnels.map((funnel: FunnelModel) => (
       <button
-        key={funnel.name}
+        key={funnel._id}
         className={this.props.selectedFunnel._id === funnel._id ? styles.tabActive : styles.tab}
         onClick={this.props.selectFunnel.bind(this, funnel)}
       >

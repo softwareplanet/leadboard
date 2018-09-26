@@ -1,4 +1,3 @@
-import Domain from './Domain';
 
 export default interface User {
   _id: string;
@@ -6,7 +5,7 @@ export default interface User {
   lastname: string;
   email: string;
   password?: string;
-  domain: Domain;
+  domain: string;
   timestamp: Date;
   avatar?: string;
 }

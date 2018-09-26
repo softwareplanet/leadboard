@@ -1,7 +1,12 @@
+.content {
+  background-color: #F7F7F7;
+  margin: 24px;
+  flex-grow: 1;
+}
+
 .sidebar {
   flex-grow: 1;
   min-width: 380px;
   max-width: 480px;
   margin: 24px 0 24px 24px;
 }
-
