@@ -6,7 +6,7 @@ export default interface Note {
   contact?: string;
   organization?: string;
   text: string;
-  date: Date;
+  date?: Date;
   user: string | User;
-  lastUpdater: string | User;
+  lastUpdater?: string | User;
 }
