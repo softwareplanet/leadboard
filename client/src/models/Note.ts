@@ -1,7 +1,7 @@
 import User from './User';
 
 export default interface Note {
-  _id: string;
+  _id?: string;
   lead?: string;
   contact?: string;
   organization?: string;
