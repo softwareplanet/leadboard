@@ -23,8 +23,7 @@ export default function(notes = initialNotes, action: Action) {
       return newState;
     case DELETE_NOTE:
       const stateWithoutDeletedNote = [...notes];
-      const activityIndex = stateWithoutDeletedNote.indexOf(action.payload);
-      stateWithoutDeletedNote.splice(activityIndex, 1);
+      stateWithoutDeletedNote.splice(stateWithoutDeletedNote.indexOf(action.payload), 1);
       return stateWithoutDeletedNote;
     default:
       return notes;
