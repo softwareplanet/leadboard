@@ -28,7 +28,11 @@ interface Props {
   activities: Activity[];
 }
 
-class ModelHistory extends React.Component<Props, {}> {
+interface State {
+  selectedTab: number;
+}
+
+class ModelHistory extends React.Component<Props, State> {
   public state = {
     selectedTab: 0,
   };
