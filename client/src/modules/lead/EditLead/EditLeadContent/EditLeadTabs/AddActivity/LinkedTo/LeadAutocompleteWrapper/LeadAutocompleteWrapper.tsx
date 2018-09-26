@@ -26,17 +26,42 @@ interface State {
 class LeadAutocompleteWrapper extends React.Component<Props, State> {
   public state: State = {
     isDropdownOpen: false,
-    loading: true,
+    loading: false,
     value: '',
   };
 
   public render() {
     const state = this.state;
+    const testLeads = [ {
+      "_id": "5bab2ba3baf6781b6349053f",
+      "name": "Bob lead",
+      "status": "InProgress",
+      "contact": "Bob",
+      "stage": "Stage 1",
+      "type": "Lead"
+  },
+  {
+      "_id": "5bab2ba9baf6781b63490541",
+      "name": "Boss lead",
+      "status": "InProgress",
+      "contact": "Boss",
+      "stage": "Stage 2",
+      "type": "Lead"
+  },
+  {
+      "_id": "5bab2bb0baf6781b63490543",
+      "name": "Boar lead",
+      "status": "InProgress",
+      "contact": "Boar",
+      "stage": "Stage 1",
+      "type": "Lead"
+  },] 
     return (
       <div className={styles.leadAutocomplete}>
       <ReactSVG className={styles.dealIcon} src={dealIcon} />
         <LeadAutocomplete
           // items={this.state.leads.result}
+          items={testLeads}
           open={state.isDropdownOpen}
           onBlur={this.onBlur}
           onChange={this.onChange}

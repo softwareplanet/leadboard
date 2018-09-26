@@ -1,6 +1,7 @@
 import { trim } from 'lodash';
 import * as React from 'react';
 import * as ReactAutocomplete from 'react-autocomplete';
+import { autocompleteStyles } from '../styles/autocomplete-styles';
 
 interface Props {
   styles?: any;
@@ -19,7 +20,12 @@ class LeadAutocomplete extends React.Component<Props> {
   public input? = React.createRef<HTMLInputElement>();
 
   public render() {
-    const styles = this.props.styles;
+    const autocompleteProps = {
+      inputStyle: autocompleteStyles.addLeadInput,
+      itemsCount: 5,
+      onFocus: this.onAutocompleteFocus,
+    };
+    
     return (
       <ReactAutocomplete
         open={this.props.value.length > 1 && this.props.open}
@@ -27,13 +33,13 @@ class LeadAutocomplete extends React.Component<Props> {
         shouldItemRender={(item: any, value: any) => item.name.toLowerCase().indexOf(trim(value).toLowerCase()) > -1}
         getItemValue={(item: any) => item.name}
         renderMenu={(items: any) =>
-          <div className="leadsList" style={styles.menu} children={items.splice(0, this.props.itemsCount)} />
+          <div className="leadsList" style={autocompleteStyles.menu} children={items.splice(0, autocompleteProps.itemsCount)} />
         }
         renderItem={(item: any, highlighted: any) =>
           <span
             key={item._id}
             style={{
-              ...styles.menuItem,
+              ...autocompleteStyles.menuItem,
               backgroundColor: highlighted ? "#317ae2" : "transparent",
               color: highlighted ? "#fff" : "#317ae2"
             }}
@@ -42,8 +48,8 @@ class LeadAutocomplete extends React.Component<Props> {
         inputProps={{
           className: 'lead-input',
           onBlur: this.props.onBlur,
-          onFocus: this.props.onFocus,
-          style: this.props.inputStyle,
+          onFocus: autocompleteProps.onFocus,
+          style: autocompleteProps.inputStyle,
         }}
         value={this.props.value}
         onChange={this.props.onChange}
@@ -60,6 +66,9 @@ class LeadAutocomplete extends React.Component<Props> {
   // private inputBlur = () => {
   //   this.input!.current!.blur();
   // }
+  private onAutocompleteFocus = (event: any) => {
+    event.target.parentNode.parentNode.setAttribute("style", "border: 1px solid #317ae2");
+  };
 }
 
 export default LeadAutocomplete;

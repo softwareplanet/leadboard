@@ -7,12 +7,21 @@
   width: 14px;
   height: 14px;
   position: absolute;
+  left: auto;
   right: 8px;
-  top: 50%; 
+  top: 50%;
+  margin-top: -8px;
 }
 
 .leadSpinner {
   composes: searchSpinner from "../../../../../../../layouts/Navbar/Search/Search.css";
+  left: auto;
+  right: 8px;
+  top: 50%;
+  margin-top: -8px;
+}
+
+.leadSpinner div {
   border-color: #b9babb;
 }
 
@@ -20,8 +29,8 @@
   height: 16px;
   width: 16px;
   position: absolute;
-  top: 0;
-  margin-top: 8px;
+  top: 50%;
+  margin-top: -8px;
   left: 8px;
 }
 
