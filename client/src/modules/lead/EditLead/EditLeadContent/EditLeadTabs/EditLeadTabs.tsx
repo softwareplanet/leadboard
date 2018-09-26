@@ -167,4 +167,4 @@ const mapLeadStateToProps = (state: any) => ({
 
 export { EditLeadTabs };
 
-export const LeadTabs = connect(mapLeadStateToProps, { createNote, createActivity })(EditLeadTabs);
+export default connect(mapLeadStateToProps, { createNote, createActivity })(EditLeadTabs);
