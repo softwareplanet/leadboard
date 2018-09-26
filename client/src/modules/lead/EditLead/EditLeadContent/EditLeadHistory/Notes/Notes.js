@@ -10,11 +10,11 @@ import { isEmpty } from "lodash";
 class Notes extends Component {
 
   noteUpdateHandler = (note) => {
-    this.props.updateNote(this.props.editLead._id, note)
+    this.props.updateNote(this.props.editLead._id, note);
   };
 
   noteDeleteHandler = (note) => {
-    this.props.deleteNote(note)
+    this.props.deleteNote(note);
   };
 
   render() {
@@ -28,11 +28,11 @@ class Notes extends Component {
             <InfoItemWrapper
               key={note._id}
               component={
-              <Note
-                updateNote={this.noteUpdateHandler}
-                deleteNote={this.noteDeleteHandler}
-                note={note}
-              />}
+                <Note
+                  updateNote={this.noteUpdateHandler}
+                  deleteNote={this.noteDeleteHandler}
+                  note={note}
+                />}
             />
           );
         }) : null}
@@ -44,7 +44,7 @@ class Notes extends Component {
 const mapStateToProps = state => ({
   userId: state.auth.userid,
   editLead: state.dashboard.editLead.lead,
-  notes:state.dashboard.editLead.notes,
+  notes: state.dashboard.editLead.notes,
 });
 
 Notes.propTypes = {
