@@ -6,7 +6,7 @@
   background-color: #fff;
   display: flex;
   justify-content: space-between;
-  margin: 30px 30px 0 30px;
+  margin: 24px 24px 0 24px;
 }
 
 @media (max-width: 1440px) {
