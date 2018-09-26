@@ -16,6 +16,14 @@ describe('<BulkEditView />', () => {
     domain: '5b86a96eed17641891c5011b',
     name: 'Testing Inc',
     timestamp: new Date(),
+    owner: {
+      _id: '5b86a96eed17641891c5011c',
+      domain: '5b86a96eed17641891c5011c',
+      email: 'olegsamardak98@gmail.com',
+      firstname: 'John',
+      lastname: 'Smith',
+      timestamp: new Date('2018-08-29T14:10:54.392Z'),
+    },
   };
 
   const customFields: CustomFieldData[] = [

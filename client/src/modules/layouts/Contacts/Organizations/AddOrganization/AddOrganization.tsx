@@ -7,8 +7,8 @@ import DomainSettings from '../../../../../models/DomainSettings';
 import * as addModalStyles from '../../../../../styles/addingModal.css';
 import reactModalStyles from '../../../../../styles/reactModalDefaultStyle';
 import isBlank from '../../../../../utils/isBlank';
+import * as dropdownStyles from '../../DropdownStyles.css';
 import { addOrganization } from '../organizationActions';
-import * as styles from './AddOrganization.css';
 
 const customStyles = { ...reactModalStyles };
 
@@ -77,7 +77,9 @@ class AddOrganization extends React.Component<Props, State> {
               <Dropdown
                 isOpen={this.state.isDropdownOpen}
                 toggle={this.toggle}
-                className={this.state.isDropdownOpen ? styles.dropdownOpen : styles.dropdownClose}
+                className={this.state.isDropdownOpen
+                  ? dropdownStyles.dropdownOpen
+                  : dropdownStyles.dropdownClose}
               >
                 <DropdownToggle
                   tag="span"
@@ -87,8 +89,8 @@ class AddOrganization extends React.Component<Props, State> {
                 >
                   {`${this.props.auth.userName} (you)`}
                 </DropdownToggle>
-                <DropdownMenu className={styles.dropdownMenu}>
-                  <div onClick={this.toggle} className={styles.menuItem}>
+                <DropdownMenu className={dropdownStyles.dropdownMenu}>
+                  <div onClick={this.toggle} className={dropdownStyles.dropdownItem}>
                     {`${this.props.auth.userName} (you)`}
                   </div>
                 </DropdownMenu>

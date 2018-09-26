@@ -4,22 +4,12 @@ import * as React from 'react';
 import someIcon from '../../../../../assets/img/call-activity.svg';
 import Contact from '../../../../../models/Contact';
 import CustomFieldData from '../../../../../models/customFields/CustomFieldData';
-import Domain from '../../../../../models/Domain';
 import Organization from '../../../../../models/Organization';
 import CardField from './CardFields/CardField';
 import MainField from './CardFields/MainField';
 import EditCard from './EditCard';
 
 describe('<EditCard />', () => {
-  const domain: Domain = {
-    _id: '5b86a96eed17641891c5011b',
-    name: 'interLink',
-    settings: {
-      customFields: [],
-      timezone: 'UTC',
-    },
-    timestamp: new Date('2018-08-29T14:10:54.395Z'),
-  };
 
   const contact: Contact = {
     _id: '5b97d3573485d2406c815ba0',
@@ -33,9 +23,17 @@ describe('<EditCard />', () => {
         value: 'yarik335@gmail.com',
       },
     ],
-    domain,
+    domain: '5b97d2273485d2406c815ba0',
     name: 'Bob',
     timestamp: new Date(),
+    owner: {
+      _id: '5b86a96eed17641891c5011c',
+      domain: '5b7ea5997adb5755f6bbc02b',
+      email: 'olegsamardak98@gmail.com',
+      firstname: 'John',
+      lastname: 'Smith',
+      timestamp: new Date('2018-08-29T14:10:54.392Z'),
+    },
   };
 
   const organization: Organization = {
@@ -49,6 +47,14 @@ describe('<EditCard />', () => {
     domain: '5b97d2273485d2406c815ba0',
     name: 'RedDog inc',
     timestamp: new Date(),
+    owner: {
+      _id: '5b86a96eed17641891c5011c',
+      domain: '5b7ea5997adb5755f6bbc02b',
+      email: 'olegsamardak98@gmail.com',
+      firstname: 'John',
+      lastname: 'Smith',
+      timestamp: new Date('2018-08-29T14:10:54.392Z'),
+    },
   };
 
   const customFields: CustomFieldData[] = [

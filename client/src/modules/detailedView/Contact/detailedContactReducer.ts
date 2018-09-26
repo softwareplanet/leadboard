@@ -1,32 +1,34 @@
 import { combineReducers } from 'redux';
 import Action from '../../../models/Action';
 import Contact from '../../../models/Contact';
-import Domain from '../../../models/Domain';
+
 import activityReducer from '../../lead/EditLead/Activities/activityReducer';
 import { LOAD_CONTACT,UPDATE_CONTACT } from './types';
+import User from "../../../models/User";
 
-const domain: Domain = {
+const owner: User = {
   _id: '',
-  name: '',
-  settings: {
-    customFields: [],
-    timezone: '',
-  },
+  domain: '',
+  email: '',
+  firstname: '',
+  lastname: '',
   timestamp: new Date(),
 };
 
 const initialState: Contact = {
   _id: '',
   custom: [],
-  domain,
+  domain: '',
   name: '',
   organization: {
     _id: '',
     custom: [],
     domain: ',',
     name: '',
+    owner,
     timestamp: new Date(),
   },
+  owner,
   timestamp: new Date(),
 };
 

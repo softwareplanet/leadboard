@@ -11,7 +11,7 @@ const organizationSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
 });
 
-const ownerPopulates = [{ path: "owner", select: "email" }];
+const ownerPopulates = [{ path: "owner", options: { password: 0 } }];
 
 const fullPopulates = [
   ...ownerPopulates,
