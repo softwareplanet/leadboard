@@ -50,9 +50,23 @@ const contact: Contact = {
 
 describe('<DetailedViewHeader />', () => {
   it('should render correct name in header for contact and organization', () => {
-    let wrapper = shallow(<DetailedViewHeader model={organization} modelType="Organization" />);
+    let wrapper = shallow
+    (
+      <DetailedViewHeader 
+        modelUpdateAction={jest.fn()} 
+        model={organization} 
+        modelType="Organization" 
+      />
+    );
     expect(wrapper.find(`.${styles.name}`).text()).toEqual('Testing Inc');
-    wrapper = shallow(<DetailedViewHeader model={contact} modelType="Contact" />);
+    wrapper = shallow
+    (
+      <DetailedViewHeader 
+        modelUpdateAction={jest.fn()} 
+        model={contact} 
+        modelType="Contact" 
+      />
+    );
     expect(wrapper.find(`.${styles.name}`).text()).toEqual('Sarah');
   });
 });

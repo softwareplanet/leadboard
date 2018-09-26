@@ -145,4 +145,23 @@ describe("Contact", function() {
     expect(typeof body[0].organization._id).toBe("string");
     expect(body[0].name).toBe("Nazar");
   })
+
+  it("should return contact by id", async () => {
+    const organization = await createOrganization(app, cred.token, "Company 1");
+    const contact = await createContact(app, cred.token, organization._id, "Nazar");
+
+    const { status, body } = await request(app())
+      .get(`/api/contact/${contact._id}`)
+      .set("Authorization", cred.token)
+      .send({});
+
+    expect(status).toBe(200);
+    contact.organization = organization;
+    expect(body).toMatchObject({
+      name: contact.name,
+      organization: {
+        _id: organization._id,
+      },
+    });
+  })
 });
