@@ -9,10 +9,10 @@ import Funnel from '../../../../models/Funnel';
 import { deleteLead, loadFunnels, loadLead, loadStagesWithoutLeads, updateLead } from '../../leadActions';
 import { loadLeadActivities } from '../Activities/activityActions';
 import AdditionalActionsPopover from './AdditionalActionsPopover/AdditionalActionsPopover';
-import EditLeadFieldPopover from './EditModelFieldPopover/EditModelFieldPopover';
 import * as styles from './EditLeadHeader.css';
 import EditLeadPipelinePopover from './EditLeadPipelinePopover/EditLeadPipelinePopover';
 import EditLeadStageProgress from './EditLeadStageProgress/EditLeadStageProgress';
+import EditModelFieldPopover from './EditModelFieldPopover/EditModelFieldPopover';
 
 const PIPELINE_POPOVER_ID: string = 'pipelineTarget';
 
@@ -84,7 +84,7 @@ class EditLeadHeader extends React.Component<Props, State> {
           <h4 onClick={this.toggleFieldPopover} className={styles.leadName} id="edit-lead-header-name">
             {editLead ? editLead.name : null}
           </h4>
-          <EditLeadFieldPopover
+          <EditModelFieldPopover
             onSave={this.handleLeadNameSave}
             onCancel={this.handlePopoverCancel}
             value={editLead ? editLead.name : null}

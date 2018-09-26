@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
+import OrganizationModel from '../../../models/Organization';
 import Navbar from '../../layouts/Navbar/Navbar';
 import DetailedViewHeader from '../DetailedViewHeader/DetailedViewHeader';
 import { loadOrganization, updateOrganization } from './detailedOrganizationActions';
 import OrganizationContent from './OrganizationContent/OrganizationContent';
 import OrganizationSidebar from './OrganizationSidebar/OrganizationSidebar';
-import OrganizationModel from '../../../models/Organization';
 
 interface Props extends RouteComponentProps<{ organizationId: string }> {
   organization: OrganizationModel;
