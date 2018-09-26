@@ -6,8 +6,10 @@ import addActivityIcon from '../../../../../assets/img/add-activity/add-activity
 import takeNotesIconActive from '../../../../../assets/img/take-notes/take-notes-active.svg';
 import takeNotesIcon from '../../../../../assets/img/take-notes/take-notes.svg';
 import Activity from '../../../../../models/Activity';
+import Contact from '../../../../../models/Contact';
 import Lead from '../../../../../models/Lead';
 import Note from '../../../../../models/Note';
+import Organization from '../../../../../models/Organization';
 import isBlank from '../../../../../utils/isBlank';
 import { createNote } from '../../../leadActions';
 import { createActivity } from '../../Activities/activityActions';
@@ -17,7 +19,8 @@ import * as styles from './EditLeadTabs.css';
 
 interface Props {
   userId: string;
-  editLead: Lead;
+  model: Lead | Organization | Contact;
+  modelType: string;
 
   createActivity(activity: Activity): void;
 
@@ -73,7 +76,7 @@ class EditLeadTabs extends React.Component<Props, State> {
       text: noteText,
       user: this.props.userId,
     };
-    this.props.createNote(this.props.editLead._id, note);
+    this.props.createNote(this.props.model._id, note);
     this.toggleFakeInput();
   }
 
@@ -81,7 +84,7 @@ class EditLeadTabs extends React.Component<Props, State> {
     this.props.createActivity({
       ...activity,
       assignedTo: this.props.userId,
-      lead: this.props.editLead._id,
+      [this.props.modelType]: this.props.model._id,
     });
     this.toggleFakeInput();
   }
@@ -160,11 +163,23 @@ class EditLeadTabs extends React.Component<Props, State> {
   }
 }
 
-const mapLeadStateToProps = (state: any) => ({
-  editLead: state.dashboard.editLead.lead,
+const leadMapLeadStateToProps = (state: any) => ({
+  model: state.dashboard.editLead.lead,
   userId: state.auth.userid,
 });
 
+const contactMapLeadStateToProps = (state: any) => ({
+  model: state.contact.detailedContact.contact,
+  userId: state.auth.userid,
+});
+const organizationMapLeadStateToProps = (state: any) => ({
+  model: state.organization.detailedOrganization.organization,
+  userId: state.auth.userid,
+});
+
+export const LeadTabs = connect(leadMapLeadStateToProps, { createNote, createActivity })(EditLeadTabs);
+export const OrganizationTabs = connect(organizationMapLeadStateToProps, { createNote, createActivity })(EditLeadTabs);
+export const ContactTabs = connect(contactMapLeadStateToProps, { createNote, createActivity })(EditLeadTabs);
+
 export { EditLeadTabs };
 
-export default connect(mapLeadStateToProps, { createNote, createActivity })(EditLeadTabs);
