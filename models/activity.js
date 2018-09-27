@@ -22,6 +22,7 @@ const activitySchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });
+
 const mailingPopulates = [
   { path: "assignedTo", populate: { path: "domain" } },
   { path: "lead" },
