@@ -6,6 +6,7 @@ interface Props {
 
   setLead(leadId: string): void;
 }
+
 export default class LinkedTo extends React.Component<Props>{
 
   public render() {

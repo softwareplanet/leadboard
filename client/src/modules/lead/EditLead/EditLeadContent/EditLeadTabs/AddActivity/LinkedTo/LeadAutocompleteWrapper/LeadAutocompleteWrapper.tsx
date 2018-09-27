@@ -65,8 +65,6 @@ class LeadAutocompleteWrapper extends React.Component<Props, State> {
           items={this.props.leads}
           open={state.isDropdownOpen}
           onBlur={this.onBlur}
-          clear={this.clear}
-          onClear={this.clear}
           loading={this.props.loading}
           onChange={this.onChange}
           onSelect={this.onSelect}
@@ -118,7 +116,7 @@ class LeadAutocompleteWrapper extends React.Component<Props, State> {
   }
 
   private onAutocompleteFocus = (event: any) => {
-    event.target.parentNode.parentNode.setAttribute('style', 'border: 1px solid #317ae2');
+    this.leadAutocompleteWrapper.current!.setAttribute('style', 'border: 1px solid #317ae2');
   }
 }
 

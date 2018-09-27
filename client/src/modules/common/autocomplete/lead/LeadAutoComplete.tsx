@@ -12,15 +12,11 @@ interface Props {
   inputStyle?: any;
   loading: boolean;
 
-  onFocus(event: any): void;
+  onFocus(event: React.SyntheticEvent): void;
   
   onBlur(): void;
 
-  onChange(event: React.SyntheticEvent): void;  
-
-  onClear(): void;
-
-  clear(): void;
+  onChange(event: React.SyntheticEvent): void;
 
   onSelect(text: string, item: SearchItemModel): void;
 }
@@ -50,18 +46,18 @@ class LeadAutocomplete extends React.Component<Props> {
             onClick={(this.props.onSelect.bind(this, item))}
             style={{
               ...styles.menuItem,
-              backgroundColor: highlighted ? "#317ae2" : "transparent",
-              color: highlighted ? "#fff" : "#317ae2"
+              backgroundColor: highlighted ? '#317ae2' : 'transparent',
+              color: highlighted ? '#fff' : '#317ae2',
             }}
           >
             {item.name}
           </span>
         }
         inputProps={{
-          placeholder: 'Lead',
           className: 'lead-input',
           onBlur: this.props.onBlur,
           onFocus: this.props.onFocus,
+          placeholder: 'Lead',
           style: this.props.inputStyle,
         }}
         value={this.props.value}
