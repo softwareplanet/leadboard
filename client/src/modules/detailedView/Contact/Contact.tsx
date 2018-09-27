@@ -6,12 +6,14 @@ import Navbar from '../../layouts/Navbar/Navbar';
 import DetailedViewHeader from '../DetailedViewHeader/DetailedViewHeader';
 import ContactContent from './ContactContent/ContactContent';
 import ContactSidebar from './ContactSidebar/ContactSidebar';
-import { loadContact } from './detailedContactActions';
+import { loadContact, updateContact } from './detailedContactActions';
 
 interface Props extends RouteComponentProps<{contactId: string}>{
   contact: ContactModel;
 
   loadContact(contactId: string): void;
+
+  updateContact(contact: any): void;
 }
 class Contact extends React.Component<Props> {
 
@@ -24,7 +26,11 @@ class Contact extends React.Component<Props> {
       <div>
         <Navbar />
         <div style={displayFlex}>
-          <DetailedViewHeader modelType="Contact" model={this.props.contact} />
+          <DetailedViewHeader 
+            modelUpdateAction={this.props.updateContact} 
+            modelType="Contact" 
+            model={this.props.contact} 
+          />
         </div>
         <div style={displayFlex}>
           <ContactSidebar />
@@ -43,4 +49,4 @@ const mapStateToProps = (state: any) => ({
   contact: state.contact.detailedContact.contact,
 });
 
-export default connect(mapStateToProps, { loadContact })(Contact);
+export default connect(mapStateToProps, { loadContact, updateContact })(Contact);

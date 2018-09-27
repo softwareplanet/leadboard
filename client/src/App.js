@@ -6,7 +6,7 @@ import jwt_decode from "jwt-decode";
 import store from "./store.js";
 import setAuthToken from "./utils/setAuthToken.js";
 import setAuthInterceptor from "./utils/setAuthInterceptor"
-import { loginUserById, logoutUser,setLoginData } from "./modules/auth/authActions";
+import { loginUserById, logoutUser, setLoginData } from "./modules/auth/authActions";
 import PrivateRoute from "./modules/common/PrivateRoute";
 import Home from "./modules/layouts/Home";
 import Footer from "./modules/layouts/Footer/Footer";
@@ -46,7 +46,9 @@ class App extends Component {
   };
 
   redirectHome = () => {
-    return <Redirect to={`/pipelines/${localStorage.getItem('activeFunnelId')}`} />;
+    return store.getState().dashboard.activeFunnel._id ?
+      <Redirect to={`/pipelines/${store.getState().dashboard.activeFunnel._id}`} /> :
+      <Redirect to={`/pipelines/loading`} />;
   };
 
   render() {
@@ -100,9 +102,9 @@ class App extends Component {
                 component={Contact}
               />
             </Switch>
-            <Route exact path="/" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Login />} />
-            <Route exact path="/register" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Registration />} />  
-            <Footer/>
+            <Route exact path="/" render={() => this.isUserAuthenticated() ? this.redirectHome() : <Login />} />
+            <Route exact path="/register" render={() => this.isUserAuthenticated() ? this.redirectHome() : <Registration />} />
+            <Footer />
           </div>
         </Router>
       </Provider>

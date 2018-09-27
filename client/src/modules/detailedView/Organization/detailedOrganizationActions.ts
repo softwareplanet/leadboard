@@ -12,3 +12,8 @@ export const loadAggregatedContactsForOrganization = (organizationId: string) =>
   axios.get(`/api/contact/aggregated/organization/${organizationId}`)
     .then(...dispatchResponse(LOAD_CONTACTS_FOR_ORGANIZATION));
 };
+
+export const updateOrganization = (organization: any) => (dispatch: Dispatch) => {
+  axios.patch(`/api/organization/${organization._id}`, organization)
+    .then(...dispatchResponse(LOAD_ORGANIZATION));
+};

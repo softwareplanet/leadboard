@@ -353,31 +353,4 @@ describe("Lead", () => {
       .send();
     expect(getResponse.status).toBe(404);
   });
-
-  it("should create note for lead", async () => {
-    const { status, body } = await request(app())
-      .post(`/api/lead/${lead._id}/notes`)
-      .set("Authorization", cred.token)
-      .send({
-        user: cred.userId,
-        text: "First note",
-      });
-    expect(status).toBe(200);
-    expect(body.notes[0]).toBeDefined();
-    expect(body.notes[0]).toMatchObject({
-      text: "First note",
-    });
-  });
-
-  it("should update note", async () => {
-    lead = await createNote(app, cred.token, lead._id, cred.userId, "New note");
-    const { status, body } = await request(app())
-      .patch(`/api/lead/${lead._id}/note/${lead.notes[0]._id}`)
-      .set("Authorization", cred.token)
-      .send({
-        text: UPDATED_NOTE,
-      });
-    expect(status).toBe(200);
-    expect(body.notes[0].text).toEqual(UPDATED_NOTE);
-  });
-});
+``});

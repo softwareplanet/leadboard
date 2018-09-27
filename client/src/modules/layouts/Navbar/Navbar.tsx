@@ -1,16 +1,18 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, NavLink, RouteComponentProps, withRouter } from 'react-router-dom';
-import ContactsDropDown from './ContactsDropDown/ContactsDropDown';
 import dealsIconActive from '../../../assets/img/deals-icon-active.svg';
 import dealsIcon from '../../../assets/img/deals-icon.svg';
+import Funnel from '../../../models/Funnel';
 import { logoutUser } from '../../auth/authActions';
+import ContactsDropDown from './ContactsDropDown/ContactsDropDown';
 import * as styles from './Navbar.css';
 import Search from './Search/Search';
 import UserDropDown from './UserDropDown/UserDropDown';
 
 interface Props extends RouteComponentProps<any> {
   auth: any;
+  activeFunnel: Funnel;
 
   logoutUser(history: any): void;
 }
@@ -18,10 +20,10 @@ interface Props extends RouteComponentProps<any> {
 class Navbar extends React.Component<Props, object> {
   public onLogout = () => {
     this.props.logoutUser(this.props.history);
-  };
+  }
 
   public render() {
-    const leadsRoute = `/pipelines/${localStorage.getItem('activeFunnelId')}`;
+    const leadsRoute = `/pipelines/${this.props.activeFunnel._id}`;
 
     return (
       <header>
@@ -55,6 +57,7 @@ class Navbar extends React.Component<Props, object> {
 }
 
 const mapStateToProps = (state: any) => ({
+  activeFunnel: state.dashboard.activeFunnel,
   auth: state.auth,
 });
 

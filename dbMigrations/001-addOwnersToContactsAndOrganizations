@@ -1,0 +1,9 @@
+mongo leadster --eval
+'db.leads.find().forEach(function(lead) {
+  if ("contact" in lead) {
+    db.contacts.updateOne({ "_id": lead.contact }, { $set: { "owner": lead.owner } });
+  }
+  if ("organization" in lead) {
+    db.organizations.updateOne({ "_id": lead.organization }, { $set: { "owner": lead.owner } });
+  }
+})'

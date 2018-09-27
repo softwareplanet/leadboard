@@ -8,10 +8,10 @@
   display: inline-block;
   margin: 0;
   padding: 2px 12px;
-  font: 12px/16px "Open Sans",sans-serif;
+  font: 12px/16px "Open Sans", sans-serif;
   font-family: 'Open Sans', sans-serif;
   text-align: center;
-  color:white;
+  color: white;
   border-radius: 10px;
   background-color: #747678;
 }
