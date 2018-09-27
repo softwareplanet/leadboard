@@ -88,6 +88,7 @@ class EditLeadTabs extends React.Component<Props, State> {
       assignedTo: userId,
       lead: editLead._id,
       organization: editLead.organization ? editLead.organization._id : undefined,
+      participants: editLead.contact ? [editLead.contact._id] : undefined,
     });
     this.toggleFakeInput();
   }
