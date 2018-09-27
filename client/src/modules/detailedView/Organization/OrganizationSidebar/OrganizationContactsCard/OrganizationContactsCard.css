@@ -29,10 +29,6 @@
   user-select: none;
 }
 
-.cardBody {
-
-}
-
 .contact {
   display: flex;
   flex-direction: row;

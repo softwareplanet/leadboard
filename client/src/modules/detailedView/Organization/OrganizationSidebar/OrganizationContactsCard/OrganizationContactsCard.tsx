@@ -28,7 +28,7 @@ class OrganizationContactsCard extends React.Component<Props, State> {
             PEOPLE ({this.props.contacts ? this.props.contacts.length : 0})
           </div>
         </div>
-        <div className={styles.cardBody}>
+        <div>
           {contacts.length === 0 ? 'There are no people in this organization' : undefined}
           {contacts.slice(0, MAX_CONTACTS_LENGTH).map((contact: Contact) => (
             <div className={styles.contact} key={contact._id}>
