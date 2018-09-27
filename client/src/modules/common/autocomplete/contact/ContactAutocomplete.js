@@ -9,18 +9,6 @@ class ContactAutocomplete extends Component {
     this.input.current.focus();
   };
 
-  clearFunction = (e) => {
-    if (e.keyCode === 27) {
-      if (e.target.className === "contact-input") {
-        this.props.onEsc();
-      }
-    }
-  }
-
-  componentDidMount() {
-    document.addEventListener("keydown", this.clearFunction, false);
-  }
-
   inputBlur = () => {
     this.input.current.blur();
   };

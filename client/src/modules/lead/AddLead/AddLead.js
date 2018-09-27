@@ -286,9 +286,16 @@ class AddLead extends React.Component {
   handleEscapeKeyDown = (e) => {
     const ESCAPE_KEY_CODE = 27;
     if (e.keyCode === ESCAPE_KEY_CODE) {
-      if (["organization-input", "contact-input"].includes(e.target.className)) {
+      const autoCompleteInputsClasses = ["organization-input", "contact-input"];
+      if (autoCompleteInputsClasses.includes(e.target.className)) {
         const input = e.target;
-        isBlank(input.value) ? input.blur() : input.value = "";
+        if (isBlank(input.value)) {
+          input.blur();
+        } else {
+          input.className === autoCompleteInputsClasses[0]
+            ? this.clearOrganizationOnEsc()
+            : this.clearContactOnEsc();
+        }
       }
       else {
         this.closeModal();
@@ -337,7 +344,6 @@ class AddLead extends React.Component {
                 onSelect={this.onContactSelect}
                 onBlur={this.onContactBlur}
                 value={this.state.contact.name}
-                onEsc={this.clearContactOnEsc}
                 open={this.state.openContactDropdown}
                 styles={autocompleteStyles.contact}
                 ref={this.contactAutocomplete} />
@@ -354,7 +360,6 @@ class AddLead extends React.Component {
               <OrganizationAutocomplete
                 {...autocompleteProps}
                 items={this.props.organizations}
-                onEsc={this.clearOrganizationOnEsc}
                 onChange={this.onOrganizationChange}
                 onSelect={this.onOrganizationSelect}
                 onBlur={this.onOrganizationBlur}
