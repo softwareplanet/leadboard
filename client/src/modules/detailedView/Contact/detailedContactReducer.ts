@@ -4,6 +4,7 @@ import Contact from '../../../models/Contact';
 import User from '../../../models/User';
 import activityReducer from '../../lead/EditLead/Activities/activityReducer';
 import noteReducer from '../../lead/EditLead/EditLeadContent/EditLeadHistory/Notes/noteReducer';
+import { UPDATE_ORGANIZATION } from '../Organization/types';
 import { LOAD_CONTACT, UPDATE_CONTACT } from './types';
 
 const owner: User = {
@@ -40,6 +41,10 @@ const contactReducer = (state = initialState, action: Action) => {
       let updatedContact = { ...state};
       updatedContact = action.payload;
       return updatedContact;
+    case UPDATE_ORGANIZATION:
+      const updatedContactWithOrganization = { ...state};
+      updatedContactWithOrganization.organization = action.payload;
+      return updatedContactWithOrganization;
     default:
       return state;
   }
