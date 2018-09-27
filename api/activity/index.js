@@ -82,6 +82,9 @@ router.patch("/:activityId", activityMembersMiddlewares, async (req, res) => {
 });
 
 // @route   GET api/activity/?model=modelId
+// @query   lead=leadId
+//          contactId=contactId
+//          organization=organizationId
 // @desc    Find activities by model
 // @access  Private
 router.get("/", (req, res) => {
