@@ -52,7 +52,7 @@ class ContactSidebar extends React.Component<Props> {
     if(contact){
       contactCard = (
         <EditCard
-          advancedMode={false}
+          showMainField={false}
           deleteCustomField={this.deleteCustomField}
           model={contact}
           title="Details"
@@ -69,7 +69,7 @@ class ContactSidebar extends React.Component<Props> {
     if(organization) {
       organizationCard = (
         <EditCard
-          advancedMode={true}
+          showMainField={true}
           deleteCustomField={this.deleteCustomField}
           model={organization}
           modelType="Organization"

@@ -23,7 +23,7 @@ interface Props {
   title: string;
   modelType: string;
   icon?: any;
-  advancedMode: boolean;
+  showMainField: boolean;
   customFields: CustomFieldData[];
 
   addCustomFieldToDomain(customField: CustomFieldSetting): void;
@@ -66,7 +66,7 @@ class EditCard extends React.Component<Props, State> {
         </div>
         {(!isInEditMode && !isInCustomizeFieldsMode) &&
           <div>
-            { this.props.advancedMode ?
+            { this.props.showMainField ?
               <MainField
                 link={`${this.props.modelType}/${this.props.model._id}`}
                 title={this.props.title}
