@@ -7,7 +7,7 @@ export const contactAggregation = (domain, organization) => {
       $match: {
         $and: [
           { domain: domain },
-        organization ? { organization: mongoose.Types.ObjectId(organization) } : {},
+          organization ? { organization: mongoose.Types.ObjectId(organization) } : {},
         ],
       },
     },
