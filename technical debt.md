@@ -19,5 +19,5 @@ This file contains everything that must be fixed/changed/done. We didn't do that
 - Use `connect()` instead of `dispatch()` directly from store in Activity.tsx
 - Add tests for delete activity
 - Rework settings reducer using `combineReducer`
-- Rework filter and pipeline switcher
 - Extract domain users dropdown from AddContact/AddOrganization
+- Fix styles on search panel (styles for tabs is unused now)

@@ -1,0 +1,17 @@
+mongo leadster --eval 'db.leads.find().forEach(function(lead){
+  if(lead.notes){
+  if(lead.notes.length >= 1){
+      lead.notes.forEach((note) =>{
+        note.lead = lead._id;
+        note.contact = lead.contact;
+        note.organization = lead.organization;
+        note.attachedTo = lead._id;
+        var user = db.users.findOne({ "_id": lead.owner });
+        note.domain = user.domain;
+      delete lead.notes;
+      db.leads.save(lead);
+      db.notes.save(note);
+      });
+    }
+  }
+})'

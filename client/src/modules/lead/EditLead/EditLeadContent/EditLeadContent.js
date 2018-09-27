@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import EditLeadTabs from "./EditLeadTabs/EditLeadTabs";
 import styles from "./EditLeadContent.css";
-import EditLeadHistory from "./EditLeadHistory/EditLeadHistory";
+import LeadHistory from "./EditLeadHistory/LeadHistory";
 
 export default class EditLead extends Component {
 
@@ -9,7 +9,7 @@ export default class EditLead extends Component {
     return (
       <div className={styles.content}>
         <EditLeadTabs />
-        <EditLeadHistory />
+        <LeadHistory />
       </div>
     );
   }

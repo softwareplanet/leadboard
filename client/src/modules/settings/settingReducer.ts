@@ -1,7 +1,7 @@
 import Action from '../../models/Action';
 import Funnel from '../../models/Funnel';
 import Stage from '../../models/Stage';
-import { ADD_FUNNEL, ADD_STAGE, EDIT_STAGE, LOAD_FUNNELS, LOAD_STAGES, SET_FUNNEL } from './types';
+import { ADD_FUNNEL, ADD_STAGE, EDIT_STAGE, LOAD_FUNNELS, LOAD_SETTINGS_STAGES, SET_FUNNEL } from './types';
 
 
 interface InitialState {
@@ -33,7 +33,7 @@ export default function(state = initialState, action: Action) {
        funnels: action.payload,
        selectedFunnel: action.payload[0]
     };
-    case LOAD_STAGES:
+    case LOAD_SETTINGS_STAGES:
       return {
         ...state,
         stages: action.payload,

@@ -6,7 +6,6 @@ import { isValidModelId, validateExisting } from "../../validation/validationUti
 import Lead from "../../models/lead";
 import Contact from "../../models/contact";
 import Organization from "../../models/organization";
-import Activity from "../../models/activity";
 
 const router = new Router();
 
@@ -190,62 +189,6 @@ router.delete("/:leadId", leadMembersMiddlewares, (req, res) => {
   Lead.findByIdAndRemove(req.params.leadId)
     .then(() => {
       return res.sendStatus(204);
-    })
-    .catch(error => {
-      res.status(400).json({ errors: { message: error } });
-    });
-});
-
-// @route   POST api/lead/:leadId/notes
-// @desc    Create note for lead
-// @access  Private
-router.post("/:leadId/notes", leadMembersMiddlewares, (req, res) => {
-  Lead.findByIdAndUpdate(req.params.leadId, { $push: { notes: req.body } }, { new: true })
-    .populate(Lead.populates.full)
-    .then(lead => {
-      res.json(lead);
-    })
-    .catch(error => {
-      res.status(400).json({ errors: { message: error } });
-    });
-});
-
-// @route   PATCH api/lead/:leadId/note/:id
-// @desc    Update note's lead
-// @access  Private
-router.patch("/:leadId/note/:noteId", leadMembersMiddlewares, (req, res) => {
-  Lead.findOneAndUpdate(
-    { _id: req.params.leadId, "notes._id": req.params.noteId },
-    { $set: { "notes.$.text": req.body.text, "notes.$.lastUpdater": req.user.id } },
-    { new: true })
-    .then(lead => {
-      return res.json(lead);
-    })
-    .catch(error => {
-      res.status(400).json({ errors: { message: error } });
-    });
-});
-
-// @route   DELETE api/lead/:leadId/note/:id
-// @desc    Delete note's lead
-// @access  Private
-router.delete("/:leadId/note/:noteId", leadMembersMiddlewares, (req, res) => {
-  Lead.findByIdAndUpdate(req.params.leadId, { $pull: { notes: { _id: req.params.noteId } } }, { new: true })
-    .then(lead => {
-      return res.json(lead);
-    })
-    .catch(error => {
-      res.status(400).json({ errors: { message: error } });
-    });
-});
-
-// @route   GET api/lead/:leadId/activities
-// @desc    Find activities by lead
-// @access  Private
-router.get("/:leadId/activities", leadMembersMiddlewares, (req, res) => {
-  Activity.find({ lead: req.params.leadId })
-    .then(activities => {
-      res.json(activities);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });

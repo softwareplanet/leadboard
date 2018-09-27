@@ -3,7 +3,8 @@ import Action from '../../../models/Action';
 import Contact from '../../../models/Contact';
 import User from '../../../models/User';
 import activityReducer from '../../lead/EditLead/Activities/activityReducer';
-import { LOAD_CONTACT,UPDATE_CONTACT } from './types';
+import noteReducer from '../../lead/EditLead/EditLeadContent/EditLeadHistory/Notes/noteReducer';
+import { LOAD_CONTACT, UPDATE_CONTACT } from './types';
 
 const owner: User = {
   _id: '',
@@ -47,4 +48,5 @@ const contactReducer = (state = initialState, action: Action) => {
 export default combineReducers({
   activities: activityReducer,
   contact: contactReducer,
+  notes: noteReducer,
 });

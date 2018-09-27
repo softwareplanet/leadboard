@@ -1,6 +1,7 @@
 import { Router } from "express";
 import mongoose from "mongoose";
 import Organization from "../../models/organization";
+import Contact from "../../models/contact";
 import { validateOrganizationCreation, validateOrganizationUpdate } from "../../validation/organization";
 import { organizationAggregation } from "./organizationAggregation";
 import { isValidModelId } from "../../validation/validationUtils";
@@ -54,6 +55,20 @@ router.get("/aggregated/", (req, res) => {
 router.get("/:organizationId", validateOrganizationDomain, (req, res) => {
   Organization.findById(req.params.organizationId)
     .populate(Organization.populates.full)
+    .then(organizations => {
+      res.json(organizations);
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
+});
+
+// @route   GET api/organization/:organizationId/contacts
+// @desc    Get all contacts sorted by name for organization with supplied id
+// @access  Private
+router.get("/:organizationId/contacts", validateOrganizationDomain, (req, res) => {
+  Contact.find({organization: req.params.organizationId})
+    .sort({name: "asc"})
     .then(organizations => {
       res.json(organizations);
     })

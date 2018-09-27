@@ -51,6 +51,19 @@ router.get("/aggregated/", (req, res) => {
     });
 });
 
+// @route   GET api/contact/aggregated/organization/:organizationId
+// @desc    Get all aggregated contacts for specific organization
+// @access  Private
+router.get("/aggregated/organization/:organizationId", (req, res) => {
+  contactAggregation(req.user.domain, req.params.organizationId)
+    .then(organizations => {
+      res.json(organizations);
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
+});
+
 // @route   POST api/contact
 // @desc    Create contact
 // @access  Private
