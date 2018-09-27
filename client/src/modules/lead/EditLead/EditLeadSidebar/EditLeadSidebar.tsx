@@ -133,7 +133,7 @@ class EditLeadSidebar extends React.Component<Props> {
 
   private deleteCustomField = (customFieldId: string) => {
     if (window.confirm('You will delete the field from everywhere' +
-      ' in your Pipedrive as well as delete data stored' +
+      ' in your Leadboard as well as delete data stored' +
       ' within this field. Are you sure you want to delete?')
     ) {
       this.props.deleteCustomField(customFieldId);
