@@ -12,11 +12,14 @@ import { isValidModelId } from "../../validation/validationUtils";
 const router = new Router();
 
 // @route   GET api/note/?model=modelId
+// @query   lead=leadId
+//          organization=organizationId
+//          contact=contactId
 // @desc    Get notes by model
 // @access  Private
 router.get("/", (req, res) => {
   req.query.domain = req.user.domain;
-  Note.query(req.query)
+  Note.find(req.query)
     .then(notes => {
       Note.populate(notes, Note.populates.basic)
         .then(notes => {
