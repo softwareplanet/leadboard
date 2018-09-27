@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import OrganizationModel from '../../../models/Organization';
 import Navbar from '../../layouts/Navbar/Navbar';
+import { loadActivities } from '../../lead/EditLead/Activities/activityActions';
 import { loadNotes } from '../../lead/EditLead/EditLeadContent/EditLeadHistory/Notes/noteActions';
 import DetailedViewHeader from '../DetailedViewHeader/DetailedViewHeader';
-import { loadOrganization, loadAggregatedContactsForOrganization, updateOrganization } from './detailedOrganizationActions';
+import { loadAggregatedContactsForOrganization, loadOrganization, updateOrganization } from './detailedOrganizationActions';
 import OrganizationContent from './OrganizationContent/OrganizationContent';
 import OrganizationSidebar from './OrganizationSidebar/OrganizationSidebar';
 
@@ -19,6 +20,8 @@ interface Props extends RouteComponentProps<{ organizationId: string }> {
   updateOrganization(organization: any): void;
 
   loadNotes(modelName: string, modelId: string): void;
+
+  loadActivities(modelName: string, modelId: string): void;
 }
 
 class Organization extends React.Component<Props, object> {
@@ -51,6 +54,7 @@ class Organization extends React.Component<Props, object> {
     this.props.loadOrganization(organizationId);
     this.props.loadAggregatedContactsForOrganization(organizationId);
     this.props.loadNotes('organization', organizationId);
+    this.props.loadActivities('organization', organizationId);
   }
 }
 
@@ -60,5 +64,11 @@ const mapStateToProps = (state: any) => ({
 
 export default connect(
   mapStateToProps,
-  { loadNotes, loadOrganization, updateOrganization, loadAggregatedContactsForOrganization },
+  {
+    loadActivities,
+    loadAggregatedContactsForOrganization,
+    loadNotes,
+    loadOrganization,
+    updateOrganization,
+  },
 )(Organization);

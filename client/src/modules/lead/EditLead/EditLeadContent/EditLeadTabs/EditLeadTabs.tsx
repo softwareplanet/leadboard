@@ -118,6 +118,7 @@ class EditLeadTabs extends React.Component<Props, State> {
         ...activity,
         assignedTo: this.props.userId,
         [this.props.modelType]: this.props.model._id,
+        organization: this.props.model.organization,
       });
     }
     this.toggleFakeInput();
