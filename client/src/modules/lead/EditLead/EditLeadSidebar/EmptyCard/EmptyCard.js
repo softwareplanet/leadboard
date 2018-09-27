@@ -99,11 +99,11 @@ class EmptyCard extends Component {
   };
 
   onSave = () => {
-    let updatedLead = {};
-    updatedLead._id = this.props.lead._id;
+    let updatedModel = {};
+    updatedModel._id = this.props.model._id;
     const { item } = this.state;
-    updatedLead[this.props.id.split("-")[0]] = item.id ? item.id : item.name;
-    this.props.onUpdate(updatedLead);
+    updatedModel[this.props.id.split("-")[0]] = item.id ? item.id : item.name;
+    this.props.onUpdate(updatedModel);
   };
 
   onBlur = () => {
