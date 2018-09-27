@@ -6,7 +6,6 @@ import { isValidModelId, validateExisting } from "../../validation/validationUti
 import Lead from "../../models/lead";
 import Contact from "../../models/contact";
 import Organization from "../../models/organization";
-import Activity from "../../models/activity";
 
 const router = new Router();
 
