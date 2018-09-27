@@ -6,7 +6,7 @@ interface Props {
 
   setLead(leadId: string): void;
 }
-export default class Search extends React.Component<Props>{
+export default class LinkedTo extends React.Component<Props>{
 
   public render() {
     return (
