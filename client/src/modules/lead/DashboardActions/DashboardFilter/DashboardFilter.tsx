@@ -38,12 +38,6 @@ class DashboardFilter extends React.Component<Props, State> {
     isPopoverOpen: false,
   };
 
-  public componentDidMount() {
-    this.setState({
-      filters: this.getFiltersWithShowedMark(IN_PROGRESS),
-    });
-  }
-
   public render() {
     return (
       <div>
@@ -63,31 +57,36 @@ class DashboardFilter extends React.Component<Props, State> {
   }
 
   private togglePopover = () => {
+    const activeFunnelFilter = this.props.dashboardFilters.find(filter =>
+      filter.funnelId === this.props.activeFunnel._id);
+    this.setState({ filters: this.getFiltersWithShowedMark(activeFunnelFilter.status) });
     this.setState(prevState => {
       return { isPopoverOpen: !prevState.isPopoverOpen };
     });
   }
 
   private getFiltersWithShowedMark = (status: string) => {
-    return filters.map(filter => filter.type === status ? ({ ...filter, showCheckMark: true }) : filter);
+    return filters.map(filter => filter.type === status ?
+      ({ ...filter, showCheckMark: true }) :
+      filter);
   }
 
   private getCurrentFilterText = () => {
     if (this.areFunnelsWithFiltersLoaded()) {
       const dashboardFilter = this.props.dashboardFilters.find(filter => {
-        return filter.funnelId === localStorage.getItem('activeFunnelId');
-       });
+        return filter.funnelId === this.props.activeFunnel._id;
+      });
       const currentFilter = this.state.filters.find(filter =>
         dashboardFilter.status === filter.type,
       );
       return currentFilter ? currentFilter.text : this.state.filters[0].text;
     }
-    
+
     return '';
   }
 
   private areFunnelsWithFiltersLoaded(): boolean {
-    return this.props.funnelsLength !== 0 && 
+    return this.props.funnelsLength !== 0 &&
       this.props.dashboardFilters.length === this.props.funnelsLength;
   }
 
@@ -97,14 +96,13 @@ class DashboardFilter extends React.Component<Props, State> {
       filters: this.getFiltersWithShowedMark(status),
     });
     this.props.setActiveFilter(status);
-
     this.props.setFunnelsFilter({
-      funnelId: localStorage.getItem('activeFunnelId'),
+      funnelId: this.props.activeFunnel._id,
       status,
     });
-    status = this.props.dashboardFilters.find(filter => 
-      localStorage.getItem('activeFunnelId') === filter.funnelId).status;
-    this.props.loadDashboard(localStorage.getItem('activeFunnelId')!, status);
+    status = this.props.dashboardFilters.find(filter =>
+      this.props.activeFunnel._id === filter.funnelId).status;
+    this.props.loadDashboard(this.props.activeFunnel._id, status);
     this.togglePopover();
   }
 

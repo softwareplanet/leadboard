@@ -1,10 +1,27 @@
 import { Router } from "express";
 import mongoose from "mongoose";
 import Organization from "../../models/organization";
+import Contact from "../../models/contact";
 import { validateOrganizationCreation, validateOrganizationUpdate } from "../../validation/organization";
 import { organizationAggregation } from "./organizationAggregation";
+import { isValidModelId } from "../../validation/validationUtils";
 
 const router = new Router;
+
+const validateOrganizationDomain = (req, res, next) => {
+  if (isValidModelId(req.params.organizationId)) {
+    Organization.findById(req.params.organizationId)
+      .then(organization => {
+        if (organization !== null && organization.domain.equals(req.user.domain)) {
+          next();
+        } else {
+          return res.status(404).json({ errors: { message: "Organization with provided id is not found in your domain" } });
+        }
+      });
+  } else {
+    return res.status(404).json({ errors: { message: "Provided organization's id is not valid" } });
+  }
+};
 
 // @route   GET api/organization
 // @desc    Get all organizations by domain
@@ -35,8 +52,23 @@ router.get("/aggregated/", (req, res) => {
 // @route   GET api/organization/:organizationId
 // @desc    Get organization by organizationId
 // @access  Private
-router.get("/:organizationId", (req, res) => {
+router.get("/:organizationId", validateOrganizationDomain, (req, res) => {
   Organization.findById(req.params.organizationId)
+    .populate(Organization.populates.full)
+    .then(organizations => {
+      res.json(organizations);
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
+});
+
+// @route   GET api/organization/:organizationId/contacts
+// @desc    Get all contacts sorted by name for organization with supplied id
+// @access  Private
+router.get("/:organizationId/contacts", validateOrganizationDomain, (req, res) => {
+  Contact.find({organization: req.params.organizationId})
+    .sort({name: "asc"})
     .then(organizations => {
       res.json(organizations);
     })
@@ -72,11 +104,12 @@ router.post("/", (req, res) => {
 // @route   PATCH api/organization/:organizationId
 // @desc    Update organization
 // @access  Private
-router.patch("/:organizationId", (req, res) => {
+router.patch("/:organizationId", validateOrganizationDomain, (req, res) => {
   const { hasErrors, errors } = validateOrganizationUpdate(req.body);
   if (hasErrors) return res.status(400).json({ errors });
 
   Organization.findByIdAndUpdate(req.params.organizationId, { $set: req.body }, { new: true })
+    .populate(Organization.populates.full)
     .then(org => {
       res.json(org);
     })

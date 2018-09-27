@@ -6,3 +6,8 @@ export const loadContact = (contactId: string) => (dispatch: any) => {
   axios.get(`/api/contact/${contactId}`)
     .then(...dispatchResponse(LOAD_CONTACT));
 };
+
+export const updateContact = (contact: any) => (dispatch: any) => {
+  axios.patch(`/api/contact/${contact._id}`, contact)
+    .then(...dispatchResponse(LOAD_CONTACT));
+};

@@ -2,20 +2,9 @@ import { shallow } from 'enzyme';
 import 'jsdom-global/register';
 import * as React from 'react';
 import { IN_PROGRESS, LOST } from '../../../../constants';
-import Domain from '../../../../models/Domain';
 import Lead from '../../../../models/Lead';
 import { EditLeadHeader } from './EditLeadHeader';
 import * as styles from './EditLeadHeader.css';
-
-const domain: Domain = {
-  _id: '5b86a96eed17641891c5011b',
-  name: 'interLink',
-  settings: {
-    customFields: [],
-    timezone: 'UTC',
-  },
-  timestamp: new Date('2018-08-29T14:10:54.395Z'),
-};
 
 const editLead: Lead = {
   _id: '5b9110616ec37621e6b17bc4',
@@ -31,9 +20,17 @@ const editLead: Lead = {
         key: 'Email',
         value: '',
       }],
-    domain,
-    name: 'Sarah',
+      domain: '5b7ea5997adb5755f6bbc02b',
+      name: 'Sarah',
     timestamp: new Date('2018-09-06T11:32:49.518Z'),
+    owner: {
+      _id: '5b86a96eed17641891c5011c',
+      domain: '5b7ea5997adb5755f6bbc02b',
+      email: 'olegsamardak98@gmail.com',
+      firstname: 'John',
+      lastname: 'Smith',
+      timestamp: new Date('2018-08-29T14:10:54.392Z'),
+    },
   },
   custom: [],
   name: 'Sarah lead',
@@ -49,10 +46,18 @@ const editLead: Lead = {
     domain: '5b7ea5997adb5755f6bbc02b',
     name: 'Microsoft ',
     timestamp: new Date('2018-08-23T12:19:19.758Z'),
+    owner: {
+      _id: '5b86a96eed17641891c5011c',
+      domain: '5b7ea5997adb5755f6bbc02b',
+      email: 'olegsamardak98@gmail.com',
+      firstname: 'John',
+      lastname: 'Smith',
+      timestamp: new Date('2018-08-29T14:10:54.392Z'),
+    },
   },
   owner: {
     _id: '5b86a96eed17641891c5011c',
-    domain,
+    domain: '5b7ea5997adb5755f6bbc02b',
     email: 'olegsamardak98@gmail.com',
     firstname: 'John',
     lastname: 'Smith',
@@ -77,12 +82,11 @@ describe('<EditLeadHeader />', () => {
       leadId: '5b86aa21ed17641891c50127',
     },
   };
-  let loadLeadActivities;
+  let loadActivities = jest.fn();
 
   it('should call updateLead after won and lost buttons click', () => {
     updateLead = jest.fn();
     deleteLead = jest.fn();
-    loadLeadActivities = jest.fn();
     const wrapper = shallow
     (
       <EditLeadHeader
@@ -93,7 +97,7 @@ describe('<EditLeadHeader />', () => {
         editLead={editLead}
         updateLead={updateLead}
         deleteLead={deleteLead}
-        loadLeadActivities={loadLeadActivities}
+        loadActivities={loadActivities}
       />,
     );
     wrapper.find(`.${styles.button}`).simulate('click');
@@ -104,7 +108,7 @@ describe('<EditLeadHeader />', () => {
   it('should display closed lead actions if status is won or lost', () => {
     updateLead = jest.fn();
     deleteLead = jest.fn();
-    loadLeadActivities = jest.fn();
+    loadActivities = jest.fn();
     editLead.status = LOST;
     const wrapper = shallow
     (
@@ -116,7 +120,7 @@ describe('<EditLeadHeader />', () => {
         editLead={editLead}
         updateLead={updateLead}
         deleteLead={deleteLead}
-        loadLeadActivities={loadLeadActivities}
+        loadActivities={loadActivities}
       />,
     );
     const closedLeadActions = wrapper.find(`.${styles.closedLeadActions}`);

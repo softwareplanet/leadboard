@@ -1,6 +1,6 @@
 import axios from "axios";
 import {
-  LOAD_LEAD_ACTIVITIES,
+  LOAD_ACTIVITIES,
   CREATE_ACTIVITY,
   UPDATE_ACTIVITY,
   LOAD_FIRST_ACTIVITY_IN_LEAD_PLAN,
@@ -20,12 +20,12 @@ export const loadFirstActivityInLeadsPlan = () => dispatch => {
     })
 };
 
-//load activities by lead Id
-export const loadLeadActivities = leadId => dispatch => {
+//load activities by modelName and model id
+export const loadActivities = (modelName, modelId) => dispatch => {
   axios
-    .get(`/api/lead/${leadId}/activities`)
+    .get(`/api/activity/?${modelName}=${modelId}`)
     .then(result => {
-      dispatch(loadLeadActivitiesAction(result.data));
+      dispatch(loadActivitiesAction(result.data));
     })
     .catch(error => {
       dispatch(getErrorsAction(error.response.data.errors));
@@ -71,9 +71,9 @@ export const deleteActivity = (activity) => dispatch => {
     });
 };
 
-export function loadLeadActivitiesAction(data) {
+export function loadActivitiesAction(data) {
   return {
-    type: LOAD_LEAD_ACTIVITIES,
+    type: LOAD_ACTIVITIES,
     payload: data,
   };
 }

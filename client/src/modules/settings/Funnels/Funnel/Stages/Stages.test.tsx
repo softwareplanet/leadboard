@@ -1,4 +1,5 @@
 import { shallow } from 'enzyme';
+import 'jsdom-global/register';
 import * as React from 'react';
 import Funnel from '../../../../../models/Funnel';
 import StageModel from '../../../../../models/Stage';
@@ -31,7 +32,7 @@ describe('<Stages />', () => {
     const wrapper = shallow
     (
       <Stages 
-        loadStages={jest.fn()} 
+        loadSettingsStages={jest.fn()} 
         updateStageName={jest.fn()} 
         selectedFunnel={selectedFunnel}
         stages={stages}

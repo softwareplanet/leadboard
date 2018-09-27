@@ -1,0 +1,66 @@
+.cardWrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  padding: 16px;
+  background-color: #fff;
+  margin-bottom: 8px;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+}
+
+@media (max-width: 1440px) {
+  .cardWrapper {
+    border-radius: 0 4px 4px 0;
+  }
+}
+
+.cardHeading {
+  height: 32px;
+}
+
+.cardHeader {
+  display: inline-block;
+  font-size: 12px;
+  margin-top: 2px;
+  color: #800ace;
+  font-weight: 600;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+.contact {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 20px;
+  padding-bottom: 3px;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.contactName {
+  display: inline-block;
+  height: 20px;
+  color: #317ae2;
+  text-decoration: none;
+  vertical-align: top;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: calc(100% - 28px);
+  margin-left: 10px;
+}
+
+.contactIcon {
+  height: 16px;
+  width: 16px;
+}
+
+.actions {
+  padding-top: 20px;
+}
+
+.buttonViewAll {
+  composes: buttonSmall from '../../../../../styles/common.css';
+}

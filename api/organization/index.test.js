@@ -2,6 +2,7 @@ import request from "supertest";
 import express from "../../express";
 import routes from "..";
 import {
+  createContact,
   createFunnel,
   createLead,
   createOrganization,
@@ -132,5 +133,27 @@ describe("Organization", function() {
     expect(body.length).toBe(2);
     expect(body[0].name).toBe("Company 1");
     expect(body[1].name).toBe("Company 2");
+  });
+
+  it("should find all contacts by organization id and sort by name", async () => {
+    const organization = await createOrganization(app, cred.token, "Company 1");
+    const firstContact = await createContact(app, cred.token, organization._id, "Ann A.");
+    const secondContact = await createContact(app, cred.token, organization._id, "Jack B.");
+    const thirdContact = await createContact(app, cred.token, organization._id, "Bob C.");
+
+    const otherOrganization = await createOrganization(app, cred.token, "Company 2");
+    const otherContact = await createContact(app, cred.token, otherOrganization._id, "Oleh S.");
+
+    const { status, body } = await request(app())
+      .get(`/api/organization/${organization._id}/contacts`)
+      .set("Authorization", cred.token)
+      .send({});
+
+    const expectedBody = [firstContact, thirdContact, secondContact];
+
+    expect(status).toBe(200);
+    expect(body.length).toBe(3);
+    expect(body).not.toContain(otherContact);
+    expect(body).toMatchObject(expectedBody);
   });
 });

@@ -1,6 +1,5 @@
 import { LOAD_CONTACTS } from "./types";
 import { combineReducers } from "redux";
-import activityReducer from "../../../lead/EditLead/Activities/activityReducer";
 import detailedContactReducer from "../../../detailedView/Contact/detailedContactReducer";
 
 const contactsReducer = (state = [], action) => {
