@@ -78,15 +78,15 @@ class EditLeadTabs extends React.Component<Props, State> {
       case LEAD:
         note = {
           lead: this.props.model._id,
-          organization: this.props.model.organization._id,
-          contact: this.props.model.contact._id,
+          organization: this.props.model.organization ? this.props.model.organization._id : undefined,
+          contact: this.props.model.contact ? this.props.model.contact._id : undefined,
           text: noteText,
           user: this.props.userId,
         };
         break;
       case CONTACT:
         note = {
-          organization: this.props.model.organization._id,
+          organization: this.props.model.organization ? this.props.model.organization._id : undefined,
           contact: this.props.model._id,
           text: noteText,
           user: this.props.userId,
@@ -123,7 +123,7 @@ class EditLeadTabs extends React.Component<Props, State> {
         assignedTo: this.props.userId,
         organization: this.props.model.organization,
         [this.props.modelType]: this.props.model._id,
-        participants: [this.props.model.contact._id],
+        participants: [this.props.model.contact ? this.props.model.contact._id : undefined],
       });
     }
     this.toggleFakeInput();
