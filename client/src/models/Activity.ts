@@ -14,7 +14,7 @@ export default interface Activity {
   note: string;
   assignedTo: string | User;
   lead: string | Lead;
-  participants: string[] | Contact[];
+  participants?: string[] | Contact[];
   organization?: string | Organization;
   done: boolean;
   createdBy: string | User;
