@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import OrganizationModel from '../../../models/Organization';
 import Navbar from '../../layouts/Navbar/Navbar';
+import { loadActivities } from '../../lead/EditLead/Activities/activityActions';
 import { loadNotes } from '../../lead/EditLead/EditLeadContent/EditLeadHistory/Notes/noteActions';
 import DetailedViewHeader from '../DetailedViewHeader/DetailedViewHeader';
 import { loadOrganization, updateOrganization } from './detailedOrganizationActions';
@@ -17,6 +18,8 @@ interface Props extends RouteComponentProps<{ organizationId: string }> {
   updateOrganization(organization: any): void;
 
   loadNotes(modelName: string, modelId: string): void;
+
+  loadActivities(modelName: string, modelId: string): void;
 }
 
 class Organization extends React.Component<Props, object> {
@@ -48,6 +51,7 @@ class Organization extends React.Component<Props, object> {
     const organizationId = this.props.match.params.organizationId;
     this.props.loadOrganization(organizationId);
     this.props.loadNotes('organization', organizationId);
+    this.props.loadActivities('organization', organizationId);
   }
 }
 
@@ -57,5 +61,5 @@ const mapStateToProps = (state: any) => ({
 
 export default connect(
   mapStateToProps,
-  { loadNotes, loadOrganization, updateOrganization },
+  { loadNotes, loadOrganization, updateOrganization, loadActivities },
 )(Organization);
