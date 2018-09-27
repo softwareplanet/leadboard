@@ -307,6 +307,10 @@ class AddLead extends React.Component {
     document.addEventListener("keydown", this.handleEscapeKeyDown, false);
   }
 
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.handleEscapeKeyDown, false);
+  }
+
   render() {
     const { errors, validationIsShown } = this.state;
     const autocompleteProps = {
