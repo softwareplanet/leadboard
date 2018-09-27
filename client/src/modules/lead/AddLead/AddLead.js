@@ -276,28 +276,28 @@ class AddLead extends React.Component {
   };
 
   clearContactOnEsc = () => {
-    this.setState({ contact: { ...this.state.contant, name: "" } });
+    this.setState({ contact: { ...this.state.contact, name: "" } });
   }
 
   clearOrganizationOnEsc = () => {
     this.setState({ organization: { ...this.state.organization, name: "" } });
   }
 
-  closeModalOnEsc = (e) => {
-    if (e.keyCode === 27) {
-      if (e.target.className !== "organization-input" && e.target.className !== "contact-input") {
-        this.closeModal();
+  handleEscapeKeyDown = (e) => {
+    const ESCAPE_KEY_CODE = 27;
+    if (e.keyCode === ESCAPE_KEY_CODE) {
+      if (["organization-input", "contact-input"].includes(e.target.className)) {
+        const input = e.target;
+        isBlank(input.value) ? input.blur() : input.value = "";
       }
       else {
-        isBlank(e.target.value)?
-         e.target.blur():
-         e.target.value = "";
+        this.closeModal();
       }
     }
   }
 
   componentDidMount() {
-    document.addEventListener("keydown", this.closeModalOnEsc, false);
+    document.addEventListener("keydown", this.handleEscapeKeyDown, false);
   }
 
   render() {
@@ -316,8 +316,6 @@ class AddLead extends React.Component {
 
         <Modal
           isOpen={this.state.modalIsOpen}
-          onRequestClose={this.closeModal}
-          shouldCloseOnOverlayClick={false}
           style={customStyles}>
           <header className={addingModalStyles.formHeader}>Add lead</header>
           <button type="button" onClick={this.closeModal} aria-label="Close" className={addingModalStyles.closeBtn}>
