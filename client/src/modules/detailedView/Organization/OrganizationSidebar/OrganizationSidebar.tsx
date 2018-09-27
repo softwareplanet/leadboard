@@ -26,4 +26,4 @@ const mapStateToProps = (state: any) => ({
 
 export { OrganizationSidebar };
 
-export default connect(mapStateToProps, {})(OrganizationSidebar);
+export default connect(mapStateToProps)(OrganizationSidebar);
