@@ -6,10 +6,7 @@ import addActivityIcon from '../../../../../assets/img/add-activity/add-activity
 import takeNotesIconActive from '../../../../../assets/img/take-notes/take-notes-active.svg';
 import takeNotesIcon from '../../../../../assets/img/take-notes/take-notes.svg';
 import Activity from '../../../../../models/Activity';
-import Contact from '../../../../../models/Contact';
-import Lead from '../../../../../models/Lead';
 import Note from '../../../../../models/Note';
-import Organization from '../../../../../models/Organization';
 import isBlank from '../../../../../utils/isBlank';
 import { createActivity } from '../../Activities/activityActions';
 import { createNote } from '../EditLeadHistory/Notes/noteActions';
@@ -19,7 +16,7 @@ import * as styles from './EditLeadTabs.css';
 
 interface Props {
   userId: string;
-  model: Lead | Organization | Contact;
+  model: any;
   modelType: string;
 
   createActivity(activity: Activity): void;
@@ -72,11 +69,39 @@ class EditLeadTabs extends React.Component<Props, State> {
   }
 
   public saveNote = (noteText: string) => {
-    const note = {
-      [this.props.modelType]: this.props.model,
-      text: noteText,
-      user: this.props.userId,
-    };
+    let note: Note;
+    switch (this.props.modelType) {
+      case 'lead':
+        note = {
+          lead: this.props.model._id,
+          organization: this.props.model.organization._id,
+          contact: this.props.model.contact._id,
+          text: noteText,
+          user: this.props.userId,
+        };
+        break;
+      case 'contact':
+        note = {
+          organization: this.props.model.organization._id,
+          contact: this.props.model._id,
+          text: noteText,
+          user: this.props.userId,
+        };
+        break;
+      case 'organization':
+      note = {
+        organization: this.props.model._id,
+        text: noteText,
+        user: this.props.userId,
+      };
+        break;
+      default:
+        note = {
+          text: noteText,
+          user: this.props.userId,
+        };
+        break;
+    }
     this.props.createNote(note);
     this.toggleFakeInput();
   }
