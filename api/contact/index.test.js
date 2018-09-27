@@ -144,6 +144,51 @@ describe("Contact", function() {
     expect(typeof body[0]._id).toBe("string");
     expect(typeof body[0].organization._id).toBe("string");
     expect(body[0].name).toBe("Nazar");
+  });
+
+  it("should find all aggregated contacts for specific organization", async () => {
+    const organization = await createOrganization(app, cred.token, "Company 1");
+    const firstContact = await createContact(app, cred.token, organization._id, "Ann A.");
+    const secondContact = await createContact(app, cred.token, organization._id, "Jack B.");
+    const thirdContact = await createContact(app, cred.token, organization._id, "Bob C.");
+
+    const otherOrganization = await createOrganization(app, cred.token, "Company 2");
+    const otherContact = await createContact(app, cred.token, otherOrganization._id, "Oleh S.");
+
+    const { status, body } = await request(app())
+      .get(`/api/contact/aggregated/organization/${organization._id}`)
+      .set("Authorization", cred.token)
+      .send({});
+
+    const expectedBody = [
+      {
+        _id: firstContact._id,
+        name:firstContact.name,
+        organization: {
+          _id: organization._id,
+          name: organization.name
+        }
+      },
+      {
+        _id: secondContact._id,
+        name:secondContact.name,
+        organization: {
+          _id: organization._id,
+          name: organization.name
+        }
+      },
+      {
+        _id: thirdContact._id,
+        name:thirdContact.name,
+        organization: {
+          _id: organization._id,
+          name: organization.name
+        }
+      }
+    ];
+
+    expect(status).toBe(200);
+    expect(body).toMatchObject(expectedBody);
   })
 
   it("should return contact by id", async () => {

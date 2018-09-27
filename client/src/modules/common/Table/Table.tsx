@@ -21,7 +21,6 @@ class Table extends React.Component<Props, object> {
 
   public render() {
     return (
-      <div>
         <BootstrapTable
           keyField="_id"
           data={this.props.data}
@@ -29,7 +28,6 @@ class Table extends React.Component<Props, object> {
           hover={true}
           selectRow={this.selectRow}
         />
-      </div>
     );
   }
 }
