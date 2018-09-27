@@ -82,10 +82,12 @@ class EditLeadTabs extends React.Component<Props, State> {
   }
 
   public saveActivity = (activity: Activity) => {
+    const { editLead, userId } = this.props;
     this.props.createActivity({
       ...activity,
-      assignedTo: this.props.userId,
-      lead: this.props.editLead._id,
+      assignedTo: userId,
+      lead: editLead._id,
+      organization: editLead.organization ? editLead.organization._id : undefined,
     });
     this.toggleFakeInput();
   }
