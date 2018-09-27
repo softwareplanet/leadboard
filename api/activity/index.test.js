@@ -33,7 +33,7 @@ beforeEach(async done => {
 describe("Activity", () => {
   it("should return all lead's activities ", async () => {
     const { body } = await request(app())
-      .get(`/api/lead/${lead._id}/activities`)
+      .get(`/api/activity/?lead=${lead._id}`)
       .set("Authorization", cred.token)
       .send({});
     expect(body.length).toEqual(2);
