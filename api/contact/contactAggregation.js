@@ -1,9 +1,15 @@
 import Contact from "../../models/contact";
+import mongoose from "mongoose";
 
-export const contactAggregation = (domain) => {
+export const contactAggregation = (domain, organization) => {
   return Contact.aggregate([
     {
-      $match: { domain: domain },
+      $match: {
+        $and: [
+          { domain: domain },
+          organization ? { organization: mongoose.Types.ObjectId(organization) } : {},
+        ],
+      },
     },
     {
       $lookup: {

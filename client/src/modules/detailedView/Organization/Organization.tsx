@@ -6,7 +6,7 @@ import Navbar from '../../layouts/Navbar/Navbar';
 import { loadActivities } from '../../lead/EditLead/Activities/activityActions';
 import { loadNotes } from '../../lead/EditLead/EditLeadContent/EditLeadHistory/Notes/noteActions';
 import DetailedViewHeader from '../DetailedViewHeader/DetailedViewHeader';
-import { loadOrganization, updateOrganization } from './detailedOrganizationActions';
+import { loadAggregatedContactsForOrganization, loadOrganization, updateOrganization } from './detailedOrganizationActions';
 import OrganizationContent from './OrganizationContent/OrganizationContent';
 import OrganizationSidebar from './OrganizationSidebar/OrganizationSidebar';
 
@@ -14,6 +14,8 @@ interface Props extends RouteComponentProps<{ organizationId: string }> {
   organization: OrganizationModel;
 
   loadOrganization(id: string): void;
+
+  loadAggregatedContactsForOrganization(organizationId: string): void;
 
   updateOrganization(organization: any): void;
 
@@ -50,6 +52,7 @@ class Organization extends React.Component<Props, object> {
   public componentWillMount() {
     const organizationId = this.props.match.params.organizationId;
     this.props.loadOrganization(organizationId);
+    this.props.loadAggregatedContactsForOrganization(organizationId);
     this.props.loadNotes('organization', organizationId);
     this.props.loadActivities('organization', organizationId);
   }
@@ -61,5 +64,11 @@ const mapStateToProps = (state: any) => ({
 
 export default connect(
   mapStateToProps,
-  { loadNotes, loadOrganization, updateOrganization, loadActivities },
+  {
+    loadActivities,
+    loadAggregatedContactsForOrganization,
+    loadNotes,
+    loadOrganization,
+    updateOrganization,
+  },
 )(Organization);
