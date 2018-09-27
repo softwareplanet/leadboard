@@ -5,6 +5,7 @@ import {
   createFunnel,
   createLead,
   createNote,
+  createOrganization,
   createStage,
   createUserAndDomain,
   dropTables,
@@ -13,6 +14,7 @@ import {
 const app = () => express(routes);
 
 let cred;
+let otherUser;
 let lead;
 let note;
 let stageId;
@@ -25,6 +27,7 @@ beforeEach(async done => {
   stageId = await createStage(app, cred.token, funnelId, "Stage", 2, cred.userId);
   lead = await createLead(app, cred.token, cred.userId, stageId, 2, "Lead A");
   note = await createNote(app, cred.token, lead, cred.userId, "Test note");
+  otherUser = await createUserAndDomain(app, "Other Domain", "other@testmail.com");
   done();
 });
 
@@ -68,11 +71,53 @@ describe("Lead", () => {
   });
 
   it("should fail to update note from other domain", async () => {
-    const otherUser = await createUserAndDomain(app, "Other Domain", "other@testmail.com");
-    const { status, body } = await request(app())
+    const { status } = await request(app())
       .patch(`/api/note/${lead._id}/${note._id}`)
       .set("Authorization", otherUser.token)
       .send();
+    expect(status).toBe(404);
+  });
+
+  it("should fail to create note with contact from other domain", async () => {
+    const otherUser = await createUserAndDomain(app, "Other Domain", "other@testmail.com");
+    const { status } = await request(app())
+      .post(`/api/note/`)
+      .set("Authorization", otherUser.token)
+      .send({
+        user: cred.userId,
+        text: "First note",
+        contact: cred.userId,
+        lead: lead._id,
+      });
+    expect(status).toBe(404);
+  });
+
+  it("should fail to create note with lead from other domain", async () => {
+    const { status } = await request(app())
+      .post(`/api/note/`)
+      .set("Authorization", otherUser.token)
+      .send({
+        user: cred.userId,
+        text: "First note",
+        contact: cred.userId,
+        lead: lead._id,
+      });
+    expect(status).toBe(404);
+  });
+
+  it("should fail to create note with organization from other domain", async () => {
+    const otherUser = await createUserAndDomain(app, "Other Domain", "other@testmail.com");
+    const organization = await createOrganization(app, cred.token, "Organization A");
+    const { status } = await request(app())
+      .post(`/api/note/`)
+      .set("Authorization", otherUser.token)
+      .send({
+        user: cred.userId,
+        text: "First note",
+        contact: cred.userId,
+        lead: lead._id,
+        organization: organization._id,
+      });
     expect(status).toBe(404);
   });
 

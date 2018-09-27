@@ -1,6 +1,6 @@
 import {
   CREATE_ACTIVITY, DELETE_ACTIVITY,
-  LOAD_LEAD_ACTIVITIES,
+  LOAD_ACTIVITIES,
   UPDATE_ACTIVITY,
 } from "./types";
 
@@ -8,7 +8,7 @@ const initialState = [];
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case LOAD_LEAD_ACTIVITIES:
+    case LOAD_ACTIVITIES:
       return action.payload;
     case CREATE_ACTIVITY:
       return [...state, action.payload];

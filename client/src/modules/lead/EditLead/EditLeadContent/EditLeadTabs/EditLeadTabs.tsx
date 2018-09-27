@@ -73,6 +73,7 @@ class EditLeadTabs extends React.Component<Props, State> {
 
   public saveNote = (noteText: string) => {
     const note = {
+      [this.props.modelType]: this.props.model,
       text: noteText,
       user: this.props.userId,
     };
@@ -192,4 +193,3 @@ export const OrganizationTabs = connect(organizationMapLeadStateToProps, actions
 export const ContactTabs = connect(contactMapLeadStateToProps, actions)(EditLeadTabs);
 
 export { EditLeadTabs };
-

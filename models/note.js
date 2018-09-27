@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import { USER, CONTACT, ORGANIZATION, LEAD } from "./refs";
-import QueryPlugin from "mongoose-query";
 
 const noteSchema = new mongoose.Schema({
   domain: { type: mongoose.Schema.Types.ObjectId, required: true },
@@ -12,7 +11,6 @@ const noteSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: USER },
   lastUpdater: { type: mongoose.Schema.Types.ObjectId, ref: USER },
 });
-noteSchema.plugin(QueryPlugin);
 const basicPopulates = [
   { path: "user" },
   { path: "lastUpdater" },
