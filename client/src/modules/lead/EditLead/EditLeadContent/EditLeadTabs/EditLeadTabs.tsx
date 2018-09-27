@@ -74,8 +74,8 @@ class EditLeadTabs extends React.Component<Props, State> {
 
   public saveNote = (noteText: string) => {
     let note: Note;
-    const { model, userId } = this.props;
-    switch (this.props.modelType) {
+    const { model, userId, modelType } = this.props;
+    switch (modelType) {
       case LEAD:
         note = {
           lead: model._id,
@@ -208,15 +208,18 @@ class EditLeadTabs extends React.Component<Props, State> {
 const leadMapLeadStateToProps = (state: any) => ({
   model: state.dashboard.editLead.lead,
   userId: state.auth.userid,
+  modelType: 'lead',
 });
 
 const contactMapLeadStateToProps = (state: any) => ({
   model: state.contact.detailedContact.contact,
   userId: state.auth.userid,
+  modelType: 'contact',
 });
 const organizationMapLeadStateToProps = (state: any) => ({
   model: state.organization.detailedOrganization.organization,
   userId: state.auth.userid,
+  modelType: 'oragnization',
 });
 
 const actions = { createNote, createActivity };

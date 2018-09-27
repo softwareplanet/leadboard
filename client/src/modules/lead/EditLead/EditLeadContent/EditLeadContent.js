@@ -8,7 +8,7 @@ export default class EditLead extends Component {
   render() {
     return (
       <div className={styles.content}>
-        <LeadTabs modelType="lead" />
+        <LeadTabs />
         <LeadHistory />
       </div>
     );

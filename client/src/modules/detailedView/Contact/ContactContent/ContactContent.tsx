@@ -8,7 +8,7 @@ export default class ContactContent extends React.Component {
   public render() {
     return (
       <div className={detailedViewStyles.content}>
-        <ContactTabs modelType="contact" />
+        <ContactTabs />
         <ContactHistory />
       </div>
     );

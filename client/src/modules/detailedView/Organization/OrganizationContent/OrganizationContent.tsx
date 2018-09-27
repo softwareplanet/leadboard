@@ -8,7 +8,7 @@ export default class OrganizationContent extends React.Component {
   public render() {
     return (
       <div className={detailedViewStyles.content}>
-        <OrganizationTabs modelType="organization" />
+        <OrganizationTabs />
         <OrganizationHistory />
       </div>
     );
