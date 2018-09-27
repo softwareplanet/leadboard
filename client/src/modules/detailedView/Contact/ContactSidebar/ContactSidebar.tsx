@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import { isEmpty } from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import organizationIcon from '../../../../assets/img/organizationIcon.svg';
@@ -101,7 +100,7 @@ class ContactSidebar extends React.Component<Props> {
     return (
       <div className={detailedViewStyles.sidebar}>
         { contactCard }
-        { isEmpty(contact.organization) ? emptyOrganizationCard : organizationCard }
+        { organization ? organizationCard : emptyOrganizationCard }
       </div>
     );
   }
