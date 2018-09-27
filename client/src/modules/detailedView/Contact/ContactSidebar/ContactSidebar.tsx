@@ -14,10 +14,10 @@ import { getCustomFieldSettingsByModel,makeCustomFieldData } from '../../../lead
 import EditCard from '../../../lead/EditLead/EditLeadSidebar/EditCard/EditCard';
 import * as editCardStyles from '../../../lead/EditLead/EditLeadSidebar/EditCard/EditCard.css';
 import EmptyCard from '../../../lead/EditLead/EditLeadSidebar/EmptyCard/EmptyCard';
-import { updateOrganization } from '../../../lead/leadActions';
 import { addCustomFieldToDomain, editCustomFieldInDomain } from '../../../settings/customFieldsActions';
 import { deleteCustomField } from '../../../settings/domain/domainActions';
 import * as detailedViewStyles from '../../detailedView.css';
+import { updateOrganization } from '../../Organization/detailedOrganizationActions';
 import { updateContact } from '../detailedContactActions';
 
 
@@ -91,7 +91,7 @@ class ContactSidebar extends React.Component<Props> {
         styles={autocompleteStyles.linkOrganization}
         iTagClass={classNames('fas fa-building', editCardStyles.inputIcon)}
         items={organizations}
-        lead={contact}
+        model={contact}
         onUpdate={this.props.updateContact}
       >
         <OrganizationAutocomplete />
