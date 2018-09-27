@@ -321,9 +321,7 @@ class AddLead extends React.Component {
             Add lead
           </button>
 
-        <Modal
-          isOpen={this.state.modalIsOpen}
-          style={customStyles}>
+        <Modal isOpen={this.state.modalIsOpen} style={customStyles}>
           <header className={addingModalStyles.formHeader}>Add lead</header>
           <button type="button" onClick={this.closeModal} aria-label="Close" className={addingModalStyles.closeBtn}>
             <span aria-hidden="true" className={classNames("close", addingModalStyles.closeIcon)}>
