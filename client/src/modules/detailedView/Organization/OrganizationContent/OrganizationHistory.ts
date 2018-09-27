@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
-import ModelHistory from '../../../../modules/common/ModelHistory/ModelHistory';
+import ModelHistory from '../../../common/ModelHistory/ModelHistory';
 
 const mapStateToProps = (state: any) => ({
-  activities: [],
+  activities: state.organization.detailedOrganization.activities,
   notes: state.organization.detailedOrganization.notes,
 });
 
