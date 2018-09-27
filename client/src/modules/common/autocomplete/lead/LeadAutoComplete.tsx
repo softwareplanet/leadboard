@@ -14,7 +14,7 @@ interface Props {
 
   onFocus(event: React.SyntheticEvent): void;
   
-  onBlur(): void;
+  onBlur(event: React.SyntheticEvent): void;
 
   onChange(event: React.SyntheticEvent): void;
 
@@ -24,6 +24,14 @@ interface Props {
 class LeadAutocomplete extends React.Component<Props> {
   public input = React.createRef<HTMLInputElement>();
 
+  public inputFocus = () => {
+    this.input.current!.focus();
+  }
+
+  public inputBlur = () => {
+    this.input.current!.blur();
+  }
+
   public render() {
     const styles = this.props.styles;
     return (
@@ -31,6 +39,7 @@ class LeadAutocomplete extends React.Component<Props> {
         open={this.props.value.length > 1 &&
           this.props.open && this.props.items.length > 0}
         items={this.props.items}
+        wrapperStyle={{display: 'inline-block', position: 'relative'}}
         shouldItemRender={(item: any, value: any) => item.name.toLowerCase().indexOf(trim(value).toLowerCase()) > -1}
         getItemValue={(item: any) => item.name}
         renderMenu={(items: any) =>

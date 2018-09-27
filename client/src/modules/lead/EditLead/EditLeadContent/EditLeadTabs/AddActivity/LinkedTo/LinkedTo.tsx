@@ -4,7 +4,7 @@ import * as styles from './LinkedTo.css';
 
 interface Props {
 
-  setLead(leadId: string): void;
+  setLead(leadId?: string): void;
 }
 
 export default class LinkedTo extends React.Component<Props>{

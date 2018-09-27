@@ -120,7 +120,7 @@ export default class AddActivity extends Component {
   };
 
   setLead = (leadId) => {
-    this.setState({lead: leadId})
+    this.setState({lead: leadId});
   }
 
   getTimeOptions = () => {

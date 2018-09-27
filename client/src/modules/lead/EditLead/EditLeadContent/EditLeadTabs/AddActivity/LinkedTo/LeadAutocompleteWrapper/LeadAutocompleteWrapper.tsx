@@ -19,7 +19,7 @@ interface Props {
 
   loadSearchResult(query: string): void;
 
-  setLead(leadId: string): void;
+  setLead(leadId?: string): void;
 }
 
 interface State {
@@ -39,9 +39,12 @@ class LeadAutocompleteWrapper extends React.Component<Props, State> {
   };
 
   public clear = () => {
+    console.log("hi");
+    
     this.setState({
       value: '',
     });
+    this.leadAutocomplete.current!.inputFocus();
     this.leadAutocomplete.current!.input.current!.focus();
   }
 
@@ -86,12 +89,12 @@ class LeadAutocompleteWrapper extends React.Component<Props, State> {
 
   private onSelect = (value: string, item: any) => {
     this.props.setLead(item._id);
-    this.setState({ value, selectedLead: item, isDropdownOpen: false });
+    this.setState({ value, selectedLead: item, isDropdownOpen: false }, 
+      () => this.leadAutocomplete.current!.inputBlur());
     this.leadAutocompleteWrapper.current!.removeAttribute('style');
-    this.leadAutocompleteWrapper.current!.blur();
   }
 
-  private onBlur = () => {
+  private onBlur = (e: React.SyntheticEvent) => {
     this.leadAutocompleteWrapper.current!.removeAttribute('style');
     this.setState({
       ...this.state,
@@ -100,6 +103,7 @@ class LeadAutocompleteWrapper extends React.Component<Props, State> {
     });
     if (this.state.selectedLead.name !== this.state.value) {
       this.setState({ selectedLead: {} });
+      this.props.setLead();
     }
   }
 
@@ -119,6 +123,7 @@ class LeadAutocompleteWrapper extends React.Component<Props, State> {
     this.leadAutocompleteWrapper.current!.setAttribute('style', 'border: 1px solid #317ae2');
   }
 }
+
 
 const mapStateToProps = (state: any) => ({
   lead: state.dashboard.editLead.lead,
