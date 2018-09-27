@@ -74,35 +74,36 @@ class EditLeadTabs extends React.Component<Props, State> {
 
   public saveNote = (noteText: string) => {
     let note: Note;
+    const { model, userId } = this.props;
     switch (this.props.modelType) {
       case LEAD:
         note = {
-          lead: this.props.model._id,
-          organization: this.props.model.organization ? this.props.model.organization._id : undefined,
-          contact: this.props.model.contact ? this.props.model.contact._id : undefined,
+          lead: model._id,
+          organization: model.organization ? model.organization._id : undefined,
+          contact: model.contact ? model.contact._id : undefined,
           text: noteText,
-          user: this.props.userId,
+          user: userId,
         };
         break;
       case CONTACT:
         note = {
-          organization: this.props.model.organization ? this.props.model.organization._id : undefined,
-          contact: this.props.model._id,
+          organization: model.organization ? model.organization._id : undefined,
+          contact: model._id,
           text: noteText,
-          user: this.props.userId,
+          user: userId,
         };
         break;
       case ORGANIZATION:
       note = {
-        organization: this.props.model._id,
+        organization: model._id,
         text: noteText,
-        user: this.props.userId,
+        user: userId,
       };
         break;
       default:
         note = {
           text: noteText,
-          user: this.props.userId,
+          user: userId,
         };
         break;
     }
@@ -111,19 +112,20 @@ class EditLeadTabs extends React.Component<Props, State> {
   }
 
   public saveActivity = (activity: Activity) => {
-    if (this.props.modelType === CONTACT) {
+    const { model, userId, modelType } = this.props;
+    if (modelType === CONTACT) {
       this.props.createActivity({
         ...activity,
-        assignedTo: this.props.userId,
-        participants: [this.props.model._id],
+        assignedTo: userId,
+        participants: [model._id],
       });
     } else {
       this.props.createActivity({
         ...activity,
-        assignedTo: this.props.userId,
-        organization: this.props.model.organization,
-        [this.props.modelType]: this.props.model._id,
-        participants: [this.props.model.contact ? this.props.model.contact._id : undefined],
+        assignedTo: userId,
+        organization: model.organization,
+        [modelType]: model._id,
+        participants: [model.contact ? model.contact._id : undefined],
       });
     }
     this.toggleFakeInput();
