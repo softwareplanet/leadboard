@@ -82,12 +82,11 @@ describe('<EditLeadHeader />', () => {
       leadId: '5b86aa21ed17641891c50127',
     },
   };
-  let loadLeadActivities;
+  let loadActivities = jest.fn();
 
   it('should call updateLead after won and lost buttons click', () => {
     updateLead = jest.fn();
     deleteLead = jest.fn();
-    loadLeadActivities = jest.fn();
     const wrapper = shallow
     (
       <EditLeadHeader
@@ -98,7 +97,7 @@ describe('<EditLeadHeader />', () => {
         editLead={editLead}
         updateLead={updateLead}
         deleteLead={deleteLead}
-        loadLeadActivities={loadLeadActivities}
+        loadActivities={loadActivities}
       />,
     );
     wrapper.find(`.${styles.button}`).simulate('click');
@@ -109,7 +108,7 @@ describe('<EditLeadHeader />', () => {
   it('should display closed lead actions if status is won or lost', () => {
     updateLead = jest.fn();
     deleteLead = jest.fn();
-    loadLeadActivities = jest.fn();
+    loadActivities = jest.fn();
     editLead.status = LOST;
     const wrapper = shallow
     (
@@ -121,7 +120,7 @@ describe('<EditLeadHeader />', () => {
         editLead={editLead}
         updateLead={updateLead}
         deleteLead={deleteLead}
-        loadLeadActivities={loadLeadActivities}
+        loadActivities={loadActivities}
       />,
     );
     const closedLeadActions = wrapper.find(`.${styles.closedLeadActions}`);

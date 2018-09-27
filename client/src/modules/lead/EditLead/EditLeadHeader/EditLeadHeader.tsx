@@ -7,7 +7,7 @@ import ownerIcon from '../../../../assets/img/user-icon.svg';
 import { IN_PROGRESS, LOST, WON } from '../../../../constants';
 import Funnel from '../../../../models/Funnel';
 import { deleteLead, loadFunnels, loadLead, loadStagesWithoutLeads, updateLead } from '../../leadActions';
-import { loadLeadActivities } from '../Activities/activityActions';
+import { loadActivities } from '../Activities/activityActions';
 import AdditionalActionsPopover from './AdditionalActionsPopover/AdditionalActionsPopover';
 import * as styles from './EditLeadHeader.css';
 import EditLeadPipelinePopover from './EditLeadPipelinePopover/EditLeadPipelinePopover';
@@ -23,7 +23,7 @@ interface Props {
 
   deleteLead(leadId: string): void;
 
-  loadLeadActivities(leadId: string): void;
+  loadActivities(leadName: string ,leadId: string): void;
 
   updateLead(lead: any): void;
 
@@ -148,7 +148,7 @@ class EditLeadHeader extends React.Component<Props, State> {
 
   public componentWillMount() {
     const leadId = this.props.match.params.leadId;
-    this.props.loadLeadActivities(leadId);
+    this.props.loadActivities('lead', leadId);
     this.props.loadFunnels();
   }
 
@@ -193,5 +193,5 @@ export { EditLeadHeader };
 
 export default connect(
   mapStateToProps,
-  { loadLead, updateLead, loadLeadActivities, loadFunnels, loadStagesWithoutLeads, deleteLead },
+  { loadLead, updateLead, loadActivities, loadFunnels, loadStagesWithoutLeads, deleteLead },
 )(EditLeadHeader);
