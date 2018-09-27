@@ -73,41 +73,11 @@ class EditLeadTabs extends React.Component<Props, State> {
   }
 
   public saveNote = (noteText: string) => {
-    let note: Note;
-    const { model, userId, modelType } = this.props;
-    switch (modelType) {
-      case LEAD:
-        note = {
-          lead: model._id,
-          organization: model.organization ? model.organization._id : undefined,
-          contact: model.contact ? model.contact._id : undefined,
-          text: noteText,
-          user: userId,
-        };
-        break;
-      case CONTACT:
-        note = {
-          organization: model.organization ? model.organization._id : undefined,
-          contact: model._id,
-          text: noteText,
-          user: userId,
-        };
-        break;
-      case ORGANIZATION:
-      note = {
-        organization: model._id,
-        text: noteText,
-        user: userId,
-      };
-        break;
-      default:
-        note = {
-          text: noteText,
-          user: userId,
-        };
-        break;
-    }
-    this.props.createNote(note);
+    this.props.createNote({
+      ...this.getNoteChanges(),
+      text: noteText,
+      user: this.props.userId,
+    });
     this.toggleFakeInput();
   }
 
@@ -203,23 +173,46 @@ class EditLeadTabs extends React.Component<Props, State> {
   private getAddActivity = () => {
     return (<AddActivity onCancel={this.cancel} onSave={this.saveActivity} />);
   }
+
+  private getNoteChanges(): any {
+    const { model, modelType } = this.props;    
+    switch (modelType) {
+      case LEAD:
+        return {
+          lead: model._id,
+          organization: model.organization ? model.organization._id : undefined,
+          contact: model.contact ? model.contact._id : undefined,
+        };
+      case CONTACT:
+        return {
+          organization: model.organization ? model.organization._id : undefined,
+          contact: model._id,
+        };
+      case ORGANIZATION:
+        return {
+          organization: model._id,
+        };
+      default:
+        return {};
+    }
+  }
 }
 
 const leadMapLeadStateToProps = (state: any) => ({
   model: state.dashboard.editLead.lead,
   userId: state.auth.userid,
-  modelType: 'lead',
+  modelType: LEAD,
 });
 
 const contactMapLeadStateToProps = (state: any) => ({
   model: state.contact.detailedContact.contact,
   userId: state.auth.userid,
-  modelType: 'contact',
+  modelType: CONTACT,
 });
 const organizationMapLeadStateToProps = (state: any) => ({
   model: state.organization.detailedOrganization.organization,
   userId: state.auth.userid,
-  modelType: 'oragnization',
+  modelType: ORGANIZATION,
 });
 
 const actions = { createNote, createActivity };
