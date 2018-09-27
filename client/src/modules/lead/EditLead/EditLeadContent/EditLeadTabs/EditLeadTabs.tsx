@@ -14,6 +14,10 @@ import AddActivity from './AddActivity/AddActivity';
 import EditLeadEditor from './EditLeadEditor/EditLeadEditor';
 import * as styles from './EditLeadTabs.css';
 
+const CONTACT: string = 'contact';
+const ORGANIZATION: string = 'organization';
+const LEAD: string = 'lead';
+
 interface Props {
   userId: string;
   model: any;
@@ -71,7 +75,7 @@ class EditLeadTabs extends React.Component<Props, State> {
   public saveNote = (noteText: string) => {
     let note: Note;
     switch (this.props.modelType) {
-      case 'lead':
+      case LEAD:
         note = {
           lead: this.props.model._id,
           organization: this.props.model.organization._id,
@@ -80,7 +84,7 @@ class EditLeadTabs extends React.Component<Props, State> {
           user: this.props.userId,
         };
         break;
-      case 'contact':
+      case CONTACT:
         note = {
           organization: this.props.model.organization._id,
           contact: this.props.model._id,
@@ -88,7 +92,7 @@ class EditLeadTabs extends React.Component<Props, State> {
           user: this.props.userId,
         };
         break;
-      case 'organization':
+      case ORGANIZATION:
       note = {
         organization: this.props.model._id,
         text: noteText,
@@ -107,7 +111,7 @@ class EditLeadTabs extends React.Component<Props, State> {
   }
 
   public saveActivity = (activity: Activity) => {
-    if (this.props.modelType === 'contact') {
+    if (this.props.modelType === CONTACT) {
       this.props.createActivity({
         ...activity,
         assignedTo: this.props.userId,
