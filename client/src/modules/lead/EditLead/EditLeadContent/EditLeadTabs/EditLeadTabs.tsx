@@ -90,7 +90,7 @@ class EditLeadTabs extends React.Component<Props, State> {
       organization: editLead.organization ? editLead.organization._id : undefined,
     });
     this.toggleFakeInput();
-  };
+  }
 
   public toggleFakeInput = () => {
     this.setState({ isFakeInputShown: !this.state.isFakeInputShown });
