@@ -20,7 +20,7 @@ export const loadFirstActivityInLeadsPlan = () => dispatch => {
     })
 };
 
-//load activities by model id
+//load activities by modelName and model id
 export const loadActivities = (modelName, modelId) => dispatch => {
   axios
     .get(`/api/activity/?${modelName}=${modelId}`)
