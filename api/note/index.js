@@ -16,7 +16,7 @@ const router = new Router();
 // @access  Private
 router.get("/", (req, res) => {
   req.query.domain = req.user.domain;
-  Note.query(req.query)
+  Note.find(req.query)
     .then(notes => {
       Note.populate(notes, Note.populates.basic)
         .then(notes => {
