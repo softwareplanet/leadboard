@@ -81,6 +81,23 @@ router.patch("/:activityId", activityMembersMiddlewares, async (req, res) => {
     });
 });
 
+// @route   GET api/activity/?model=modelId
+// @query   lead=leadId
+//          contactId=contactId
+//          organization=organizationId
+// @desc    Find activities by model
+// @access  Private
+router.get("/", (req, res) => {
+  req.query.domain = req.user.domain;
+  Activity.find(req.query)
+    .then(activities => {
+      res.json(activities);
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: error } });
+    });
+});
+
 // @route   POST api/activity
 // @desc    Create activity
 // @access  Private
