@@ -9,7 +9,7 @@ import noop from "lodash";
 import { AddLead } from "./AddLead";
 import Modal from "react-modal";
 import configureStore from "redux-mock-store";
-import styles from "./AddLead.css";
+import styles from "../../../styles/addingModal.css";
 
 chai.use(spies);
 
@@ -33,7 +33,7 @@ describe("<AddLead />", () => {
     userid: "5b6ab060f60c0524980fa23c",
     domainid: "5b6ab060f60c0524980fa23b"
   };
-  let leads = {
+  let dashboard = {
     funnels: [{ _id: "5b6b0fbe91e0774579ed6700", name: "renkonazbkafunnel", domain: "5b6ab060f60c0524980fa23b" }],
     stages: [
       { _id: "5b6b123391e0774579ed6701", funnel: "5b6b0fbe91e0774579ed6700", name: "Awareness", order: 1 },
@@ -63,7 +63,7 @@ describe("<AddLead />", () => {
         organizations={organizations}
         auth={auth}
         store={store}
-        leads={leads}
+        dashboard={dashboard}
         errors={{}}
       />,
     );
@@ -88,7 +88,7 @@ describe("<AddLead />", () => {
     const invalidContainerClass = styles.invalidContainer;
     expect(mountedAddLead.find(`.${invalidContainerClass}`).length).to.equal(0);
 
-    let saveLeadBtn = mountedAddLead.find(`.${styles.saveBtn}`);
+    let saveLeadBtn = mountedAddLead.find(`.${styles.saveButton}[children="Save"]`);
     saveLeadBtn.simulate("click", {});
     expect(mountedAddLead.find(`.${invalidContainerClass}`).length).to.equal(3);
 

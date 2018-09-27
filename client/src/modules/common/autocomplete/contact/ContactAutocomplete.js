@@ -1,9 +1,8 @@
-import React from "react";
+import React, { Component } from "react";
 import ReactAutocomplete from "react-autocomplete";
 import { trim } from "lodash";
 
-class ContactAutocomplete extends React.Component {
-
+class ContactAutocomplete extends Component {
   input = React.createRef();
 
   inputFocus = () => {
@@ -39,14 +38,14 @@ class ContactAutocomplete extends React.Component {
           items.length !== 0 ? (
             <div className="contactsList" style={styles.menu} children={items.splice(0, this.props.itemsCount)} />
           ) : (
-              <div className="contactsList" style={styles.menu}>
-                {
-                  <div style={styles.emptyMenuItem}>
-                    {`"${this.props.value}" will be added as a new contact`}
-                  </div>
-                }
-              </div>
-            )
+            <div className="contactsList" style={styles.menu}>
+              {
+                <div style={styles.emptyMenuItem}>
+                  { `"${this.props.value}" will be added as a new contact` }
+                </div>
+              }
+            </div>
+          )
         }
         renderItem={(item, highlighted) =>
           <div
@@ -57,7 +56,7 @@ class ContactAutocomplete extends React.Component {
               color: highlighted ? "#fff" : "#317ae2"
             }}
           >
-            {item.organization !== undefined ? `${item.name} (${item.organization.name})` : `${item.name}`}
+            {item.organization !== undefined ? `${item.name} (${ item.organization.name })` : `${item.name}`}
           </div>
         }
         inputProps={{

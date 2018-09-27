@@ -1,9 +1,8 @@
-import React from "react";
+import React, { Component } from "react";
 import ReactAutocomplete from "react-autocomplete";
 import { trim } from "lodash";
 
-class OrganizationAutocomplete extends React.Component {
-
+class OrganizationAutocomplete extends Component {
   input = React.createRef();
 
   inputFocus = () => {
@@ -40,13 +39,13 @@ class OrganizationAutocomplete extends React.Component {
             <div className="organizationsList" style={styles.menu} children={items.splice(0, this.props.itemsCount)} />
           ) : (
               <div className="organizationsList" style={styles.menu}>
-                {
-                  <div style={styles.emptyMenuItem}>
-                    {`"${this.props.value}" will be added as a new organization`}
-                  </div>
-                }
-              </div>
-            )
+              {
+                <div style={styles.emptyMenuItem}>
+                  { `"${this.props.value}" will be added as a new organization` }
+                </div>
+              }
+            </div>
+          )
         }
         renderItem={(item, highlighted) =>
           <div

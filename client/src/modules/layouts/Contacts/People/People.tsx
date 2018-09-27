@@ -1,57 +1,39 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import NavBar from '../../Navbar/Navbar';
-import { loadContacts } from '../../../common/autocomplete/contact/contactActions';
-import Contact from '../../../../models/Contact';
-import Table from '../../../../modules/common/Table/Table';
-import * as styles from './People.css';
+import ContactsPage from '../ContactsPageTemplate';
+import AddContact from './AddContact/AddContact';
+import { loadAggregatedContacts } from './contactActions';
 
-interface Props {
-  contacts: Contact[];
+export class People extends ContactsPage {
+  public modelName = 'Contact';
+  public noContactsMessage = 'No people added yet';
+  public oneContactHeader = 'person';
+  public moreThanOneContactsHeader = 'people';
+  public signCreateNew = 'Create new person';
 
-  loadContacts(): void;
-}
+  public columns = [
+    {
+      dataField: 'name',
+      text: 'Name',
+    },
+    {
+      dataField: 'organization.name',
+      text: 'Organization',
+    },
+  ];
 
-const columns = [
-  {
-    dataField: 'name',
-    text: 'Name',
-  },
-  {
-    dataField: 'organization.name',
-    text: 'Organization',
-  },
-  {
-    dataField: 'custom[0].value',
-    text: 'Phone',
-  },
-  {
-    dataField: 'custom[1].value',
-    text: 'Email',
-  },
-];
+  public createAddButton = () =>
+    <AddContact
+      isModalOpen={this.state.isModalOpen}
+      openModal={this.openAddingModal}
+      closeModal={this.closeAddingModal}
+    />
 
-class People extends React.Component<Props, object> {
-  public componentWillMount = () => {
-    this.props.loadContacts();
-  };
-
-  public render() {
-    return (
-      <div>
-        <NavBar />
-        <p className={styles.peopleCounter}>{this.props.contacts.length} people</p>
-        <Table
-          contacts={this.props.contacts}
-          columns={columns}
-        />
-      </div>
-    );
-  }
 }
 
 const mapStateToProps = (state: any) => ({
-  contacts: state.contacts,
+  contacts: state.contact.contacts,
+  domainCustomFields: state.domain.settings.customFields,
 });
 
-export default connect(mapStateToProps, { loadContacts })(People);
+export default connect(mapStateToProps, { loadAggregatedContacts })(People);

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import activeIcon from '../../../../assets/lead-activity/active-icon.png';
-import overdueIcon from '../../../../assets/lead-activity/overdue-icon.png';
-import plannedIcon from '../../../../assets/lead-activity/planned-icon.png';
-import warningIcon from '../../../../assets/lead-activity/warning-icon.png';
-import profile from '../../../../img/profile.svg';
+import activeIcon from '../../../../assets/img/lead-activity/active-icon.png';
+import overdueIcon from '../../../../assets/img/lead-activity/overdue-icon.png';
+import plannedIcon from '../../../../assets/img/lead-activity/planned-icon.png';
+import warningIcon from '../../../../assets/img/lead-activity/warning-icon.png';
+import profile from '../../../../assets/img/profile.svg';
 import LeadModel from '../../../../models/Lead';
 import { ACTIVE, NOACTIVITY, OVERDUE, PLANNED } from '../activityStatuses';
 import * as styles from './Lead.css';
@@ -28,7 +28,7 @@ export default class Lead extends React.Component<Props, object> {
                          src={lead.owner && lead.owner.avatar ? lead.owner.avatar : profile}/>
               {lead.name}
             </strong>
-            <small>{lead.contact ? lead.contact.name : lead.organization.name}</small>
+            <small>{this.getContactOrOrganizationName(lead)}</small>
           </Link>
           <div className={styles.imgContainer}>
             <a className={styles.iconStatus}>
@@ -38,6 +38,15 @@ export default class Lead extends React.Component<Props, object> {
         </div>
       </div>
     );
+  }
+
+  private getContactOrOrganizationName(lead : LeadModel): string {
+    if(lead.contact) {
+      return lead.contact.name;
+    } else if(lead.organization) {
+      return lead.organization.name;
+    }
+    return '';
   }
 
   private getStatusIcon = (status: string) => {

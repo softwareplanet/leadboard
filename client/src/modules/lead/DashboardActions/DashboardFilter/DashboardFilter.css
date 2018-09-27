@@ -1,0 +1,36 @@
+.filterButton {
+  align-items: inherit;
+  composes: button from "../../../../styles/common.css";
+  max-width: 150px;
+  padding: 4px 8px;
+  margin-left: 16px;
+}
+
+.filterButton:focus {
+  outline: none;
+}
+
+.filterButton:hover {
+  background: #f7f7f7;
+}
+
+.filterButton:active {
+  background-color: #cbcccd;
+}
+
+.iconSpan {
+  width: 16px;
+  height: 16px;
+}
+
+.iconSpan img {
+  width: 16px;
+  height: 16px;
+}
+
+.filterSpan {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 0 8px;
+}

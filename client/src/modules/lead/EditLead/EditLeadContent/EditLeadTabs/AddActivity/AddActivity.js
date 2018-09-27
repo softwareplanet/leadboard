@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import style from "./AddActivity.css";
 import moment from "moment";
-import phoneIcon from "../../../../../../assets/add-activity/phone.svg";
-import meetingIcon from "../../../../../../assets/add-activity/meeting.svg";
-import taskIcon from "../../../../../../assets/add-activity/task.svg";
-import deadlineIcon from "../../../../../../assets/add-activity/deadline.svg";
-import emailIcon from "../../../../../../assets/add-activity/email.svg";
-import lunchIcon from "../../../../../../assets/add-activity/lunch.svg";
-import deleteIcon from "../../../../../../assets/add-activity/delete.svg";
-import nextMonthIcon from "../../../../../../assets/add-activity/next-month.svg";
-import prevMonthIcon from "../../../../../../assets/add-activity/prev-month.svg";
+import phoneIcon from "../../../../../../assets/img/add-activity/phone.svg";
+import meetingIcon from "../../../../../../assets/img/add-activity/meeting.svg";
+import taskIcon from "../../../../../../assets/img/add-activity/task.svg";
+import deadlineIcon from "../../../../../../assets/img/add-activity/deadline.svg";
+import emailIcon from "../../../../../../assets/img/add-activity/email.svg";
+import lunchIcon from "../../../../../../assets/img/add-activity/lunch.svg";
+import deleteIcon from "../../../../../../assets/img/add-activity/delete.svg";
+import nextMonthIcon from "../../../../../../assets/img/add-activity/next-month.svg";
+import prevMonthIcon from "../../../../../../assets/img/add-activity/prev-month.svg";
 import ActivityButtons from "./buttons/ActivityButtons";
 import isBlank from "../../../../../../utils/isBlank";
 import CustomSelect from "./buttons/CustomSelect";
@@ -34,7 +34,7 @@ const activityTypes = [
 export default class AddActivity extends Component {
   state = {
     activeTab: activityTypes[0].type,
-    subject: "",
+    subject: this.props.activity ? this.props.activity.subject : "",
     date: "",
     time: "",
     duration: "",
@@ -62,7 +62,7 @@ export default class AddActivity extends Component {
   getActivityDateAndTime = () => {
     let date = this.state.date ? moment(this.state.date).endOf("day") : moment().endOf("day");
 
-    if (!this.state.time) {
+    if (!this.state.time && this.state.time !== 0) {
       return { date: date._d };
     }
 
@@ -164,7 +164,6 @@ export default class AddActivity extends Component {
           />
           <input
             onChange={this.onSubjectChange}
-            defaultValue={this.props.activity ? this.props.activity.subject : ""}
             autoFocus
             className={style.typeInput}
             placeholder={this.state.activeTab}

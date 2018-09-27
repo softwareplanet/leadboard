@@ -1,25 +1,64 @@
 import axios from "axios";
 import {
   LOAD_LEAD,
-  LOAD_LEADBOARD,
+  LOAD_DASHBOARD,
   LOAD_LEADS,
   LOAD_STAGES,
   UPDATE_CONTACT,
   UPDATE_LEAD,
   UPDATE_ORGANIZATION,
+  DASHBOARD_LOADING,
   LEAD_NOT_FOUND,
+  SET_ACTIVE_FUNNEL,
+  LOAD_FUNNELS,
+  SET_DASHBOARD_FUNNELS_FILTER,
+  SET_ACTIVE_FILTER,
+  ADD_DASHBOARD_FUNNELS_FILTER,
+  LOAD_STAGES_FOR_FUNNELS,
 } from "./types";
 import { GET_ERRORS } from "../../actionTypes";
+import { IN_PROGRESS } from "../../constants";
+import history from "../../history";
 
-// Load leadboard by Domain ID
-export const loadLeadboard = () => dispatch => {
+// set active funnel 
+export const setActiveFunnel = (funnelId) => (dispatch, getState) => {
+  dispatch(dashboardLoadingAction(true));
   axios
     .get("/api/funnel")
     .then(result => {
-      dispatch(loadLeadboardAction(result.data));
-      if (typeof result.data[0]._id === "string") {
-        dispatch(loadStages(result.data[0]._id));
+      dispatch({
+        type: LOAD_FUNNELS,
+        payload: result.data,
+      });
+      const funnel = result.data.find(funnel => funnel._id === funnelId) || result.data[0];
+      dispatch(setActiveFunnelAction(funnel));
+      if (getState().dashboard.dashboardFilters.length === 0) {
+        result.data.forEach(funnel => {
+          dispatch({
+            type: ADD_DASHBOARD_FUNNELS_FILTER,
+            payload: {
+              funnelId: funnel._id,
+              status: IN_PROGRESS,
+            }
+          })
+        });
       }
+      const status = getState().dashboard.dashboardFilters.find(filter =>
+        filter.funnelId === funnel._id
+      ).status;
+      dispatch(loadDashboard(funnel._id, status));
+      if (history) {
+        history.push(`/pipelines/${funnel._id}`);
+      }
+    })
+}
+
+// Load leadboard by funnel ID
+export const loadDashboard = (funnelId, status = IN_PROGRESS) => dispatch => {
+  axios
+    .get(`/api/funnel/${funnelId}`)
+    .then(result => {
+      dispatch(loadStages(result.data._id, status));
     })
     .catch(error => {
       dispatch(getErrorsAction(error.response.data.errors));
@@ -27,17 +66,15 @@ export const loadLeadboard = () => dispatch => {
 };
 
 // Load Stages by Funnel ID
-export const loadStages = funnel => dispatch => {
+export const loadStages = (funnel, status) => dispatch => {
   axios
     .get("/api/stage", {
-      params: {
-        funnel,
-      },
+      params: { funnel },
     })
     .then(result => {
       dispatch(loadStagesAction(result.data));
       for (let i = 0; i < Object.keys(result.data).length; i++) {
-        dispatch(loadLeads(result.data[i]._id));
+        dispatch(loadLeads(result.data[i]._id, status));
       }
     })
     .catch(error => {
@@ -46,15 +83,14 @@ export const loadStages = funnel => dispatch => {
 };
 
 // Load leads by Stage ID
-export const loadLeads = stage => dispatch => {
+export const loadLeads = (stage, status) => dispatch => {
   axios
     .get("/api/lead", {
-      params: {
-        stage,
-      },
+      params: { stage, status },
     })
     .then(result => {
       dispatch(loadLeadsAction(stage, result.data));
+      dispatch(dashboardLoadingAction(false))
     })
     .catch(error => {
       dispatch(getErrorsAction(error.response.data.errors));
@@ -66,7 +102,7 @@ export const createLead = lead => (dispatch, getState) => {
   return axios
     .post("/api/lead", lead)
     .then(() => {
-      dispatch(loadLeadboard(getState().auth.domainid));
+      dispatch(loadDashboard(getState().dashboard.activeFunnel._id, lead.status));
     })
     .catch(error => {
       dispatch(getErrorsAction(error.response.data.errors));
@@ -83,7 +119,7 @@ export const loadLead = leadId => dispatch => {
         type: LOAD_LEAD,
         payload: lead,
       });
-      dispatch(loadStages(lead.stage.funnel));
+      dispatch(loadStagesWithoutLeads(lead.stage.funnel._id));
     })
     .catch(error => {
       if (error.response.status === 404) {
@@ -112,6 +148,22 @@ export const updateLead = lead => dispatch => {
         type: UPDATE_LEAD,
         payload: res.data,
       });
+      dispatch(loadStagesWithoutLeads(res.data.stage.funnel._id));
+    })
+    .catch(error => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error,
+      });
+    });
+};
+
+// Delete lead by id
+export const deleteLead = leadId => (dispatch, getState) => {
+  axios
+    .delete(`/api/lead/${leadId}`)
+    .then(() => {
+      history.replace(`/pipelines/${getState().dashboard.activeFunnel._id}`);
     })
     .catch(error => {
       dispatch({
@@ -163,51 +215,46 @@ export const updateContact = contact => dispatch => {
     });
 };
 
-// Create note for lead
-export const createNote = (leadId, note) => dispatch => {
+// Load funnels by authorized user's domain id
+export const loadFunnels = () => dispatch => {
   axios
-    .post(`/api/lead/${leadId}/notes`, note)
-    .then(res => {
-      dispatch({
-        type: UPDATE_LEAD,
-        payload: res.data,
-      });
+    .get("/api/funnel")
+    .then(result => {
+      dispatch(loadDashboardAction(result.data));
     })
     .catch(error => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: error,
-      });
+      dispatch(getErrorsAction(error.response.data));
     });
 };
 
-// Update lead's note
-export const updateNote = (leadId, note) => dispatch => {
+// Load Stages by Funnel ID without leads
+export const loadStagesWithoutLeads = funnel => dispatch => {
   axios
-    .patch(`/api/lead/${leadId}/note/${note._id}`, note)
-    .then(() => {
-      dispatch(loadLead(leadId));
+    .get("/api/stage", {
+      params: { funnel }
+    })
+    .then(result => {
+      dispatch(loadStagesAction(result.data));
     })
     .catch(error => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: error,
-      });
+      dispatch(getErrorsAction(error.response.data));
     });
 };
 
-// Delete lead's note
-export const deleteNote = (leadId, noteId) => dispatch => {
+// Load funnel's stages for pipeline popover
+export const loadPipelinePopoverStages = funnel => dispatch => {
   axios
-    .delete(`/api/lead/${leadId}/note/${noteId}`)
-    .then(() => {
-      dispatch(loadLead(leadId));
+    .get("/api/stage", {
+      params: { funnel }
+    })
+    .then(result => {
+      dispatch({
+        type: LOAD_STAGES_FOR_FUNNELS,
+        payload: result.data,
+      });
     })
     .catch(error => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: error,
-      });
+      dispatch(getErrorsAction(error.response.data));
     });
 };
 
@@ -215,11 +262,11 @@ export const leadNotFound = () => {
   return {
     type: LEAD_NOT_FOUND,
   };
-}
+};
 
-export function loadLeadboardAction(data) {
+export function loadDashboardAction(data) {
   return {
-    type: LOAD_LEADBOARD,
+    type: LOAD_DASHBOARD,
     payload: data,
   };
 }
@@ -241,7 +288,42 @@ export function loadStagesAction(data) {
 export function loadLeadsAction(stage, data) {
   return {
     type: LOAD_LEADS,
-    stage: stage,
+    stage,
     payload: data,
   };
+}
+
+export function dashboardLoadingAction(data) {
+  return {
+    type: DASHBOARD_LOADING,
+    payload: data,
+  };
+}
+
+export function setActiveFunnelAction(data) {
+  return {
+    type: SET_ACTIVE_FUNNEL,
+    payload: data,
+  };
+}
+
+export const setFunnelsFilter = (filter) => {
+  return {
+    type: SET_DASHBOARD_FUNNELS_FILTER,
+    payload: filter,
+  }
+}
+
+export const setActiveFilter = (status) => {
+  return {
+    type: SET_ACTIVE_FILTER,
+    payload: status,
+  }
+}
+
+export const addFunnelsFilter = () => {
+  return {
+    type: ADD_DASHBOARD_FUNNELS_FILTER,
+    payload: status,
+  }
 }

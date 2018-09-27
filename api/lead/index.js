@@ -2,16 +2,12 @@ import { Router } from "express";
 import mongoose from "mongoose";
 import { validateLeadInput, validateLeadUpdate } from "../../validation/lead";
 import isEmpty from "lodash.isempty";
-import { isEqual } from "lodash";
-import { isValidModelId } from "../../validation/validationUtils";
+import { isValidModelId, validateExisting } from "../../validation/validationUtils";
 import Lead from "../../models/lead";
 import Contact from "../../models/contact";
 import Organization from "../../models/organization";
-import Activity from "../../models/activity";
 
 const router = new Router();
-
-const IN_PROGRESS = "InProgress";
 
 const assertLeadIdParam = (req, res, next) => {
   if (req.params.id) {
@@ -47,7 +43,7 @@ if (process.env.NODE_ENV !== "production") {
 // @desc    Find sorted leads by domain and stage IDs
 // @access  Private
 router.get("/", (req, res) => {
-  Lead.find({ stage: req.query.stage, status: IN_PROGRESS })
+  Lead.find({ stage: req.query.stage, status: req.query.status })
     .populate(Lead.populates.basic)
     .sort({ order: "asc" })
     .then(leads => {
@@ -67,7 +63,8 @@ router.post("/", async (req, res) => {
 
   let newLead = {
     _id: new mongoose.Types.ObjectId(),
-    owner: req.body.owner ? req.body.owner : req.user._id,
+    domain: req.user.domain,
+    owner: req.user._id,
     stage: req.body.stage,
     name: req.body.name,
     order: req.body.order,
@@ -80,7 +77,7 @@ router.post("/", async (req, res) => {
       let { errors, hasErrors } = validateExisting(existingOrganization, "Organization", req.user.domain);
       if (hasErrors) return res.status(400).json({ errors });
     } else {
-      organization = await createOrganization(organization, req.user.domain);
+      organization = await createOrganization(organization, req.user.domain, req.user._id);
     }
     newLead.organization = organization;
   }
@@ -92,7 +89,7 @@ router.post("/", async (req, res) => {
       let { errors, hasErrors } = validateExisting(existingContact, "Contact", req.user.domain);
       if (hasErrors) return res.status(400).json({ errors });
     } else {
-      contact = await createContact(contact, organization, req.user.domain);
+      contact = await createContact(contact, organization, req.user.domain, req.user._id);
     }
     newLead.contact = contact;
   }
@@ -106,36 +103,25 @@ router.post("/", async (req, res) => {
     });
 });
 
-function createOrganization(name, domain) {
+function createOrganization(name, domain, owner) {
   return Organization.create({
     _id: new mongoose.Types.ObjectId(),
     name: name,
     domain: domain,
+    owner: owner,
   });
 }
 
-function createContact(name, organization, domain) {
+function createContact(name, organization, domain, owner) {
   let contactToCreate = {
     _id: new mongoose.Types.ObjectId(),
     name: name,
     organization: organization,
     domain: domain,
+    owner: owner,
   };
   if (isEmpty(contactToCreate.organization)) delete contactToCreate.organization;
   return Contact.create(contactToCreate);
-}
-
-function validateExisting(model, name, domain) {
-  let errors = {};
-  if (!model) {
-    errors[name.toLowerCase()] = `${name} does not exist`;
-  } else if (!isEqual(model.domain, domain)) {
-    errors[name.toLowerCase()] = `${name} does not belong to your domain`;
-  }
-  return {
-    errors,
-    hasErrors: !isEmpty(errors),
-  };
 }
 
 // @route   GET api/lead/:leadId
@@ -169,7 +155,7 @@ router.patch("/:leadId", leadMembersMiddlewares, async (req, res) => {
       let { errors, hasErrors } = validateExisting(existingOrganization, "Organization", req.user.domain);
       if (hasErrors) return res.status(400).json({ errors });
     } else {
-      organization = await createOrganization(organization, req.user.domain);
+      organization = await createOrganization(organization, req.user.domain, req.user._id);
     }
     updates.organization = (typeof organization === "object" ? organization._id : organization);
   }
@@ -181,7 +167,7 @@ router.patch("/:leadId", leadMembersMiddlewares, async (req, res) => {
       let { errors, hasErrors } = validateExisting(existingContact, "Contact", req.user.domain);
       if (hasErrors) return res.status(400).json({ errors });
     } else {
-      contact = await createContact(contact, updates.organization, req.user.domain);
+      contact = await createContact(contact, updates.organization, req.user.domain, req.user._id);
     }
     updates.contact = (typeof contact === "object" ? contact._id : contact);
   }
@@ -196,56 +182,13 @@ router.patch("/:leadId", leadMembersMiddlewares, async (req, res) => {
     });
 });
 
-// @route   POST api/lead/:leadId/notes
-// @desc    Create note for lead
+// @route   DELETE api/lead/:leadId
+// @desc    Delete lead
 // @access  Private
-router.post("/:leadId/notes", leadMembersMiddlewares, (req, res) => {
-  Lead.findByIdAndUpdate(req.params.leadId, { $push: { notes: req.body } }, { new: true })
-    .populate(Lead.populates.full)
-    .then(lead => {
-      res.json(lead);
-    })
-    .catch(error => {
-      res.status(400).json({ errors: { message: error } });
-    });
-});
-
-// @route   PATCH api/lead/:leadId/note/:id
-// @desc    Update note's lead
-// @access  Private
-router.patch("/:leadId/note/:noteId", leadMembersMiddlewares, (req, res) => {
-  Lead.findOneAndUpdate(
-    { _id: req.params.leadId, "notes._id": req.params.noteId },
-    { $set: { "notes.$.text": req.body.text, "notes.$.lastUpdater": req.user.id } },
-    { new: true })
-    .then(lead => {
-      return res.json(lead);
-    })
-    .catch(error => {
-      res.status(400).json({ errors: { message: error } });
-    });
-});
-
-// @route   DELETE api/lead/:leadId/note/:id
-// @desc    Delete note's lead
-// @access  Private
-router.delete("/:leadId/note/:noteId", leadMembersMiddlewares, (req, res) => {
-  Lead.findByIdAndUpdate(req.params.leadId, { $pull: { notes: { _id: req.params.noteId } } }, { new: true })
-    .then(lead => {
-      return res.json(lead);
-    })
-    .catch(error => {
-      res.status(400).json({ errors: { message: error } });
-    });
-});
-
-// @route   GET api/lead/:leadId/activities
-// @desc    Find activities by lead
-// @access  Private
-router.get("/:leadId/activities", leadMembersMiddlewares, (req, res) => {
-  Activity.find({ lead: req.params.leadId })
-    .then(activities => {
-      res.json(activities);
+router.delete("/:leadId", leadMembersMiddlewares, (req, res) => {
+  Lead.findByIdAndRemove(req.params.leadId)
+    .then(() => {
+      return res.sendStatus(204);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: error } });

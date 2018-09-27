@@ -1,0 +1,114 @@
+.userImg {
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+}
+
+.defaultImg {
+  composes: userImg;
+  background-color: #686a6c;
+}
+
+.dropDownIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.dropDownIcon svg {
+  width: 100%;
+}
+
+.menuItemIcon {
+  composes: dropDownIcon;
+  margin-right: 16px;
+}
+
+.userInfo {
+  margin: 0 8px;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.userInfo small {
+  align-self: flex-start;
+  font-size: 10px;
+  height: 16px;
+}
+
+.userInfo span {
+  align-self: flex-start;
+  font-size: 14px;
+  height: 16px;
+}
+
+.closedUserDropDown {
+  user-select: none;
+  align-items: center;
+  cursor: pointer;
+  color: #b9babb;
+}
+
+.closedUserDropDown :hover span {
+  color: #b9babb
+}
+
+.closedUserDropDown :hover .domainName {
+  color: #fff;
+}
+
+.userDropDownItem {
+  padding: 6px 15px 6px 15px;
+  color: #26292c;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.userDropDownItem:hover path {
+  fill: white;
+}
+
+.userDropDownItem:hover {
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+  background-color: #317ae2;
+}
+
+@media only screen and (max-width: 590px) {
+  .userInfo span, small {
+    display: none;
+  }
+
+  .userImg {
+    padding: 0;
+    margin-right: 0;
+  }
+
+  .userIcon {
+    padding: 0;
+  }
+
+  .userInfo {
+    padding: 0;
+  }
+}
+
+.userDropDownMenu {
+  user-select: none;
+  box-shadow: 0 4px 8px rgba(38, 41, 44, 0.1);
+  border-radius: 0;
+  border: none;
+  color: black;
+  min-width:250px;
+}
+
+.dropDownToggle {
+  padding: 8px 14px 8px 12px;
+}
+
+.openedUserDropDown {
+  user-select: none;
+  background-color: white;
+  color: #404346;
+}

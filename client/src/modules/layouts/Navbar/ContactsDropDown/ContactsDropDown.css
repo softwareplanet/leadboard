@@ -1,0 +1,106 @@
+.activeContacts path {
+  fill: white;
+}
+
+.dropDown {
+  user-select: none;
+}
+
+.notActiveContacts {
+  color: #b9babb;
+}
+
+.activeContacts {
+  background-color: #26292c;
+  color: white;
+}
+
+.contactIcon {
+  float: left;
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.peopleIcon {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 5px;
+}
+
+.linkText {
+  font-size: 14px;
+}
+
+.organizationIcon {
+  float: left;
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+}
+
+.dropDownMenu {
+  margin: 0;
+  user-select: none;
+  border-radius: 0;
+  border: none;
+  border-top: 0;
+  box-shadow: 0 4px 8px rgba(38, 41, 44, 0.16);
+}
+
+.dropDownMenu a {
+  text-decoration: none;
+  color: black;
+}
+
+.menuItemDataWrapper {
+  height: 30px;
+  padding: 3px 0px 5px 10px;
+  font-size: 14px;
+}
+
+.menuItemDataWrapper:hover {
+  cursor: pointer;
+  font-size: 14px;
+  background: #317ae2;
+  color: white;
+}
+
+.dropDownMenu div:hover path {
+  fill: white;
+}
+
+.closedDropDown {
+  composes: dropDown;
+  color: inherit;
+}
+
+.dropDownToggle {
+  color: inherit;
+  padding: 14px 12px;
+}
+
+.closedDropDown :hover {
+  cursor: pointer;
+  color: white;
+}
+
+.closedDropDown :hover path {
+  fill: white;
+}
+
+.openedDropDown {
+  composes: dropDown;
+  background-color: white;
+  color: black;
+}
+
+.openedDropDown:hover {
+  cursor: pointer;
+  color: black;
+}
+
+.openedDropDown path {
+  fill: black;
+}

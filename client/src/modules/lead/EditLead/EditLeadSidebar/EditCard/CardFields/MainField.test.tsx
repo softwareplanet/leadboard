@@ -4,7 +4,7 @@ import { noop } from 'lodash';
 import * as React from 'react';
 import MainField from './MainField';
 
-describe('<MainField/>', () => {
+describe('<MainField />', () => {
   const contact = {
     name: 'Bob',
     organization: {
@@ -15,23 +15,23 @@ describe('<MainField/>', () => {
   const title = 'Title';
   let wrapper;
 
-  it('render MainField component', () => {
-    wrapper = shallow(<MainField value={contact.name} onUpdate={noop} title={title} />);
+  it('should render MainField component', () => {
+    wrapper = shallow(<MainField link="" value={contact.name} onUpdate={noop} title={title} />);
     expect(wrapper.exists()).toBe(true);
   });
 
   it('should render correct contact name with props', () => {
-    wrapper = shallow(<MainField value={contact.name} onUpdate={noop} title={title} />);
-    expect(wrapper.find('span.mainValue').children().text()).toBe(contact.name);
+    wrapper = shallow(<MainField link="" value={contact.name} onUpdate={noop} title={title} />);
+    expect(wrapper.find('.mainValue').children().text()).toBe(contact.name);
   });
 
   it('should render correct organization name with props', () => {
-    wrapper = shallow(<MainField value={contact.organization.name} onUpdate={noop} title={title} />);
-    expect(wrapper.find('span.mainValue').children().text()).toBe(contact.organization.name);
+    wrapper = shallow(<MainField link="" value={contact.organization.name} onUpdate={noop} title={title} />);
+    expect(wrapper.find('.mainValue').children().text()).toBe(contact.organization.name);
   });
 
   it('should switch to edit view on click Rename', () => {
-    wrapper = shallow(<MainField value={contact.organization.name} onUpdate={noop} title={title} />);
+    wrapper = shallow(<MainField link="" value={contact.organization.name} onUpdate={noop} title={title} />);
     const buttonRename = wrapper.find('.buttonRename');
     buttonRename.simulate('click');
     expect(wrapper.find('SingleEditView').exists()).toBe(true);
@@ -39,7 +39,7 @@ describe('<MainField/>', () => {
 
   it('should handle name change properly', () => {
     const spy = jest.fn();
-    wrapper = shallow(<MainField value={contact.organization.name} onUpdate={spy} title={title} />);
+    wrapper = shallow(<MainField link="" value={contact.organization.name} onUpdate={spy} title={title} />);
     const buttonRename = wrapper.find('button.buttonRename');
     buttonRename.simulate('click');
     expect(wrapper.find('SingleEditView').exists()).toBe(true);
@@ -48,6 +48,4 @@ describe('<MainField/>', () => {
     nameEditView.simulate('change', 'Name', 'Microsoft');
     expect(wrapper.find('SingleEditView').exists()).toBe(false);
   });
-
 });
-

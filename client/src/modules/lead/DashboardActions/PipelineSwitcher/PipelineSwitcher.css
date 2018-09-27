@@ -1,0 +1,89 @@
+.pipelineSwitcherWrapper {
+  margin-left: auto;
+}
+
+.switchButton {
+  composes: button from "../../../../styles/common.css";
+  composes: filterButton from "../DashboardFilter/DashboardFilter.css";
+  max-width: 180px;
+  align-items: center;
+  margin: 0;
+}
+
+.switchButton:hover {
+  background: #f7f7f7;
+  color: #26292c;
+}
+
+.switchButton:focus {
+  outline: none;
+}
+
+.switchButton:active {
+  background-color: #cbcccd;
+}
+
+.switchPipelineSpan {
+  composes: filterSpan from "../DashboardFilter/DashboardFilter.css";
+}
+
+.sitchMenu {
+  margin: 0;
+  outline: none;
+  box-shadow: 0 4px 8px rgba(38, 41, 44, 0.16);
+  border-radius: 0 2px 2px 2px;
+  max-width: 350px;
+  min-width: 50px;
+  border: none;
+  overflow: auto;
+}
+
+.switchItem {
+  composes: filter from "../DashboardFilter/DashboardFilterPopover/DashboardFilterPopover.css";
+  justify-content: initial;
+  padding: 6px 20px 6px 30px;
+  font-size: 14px;
+}
+
+.dropIcon {
+  composes: iconSpan from "../DashboardFilter/DashboardFilter.css";
+}
+
+.checkMarkIcon {
+  composes: iconSpan checkMarkIcon from "../DashboardFilter/DashboardFilterPopover/DashboardFilterPopover.css";
+  position: absolute;
+  left: 10px;
+}
+
+.settingsIcon {
+  composes: iconSpan from "../DashboardFilter/DashboardFilter.css";
+  position: absolute;
+  left: 10px;
+}
+
+.settingsLink {
+  composes: switchItem;
+  padding: 0;
+}
+
+.settingsLink:hover {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.settingsButton {
+  composes: switchButton;
+  margin-left: auto;
+}
+
+.settingsButton span {
+  padding: 0 8px;
+}
+
+.settingsButton a {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+  display: inherit;
+  align-items: center;
+}

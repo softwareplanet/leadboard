@@ -1,8 +1,8 @@
 import Contact from './Contact';
-import CustomField from './CustomField';
+import CustomField from './customFields/CustomField';
 import Note from './Note';
 import Organization from './Organization';
-import Stage from './Stage';
+import Stage, { FullStage } from './Stage';
 import User from './User';
 
 export default interface Lead {
@@ -12,8 +12,23 @@ export default interface Lead {
   visibility?: number;
   name: string;
   order: number;
-  contact: Contact;
-  organization: Organization;
+  contact?: Contact;
+  organization?: Organization;
+  custom: CustomField[];
+  timestamp: Date;
+  status: string;
+  notes: Note[];
+}
+
+export interface FullLead {
+  _id: string;
+  stage: FullStage;
+  owner: User;
+  visibility?: number;
+  name: string;
+  order: number;
+  contact?: Contact;
+  organization?: Organization;
   custom: CustomField[];
   timestamp: Date;
   status: string;

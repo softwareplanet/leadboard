@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import styles from "./EditLeadTabs.css";
 
-import takeNotesIcon from "../../../../../assets/take-notes/take-notes.svg"
-import takeNotesIconActive from "../../../../../assets/take-notes/take-notes-active.svg"
-import addActivityIcon from "../../../../../assets/add-activity/add-activity.svg"
-import addActivityIconActive from "../../../../../assets/add-activity/add-activity-active.svg"
+import takeNotesIcon from "../../../../../assets/img/take-notes/take-notes.svg"
+import takeNotesIconActive from "../../../../../assets/img/take-notes/take-notes-active.svg"
+import addActivityIcon from "../../../../../assets/img/add-activity/add-activity.svg"
+import addActivityIconActive from "../../../../../assets/img/add-activity/add-activity-active.svg"
 import { connect } from 'react-redux'
-import { createNote } from "../../../leadActions";
+import { createNote } from "../EditLeadHistory/Notes/noteActions";
 import { createActivity } from "../../Activities/activityActions"
 import EditLeadEditor from "./EditLeadEditor/EditLeadEditor";
 import AddActivity from "./AddActivity/AddActivity";
@@ -54,13 +54,17 @@ class EditLeadTabs extends Component {
   }
 
   onNoteSave = noteText => {
+    const { editLead } = this.props;
     let note = {
       text: noteText,
-      user: this.props.userId,
-    }
-    this.props.createNote(this.props.editLead._id, note)
+      lead: editLead ? editLead._id : null,
+      contact: editLead.contact ? editLead.contact._id : null,
+      organization: editLead.organization ? editLead.organization._id : null,
+    };
+
+    this.props.createNote(note);
     this.setState({ showFakeInput: true })
-  }
+  };
 
   onActivitySave = activity => {
     this.props.createActivity({
@@ -132,7 +136,7 @@ class EditLeadTabs extends Component {
 }
 
 const mapStateToProps = state => ({
-  editLead: state.leads.editLead.lead,
+  editLead: state.dashboard.editLead.lead,
   userId: state.auth.userid
 });
 

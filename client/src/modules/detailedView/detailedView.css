@@ -1,0 +1,17 @@
+.content {
+  background-color: #F7F7F7;
+  margin: 24px;
+  flex-grow: 1;
+}
+
+.sidebar {
+  width: 480px;
+  margin: 24px 0 24px 24px;
+}
+
+@media (max-width: 1440px) {
+  .sidebar {
+    margin-left: 0;
+    width: 380px;
+  }
+}

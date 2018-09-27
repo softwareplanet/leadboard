@@ -1,22 +1,27 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { Router, Route, Redirect } from "react-router-dom";
 import { Provider } from "react-redux";
 import jwt_decode from "jwt-decode";
 
 import store from "./store.js";
 import setAuthToken from "./utils/setAuthToken.js";
 import setAuthInterceptor from "./utils/setAuthInterceptor"
-import { loginUserById, logoutUser,setLoginData } from "./modules/auth/authActions";
+import { loginUserById, logoutUser, setLoginData } from "./modules/auth/authActions";
 import PrivateRoute from "./modules/common/PrivateRoute";
 import Home from "./modules/layouts/Home";
 import Footer from "./modules/layouts/Footer/Footer";
 import Login from "./modules/auth/Login/Login";
 import Registration from "./modules/auth/Registration/Registration";
 import People from "./modules/layouts/Contacts/People/People";
+import Organizations from "./modules/layouts/Contacts/Organizations/Organizations";
+import styles from "./App.css";
 
-import "./App.css";
 import { Switch } from "react-router-dom";
 import EditLead from "./modules/lead/EditLead/EditLead";
+import Settings from "./modules/settings/Settings";
+import history from "./history";
+import Organization from "./modules/detailedView/Organization/Organization";
+import Contact from "./modules/detailedView/Contact/Contact";
 
 setAuthInterceptor();
 // restore redux/storage on page reload
@@ -41,18 +46,20 @@ class App extends Component {
   };
 
   redirectHome = () => {
-    return <Redirect to="/home"/>;
+    return store.getState().dashboard.activeFunnel._id ?
+      <Redirect to={`/pipelines/${store.getState().dashboard.activeFunnel._id}`} /> :
+      <Redirect to={`/pipelines/loading`} />;
   };
 
   render() {
     return (
       <Provider store={store}>
-        <Router>
-          <div className="App">
+        <Router history={history}>
+          <div className={styles.app}>
             <Switch>
               <PrivateRoute
                 exact
-                path="/home"
+                path="/pipelines/:funnelId"
                 component={Home}
               />
             </Switch>
@@ -66,13 +73,38 @@ class App extends Component {
             <Switch>
               <PrivateRoute
                 exact
+                path="/organizations"
+                component={Organizations}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
                 path="/lead/:leadId"
                 component={EditLead}
               />
             </Switch>
-            <Route exact path="/" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Login />} />
-            <Route exact path="/register" render={() => this.isUserAuthenticated() ? this.redirectHome(): <Registration />} />  
-            <Footer/>
+            <Switch>
+              <PrivateRoute
+                path="/settings"
+                component={Settings}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                path="/organization/:organizationId"
+                component={Organization}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                path="/contact/:contactId"
+                component={Contact}
+              />
+            </Switch>
+            <Route exact path="/" render={() => this.isUserAuthenticated() ? this.redirectHome() : <Login />} />
+            <Route exact path="/register" render={() => this.isUserAuthenticated() ? this.redirectHome() : <Registration />} />
+            <Footer />
           </div>
         </Router>
       </Provider>

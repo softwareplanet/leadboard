@@ -1,4 +1,5 @@
-import CustomField from './CustomField';
+import CustomField from './customFields/CustomField';
+import User from './User';
 
 export default interface Organization {
   _id: string;
@@ -6,4 +7,5 @@ export default interface Organization {
   custom: CustomField[];
   domain: string;
   timestamp: Date;
+  owner: User;
 }

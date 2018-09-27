@@ -1,0 +1,12 @@
+.settingsWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.settingsContent {
+  display: flex;
+  flex-direction: row;
+  margin-left: 10px;
+  margin-top: 10px;
+  width: 100%;
+}

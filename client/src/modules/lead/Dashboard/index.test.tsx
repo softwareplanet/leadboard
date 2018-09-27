@@ -1,3 +1,4 @@
+import 'jsdom-global/register';
 import { noop } from 'lodash';
 import * as moment from 'moment';
 import * as React from 'react';
@@ -15,7 +16,10 @@ let store;
 const mockStore = configureStore();
 
 describe('DASHBOARD component', () => {
-  let leads = {
+  const location: any = {};
+  const history: any = {};
+  const match: any = { params: { funnelId: '5b6b0fbe91e0774579ed6700' } };
+  let dashboard = {
     funnels: [{ _id: '5b6b0fbe91e0774579ed6700', name: 'renkonazbkafunnel', domain: '5b6ab060f60c0524980fa23b' }],
     leads: {
       _5b6b123391e0774579ed6701: {
@@ -38,20 +42,23 @@ describe('DASHBOARD component', () => {
   };
 
   const activities = [
-    { lead: '3456465474h5j', date: moment().add(2,'day') },
+    { lead: '3456465474h5j', date: moment().add(2, 'day') },
     { lead: '3456465474h5', date: moment().endOf('day') },
     { lead: '3456465474j', date: moment().subtract(2, 'day') },
-    { lead: '3456465474hr2334', date: moment().subtract(2,'hour') },
-    { lead: '34564653424235t', date: moment().add(2,'hour') }
+    { lead: '3456465474hr2334', date: moment().subtract(2, 'hour') },
+    { lead: '34564653424235t', date: moment().add(2, 'hour') }
   ];
 
   let wrapper: any;
   beforeEach(() => {
     wrapper = shallow(<Dashboard
-      loadLeadboard={noop}
+      setActiveFunnel={noop}
       loadFirstActivityInLeadsPlan={noop}
-      leads={leads}
+      dashboard={dashboard}
       nearestActivities={activities}
+      location={location}
+      history={history}
+      match={match}
     />);
   });
 
@@ -60,7 +67,7 @@ describe('DASHBOARD component', () => {
   });
 
   it('check if user have at least one lead in stage, in small tag count of leads is equal count of leads in props ', () => {
-    const expectedCountOfLeads = leads.leads._5b6b123391e0774579ed6701.leads.length.toString();
+    const expectedCountOfLeads = dashboard.leads._5b6b123391e0774579ed6701.leads.length.toString();
     expect(wrapper.find('small').text()[0]).toEqual(expectedCountOfLeads);
   });
 
@@ -93,14 +100,17 @@ describe('DASHBOARD component', () => {
   });
 
   it('check if user don\'t have lead component it should been rendered a funnel by invocation createEmptyLeadCards method', () => {
-    leads = { ...leads, leads: { _5b6b123391e0774579ed6701: { leads: [] } } };
+    dashboard = { ...dashboard, leads: { _5b6b123391e0774579ed6701: { leads: [] } } };
     wrapper = shallow(<Dashboard
-      loadLeadboard={noop}
+      setActiveFunnel={noop}
       loadFirstActivityInLeadsPlan={noop}
-      leads={leads}
+      dashboard={dashboard}
       nearestActivities={activities}
+      location={location}
+      history={history}
+      match={match}
     />);
-    const stages = leads.stages.length;
+    const stages = dashboard.stages.length;
     const expectedCountOfPlaceholders = ((stages + 1) / 2) * stages;
     expect(wrapper.find(`.${styles.stagePlaceholder}`)).toHaveLength(expectedCountOfPlaceholders);
   });
@@ -110,7 +120,7 @@ describe('Connected DASHBOARD (SMART component)', () => {
   let container: any;
   const initState = {
     errors: {},
-    leads: {},
+    dashboard: {},
   };
 
   beforeEach(() => {

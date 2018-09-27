@@ -2,12 +2,14 @@ import * as React from 'react';
 import isBlank from '../../../../../../utils/isBlank';
 import * as styles from './CardField.css';
 import SingleEditView from './EditView/SingleEditView/SingleEditView';
+import { Link } from 'react-router-dom';
 
 export interface Props {
   title: string;
   value: string;
   icon?: string;
-
+  link: string; 
+  
   onUpdate(value: string): void;
 }
 
@@ -34,13 +36,13 @@ class MainField extends React.Component<Props, State> {
           !isInEditMode &&
           <div className={styles.fieldValue}>
             <div className={styles.mainFieldValueWrapper}>
-          <span className={styles.badge}>
-            <img className={styles.icon} src={this.props.icon} alt="Icon" />
-          </span>
-              <h3>
-              <span className={styles.mainValue}>
-                {name}
+              <span className={styles.badge}>
+                <img className={styles.icon} src={this.props.icon} alt="Icon" />
               </span>
+              <h3>
+                <Link to={`/${this.props.link.toLowerCase()}`} className={styles.mainValue}>
+                  {name}
+                </Link>
               </h3>
               <button
                 className={styles.buttonRename}
@@ -60,6 +62,7 @@ class MainField extends React.Component<Props, State> {
               onChange={this.handleNameUpdate}
               onCancel={this.closeEditMode}
               isValid={MainField.isNameValid}
+              fieldKey={'name'}
             />
           </div>
         }
@@ -82,4 +85,3 @@ class MainField extends React.Component<Props, State> {
 }
 
 export default MainField;
-

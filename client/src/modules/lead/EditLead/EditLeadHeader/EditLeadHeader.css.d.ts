@@ -14,3 +14,6 @@ export const lostBadge: string;
 export const leadActions: string;
 export const reopenButton: string;
 export const closedLeadActions: string;
+export const bottomStageStatus: string;
+export const pipelineArrowSvg: string;
+export const btnAdditionalActions: string;
