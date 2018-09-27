@@ -2,23 +2,25 @@ import { trim } from 'lodash';
 import * as React from 'react';
 import * as ReactAutocomplete from 'react-autocomplete';
 import SearchItemModel from '../../../../models/search/SearchItem';
-// import ReactSVG from 'react-svg';
-// import SearchSpinner from '../../../layouts/Navbar/Search/Spinner/SearchSpinner';
-// import { clearIcon } from '../../../lead/EditLead/EditLeadContent/EditLeadTabs/AddActivity/LinkedTo/LeadAutocompleteWrapper/LeadAutocompleteWrapper.css';
 
 interface Props {
   styles?: any;
-  value: any;
-  open: any;
+  value: string;
+  open: boolean;
   items?: any;
-  itemsCount?: any;
+  itemsCount?: number;
   inputStyle?: any;
-
-  onFocus: any;
-  onBlur: any;
-  onChange: any;
-  onClear: any;
   loading: boolean;
+
+  onFocus(event: any): void;
+  
+  onBlur(): void;
+
+  onChange(event: React.SyntheticEvent): void;  
+
+  onClear(): void;
+
+  clear(): void;
 
   onSelect(text: string, item: SearchItemModel): void;
 }
@@ -31,12 +33,16 @@ class LeadAutocomplete extends React.Component<Props> {
     return (
       <ReactAutocomplete
         open={this.props.value.length > 1 &&
-          this.props.open}
+          this.props.open && this.props.items.length > 0}
         items={this.props.items}
         shouldItemRender={(item: any, value: any) => item.name.toLowerCase().indexOf(trim(value).toLowerCase()) > -1}
         getItemValue={(item: any) => item.name}
         renderMenu={(items: any) =>
-          <div className="leadsList" style={styles.menu} children={items.splice(0, this.props.itemsCount)} />
+          <div
+            className="leadsList"
+            style={styles.menu}
+            children={items.splice(0, this.props.itemsCount)}
+          />
         }
         renderItem={(item: any, highlighted: any) =>
           <span
@@ -47,7 +53,9 @@ class LeadAutocomplete extends React.Component<Props> {
               backgroundColor: highlighted ? "#317ae2" : "transparent",
               color: highlighted ? "#fff" : "#317ae2"
             }}
-          >{item.name}</span>
+          >
+            {item.name}
+          </span>
         }
         inputProps={{
           placeholder: 'Lead',
@@ -63,18 +71,6 @@ class LeadAutocomplete extends React.Component<Props> {
       />
     );
   }
-
-  // private clearValue = () => {
-  //   this.props.onClear();
-  //   this.inputFocus();
-  // }
-  // private inputFocus = () => {
-  //   this.input!.current!.focus();
-  // }
-
-  // private inputBlur = () => {
-  //   this.input!.current!.blur();
-  // }
 }
 
 export default LeadAutocomplete;

@@ -24,14 +24,17 @@ interface Props {
 
 interface State {
   isDropdownOpen: boolean;
+  selectedLead?: any;
   value: string;
 }
 
 class LeadAutocompleteWrapper extends React.Component<Props, State> {
   public leadAutocomplete = React.createRef<LeadAutocomplete>();
   public leadAutocompleteWrapper = React.createRef<HTMLDivElement>();
+
   public state: State = {
     isDropdownOpen: false,
+    selectedLead: this.props.lead,
     value: this.props.lead ? this.props.lead.name : '',
   };
 
@@ -39,10 +42,11 @@ class LeadAutocompleteWrapper extends React.Component<Props, State> {
     this.setState({
       value: '',
     });
+    this.leadAutocomplete.current!.input.current!.focus();
   }
 
   public componentDidMount() {
-    this.onSelect('', this.props.lead);
+    this.onSelect(this.state.value, this.props.lead);
   }
 
   public render() {
@@ -53,7 +57,6 @@ class LeadAutocompleteWrapper extends React.Component<Props, State> {
       onFocus: this.onAutocompleteFocus,
     };
 
-
     return (
       <div ref={this.leadAutocompleteWrapper} className={styles.leadAutocomplete}>
         <ReactSVG className={styles.dealIcon} src={dealIcon} />
@@ -62,6 +65,7 @@ class LeadAutocompleteWrapper extends React.Component<Props, State> {
           items={this.props.leads}
           open={state.isDropdownOpen}
           onBlur={this.onBlur}
+          clear={this.clear}
           onClear={this.clear}
           loading={this.props.loading}
           onChange={this.onChange}
@@ -84,17 +88,21 @@ class LeadAutocompleteWrapper extends React.Component<Props, State> {
 
   private onSelect = (value: string, item: any) => {
     this.props.setLead(item._id);
-    this.setState({ value, isDropdownOpen: false });
-
+    this.setState({ value, selectedLead: item, isDropdownOpen: false });
+    this.leadAutocompleteWrapper.current!.removeAttribute('style');
+    this.leadAutocompleteWrapper.current!.blur();
   }
 
   private onBlur = () => {
     this.leadAutocompleteWrapper.current!.removeAttribute('style');
-      this.setState({
-        ...this.state,
-        isDropdownOpen: false,
-        value: '',
-      });
+    this.setState({
+      ...this.state,
+      isDropdownOpen: false,
+      value: this.state.selectedLead.name === this.state.value ? this.state.value : '',
+    });
+    if (this.state.selectedLead.name !== this.state.value) {
+      this.setState({ selectedLead: {} });
+    }
   }
 
   private onChange = (event: React.SyntheticEvent) => {
