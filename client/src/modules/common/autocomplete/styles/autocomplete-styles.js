@@ -41,6 +41,7 @@ const organization = {
 const lead = {
   menu: {
     ...autocomplete.menu,
+    position: "absolute",
     top: "564px",
     right: "295px",
     left: "auto",
