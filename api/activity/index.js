@@ -81,12 +81,12 @@ router.patch("/:activityId", activityMembersMiddlewares, async (req, res) => {
     });
 });
 
-// @route   GET api/?model=modelId
+// @route   GET api/activity/?model=modelId
 // @desc    Find activities by model
 // @access  Private
 router.get("/", (req, res) => {
   req.query.domain = req.user.domain;
-  Activity.query(req.query)
+  Activity.find(req.query)
     .then(activities => {
       res.json(activities);
     })
