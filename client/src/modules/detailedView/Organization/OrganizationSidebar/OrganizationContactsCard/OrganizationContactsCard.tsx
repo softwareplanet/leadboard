@@ -14,7 +14,6 @@ interface State {
 }
 
 class OrganizationContactsCard extends React.Component<Props, State> {
-
   public state: State = {
     isAllContactModalOpen: false,
   };
@@ -47,12 +46,11 @@ class OrganizationContactsCard extends React.Component<Props, State> {
         </div>
         <div className={styles.actions}>
           {contacts.length !== 0
-            ? <button className={styles.buttonViewAll} onClick={this.openModal}>
+            ? <button className={styles.buttonViewAll} onClick={this.toggleModal}>
               View all
               <AllContactsModal
                 isModalOpen={this.state.isAllContactModalOpen}
-                openModal={this.openModal}
-                closeModal={this.closeModal}
+                toggleModal={this.toggleModal}
               />
             </button>
             : undefined}
@@ -61,12 +59,10 @@ class OrganizationContactsCard extends React.Component<Props, State> {
     );
   }
 
-  private openModal = () => {
-    this.setState({ isAllContactModalOpen: true });
-  }
-
-  private closeModal = () => {
-    this.setState({ isAllContactModalOpen: false });
+  private toggleModal = () => {
+    this.setState({
+      isAllContactModalOpen: !this.state.isAllContactModalOpen,
+    });
   }
 }
 

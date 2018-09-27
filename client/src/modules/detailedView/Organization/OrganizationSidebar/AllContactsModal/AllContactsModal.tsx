@@ -30,9 +30,7 @@ interface Props {
   isModalOpen: boolean;
   organization: Organization;
 
-  openModal(): void;
-
-  closeModal(): void;
+  toggleModal(): void;
 }
 
 class AllContactsModal extends React.Component<Props> {
@@ -47,12 +45,18 @@ class AllContactsModal extends React.Component<Props> {
     const modelName = 'Contact';
     const tableData = getTableData(modelName, this.props.contacts, this.props.domainCustomFields, columns);
     return (
-      <Modal isOpen={this.props.isModalOpen} style={this.allContactsModalStyles}>
+      <Modal
+        isOpen={this.props.isModalOpen}
+        style={this.allContactsModalStyles}
+        onRequestClose={this.props.toggleModal}
+        shouldCloseOnEsc={true}
+        shouldCloseOnOverlayClick={false}
+      >
         <header className={addingModalStyles.formHeader}>People</header>
         <button type="button" aria-label="Close" className={addingModalStyles.closeBtn}>
             <span
               aria-hidden="true"
-              onClick={this.props.closeModal}
+              onClick={this.props.toggleModal}
               className={classNames('close', addingModalStyles.closeIcon)}
             >
               &times;
@@ -71,8 +75,13 @@ class AllContactsModal extends React.Component<Props> {
             />
           </div>
         </div>
-        <footer className={addingModalStyles.formFooter}>
-          <button onClick={this.props.closeModal} className={commonStyles.button}>Close</button>
+        <footer className={addingModalStyles.formFooter} >
+          <button
+            onClick={this.props.toggleModal}
+            className={commonStyles.button}
+          >
+            Close
+          </button>
         </footer>
       </Modal>
     );
