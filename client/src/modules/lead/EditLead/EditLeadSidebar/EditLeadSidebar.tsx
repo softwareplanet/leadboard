@@ -100,7 +100,7 @@ class EditLeadSidebar extends React.Component<Props> {
           styles={autocompleteStyles.linkOrganization}
           iTagClass={classNames('fas fa-building', editCardStyles.inputIcon)}
           items={this.props.organizations}
-          lead={this.props.editLead}
+          model={this.props.editLead}
           onUpdate={this.props.updateLead}
         >
           <OrganizationAutocomplete />
@@ -113,7 +113,7 @@ class EditLeadSidebar extends React.Component<Props> {
           styles={autocompleteStyles.linkPerson}
           iTagClass={classNames('fas fa-user', editCardStyles.inputIcon)}
           items={this.props.contacts}
-          lead={this.props.editLead}
+          model={this.props.editLead}
           onUpdate={this.props.updateLead}
         >
           <ContactAutocomplete />
