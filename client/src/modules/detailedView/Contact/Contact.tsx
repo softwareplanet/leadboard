@@ -8,6 +8,7 @@ import DetailedViewHeader from '../DetailedViewHeader/DetailedViewHeader';
 import ContactContent from './ContactContent/ContactContent';
 import ContactSidebar from './ContactSidebar/ContactSidebar';
 import { loadContact, updateContact } from './detailedContactActions';
+import { loadActivities } from '../../lead/EditLead/Activities/activityActions';
 
 interface Props extends RouteComponentProps<{ contactId: string }> {
   contact: ContactModel;
@@ -17,6 +18,8 @@ interface Props extends RouteComponentProps<{ contactId: string }> {
   loadNotes(modelName: string, modelId: string): void;
 
   updateContact(contact: any): void;
+
+  loadActivities(modelName: string, modelId: string): void;
 }
 
 class Contact extends React.Component<Props> {
@@ -48,6 +51,7 @@ class Contact extends React.Component<Props> {
     const { contactId } = this.props.match.params;
     this.props.loadContact(contactId);
     this.props.loadNotes('contact', contactId);
+    this.props.loadActivities('participants', contactId);
   }
 }
 
@@ -55,4 +59,12 @@ const mapStateToProps = (state: any) => ({
   contact: state.contact.detailedContact.contact,
 });
 
-export default connect(mapStateToProps, { loadContact, updateContact, loadNotes })(Contact);
+export default connect(
+  mapStateToProps,
+  {
+    loadActivities,
+    loadContact,
+    loadNotes,
+    updateContact,
+  },
+)(Contact);
