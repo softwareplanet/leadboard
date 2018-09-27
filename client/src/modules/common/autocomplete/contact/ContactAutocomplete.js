@@ -14,10 +14,11 @@ class ContactAutocomplete extends Component {
   };
 
   render() {
+    let open = this.props.value.length > 1 && this.props.open;
     const styles = this.props.styles;
     return (
       <ReactAutocomplete
-        open={this.props.value.length > 1 && this.props.open}
+        open={open}
         items={this.props.items}
         shouldItemRender={(item, value) => item.name.toLowerCase().indexOf(trim(value).toLowerCase()) > -1}
         getItemValue={item => item.name}
