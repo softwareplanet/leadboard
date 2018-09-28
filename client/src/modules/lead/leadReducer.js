@@ -5,7 +5,13 @@ import {
   UPDATE_ORGANIZATION,
 } from "./types";
 
-const initialState = {};
+const initialState = {
+  status: '',
+  owner: {
+    firstname: '',
+    lastname: '',
+  },
+};
 
 export default function(state = initialState, action) {
   switch (action.type) {
