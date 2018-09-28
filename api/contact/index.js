@@ -117,7 +117,6 @@ router.patch("/:contactId", validateContactDomain, async (req, res) => {
   if (hasErrors) return res.status(400).json({ errors });
 
   let updates = req.body;
-
   let organization = updates.organization;
   if (!isEmpty(organization)) {
     if (isValidModelId(organization._id ? organization._id : organization)) {
