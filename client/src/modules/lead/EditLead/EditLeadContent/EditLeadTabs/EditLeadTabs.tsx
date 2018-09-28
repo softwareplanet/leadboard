@@ -6,7 +6,6 @@ import addActivityIcon from '../../../../../assets/img/add-activity/add-activity
 import takeNotesIconActive from '../../../../../assets/img/take-notes/take-notes-active.svg';
 import takeNotesIcon from '../../../../../assets/img/take-notes/take-notes.svg';
 import Activity from '../../../../../models/Activity';
-import Lead from '../../../../../models/Lead';
 import Note from '../../../../../models/Note';
 import isBlank from '../../../../../utils/isBlank';
 import { createActivity } from '../../Activities/activityActions';
@@ -15,9 +14,14 @@ import AddActivity from './AddActivity/AddActivity';
 import EditLeadEditor from './EditLeadEditor/EditLeadEditor';
 import * as styles from './EditLeadTabs.css';
 
+const CONTACT: string = 'contact';
+const ORGANIZATION: string = 'organization';
+const LEAD: string = 'lead';
+
 interface Props {
   userId: string;
-  editLead: Lead;
+  model: any;
+  modelType: string;
 
   createActivity(activity: Activity): void;
 
@@ -69,26 +73,31 @@ class EditLeadTabs extends React.Component<Props, State> {
   }
 
   public saveNote = (noteText: string) => {
-    const { editLead } = this.props;
-    const note = {
-      contact: editLead.contact ? editLead.contact._id : undefined,
-      lead: editLead._id,
-      organization: editLead.organization ? editLead.organization._id : undefined,
+    this.props.createNote({
+      ...this.getNoteChanges(),
       text: noteText,
       user: this.props.userId,
-    };
-    this.props.createNote(note);
+    });
     this.toggleFakeInput();
   }
 
   public saveActivity = (activity: Activity) => {
-    const { editLead, userId } = this.props;
-    this.props.createActivity({
-      ...activity,
-      assignedTo: userId,
-      lead: editLead._id,
-      organization: editLead.organization ? editLead.organization._id : undefined,
-    });
+    const { model, userId, modelType } = this.props;
+    if (modelType === CONTACT) {
+      this.props.createActivity({
+        ...activity,
+        assignedTo: userId,
+        participants: [model._id],
+      });
+    } else {
+      this.props.createActivity({
+        ...activity,
+        assignedTo: userId,
+        organization: model.organization,
+        [modelType]: model._id,
+        participants: [model.contact ? model.contact._id : undefined],
+      });
+    }
     this.toggleFakeInput();
   }
 
@@ -164,13 +173,52 @@ class EditLeadTabs extends React.Component<Props, State> {
   private getAddActivity = () => {
     return (<AddActivity onCancel={this.cancel} onSave={this.saveActivity} />);
   }
+
+  private getNoteChanges(): any {
+    const { model, modelType } = this.props;    
+    switch (modelType) {
+      case LEAD:
+        return {
+          lead: model._id,
+          organization: model.organization ? model.organization._id : undefined,
+          contact: model.contact ? model.contact._id : undefined,
+        };
+      case CONTACT:
+        return {
+          organization: model.organization ? model.organization._id : undefined,
+          contact: model._id,
+        };
+      case ORGANIZATION:
+        return {
+          organization: model._id,
+        };
+      default:
+        return {};
+    }
+  }
 }
 
-const mapLeadStateToProps = (state: any) => ({
-  editLead: state.dashboard.editLead.lead,
+const leadMapLeadStateToProps = (state: any) => ({
+  model: state.dashboard.editLead.lead,
   userId: state.auth.userid,
+  modelType: LEAD,
 });
 
-export { EditLeadTabs };
+const contactMapLeadStateToProps = (state: any) => ({
+  model: state.contact.detailedContact.contact,
+  userId: state.auth.userid,
+  modelType: CONTACT,
+});
+const organizationMapLeadStateToProps = (state: any) => ({
+  model: state.organization.detailedOrganization.organization,
+  userId: state.auth.userid,
+  modelType: ORGANIZATION,
+});
 
-export default connect(mapLeadStateToProps, { createNote, createActivity })(EditLeadTabs);
+const actions = { createNote, createActivity };
+
+export const LeadTabs = connect(leadMapLeadStateToProps, actions)(EditLeadTabs);
+export const OrganizationTabs = connect(organizationMapLeadStateToProps, actions)(EditLeadTabs);
+export const ContactTabs = connect(contactMapLeadStateToProps, actions)(EditLeadTabs);
+
+export { EditLeadTabs };

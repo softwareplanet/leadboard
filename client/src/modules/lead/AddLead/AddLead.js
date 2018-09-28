@@ -275,6 +275,42 @@ class AddLead extends React.Component {
     this.setState({ stage: stageid });
   };
 
+  clearContactOnEsc = () => {
+    this.setState({ contact: { ...this.state.contact, name: "" } });
+  }
+
+  clearOrganizationOnEsc = () => {
+    this.setState({ organization: { ...this.state.organization, name: "" } });
+  }
+
+  handleEscapeKeyDown = (e) => {
+    const ESCAPE_KEY_CODE = 27;
+    if (e.keyCode === ESCAPE_KEY_CODE) {
+      const autoCompleteInputsClasses = ["organization-input", "contact-input"];
+      if (autoCompleteInputsClasses.includes(e.target.className)) {
+        const input = e.target;
+        if (isBlank(input.value)) {
+          input.blur();
+        } else {
+          input.className === autoCompleteInputsClasses[0]
+            ? this.clearOrganizationOnEsc()
+            : this.clearContactOnEsc();
+        }
+      }
+      else {
+        this.closeModal();
+      }
+    }
+  }
+
+  componentDidMount() {
+    document.addEventListener("keydown", this.handleEscapeKeyDown, false);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.handleEscapeKeyDown, false);
+  }
+
   render() {
     const { errors, validationIsShown } = this.state;
     const autocompleteProps = {
@@ -289,8 +325,7 @@ class AddLead extends React.Component {
             Add lead
           </button>
 
-        <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} shouldCloseOnOverlayClick={false}
-          style={customStyles}>
+        <Modal isOpen={this.state.modalIsOpen} style={customStyles}>
           <header className={addingModalStyles.formHeader}>Add lead</header>
           <button type="button" onClick={this.closeModal} aria-label="Close" className={addingModalStyles.closeBtn}>
             <span aria-hidden="true" className={classNames("close", addingModalStyles.closeIcon)}>
@@ -350,9 +385,9 @@ class AddLead extends React.Component {
                 onFocus={this.onFocus}
                 onBlur={this.onBlur} />
             </div>
-            <SelectStageOnCreation 
-              stages={this.props.dashboard.stages} 
-              onStageChange={this.selectStageHandler} 
+            <SelectStageOnCreation
+              stages={this.props.dashboard.stages}
+              onStageChange={this.selectStageHandler}
               title="Lead's stage"
             />
           </form>
