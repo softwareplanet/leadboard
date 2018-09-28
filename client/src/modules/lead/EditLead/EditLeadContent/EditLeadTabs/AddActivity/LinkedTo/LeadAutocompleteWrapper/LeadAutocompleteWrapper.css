@@ -10,9 +10,7 @@
 }
 
 .clearIcon {
-  width: 16px;
   min-width: 16px;
-  height: 16px;
   min-height: 16px;
   cursor: pointer;
 }
@@ -20,9 +18,7 @@
 .leadSpinner {
   composes: searchSpinner from "../../../../../../../layouts/Navbar/Search/Search.css";
   position: inherit;
-  width: 16px;
   min-width: 16px;
-  height: 16px;
   min-height: 16px;
 }
 
@@ -31,9 +27,7 @@
 }
 
 .dealIcon {
-  width: 18px;
   min-width: 18px;
-  height: 18px;
   min-height: 18px;
   margin: 8px;
 }

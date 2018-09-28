@@ -39,8 +39,6 @@ class LeadAutocompleteWrapper extends React.Component<Props, State> {
   };
 
   public clear = () => {
-    console.log("hi");
-    
     this.setState({
       value: '',
     });
@@ -89,7 +87,7 @@ class LeadAutocompleteWrapper extends React.Component<Props, State> {
 
   private onSelect = (value: string, item: any) => {
     this.props.setLead(item._id);
-    this.setState({ value, selectedLead: item, isDropdownOpen: false }, 
+    this.setState({ value, selectedLead: item, isDropdownOpen: false },
       () => this.leadAutocomplete.current!.inputBlur());
     this.leadAutocompleteWrapper.current!.removeAttribute('style');
   }
