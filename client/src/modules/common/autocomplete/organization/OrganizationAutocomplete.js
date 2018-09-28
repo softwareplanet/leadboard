@@ -15,9 +15,10 @@ class OrganizationAutocomplete extends Component {
 
   render() {
     const styles = this.props.styles;
+    let open = this.props.value.length > 1 && this.props.open;
     return (
       <ReactAutocomplete
-        open={this.props.value.length > 1 && this.props.open}
+        open={open}
         items={this.props.items}
         shouldItemRender={(item, value) => item.name.toLowerCase().indexOf(trim(value).toLowerCase()) > -1}
         getItemValue={item => item.name}

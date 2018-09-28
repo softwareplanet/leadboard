@@ -46,7 +46,7 @@ const validateActivityDomain = (req, res, next) => {
     Activity.findById(req.params.activityId)
       .populate({ path: "lead", populate: { path: "owner" } })
       .then(activity => {
-        if (activity !== null && activity.lead.owner.domain.equals(req.user.domain)) {
+        if (activity !== null && activity.domain.equals(req.user.domain)) {
           next();
         } else {
           return res.status(404).json({ errors: { message: "Activity with provided id is not found in your domain" } });
