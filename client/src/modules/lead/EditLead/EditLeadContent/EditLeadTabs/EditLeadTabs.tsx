@@ -194,7 +194,7 @@ class EditLeadTabs extends React.Component<Props, State> {
       case LEAD: {
         return {
           organization: model.organization ? model.organization._id : undefined,
-          lead: activity.lead ? activity.lead : model._id, 
+          lead: activity.lead, 
           participants: [model.contact ? model.contact._id : undefined],
         };
       }

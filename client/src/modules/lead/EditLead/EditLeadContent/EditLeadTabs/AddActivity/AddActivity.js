@@ -233,7 +233,7 @@ export default class AddActivity extends Component {
               </div>
             </label>
           </div>
-          <LinkedTo setLead={this.setLead}/>
+          <LinkedTo setLead={this.setLead} activity={this.props.activity ? this.props.activity : null}/>
         </div>
         <div className={style.footer}>
           <button

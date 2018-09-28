@@ -11,9 +11,11 @@ import { autocompleteStyles } from '../../../../../../../common/autocomplete/sty
 import SearchSpinner from '../../../../../../../layouts/Navbar/Search/Spinner/SearchSpinner';
 import { loadSearchResult } from '../../../../../../../layouts/Navbar/searchActions';
 import * as styles from './LeadAutocompleteWrapper.css';
+import { PopulatedLeadActivity } from '../../../../../../../../models/Activity';
 
 interface Props {
   lead?: Lead;
+  activity?: PopulatedLeadActivity;
   leads?: SearchItemModel[];
   loading: boolean;
 
@@ -35,7 +37,7 @@ class LeadAutocompleteWrapper extends React.Component<Props, State> {
   public state: State = {
     isDropdownOpen: false,
     selectedLead: this.props.lead,
-    value: this.props.lead ? this.props.lead.name : '',
+    value: this.props.activity ? this.props.activity.lead.name : '',
   };
 
   public clear = () => {
@@ -47,7 +49,10 @@ class LeadAutocompleteWrapper extends React.Component<Props, State> {
   }
 
   public componentDidMount() {
-    this.onSelect(this.state.value, this.props.lead);
+    if (window.location.href.includes('contact') || window.location.href.includes('organization')){
+      return;
+    }
+    this.onSelect(this.props.activity ? this.props.activity.lead.name : this.props.lead!.name, this.props.lead);
   }
 
   public render() {
@@ -85,7 +90,7 @@ class LeadAutocompleteWrapper extends React.Component<Props, State> {
     );
   }
 
-  private onSelect = (value: string, item: any) => {
+  private onSelect = (value: string, item?: any) => {
     this.props.setLead(item._id);
     this.setState({ value, selectedLead: item, isDropdownOpen: false },
       () => this.leadAutocomplete.current!.inputBlur());
