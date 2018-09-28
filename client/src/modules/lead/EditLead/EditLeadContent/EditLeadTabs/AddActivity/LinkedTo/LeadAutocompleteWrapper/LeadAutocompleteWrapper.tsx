@@ -30,7 +30,7 @@ interface State {
 
 class LeadAutocompleteWrapper extends React.Component<Props, State> {
   public leadAutocomplete = React.createRef<LeadAutocomplete>();
-  public leadAutocompleteWrapper = React.createRef<HTMLDivElement>();
+  public leadAutocompleteWrapperRef = React.createRef<HTMLDivElement>();
 
   public state: State = {
     isDropdownOpen: false,
@@ -59,7 +59,7 @@ class LeadAutocompleteWrapper extends React.Component<Props, State> {
     };
 
     return (
-      <div ref={this.leadAutocompleteWrapper} className={styles.leadAutocomplete}>
+      <div ref={this.leadAutocompleteWrapperRef} className={styles.leadAutocomplete}>
         <ReactSVG className={styles.dealIcon} src={dealIcon} />
         <LeadAutocomplete
           {...autocompleteProps}
@@ -89,11 +89,11 @@ class LeadAutocompleteWrapper extends React.Component<Props, State> {
     this.props.setLead(item._id);
     this.setState({ value, selectedLead: item, isDropdownOpen: false },
       () => this.leadAutocomplete.current!.inputBlur());
-    this.leadAutocompleteWrapper.current!.removeAttribute('style');
+    this.leadAutocompleteWrapperRef.current!.removeAttribute('style');
   }
 
   private onBlur = (e: React.SyntheticEvent) => {
-    this.leadAutocompleteWrapper.current!.removeAttribute('style');
+    this.leadAutocompleteWrapperRef.current!.removeAttribute('style');
     this.setState({
       ...this.state,
       isDropdownOpen: false,
@@ -118,7 +118,7 @@ class LeadAutocompleteWrapper extends React.Component<Props, State> {
   }
 
   private onAutocompleteFocus = (event: any) => {
-    this.leadAutocompleteWrapper.current!.setAttribute('style', 'border: 1px solid #317ae2');
+    this.leadAutocompleteWrapperRef.current!.setAttribute('style', 'border: 1px solid #317ae2');
   }
 }
 

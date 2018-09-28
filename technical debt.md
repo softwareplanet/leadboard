@@ -16,6 +16,7 @@ This file contains everything that must be fixed/changed/done. We didn't do that
 - Remove redundant requests sending on loading leads
 - Snapshot testing
 - Add tests for the lead card component on dashboard (client must see correct status icons)
+- Add tests for the lead autocomplete component on add activity (it should return correct lead id for new Activity)
 - Use `connect()` instead of `dispatch()` directly from store in Activity.tsx
 - Add tests for delete activity
 - Rework settings reducer using `combineReducer`
