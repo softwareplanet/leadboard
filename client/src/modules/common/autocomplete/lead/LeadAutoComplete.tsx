@@ -13,7 +13,7 @@ interface Props {
   loading: boolean;
 
   onFocus(event: React.SyntheticEvent): void;
-  
+
   onBlur(event: React.SyntheticEvent): void;
 
   onChange(event: React.SyntheticEvent): void;
@@ -32,14 +32,22 @@ class LeadAutocomplete extends React.Component<Props> {
     this.input.current!.blur();
   }
 
-  public render() {    
+  public isValueHasTwoCharacters = () => {
+    return this.props.value.length > 1;
+  }
+
+  public isAtLeastOneLeadFound = () => {
+    return this.props.items.length > 0;
+  }
+
+  public render() {
     const styles = this.props.styles;
     return (
       <ReactAutocomplete
-        open={this.props.value.length > 1 &&
-          this.props.open && this.props.items.length > 0}
+        open={this.props.open &&
+          this.isAtLeastOneLeadFound() && this.isValueHasTwoCharacters()}
         items={this.props.items}
-        wrapperStyle={{display: 'inline-block', position: 'relative'}}
+        wrapperStyle={{ display: 'inline-block', position: 'relative' }}
         shouldItemRender={(item: any, value: any) => item.name.toLowerCase().indexOf(trim(value).toLowerCase()) > -1}
         getItemValue={(item: any) => item.name}
         renderMenu={(items: any) =>
