@@ -11,6 +11,12 @@ const initialState = {
     firstname: '',
     lastname: '',
   },
+  stage: {
+    id: '',
+    funnel: {
+      name: '',
+    },
+  },
 };
 
 export default function(state = initialState, action) {
