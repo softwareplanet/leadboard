@@ -15,6 +15,7 @@ import isBlank from "../../../../../../utils/isBlank";
 import CustomSelect from "./buttons/CustomSelect";
 import DatePicker from "react-pikaday-datepicker";
 import PropTypes from "prop-types";
+import LinkedTo from "./LinkedTo/LinkedTo";
 
 const timeIntervalMinutes = 15;
 const minutesInHour = 60;
@@ -38,6 +39,7 @@ export default class AddActivity extends Component {
     date: "",
     time: "",
     duration: "",
+    lead: "",
   };
 
   onTypeButtonClick = (type) => {
@@ -90,6 +92,7 @@ export default class AddActivity extends Component {
     let activity = {
       type: this.state.activeTab,
       subject: isBlank(this.state.subject) ? this.state.activeTab : this.state.subject,
+      lead: this.state.lead,
       ...this.getDuration(),
       ...this.getActivityDateAndTime(),
     };
@@ -116,6 +119,10 @@ export default class AddActivity extends Component {
     }
     return options;
   };
+
+  setLead = (leadId) => {
+    this.setState({lead: leadId});
+  }
 
   getTimeOptions = () => {
     let time = moment().startOf("day");
@@ -226,6 +233,7 @@ export default class AddActivity extends Component {
               </div>
             </label>
           </div>
+          <LinkedTo setLead={this.setLead} activity={this.props.activity ? this.props.activity : null}/>
         </div>
         <div className={style.footer}>
           <button

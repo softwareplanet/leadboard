@@ -16,9 +16,11 @@ This file contains everything that must be fixed/changed/done. We didn't do that
 - Remove redundant requests sending on loading leads
 - Snapshot testing
 - Add tests for the lead card component on dashboard (client must see correct status icons)
+- Add tests for the lead autocomplete component on add activity (it should return correct lead id for new Activity)
 - Use `connect()` instead of `dispatch()` directly from store in Activity.tsx
 - Add tests for delete activity
 - Rework settings reducer using `combineReducer`
 - Extract domain users dropdown from AddContact/AddOrganization
 - Fix styles on search panel (styles for tabs is unused now)
 - Rename a lot of components for correct reusability and remove them from lead module
+- Remove dublication of properties in model interfaces in client/src/models

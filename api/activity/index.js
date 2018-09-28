@@ -90,6 +90,7 @@ router.patch("/:activityId", activityMembersMiddlewares, async (req, res) => {
 router.get("/", (req, res) => {
   req.query.domain = req.user.domain;
   Activity.find(req.query)
+    .populate("lead")
     .then(activities => {
       res.json(activities);
     })

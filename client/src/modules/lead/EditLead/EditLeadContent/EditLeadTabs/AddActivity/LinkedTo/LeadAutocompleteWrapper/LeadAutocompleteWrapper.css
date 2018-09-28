@@ -1,0 +1,37 @@
+.leadAutocomplete {
+  display: flex;
+  border: 1px solid #cbcccd;
+  align-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  height: 32px;
+  border-radius: 3px;
+  margin-top: 8px;
+}
+
+.clearIcon {
+  min-width: 16px;
+  min-height: 16px;
+  cursor: pointer;
+}
+
+.leadSpinner {
+  composes: searchSpinner from "../../../../../../../layouts/Navbar/Search/Search.css";
+  position: inherit;
+  min-width: 16px;
+  min-height: 16px;
+}
+
+.leadSpinner div {
+  border-color: #b9babb;
+}
+
+.dealIcon {
+  min-width: 18px;
+  min-height: 18px;
+  margin: 8px;
+}
+
+.dealIcon path {
+  fill: #404346;
+}
