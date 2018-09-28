@@ -68,9 +68,9 @@ class OrganizationSidebar extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: any) => ({
-    contacts: state.organization.detailedOrganization.contacts,
-    organization: state.organization.detailedOrganization.organization,
-    settings: state.domain.settings,
+  contacts: state.organization.detailedOrganization.contacts,
+  organization: state.organization.detailedOrganization.organization,
+  settings: state.domain.settings,
 });
 
 export { OrganizationSidebar };
