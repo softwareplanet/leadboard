@@ -45,11 +45,11 @@ export const updateActivity = (activity) => dispatch => {
 };
 
 // Create activity
-export const createActivity = (data) => dispatch => {
+export const createActivity = (data, modelName, modelId) => dispatch => {
   axios
     .post(`/api/activity`, data)
     .then(res => {
-      dispatch(createActivityAction(res.data));
+      dispatch(loadActivities(modelName, modelId));
     })
     .catch(error => {
       dispatch({

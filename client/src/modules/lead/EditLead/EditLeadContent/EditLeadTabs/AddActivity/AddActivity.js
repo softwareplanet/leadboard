@@ -92,6 +92,7 @@ export default class AddActivity extends Component {
     let activity = {
       type: this.state.activeTab,
       subject: isBlank(this.state.subject) ? this.state.activeTab : this.state.subject,
+      lead: this.state.lead,
       ...this.getDuration(),
       ...this.getActivityDateAndTime(),
     };

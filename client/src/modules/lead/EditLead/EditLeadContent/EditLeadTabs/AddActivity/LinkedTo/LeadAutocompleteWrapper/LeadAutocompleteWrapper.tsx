@@ -13,8 +13,8 @@ import { loadSearchResult } from '../../../../../../../layouts/Navbar/searchActi
 import * as styles from './LeadAutocompleteWrapper.css';
 
 interface Props {
-  lead: Lead;
-  leads: SearchItemModel[];
+  lead?: Lead;
+  leads?: SearchItemModel[];
   loading: boolean;
 
   loadSearchResult(query: string): void;
@@ -69,7 +69,7 @@ class LeadAutocompleteWrapper extends React.Component<Props, State> {
           loading={this.props.loading}
           onChange={this.onChange}
           onSelect={this.onSelect}
-          value={state.value}
+          value={state.value ? state.value : ''}
           ref={this.leadAutocomplete}
           styles={autocompleteStyles.lead}
         />

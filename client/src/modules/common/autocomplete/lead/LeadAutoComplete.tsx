@@ -32,7 +32,7 @@ class LeadAutocomplete extends React.Component<Props> {
     this.input.current!.blur();
   }
 
-  public render() {
+  public render() {    
     const styles = this.props.styles;
     return (
       <ReactAutocomplete

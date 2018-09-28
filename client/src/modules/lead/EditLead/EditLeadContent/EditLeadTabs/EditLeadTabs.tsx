@@ -23,7 +23,7 @@ interface Props {
   model: any;
   modelType: string;
 
-  createActivity(activity: Activity): void;
+  createActivity(activity: Activity, modelName: string, modelId: string,): void;
 
   createNote(note: Note): void;
 }
@@ -82,23 +82,13 @@ class EditLeadTabs extends React.Component<Props, State> {
   }
 
   public saveActivity = (activity: Activity) => {
-    const { model, userId, modelType } = this.props;
-    if (modelType === CONTACT) {
-      this.props.createActivity({
-        ...activity,
-        assignedTo: userId,
-        participants: [model._id],
-      });
-    } else {
-      this.props.createActivity({
-        ...activity,
-        assignedTo: userId,
-        organization: model.organization,
-        [modelType]: model._id,
-        participants: [model.contact ? model.contact._id : undefined],
-      });
-    }
-    this.toggleFakeInput();
+    const { userId } = this.props;
+    this.props.createActivity({
+      ...activity,
+      assignedTo: userId,
+      ...this.getActivityChanges(activity),
+    }, this.props.modelType === 'contact' ? 'participants' : this.props.modelType, this.props.model._id);
+       this.toggleFakeInput();
   }
 
   public toggleFakeInput = () => {
@@ -191,6 +181,31 @@ class EditLeadTabs extends React.Component<Props, State> {
       case ORGANIZATION:
         return {
           organization: model._id,
+        };
+      default:
+        return {};
+    }
+  }
+
+  private getActivityChanges(activity: Activity): any {
+    const { model, modelType } = this.props;   
+     
+    switch (modelType) {
+      case LEAD: {
+        return {
+          organization: model.organization ? model.organization._id : undefined,
+          lead: activity.lead ? activity.lead : model._id, 
+          participants: [model.contact ? model.contact._id : undefined],
+        };
+      }
+      case CONTACT:
+        return {
+          participants: [model._id],
+        };
+      case ORGANIZATION:
+        return {
+          organization: model._id,
+          participants: [model.contact ? model.contact._id : undefined],
         };
       default:
         return {};
