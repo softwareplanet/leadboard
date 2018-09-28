@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
 import { dispatchResponse } from '../../../dispatchResponse';
-import { LOAD_CONTACTS_FOR_ORGANIZATION, LOAD_ORGANIZATION } from './types';
+import { LOAD_CONTACTS_FOR_ORGANIZATION, LOAD_ORGANIZATION, UPDATE_ORGANIZATION } from './types';
 
 export const loadOrganization = (organizationId: string) => (dispatch: Dispatch) => {
   axios.get(`/api/organization/${organizationId}`)
@@ -15,5 +15,5 @@ export const loadAggregatedContactsForOrganization = (organizationId: string) =>
 
 export const updateOrganization = (organization: any) => (dispatch: Dispatch) => {
   axios.patch(`/api/organization/${organization._id}`, organization)
-    .then(...dispatchResponse(LOAD_ORGANIZATION));
+    .then(...dispatchResponse(UPDATE_ORGANIZATION));
 };

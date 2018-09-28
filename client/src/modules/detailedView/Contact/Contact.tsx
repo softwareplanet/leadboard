@@ -28,7 +28,6 @@ class Contact extends React.Component<Props> {
     const displayFlex = {
       display: 'flex',
     };
-
     return (
       <div>
         <Navbar />

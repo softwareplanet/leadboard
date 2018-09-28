@@ -85,6 +85,7 @@ describe('<EditCard />', () => {
     wrapper = shallow
     (
       <EditCard
+        showMainField={true}
         addCustomFieldToDomain={noop}
         editCustomFieldInDomain={noop}
         model={contact}
@@ -115,6 +116,7 @@ describe('<EditCard />', () => {
     wrapper = shallow
     (
       <EditCard
+        showMainField={true}
         addCustomFieldToDomain={noop}
         editCustomFieldInDomain={noop}
         model={organization}

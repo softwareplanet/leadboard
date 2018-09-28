@@ -63,6 +63,7 @@ class EditLeadSidebar extends React.Component<Props> {
       if (contact) {
         contactCard =
           <EditCard
+            showMainField={true}
             deleteCustomField={this.deleteCustomField}
             model={contact}
             title="Person"
@@ -79,6 +80,7 @@ class EditLeadSidebar extends React.Component<Props> {
       if (organization) {
         organizationCard =
           <EditCard
+            showMainField={true}
             deleteCustomField={this.deleteCustomField}
             model={organization}
             modelType="Organization"
@@ -98,7 +100,7 @@ class EditLeadSidebar extends React.Component<Props> {
           styles={autocompleteStyles.linkOrganization}
           iTagClass={classNames('fas fa-building', editCardStyles.inputIcon)}
           items={this.props.organizations}
-          lead={this.props.editLead}
+          model={this.props.editLead}
           onUpdate={this.props.updateLead}
         >
           <OrganizationAutocomplete />
@@ -111,7 +113,7 @@ class EditLeadSidebar extends React.Component<Props> {
           styles={autocompleteStyles.linkPerson}
           iTagClass={classNames('fas fa-user', editCardStyles.inputIcon)}
           items={this.props.contacts}
-          lead={this.props.editLead}
+          model={this.props.editLead}
           onUpdate={this.props.updateLead}
         >
           <ContactAutocomplete />
@@ -131,7 +133,7 @@ class EditLeadSidebar extends React.Component<Props> {
 
   private deleteCustomField = (customFieldId: string) => {
     if (window.confirm('You will delete the field from everywhere' +
-      ' in your Pipedrive as well as delete data stored' +
+      ' in your Leadboard as well as delete data stored' +
       ' within this field. Are you sure you want to delete?')
     ) {
       this.props.deleteCustomField(customFieldId);

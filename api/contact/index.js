@@ -112,9 +112,22 @@ function createOrganization(name, domain, owner) {
 // @route   PATCH api/contact/:contactId
 // @desc    Update contact
 // @access  Private
-router.patch("/:contactId", validateContactDomain, (req, res) => {
+router.patch("/:contactId", validateContactDomain, async (req, res) => {
   const { hasErrors, errors } = validateContactUpdate(req.body);
   if (hasErrors) return res.status(400).json({ errors });
+
+  let updates = req.body;
+  let organization = updates.organization;
+  if (!isEmpty(organization)) {
+    if (isValidModelId(organization._id ? organization._id : organization)) {
+      const existingOrganization = await Organization.findById(organization);
+      let { errors, hasErrors } = validateExisting(existingOrganization, "Organization", req.user.domain);
+      if (hasErrors) return res.status(400).json({ errors });
+    } else {
+      organization = await createOrganization(organization, req.user.domain, req.user._id);
+    }
+    updates.organization = (typeof organization === "object" ? organization._id : organization);
+  }
 
   Contact.findByIdAndUpdate(req.params.contactId, { $set: req.body }, { new: true })
     .populate(Contact.populates.full)
