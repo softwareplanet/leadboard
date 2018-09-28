@@ -6,7 +6,7 @@ import dealIcon from '../../../../../../../../assets/img/deals-icon.svg';
 import Lead from '../../../../../../../../models/Lead';
 import SearchItemModel from '../../../../../../../../models/search/SearchItem';
 import isBlank from '../../../../../../../../utils/isBlank';
-import LeadAutocomplete from '../../../../../../../common/autocomplete/lead/LeadAutoComplete';
+import LeadAutoComplete from '../../../../../../../common/autocomplete/lead/LeadAutoComplete';
 import { autocompleteStyles } from '../../../../../../../common/autocomplete/styles/autocomplete-styles';
 import SearchSpinner from '../../../../../../../layouts/Navbar/Search/Spinner/SearchSpinner';
 import { loadSearchResult } from '../../../../../../../layouts/Navbar/searchActions';
@@ -31,7 +31,7 @@ interface State {
 }
 
 class LeadAutocompleteWrapper extends React.Component<Props, State> {
-  public leadAutocomplete = React.createRef<LeadAutocomplete>();
+  public leadAutocomplete = React.createRef<LeadAutoComplete>();
   public leadAutocompleteWrapperRef = React.createRef<HTMLDivElement>();
 
   public state: State = {
@@ -66,7 +66,7 @@ class LeadAutocompleteWrapper extends React.Component<Props, State> {
     return (
       <div ref={this.leadAutocompleteWrapperRef} className={styles.leadAutocomplete}>
         <ReactSVG className={styles.dealIcon} src={dealIcon} />
-        <LeadAutocomplete
+        <LeadAutoComplete
           {...autocompleteProps}
           items={this.props.leads}
           open={state.isDropdownOpen}
