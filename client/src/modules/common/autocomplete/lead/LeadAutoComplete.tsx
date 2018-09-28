@@ -21,7 +21,7 @@ interface Props {
   onSelect(text: string, item: SearchItemModel): void;
 }
 
-class LeadAutocomplete extends React.Component<Props> {
+class LeadAutoComplete extends React.Component<Props> {
   public input = React.createRef<HTMLInputElement>();
 
   public inputFocus = () => {
@@ -86,4 +86,4 @@ class LeadAutocomplete extends React.Component<Props> {
   }
 }
 
-export default LeadAutocomplete;
+export default LeadAutoComplete;

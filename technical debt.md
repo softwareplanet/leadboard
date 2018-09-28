@@ -23,3 +23,4 @@ This file contains everything that must be fixed/changed/done. We didn't do that
 - Extract domain users dropdown from AddContact/AddOrganization
 - Fix styles on search panel (styles for tabs is unused now)
 - Rename a lot of components for correct reusability and remove them from lead module
+- Remove dublication of properties in model interfaces in client/src/models
