@@ -38,9 +38,7 @@ const contactReducer = (state = initialState, action: Action) => {
     case LOAD_CONTACT:
       return action.payload;
     case UPDATE_CONTACT:
-      let updatedContact = { ...state};
-      updatedContact = action.payload;
-      return updatedContact;
+      return action.payload;
     case UPDATE_ORGANIZATION:
       const updatedContactWithOrganization = { ...state};
       updatedContactWithOrganization.organization = action.payload;
