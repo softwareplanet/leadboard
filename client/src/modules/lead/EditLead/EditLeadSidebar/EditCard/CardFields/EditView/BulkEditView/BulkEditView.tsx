@@ -26,18 +26,10 @@ interface Props {
 class BulkEditView extends React.Component<Props, State> {
 
   public state: State = {
-    _id: '',
-    custom: [],
-    name: '',
+    _id: this.props.model._id,
+    custom: this.props.model.custom,
+    name: this.props.model.name,
   };
-
-  public componentDidMount() {
-    this.setState({
-      _id: this.props.model._id,
-      custom: this.props.model.custom,
-      name: this.props.model.name,
-    });
-  }
 
   public render() {
     return (
@@ -74,8 +66,11 @@ class BulkEditView extends React.Component<Props, State> {
         const updatedCustomField = { ...customField };
         updatedCustomField.value = value;
         updatedCustom.splice(customFieldIndex, 1, updatedCustomField);
-        this.setState({ custom: updatedCustom });
+      } else {
+        const modelCustomField = { key, value };
+        updatedCustom.push(modelCustomField);
       }
+      this.setState({ custom: updatedCustom });
     }
   };
 
