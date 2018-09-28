@@ -14,9 +14,9 @@ const initialState = {
   stage: {
     id: '',
     funnel: {
-      name: ''
-    }
-  }
+      name: '',
+    },
+  },
 };
 
 export default function(state = initialState, action) {
