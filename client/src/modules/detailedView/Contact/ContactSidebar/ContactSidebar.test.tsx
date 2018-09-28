@@ -55,32 +55,7 @@ describe('<ContactSidebar />', () => {
     timestamp: new Date(),
   };
 
-  const organizations: Organization[] = [
-    {
-      _id: '5b7c0c6e42b4cb4a2c72492d',
-      custom: [{
-        _id: '5b7ea6477adb5755f6bbc039',
-        key: 'Address',
-        value: '',
-      }],
-      domain: '5b6ab060f60c0524980fa23b',
-      name: 'Company 1',
-      owner,
-      timestamp: new Date('2018-08-23T12:19:19.758Z'),
-    },
-    {
-      _id: '5b7c0cc542b4cb4a2c724933',
-      custom: [{
-        _id: '5b7ea6477adb5755f6bbc039',
-        key: 'Address',
-        value: '',
-      }],
-      domain: '5b6ab060f60c0524980fa23b',
-      name: 'Company 2',
-      owner,
-      timestamp: new Date('2018-08-23T12:19:19.758Z'),
-    },
-  ];
+  const organizations: Organization[] = [organization, organization];
 
   let wrapper: any;
   beforeEach(() => {
