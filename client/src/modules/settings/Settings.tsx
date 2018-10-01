@@ -4,9 +4,9 @@ import Navbar from '../layouts/Navbar/Navbar';
 import CustomizeFields from './CustomizeFields/CustomizeFields';
 import Funnels from './Funnels/Funnels';
 import * as styles from './Settings.css';
-import { CUSTOMIZE_FIELDS, PIPELINES } from './settingsRoutes';
+import { CUSTOMIZE_FIELDS, IMPORT_SERVICE, PIPELINES } from './settingsRoutes';
 import Sidebar from './Sidebar/Sidebar';
-
+import ImportService from './ImportServicePage/ImportService';
 
 export default class Settings extends React.Component {
 
@@ -23,6 +23,10 @@ export default class Settings extends React.Component {
           <Route
             path={`/settings/${CUSTOMIZE_FIELDS}`}
             component={CustomizeFields}
+          />
+          <Route
+            path={`/settings/${IMPORT_SERVICE}`}
+            component={ImportService}
           />
         </div>
 

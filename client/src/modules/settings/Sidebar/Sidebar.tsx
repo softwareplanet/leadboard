@@ -1,30 +1,36 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
-import { CUSTOMIZE_FIELDS, PIPELINES } from '../settingsRoutes';
+import { CUSTOMIZE_FIELDS, IMPORT_SERVICE, PIPELINES } from '../settingsRoutes';
 import * as styles from './Sidebar.css';
 
 export default class Sidebar extends React.Component {
-  private settingsMenu = [{
-    value: 'Pipelines',
-    param: PIPELINES,
-  }, 
-  {
-    value: 'Customize fields',
-    param: CUSTOMIZE_FIELDS,
-  }];
+  private settingsMenu = [
+    {
+      value: 'Pipelines',
+      param: PIPELINES,
+    },
+    {
+      value: 'Customize fields',
+      param: CUSTOMIZE_FIELDS,
+    },
+    {
+      value: 'Import data',
+      param: IMPORT_SERVICE,
+    },
+  ];
 
   public render() {
     return (
       <aside className={styles.sidebar}>
         {this.getSettingsItems()}
       </aside>
-    )
+    );
   }
 
   private getSettingsItems = () => {
-    return this.settingsMenu.map(item => 
-      ( 
-        <NavLink 
+    return this.settingsMenu.map(item =>
+      (
+        <NavLink
           key={item.value}
           activeClassName={styles.activeItem}
           className={styles.item}
@@ -32,7 +38,7 @@ export default class Sidebar extends React.Component {
         >
           { item.value }
         </NavLink>
-      )
-    ) 
+      ),
+    )
   }
 }

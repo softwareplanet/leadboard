@@ -1,6 +1,4 @@
 .sidebar {
-  background-color: #ffffff;
-  border: 1px solid #cbcccd;
   border-radius: 0 3px 3px 0;
   display: flex;
   flex-direction: column;
@@ -12,7 +10,8 @@
 
 .item {
   width: 165px;
-  border-bottom: 1px solid #e5e5e5;
+  border: 1px solid #e5e5e5;
+  background-color: #ffffff;
   margin: 0;
   padding: 5px 10px;
   font-size: 14px;
