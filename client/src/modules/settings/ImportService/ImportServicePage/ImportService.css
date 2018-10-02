@@ -16,12 +16,17 @@
 }
 
 .button {
-  composes: button from '../../../styles/common.css';
+  composes: button from '../../../../styles/common.css';
   font: 600 14px/20px Open Sans, sans-serif;
   color: rgba(38, 41, 44, 0.64);
   margin: 24px 0 4px;
   vertical-align: baseline;
   float: right;
+}
+
+.button:hover {
+  text-decoration: none;
+  color: rgba(38, 41, 44, 0.64);
 }
 
 .title {

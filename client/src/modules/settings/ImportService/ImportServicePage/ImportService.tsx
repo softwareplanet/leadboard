@@ -1,6 +1,9 @@
 import * as React from 'react';
 import * as styles from './ImportService.css';
-import pipeDriveLogo from '../../../assets/img/import/pipeDrive-logo.png';
+import pipeDriveLogo from '../../../../assets/img/import/pipeDrive-logo.png';
+import { Link } from 'react-router-dom';
+import { IMPORT_PIPEDRIVE } from '../../settingsRoutes';
+
 export default class ImportService extends React.Component {
 
   public render() {
@@ -14,12 +17,16 @@ export default class ImportService extends React.Component {
           <span className={styles.logo}><img src={pipeDriveLogo} alt="pipeDrive-logo" /></span>
           <span className={styles.title}>PipeDrive</span>
           <span>
-            <button className={styles.button}>
-              <span>Import</span>
-            </button>
+            <Link
+              key={'pipedrive import'}
+              className={styles.button}
+              to={`/settings/${IMPORT_PIPEDRIVE}`}
+            >
+              Import
+            </Link>
           </span>
         </div>
       </div>
-    );
+    )
   }
 }

@@ -1,0 +1,19 @@
+.container {
+  composes: container from '../ImportServicePage/ImportService.css';
+}
+
+.button {
+  composes: button from '../../../../styles/common.css';
+  width: 70%;
+  height: 35px;
+}
+
+.dataModule {
+  width: 400px;
+  margin: auto;
+  text-align: center;
+}
+
+.title{
+  text-align: center;
+}
