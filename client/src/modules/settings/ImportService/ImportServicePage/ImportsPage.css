@@ -1,0 +1,42 @@
+.container {
+  border: 1px solid #b9babb;
+  border-radius: 3px;
+  background: #fff;
+  padding: 24px;
+  width: 70%;
+}
+
+.sourceSelector {
+  align-items: center;
+  border-radius: 3px;
+  background-color: #fff;
+  border: 1px solid #f7f7f7;
+  box-sizing: border-box;
+  padding: 24px;
+}
+
+.button {
+  composes: button from '../../../../styles/common.css';
+  font: 600 14px/20px Open Sans, sans-serif;
+  color: rgba(38, 41, 44, 0.64);
+  margin: 24px 0 4px;
+  vertical-align: baseline;
+  float: right;
+}
+
+.button:hover {
+  text-decoration: none;
+  color: rgba(38, 41, 44, 0.64);
+}
+
+.title {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 600;
+  vertical-align: middle;
+  padding-left: 16px;
+}
+
+.logo {
+  margin: 16px 16px 16px 24px;
+}
