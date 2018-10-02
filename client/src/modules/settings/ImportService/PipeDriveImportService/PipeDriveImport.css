@@ -1,5 +1,5 @@
 .container {
-  composes: container from '../ImportServicePage/ImportService.css';
+  composes: container from '../ImportServicePage/ImportsPage.css';
 }
 
 .button {

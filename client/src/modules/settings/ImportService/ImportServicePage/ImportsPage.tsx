@@ -1,10 +1,10 @@
 import * as React from 'react';
-import * as styles from './ImportService.css';
-import pipeDriveLogo from '../../../../assets/img/import/pipeDrive-logo.png';
 import { Link } from 'react-router-dom';
+import pipeDriveLogo from '../../../../assets/img/import/pipeDrive-logo.png';
 import { IMPORT_PIPEDRIVE } from '../../settingsRoutes';
+import * as styles from './ImportsPage.css';
 
-export default class ImportService extends React.Component {
+export default class ImportsPage extends React.Component {
 
   public render() {
     return (
@@ -27,6 +27,6 @@ export default class ImportService extends React.Component {
           </span>
         </div>
       </div>
-    )
+    );
   }
 }

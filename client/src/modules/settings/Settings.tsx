@@ -3,11 +3,11 @@ import { Route } from 'react-router-dom';
 import Navbar from '../layouts/Navbar/Navbar';
 import CustomizeFields from './CustomizeFields/CustomizeFields';
 import Funnels from './Funnels/Funnels';
-import * as styles from './Settings.css';
-import { CUSTOMIZE_FIELDS, IMPORT_SERVICE, PIPELINES, IMPORT_PIPEDRIVE } from './settingsRoutes';
-import Sidebar from './Sidebar/Sidebar';
-import ImportService from './ImportService/ImportServicePage/ImportService';
+import ImportsPage from './ImportService/ImportServicePage/ImportsPage';
 import PipeDriveImport from './ImportService/PipeDriveImportService/PipeDriveImport';
+import * as styles from './Settings.css';
+import { CUSTOMIZE_FIELDS, IMPORT_PIPEDRIVE, IMPORTS_PAGE, PIPELINES } from './settingsRoutes';
+import Sidebar from './Sidebar/Sidebar';
 
 export default class Settings extends React.Component {
 
@@ -26,8 +26,8 @@ export default class Settings extends React.Component {
             component={CustomizeFields}
           />
           <Route
-            path={`/settings/${IMPORT_SERVICE}`}
-            component={ImportService}
+            path={`/settings/${IMPORTS_PAGE}`}
+            component={ImportsPage}
           />
           <Route
             path={`/settings/${IMPORT_PIPEDRIVE}`}

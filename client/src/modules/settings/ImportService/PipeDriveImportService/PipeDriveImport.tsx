@@ -4,7 +4,6 @@ import * as styles from './PipeDriveImport.css';
 
 interface State {
   apiToken: string;
-
   [name: string]: string;
 }
 
@@ -16,7 +15,7 @@ export default class ImportService extends React.Component<{}, State> {
   public render() {
     return (
       <div className={styles.container}>
-      <span className={styles.title}>
+        <span className={styles.title}>
           <h2>Import Your Data From Pipedrive</h2>
           <h2>Just fill in the form below and initiate the import</h2>
         </span>

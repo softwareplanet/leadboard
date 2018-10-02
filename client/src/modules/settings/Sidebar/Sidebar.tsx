@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
-import { CUSTOMIZE_FIELDS, IMPORT_SERVICE, PIPELINES } from '../settingsRoutes';
+import { CUSTOMIZE_FIELDS, IMPORTS_PAGE, PIPELINES } from '../settingsRoutes';
 import * as styles from './Sidebar.css';
 
 export default class Sidebar extends React.Component {
@@ -15,7 +15,7 @@ export default class Sidebar extends React.Component {
     },
     {
       value: 'Import data',
-      param: IMPORT_SERVICE,
+      param: IMPORTS_PAGE,
     },
   ];
 
