@@ -1,16 +1,42 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import InputGroup from '../../../common/InputGroup/InputGroup';
 import * as styles from './PipeDriveImport.css';
+import {
+  getContactFields,
+  getContactsData,
+  getOrganizationFields,
+  getOrganizationsData,
+} from './pipeDriveImportActions';
+
+interface Props {
+
+  getOrganizationsData(token: string): void;
+
+  getContactsData(token: string): void;
+
+  getOrganizationFields(token: string): void;
+
+  getContactFields(token: string): void;
+}
 
 interface State {
   apiToken: string;
   [name: string]: string;
 }
 
-export default class ImportService extends React.Component<{}, State> {
+class ImportService extends React.Component<Props, State> {
   public state: State = {
     apiToken: '',
   };
+
+  public onClick = () => {
+    const { apiToken } = this.state;
+    this.props.getOrganizationsData(apiToken);
+    this.props.getContactsData(apiToken);
+    this.props.getOrganizationFields(apiToken);
+    this.props.getContactFields(apiToken);
+  }
 
   public render() {
     return (
@@ -27,7 +53,7 @@ export default class ImportService extends React.Component<{}, State> {
             label="API token"
           />
           <div>
-            <button className={styles.button}>
+            <button className={styles.button} onClick={this.onClick}>
               Start import
             </button>
           </div>
@@ -44,3 +70,15 @@ export default class ImportService extends React.Component<{}, State> {
     });
   }
 }
+
+const mapStateToProps = (state: any) => ({
+  data: state.import,
+});
+
+export default connect(mapStateToProps,
+  {
+    getContactFields,
+    getContactsData,
+    getOrganizationFields,
+    getOrganizationsData,
+  })(ImportService);

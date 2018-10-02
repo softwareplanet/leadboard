@@ -1,14 +1,13 @@
 import { combineReducers } from "redux";
 import authReducer from "./modules/auth/authReducer";
 import leadReducersAggregator from "./modules/lead/leadRootReducer";
-
 import { GET_ERRORS, CLEAR_STORE } from "./actionTypes";
 import contactReducer from "./modules/layouts/Contacts/People/contactReducer";
 import organizationReducer from "./modules/layouts/Contacts/Organizations/organizationReducer";
 import settingReducer from "./modules/settings/settingReducer";
 import searchReducer from "./modules/layouts/Navbar/searchReducer";
 import domainReducer from "./modules/settings/domain/domainReducer";
-
+import pipeDriveReducer from "./modules/settings/ImportService/PipeDriveImportService/pipeDriveImportReducer";
 const initialState = {};
 
 function errorReducer(state = initialState, action) {
@@ -29,6 +28,7 @@ const appReducer = combineReducers({
   settings: settingReducer,
   search: searchReducer,
   domain: domainReducer,
+  import: pipeDriveReducer,
 });
 
 export default function rootReducer(state, action) {
