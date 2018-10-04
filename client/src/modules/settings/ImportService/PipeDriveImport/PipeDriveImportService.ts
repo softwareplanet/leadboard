@@ -23,10 +23,9 @@ const redundantFieldKeys = [
   'email',
 ];
 
-const importStarted = { status: true, message: 'Import started' };
+const importStarted = { status: true, message: 'Import started...' };
 const importSuccessful = { status: true, message: 'Import successful' };
-const exportDataFromPipedrive = { status: true, message: 'Exporting data from Pipedrive' };
-const importRejected = { status: false, message: 'Import rejected' };
+const exportDataFromPipedrive = { status: true, message: 'Exporting data from Pipedrive...' };
 
 export const startImport = async (domainId: string, token: string) => {
   try {
@@ -43,7 +42,7 @@ export const startImport = async (domainId: string, token: string) => {
 
     store.dispatch(setImportStatus(importSuccessful));
   } catch (error) {
-    store.dispatch(setImportStatus(importRejected));
+    store.dispatch(setImportStatus({ status: false, message: error.message }));
   }
 };
 
