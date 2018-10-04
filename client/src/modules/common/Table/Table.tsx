@@ -1,6 +1,7 @@
 import * as React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import history from '../../../history';
+import * as styles from './Table.css';
 
 interface Props {
   modelName: string;
@@ -9,7 +10,6 @@ interface Props {
 }
 
 class Table extends React.Component<Props, object> {
-
   public selectRow = {
     clickToSelect: true,
     hideSelectColumn: true,
@@ -21,6 +21,7 @@ class Table extends React.Component<Props, object> {
 
   public render() {
     return (
+      <div className={styles.table}>
         <BootstrapTable
           keyField="_id"
           data={this.props.data}
@@ -28,6 +29,7 @@ class Table extends React.Component<Props, object> {
           hover={true}
           selectRow={this.selectRow}
         />
+      </div>
     );
   }
 }
