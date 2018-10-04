@@ -8,6 +8,7 @@ describe('<PipeDriveImport />', () => {
     const wrapper = shallow
     (
       <PipeDriveImport
+        setImportStatus={jest.fn()}
         domainId={''}
         importStatus={{ message: '', status: false }}
       />,

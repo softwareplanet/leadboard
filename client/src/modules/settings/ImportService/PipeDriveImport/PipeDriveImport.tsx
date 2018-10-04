@@ -3,14 +3,19 @@ import { connect } from 'react-redux';
 import isBlank from '../../../../utils/isBlank';
 import InputGroup from '../../../common/InputGroup/InputGroup';
 import * as styles from './PipeDriveImport.css';
+import { setImportStatus } from './pipeDriveImportActions';
 import { startImport } from './PipeDriveImportService';
+
+interface importStatus {
+  message: string;
+  status: boolean;
+}
 
 interface Props {
   domainId: string;
-  importStatus: {
-    message: string,
-    status: boolean,
-  };
+  importStatus: importStatus;
+
+  setImportStatus(status: importStatus): void;
 }
 
 interface State {
@@ -22,6 +27,10 @@ class PipeDriveImport extends React.Component<Props, State> {
   public state: State = {
     apiToken: '',
   };
+
+  public componentWillUnmount(){
+    this.props.setImportStatus({ message: '', status: false });
+  }
 
   public onClick = () => {
     if (window.confirm('You will import data from Pipedrive.' +
@@ -81,4 +90,4 @@ const mapStateToProps = (state: any) => ({
 
 export { PipeDriveImport };
 
-export default connect(mapStateToProps)(PipeDriveImport);
+export default connect(mapStateToProps,{ setImportStatus })(PipeDriveImport);
