@@ -7,7 +7,7 @@ import organizationReducer from "./modules/layouts/Contacts/Organizations/organi
 import settingReducer from "./modules/settings/settingReducer";
 import searchReducer from "./modules/layouts/Navbar/searchReducer";
 import domainReducer from "./modules/settings/domain/domainReducer";
-import pipeDriveReducer from "./modules/settings/ImportService/PipeDriveImportService/pipeDriveImportReducer";
+import pipeDriveReducer from "./modules/settings/ImportService/PipeDriveImport/pipeDriveImportReducer";
 const initialState = {};
 
 function errorReducer(state = initialState, action) {

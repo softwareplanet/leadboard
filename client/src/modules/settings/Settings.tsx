@@ -4,7 +4,7 @@ import Navbar from '../layouts/Navbar/Navbar';
 import CustomizeFields from './CustomizeFields/CustomizeFields';
 import Funnels from './Funnels/Funnels';
 import ImportsPage from './ImportService/ImportServicePage/ImportsPage';
-import PipeDriveImport from './ImportService/PipeDriveImportService/PipeDriveImport';
+import PipeDriveImport from './ImportService/PipeDriveImport/PipeDriveImport';
 import * as styles from './Settings.css';
 import { CUSTOMIZE_FIELDS, IMPORT_PIPEDRIVE, IMPORTS_PAGE, PIPELINES } from './settingsRoutes';
 import Sidebar from './Sidebar/Sidebar';
