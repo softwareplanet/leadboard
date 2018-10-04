@@ -117,7 +117,7 @@ const addNewDataToDB = async (
     const organizationContacts = getContactsByOrganization(pipedriveContacts, organization);
 
     await asyncForEach(organizationContacts, (contact: any) => {
-      const leadboardContact = transformPipedriveModelToLeadboard(
+      const leadboardContact: any = transformPipedriveModelToLeadboard(
         contact, contactCustomFieldSettings, pipeDriveContactFields,
       );
       leadboardContact.organization = leadboardOrganization._id;
@@ -169,7 +169,7 @@ const transformPipedriveModelToLeadboard = (
   model: any,
   modelCustomFieldSettings: any[],
   pipedriveModelFields: any[],
-): any => ({
+) => ({
   custom: customFieldsByDomainSettings(modelCustomFieldSettings, pipedriveModelFields, model),
   name: model.name,
 });
