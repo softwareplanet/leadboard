@@ -51,7 +51,9 @@ class PipeDriveImport extends React.Component<Props, State> {
             onChange={this.onChange}
             label="API token"
           />
-          <p className={styles.tokenHint}> You can find your token in your Pipedrive account's settings</p>
+          <p className={styles.tokenHint}>
+            You can find your token in your Pipedrive account's settings
+          </p>
           <div>
             <button className={styles.button} onClick={this.onClick}>
               Start import

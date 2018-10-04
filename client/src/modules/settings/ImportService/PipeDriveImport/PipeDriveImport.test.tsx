@@ -8,11 +8,7 @@ describe('<PipeDriveImport />', () => {
     const wrapper = shallow
     (
       <PipeDriveImport
-        contactFields={[]}
-        contacts={[]}
         domainId={''}
-        organizationFields={[]}
-        organizations={[]}
         importStatus={{ message: '', status: false }}
       />,
     );

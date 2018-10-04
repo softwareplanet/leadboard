@@ -11,7 +11,6 @@ import { setImportStatus } from './pipeDriveImportActions';
 
 const organizationModel = 'Organization';
 const contactModel = 'Contact';
-
 const redundantFieldKeys = [
   'id',
   'owner_id',
@@ -48,7 +47,7 @@ export const startImport = async (domainId: string, token: string) => {
   }
 };
 
-const pipeDriveModelFieldsToLeadboardCustomFieldSettings = (
+const transformPipedriveModelFieldsToLeadboard = (
   PipedriveModelFields: any[],
   modelName: string,
 ): CustomFieldSetting[] => {
@@ -77,7 +76,7 @@ const customFieldsByDomainSettings = (
       if (modelField.key === 'phone' || modelField.key === 'email') {
         custom.push({
           key: fieldSettings._id,
-          value: arrayToString(model[modelField.key]),
+          value: arrayToStringOfObjectsValue(model[modelField.key]),
         });
       } else {
         custom.push({
@@ -91,43 +90,43 @@ const customFieldsByDomainSettings = (
 };
 
 const addNewDataToDB = async (
-  organizations: any[],
+  pipedriveOrganizations: any[],
   pipedriveOrganizationFields: any[],
-  contacts: any[],
+  pipedriveContacts: any[],
   pipeDriveContactFields: any[],
   domainId: string,
 ) => {
   await addCustomFieldSettingsToDomain(
-    pipeDriveModelFieldsToLeadboardCustomFieldSettings(pipedriveOrganizationFields, organizationModel),
+    transformPipedriveModelFieldsToLeadboard(pipedriveOrganizationFields, organizationModel),
     domainId,
   );
   await addCustomFieldSettingsToDomain(
-    pipeDriveModelFieldsToLeadboardCustomFieldSettings(pipeDriveContactFields, contactModel),
+    transformPipedriveModelFieldsToLeadboard(pipeDriveContactFields, contactModel),
     domainId,
   );
-  const settings = await getDomainSettings(domainId);
 
+  const settings = await getDomainSettings(domainId);
   const organizationCustomFieldSettings = settings.customFields.filter((field: any) => field.model === organizationModel);
   const contactCustomFieldSettings = settings.customFields.filter((field: any) => field.model === contactModel);
 
-  await asyncForEach(organizations, async (organization: any) => {
-    const newOrganization = await addOrganizationInDB(
+  await asyncForEach(pipedriveOrganizations, async (organization: any) => {
+    const leadboardOrganization = await addOrganizationInDB(
       transformPipedriveModelToLeadboard(organization, organizationCustomFieldSettings, pipedriveOrganizationFields),
     );
 
-    const organizationContacts = getContactsForOrganization(contacts, organization);
+    const organizationContacts = getContactsByOrganization(pipedriveContacts, organization);
 
-    organizationContacts.forEach(contact => {
+    await asyncForEach(organizationContacts, (contact: any) => {
       const leadboardContact = transformPipedriveModelToLeadboard(
         contact, contactCustomFieldSettings, pipeDriveContactFields,
       );
-      leadboardContact.organization = newOrganization._id;
+      leadboardContact.organization = leadboardOrganization._id;
       addContactInDB(leadboardContact);
-      contacts.splice(contacts.indexOf(contact), 1);
+      pipedriveContacts.splice(pipedriveContacts.indexOf(contact), 1);
     });
   });
 
-  contacts.forEach((contact: any) => {
+  await asyncForEach(pipedriveContacts,(contact: any) => {
     addContactInDB(transformPipedriveModelToLeadboard(
       contact, contactCustomFieldSettings, pipeDriveContactFields,
     ));
@@ -162,7 +161,7 @@ const getDomainSettings = (domainId: string) => {
     .then(result => result.data.settings);
 };
 
-const getContactsForOrganization = (contacts: any[], organization: any) => {
+const getContactsByOrganization = (contacts: any[], organization: any) => {
   return contacts.filter(contact => (contact.org_id ? contact.org_id.value === organization.id : false));
 };
 
@@ -175,6 +174,6 @@ const transformPipedriveModelToLeadboard = (
   name: model.name,
 });
 
-const arrayToString = (array: any[]) => {
+const arrayToStringOfObjectsValue = (array: any[]) => {
   return array.map(object => object.value).join();
 };
