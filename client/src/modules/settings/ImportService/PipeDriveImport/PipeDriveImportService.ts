@@ -22,7 +22,7 @@ const redundantFieldKeys = [
   'address',
   'phone',
   'email',
-]
+];
 
 const importStarted = { status: true, message: 'Import started' };
 const importSuccessful = { status: true, message: 'Import successful' };
@@ -122,7 +122,7 @@ const addNewDataToDB = async (
         contact, contactCustomFieldSettings, pipeDriveContactFields,
       );
       leadboardContact.organization = newOrganization._id;
-      addContactInDB(leadboardContact)
+      addContactInDB(leadboardContact);
       contacts.splice(contacts.indexOf(contact), 1);
     });
   });
