@@ -3,7 +3,6 @@ import Funnel from '../../models/Funnel';
 import Stage from '../../models/Stage';
 import { ADD_FUNNEL, ADD_STAGE, EDIT_STAGE, LOAD_FUNNELS, LOAD_SETTINGS_STAGES, SET_FUNNEL } from './types';
 
-
 interface InitialState {
   funnels: Funnel[];
   selectedFunnel: any;
@@ -15,6 +14,7 @@ const initialState: InitialState = {
   selectedFunnel: {},
   stages: [],
 };
+
 export default function(state = initialState, action: Action) {
   switch (action.type) {
     case SET_FUNNEL: {

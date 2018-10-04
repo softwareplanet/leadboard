@@ -6,14 +6,27 @@
   composes: button from '../../../../styles/common.css';
   width: 70%;
   height: 35px;
+  margin: 5px;
 }
 
 .dataModule {
-  width: 400px;
+  width: 500px;
   margin: auto;
   text-align: center;
 }
 
 .title{
   text-align: center;
+}
+
+.tokenHint{
+  margin-top: -30px;
+}
+
+.rejectStyles{
+  color: red;
+}
+
+.successStyles{
+  color: green;
 }

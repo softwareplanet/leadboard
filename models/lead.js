@@ -11,7 +11,7 @@ const leadSchema = new mongoose.Schema({
   order: { type: Number, index: { unique: false } },
   contact: { type: mongoose.Schema.Types.ObjectId, ref: CONTACT },
   organization: { type: mongoose.Schema.Types.ObjectId, ref: ORGANIZATION },
-  custom: [{ name: "string", value: "string" }],
+  custom: [{ key: mongoose.Schema.Types.ObjectId, value: "string" }],
   timestamp: { type: Date, default: Date.now },
   status: {
     type: String,
