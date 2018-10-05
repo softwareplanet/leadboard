@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const pipedriveConnectionProblem = 'Pipedrive refused with: ';
+const PIPEDRIVE_CONNECTION_ERROR = 'Pipedrive refused with: ';
 
 export const exportOrganizations = (token: string) => {
   return getDataFromPipedrive(`https://api.pipedrive.com/v1/organizations?start=0&api_token=${token}`);
@@ -28,4 +28,4 @@ const getDataFromPipedrive = (url: string) => {
 };
 
 const createErrorMessage = (error: any) => (
-  pipedriveConnectionProblem + '"' + error.response.data.error + '"');
+  PIPEDRIVE_CONNECTION_ERROR + '"' + error.response.data.error + '"');

@@ -9,9 +9,10 @@ import {
 } from './pipeDriveExportService';
 import { setImportStatus } from './pipeDriveImportActions';
 
-const organizationModel = 'Organization';
-const contactModel = 'Contact';
-const redundantFieldKeys = [
+const ORGANIZATION_MODEL = 'Organization';
+const LEADBOARD_ERROR_MESSAGE = 'Something went wrong, import rejected!';
+const CONTACT_MODEL = 'Contact';
+const REDUNDANT_FIELD_KEYS = [
   'id',
   'owner_id',
   'org_id',
@@ -51,7 +52,7 @@ const transformPipedriveModelFieldsToLeadboard = (
   modelName: string,
 ): CustomFieldSetting[] => {
   return PipedriveModelFields
-    .filter(field => !redundantFieldKeys.includes(field.key))
+    .filter(field => !REDUNDANT_FIELD_KEYS.includes(field.key))
     .map(field => ({
         isAlwaysVisible: true,
         isDefault: false,
@@ -95,41 +96,45 @@ const addNewDataToDB = async (
   pipeDriveContactFields: any[],
   domainId: string,
 ) => {
-  await addCustomFieldSettingsToDomain(
-    transformPipedriveModelFieldsToLeadboard(pipedriveOrganizationFields, organizationModel),
-    domainId,
-  );
-  await addCustomFieldSettingsToDomain(
-    transformPipedriveModelFieldsToLeadboard(pipeDriveContactFields, contactModel),
-    domainId,
-  );
-
-  const settings = await getDomainSettings(domainId);
-  const organizationCustomFieldSettings = settings.customFields.filter((field: any) => field.model === organizationModel);
-  const contactCustomFieldSettings = settings.customFields.filter((field: any) => field.model === contactModel);
-
-  await asyncForEach(pipedriveOrganizations, async (organization: any) => {
-    const leadboardOrganization = await addOrganizationInDB(
-      transformPipedriveModelToLeadboard(organization, organizationCustomFieldSettings, pipedriveOrganizationFields),
+  try {
+    await addCustomFieldSettingsToDomain(
+      transformPipedriveModelFieldsToLeadboard(pipedriveOrganizationFields, ORGANIZATION_MODEL),
+      domainId,
+    );
+    await addCustomFieldSettingsToDomain(
+      transformPipedriveModelFieldsToLeadboard(pipeDriveContactFields, CONTACT_MODEL),
+      domainId,
     );
 
-    const organizationContacts = getContactsByOrganization(pipedriveContacts, organization);
+    const settings = await getDomainSettings(domainId);
+    const organizationCustomFieldSettings = settings.customFields.filter((field: any) => field.model === ORGANIZATION_MODEL);
+    const contactCustomFieldSettings = settings.customFields.filter((field: any) => field.model === CONTACT_MODEL);
 
-    await asyncForEach(organizationContacts, (contact: any) => {
-      const leadboardContact: any = transformPipedriveModelToLeadboard(
-        contact, contactCustomFieldSettings, pipeDriveContactFields,
+    await asyncForEach(pipedriveOrganizations, async (organization: any) => {
+      const leadboardOrganization = await addOrganizationInDB(
+        transformPipedriveModelToLeadboard(organization, organizationCustomFieldSettings, pipedriveOrganizationFields),
       );
-      leadboardContact.organization = leadboardOrganization._id;
-      addContactInDB(leadboardContact);
-      pipedriveContacts.splice(pipedriveContacts.indexOf(contact), 1);
-    });
-  });
 
-  await asyncForEach(pipedriveContacts,(contact: any) => {
-    addContactInDB(transformPipedriveModelToLeadboard(
-      contact, contactCustomFieldSettings, pipeDriveContactFields,
-    ));
-  });
+      const organizationContacts = getContactsByOrganization(pipedriveContacts, organization);
+
+      await asyncForEach(organizationContacts, (contact: any) => {
+        const leadboardContact: any = transformPipedriveModelToLeadboard(
+          contact, contactCustomFieldSettings, pipeDriveContactFields,
+        );
+        leadboardContact.organization = leadboardOrganization._id;
+        addContactInDB(leadboardContact);
+        pipedriveContacts.splice(pipedriveContacts.indexOf(contact), 1);
+      });
+    });
+
+    await asyncForEach(pipedriveContacts, (contact: any) => {
+      addContactInDB(transformPipedriveModelToLeadboard(
+        contact, contactCustomFieldSettings, pipeDriveContactFields,
+      ));
+    });
+  }catch(error){
+    throw new Error(LEADBOARD_ERROR_MESSAGE);
+  }
 };
 
 const addOrganizationInDB = (organization: any) => {
