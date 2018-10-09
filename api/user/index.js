@@ -3,7 +3,7 @@ import isEmpty from "lodash.isempty";
 import User from "../../models/user";
 
 const router = new Router();
-// @route   GET api/user
+// @route   GET api/user/:id
 // @desc    Get user by id
 // @access  Private
 router.get("/:id", function(req, res) {
@@ -13,6 +13,19 @@ router.get("/:id", function(req, res) {
     .then(user => {
       user.password = undefined;
       res.json(user);
+    })
+    .catch(error => {
+      res.status(400).json({ errors: { message: JSON.stringify(error) } });
+    });
+});
+
+// @route   GET api/user
+// @desc    Get users by domain
+// @access  Private
+router.get("/", function(req, res) {
+  User.find({ domain:req.user.domain }, { password: 0 })
+    .then(users => {
+      res.json(users);
     })
     .catch(error => {
       res.status(400).json({ errors: { message: JSON.stringify(error) } });
