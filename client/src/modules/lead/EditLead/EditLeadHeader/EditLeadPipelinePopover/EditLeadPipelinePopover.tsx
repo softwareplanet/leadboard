@@ -83,7 +83,7 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
             >
               Save
             </button>
-            <button className={styles.button} onClick={this.togglePopover} >
+            <button className={styles.button} onClick={this.togglePopover}>
               Cancel
             </button>
           </CardFooter>
@@ -104,9 +104,9 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
     this.validateStages(nextProps.stages);
 
     if (this.isFunnelChangedAndStagesLoaded(nextProps)) {
-        this.setState({
-          selectedStageId: nextProps.stages[0]._id,
-        });
+      this.setState({
+        selectedStageId: nextProps.stages[0]._id,
+      });
     }
 
     if (this.isFunnelChangedNotByClick(nextProps)) {
