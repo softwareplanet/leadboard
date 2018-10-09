@@ -13,3 +13,5 @@ export const select: string;
 export const pipelineContainer: string;
 export const option: string;
 export const pipelineHeader: string;
+export const errorMessage: string;
+export const disabledButton: string;

@@ -9,6 +9,8 @@ import SelectStageOnCreation from '../../../AddLead/SelectStage/SelectStageOnCre
 import { loadPipelinePopoverStages, updateLead } from '../../../leadActions';
 import * as styles from '../popover.css';
 
+const NO_STAGES_ERROR_MESSAGE = 'There is no stages on selected pipeline';
+
 interface Props {
   isOpen: boolean;
   funnels: Funnel[];
@@ -27,11 +29,13 @@ interface State {
   selectedFunnel: Funnel;
   selectedStageId: string;
   isDropdownOpen: boolean;
+  errorMessage: string;
 }
 
 class EditLeadPipelinePopover extends React.Component<Props, State> {
 
-  public getInitialState = (): State => ({  
+  public getInitialState = (): State => ({
+    errorMessage: '',
     isDropdownOpen: false,
     selectedFunnel: this.props.lead.stage.funnel,
     selectedStageId: this.props.lead.stage._id,
@@ -40,6 +44,7 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
   public state: State = this.getInitialState();
 
   public render() {
+    const error = !!this.state.errorMessage;
     return (
       <Popover
         className={styles.pipelinePopover}
@@ -60,6 +65,7 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
                   {this.state.selectedFunnel.name}
                 </DropdownToggle>
                 {this.renderDropdownOptions()}
+                <p className={styles.errorMessage}>{this.state.errorMessage}</p>
               </Dropdown>
             </div>
             <SelectStageOnCreation 
@@ -70,7 +76,11 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
             />
           </CardBody>
           <CardFooter className={styles.buttons}>
-            <button onClick={this.onSave} className={styles.buttonSave}>
+            <button
+              onClick={this.onSave}
+              className={error ? styles.disabledButton : styles.buttonSave}
+              disabled={error}
+            >
               Save
             </button>
             <button className={styles.button} onClick={this.togglePopover}>
@@ -91,11 +101,13 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
   }
 
   public componentWillReceiveProps(nextProps: Props) {
+    this.validateStages(nextProps.stages);
+
     if (this.isFunnelChangedAndStagesLoaded(nextProps)) {
       this.setState({
         selectedStageId: nextProps.stages[0]._id,
       });
-    } 
+    }
 
     if (this.isFunnelChangedNotByClick(nextProps)) {
       this.handleFunnelSelect(nextProps.lead.stage.funnel);
@@ -103,7 +115,7 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
   }
 
   private isFunnelChangedAndStagesLoaded (props: Props): boolean {
-    return this.props.stages !== props.stages && this.props.stages.length !== 0;
+    return this.props.stages !== props.stages && props.stages.length !== 0;
   }
 
   private isFunnelChangedNotByClick(props: Props): boolean {
@@ -115,9 +127,9 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
     return (
       <DropdownMenu>
         {this.props.funnels.map((funnel: Funnel) => (
-          <DropdownItem 
-            className={styles.option} 
-            onClick={this.handleFunnelSelect.bind(this, funnel)} 
+          <DropdownItem
+            className={styles.option}
+            onClick={this.handleFunnelSelect.bind(this, funnel)}
             key={funnel._id}
           >
             {funnel.name}
@@ -125,6 +137,18 @@ class EditLeadPipelinePopover extends React.Component<Props, State> {
         ))}
       </DropdownMenu>
     );
+  }
+
+  private validateStages(stages: FullStage[]){
+    if (stages.length > 0){
+      this.setState({
+        errorMessage: '',
+      });
+    }else{
+      this.setState({
+        errorMessage: NO_STAGES_ERROR_MESSAGE,
+      });
+    }
   }
 
   private handleFunnelSelect(funnel: Funnel) {
