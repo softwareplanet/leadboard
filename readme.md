@@ -1,14 +1,30 @@
-## Leadboard
-Software Planet Group &copy; Sales funnel & Contact management service
+## Project description
 
-## Technology stack
-Node / Express / React / Redux / MongoDb
+Largely inspired by Pipedrive, Leadboard is a simple customer relationship management (CRM) system that allows its users to configure sales funnels and stages, create and manage leads and their respective status updates, maintain a database of your company’s valued contacts, track activities and receive notifications regarding future events.
 
-## How to launch a project
-This project is in development and using integration with Redux DevTools ad-on to Chrome or Firefox. If you have some errors install this addon.
+## Functionality of project
+- User registration and authorisation
+- Lead creation and management
+- Lead note creation and management
+- Lead action creation and management
+- Organisation creation and management
+- Organisation note creation and management
+- Organisation action creation and management
+- Contact creation and management
+- Contact note creation and management
+- Contact action creation and management
+- Full-text search within leads, organisations and contacts
 
-cd /leadboard
-npm i
-npm run dev
+## Technologies of Implementation
 
-http://localhost:3000
+- React https://reactjs.org 
+- Redux https://redux.js.org 
+- Node.js https://nodejs.org
+- Express http://expressjs.com
+- TypeScript https://www.typescriptlang.org/
+- Mongoose ORM https://mongoosejs.com/
+- MongoDB https://www.mongodb.com 
+
+## Customer & developer Information
+- Private customer
+- Developer: https://softwareplanetgroup.co.uk/
