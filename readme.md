@@ -1,3 +1,5 @@
+# Leadbord
+
 ## Project description
 
 Largely inspired by Pipedrive, Leadboard is a simple customer relationship management (CRM) system that allows its users to configure sales funnels and stages, create and manage leads and their respective status updates, maintain a database of your company’s valued contacts, track activities and receive notifications regarding future events.
