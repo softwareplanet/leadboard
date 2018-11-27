@@ -58,11 +58,13 @@ class ContactsPage extends React.Component<Props, State> {
           {addingButton}
           <p className={styles.peopleCounter}>{contactsCount} {this.getHeader(contactsCount)}</p>
         </div>
-        <Table
-          modelName={this.modelName}
-          data={tableData.rows}
-          columns={tableData.columns}
-        />
+        <div className={styles.tableWrapper}>
+          <Table
+            modelName={this.modelName}
+            data={tableData.rows}
+            columns={tableData.columns}
+          />
+        </div>
       </div>);
     }
     return (

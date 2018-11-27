@@ -3,3 +3,4 @@ export const warningMessage: string;
 export const headingWrapper: string;
 export const noMarginTop: string;
 export const link: string;
+export const tableWrapper: string;
