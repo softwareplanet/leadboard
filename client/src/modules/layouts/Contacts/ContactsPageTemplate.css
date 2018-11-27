@@ -25,3 +25,8 @@
   font-size: 16px;
   line-height: 24px;
 }
+
+.tableWrapper {
+  height: 80vh;
+  overflow-x: auto;
+}
