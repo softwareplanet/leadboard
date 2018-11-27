@@ -12,8 +12,8 @@ const noteSchema = new mongoose.Schema({
   lastUpdater: { type: mongoose.Schema.Types.ObjectId, ref: USER },
 });
 const basicPopulates = [
-  { path: "user" },
-  { path: "lastUpdater" },
+  { path: "user", select: '-password' },
+  { path: "lastUpdater", select: '-password' },
 ];
 
 noteSchema.statics.populates = {

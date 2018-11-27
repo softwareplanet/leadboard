@@ -5,8 +5,9 @@ import CustomizeFields from './CustomizeFields/CustomizeFields';
 import Funnels from './Funnels/Funnels';
 import ImportsPage from './ImportService/ImportServicePage/ImportsPage';
 import PipeDriveImport from './ImportService/PipeDriveImport/PipeDriveImport';
+import ManageUsers from './ManageUsers/ManageUsers';
 import * as styles from './Settings.css';
-import { CUSTOMIZE_FIELDS, IMPORT_PIPEDRIVE, IMPORTS_PAGE, PIPELINES } from './settingsRoutes';
+import { CUSTOMIZE_FIELDS, IMPORT_PIPEDRIVE, IMPORTS_PAGE, PIPELINES, MANAGE_USERS } from './settingsRoutes';
 import Sidebar from './Sidebar/Sidebar';
 
 export default class Settings extends React.Component {
@@ -32,6 +33,10 @@ export default class Settings extends React.Component {
           <Route
             path={`/settings/${IMPORT_PIPEDRIVE}`}
             component={PipeDriveImport}
+          />
+          <Route
+            path={`/settings/${MANAGE_USERS}`}
+            component={ManageUsers}
           />
         </div>
       </div>

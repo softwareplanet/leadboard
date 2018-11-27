@@ -31,20 +31,14 @@ const basicPopulates = [
   { path: "organization" },
 ];
 
-const notePopulates = [
-  { path: "notes.user", options: { password: 0 } },
-  { path: "notes.lastUpdater", options: { password: 0 } },
-];
-
 const detailedPopulates = [
   ...basicPopulates,
-  { path: "owner", options: { password: 0 } },
+  { path: "owner", select: '-password' },
   { path: "stage", populate: { path: "funnel" } },
 ];
 
 const fullPopulates = [
   ...detailedPopulates,
-  ...notePopulates,
 ];
 
 leadSchema.statics.populates = {

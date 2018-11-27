@@ -8,6 +8,7 @@ import settingReducer from "./modules/settings/settingReducer";
 import searchReducer from "./modules/layouts/Navbar/searchReducer";
 import domainReducer from "./modules/settings/domain/domainReducer";
 import pipeDriveReducer from "./modules/settings/ImportService/PipeDriveImport/pipeDriveImportReducer";
+import userReducer from "./modules/settings/ManageUsers/userReducer";
 const initialState = {};
 
 function errorReducer(state = initialState, action) {
@@ -28,6 +29,7 @@ const appReducer = combineReducers({
   settings: settingReducer,
   search: searchReducer,
   domain: domainReducer,
+  users: userReducer,
   import: pipeDriveReducer,
 });
 

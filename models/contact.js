@@ -14,7 +14,7 @@ const contactSchema = new mongoose.Schema({
 });
 
 const organizationPopulates = [{ path: "organization" }];
-const ownerPopulates = [{ path: "owner", options: { password: 0 } }];
+const ownerPopulates = [{ path: "owner", select: '-password' }];
 
 const fullPopulates = [
   ...organizationPopulates,
