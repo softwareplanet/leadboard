@@ -20,10 +20,10 @@ Largely inspired by Pipedrive, Leadboard is a simple customer relationship manag
 
 ## Technologies of Implementation
 
-* React https://reactjs.org
-* Redux https://redux.js.org
-* Node.js https://nodejs.org
-* Express http://expressjs.com
+* React https://reactjs.org/
+* Redux https://redux.js.org/
+* Node.js https://nodejs.org/
+* Express http://expressjs.com/
 * TypeScript https://www.typescriptlang.org/
 * Mongoose ORM https://mongoosejs.com/
 * MongoDB https://www.mongodb.com/
